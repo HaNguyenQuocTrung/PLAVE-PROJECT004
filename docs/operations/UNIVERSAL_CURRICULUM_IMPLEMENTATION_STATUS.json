@@ -1,0 +1,128 @@
+{
+  "statusDate": "2026-07-30",
+  "decision": "READY — LOCAL DB INTEGRATION VERIFIED",
+  "code": "READY",
+  "localDatabase": {
+    "status": "LOCAL_DB_VERIFIED",
+    "verified": true,
+    "engine": "Supabase PostgreSQL 17.6.1.143",
+    "migrationRange": "0001-0038",
+    "migrationCount": 38,
+    "verificationOperation": "PASS",
+    "syntheticGradesVerified": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "remote": "REMOTE_NOT_APPLIED",
+  "remoteMutationPerformed": false,
+  "content": "LOCAL_MATERIALIZED_DRAFT_INACTIVE",
+  "liveStudent": "SYNTHETIC_LOCAL_STUDENTS_VERIFIED",
+  "architecture": "MATERIALIZED_RELEASE_BANK_PRIVATE_SOLUTIONS_SECURE_RPC",
+  "serviceRoleInApplication": false,
+  "clientTrustedCorrectness": false,
+  "clientSolutionPreload": false,
+  "featureFlag": {
+    "name": "PLAVE_CURRICULUM_RUNTIME_ENABLED",
+    "serverOnly": true,
+    "default": false,
+    "malformedFailsClosed": true,
+    "cleanupState": "DISABLED"
+  },
+  "migration": {
+    "file": "supabase/migrations/0038_universal_curriculum_runtime_draft.sql",
+    "status": "LOCAL_VERIFIED_REMOTE_NOT_APPLIED",
+    "sha256": "9eee72dbdb6f3a8115fa6e92e73092b178b34d2dd6514ce3b307ba65f55bea8f",
+    "postgresExecution": "PASS",
+    "rootCause": {
+      "statement": 28,
+      "sqlstate": "42601",
+      "message": "record variable cannot be part of multiple-item INTO list",
+      "source": "select question, solution into v_question, v_solution",
+      "fix": "Load each composite row into its own %rowtype target with separate SELECT INTO statements."
+    },
+    "migrations0035To0037Changed": false,
+    "checksums": {
+      "0035": "67bef151f4a8744c107835ce98ab5a5c30372cf76ff0328e02c1ca8649c7f206",
+      "0036": "d88b21c866c5d19708dc544faaa2c5828e3127844c50f0d7e76a3716c07fc6f1",
+      "0037": "91e2a4bb918bf894903f313d65d93bd80d8be98fad4fa2a1ca7c59cbbfe1b070"
+    }
+  },
+  "release": {
+    "releaseId": "plave-math-grades-1-9-v1",
+    "contentVersion": "2026.07.30-draft.1",
+    "sourceFingerprint": "f35d34ff84da2ca3f9ab72d5d67482ada414684b611deea98c4b329801b661ab",
+    "generatorVersion": "vertical-preview-v1",
+    "seed": "plave-curriculum-preview-v1",
+    "masteryPolicyVersion": "product-hypothesis-v1",
+    "status": "DRAFT",
+    "activationState": "INACTIVE",
+    "activatedAtIsNull": true,
+    "retiredAtIsNull": true,
+    "units": 171,
+    "questions": 2052,
+    "solutions": 2052,
+    "bundleSha256": "3d5b1a60e4cbb30ea89b6a2018b4c70c49808aa18d584f623bf4bb93931696f4"
+  },
+  "grade1Compatibility": {
+    "approach": "LEGACY_RUNTIME_UNIFIED_READ_MODEL",
+    "legacyTablesRewritten": false,
+    "verifiedFixtureAttempts": 18,
+    "verifiedFixtureAnswers": 340,
+    "postgresVerification": "PASS_UNCHANGED"
+  },
+  "databaseSecurity": {
+    "rlsAndForceRlsRelations": "10/10 PASS",
+    "securityDefinerEmptySearchPathRpcs": "5/5 PASS",
+    "authenticatedPrivateSolutionSelect": false,
+    "directMutationDenial": "PASS",
+    "anonymousDenial": "PASS",
+    "parentDenial": "PASS",
+    "teacherDenial": "PASS",
+    "wrongGradeDenial": "PASS",
+    "crossUserDenial": "PASS",
+    "solutionBoundary": "PASS"
+  },
+  "currentTests": {
+    "targetedUniversal": "20/20 PASS",
+    "materialization": "171/2052/2052 PASS",
+    "localDatabaseIntegration": "PASS",
+    "syntheticStudentJourneys": "GRADES_1_TO_9 PASS",
+    "startResumeSubmitIdempotencyCasHistoryProgressMastery": "PASS",
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "productionBuild": "PASS_61_STATIC_PAGES",
+    "fullSequentialSuite": "799/799 PASS_0_FAIL_0_SKIP",
+    "grade1Regression": "INCLUDED_IN_FULL_SUITE_PASS",
+    "securityScans": "PASS",
+    "clientChunkSolutionHits": 0,
+    "migrationChecksums": "0035-0038 PASS"
+  },
+  "cleanup": {
+    "transactionalJourneyRowsRolledBack": true,
+    "universalAttemptRowsAfterVerification": 0,
+    "releaseState": "DRAFT_INACTIVE",
+    "diagnosticContainerRemoved": true,
+    "remoteStateChanged": false
+  },
+  "blockers": [],
+  "highFindings": [],
+  "mediumFindings": [
+    {
+      "id": "UCR-M01",
+      "title": "Legacy Grade 1 official-outcome evidence is unit-aligned rather than question-authored",
+      "mitigation": "The UI and documentation identify this as a versioned product mapping; legacy rows are not rewritten."
+    }
+  ],
+  "ownerActionsRemaining": [
+    "No action remains for local acceptance.",
+    "Any remote schema application, materialization, activation or deployment requires a separate explicit authorization."
+  ]
+}

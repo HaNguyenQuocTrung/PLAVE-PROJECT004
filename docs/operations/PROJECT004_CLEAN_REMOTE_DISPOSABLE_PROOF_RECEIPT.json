@@ -1,0 +1,23 @@
+{
+  "version": "PROJECT004_CLEAN_DISPOSABLE_PROOF_RECEIPT_V1",
+  "project": "PLAVE-PROJECT004",
+  "targetName": "plave-project004-dev-clean",
+  "status": "PASS",
+  "migrationsApplied": "40/40",
+  "migrationFirstLast": "0001/0040",
+  "schemaSemanticFingerprintSha256": "d81cbaa38b586207eb843d9c73356901aff257505086b7a4029d02fdc5e0e34c",
+  "schemaRlsPrivateBoundary": "PASS",
+  "contentTransaction": "PASS",
+  "releaseBank": "171/2052/2052/546",
+  "universalRelease": "DRAFT/INACTIVE",
+  "curriculumRuntime": false,
+  "grade2ControlledAdaptivePilot": "DISABLED",
+  "authUserCount": 0,
+  "storageObjectCount": 0,
+  "syntheticUserCount": 0,
+  "proofFingerprintSha256": "b84f19f47ff0e2fc6b2ca262d34e3d0eee2c8f595265b6d217541d66ce32dd50",
+  "cleanup": "PASS",
+  "remoteAccessPerformed": false,
+  "remoteMutationPerformed": false,
+  "rootFailureCode": "NONE"
+}

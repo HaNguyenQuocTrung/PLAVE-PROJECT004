@@ -1,0 +1,711 @@
+{
+  "schemaVersion": 2,
+  "status": "LOCKED",
+  "primarySourceDocumentId": "MOET-MATH-2018",
+  "amendmentSourceDocumentId": "MOET-TT17-2025",
+  "lockedOutcomeCount": 24,
+  "officialOutcomeInventoryPath": "docs/curriculum/GRADES_1_TO_9_OFFICIAL_OUTCOME_STATUS.json",
+  "totalOfficialOutcomes": 546,
+  "implementedOfficialOutcomes": 546,
+  "validatedOfficialOutcomes": 546,
+  "fullOfficialOutcomeCoverage": true,
+  "domainTaxonomy": {
+    "originallyRequestedCells": 40,
+    "officiallyApplicableCells": 37,
+    "notApplicableCells": 3,
+    "implementedApplicableCells": 37,
+    "remainingApplicableDomainGaps": 0,
+    "applicableDomainCoverageComplete": true,
+    "baselineImplementedCellIds": [
+      "G1_GEOMETRY",
+      "G1_MEASUREMENT",
+      "G2_GEOMETRY",
+      "G2_MEASUREMENT",
+      "G2_STATISTICS_AND_PROBABILITY",
+      "G3_GEOMETRY",
+      "G3_MEASUREMENT",
+      "G4_GEOMETRY",
+      "G4_MEASUREMENT",
+      "G5_GEOMETRY",
+      "G5_MEASUREMENT",
+      "G6_GEOMETRY",
+      "G6_MEASUREMENT"
+    ]
+  },
+  "outcomes": [
+    {
+      "id": "G7_GEOMETRY_01",
+      "grade": 7,
+      "domain": "GEOMETRY",
+      "subdomain": "Triangle reasoning",
+      "conciseParaphrase": "Reason with triangle angle sums, congruence, isosceles-triangle properties and special lines in triangles.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 59,
+        "end": 60
+      },
+      "sectionHeading": "Lớp 7 — Hình học phẳng — Tam giác",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G7_MEASUREMENT_01",
+      "grade": 7,
+      "domain": "MEASUREMENT",
+      "subdomain": "Prism surface area and volume",
+      "conciseParaphrase": "Calculate surface area and volume of right triangular and quadrilateral prisms and solve related practical problems.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 58,
+        "end": 59
+      },
+      "sectionHeading": "Lớp 7 — Hình học trực quan — Lăng trụ đứng",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G8_GEOMETRY_01",
+      "grade": 8,
+      "domain": "GEOMETRY",
+      "subdomain": "Pythagorean theorem",
+      "conciseParaphrase": "Explain and apply the Pythagorean theorem to find a side of a right triangle and solve practical distance problems.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 65,
+        "end": 66
+      },
+      "sectionHeading": "Lớp 8 — Hình học phẳng — Định lí Pythagore",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G8_MEASUREMENT_01",
+      "grade": 8,
+      "domain": "MEASUREMENT",
+      "subdomain": "Regular pyramid surface area and volume",
+      "conciseParaphrase": "Calculate lateral surface area and volume of regular triangular and quadrilateral pyramids in practical contexts.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 65,
+        "end": 65
+      },
+      "sectionHeading": "Lớp 8 — Hình học trực quan — Hình chóp đều",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G9_GEOMETRY_01",
+      "grade": 9,
+      "domain": "GEOMETRY",
+      "subdomain": "Right-triangle trigonometry",
+      "conciseParaphrase": "Use trigonometric ratios and side-angle relations to solve right triangles and practical length or angle problems.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 74,
+        "end": 74
+      },
+      "sectionHeading": "Lớp 9 — Hình học phẳng — Hệ thức lượng trong tam giác vuông",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G9_MEASUREMENT_01",
+      "grade": 9,
+      "domain": "MEASUREMENT",
+      "subdomain": "Cylinder, cone and sphere measurement",
+      "conciseParaphrase": "Calculate surface areas and volumes of cylinders, cones and spheres and solve related practical problems.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 73,
+        "end": 73
+      },
+      "sectionHeading": "Lớp 9 — Hình học trực quan — Hình trụ, hình nón, hình cầu",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G3_STATISTICS_AND_PROBABILITY_01",
+      "grade": 3,
+      "domain": "STATISTICS_AND_PROBABILITY",
+      "subdomain": "Data tables and random outcomes",
+      "conciseParaphrase": "Read and describe data tables, make simple observations, and identify possible outcomes of a one-trial experiment.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 33,
+        "end": 33
+      },
+      "sectionHeading": "Lớp 3 — Một số yếu tố thống kê và xác suất",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G4_STATISTICS_AND_PROBABILITY_01",
+      "grade": 4,
+      "domain": "STATISTICS_AND_PROBABILITY",
+      "subdomain": "Column charts and repeated trials",
+      "conciseParaphrase": "Read column charts, solve simple data problems, and count repeated outcomes in simple experiments or games.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 38,
+        "end": 39
+      },
+      "sectionHeading": "Lớp 4 — Một số yếu tố thống kê và xác suất",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G5_STATISTICS_AND_PROBABILITY_01",
+      "grade": 5,
+      "domain": "STATISTICS_AND_PROBABILITY",
+      "subdomain": "Pie charts and experimental ratios",
+      "conciseParaphrase": "Interpret pie charts, solve simple data problems, and use a ratio to describe repeated experimental outcomes.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 45,
+        "end": 45
+      },
+      "sectionHeading": "Lớp 5 — Một số yếu tố thống kê và xác suất",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G6_STATISTICS_AND_PROBABILITY_01",
+      "grade": 6,
+      "domain": "STATISTICS_AND_PROBABILITY",
+      "subdomain": "Data displays and experimental probability",
+      "conciseParaphrase": "Represent data with suitable tables or charts and use fractions to describe experimental probability in simple models.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 53,
+        "end": 54
+      },
+      "sectionHeading": "Lớp 6 — Một số yếu tố thống kê và xác suất",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G7_STATISTICS_AND_PROBABILITY_01",
+      "grade": 7,
+      "domain": "STATISTICS_AND_PROBABILITY",
+      "subdomain": "Pie/line charts and simple event probability",
+      "conciseParaphrase": "Interpret pie and line charts, solve data problems, and identify probabilities of simple random events.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 61,
+        "end": 62
+      },
+      "sectionHeading": "Lớp 7 — Một số yếu tố thống kê và xác suất",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G8_STATISTICS_AND_PROBABILITY_01",
+      "grade": 8,
+      "domain": "STATISTICS_AND_PROBABILITY",
+      "subdomain": "Data validation and theoretical probability",
+      "conciseParaphrase": "Compare data representations, detect inaccurate data, and relate experimental probability to event probability.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 68,
+        "end": 69
+      },
+      "sectionHeading": "Lớp 8 — Một số yếu tố thống kê và xác suất",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G9_STATISTICS_AND_PROBABILITY_01",
+      "grade": 9,
+      "domain": "STATISTICS_AND_PROBABILITY",
+      "subdomain": "Frequency distributions and sample-space probability",
+      "conciseParaphrase": "Build frequency and relative-frequency displays and calculate probability by counting sample-space and favorable outcomes.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 76,
+        "end": 77
+      },
+      "sectionHeading": "Lớp 9 — Một số yếu tố thống kê và xác suất",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G7_NUMBERS_AND_OPERATIONS_01",
+      "grade": 7,
+      "domain": "NUMBERS_AND_OPERATIONS",
+      "subdomain": "Rational-number operations",
+      "conciseParaphrase": "Perform rational-number operations and apply their properties and order of operations in calculations and practical problems.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 55,
+        "end": 56
+      },
+      "sectionHeading": "Lớp 7 — Số và Đại số — Số hữu tỉ",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G6_ALGEBRA_AND_PREALGEBRA_01",
+      "grade": 6,
+      "domain": "ALGEBRA_AND_PREALGEBRA",
+      "subdomain": "Powers and order of operations",
+      "conciseParaphrase": "Use natural-number powers, multiplication and division of powers with the same base, and the prescribed order of operations.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 47,
+        "end": 47
+      },
+      "sectionHeading": "Lớp 6 — Số và Đại số — Phép tính luỹ thừa",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G1_APPLIED_PROBLEM_SOLVING_01",
+      "grade": 1,
+      "domain": "APPLIED_PROBLEM_SOLVING",
+      "subdomain": "One-operation picture and word problems",
+      "conciseParaphrase": "Choose and write an addition or subtraction sentence that matches a picture or simple word-problem answer.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 22,
+        "end": 22
+      },
+      "sectionHeading": "Lớp 1 — Thực hành giải quyết vấn đề liên quan đến phép cộng, phép trừ",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G2_APPLIED_PROBLEM_SOLVING_01",
+      "grade": 2,
+      "domain": "APPLIED_PROBLEM_SOLVING",
+      "subdomain": "One-step practical problems",
+      "conciseParaphrase": "Solve one-step practical problems using learned operations, including adding, removing, more-than and less-than situations.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 25,
+        "end": 26
+      },
+      "sectionHeading": "Lớp 2 — Thực hành giải quyết vấn đề liên quan đến các phép tính đã học",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G3_APPLIED_PROBLEM_SOLVING_01",
+      "grade": 3,
+      "domain": "APPLIED_PROBLEM_SOLVING",
+      "subdomain": "Two-step practical problems",
+      "conciseParaphrase": "Solve practical problems of up to two steps using learned operations and simple multiplicative comparisons.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 30,
+        "end": 30
+      },
+      "sectionHeading": "Lớp 3 — Thực hành giải quyết vấn đề liên quan đến các phép tính đã học",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G4_APPLIED_PROBLEM_SOLVING_01",
+      "grade": 4,
+      "domain": "APPLIED_PROBLEM_SOLVING",
+      "subdomain": "Two- and three-step practical problems",
+      "conciseParaphrase": "Solve two- or three-step problems involving operation results, averages, sum-and-difference relationships, or unit rates.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 36,
+        "end": 36
+      },
+      "sectionHeading": "Lớp 4 — Thực hành giải quyết vấn đề liên quan đến các phép tính đã học",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G5_APPLIED_PROBLEM_SOLVING_01",
+      "grade": 5,
+      "domain": "APPLIED_PROBLEM_SOLVING",
+      "subdomain": "Multi-step whole-number and decimal problems",
+      "conciseParaphrase": "Solve practical problems of up to four steps with whole numbers and multi-step problems involving decimal operations.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 40,
+        "end": 42
+      },
+      "sectionHeading": "Lớp 5 — Số và phép tính — Giải quyết vấn đề",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G6_APPLIED_PROBLEM_SOLVING_01",
+      "grade": 6,
+      "domain": "APPLIED_PROBLEM_SOLVING",
+      "subdomain": "Natural-number operations in practical contexts",
+      "conciseParaphrase": "Solve practical shopping and quantity problems using natural-number operations.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 47,
+        "end": 47
+      },
+      "sectionHeading": "Lớp 6 — Số tự nhiên — Các phép tính với số tự nhiên",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G7_APPLIED_PROBLEM_SOLVING_01",
+      "grade": 7,
+      "domain": "APPLIED_PROBLEM_SOLVING",
+      "subdomain": "Rational-number practical problems",
+      "conciseParaphrase": "Solve practical movement and measurement problems using rational-number operations.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 56,
+        "end": 56
+      },
+      "sectionHeading": "Lớp 7 — Số hữu tỉ — Các phép tính với số hữu tỉ",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G8_APPLIED_PROBLEM_SOLVING_01",
+      "grade": 8,
+      "domain": "APPLIED_PROBLEM_SOLVING",
+      "subdomain": "Linear-equation practical modelling",
+      "conciseParaphrase": "Solve practical movement or science problems by modelling them with a first-degree equation.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 65,
+        "end": 65
+      },
+      "sectionHeading": "Lớp 8 — Phương trình — Phương trình bậc nhất",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    },
+    {
+      "id": "G9_APPLIED_PROBLEM_SOLVING_01",
+      "grade": 9,
+      "domain": "APPLIED_PROBLEM_SOLVING",
+      "subdomain": "Equation-system and quadratic modelling",
+      "conciseParaphrase": "Solve practical problems using systems of two first-degree equations or a quadratic equation.",
+      "sourceDocumentId": "MOET-MATH-2018",
+      "pages": {
+        "start": 72,
+        "end": 72
+      },
+      "sectionHeading": "Lớp 9 — Phương trình và hệ phương trình",
+      "sourceValidationStatus": "SOURCE_VALIDATED"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "G7_GEOMETRY",
+      "grade": 7,
+      "domain": "GEOMETRY",
+      "outcomeIds": [
+        "G7_GEOMETRY_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G8_GEOMETRY",
+      "grade": 8,
+      "domain": "GEOMETRY",
+      "outcomeIds": [
+        "G8_GEOMETRY_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G9_GEOMETRY",
+      "grade": 9,
+      "domain": "GEOMETRY",
+      "outcomeIds": [
+        "G9_GEOMETRY_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G7_MEASUREMENT",
+      "grade": 7,
+      "domain": "MEASUREMENT",
+      "outcomeIds": [
+        "G7_MEASUREMENT_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G8_MEASUREMENT",
+      "grade": 8,
+      "domain": "MEASUREMENT",
+      "outcomeIds": [
+        "G8_MEASUREMENT_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G9_MEASUREMENT",
+      "grade": 9,
+      "domain": "MEASUREMENT",
+      "outcomeIds": [
+        "G9_MEASUREMENT_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G1_STATISTICS_AND_PROBABILITY",
+      "grade": 1,
+      "domain": "STATISTICS_AND_PROBABILITY",
+      "outcomeIds": [],
+      "status": "NOT_APPLICABLE_BY_OFFICIAL_CURRICULUM",
+      "notApplicableEvidence": {
+        "sourceDocumentId": "MOET-MATH-2018",
+        "sourceSha256": "f35d34ff84da2ca3f9ab72d5d67482ada414684b611deea98c4b329801b661ab",
+        "pages": {
+          "start": 21,
+          "end": 24
+        },
+        "conciseReason": "The official progression begins Statistics and Probability at Grade 2; the complete Grade 1 requirements on PDF pages 21–24 contain no such strand.",
+        "validatorEvidence": "Authoritative validator allowlist G1_STATISTICS_AND_PROBABILITY; progression matrix page 21 and exhaustive Grade 1 section pages 21–24."
+      }
+    },
+    {
+      "id": "G3_STATISTICS_AND_PROBABILITY",
+      "grade": 3,
+      "domain": "STATISTICS_AND_PROBABILITY",
+      "outcomeIds": [
+        "G3_STATISTICS_AND_PROBABILITY_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G4_STATISTICS_AND_PROBABILITY",
+      "grade": 4,
+      "domain": "STATISTICS_AND_PROBABILITY",
+      "outcomeIds": [
+        "G4_STATISTICS_AND_PROBABILITY_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G5_STATISTICS_AND_PROBABILITY",
+      "grade": 5,
+      "domain": "STATISTICS_AND_PROBABILITY",
+      "outcomeIds": [
+        "G5_STATISTICS_AND_PROBABILITY_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G6_STATISTICS_AND_PROBABILITY",
+      "grade": 6,
+      "domain": "STATISTICS_AND_PROBABILITY",
+      "outcomeIds": [
+        "G6_STATISTICS_AND_PROBABILITY_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G7_STATISTICS_AND_PROBABILITY",
+      "grade": 7,
+      "domain": "STATISTICS_AND_PROBABILITY",
+      "outcomeIds": [
+        "G7_STATISTICS_AND_PROBABILITY_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G8_STATISTICS_AND_PROBABILITY",
+      "grade": 8,
+      "domain": "STATISTICS_AND_PROBABILITY",
+      "outcomeIds": [
+        "G8_STATISTICS_AND_PROBABILITY_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G9_STATISTICS_AND_PROBABILITY",
+      "grade": 9,
+      "domain": "STATISTICS_AND_PROBABILITY",
+      "outcomeIds": [
+        "G9_STATISTICS_AND_PROBABILITY_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G7_NUMBERS_AND_OPERATIONS",
+      "grade": 7,
+      "domain": "NUMBERS_AND_OPERATIONS",
+      "outcomeIds": [
+        "G7_NUMBERS_AND_OPERATIONS_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G8_NUMBERS_AND_OPERATIONS",
+      "grade": 8,
+      "domain": "NUMBERS_AND_OPERATIONS",
+      "outcomeIds": [],
+      "status": "NOT_APPLICABLE_BY_OFFICIAL_CURRICULUM",
+      "notApplicableEvidence": {
+        "sourceDocumentId": "MOET-MATH-2018",
+        "sourceSha256": "f35d34ff84da2ca3f9ab72d5d67482ada414684b611deea98c4b329801b661ab",
+        "pages": {
+          "start": 18,
+          "end": 18
+        },
+        "conciseReason": "The official progression matrix ends the Numbers strand at Grade 7; Grade 8 continues with Algebra and other strands.",
+        "validatorEvidence": "Authoritative validator allowlist G8_NUMBERS_AND_OPERATIONS; official progression matrix PDF page 18."
+      }
+    },
+    {
+      "id": "G9_NUMBERS_AND_OPERATIONS",
+      "grade": 9,
+      "domain": "NUMBERS_AND_OPERATIONS",
+      "outcomeIds": [],
+      "status": "NOT_APPLICABLE_BY_OFFICIAL_CURRICULUM",
+      "notApplicableEvidence": {
+        "sourceDocumentId": "MOET-MATH-2018",
+        "sourceSha256": "f35d34ff84da2ca3f9ab72d5d67482ada414684b611deea98c4b329801b661ab",
+        "pages": {
+          "start": 18,
+          "end": 18
+        },
+        "conciseReason": "The official progression matrix ends the Numbers strand at Grade 7; Grade 9 continues with Algebra and other strands.",
+        "validatorEvidence": "Authoritative validator allowlist G9_NUMBERS_AND_OPERATIONS; official progression matrix PDF page 18."
+      }
+    },
+    {
+      "id": "G6_ALGEBRA_AND_PREALGEBRA",
+      "grade": 6,
+      "domain": "ALGEBRA_AND_PREALGEBRA",
+      "outcomeIds": [
+        "G6_ALGEBRA_AND_PREALGEBRA_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G1_APPLIED_PROBLEM_SOLVING",
+      "grade": 1,
+      "domain": "APPLIED_PROBLEM_SOLVING",
+      "outcomeIds": [
+        "G1_APPLIED_PROBLEM_SOLVING_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G2_APPLIED_PROBLEM_SOLVING",
+      "grade": 2,
+      "domain": "APPLIED_PROBLEM_SOLVING",
+      "outcomeIds": [
+        "G2_APPLIED_PROBLEM_SOLVING_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G3_APPLIED_PROBLEM_SOLVING",
+      "grade": 3,
+      "domain": "APPLIED_PROBLEM_SOLVING",
+      "outcomeIds": [
+        "G3_APPLIED_PROBLEM_SOLVING_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G4_APPLIED_PROBLEM_SOLVING",
+      "grade": 4,
+      "domain": "APPLIED_PROBLEM_SOLVING",
+      "outcomeIds": [
+        "G4_APPLIED_PROBLEM_SOLVING_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G5_APPLIED_PROBLEM_SOLVING",
+      "grade": 5,
+      "domain": "APPLIED_PROBLEM_SOLVING",
+      "outcomeIds": [
+        "G5_APPLIED_PROBLEM_SOLVING_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G6_APPLIED_PROBLEM_SOLVING",
+      "grade": 6,
+      "domain": "APPLIED_PROBLEM_SOLVING",
+      "outcomeIds": [
+        "G6_APPLIED_PROBLEM_SOLVING_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G7_APPLIED_PROBLEM_SOLVING",
+      "grade": 7,
+      "domain": "APPLIED_PROBLEM_SOLVING",
+      "outcomeIds": [
+        "G7_APPLIED_PROBLEM_SOLVING_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G8_APPLIED_PROBLEM_SOLVING",
+      "grade": 8,
+      "domain": "APPLIED_PROBLEM_SOLVING",
+      "outcomeIds": [
+        "G8_APPLIED_PROBLEM_SOLVING_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    },
+    {
+      "id": "G9_APPLIED_PROBLEM_SOLVING",
+      "grade": 9,
+      "domain": "APPLIED_PROBLEM_SOLVING",
+      "outcomeIds": [
+        "G9_APPLIED_PROBLEM_SOLVING_01"
+      ],
+      "status": "TEACHABLE_IMPLEMENTED"
+    }
+  ],
+  "p0Expansion": {
+    "baselineOutcomes": 37,
+    "closedOutcomes": 37,
+    "remainingOutcomes": 0,
+    "semanticEvidence": "tests/curriculum-p0-outcomes.test.ts"
+  },
+  "grade1P1Expansion": {
+    "baselineOutcomes": 7,
+    "closedOutcomes": 7,
+    "remainingOutcomes": 0,
+    "semanticEvidence": "tests/curriculum-p1-grade1-outcomes.test.ts"
+  },
+  "grade2P1Expansion": {
+    "baselineOutcomes": 6,
+    "closedOutcomes": 6,
+    "remainingOutcomes": 0,
+    "semanticEvidence": "tests/curriculum-p1-grade2-outcomes.test.ts"
+  },
+  "grade3P1Expansion": {
+    "baselineOutcomes": 38,
+    "closedOutcomes": 38,
+    "remainingGrade3P1Outcomes": 0,
+    "semanticEvidence": [
+      "tests/curriculum-p1-grade3-number-sense.test.ts",
+      "tests/curriculum-grade3-completion.test.ts"
+    ]
+  },
+  "grade4P1Expansion": {
+    "baselineOutcomes": 34,
+    "closedOutcomes": 34,
+    "remainingGrade4P1Outcomes": 0,
+    "semanticEvidence": "tests/curriculum-grade4-completion.test.ts"
+  },
+  "grade5P1Expansion": {
+    "baselineOutcomes": 35,
+    "closedOutcomes": 35,
+    "remainingGrade5P1Outcomes": 0,
+    "semanticEvidence": [
+      "tests/curriculum-grade5-completion.test.ts",
+      "tests/grade5-decimal-comparison.test.ts"
+    ]
+  },
+  "grade6P1Expansion": {
+    "baselineOutcomes": 68,
+    "closedOutcomes": 68,
+    "remainingGrade6P1Outcomes": 0,
+    "semanticEvidence": "tests/curriculum-grade6-completion.test.ts"
+  },
+  "grade7P1Expansion": {
+    "baselineOutcomes": 59,
+    "closedOutcomes": 59,
+    "remainingGrade7P1Outcomes": 0,
+    "semanticEvidence": [
+      "tests/curriculum-grade7-completion.test.ts",
+      "tests/curriculum-secondary-completion.test.ts"
+    ]
+  },
+  "grade8P1Expansion": {
+    "baselineOutcomes": 61,
+    "closedOutcomes": 61,
+    "remainingGrade8P1Outcomes": 0,
+    "semanticEvidence": "tests/curriculum-secondary-completion.test.ts"
+  },
+  "grade9P1Expansion": {
+    "baselineOutcomes": 69,
+    "closedOutcomes": 69,
+    "remainingGrade9P1Outcomes": 0,
+    "semanticEvidence": "tests/curriculum-secondary-completion.test.ts"
+  }
+}

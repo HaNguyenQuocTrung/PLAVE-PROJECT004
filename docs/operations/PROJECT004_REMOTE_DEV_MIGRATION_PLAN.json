@@ -1,0 +1,262 @@
+{
+  "project": "PLAVE-PROJECT004",
+  "targetName": "plave-project004-dev-clean",
+  "status": "CLEAN_APPLY_PLAN",
+  "migrationCount": 40,
+  "migrationPlanFingerprintSha256": "c2f866f236ccba51259be29c3e98e77f9d4cad91478c888e85cec5d0bc349992",
+  "seedIncluded": false,
+  "activationIncluded": false,
+  "publicationIncluded": false,
+  "migrations": [
+    {
+      "order": 1,
+      "version": "0001",
+      "file": "0001_auth_profiles.sql",
+      "sha256": "834717685a6a05610fea6d5b9574a06cc385f725fd69c9fd2633a49383b4fe47"
+    },
+    {
+      "order": 2,
+      "version": "0002",
+      "file": "0002_fix_onboarding.sql",
+      "sha256": "51d89eac020302b73bfbd4e7fff2ea7d48507780d56c4d2920a385405d82621c"
+    },
+    {
+      "order": 3,
+      "version": "0003",
+      "file": "0003_fix_complete_onboarding_profile_guard.sql",
+      "sha256": "33c8bf3f09d7bc1abd00f05921a75cefd0c7723bdd40c7060e6a6d5a6a7d63f6"
+    },
+    {
+      "order": 4,
+      "version": "0004",
+      "file": "0004_grade1_numbers_to_10.sql",
+      "sha256": "523883eeff975728f9e51668a94c7b5b3efa77db5167352fdaba76012096d193"
+    },
+    {
+      "order": 5,
+      "version": "0005",
+      "file": "0005_persist_registration_grade.sql",
+      "sha256": "f557d99a102f9c55c2de8edf11dd45339abbe140525c3a3c92aebf6006847048"
+    },
+    {
+      "order": 6,
+      "version": "0006",
+      "file": "0006_fix_learning_goal_lifecycle.sql",
+      "sha256": "630dfedf10fdf426e7dd49bcf2a43964365086f9d94b6b9fba9aef775a4e5143"
+    },
+    {
+      "order": 7,
+      "version": "0007",
+      "file": "0007_update_student_profile.sql",
+      "sha256": "57e9fa303e682a82c9754d7f796db9ca0d45408285a309f8d523332b6eae9231"
+    },
+    {
+      "order": 8,
+      "version": "0008",
+      "file": "0008_parent_student_connections.sql",
+      "sha256": "9a591ad4da319e174387ac7d73036c7ca2b1c54b81345f86fe726020eb07ad8b"
+    },
+    {
+      "order": 9,
+      "version": "0009",
+      "file": "0009_parent_learning_dashboard.sql",
+      "sha256": "20fca973a30eb04608aa79ee879887c5987c84169dad2a065d0e6a4779a4316d"
+    },
+    {
+      "order": 10,
+      "version": "0010",
+      "file": "0010_parent_weekly_learning_summary.sql",
+      "sha256": "e41d8df50a77f32f5d87a3c3623c5f082937530ec280ec31fc0028c691007e7c"
+    },
+    {
+      "order": 11,
+      "version": "0011",
+      "file": "0011_parent_goal_suggestions.sql",
+      "sha256": "4eb84eed7b497d3f0f9be36240bdeb64f0316c9f640faf1c790798c7aefe1344"
+    },
+    {
+      "order": 12,
+      "version": "0012",
+      "file": "0012_teacher_invitation_foundation.sql",
+      "sha256": "b59029a8088d5f138dc051143345cbe13d73fc0fc4ffe833d6b8a259c9b858b2"
+    },
+    {
+      "order": 13,
+      "version": "0013",
+      "file": "0013_classroom_foundation.sql",
+      "sha256": "45e86e5b1f185cb7e1654c17ecae430d2c593e359a1ad7ecee214a39b9e52852"
+    },
+    {
+      "order": 14,
+      "version": "0014",
+      "file": "0014_teacher_assignments.sql",
+      "sha256": "74b7679c4337647986e7db460d019b1f68c983285fe483f4442785b532bd5a1b"
+    },
+    {
+      "order": 15,
+      "version": "0015",
+      "file": "0015_teacher_gradebook_analytics.sql",
+      "sha256": "780492e2ebb7878497afb85d696a78110d0a9fe49a654a76f56bd791840e796b"
+    },
+    {
+      "order": 16,
+      "version": "0016",
+      "file": "0016_assignment_lifecycle.sql",
+      "sha256": "ecc2625713b618fbf0b45cd2eac16933d32c86da8db0931334526ec77914cbac"
+    },
+    {
+      "order": 17,
+      "version": "0017",
+      "file": "0017_restore_teacher_questions.sql",
+      "sha256": "b02fb31a38852a7e93c326ea220b61f155fd437924919fd49a5fbcf5ebd9a889"
+    },
+    {
+      "order": 18,
+      "version": "0018",
+      "file": "0018_grade1_addition_within_10.sql",
+      "sha256": "bebf63d9955fb4e1a2e17dc282301d27d3250773e7d212481476203903fc9788"
+    },
+    {
+      "order": 19,
+      "version": "0019",
+      "file": "0019_grade1_subtraction_within_10.sql",
+      "sha256": "3c3cc28a61720c2d82f49c20f68bf4892c364d15185209330c25e329c55a4230"
+    },
+    {
+      "order": 20,
+      "version": "0020",
+      "file": "0020_grade1_numbers_to_20.sql",
+      "sha256": "2894000aeaba173b2610ba51d7355c1e9d53a090875333c6918dfecad423234c"
+    },
+    {
+      "order": 21,
+      "version": "0021",
+      "file": "0021_grade1_addition_within_20_no_carry.sql",
+      "sha256": "ef63e2822e2a405052653a809364775f5d2c92fbcd190680f060e8b87de0e438"
+    },
+    {
+      "order": 22,
+      "version": "0022",
+      "file": "0022_expand_practice_number_input.sql",
+      "sha256": "26bb83099a5a564d5a3c974eefc90df0e2b1264c60fd1a9fc8b0e34ec72268aa"
+    },
+    {
+      "order": 23,
+      "version": "0023",
+      "file": "0023_grade1_subtraction_within_20_no_borrow.sql",
+      "sha256": "eadb02abb8ea71a5ae7bcf1d2bf16871e67e6a97fc19bda7f437d04f75fa17d5"
+    },
+    {
+      "order": 24,
+      "version": "0024",
+      "file": "0024_grade1_numbers_to_100.sql",
+      "sha256": "5846538c19eb28a806f184ff834fb246fe12446cb4ba6300375506409fbde7cf"
+    },
+    {
+      "order": 25,
+      "version": "0025",
+      "file": "0025_grade1_addition_within_100_no_carry.sql",
+      "sha256": "7149158dbe50e55c4a383fb8216dffb454b2ef85d6e8aa4db5ac87bb15a6038e"
+    },
+    {
+      "order": 26,
+      "version": "0026",
+      "file": "0026_grade1_subtraction_within_100_no_borrow.sql",
+      "sha256": "3ef58d800964ecd5e153dc9717ebc3bfa7df06005d0151e47eea05c581c9dc64"
+    },
+    {
+      "order": 27,
+      "version": "0027",
+      "file": "0027_grade1_basic_geometry_and_position.sql",
+      "sha256": "379ffaba5331e0daaa11e7986857117b9e765f1183cf7a938ac0353b68288424"
+    },
+    {
+      "order": 28,
+      "version": "0028",
+      "file": "0028_grade1_length_measurement.sql",
+      "sha256": "f6fa938e2742a7694de051fb7348219fe4dc2946d6778946c9235b0c1a6bbe66"
+    },
+    {
+      "order": 29,
+      "version": "0029",
+      "file": "0029_grade1_time_clock_calendar.sql",
+      "sha256": "f50a76c623bbcf712c58a42602bfe9d0542ff6cfce81549f7e41dcec01c7951d"
+    },
+    {
+      "order": 30,
+      "version": "0030",
+      "file": "0030_grade1_cube_and_cuboid.sql",
+      "sha256": "84cd4270713ca027a2998cead4159c5b48100efc3398553d55fbc24125e496ea"
+    },
+    {
+      "order": 31,
+      "version": "0031",
+      "file": "0031_grade1_diagnostic.sql",
+      "sha256": "6e9e539f6c83dabf375940189ee33c6d1dce7e4bd8be3580b4ebaed2057ef400"
+    },
+    {
+      "order": 32,
+      "version": "0032",
+      "file": "0032_fix_grade1_diagnostic_runtime.sql",
+      "sha256": "d3d448c7ee050298a981d208c0b25cb347ea7433cdc4c4aa623b3168aa22c01c"
+    },
+    {
+      "order": 33,
+      "version": "0033",
+      "file": "0033_grade1_completion_summary.sql",
+      "sha256": "f16c67aba53b7d7cbb964bdd56bceb8adbde5794a13c46e052935eda591b4c78"
+    },
+    {
+      "order": 34,
+      "version": "0034",
+      "file": "0034_multi_grade_runtime_foundation.sql",
+      "sha256": "911e29673595d9a8d6b44dff06bfc228deb105499c4bb2a0cd62136477ad02a5"
+    },
+    {
+      "order": 35,
+      "version": "0035",
+      "file": "0035_grade2_numbers_to_1000_release_candidate_draft.sql",
+      "sha256": "67bef151f4a8744c107835ce98ab5a5c30372cf76ff0328e02c1ca8649c7f206"
+    },
+    {
+      "order": 36,
+      "version": "0036",
+      "file": "0036_adaptive_practice_runtime_draft.sql",
+      "sha256": "d88b21c866c5d19708dc544faaa2c5828e3127844c50f0d7e76a3716c07fc6f1"
+    },
+    {
+      "order": 37,
+      "version": "0037",
+      "file": "0037_adaptive_controlled_pilot_eligibility_draft.sql",
+      "sha256": "91e2a4bb918bf894903f313d65d93bd80d8be98fad4fa2a1ca7c59cbbfe1b070"
+    },
+    {
+      "order": 38,
+      "version": "0038",
+      "file": "0038_universal_curriculum_runtime_draft.sql",
+      "sha256": "9eee72dbdb6f3a8115fa6e92e73092b178b34d2dd6514ce3b307ba65f55bea8f"
+    },
+    {
+      "order": 39,
+      "version": "0039",
+      "file": "0039_parent_teacher_universal_learning.sql",
+      "sha256": "d696c9666b530d86f1cf7484757df657e542f243aa11f0daae8f81a23f79de58"
+    },
+    {
+      "order": 40,
+      "version": "0040",
+      "file": "0040_deterministic_on_demand_curriculum.sql",
+      "sha256": "76029128509b49bc8635a76f1200f0b29e8346b510e039270171a1e6ee982643"
+    }
+  ],
+  "postMigrationContentTransaction": {
+    "source": "DETERMINISTIC_REPOSITORY_CURRICULUM_ONLY",
+    "releaseState": "DRAFT_INACTIVE",
+    "units": 171,
+    "publicQuestions": 2052,
+    "privateSolutions": 2052,
+    "officialOutcomes": 546,
+    "usesLocalDatabaseData": false,
+    "seedsUsersOrHistory": false
+  }
+}

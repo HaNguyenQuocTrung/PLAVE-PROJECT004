@@ -1,0 +1,59 @@
+{
+  "recordStatus": "ARCHIVED_NON_OPERATIONAL",
+  "batch": "OVERNIGHT_BATCH_1",
+  "date": "2026-07-30",
+  "status": "READY_FOR_HUMAN_REVIEW",
+  "conclusion": "OVERNIGHT BATCH 1 READY FOR HUMAN REVIEW",
+  "remainingBlockerOrHighFindings": [],
+  "remoteActionsPerformed": false,
+  "secretsObserved": false,
+  "project003Accessed": false,
+  "dockerUsed": false,
+  "networkUsed": false,
+  "envLocalReadOrWritten": false,
+  "gitMutationPerformed": false,
+  "realMembershipCreated": false,
+  "activationPerformed": false,
+  "publicationPerformed": false,
+  "migrationPerformed": false,
+  "registrationHistoricalRootCause": "UNKNOWN_WITHOUT_REMOTE_LOGS",
+  "codeProvenRegistrationCause": "SIGNUP_ERRORS_WERE_CONFLATED_WITH_TOTAL_FAILURE",
+  "applicationFlags": {
+    "PLAVE_GRADE2_NUMBERS_TO_1000_ENABLED": false,
+    "PLAVE_ADAPTIVE_PRACTICE_RUNTIME_ENABLED": false,
+    "PLAVE_CONTROLLED_PILOT_ENABLED": false,
+    "PLAVE_RETENTION_RUNTIME_ENABLED": false
+  },
+  "hashes": {
+    "frozenBundleSha256": "1571a6bdb0ef650ba00d5e217d27264f40d05ddc507475a1069f250bab11f530",
+    "databaseRowSemanticFingerprint": "0274b7f3b49830935dbb7120ecd661ec26ca725cf675f1429eea98d975d5b8d5",
+    "migration0035Sha256": "67bef151f4a8744c107835ce98ab5a5c30372cf76ff0328e02c1ca8649c7f206",
+    "migration0036Sha256": "d88b21c866c5d19708dc544faaa2c5828e3127844c50f0d7e76a3716c07fc6f1",
+    "migration0037Sha256": "91e2a4bb918bf894903f313d65d93bd80d8be98fad4fa2a1ca7c59cbbfe1b070",
+    "membershipOperationSha256": "1a636323b469ebb99edbb2ba971ff08fd6d54e3a15409d07c5a00c84a35148cd",
+    "membershipDiagnosticSha256": "bf576b1d5101a6a2adc60347f496b35221567e8849a16ce6f977d41a68957883"
+  },
+  "validation": {
+    "targeted6JB": "PASS_7_OF_7",
+    "controlledPilotValidator": "PASS",
+    "pilotEligibility": "PASS_10_OF_10",
+    "adaptiveApi": "PASS_11_OF_11",
+    "registrationAuth": "PASS_5_OF_5",
+    "practiceRegression": "PASS_550_OF_550",
+    "contentAdaptiveSourceFrozenSuites": "PASS",
+    "grade1Validator": "PASS",
+    "grade2PocReleaseValidators": "PASS",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "productionBuild": "PASS",
+    "staticSecurityScans": "PASS",
+    "candidateMigrationChecksums": "PASS",
+    "localDatabaseIntegration": "LOCAL_DB_INTEGRATION_PENDING"
+  },
+  "pending": [
+    "LOCAL_DB_INTEGRATION_PENDING",
+    "OWNER_SQL_EDITOR_DUAL_PROJECT_CONFIRMATION",
+    "OWNER_PRIVATE_MEMBERSHIP_OPERATION_AND_READONLY_DIAGNOSTIC",
+    "OWNER_REAL_ENVIRONMENT_PRE_ACTIVATION_CHECK"
+  ]
+}

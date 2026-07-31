@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": ".next/cache/tsconfig.typecheck.tsbuildinfo"
+  },
+  "include": [
+    "next-env.d.ts",
+    "next.config.ts",
+    "app/**/*.ts",
+    "app/**/*.tsx",
+    "components/**/*.ts",
+    "components/**/*.tsx",
+    "data/**/*.ts",
+    "types/**/*.ts",
+    "lib/**/*.ts",
+    "scripts/configure-project004-remote-runtime.ts",
+    "scripts/project004-remote-runtime-connection.ts",
+    "scripts/start-project004-remote-runtime.ts",
+    "tests/**/*.ts",
+    "proxy.ts"
+  ],
+  "exclude": ["node_modules"]
+}

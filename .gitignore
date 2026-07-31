@@ -1,0 +1,37 @@
+# Dependencies
+/node_modules
+
+# Next.js output
+/.next
+/.next-owner-local-project004
+/.next-remote-dev-project004
+/out
+/artifacts/generated-candidates
+/artifacts/official-gdpt-source
+/artifacts/official-contract-review
+/artifacts/generated-pilot-acceptance/*.png
+/.local-artifacts
+/.env.generated-pilot.local
+/.next-generated-pilot-project004
+/coverage
+/playwright-report
+/test-results
+/blob-report
+/.auth
+/playwright/.auth
+/supabase/.temp
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Environment overrides
+.env*
+!.env.example
+!.env.remote-dev.local.example
+.project004-remote-migration-0041-approval.local
+
+# Local tooling and operating-system files
+.DS_Store
+*.log
+npm-debug.log*

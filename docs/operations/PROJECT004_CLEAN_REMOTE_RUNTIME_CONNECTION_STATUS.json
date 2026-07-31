@@ -1,0 +1,64 @@
+{
+  "statusDate": "2026-07-31",
+  "project": "PLAVE-PROJECT004",
+  "targetName": "plave-project004-dev-clean",
+  "decision": "PACKAGE_READY_OWNER_SECRET_CONFIGURATION_REQUIRED",
+  "provisioningEvidence": {
+    "source": "OWNER_REPORTED",
+    "status": "PASS",
+    "migrationsApplied": "40/40",
+    "releaseBank": "171/2052/2052/546",
+    "universalRelease": "DRAFT/INACTIVE",
+    "curriculumRuntime": false,
+    "grade2ControlledAdaptivePilot": "DISABLED",
+    "authUserCount": 0,
+    "rootFailureCode": "NONE"
+  },
+  "runtimeConfigContract": {
+    "environmentFile": ".env.remote-dev.local",
+    "fileMode": "0600",
+    "localEnvironmentPreserved": true,
+    "loopbackOnly": true,
+    "port": 3001,
+    "publicVariables": [
+      "NEXT_PUBLIC_SUPABASE_URL",
+      "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"
+    ],
+    "serviceRoleAccepted": false,
+    "databaseConnectionAccepted": false,
+    "secretsViaControllingTty": true,
+    "targetRefUrlParityRequired": true,
+    "remoteAccessPerformedDuringPreparation": false,
+    "remoteMutationPerformedDuringPreparation": false
+  },
+  "featureGates": {
+    "universalCurriculumRuntime": true,
+    "onDemandGeneration": false,
+    "grade2NumbersTo1000": false,
+    "adaptivePracticeRuntime": false,
+    "controlledPilot": false,
+    "retentionRuntime": false,
+    "adaptivePilotAllowlist": "EMPTY"
+  },
+  "ownerAcceptance": {
+    "student": "NOT_RUN",
+    "parent": "NOT_RUN",
+    "teacher": "NOT_RUN",
+    "teacherInvitationPrecondition": "SEPARATE_APPROVAL_REQUIRED",
+    "profileRoleRows": "NOT_RUN",
+    "grade1": "NOT_RUN",
+    "grade2PilotHidden": "NOT_RUN",
+    "activationPerformed": false,
+    "publicationPerformed": false,
+    "deploymentPerformed": false
+  },
+  "qualityGates": {
+    "staticConfigTests": "13/13 PASS",
+    "secretBoundaryTests": "PASS",
+    "provisioningRegressions": "65/65 PASS",
+    "canonicalIdentity": "PASS",
+    "node22ExecutableSmoke": "PASS",
+    "typecheck": "PASS",
+    "lint": "PASS"
+  }
+}

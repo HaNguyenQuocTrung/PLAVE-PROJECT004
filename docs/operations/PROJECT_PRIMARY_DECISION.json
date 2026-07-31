@@ -1,0 +1,365 @@
+{
+  "recordStatus": "ARCHIVED_NON_OPERATIONAL",
+  "decision": "PROMOTE_PROJECT004_TO_PRIMARY",
+  "audit_date": "2026-07-30",
+  "source_project": "/Users/hatrung/Desktop/PLAVE-PROJECT004",
+  "comparison_project": "/Users/hatrung/Desktop/PLAVE-PROJECT003",
+  "remote_actions_performed": false,
+  "secrets_observed": false,
+  "blockers": [],
+  "high_findings": [],
+  "closed_high_findings": [
+    {
+      "id": "H1",
+      "area": "curriculum_correctness",
+      "summary": "CLOSED: Grade 5 comparison now aligns only trailing fractional zeroes, compares integer parts first and passes six semantic edge cases."
+    },
+    {
+      "id": "H2",
+      "area": "teaching_visuals",
+      "summary": "CLOSED: all eight required visual kinds render typed accessible HTML/CSS/SVG models; unsupported kinds fail closed."
+    },
+    {
+      "id": "H3",
+      "area": "test_acceptance",
+      "summary": "CLOSED: backup tests use isolated public-env fixtures, RLS assertions lock the canonical migration/table set, and the aggregate suite passes 717/717."
+    }
+  ],
+  "medium_findings": [
+    "Official outcome source locations are generic rather than page/section-specific.",
+    "Both projects are untracked directories inside the same parent Git repository, weakening provenance and rollback.",
+    "PROJECT004 package and documentation identity still commonly says PROJECT003.",
+    "The curriculum preview is not linked from public navigation.",
+    "Generic distractors and fraction theory/practice alignment can be refined in later curriculum work.",
+    "The legacy public demo imports answer-bearing demo data client-side.",
+    "Local HTTP and responsive viewport smoke tests were blocked by listen EPERM.",
+    "npm audit was not run because network access was outside the audit boundary."
+  ],
+  "tests": {
+    "curriculum_1_9": {
+      "status": "PASS",
+      "passed": 9,
+      "total": 9
+    },
+    "curriculum_validator": {
+      "status": "PASS",
+      "units": 16,
+      "questions": 192,
+      "declared_domain_gaps": 40
+    },
+    "practice_regression_grade1": {
+      "status": "PASS",
+      "passed": 550,
+      "total": 550
+    },
+    "grade1_validator": {
+      "status": "PASS",
+      "units": 13,
+      "questions": 312,
+      "solutions": 312
+    },
+    "content_engine": {
+      "status": "PASS",
+      "passed": 12,
+      "total": 12
+    },
+    "grade2_release": {
+      "status": "PASS",
+      "passed": 7,
+      "total": 7,
+      "candidate_state": "DRAFT_HIDDEN"
+    },
+    "adaptive": {
+      "status": "PASS",
+      "practice": "16/16",
+      "runtime": "16/16",
+      "database_contract": "8/8",
+      "api_integration": "11/11",
+      "pilot": "10/10"
+    },
+    "registration": {
+      "status": "PASS",
+      "passed": 5,
+      "total": 5
+    },
+    "decimal_semantics": {
+      "status": "PASS",
+      "passed": 4,
+      "total": 4
+    },
+    "required_visuals": {
+      "status": "PASS",
+      "passed": 6,
+      "total": 6,
+      "visual_kinds": 8
+    },
+    "former_failure_group": {
+      "status": "PASS",
+      "passed": 32,
+      "total": 32
+    },
+    "aggregate": {
+      "status": "PASS",
+      "passed": 717,
+      "failed": 0,
+      "total": 717,
+      "failures": []
+    },
+    "eslint": "PASS",
+    "typecheck": "PASS",
+    "npm_audit": "NOT_RUN_NETWORK_DISABLED",
+    "http_responsive_smoke": "BLOCKED_BY_ENVIRONMENT"
+  },
+  "build": {
+    "status": "PASS",
+    "command": "npm run build",
+    "curriculum_preview_page_included": true,
+    "curriculum_preview_api_included": true
+  },
+  "grade_coverage": [
+    {
+      "grade": 1,
+      "preview_units": 1,
+      "end_to_end_preview_units": 1,
+      "domains": ["NUMBERS_AND_OPERATIONS"],
+      "theory_sections": 4,
+      "worked_examples": 2,
+      "skill_families": 3,
+      "status": "DRAFT_GENERATED",
+      "production_units": 13,
+      "production_questions": 312
+    },
+    {
+      "grade": 2,
+      "preview_units": 2,
+      "end_to_end_preview_units": 2,
+      "domains": ["NUMBERS_AND_OPERATIONS"],
+      "theory_sections": 8,
+      "worked_examples": 4,
+      "skill_families": 6,
+      "status": "DRAFT_GENERATED"
+    },
+    {
+      "grade": 3,
+      "preview_units": 2,
+      "end_to_end_preview_units": 2,
+      "domains": ["NUMBERS_AND_OPERATIONS"],
+      "theory_sections": 8,
+      "worked_examples": 4,
+      "skill_families": 6,
+      "status": "DRAFT_GENERATED"
+    },
+    {
+      "grade": 4,
+      "preview_units": 2,
+      "end_to_end_preview_units": 2,
+      "domains": ["NUMBERS_AND_OPERATIONS"],
+      "theory_sections": 8,
+      "worked_examples": 4,
+      "skill_families": 6,
+      "status": "DRAFT_GENERATED"
+    },
+    {
+      "grade": 5,
+      "preview_units": 2,
+      "end_to_end_preview_units": 2,
+      "domains": ["NUMBERS_AND_OPERATIONS"],
+      "theory_sections": 8,
+      "worked_examples": 4,
+      "skill_families": 6,
+      "status": "DRAFT_GENERATED"
+    },
+    {
+      "grade": 6,
+      "preview_units": 2,
+      "end_to_end_preview_units": 2,
+      "domains": ["NUMBERS_AND_OPERATIONS"],
+      "theory_sections": 8,
+      "worked_examples": 4,
+      "skill_families": 6,
+      "status": "DRAFT_GENERATED"
+    },
+    {
+      "grade": 7,
+      "preview_units": 1,
+      "end_to_end_preview_units": 1,
+      "domains": ["ALGEBRA_PREALGEBRA"],
+      "theory_sections": 4,
+      "worked_examples": 2,
+      "skill_families": 3,
+      "status": "DRAFT_GENERATED"
+    },
+    {
+      "grade": 8,
+      "preview_units": 2,
+      "end_to_end_preview_units": 2,
+      "domains": ["ALGEBRA_PREALGEBRA"],
+      "theory_sections": 8,
+      "worked_examples": 4,
+      "skill_families": 6,
+      "status": "DRAFT_GENERATED"
+    },
+    {
+      "grade": 9,
+      "preview_units": 2,
+      "end_to_end_preview_units": 2,
+      "domains": ["ALGEBRA_PREALGEBRA"],
+      "theory_sections": 8,
+      "worked_examples": 4,
+      "skill_families": 6,
+      "status": "DRAFT_GENERATED"
+    }
+  ],
+  "teachable_units": {
+    "preview_registry": 16,
+    "production_grade1": 13,
+    "distinct_represented_topics_after_grade1_overlap": 28,
+    "claim": "VERTICAL_SLICE_NOT_COMPLETE_CURRICULUM"
+  },
+  "question_counts_by_grade": {
+    "preview": {
+      "1": 12,
+      "2": 24,
+      "3": 24,
+      "4": 24,
+      "5": 24,
+      "6": 24,
+      "7": 12,
+      "8": 24,
+      "9": 24
+    },
+    "production_grade1": 312,
+    "frozen_grade2_candidate": {
+      "questions": 24,
+      "state": "DRAFT_HIDDEN",
+      "counted_as_additional_curriculum_topic": false
+    }
+  },
+  "exact_curriculum_gaps": {
+    "grade_domain_cells": [
+      "Grade 1: Geometry",
+      "Grade 1: Measurement",
+      "Grade 1: Statistics and probability",
+      "Grade 1: Applied problem solving",
+      "Grade 2: Geometry",
+      "Grade 2: Measurement",
+      "Grade 2: Statistics and probability",
+      "Grade 2: Applied problem solving",
+      "Grade 3: Geometry",
+      "Grade 3: Measurement",
+      "Grade 3: Statistics and probability",
+      "Grade 3: Applied problem solving",
+      "Grade 4: Geometry",
+      "Grade 4: Measurement",
+      "Grade 4: Statistics and probability",
+      "Grade 4: Applied problem solving",
+      "Grade 5: Geometry",
+      "Grade 5: Measurement",
+      "Grade 5: Statistics and probability",
+      "Grade 5: Applied problem solving",
+      "Grade 6: Algebra/pre-algebra",
+      "Grade 6: Geometry",
+      "Grade 6: Measurement",
+      "Grade 6: Statistics and probability",
+      "Grade 6: Applied problem solving",
+      "Grade 7: Numbers and operations",
+      "Grade 7: Geometry",
+      "Grade 7: Measurement",
+      "Grade 7: Statistics and probability",
+      "Grade 7: Applied problem solving",
+      "Grade 8: Numbers and operations",
+      "Grade 8: Geometry",
+      "Grade 8: Measurement",
+      "Grade 8: Statistics and probability",
+      "Grade 8: Applied problem solving",
+      "Grade 9: Numbers and operations",
+      "Grade 9: Geometry",
+      "Grade 9: Measurement",
+      "Grade 9: Statistics and probability",
+      "Grade 9: Applied problem solving"
+    ],
+    "additional_gap": "Official outcomes inside covered domains are not exhaustively enumerated or implemented."
+  },
+  "project003_only_files": [
+    {
+      "path": ".env.local",
+      "classification": "SECRET_BEARING_LOCAL_ENV",
+      "action": "NEVER_TRANSFER"
+    }
+  ],
+  "project004_only_files": [
+    "app/api/curriculum-preview/check/route.ts",
+    "app/curriculum-preview/CurriculumPreviewRunner.tsx",
+    "app/curriculum-preview/CurriculumVisual.ts",
+    "app/curriculum-preview/page.tsx",
+    "docs/curriculum/GRADES_1_TO_9_COVERAGE_MATRIX.md",
+    "docs/curriculum/GRADES_1_TO_9_COVERAGE_STATUS.json",
+    "docs/curriculum/GRADES_1_TO_9_IMPLEMENTATION_STATUS.md",
+    "docs/operations/FINAL_PROJECT004_TO_PROJECT003_TRANSFER.json",
+    "docs/operations/FINAL_PROJECT004_TO_PROJECT003_TRANSFER.md",
+    "docs/operations/FINAL_SUBMISSION_READINESS.md",
+    "docs/operations/GRADES_1_TO_9_DEADLINE_HANDOFF.md",
+    "docs/operations/OVERNIGHT_BATCH_1_HANDOFF.md",
+    "docs/operations/OVERNIGHT_BATCH_1_STATUS.json",
+    "docs/operations/PROJECT004_FULL_AUDIT.md",
+    "docs/operations/PROJECT004_VS_PROJECT003_COMPARISON.md",
+    "docs/operations/PROJECT_PRIMARY_DECISION.md",
+    "docs/operations/PROJECT_PRIMARY_DECISION.json",
+    "lib/auth/registration-result.ts",
+    "lib/curriculum/engine.ts",
+    "lib/curriculum/registry.ts",
+    "lib/curriculum/types.ts",
+    "lib/curriculum/validation.ts",
+    "lib/curriculum/visual.ts",
+    "scripts/validate-grades-1-9-curriculum.ts",
+    "supabase/diagnostics/0037_SINGLE_TEST_STUDENT_MEMBERSHIP_READONLY.sql",
+    "supabase/operations/grade2-controlled-pilot/ENROL_ONE_GRADE2_TEST_STUDENT.sql",
+    "tests/curriculum-preview-api.test.ts",
+    "tests/curriculum-visual.test.ts",
+    "tests/grade5-decimal-comparison.test.ts",
+    "tests/grades-1-9-curriculum.test.ts",
+    "tests/registration-result.test.ts",
+    "tests/single-test-student-membership-package.test.mjs"
+  ],
+  "conflict_files": [
+    "app/globals.css",
+    "app/register/actions.ts",
+    "app/register/page.tsx",
+    "docs/operations/GRADE2_CONTROLLED_PILOT_RUNBOOK.md",
+    "docs/operations/REMOTE_DEV_OPERATION_LEDGER.md",
+    "package.json",
+    "scripts/backup-supabase-dev-readonly.sh",
+    "scripts/check-controlled-pilot-env.ts",
+    "scripts/validate-controlled-pilot-package.mjs",
+    "supabase/operations/grade2-controlled-pilot/README.md",
+    "tests/backup-credential-handling.test.mjs",
+    "tests/backup-lifecycle.test.mjs",
+    "tests/remote-rls-drift-remediation.test.mjs",
+    "tests/practice-regression.test.ts"
+  ],
+  "recommended_transfer_files": [],
+  "excluded_generated_files": [
+    ".env*",
+    ".next/**",
+    "node_modules/**",
+    "coverage/**",
+    "build/**",
+    "dist/**",
+    "*.log",
+    "backup/**",
+    "temporary audit files",
+    "parent Git metadata"
+  ],
+  "integrity": {
+    "migration_0035_sha256": "67bef151f4a8744c107835ce98ab5a5c30372cf76ff0328e02c1ca8649c7f206",
+    "migration_0036_sha256": "d88b21c866c5d19708dc544faaa2c5828e3127844c50f0d7e76a3716c07fc6f1",
+    "migration_0037_sha256": "91e2a4bb918bf894903f313d65d93bd80d8be98fad4fa2a1ca7c59cbbfe1b070",
+    "frozen_manifest_file_sha256": "e2de5569466720571c5fca11231e521f2e87bd5e933d5a4263a77f953fbce148",
+    "frozen_bundle_binding": "1571a6bdb0ef650ba00d5e217d27264f40d05ddc507475a1069f250bab11f530",
+    "migration_divergence": false,
+    "package_lock_divergence": false
+  },
+  "next_owner_commands": [
+    "Prepare and approve a filesystem-level promotion runbook with checksum backup and rollback before renaming or copying either project directory."
+  ]
+}

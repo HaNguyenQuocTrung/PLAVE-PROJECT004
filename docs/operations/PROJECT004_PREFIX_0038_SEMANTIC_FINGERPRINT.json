@@ -1,0 +1,16 @@
+{
+  "version": "PROJECT004_PREFIX_0038_SEMANTIC_V1",
+  "prefixFirst": "0001",
+  "prefixLast": "0038",
+  "migrationCount": 38,
+  "canonicalSourceFingerprintSha256": "d994405ee957d67d876ec4c43f3d944e5ff7db66a882b7b87760b91b0d950972",
+  "canonicalCatalogStatus": "UNVERIFIED",
+  "canonicalCatalogOverallSha256": null,
+  "canonicalCategoryFingerprints": [],
+  "freshLocalIntegration": {
+    "migration0039": "UNVERIFIED",
+    "migration0040": "UNVERIFIED"
+  },
+  "recoveryAuthorization": "NOT_AUTHORIZED",
+  "note": "Canonical catalog values must be produced by applying checksum-pinned migrations 0001-0038 to a disposable fresh local Supabase-compatible database. Remote observations must never populate this canonical file."
+}

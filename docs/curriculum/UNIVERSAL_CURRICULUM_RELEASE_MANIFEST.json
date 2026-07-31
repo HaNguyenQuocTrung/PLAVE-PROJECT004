@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "releaseId": "plave-math-grades-1-9-v1",
+  "contentVersion": "2026.07.30-draft.1",
+  "curriculumSourceFingerprint": "f35d34ff84da2ca3f9ab72d5d67482ada414684b611deea98c4b329801b661ab",
+  "generatorVersion": "vertical-preview-v1",
+  "deterministicSeed": "plave-curriculum-preview-v1",
+  "masteryPolicyVersion": "product-hypothesis-v1",
+  "status": "DRAFT",
+  "activationState": "INACTIVE",
+  "grades": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "unitCount": 171,
+  "questionCount": 2052,
+  "solutionCount": 2052,
+  "publicPayloadSha256": "101ce07b2b709ccdc42bd4ed79b0bc60094b681a1349f22c5489cdef72cbe11f",
+  "privateSolutionSha256": "0c8161cdac05c9c695a33b82f65fcc234db323d163f548d78cfc300292f4f132",
+  "bundleSha256": "3d5b1a60e4cbb30ea89b6a2018b4c70c49808aa18d584f623bf4bb93931696f4"
+}

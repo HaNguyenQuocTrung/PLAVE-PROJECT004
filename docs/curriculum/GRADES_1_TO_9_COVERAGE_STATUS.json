@@ -1,0 +1,369 @@
+{
+  "generatedAt": "2026-07-30",
+  "status": "FULL_OFFICIAL_OUTCOME_COVERAGE_COMPLETE",
+  "source": {
+    "id": "MOET-MATH-2018",
+    "authority": "Bộ Giáo dục và Đào tạo",
+    "title": "CHƯƠNG TRÌNH GIÁO DỤC PHỔ THÔNG MÔN TOÁN",
+    "document": "Ban hành kèm theo Thông tư 32/2018/TT-BGDĐT ngày 26 tháng 12 năm 2018",
+    "status": "READY",
+    "localPath": "docs/curriculum/sources/MOET_GDPT_2018_MATHEMATICS.pdf",
+    "sha256": "f35d34ff84da2ca3f9ab72d5d67482ada414684b611deea98c4b329801b661ab",
+    "mediaType": "application/pdf",
+    "pdfHeader": "%PDF-1.7",
+    "fileSizeBytes": 1035429,
+    "pageCount": 123
+  },
+  "applicableDomainCoverage": {
+    "originallyRequestedCells": 40,
+    "officiallyApplicableCells": 37,
+    "notApplicableCells": 3,
+    "implementedApplicableCells": 37,
+    "remainingApplicableDomainGaps": 0,
+    "applicableDomainCoverageComplete": true,
+    "notApplicableCellIds": [
+      "G1_STATISTICS_AND_PROBABILITY",
+      "G8_NUMBERS_AND_OPERATIONS",
+      "G9_NUMBERS_AND_OPERATIONS"
+    ]
+  },
+  "officialOutcomeCoverage": {
+    "totalOfficialOutcomes": 546,
+    "implementedOutcomes": 546,
+    "partiallyCoveredOutcomes": 0,
+    "missingOutcomes": 0,
+    "validatedOutcomes": 546,
+    "overallOfficialOutcomeCoveragePercent": 100,
+    "fullOfficialOutcomeCoverage": true,
+    "byGrade": [
+      {
+        "grade": 1,
+        "totalOfficialOutcomes": 26,
+        "implementedOutcomes": 26,
+        "partiallyCoveredOutcomes": 0,
+        "missingOutcomes": 0,
+        "validatedOutcomes": 26,
+        "officialOutcomeCoveragePercent": 100
+      },
+      {
+        "grade": 2,
+        "totalOfficialOutcomes": 45,
+        "implementedOutcomes": 45,
+        "partiallyCoveredOutcomes": 0,
+        "missingOutcomes": 0,
+        "validatedOutcomes": 45,
+        "officialOutcomeCoveragePercent": 100
+      },
+      {
+        "grade": 3,
+        "totalOfficialOutcomes": 53,
+        "implementedOutcomes": 53,
+        "partiallyCoveredOutcomes": 0,
+        "missingOutcomes": 0,
+        "validatedOutcomes": 53,
+        "officialOutcomeCoveragePercent": 100
+      },
+      {
+        "grade": 4,
+        "totalOfficialOutcomes": 50,
+        "implementedOutcomes": 50,
+        "partiallyCoveredOutcomes": 0,
+        "missingOutcomes": 0,
+        "validatedOutcomes": 50,
+        "officialOutcomeCoveragePercent": 100
+      },
+      {
+        "grade": 5,
+        "totalOfficialOutcomes": 52,
+        "implementedOutcomes": 52,
+        "partiallyCoveredOutcomes": 0,
+        "missingOutcomes": 0,
+        "validatedOutcomes": 52,
+        "officialOutcomeCoveragePercent": 100
+      },
+      {
+        "grade": 6,
+        "totalOfficialOutcomes": 86,
+        "implementedOutcomes": 86,
+        "partiallyCoveredOutcomes": 0,
+        "missingOutcomes": 0,
+        "validatedOutcomes": 86,
+        "officialOutcomeCoveragePercent": 100
+      },
+      {
+        "grade": 7,
+        "totalOfficialOutcomes": 75,
+        "implementedOutcomes": 75,
+        "partiallyCoveredOutcomes": 0,
+        "missingOutcomes": 0,
+        "validatedOutcomes": 75,
+        "officialOutcomeCoveragePercent": 100
+      },
+      {
+        "grade": 8,
+        "totalOfficialOutcomes": 75,
+        "implementedOutcomes": 75,
+        "partiallyCoveredOutcomes": 0,
+        "missingOutcomes": 0,
+        "validatedOutcomes": 75,
+        "officialOutcomeCoveragePercent": 100
+      },
+      {
+        "grade": 9,
+        "totalOfficialOutcomes": 84,
+        "implementedOutcomes": 84,
+        "partiallyCoveredOutcomes": 0,
+        "missingOutcomes": 0,
+        "validatedOutcomes": 84,
+        "officialOutcomeCoveragePercent": 100
+      }
+    ]
+  },
+  "backlog": {
+    "total": 0,
+    "P0": 0,
+    "P1": 0,
+    "P2": 0,
+    "path": "docs/curriculum/GRADES_1_TO_9_OFFICIAL_OUTCOME_BACKLOG.md"
+  },
+  "fullCurriculumCoverage": true,
+  "gradesWithEndToEndUnit": 9,
+  "totalGrades": 9,
+  "baseline": {
+    "units": 53,
+    "questions": 636,
+    "solutions": 636,
+    "preserved": true
+  },
+  "totalUnits": 171,
+  "teachableUnits": 171,
+  "mappedRegistryOutcomes": 171,
+  "generatedQuestions": 2052,
+  "solutionMappings": 2052,
+  "visualKinds": 13,
+  "engineKinds": 34,
+  "generationStatus": "DRAFT_GENERATED",
+  "gradeCounts": {
+    "1": {
+      "units": 9,
+      "questions": 108,
+      "solutions": 108
+    },
+    "2": {
+      "units": 16,
+      "questions": 192,
+      "solutions": 192
+    },
+    "3": {
+      "units": 18,
+      "questions": 216,
+      "solutions": 216
+    },
+    "4": {
+      "units": 16,
+      "questions": 192,
+      "solutions": 192
+    },
+    "5": {
+      "units": 16,
+      "questions": 192,
+      "solutions": 192
+    },
+    "6": {
+      "units": 26,
+      "questions": 312,
+      "solutions": 312
+    },
+    "7": {
+      "units": 22,
+      "questions": 264,
+      "solutions": 264
+    },
+    "8": {
+      "units": 23,
+      "questions": 276,
+      "solutions": 276
+    },
+    "9": {
+      "units": 25,
+      "questions": 300,
+      "solutions": 300
+    }
+  },
+  "completedBatches": {
+    "A": {
+      "status": [
+        "OFFICIAL_SOURCE_MAPPED",
+        "TEACHABLE_IMPLEMENTED",
+        "VALIDATOR_PASSED"
+      ],
+      "applicableClosed": 6
+    },
+    "B": {
+      "status": [
+        "OFFICIAL_SOURCE_MAPPED",
+        "TEACHABLE_IMPLEMENTED",
+        "VALIDATOR_PASSED"
+      ],
+      "applicableClosed": 6
+    },
+    "C": {
+      "status": [
+        "SOURCE_VALIDATED",
+        "TEACHABLE_IMPLEMENTED",
+        "SEMANTIC_TESTS_PASSED"
+      ],
+      "applicableClosed": 6
+    },
+    "D": {
+      "status": [
+        "SOURCE_VALIDATED",
+        "TEACHABLE_IMPLEMENTED",
+        "SEMANTIC_TESTS_PASSED"
+      ],
+      "applicableClosed": 3,
+      "notApplicable": [
+        "G1_STATISTICS_AND_PROBABILITY"
+      ]
+    },
+    "E": {
+      "status": [
+        "SOURCE_VALIDATED",
+        "TEACHABLE_IMPLEMENTED",
+        "SEMANTIC_TESTS_PASSED"
+      ],
+      "applicableClosed": 4
+    },
+    "F": {
+      "status": [
+        "SOURCE_VALIDATED",
+        "TEACHABLE_IMPLEMENTED",
+        "SEMANTIC_TESTS_PASSED"
+      ],
+      "applicableClosed": 2,
+      "notApplicable": [
+        "G8_NUMBERS_AND_OPERATIONS",
+        "G9_NUMBERS_AND_OPERATIONS"
+      ]
+    },
+    "G": {
+      "status": [
+        "SOURCE_VALIDATED",
+        "TEACHABLE_IMPLEMENTED",
+        "SEMANTIC_TESTS_PASSED"
+      ],
+      "applicableClosed": 5
+    },
+    "H": {
+      "status": [
+        "SOURCE_VALIDATED",
+        "TEACHABLE_IMPLEMENTED",
+        "SEMANTIC_TESTS_PASSED"
+      ],
+      "applicableClosed": 4
+    },
+    "GRADE1_OUTCOME_01": {
+      "status": [
+        "OFFICIAL_SOURCE_LOCKED",
+        "TEACHABLE_IMPLEMENTED",
+        "VALIDATOR_PASSED"
+      ],
+      "implementedOfficialOutcomeIds": [
+        "MOET2018-G1-NUM-P022-003",
+        "MOET2018-G1-NUM-P022-007",
+        "MOET2018-G1-NUM-P022-008"
+      ]
+    }
+  },
+  "sourceLockTargets": {
+    "geometry": [
+      7,
+      8,
+      9
+    ],
+    "measurement": [
+      7,
+      8,
+      9
+    ],
+    "statisticsAndProbability": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "appliedProblemSolving": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "numbersAndOperations": [
+      7,
+      8,
+      9
+    ],
+    "algebraAndPrealgebra": [
+      6
+    ]
+  },
+  "remainingGaps": {
+    "geometry": [],
+    "measurement": [],
+    "statisticsAndProbability": [],
+    "appliedProblemSolving": [],
+    "numbersAndOperations": [],
+    "algebraAndPrealgebra": []
+  },
+  "validation": {
+    "sourceOutcomeValidator": "PASS",
+    "officialOutcomeInventoryValidator": "PASS",
+    "sourceEvidenceUnitTests": "PASS",
+    "taxonomyUnitTests": "PASS",
+    "grade1OutcomeBatchSemanticTests": "3/3 PASS",
+    "batchCHSemanticTests": "6/6 PASS",
+    "curriculumApiAndRegistry": "9/9 PASS",
+    "fullSuite": "779/779 PASS_SEQUENTIAL",
+    "grade1Regression": "550/550 PASS",
+    "grade1Validator": "PASS_13_UNITS_312_QUESTIONS_312_SOLUTIONS",
+    "frozenGrade2": "7/7 PASS_AND_PREFLIGHT_PASS_DRAFT_HIDDEN",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "build": "PASS",
+    "p0OutcomeSemanticTests": "3/3 PASS",
+    "grade1P1OutcomeSemanticTests": "3/3 PASS",
+    "grade2P1OutcomeSemanticTests": "3/3 PASS",
+    "grade3P1NumberSenseSemanticTests": "3/3 PASS",
+    "publicSolutionLeakScan": "PASS_0_MATCHES",
+    "secretPiiPromptScan": "PASS_0_MATCHES",
+    "migration0035To0037Checksums": "UNCHANGED",
+    "grade3CompletionSemanticTests": "3/3 PASS",
+    "grade4CompletionSemanticTests": "4/4 PASS",
+    "grade5CompletionSemanticTests": "4/4 PASS_PLUS_4/4_DECIMAL",
+    "grade6CompletionSemanticTests": "4/4 PASS",
+    "grade7RationalFoundationSemanticTests": "3/3 PASS",
+    "grade7To9CompletionSemanticTests": "4/4 PASS"
+  },
+  "amendment": {
+    "id": "MOET-TT17-2025",
+    "sha256": "1d40c0513a1fdff35245c633ffc382122a18d2d5c0fbc96fcb426a51a8f9fea6",
+    "pageCount": 22,
+    "applicability": "NOT_APPLICABLE_TO_MATHEMATICS",
+    "evidence": "PDF page 1, Article 1 clauses 1–5"
+  },
+  "migrationChecksums": {
+    "0035": "67bef151f4a8744c107835ce98ab5a5c30372cf76ff0328e02c1ca8649c7f206",
+    "0036": "d88b21c866c5d19708dc544faaa2c5828e3127844c50f0d7e76a3716c07fc6f1",
+    "0037": "91e2a4bb918bf894903f313d65d93bd80d8be98fad4fa2a1ca7c59cbbfe1b070"
+  },
+  "remoteActionsPerformed": false
+}

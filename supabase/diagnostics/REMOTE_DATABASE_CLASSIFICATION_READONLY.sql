@@ -1,0 +1,9 @@
+-- SUPERSEDED — DO NOT RUN.
+--
+-- The original Phase 2-style diagnostic assumed that
+-- supabase_migrations.schema_migrations existed. The remote project proved
+-- that assumption false. No migration-state conclusion can be drawn from the
+-- missing relation.
+--
+-- Run the catalog-first Phase 1 diagnostic instead:
+-- REMOTE_DATABASE_CATALOG_DISCOVERY_READONLY.sql

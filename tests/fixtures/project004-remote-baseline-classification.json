@@ -1,0 +1,58 @@
+[
+  {
+    "name": "fresh_supabase_platform_baseline",
+    "catalogOutput": "500|0|0|0|0|0",
+    "migrationOutput": null,
+    "expectedEmpty": true,
+    "expectedCategory": "PLATFORM_BASELINE_ONLY"
+  },
+  {
+    "name": "fresh_supabase_automatic_rls_data_api_baseline",
+    "catalogOutput": "501|0|0|0|0|0",
+    "migrationOutput": null,
+    "expectedEmpty": true,
+    "expectedCategory": "SUPABASE_AUTOMATIC_RLS"
+  },
+  {
+    "name": "one_plave_table",
+    "catalogOutput": "500|1|0|0|0|0",
+    "migrationOutput": null,
+    "expectedEmpty": false,
+    "expectedCategory": "PLAVE_APPLICATION_OBJECTS"
+  },
+  {
+    "name": "one_foreign_table",
+    "catalogOutput": "500|0|1|0|0|0",
+    "migrationOutput": null,
+    "expectedEmpty": false,
+    "expectedCategory": "FOREIGN_APPLICATION_OBJECTS"
+  },
+  {
+    "name": "one_auth_user",
+    "catalogOutput": "500|0|0|1|0|0",
+    "migrationOutput": null,
+    "expectedEmpty": false,
+    "expectedCategory": "AUTH_USER_COUNT"
+  },
+  {
+    "name": "one_storage_object",
+    "catalogOutput": "500|0|0|0|1|0",
+    "migrationOutput": null,
+    "expectedEmpty": false,
+    "expectedCategory": "STORAGE_OBJECT_COUNT"
+  },
+  {
+    "name": "one_canonical_plave_migration",
+    "catalogOutput": "500|0|0|0|0|1",
+    "migrationOutput": "1|1",
+    "expectedEmpty": false,
+    "expectedCategory": "MIGRATION_HISTORY_COUNT"
+  },
+  {
+    "name": "one_foreign_migration",
+    "catalogOutput": "500|0|0|0|0|1",
+    "migrationOutput": "1|0",
+    "expectedEmpty": false,
+    "expectedCategory": "FOREIGN_MIGRATION_HISTORY_COUNT"
+  }
+]

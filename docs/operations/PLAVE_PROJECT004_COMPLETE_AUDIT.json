@@ -1,0 +1,917 @@
+{
+  "recordStatus": "ARCHIVED_NON_OPERATIONAL",
+  "auditDate": "2026-07-30",
+  "projectPath": "/Users/hatrung/Desktop/PLAVE-PROJECT004",
+  "decision": "READY_WITH_KNOWN_LIMITATIONS",
+  "scope": {
+    "mode": "READ_ONLY_APPLICATION_AUDIT",
+    "applicationFilesModified": false,
+    "authorizedArtifactsCreated": 4,
+    "remoteReads": false,
+    "remoteMutations": false,
+    "sqlExecuted": false,
+    "deploymentPerformed": false,
+    "pedagogicalEndorsement": false
+  },
+  "blockers": [],
+  "high": [],
+  "medium": [
+    {
+      "id": "AUD-M01",
+      "severity": "MEDIUM",
+      "title": "Duplicate and nested main landmarks",
+      "evidence": "The root layout supplies main#main-content while curriculum preview supplies another main-content and diagnostic/loading views add nested main elements.",
+      "paths": [
+        "app/layout.tsx",
+        "app/curriculum-preview/page.tsx",
+        "app/diagnostic/page.tsx",
+        "app/diagnostic/[attemptId]/page.tsx",
+        "app/diagnostic/[attemptId]/review/page.tsx",
+        "app/assignments/[assignmentId]/loading.tsx",
+        "app/teacher/classes/[classroomId]/gradebook/loading.tsx",
+        "app/teacher/assignments/[assignmentId]/analysis/loading.tsx"
+      ],
+      "userImpact": "Screen-reader landmark navigation and skip-link targeting can be ambiguous.",
+      "recommendation": "Keep one page-level main and one main-content target; use section or div inside it.",
+      "confidence": "HIGH",
+      "safeToFixLocally": true
+    },
+    {
+      "id": "AUD-M02",
+      "severity": "MEDIUM",
+      "title": "New-recipient setup documentation is not canonical",
+      "evidence": "No root README exists; package metadata says PROJECT003 and an old Grade 1 description; architecture and scope documents mix stale and current states.",
+      "paths": [
+        "README.md (missing)",
+        "package.json",
+        "docs/ARCHITECTURE.md",
+        "docs/PRODUCT_SCOPE.md",
+        "docs/operations/FINAL_LOCAL_DEMO_RUNBOOK.md"
+      ],
+      "userImpact": "A recipient can select stale setup or misunderstand production, draft, and disabled modules.",
+      "recommendation": "Add a current root README, align package metadata, and clearly mark historical documents.",
+      "confidence": "HIGH",
+      "safeToFixLocally": true
+    },
+    {
+      "id": "AUD-M03",
+      "severity": "MEDIUM",
+      "title": "Migration status wording is contradictory",
+      "evidence": "The operations ledger records controlled application and verification while a validator and historical documents contain NOT APPLIED wording without consistently emphasizing command scope.",
+      "paths": [
+        "scripts/validate-grade2-release-candidate.ts",
+        "docs/operations/REMOTE_DEV_OPERATION_LEDGER.md",
+        "docs/architecture/ADAPTIVE_MIGRATION_STATE_EVIDENCE.md",
+        "docs/architecture/ADAPTIVE_DATABASE_CONTRACT.md"
+      ],
+      "userImpact": "An operator could infer the wrong remote state or attempt an unsafe rerun.",
+      "recommendation": "Separate local static status, historical ledger evidence, and current remote-unverified status in all wording.",
+      "confidence": "HIGH",
+      "safeToFixLocally": true
+    },
+    {
+      "id": "AUD-M04",
+      "severity": "MEDIUM",
+      "title": "Secondary draft content has uneven grade differentiation",
+      "evidence": "Sampled Grade 7 and Grade 9 data questions include elementary totals, comparisons, and basic relative frequency using heavily reused templates; some secondary titles retain long official-outcome phrasing.",
+      "paths": [
+        "lib/curriculum/engine.ts",
+        "lib/curriculum/secondary-completion.ts",
+        "grade-7-data-and-probability:q01",
+        "grade-7-data-and-probability:q05",
+        "grade-7-data-and-probability:q09",
+        "grade-9-data-and-probability:q01",
+        "grade-9-data-and-probability:q05",
+        "grade-9-data-and-probability:q09"
+      ],
+      "userImpact": "Technically correct coverage can feel repetitive or less challenging than the nominal secondary grade.",
+      "recommendation": "Use qualified educator review to deepen reasoning, contexts, examples, and distractors while preserving validated mappings.",
+      "confidence": "MEDIUM_HIGH",
+      "safeToFixLocally": true
+    },
+    {
+      "id": "AUD-M05",
+      "severity": "MEDIUM",
+      "title": "Authentication abuse controls depend on external configuration",
+      "evidence": "No application-level throttle was found for login, registration, or password recovery; protection assumes Supabase or deployment-provider limits.",
+      "paths": [
+        "app/login",
+        "app/register",
+        "app/forgot-password",
+        "lib"
+      ],
+      "userImpact": "A production deployment could be exposed to credential stuffing, signup abuse, or reset-email abuse if external limits are insufficient.",
+      "recommendation": "Document provider limits and add deployment-aware server or edge throttling before production exposure.",
+      "confidence": "MEDIUM",
+      "safeToFixLocally": true
+    }
+  ],
+  "low": [
+    {
+      "id": "AUD-L01",
+      "severity": "LOW",
+      "title": "Generated directories are very large",
+      "evidence": ".next is approximately 3.6 GB and node_modules approximately 446 MB; both are gitignored.",
+      "paths": [
+        ".next",
+        "node_modules",
+        ".gitignore"
+      ],
+      "userImpact": "Accidental manual archiving would create an unnecessarily large submission.",
+      "recommendation": "Exclude generated and dependency directories from every handoff archive.",
+      "confidence": "HIGH",
+      "safeToFixLocally": false
+    },
+    {
+      "id": "AUD-L02",
+      "severity": "LOW",
+      "title": "Node module-type warnings and stale dependency residue",
+      "evidence": "Validators emit MODULE_TYPELESS_PACKAGE_JSON and npm ls reports @emnapi/runtime and @img/sharp-wasm32 as extraneous.",
+      "paths": [
+        "package.json",
+        "node_modules"
+      ],
+      "userImpact": "Noisy CI output and minor dependency hygiene cost.",
+      "recommendation": "Choose an explicit module strategy and perform a separately authorized clean dependency install.",
+      "confidence": "HIGH",
+      "safeToFixLocally": true
+    },
+    {
+      "id": "AUD-L03",
+      "severity": "LOW",
+      "title": "Security response headers are minimal",
+      "evidence": "next.config.ts disables X-Powered-By but defines no CSP or broader response-header policy.",
+      "paths": [
+        "next.config.ts"
+      ],
+      "userImpact": "Reduced defense in depth for a future public deployment.",
+      "recommendation": "Add and test deployment-compatible CSP, framing, referrer, and permissions policies.",
+      "confidence": "HIGH",
+      "safeToFixLocally": true
+    }
+  ],
+  "productAreas": [
+    {
+      "area": "Landing",
+      "implementationStatus": "COMPLETE",
+      "validationStatus": "BUILD_AND_SOURCE_PASS",
+      "runtimeStatus": "OWNER_BROWSER_OBSERVED_PASS",
+      "remoteStatus": "NOT_REQUIRED",
+      "readiness": "READY_LOCAL",
+      "limitations": "Only core public routes were runtime-observed."
+    },
+    {
+      "area": "Authentication",
+      "implementationStatus": "COMPLETE_IMPLEMENTATION",
+      "validationStatus": "STATIC_AND_TEST_PASS",
+      "runtimeStatus": "BLOCKED_BY_ENVIRONMENT",
+      "remoteStatus": "UNVERIFIED",
+      "readiness": "PARTIAL",
+      "limitations": "No live provider, email, or session journey; rate-limit dependency."
+    },
+    {
+      "area": "Student",
+      "implementationStatus": "COMPLETE_GRADE1_IMPLEMENTATION",
+      "validationStatus": "PRACTICE_AND_PRODUCTION_PASS",
+      "runtimeStatus": "PUBLIC_PREVIEW_PASS_AUTHENTICATED_UNVERIFIED",
+      "remoteStatus": "UNVERIFIED",
+      "readiness": "READY_LOCAL_DEMO",
+      "limitations": "Persisted dashboard and progress need Supabase."
+    },
+    {
+      "area": "Curriculum 1-9",
+      "implementationStatus": "COMPLETE_LOCAL_DRAFT_PREVIEW",
+      "validationStatus": "546_OF_546_AND_171_2052_2052_PASS",
+      "runtimeStatus": "OWNER_JOURNEY_PASS",
+      "remoteStatus": "NO_REMOTE_DEPENDENCY",
+      "readiness": "READY_LOCAL_DRAFT",
+      "limitations": "Not publication; secondary content requires educator review."
+    },
+    {
+      "area": "Fixed practice",
+      "implementationStatus": "COMPLETE",
+      "validationStatus": "550_OF_550_PASS",
+      "runtimeStatus": "AUTHENTICATED_RUNTIME_UNVERIFIED",
+      "remoteStatus": "UNVERIFIED",
+      "readiness": "IMPLEMENTATION_READY",
+      "limitations": "Persisted attempt needs Supabase."
+    },
+    {
+      "area": "Diagnostic",
+      "implementationStatus": "COMPLETE_IMPLEMENTATION",
+      "validationStatus": "TEST_PASS",
+      "runtimeStatus": "BLOCKED_BY_ENVIRONMENT",
+      "remoteStatus": "UNVERIFIED",
+      "readiness": "IMPLEMENTATION_READY",
+      "limitations": "No live attempt and review."
+    },
+    {
+      "area": "Adaptive",
+      "implementationStatus": "IMPLEMENTED_HIDDEN_DISABLED",
+      "validationStatus": "61_OF_61_AND_STATIC_VALIDATORS_PASS",
+      "runtimeStatus": "NOT_ACTIVE",
+      "remoteStatus": "PREVIOUS_LEDGER_ONLY",
+      "readiness": "NOT_READY_FOR_STUDENT_USE",
+      "limitations": "Flags false, deny-all membership, no live concurrency test."
+    },
+    {
+      "area": "Parent",
+      "implementationStatus": "COMPLETE_IMPLEMENTATION",
+      "validationStatus": "STATIC_AND_TEST_PASS",
+      "runtimeStatus": "BLOCKED_BY_ENVIRONMENT",
+      "remoteStatus": "UNVERIFIED",
+      "readiness": "IMPLEMENTATION_READY",
+      "limitations": "No live linked-account isolation journey."
+    },
+    {
+      "area": "Teacher",
+      "implementationStatus": "COMPLETE_IMPLEMENTATION",
+      "validationStatus": "STATIC_AND_TEST_PASS",
+      "runtimeStatus": "BLOCKED_BY_ENVIRONMENT",
+      "remoteStatus": "UNVERIFIED",
+      "readiness": "IMPLEMENTATION_READY",
+      "limitations": "No live invitation, classroom, or assignment journey."
+    },
+    {
+      "area": "Security",
+      "implementationStatus": "STRONG_STATIC_BOUNDARY",
+      "validationStatus": "SECURITY_AND_SOLUTION_TESTS_PASS",
+      "runtimeStatus": "PUBLIC_PREVIEW_NO_OBSERVED_ERROR",
+      "remoteStatus": "LIVE_RLS_NOT_RUN",
+      "readiness": "READY_LOCAL",
+      "limitations": "No network dependency audit or penetration test; rate-limit and headers hardening remain."
+    },
+    {
+      "area": "Accessibility",
+      "implementationStatus": "SUBSTANTIAL",
+      "validationStatus": "SOURCE_CONTRACTS_PASS",
+      "runtimeStatus": "GENERAL_MOBILE_DESKTOP_OWNER_PASS",
+      "remoteStatus": "NOT_APPLICABLE",
+      "readiness": "READY_WITH_LIMITATION",
+      "limitations": "Nested main and duplicate ID; no aXe, contrast, or screen-reader run."
+    },
+    {
+      "area": "Responsive",
+      "implementationStatus": "COMPLETE_PUBLIC_PREVIEW_CONTRACT",
+      "validationStatus": "360_768_1440_COMPONENT_CONTRACTS_PASS",
+      "runtimeStatus": "360_AND_NORMAL_DESKTOP_OWNER_PASS",
+      "remoteStatus": "NOT_APPLICABLE",
+      "readiness": "READY_LOCAL",
+      "limitations": "768x1024 and exact 1440x900 remain static/component validated."
+    },
+    {
+      "area": "Performance",
+      "implementationStatus": "APPROPRIATE_SERVER_CLIENT_SPLIT",
+      "validationStatus": "BUILD_CHUNK_AND_BOUNDARY_PASS",
+      "runtimeStatus": "OWNER_READY_IN_325MS",
+      "remoteStatus": "NOT_APPLICABLE",
+      "readiness": "READY_LOCAL",
+      "limitations": "No load or memory profile."
+    },
+    {
+      "area": "Database",
+      "implementationStatus": "LOCAL_CONTRACT_COMPLETE_THROUGH_0037",
+      "validationStatus": "STATIC_MIGRATION_RLS_RPC_CHECKSUM_PASS",
+      "runtimeStatus": "NOT_RUN",
+      "remoteStatus": "PREVIOUS_LEDGER_ONLY",
+      "readiness": "READY_FOR_CONTROLLED_USE_NOT_REVERIFIED",
+      "limitations": "Current remote state unverified."
+    },
+    {
+      "area": "Deployment",
+      "implementationStatus": "NOT_PERFORMED",
+      "validationStatus": "PRODUCTION_BUILD_PASS",
+      "runtimeStatus": "LOCAL_ONLY",
+      "remoteStatus": "NOT_RUN",
+      "readiness": "OUT_OF_SCOPE",
+      "limitations": "No host, domain, secret, or production smoke."
+    },
+    {
+      "area": "Documentation",
+      "implementationStatus": "PARTIAL",
+      "validationStatus": "RUNBOOK_PRESENT",
+      "runtimeStatus": "LOCAL_COMMAND_DOCUMENTED",
+      "remoteStatus": "NOT_APPLICABLE",
+      "readiness": "READY_WITH_LIMITATION",
+      "limitations": "Missing root README and stale PROJECT003/package/architecture claims."
+    }
+  ],
+  "routes": {
+    "ownerObservedHttp": [
+      {
+        "path": "/",
+        "status": 200,
+        "evidence": "OWNER_BROWSER_OBSERVED"
+      },
+      {
+        "path": "/demo",
+        "status": 200,
+        "evidence": "OWNER_BROWSER_OBSERVED"
+      },
+      {
+        "path": "/curriculum-preview",
+        "status": 200,
+        "evidence": "OWNER_BROWSER_OBSERVED"
+      },
+      {
+        "path": "/curriculum-preview?grade=7",
+        "status": 200,
+        "evidence": "OWNER_BROWSER_OBSERVED"
+      }
+    ],
+    "currentAuditRuntimeProbe": {
+      "status": "BLOCKED_BY_SANDBOX",
+      "detail": "The Owner external process was unreachable from the audit sandbox; local bind failed EPERM. No new browser evidence label was added."
+    },
+    "pages": [
+      "/",
+      "/about",
+      "/demo",
+      "/login",
+      "/register",
+      "/forgot-password",
+      "/auth/confirm",
+      "/update-password",
+      "/onboarding",
+      "/dashboard",
+      "/profile",
+      "/profile/edit",
+      "/settings",
+      "/learn",
+      "/learn/[gradeSlug]/[lessonSlug]",
+      "/learn/grade-1/numbers-to-10",
+      "/lessons",
+      "/practice/[attemptId]",
+      "/results",
+      "/review/[attemptId]",
+      "/grade-1/summary",
+      "/diagnostic",
+      "/diagnostic/[attemptId]",
+      "/diagnostic/[attemptId]/review",
+      "/curriculum-preview",
+      "/adaptive-practice/[attemptId]",
+      "/assignments",
+      "/assignments/[assignmentId]",
+      "/assignments/[assignmentId]/review",
+      "/connections",
+      "/classrooms",
+      "/goals",
+      "/parent/children/[connectionId]",
+      "/teacher",
+      "/teacher/onboarding",
+      "/teacher/profile",
+      "/teacher/classrooms",
+      "/teacher/classrooms/[classroomId]",
+      "/teacher/classes/[classroomId]/gradebook",
+      "/teacher/questions",
+      "/teacher/assignments",
+      "/teacher/assignments/new",
+      "/teacher/assignments/[assignmentId]",
+      "/teacher/assignments/[assignmentId]/analysis",
+      "/privacy",
+      "/terms",
+      "/_not-found"
+    ],
+    "assetRoutes": [
+      "/icon.png",
+      "/apple-icon.png"
+    ],
+    "api": [
+      "/api/curriculum-preview/check",
+      "/api/practice/start",
+      "/api/practice/state",
+      "/api/practice/answer",
+      "/api/diagnostic/start",
+      "/api/diagnostic/state",
+      "/api/diagnostic/current",
+      "/api/diagnostic/answer",
+      "/api/adaptive-practice/start",
+      "/api/adaptive-practice/state",
+      "/api/adaptive-practice/answer",
+      "/api/onboarding",
+      "/api/connections/request",
+      "/api/connections/preview",
+      "/api/connections/action",
+      "/api/classrooms/create",
+      "/api/classrooms/request",
+      "/api/classrooms/preview",
+      "/api/classrooms/action",
+      "/api/assignments/draft",
+      "/api/assignments/start",
+      "/api/assignments/state",
+      "/api/assignments/submit",
+      "/api/teacher/activate",
+      "/api/teacher/questions",
+      "/api/teacher/questions/create",
+      "/api/teacher/questions/archive",
+      "/api/teacher/questions/restore",
+      "/api/teacher/assignments/publish",
+      "/api/teacher/assignments/lifecycle",
+      "/api/teacher/assignments/[assignmentId]/gradebook.csv",
+      "/api/goal-suggestions"
+    ],
+    "missingProjectStates": [
+      "app/error.tsx",
+      "app/not-found.tsx",
+      "app/loading.tsx"
+    ]
+  },
+  "roles": [
+    {
+      "role": "Anonymous",
+      "journey": "Landing, demo, curriculum preview",
+      "status": "COMPLETE",
+      "evidence": "OWNER_BROWSER_OBSERVED"
+    },
+    {
+      "role": "Anonymous",
+      "journey": "Register, login, forgot/reset/confirm",
+      "status": "PARTIAL_BLOCKED_BY_ENVIRONMENT",
+      "evidence": "CURRENT_STATIC_AND_TEST"
+    },
+    {
+      "role": "Student",
+      "journey": "Public curriculum preview",
+      "status": "COMPLETE",
+      "evidence": "OWNER_BROWSER_OBSERVED"
+    },
+    {
+      "role": "Student",
+      "journey": "Authenticated onboarding, dashboard, Grade 1 lesson/practice/diagnostic/progress",
+      "status": "IMPLEMENTED_BLOCKED_BY_ENVIRONMENT",
+      "evidence": "CURRENT_STATIC_AND_TEST"
+    },
+    {
+      "role": "Student",
+      "journey": "Adaptive practice",
+      "status": "DISABLED_BY_FLAG",
+      "evidence": "CURRENT_COMMAND_AND_STATIC"
+    },
+    {
+      "role": "Parent",
+      "journey": "Connect student, progress, goals",
+      "status": "IMPLEMENTED_BLOCKED_BY_ENVIRONMENT",
+      "evidence": "CURRENT_STATIC_AND_TEST"
+    },
+    {
+      "role": "Teacher",
+      "journey": "Invite onboarding, classroom, questions, assignments, gradebook",
+      "status": "IMPLEMENTED_BLOCKED_BY_ENVIRONMENT",
+      "evidence": "CURRENT_STATIC_AND_TEST"
+    },
+    {
+      "role": "Admin",
+      "journey": "Product UI",
+      "status": "NOT_IMPLEMENTED",
+      "evidence": "CURRENT_STATIC"
+    }
+  ],
+  "curriculum": {
+    "officialPdfProvenance": "PASS",
+    "officialOutcomeCoverage": {
+      "covered": 546,
+      "total": 546
+    },
+    "applicableDomains": {
+      "covered": 37,
+      "total": 37,
+      "notApplicableTaxonomyEntries": 3
+    },
+    "totalUnits": 171,
+    "totalQuestions": 2052,
+    "totalSolutions": 2052,
+    "gradeUnitCounts": {
+      "1": 9,
+      "2": 16,
+      "3": 18,
+      "4": 16,
+      "5": 16,
+      "6": 26,
+      "7": 22,
+      "8": 23,
+      "9": 25
+    },
+    "questionsPerPreviewUnit": 12,
+    "sourceMapping": "PASS",
+    "outcomeMapping": "PASS",
+    "prerequisiteContracts": "PASS",
+    "deterministicGeneration": "PASS",
+    "solutionSeparation": "PASS",
+    "contentSets": {
+      "grade1Production": {
+        "units": 13,
+        "questions": 312,
+        "solutions": 312,
+        "status": "PRODUCTION_VALIDATOR_PASS"
+      },
+      "grade2Candidate": {
+        "questions": 24,
+        "status": "DRAFT_HIDDEN"
+      },
+      "grades1To9Preview": {
+        "units": 171,
+        "questions": 2052,
+        "solutions": 2052,
+        "status": "LOCAL_DRAFT_DEMO"
+      },
+      "published": "GRADE1_PRODUCTION_ONLY_PER_CURRENT_REPOSITORY_VALIDATORS"
+    },
+    "sampledUnits": 18,
+    "sampledQuestions": 54,
+    "sample": [
+      {
+        "unitId": "grade-1-numbers-to-10",
+        "questionIds": ["q01", "q05", "q09"]
+      },
+      {
+        "unitId": "grade-1-applied-problem-solving",
+        "questionIds": ["q01", "q05", "q09"]
+      },
+      {
+        "unitId": "grade-2-time-calendar-money-p0",
+        "questionIds": ["q01", "q02", "q03"]
+      },
+      {
+        "unitId": "grade-2-data-and-chance",
+        "questionIds": ["q01", "q05", "q06"]
+      },
+      {
+        "unitId": "grade-3-unit-fractions",
+        "questionIds": ["q01", "q05", "q09"]
+      },
+      {
+        "unitId": "grade-3-data-and-probability",
+        "questionIds": ["q01", "q05", "q06"]
+      },
+      {
+        "unitId": "grade-4-fraction-reasoning-p1",
+        "questionIds": ["q01", "q05", "q09"]
+      },
+      {
+        "unitId": "grade-4-angle-reasoning",
+        "questionIds": ["q01", "q05", "q09"]
+      },
+      {
+        "unitId": "grade-5-decimal-operations",
+        "questionIds": ["q01", "q05", "q09"]
+      },
+      {
+        "unitId": "grade-5-volume-area-nets-p1",
+        "questionIds": ["q01", "q06", "q10"]
+      },
+      {
+        "unitId": "grade-6-integer-operations",
+        "questionIds": ["q01", "q05", "q09"]
+      },
+      {
+        "unitId": "grade-6-finance-interdisciplinary-p1",
+        "questionIds": ["q01", "q05", "q10"]
+      },
+      {
+        "unitId": "grade-7-secondary-geo-p1-8",
+        "questionIds": ["q10", "q11", "q12"]
+      },
+      {
+        "unitId": "grade-7-data-and-probability",
+        "questionIds": ["q01", "q05", "q09"]
+      },
+      {
+        "unitId": "grade-8-linear-equations",
+        "questionIds": ["q01", "q05", "q09"]
+      },
+      {
+        "unitId": "grade-8-pythagorean-reasoning",
+        "questionIds": ["q01", "q05", "q09"]
+      },
+      {
+        "unitId": "grade-9-quadratic-functions",
+        "questionIds": ["q01", "q05", "q09"]
+      },
+      {
+        "unitId": "grade-9-data-and-probability",
+        "questionIds": ["q01", "q05", "q09"]
+      }
+    ],
+    "sampleResult": "NO_SERIOUS_CORRECTNESS_OR_SOLUTION_LEAK_DEFECT",
+    "sampleLimitation": "Internal audit only, not expert pedagogical review; secondary grade differentiation is uneven."
+  },
+  "tests": {
+    "execution": "SEQUENTIAL",
+    "fullSuiteConcurrency": 1,
+    "gates": [
+      {
+        "name": "sourceProvenanceValidator",
+        "result": "PASS",
+        "detail": "546 outcomes, 0 gaps",
+        "durationSeconds": 0.39
+      },
+      {
+        "name": "taxonomyValidator",
+        "result": "PASS",
+        "detail": "3/3",
+        "durationSeconds": 0.19
+      },
+      {
+        "name": "officialOutcomeInventory",
+        "result": "PASS",
+        "detail": "546/546, 171 units, 2052 mapped questions",
+        "durationSeconds": 0.31
+      },
+      {
+        "name": "curriculumValidator",
+        "result": "PASS",
+        "detail": "9 grades, 171 units, 2052 questions",
+        "durationSeconds": 0.31
+      },
+      {
+        "name": "curriculumApiTests",
+        "result": "PASS",
+        "detail": "9/9",
+        "durationSeconds": 0.65
+      },
+      {
+        "name": "teachingSemanticTests",
+        "result": "PASS",
+        "detail": "92/92; not expert review",
+        "durationSeconds": 5.1
+      },
+      {
+        "name": "grade1Regression",
+        "result": "PASS",
+        "detail": "550/550",
+        "durationSeconds": 0.52
+      },
+      {
+        "name": "grade1ProductionValidator",
+        "result": "PASS",
+        "detail": "13/312/312",
+        "durationSeconds": 1.57
+      },
+      {
+        "name": "grade2FrozenTests",
+        "result": "PASS",
+        "detail": "7/7",
+        "durationSeconds": 0.26
+      },
+      {
+        "name": "grade2FrozenValidator",
+        "result": "PASS",
+        "detail": "24 questions, DRAFT/HIDDEN",
+        "durationSeconds": 0.22
+      },
+      {
+        "name": "adaptiveApiTests",
+        "result": "PASS",
+        "detail": "61/61",
+        "durationSeconds": 0.71
+      },
+      {
+        "name": "registrationAuthTests",
+        "result": "PASS",
+        "detail": "5/5",
+        "durationSeconds": 0.18
+      },
+      {
+        "name": "securitySolutionOperationsTests",
+        "result": "PASS",
+        "detail": "52/52; local PostgreSQL integration pending",
+        "durationSeconds": 8.52
+      },
+      {
+        "name": "fullSequentialSuite",
+        "result": "PASS",
+        "detail": "779/779, 0 fail, 0 skip",
+        "durationSeconds": 12.95
+      },
+      {
+        "name": "lint",
+        "result": "PASS",
+        "durationSeconds": 7.55
+      },
+      {
+        "name": "typecheck",
+        "result": "PASS",
+        "durationSeconds": 5.86
+      },
+      {
+        "name": "productionBuild",
+        "result": "PASS",
+        "durationSeconds": 11.39
+      },
+      {
+        "name": "adaptiveRuntimeDraftValidator",
+        "result": "PASS",
+        "detail": "All flags false, HIDDEN"
+      },
+      {
+        "name": "controlledPilotValidator",
+        "result": "PASS",
+        "detail": "DENY_ALL and feature flags false"
+      },
+      {
+        "name": "grade1CompletionMigrationValidator",
+        "result": "PASS",
+        "detail": "Read-only parent aggregate authorization"
+      },
+      {
+        "name": "migrationChecksums",
+        "result": "PASS"
+      },
+      {
+        "name": "localSecretPiiScan",
+        "result": "PASS",
+        "detail": "No credential value found"
+      },
+      {
+        "name": "dependencyVulnerabilityNetworkAudit",
+        "result": "NOT_RUN",
+        "detail": "Network-dependent and outside the available audit boundary"
+      }
+    ],
+    "flakyBehaviorObserved": false,
+    "warnings": [
+      "Node experimental type stripping",
+      "MODULE_TYPELESS_PACKAGE_JSON",
+      "shasum locale warning"
+    ]
+  },
+  "security": {
+    "hardCodedSecrets": "NONE_FOUND",
+    "realEnvFiles": "NONE_FOUND",
+    "serviceRoleInBrowser": "NONE_FOUND",
+    "realPii": "NONE_FOUND",
+    "solutionLeak": "NONE_FOUND",
+    "directSolutionTableQuery": "NONE_FOUND",
+    "unsafeHtmlOrEval": "NONE_FOUND",
+    "openRedirect": "MITIGATED_AND_TESTED",
+    "roleAndOwnershipChecks": "STATIC_AND_TEST_PASS",
+    "clientTrustedCorrectness": "NOT_FOUND",
+    "csrfBoundary": "SAME_ORIGIN_AND_SAMESITE_ASSUMPTIONS",
+    "errorLeakage": "NO_SERIOUS_ISSUE_FOUND",
+    "dependencyAudit": "NOT_RUN",
+    "liveRlsPenetration": "NOT_RUN",
+    "knownLimitations": [
+      "Application-level authentication throttling not found",
+      "CSP and broader security headers not configured"
+    ]
+  },
+  "accessibility": {
+    "semanticHeadingsAndLandmarks": "PARTIAL_PASS_WITH_AUD_M01",
+    "formLabels": "STATIC_PASS",
+    "visibleFocus": "STATIC_PASS",
+    "keyboardNavigation": "SOURCE_CONTRACT_ONLY_NOT_BROWSER_RETESTED",
+    "statusAnnouncements": "STATIC_PASS",
+    "errorAssociation": "STATIC_PASS",
+    "svgAccessibility": "STATIC_PASS",
+    "reducedMotion": "STATIC_PASS",
+    "colorIndependentFeedback": "STATIC_PASS",
+    "contrast": "NOT_MEASURED",
+    "screenReader": "NOT_RUN",
+    "ownerBrowserEvidence": {
+      "mobile360x800": "PASS",
+      "normalDesktop": "PASS",
+      "consoleRedErrors": 0
+    },
+    "staticViewportEvidence": {
+      "768x1024": "PASS",
+      "1440x900": "PASS"
+    }
+  },
+  "performance": {
+    "initialRouteImportsCurriculumRegistry": false,
+    "clientImportsFullCurriculumRegistry": false,
+    "clientImportsSolutions": false,
+    "initialPreviewQuestionCount": 12,
+    "initialPreviewSolutionCount": 0,
+    "solutionDelivery": "ONE_SERVER_VALIDATED_RESULT_AFTER_SUBMIT",
+    "duplicateSolutionPayload": "NONE_FOUND",
+    "unnecessaryHydrationFinding": "NONE_DEMONSTRATED",
+    "quadraticHotPathFinding": "NONE_DEMONSTRATED",
+    "largeServerCurriculumModulesApproxBytes": 676000,
+    "loadTest": "NOT_RUN",
+    "memoryProfile": "NOT_RUN",
+    "ownerRuntimeReadyMilliseconds": 325,
+    "generatedBuildDirectoryApproxBytes": 3600000000
+  },
+  "database": {
+    "migrationCount": 37,
+    "order": "0001_TO_0037_CONTIGUOUS",
+    "checksums": {
+      "0035": "67bef151f4a8744c107835ce98ab5a5c30372cf76ff0328e02c1ca8649c7f206",
+      "0036": "d88b21c866c5d19708dc544faaa2c5828e3127844c50f0d7e76a3716c07fc6f1",
+      "0037": "91e2a4bb918bf894903f313d65d93bd80d8be98fad4fa2a1ca7c59cbbfe1b070"
+    },
+    "constraintsIndexesRlsPoliciesGrants": "STATIC_PASS",
+    "forceRlsAndSolutionProtection": "STATIC_PASS",
+    "securityDefinerSearchPath": "STATIC_PASS",
+    "publicPrivateRpcBoundary": "STATIC_PASS",
+    "browserSolutionPrivileges": "REVOKED_BY_CONTRACT",
+    "remoteStatus": "CURRENT_REMOTE_UNVERIFIED",
+    "historicalRemoteEvidence": "PREVIOUS_LEDGER_ONLY",
+    "sqlExecuted": false,
+    "rollbackRecoveryDocs": "PRESENT_WITH_STATUS_WORDING_LIMITATION"
+  },
+  "documentation": {
+    "readme": "MISSING",
+    "envExample": "PRESENT_BUT_MINIMAL",
+    "demoRunbook": "PRESENT",
+    "architectureDocs": "PRESENT_WITH_STALE_PROJECT003_BASELINE",
+    "curriculumEvidence": "PRESENT",
+    "operationsEvidence": "PRESENT",
+    "finalStatus": "PRESENT",
+    "staleOrContradictoryClaims": true,
+    "absoluteMachinePaths": true,
+    "archiveExclusionsDocumented": true,
+    "newRecipientCanInstallBuildRun": "YES_USING_PACKAGE_JSON_AND_FINAL_LOCAL_DEMO_RUNBOOK",
+    "newRecipientLimitations": "No single canonical root README"
+  },
+  "submission": {
+    "decision": "READY_WITH_KNOWN_LIMITATIONS",
+    "decisionBasis": [
+      "Core local demo runtime and student journey Owner-observed PASS",
+      "No BLOCKER or HIGH finding",
+      "Official curriculum and solution-boundary evidence PASS",
+      "Full suite, lint, typecheck, and production build PASS",
+      "MEDIUM findings remain",
+      "Authenticated role journeys are not live-tested",
+      "Adaptive is deliberately hidden and disabled",
+      "Grade 2 remains frozen DRAFT/HIDDEN"
+    ],
+    "localDemoCommand": "cd /Users/hatrung/Desktop/PLAVE-PROJECT004 && npm install && npm run dev",
+    "localDemoUrl": "http://127.0.0.1:3000/curriculum-preview",
+    "doNotInclude": [
+      ".next",
+      "node_modules",
+      ".env files",
+      "database dumps",
+      "operational backups"
+    ],
+    "doNotActivate": [
+      "Adaptive practice",
+      "Frozen Grade 2 candidate",
+      "Grades 1-9 draft publication"
+    ]
+  },
+  "recommendedNextSteps": [
+    {
+      "priority": 1,
+      "action": "Remove nested main landmarks and duplicate main-content ID",
+      "impact": "HIGH",
+      "effort": "LOW"
+    },
+    {
+      "priority": 2,
+      "action": "Add a canonical root README and align project identity",
+      "impact": "HIGH",
+      "effort": "LOW"
+    },
+    {
+      "priority": 3,
+      "action": "Reconcile migration status wording without running SQL",
+      "impact": "HIGH",
+      "effort": "LOW"
+    },
+    {
+      "priority": 4,
+      "action": "Document and implement authentication abuse controls",
+      "impact": "HIGH",
+      "effort": "MEDIUM"
+    },
+    {
+      "priority": 5,
+      "action": "Conduct qualified educator review of Grade 7-9 draft content",
+      "impact": "HIGH",
+      "effort": "MEDIUM_HIGH"
+    },
+    {
+      "priority": 6,
+      "action": "Add custom global not-found, error, and loading states",
+      "impact": "MEDIUM",
+      "effort": "MEDIUM"
+    },
+    {
+      "priority": 7,
+      "action": "Run authenticated student, parent, and teacher journeys in an approved disposable environment",
+      "impact": "HIGH",
+      "effort": "MEDIUM"
+    },
+    {
+      "priority": 8,
+      "action": "Add automated accessibility checks and manual keyboard, screen-reader, and contrast acceptance",
+      "impact": "MEDIUM",
+      "effort": "MEDIUM"
+    },
+    {
+      "priority": 9,
+      "action": "Add and test deployment-compatible security headers",
+      "impact": "MEDIUM",
+      "effort": "MEDIUM"
+    },
+    {
+      "priority": 10,
+      "action": "Clean module and dependency warnings in a separately authorized change",
+      "impact": "LOW",
+      "effort": "LOW"
+    }
+  ]
+}

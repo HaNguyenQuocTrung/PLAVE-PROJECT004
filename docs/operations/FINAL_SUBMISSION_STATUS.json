@@ -1,0 +1,275 @@
+{
+  "generatedAt": "2026-07-30",
+  "officialOutcomeCoverage": {
+    "implemented": 546,
+    "validated": 546,
+    "total": 546,
+    "percent": 100,
+    "applicableDomainCells": {
+      "implemented": 37,
+      "total": 37,
+      "notApplicable": 3
+    },
+    "status": "PASS"
+  },
+  "totalUnits": 171,
+  "totalQuestions": 2052,
+  "totalSolutions": 2052,
+  "sampledUnits": [
+    "grade-1-numbers-to-10",
+    "grade-1-applied-problem-solving",
+    "grade-2-time-calendar-money-p0",
+    "grade-2-data-and-chance",
+    "grade-3-unit-fractions",
+    "grade-3-data-and-probability",
+    "grade-4-fraction-reasoning-p1",
+    "grade-4-angle-reasoning",
+    "grade-5-decimal-operations",
+    "grade-5-volume-area-nets-p1",
+    "grade-6-integer-operations",
+    "grade-6-finance-interdisciplinary-p1",
+    "grade-7-secondary-geo-p1-8",
+    "grade-7-data-and-probability",
+    "grade-8-linear-equations",
+    "grade-8-pythagorean-reasoning",
+    "grade-9-quadratic-functions",
+    "grade-9-data-and-probability"
+  ],
+  "sampledQuestions": [
+    "grade-1-numbers-to-10-q01",
+    "grade-1-numbers-to-10-q05",
+    "grade-1-numbers-to-10-q09",
+    "grade-1-applied-problem-solving-q01",
+    "grade-1-applied-problem-solving-q05",
+    "grade-1-applied-problem-solving-q09",
+    "grade-2-time-calendar-money-p0-q01",
+    "grade-2-time-calendar-money-p0-q02",
+    "grade-2-time-calendar-money-p0-q03",
+    "grade-2-data-and-chance-q01",
+    "grade-2-data-and-chance-q05",
+    "grade-2-data-and-chance-q06",
+    "grade-3-unit-fractions-q01",
+    "grade-3-unit-fractions-q05",
+    "grade-3-unit-fractions-q09",
+    "grade-3-data-and-probability-q01",
+    "grade-3-data-and-probability-q05",
+    "grade-3-data-and-probability-q06",
+    "grade-4-fraction-reasoning-p1-q01",
+    "grade-4-fraction-reasoning-p1-q05",
+    "grade-4-fraction-reasoning-p1-q09",
+    "grade-4-angle-reasoning-q01",
+    "grade-4-angle-reasoning-q05",
+    "grade-4-angle-reasoning-q09",
+    "grade-5-decimal-operations-q01",
+    "grade-5-decimal-operations-q05",
+    "grade-5-decimal-operations-q09",
+    "grade-5-volume-area-nets-p1-q01",
+    "grade-5-volume-area-nets-p1-q06",
+    "grade-5-volume-area-nets-p1-q10",
+    "grade-6-integer-operations-q01",
+    "grade-6-integer-operations-q05",
+    "grade-6-integer-operations-q09",
+    "grade-6-finance-interdisciplinary-p1-q01",
+    "grade-6-finance-interdisciplinary-p1-q05",
+    "grade-6-finance-interdisciplinary-p1-q10",
+    "grade-7-secondary-geo-p1-8-q10",
+    "grade-7-secondary-geo-p1-8-q11",
+    "grade-7-secondary-geo-p1-8-q12",
+    "grade-7-data-and-probability-q01",
+    "grade-7-data-and-probability-q05",
+    "grade-7-data-and-probability-q09",
+    "grade-8-linear-equations-q01",
+    "grade-8-linear-equations-q05",
+    "grade-8-linear-equations-q09",
+    "grade-8-pythagorean-reasoning-q01",
+    "grade-8-pythagorean-reasoning-q05",
+    "grade-8-pythagorean-reasoning-q09",
+    "grade-9-quadratic-functions-q01",
+    "grade-9-quadratic-functions-q05",
+    "grade-9-quadratic-functions-q09",
+    "grade-9-data-and-probability-q01",
+    "grade-9-data-and-probability-q05",
+    "grade-9-data-and-probability-q09"
+  ],
+  "routesTested": [
+    {
+      "route": "/",
+      "buildManifest": "PASS",
+      "httpStatus": 200,
+      "evidence": "OWNER_RUNTIME_OBSERVED"
+    },
+    {
+      "route": "/demo",
+      "buildManifest": "PASS",
+      "httpStatus": 200,
+      "evidence": "OWNER_RUNTIME_OBSERVED",
+      "previewLink": "PASS_SOURCE"
+    },
+    {
+      "route": "/curriculum-preview",
+      "buildManifest": "PASS",
+      "httpStatus": 200,
+      "evidence": "OWNER_RUNTIME_OBSERVED",
+      "localRegistryFallback": "PASS_SOURCE"
+    },
+    {
+      "route": "/api/curriculum-preview/check",
+      "buildManifest": "PASS",
+      "directHandlerStatuses": [
+        200,
+        400,
+        404
+      ],
+      "journeyPost": "PASS_OWNER_BROWSER_OBSERVED",
+      "exactHttpStatus": "NOT_SEPARATELY_REPORTED"
+    },
+    {
+      "route": "/curriculum-preview?grade=7",
+      "buildManifest": "PASS",
+      "httpStatus": 200,
+      "evidence": "OWNER_RUNTIME_OBSERVED"
+    }
+  ],
+  "viewportResults": [
+    {
+      "viewport": "360x800",
+      "staticResponsiveContract": "PASS",
+      "browserObservation": "PASS_OWNER_BROWSER_OBSERVED",
+      "horizontalOverflowObserved": false,
+      "clippedOrOverlappingContentObserved": false,
+      "buttonsUnusable": false
+    },
+    {
+      "viewport": "768x1024",
+      "staticResponsiveContract": "PASS",
+      "browserObservation": "STATIC_COMPONENT_VALIDATED"
+    },
+    {
+      "viewport": "1440x900",
+      "staticResponsiveContract": "PASS",
+      "browserObservation": "STATIC_COMPONENT_VALIDATED",
+      "desktopNote": "Normal desktop usage was OWNER_BROWSER_OBSERVED; the exact 1440x900 viewport was not separately reported."
+    }
+  ],
+  "accessibilityResults": {
+    "semanticHeadings": "PASS_SOURCE",
+    "buttonAndFormLabels": "PASS_SOURCE",
+    "visibleFocusStyles": "PASS_SOURCE",
+    "feedbackNotColorOnly": "PASS_SOURCE",
+    "visualAccessibleDescription": "PASS_SOURCE",
+    "reducedMotion": "PASS_SOURCE",
+    "keyboardBrowserJourney": "NOT_SEPARATELY_REPORTED",
+    "screenReaderObservation": "NOT_SEPARATELY_REPORTED",
+    "computedContrast": "NOT_SEPARATELY_REPORTED"
+  },
+  "mobileUsability": {
+    "status": "PASS",
+    "minimumInteractiveTargetPixels": 44,
+    "safeAreaBottomPadding": true,
+    "mobileSectionSpacing": true,
+    "gradeNavigationWrapsToThreeColumns": true,
+    "unitCardActionFullWidthOnMobile": true,
+    "primaryPracticeActionFullWidthOnMobile": true,
+    "nextResetExitSeparatedOnMobile": true,
+    "longTextWrapContract": true,
+    "visualMaxWidthContract": true,
+    "visualCanvasContainsHorizontalScroll": true,
+    "feedbackSolutionSpacing": true,
+    "optionFocusVisible": true,
+    "stickyActionAreaAdded": false
+  },
+  "ownerRuntimeEvidence": {
+    "evidenceComplete": true,
+    "runtime": {
+      "framework": "Next.js 16.2.12",
+      "url": "http://127.0.0.1:3000",
+      "readyMilliseconds": 325,
+      "serverRuntimeErrorsObserved": false
+    },
+    "gradesReported": [
+      1,
+      3,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "http": {
+      "/": 200,
+      "/demo": 200,
+      "/curriculum-preview": 200,
+      "/curriculum-preview?grade=7": 200
+    },
+    "studentJourney": {
+      "openUnit": "PASS",
+      "theory": "PASS",
+      "workedExamples": "PASS",
+      "startPractice": "PASS",
+      "incorrectSubmit": "PASS",
+      "incorrectFeedback": "PASS",
+      "solutionAppearsAfterSubmit": "PASS",
+      "correctSubmit": "PASS",
+      "nextQuestion": "PASS",
+      "resetExit": "PASS",
+      "changeGrade": "PASS",
+      "gradesOpen": "PASS_1_3_5_6_7_8_9"
+    },
+    "viewports": {
+      "360x800": "PASS_OWNER_BROWSER_OBSERVED",
+      "768x1024": "PASS_STATIC_COMPONENT_VALIDATED",
+      "1440x900": "PASS_STATIC_COMPONENT_VALIDATED",
+      "desktopUsage": "PASS_OWNER_BROWSER_OBSERVED_VIEWPORT_NOT_SPECIFIED"
+    },
+    "browser": {
+      "consoleRedErrors": 0,
+      "horizontalOverflowObservedAt360x800": false,
+      "clippedOrOverlappingContentObservedAt360x800": false,
+      "buttonsUnusableAt360x800": false,
+      "hydrationErrors": "NOT_SEPARATELY_REPORTED",
+      "missingAssets": "NOT_SEPARATELY_REPORTED",
+      "solutionPreloadObserved": "NOT_SEPARATELY_REPORTED",
+      "keyboardNavigation": "NOT_SEPARATELY_REPORTED",
+      "focusVisible": "PASS_STATIC_COMPONENT_VALIDATED"
+    },
+    "sourceNote": "Only 360x800 and normal desktop usage are labeled OWNER_BROWSER_OBSERVED. The 768x1024 and exact 1440x900 viewport results remain STATIC_COMPONENT_VALIDATED."
+  },
+  "solutionBoundary": {
+    "status": "PASS",
+    "serverOnlyRegistry": true,
+    "questionsPerSelectedUnit": 12,
+    "allQuestionsSent": false,
+    "solutionsPreloaded": false,
+    "solutionReturnedOnlyAfterPost": true,
+    "clientSpecificChunkBytes": 12764,
+    "sampleSelectedQuestionPayloadBytes": 6014,
+    "allQuestionPayloadBytesNotSent": 1335974,
+    "questionIdsInClientStaticChunk": 0,
+    "solutionStepsInClientStaticChunk": false
+  },
+  "tests": {
+    "targetedUiComponentApi": "PASS_15_OF_15",
+    "responsiveContract": "PASS_360_768_1440",
+    "curriculumApi": "PASS_9_OF_9",
+    "outcomeValidators": "PASS_546_OF_546",
+    "applicableDomainCoverage": "PASS_37_OF_37",
+    "fullSequentialSuite": "PASS_779_OF_779",
+    "grade1Regression": "PASS_550_OF_550",
+    "grade1ProductionValidator": "PASS_13_UNITS_312_QUESTIONS_312_SOLUTIONS",
+    "grade2FrozenTests": "PASS_7_OF_7",
+    "grade2FrozenValidator": "PASS_DRAFT_HIDDEN",
+    "solutionLeakScans": "PASS",
+    "migrationChecksumVerification": "PASS"
+  },
+  "build": {
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "productionBuild": "PASS",
+    "brokenImport": false,
+    "routesPresent": true
+  },
+  "blockers": [],
+  "highFindings": [],
+  "mediumFindings": [],
+  "submissionDecision": "READY_FOR_LOCAL_DEMO_AND_SUBMISSION"
+}

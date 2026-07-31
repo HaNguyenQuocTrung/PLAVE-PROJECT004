@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "status": "READY",
+  "documents": [
+    {
+      "id": "MOET-MATH-2018",
+      "documentTitle": "Chương trình giáo dục phổ thông môn Toán",
+      "issuingAuthority": "Bộ Giáo dục và Đào tạo",
+      "documentYear": 2018,
+      "localPath": "docs/curriculum/sources/MOET_GDPT_2018_MATHEMATICS.pdf",
+      "sourceUrl": "https://moet.gov.vn/content/vanban/Lists/VBDT/Attachments/1559/2.%20Ch%C6%B0%C6%A1ng%20tr%C3%ACnh%20m%C3%B4n%20To%C3%A1n.pdf",
+      "sha256": "f35d34ff84da2ca3f9ab72d5d67482ada414684b611deea98c4b329801b661ab",
+      "fileSizeBytes": 1035429,
+      "mediaType": "application/pdf",
+      "formatStatus": "VALID_PDF",
+      "pdfHeader": "%PDF-1.7",
+      "pageCount": 123,
+      "attachmentEvidence": {
+        "page": 1,
+        "conciseBasis": "The title page states that the Mathematics curriculum was issued with Circular 32/2018/TT-BGDĐT dated 26 December 2018 by the Minister of Education and Training."
+      },
+      "extractionMethod": "MIME and magic-byte inspection; SHA-256 and byte-size fingerprinting; PDFKit page-count and embedded-text extraction across the complete Grade 1–9 requirements on pages 21–78; visual render verification of pages 1, 18, 21 and 76",
+      "extractionTimestamp": "2026-07-30T16:02:45+07:00",
+      "amendmentApplicability": {
+        "status": "BASE_CURRICULUM_DOCUMENT",
+        "evidence": null
+      }
+    },
+    {
+      "id": "MOET-TT17-2025",
+      "documentTitle": "Thông tư 17/2025/TT-BGDĐT sửa đổi, bổ sung một số nội dung trong Chương trình giáo dục phổ thông ban hành kèm theo Thông tư 32/2018/TT-BGDĐT",
+      "issuingAuthority": "Bộ Giáo dục và Đào tạo",
+      "documentYear": 2025,
+      "localPath": "docs/curriculum/sources/TT17_2025_BGDDT_AMENDMENT.pdf",
+      "sourceUrl": "https://vbpl.vn/bogiaoducdaotao/Pages/vbpq-toanvan.aspx?ItemID=183284",
+      "sha256": "1d40c0513a1fdff35245c633ffc382122a18d2d5c0fbc96fcb426a51a8f9fea6",
+      "fileSizeBytes": 8203245,
+      "mediaType": "application/pdf",
+      "formatStatus": "VALID_PDF",
+      "pdfHeader": "%PDF-1.7",
+      "pageCount": 22,
+      "attachmentEvidence": null,
+      "extractionMethod": "PDFKit embedded-text extraction for all 22 pages plus visual render verification of page 1",
+      "extractionTimestamp": "2026-07-30T16:02:45+07:00",
+      "amendmentApplicability": {
+        "status": "NOT_APPLICABLE_TO_MATHEMATICS",
+        "evidence": {
+          "page": 1,
+          "heading": "Điều 1, khoản 1–5",
+          "conciseBasis": "The exhaustive amendment list names History and Geography at primary and lower-secondary level, Grade 10 History, Geography, and Civic Education; Mathematics is not included."
+        }
+      }
+    }
+  ],
+  "incidentHistory": [
+    {
+      "id": "INCIDENT-2026-07-30-MOET-MATH-HTML-404",
+      "occurredAt": "2026-07-30T15:50:23+07:00",
+      "localPath": "docs/curriculum/sources/MOET_GDPT_2018_MATHEMATICS.pdf",
+      "sha256": "d3ce99b46d525b77c7d3191c7486facc8368353235c9b92fc01e31fd12db434c",
+      "fileSizeBytes": 7515,
+      "mediaType": "text/html",
+      "disposition": "REJECTED_NOT_CURRENT_SOURCE",
+      "conciseBasis": "The former payload was a Ministry 404 HTML response. Its fingerprint is retained only as incident history and is not accepted as the current Mathematics source."
+    }
+  ]
+}
