@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "sourceInventory": {
+    "pageRoutes": 55,
+    "apiRoutes": 56,
+    "authCallbackRoutes": 1,
+    "productionStaticGenerationUnits": 77
+  },
+  "routeGroups": [
+    {"area": "PUBLIC", "routes": ["/", "/about", "/demo", "/privacy", "/terms"], "access": "ANONYMOUS", "freshBrowser": "DIAGNOSTIC_PASS"},
+    {"area": "AUTH", "routes": ["/login", "/register", "/forgot-password", "/update-password", "/auth/confirm"], "access": "ANONYMOUS_OR_RECOVERY_SESSION", "freshBrowser": "PARTIAL_DIAGNOSTIC_PASS", "unverified": ["live email delivery", "expired external recovery link"]},
+    {"area": "STUDENT_HOME", "routes": ["/dashboard", "/lessons", "/learn", "/learn/[gradeSlug]/[lessonSlug]"], "access": "AUTHENTICATED_ROLE_ROUTED", "freshBrowser": "DIAGNOSTIC_PASS"},
+    {"area": "STUDENT_PRACTICE", "routes": ["/practice/[attemptId]", "/curriculum-practice/[attemptId]", "/on-demand-practice/[attemptId]", "/adaptive-practice/[attemptId]", "/review/[attemptId]", "/results"], "access": "STUDENT", "freshBrowser": "STATIC_CURRICULUM_PASS; GENERATOR_V2_NOT_REAL_STUDENT_ROUTE"},
+    {"area": "STUDENT_LEARNING_RECORD", "routes": ["/learning-progress", "/learning-history", "/grade-1/summary", "/goals"], "access": "STUDENT", "freshBrowser": "DIAGNOSTIC_PASS"},
+    {"area": "STUDENT_COLLABORATION", "routes": ["/connections", "/classrooms", "/assignments", "/assignments/[assignmentId]", "/assignments/[assignmentId]/review"], "access": "ROLE_SPECIFIC", "freshBrowser": "DIAGNOSTIC_PASS"},
+    {"area": "STUDENT_DIAGNOSTIC", "routes": ["/diagnostic", "/diagnostic/[attemptId]", "/diagnostic/[attemptId]/review"], "access": "STUDENT", "freshBrowser": "DIAGNOSTIC_PASS"},
+    {"area": "AI_TUTOR", "routes": ["/tutor", "/api/tutor/stream"], "access": "STUDENT_AND_LOCAL_FEATURE_FLAG", "freshBrowser": "FAIL_PRIMARY_TOUCH_TARGET_SMALL", "remoteRuntime": "OFF"},
+    {"area": "PARENT", "routes": ["/dashboard", "/connections", "/parent/children/[connectionId]"], "access": "PARENT_OWN_LINKS_ONLY", "freshBrowser": "DIAGNOSTIC_PASS"},
+    {"area": "TEACHER", "routes": ["/teacher", "/teacher/onboarding", "/teacher/profile", "/teacher/questions", "/teacher/classrooms", "/teacher/classrooms/[classroomId]", "/teacher/classes/[classroomId]/gradebook", "/teacher/assignments", "/teacher/assignments/new", "/teacher/assignments/[assignmentId]", "/teacher/assignments/[assignmentId]/analysis"], "access": "VERIFIED_TEACHER", "freshBrowser": "DIAGNOSTIC_PASS_AFTER_TEMP_LOCATOR_NARROWING"},
+    {"area": "ACCOUNT", "routes": ["/profile", "/profile/edit", "/settings", "/onboarding"], "access": "AUTHENTICATED_ROLE_ROUTED", "freshBrowser": "DIAGNOSTIC_PASS"},
+    {"area": "CURRICULUM_PREVIEW", "routes": ["/curriculum-preview", "/api/curriculum-preview/check"], "access": "PUBLIC_PREVIEW", "freshBrowser": "DIAGNOSTIC_PASS"},
+    {"area": "INTERNAL_GENERATOR", "routes": ["/internal/generator-v2", "/internal/generator-v2-database", "/internal/generator-v2-owner-review", "/internal/generator-product-audit"], "access": "DEVELOPMENT_LOOPBACK_FLAGGED", "freshBrowser": "GENERATOR_PROOF_PASS", "productionGuard": "SOURCE_GUARDED_BUT_ROUTES_PRESENT_IN_BUILD"},
+    {"area": "INTERNAL_HEALTH", "routes": ["/internal/generated-pilot-acceptance", "/api/internal/generated-pilot-health", "/api/internal/owner-local-health"], "access": "FLAGGED_INTERNAL", "freshBrowser": "STRUCTURAL_ONLY"}
+  ],
+  "criticalApiGroups": [
+    {"group": "CURRICULUM_RUNTIME", "routes": ["/api/curriculum-runtime/start", "/api/curriculum-runtime/state", "/api/curriculum-runtime/answer", "/api/curriculum-runtime/progress", "/api/curriculum-runtime/history"], "authorization": "STUDENT_SERVER_SIDE", "idempotency": "DATABASE_CONTRACT_TESTED", "generatorV2": false},
+    {"group": "ON_DEMAND", "routes": ["/api/on-demand-curriculum/start", "/api/on-demand-curriculum/state", "/api/on-demand-curriculum/answer"], "authorization": "STUDENT_SERVER_SIDE", "generator": "LEGACY_ON_DEMAND"},
+    {"group": "PRACTICE", "routes": ["/api/practice/start", "/api/practice/state", "/api/practice/answer"], "authorization": "STUDENT_SERVER_SIDE"},
+    {"group": "ADAPTIVE", "routes": ["/api/adaptive-practice/start", "/api/adaptive-practice/state", "/api/adaptive-practice/answer"], "authorization": "STUDENT_AND_FLAG"},
+    {"group": "DIAGNOSTIC", "routes": ["/api/diagnostic/start", "/api/diagnostic/current", "/api/diagnostic/state", "/api/diagnostic/answer"], "authorization": "STUDENT_SERVER_SIDE"},
+    {"group": "CONNECTIONS", "routes": ["/api/connections/preview", "/api/connections/request", "/api/connections/action"], "authorization": "STUDENT_PARENT_SERVER_SIDE"},
+    {"group": "CLASSROOMS", "routes": ["/api/classrooms/preview", "/api/classrooms/request", "/api/classrooms/action", "/api/classrooms/create"], "authorization": "STUDENT_TEACHER_SERVER_SIDE"},
+    {"group": "ASSIGNMENTS", "routes": ["/api/assignments/draft", "/api/assignments/start", "/api/assignments/state", "/api/assignments/submit"], "authorization": "ROLE_AND_MEMBERSHIP_SERVER_SIDE"},
+    {"group": "TEACHER", "routes": ["/api/teacher/activate", "/api/teacher/questions", "/api/teacher/questions/create", "/api/teacher/questions/archive", "/api/teacher/questions/restore", "/api/teacher/assignments/lifecycle", "/api/teacher/assignments/publish", "/api/teacher/assignments/[assignmentId]/gradebook.csv", "/api/teacher/curriculum", "/api/teacher/curriculum/drafts", "/api/teacher/curriculum/drafts/publish"], "authorization": "VERIFIED_TEACHER_SERVER_SIDE"},
+    {"group": "AI_TUTOR", "routes": ["/api/tutor/stream"], "authorization": "STUDENT_SERVER_SIDE", "cache": "NO_STORE", "remoteDefault": "OFF"},
+    {"group": "GENERATOR_V2_INTERNAL", "routes": ["/api/internal/generator-v2/start", "/api/internal/generator-v2/state", "/api/internal/generator-v2/answer", "/api/internal/generator-v2-database/start", "/api/internal/generator-v2-database/state", "/api/internal/generator-v2-database/answer", "/api/internal/generator-v2-database/history", "/api/internal/generator-v2-database/diagnostics", "/api/internal/generator-v2-owner-review/answer", "/api/internal/generator-v2-owner-review/decision"], "authorization": "DEVELOPMENT_LOOPBACK_FLAGGED", "studentProductRoute": false}
+  ],
+  "missingProductSurfaces": ["/support or equivalent contact/help route"],
+  "findingIds": ["F-002", "F-011"]
+}

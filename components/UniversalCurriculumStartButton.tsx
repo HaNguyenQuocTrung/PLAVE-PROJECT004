@@ -20,8 +20,6 @@ export function UniversalCurriculumStartButton({
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const [errorCode, setErrorCode] = useState("");
-  const [correlationId, setCorrelationId] = useState("");
   const idempotencyKey = useRef<string | null>(null);
 
   const start = async () => {
@@ -35,8 +33,6 @@ export function UniversalCurriculumStartButton({
     performance.mark("plave:start-practice-click");
     setSubmitting(true);
     setError("");
-    setErrorCode("");
-    setCorrelationId("");
     idempotencyKey.current ??= crypto.randomUUID();
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), 6_000);
@@ -87,30 +83,16 @@ export function UniversalCurriculumStartButton({
           ? apiError.message
           : "Chưa thể mở bài luyện tập. Em hãy thử lại.",
       );
-      setErrorCode(
-        apiError &&
-          "code" in apiError &&
-          typeof apiError.code === "string"
-          ? apiError.code
-          : "REQUEST_FAILED",
-      );
-      setCorrelationId(
-        apiError &&
-          "correlationId" in apiError &&
-          typeof apiError.correlationId === "string"
-          ? apiError.correlationId
-          : response.headers.get("X-PLAVE-Correlation-ID") ?? "",
-      );
     } catch (requestError) {
       const timedOut =
         requestError instanceof DOMException &&
         requestError.name === "AbortError";
+      const failureKind = timedOut ? "CLIENT_TIMEOUT" : "NETWORK_ERROR";
       setError(
-        timedOut
+        failureKind === "CLIENT_TIMEOUT"
           ? "Yêu cầu mất quá nhiều thời gian. Em có thể thử lại an toàn."
           : "Mất kết nối khi mở bài. Em có thể thử lại an toàn.",
       );
-      setErrorCode(timedOut ? "CLIENT_TIMEOUT" : "NETWORK_ERROR");
     } finally {
       window.clearTimeout(timeout);
       setSubmitting(false);
@@ -128,17 +110,14 @@ export function UniversalCurriculumStartButton({
       <Button
         disabled={submitting}
         fullWidth={fullWidth}
+        loading={submitting}
         onClick={start}
       >
-        {submitting ? "Đang mở bài…" : label}
+        {label}
       </Button>
       {error ? (
         <div className="form-error-box" role="alert">
           <p>{error}</p>
-          <p>
-            Mã lỗi: <strong>{errorCode}</strong>
-            {correlationId ? ` · Mã hỗ trợ: ${correlationId}` : ""}
-          </p>
           <Button disabled={submitting} onClick={start} variant="secondary">
             Thử lại
           </Button>

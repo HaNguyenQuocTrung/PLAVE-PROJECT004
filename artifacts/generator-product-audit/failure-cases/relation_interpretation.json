@@ -1,0 +1,60 @@
+{
+  "variant": "RELATION_INTERPRETATION",
+  "severity": "CRITICAL",
+  "categories": [
+    "UNIMPLEMENTED_VARIANT",
+    "RUNTIME_DISCONNECTED"
+  ],
+  "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-ef8540a0d756e4373e0a2422f7d141f751446f3912340991",
+  "reproductionSeedFingerprint": "ef8540a0d756e437",
+  "reproductionSampleId": "RELATION_INTERPRETATION:EASY:1",
+  "sample": {
+    "sampleId": "RELATION_INTERPRETATION:EASY:1",
+    "variant": "RELATION_INTERPRETATION",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-ef8540a0d756e4373e0a2422f7d141f751446f3912340991",
+    "seedFingerprint": "ef8540a0d756e437",
+    "runtimeReachable": false,
+    "grade": null,
+    "outcomeId": null,
+    "unitId": null,
+    "astKind": "ALGEBRA",
+    "complexity": 1,
+    "prompt": "Thực hiện relation interpretation với biểu thức 2x + 44, x = 44.",
+    "normalizedTemplate": "thựx hiện relation interpretation với biểu thứx #x + #, x = #.",
+    "answerType": null,
+    "optionLabels": [],
+    "correctOptionKey": null,
+    "correctOptionLabel": "132",
+    "visualType": null,
+    "visualTemplate": null,
+    "solutionSteps": [],
+    "feedback": null,
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": null,
+    "productVerdict": {
+      "usable": false,
+      "severity": "CRITICAL",
+      "categories": [
+        "UNIMPLEMENTED_VARIANT",
+        "RUNTIME_DISCONNECTED"
+      ],
+      "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist."
+    }
+  }
+}

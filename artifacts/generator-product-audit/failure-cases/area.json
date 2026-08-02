@@ -1,0 +1,102 @@
+{
+  "variant": "AREA",
+  "severity": "HIGH",
+  "categories": [
+    "INVALID_OR_AMBIGUOUS_QUESTION",
+    "VISUAL_MISSING_OR_INCORRECT",
+    "OUTCOME_ALIGNMENT_WRONG"
+  ],
+  "summary": "Đơn vị/đích đổi/hình và vai trò các số đo không được nêu nhất quán; TIME_MONEY vẫn dùng cm.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-e9afa3a9ceb5a251528159b9f8d336a4a4cd55021ca28e17",
+  "reproductionSeedFingerprint": "e9afa3a9ceb5a251",
+  "reproductionSampleId": "AREA:EASY:1",
+  "sample": {
+    "sampleId": "AREA:EASY:1",
+    "variant": "AREA",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-e9afa3a9ceb5a251528159b9f8d336a4a4cd55021ca28e17",
+    "seedFingerprint": "e9afa3a9ceb5a251",
+    "runtimeReachable": true,
+    "grade": 3,
+    "outcomeId": "MOET2018-G3-GEO-P032-012",
+    "unitId": "grade-3-time-and-area-units-p1",
+    "astKind": "MEASURE",
+    "complexity": 1,
+    "prompt": "Thực hiện diện tích với các số đo 31, 15, 2 cm.",
+    "normalizedTemplate": "thựx hiện diện tích với xáx số đo #, #, # cm.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "467",
+      "465",
+      "466",
+      "464"
+    ],
+    "correctOptionKey": "B",
+    "correctOptionLabel": "465",
+    "visualType": "AREA_MODEL",
+    "visualTemplate": "{\"type\":\"AREA_MODEL\",\"shape\":\"RECTANGLE\",\"width\":#,\"height\":#,\"description\":\"Hình minh họa chỉ thể hiện các dữ kiện đã nêu trong câu hỏi.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn B."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-0c90da918d26bd1909c36dc2249e6f70",
+      "position": 1,
+      "prompt": "Thực hiện diện tích với các số đo 31, 15, 2 cm.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "467"
+        },
+        {
+          "key": "B",
+          "label": "465"
+        },
+        {
+          "key": "C",
+          "label": "466"
+        },
+        {
+          "key": "D",
+          "label": "464"
+        }
+      ],
+      "visual": {
+        "type": "AREA_MODEL",
+        "shape": "RECTANGLE",
+        "width": 31,
+        "height": 15,
+        "description": "Hình minh họa chỉ thể hiện các dữ kiện đã nêu trong câu hỏi."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "HIGH",
+      "categories": [
+        "INVALID_OR_AMBIGUOUS_QUESTION",
+        "VISUAL_MISSING_OR_INCORRECT",
+        "OUTCOME_ALIGNMENT_WRONG"
+      ],
+      "summary": "Đơn vị/đích đổi/hình và vai trò các số đo không được nêu nhất quán; TIME_MONEY vẫn dùng cm."
+    }
+  }
+}

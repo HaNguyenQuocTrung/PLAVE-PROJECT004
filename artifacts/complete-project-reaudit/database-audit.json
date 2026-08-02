@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_WITH_RUNTIME_INTEGRATION_FINDING",
+  "migrationInventory": {
+    "count": 42,
+    "range": "0001-0042",
+    "sequential": true,
+    "freshDisposableApply": "PASS",
+    "migration0041Sha256": "ddead90b474185686d859d9ba88aea969bebd7fc8e8fcff66fc38eea61f83e67",
+    "migration0042Sha256": "c3adecf481c8eb8b50872a4b165ea29539598f568f91cdd5f7993b3cc04662d7",
+    "modifiedByAudit": false
+  },
+  "freshGeneratorProof": {
+    "authenticatedCapabilities": "198/198",
+    "persistedQuestions": 2388,
+    "sourceDiscriminator": "GENERATED_V2",
+    "provenance": "8/8",
+    "resumeWithoutRegeneration": "PASS",
+    "concurrentStart": "PASS",
+    "casConflict": "REVISION_CONFLICT",
+    "duplicateSubmit": "IDEMPOTENT_ONE_WRITE",
+    "exactlyOnceProgressHistory": "PASS",
+    "transactionRollback": "PASS",
+    "rlsRoleIsolation": "PASS",
+    "orphanRecords": 0,
+    "privateLeakBeforeSubmit": 0,
+    "cleanup": "PASS"
+  },
+  "securityDefinerAudit": {
+    "stringOccurrencesInspected": 133,
+    "actualFunctionsWithoutExplicitSearchPathFound": 0,
+    "executePrivilegeAndRlsRepresentativeTests": "PASS"
+  },
+  "remoteAccessPerformed": false,
+  "remoteMutationPerformed": false,
+  "findingIds": ["F-002"]
+}

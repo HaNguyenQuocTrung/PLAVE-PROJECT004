@@ -4,18 +4,30 @@ export const metadata = {
 
 export default function PrivacyPage() {
   return (
-    <section className="content-page page-shell">
+    <section className="content-page legal-page--v2 page-shell">
       <p className="eyebrow">Quyền riêng tư</p>
-      <h1>Quyền riêng tư của học sinh luôn được ưu tiên.</h1>
+      <h1>PLAVE bảo vệ dữ liệu học tập theo vai trò và sự đồng ý.</h1>
+      <h2>Dữ liệu tài khoản</h2>
       <p>
-        Supabase Auth quản lý tài khoản và mật khẩu. PLAVE chỉ ghi nhớ email trên
-        thiết bị khi người dùng chủ động chọn; mật khẩu không được lưu trong bảng
-        dữ liệu ứng dụng hoặc localStorage.
+        Dịch vụ xác thực quản lý email và mật khẩu. PLAVE không lưu mật khẩu
+        trong bảng dữ liệu ứng dụng hoặc bộ nhớ trình duyệt. Email chỉ được ghi
+        nhớ trên thiết bị khi người dùng chủ động chọn.
       </p>
+      <h2>Dữ liệu học tập</h2>
       <p>
-        Hồ sơ Học sinh có thể lưu tên, lớp và ngày sinh tùy chọn. Ngày sinh được
-        giữ riêng tư. Phụ huynh chưa thể xem dữ liệu của học sinh khi chưa có cơ
-        chế kết nối và chấp thuận an toàn.
+        Hồ sơ học sinh gồm tên, lớp, ngày sinh tùy chọn, bài làm và tiến độ.
+        Lớp hiện tại quyết định chương trình được mở; PLAVE không tự đổi lớp.
+      </p>
+      <h2>Quyền xem của phụ huynh và giáo viên</h2>
+      <p>
+        Phụ huynh chỉ xem phần tổng hợp sau khi học sinh đồng ý kết nối. Giáo
+        viên chỉ xem dữ liệu cần thiết trong lớp và bài tập mà mình quản lý.
+        Đáp án riêng tư không được mở ngoài luồng xem lại hợp lệ của học sinh.
+      </p>
+      <h2>Quyền kiểm soát</h2>
+      <p>
+        Học sinh có thể quản lý kết nối phụ huynh; giáo viên duyệt từng yêu cầu
+        vào lớp. Mỗi tài khoản chỉ được mở khu vực đúng vai trò của mình.
       </p>
     </section>
   );

@@ -1,0 +1,31 @@
+{
+  "initial": {
+    "attempts": 0,
+    "completedAttempts": 0,
+    "questions": 0,
+    "privateSolutions": 0,
+    "answers": 0,
+    "unitEvidence": 0,
+    "outcomeEvidence": 0,
+    "skillEvidence": 0,
+    "completeProvenanceRows": 0,
+    "generatedV2DiscriminatorRows": 0,
+    "orphanRows": 0
+  },
+  "final": {
+    "attempts": 51,
+    "completedAttempts": 51,
+    "questions": 612,
+    "privateSolutions": 612,
+    "answers": 612,
+    "unitEvidence": 612,
+    "outcomeEvidence": 612,
+    "skillEvidence": 612,
+    "completeProvenanceRows": 612,
+    "generatedV2DiscriminatorRows": 612,
+    "orphanRows": 0
+  },
+  "exactlyOnce": "PASS",
+  "historyCompletedOnce": 51,
+  "rollbackOrphans": 0
+}

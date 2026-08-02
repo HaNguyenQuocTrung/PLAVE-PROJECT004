@@ -1,0 +1,99 @@
+{
+  "variant": "EQUATION_SOLVING",
+  "severity": "HIGH",
+  "categories": [
+    "LOW_VARIATION",
+    "DIFFICULTY_NOT_MEANINGFUL",
+    "FEEDBACK_OR_EXPLANATION_WEAK"
+  ],
+  "summary": "Stem có thể giải đúng riêng lẻ nhưng chưa production-usable: lặp template, độ khó chưa tách biệt thực chất và lời giải không giải thích phép toán cụ thể.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-c20b53e11badfdf3c44619cd18dff46c0e2bcd80476bf8c8",
+  "reproductionSeedFingerprint": "c20b53e11badfdf3",
+  "reproductionSampleId": "EQUATION_SOLVING:EASY:1",
+  "sample": {
+    "sampleId": "EQUATION_SOLVING:EASY:1",
+    "variant": "EQUATION_SOLVING",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-c20b53e11badfdf3c44619cd18dff46c0e2bcd80476bf8c8",
+    "seedFingerprint": "c20b53e11badfdf3",
+    "runtimeReachable": true,
+    "grade": 9,
+    "outcomeId": "MOET2018-G9-NAA-P072-010",
+    "unitId": "grade-9-linear-systems",
+    "astKind": "ALGEBRA",
+    "complexity": 1,
+    "prompt": "Giải phương trình 2x + 28 = 56.",
+    "normalizedTemplate": "giải phương trình #x + # = #.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "16",
+      "14",
+      "15",
+      "13"
+    ],
+    "correctOptionKey": "B",
+    "correctOptionLabel": "14",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn B."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": true,
+    "publicQuestion": {
+      "questionId": "pilot-715129180f654c988dc1a151ce76bc28",
+      "position": 1,
+      "prompt": "Giải phương trình 2x + 28 = 56.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "16"
+        },
+        {
+          "key": "B",
+          "label": "14"
+        },
+        {
+          "key": "C",
+          "label": "15"
+        },
+        {
+          "key": "D",
+          "label": "13"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "HIGH",
+      "categories": [
+        "LOW_VARIATION",
+        "DIFFICULTY_NOT_MEANINGFUL",
+        "FEEDBACK_OR_EXPLANATION_WEAK"
+      ],
+      "summary": "Stem có thể giải đúng riêng lẻ nhưng chưa production-usable: lặp template, độ khó chưa tách biệt thực chất và lời giải không giải thích phép toán cụ thể."
+    }
+  }
+}

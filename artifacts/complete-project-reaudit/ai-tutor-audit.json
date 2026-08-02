@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "status": "LOCAL_MVP_CONFIRMED_WITH_BROWSER_FAILURE",
+  "documentedScope": "AUTHENTICATED_STUDENT_LOOPBACK_LOCAL_MVP",
+  "recordedOwnerStatus": "COMPLETE_OWNER_APPROVED_LOCAL_MVP",
+  "remoteDevelopmentRuntime": "OFF",
+  "repositoryDefault": "OFF",
+  "configuredProvider": "GOOGLE",
+  "configuredModel": "gemini-3.6-flash",
+  "paidRequestsThisAudit": 0,
+  "adapters": {
+    "google": "IMPLEMENTED",
+    "openai": "IMPLEMENTED",
+    "deepseek": "NOT_IMPLEMENTED"
+  },
+  "roleAccess": {
+    "student": "ALLOWED_WHEN_LOCAL_RUNTIME_ENABLED",
+    "parent": "DENIED",
+    "teacher": "DENIED",
+    "anonymous": "REDIRECT_OR_DENIED"
+  },
+  "streamingContracts": {
+    "incrementalDelta": true,
+    "abortStop": true,
+    "retry": true,
+    "regenerate": true,
+    "continueAfterTruncation": true,
+    "finishReasonHandling": true,
+    "maxTokensHandling": true,
+    "timeoutHandling": true,
+    "safetyBlockHandling": true,
+    "emptyResponseHandling": true,
+    "xssTextRendering": true
+  },
+  "freshTests": {
+    "unitAndSecurity": "25/25_PASS_WITH_TTY",
+    "quality": "6/6_PASS",
+    "localRuntime": "9/9_PASS",
+    "freshBrowser": "FAIL_DESKTOP_WELCOME_PRIMARY_TOUCH_TARGET_SMALL"
+  },
+  "secretBoundary": {
+    "clientBundleLeak": 0,
+    "productionBundleLeak": 0,
+    "artifactLeak": 0,
+    "developmentCacheLeak": 16
+  },
+  "limitations": [
+    "Conversation state is client/in-memory and does not persist across refresh/restart.",
+    "Rate, daily, and concurrency limits use process-local memory and are not multi-instance safe.",
+    "Real-provider browser acceptance was not rerun; current evidence is deterministic test-provider browser plus prior bounded direct-provider evidence.",
+    "No production monitoring, cost controls, remote activation, or deployment proof."
+  ],
+  "historicalBoundedProviderEvidence": {
+    "date": "2026-08-01",
+    "model": "gemini-3.6-flash",
+    "requests": 2,
+    "medianFirstTokenMs": 1172,
+    "medianTotalMs": 2252,
+    "reviewedPass": "2/2"
+  },
+  "findingIds": ["F-001", "F-007"]
+}

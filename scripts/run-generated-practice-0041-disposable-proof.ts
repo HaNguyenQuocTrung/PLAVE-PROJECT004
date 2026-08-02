@@ -1073,7 +1073,7 @@ export async function runGeneratedPractice0041DisposableProof() {
       timeoutMs: 900_000,
       terminationGraceMs: 10_000,
       killConfirmationMs: 10_000,
-      stage: "SUPABASE_0001_0041",
+      stage: "SUPABASE_0001_0042",
     });
     if (!startResult.ok || !startResult.childExited) {
       throw new Error(
@@ -1097,7 +1097,7 @@ export async function runGeneratedPractice0041DisposableProof() {
     );
     if (
       !setup.ok ||
-      !/^PLAVE0041_START\|12\|12\|12\|0\|12\|41\|0001\|0041$/mu.test(
+      !/^PLAVE0041_START\|12\|12\|12\|0\|12\|42\|0001\|0042$/mu.test(
         setup.stdout,
       )
     ) {
@@ -1153,7 +1153,7 @@ export async function runGeneratedPractice0041DisposableProof() {
     }
     return {
       inventory,
-      migrationsApplied: 41,
+      migrationsApplied: 42,
       provenanceRows: 12,
       localLiveGrades: 9,
       localLiveItems: 108,
@@ -1193,8 +1193,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       [
         "PROJECT004_CANONICAL=PASS",
         "MIGRATION_EXECUTION_STARTED=YES",
-        "MIGRATIONS_APPLIED=41/41",
-        "MIGRATION_FIRST_LAST=0001/0041",
+        "MIGRATIONS_APPLIED=42/42",
+        "MIGRATION_FIRST_LAST=0001/0042",
         "PROVENANCE_FIELDS=8/8",
         `GENERATED_PROVENANCE_ROWS=${String(proof.provenanceRows)}`,
         `PILOT_LIVE_GRADES=${String(proof.localLiveGrades)}/9`,

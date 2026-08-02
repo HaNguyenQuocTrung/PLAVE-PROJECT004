@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "scope": "LOCAL_ONLY_NOT_PRODUCTION_PERFORMANCE",
+  "measurements": {
+    "typecheckMs": 20640,
+    "productionBuildMs": 28800,
+    "generatorFull32760AuditMs": 5260,
+    "productionStaticGenerationUnits": 77,
+    "clientStaticJavascriptBytesUncompressed": 1319673,
+    "largestClientChunkBytesUncompressed": 227315,
+    "sitewideDiagnosticViewports": 7,
+    "sitewideDiagnosticConsoleErrors": 0,
+    "sitewideDiagnosticNetworkFailures": 0
+  },
+  "historicalAiProviderEvidence": {
+    "date": "2026-08-01",
+    "environment": "LOCAL",
+    "model": "gemini-3.6-flash",
+    "requestCount": 2,
+    "medianFirstTokenMs": 1172,
+    "medianTotalMs": 2252,
+    "thisAuditPaidRequests": 0
+  },
+  "observations": [
+    "The bounded 32760 generator audit is CPU-cheap locally but its independence is weak.",
+    "The full authenticated 198-capability browser/database proof is long-running and writes 2388 questions, but cleaned up successfully.",
+    "The sitewide runtime emitted an LCP eager-loading warning for the header logo.",
+    "No production traffic, network topology, N+1 query load, or multi-instance behavior was measured."
+  ],
+  "findingIds": ["F-014"]
+}

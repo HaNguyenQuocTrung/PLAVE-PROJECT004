@@ -105,7 +105,7 @@ export default async function LessonsPage() {
   const { controlledPilotUnit, grade, path } = result.data;
 
   return (
-    <div className="catalog-page page-shell">
+    <div className="catalog-page catalog-page--v2 page-shell">
       <header className="catalog-hero catalog-hero--lessons">
         <p className="eyebrow">Lộ trình học của em</p>
         <h1>Bài học dành cho lớp {grade}</h1>
@@ -128,8 +128,8 @@ export default async function LessonsPage() {
         </section>
       ) : (
         <>
-          <PersonalizedLearningOverview path={path} />
           <PersonalizedRecommendationCard path={path} />
+          <PersonalizedLearningOverview path={path} />
 
           <section
             className="unit-catalog"
@@ -165,7 +165,7 @@ export default async function LessonsPage() {
                   }`}
                   key={unit.slug}
                 >
-                  <div className="unit-card__heading">
+                  <div className="unit-card__heading unit-card__status-region">
                     <span
                       className={`unit-status unit-status--${item.state
                         .toLowerCase()
@@ -181,27 +181,35 @@ export default async function LessonsPage() {
                         Khuyến nghị tiếp theo
                       </span>
                     ) : null}
-                    <span>{unit.totalQuestions} câu luyện tập</span>
                   </div>
-                  <h3>{unit.title}</h3>
-                  <p>{unit.description}</p>
-                  <div className="unit-card__objective">
-                    <strong>Mục tiêu chính</strong>
-                    <span>{unit.learningObjectives[0]}</span>
+                  <div className="unit-card__content-region">
+                    <h3>{unit.title}</h3>
+                    <p className="unit-card__description">{unit.description}</p>
+                    <div className="unit-card__objective">
+                      <strong>Mục tiêu chính</strong>
+                      <span>{unit.learningObjectives[0]}</span>
+                    </div>
+                    {item.state === "LOCKED" ? (
+                      <p className="unit-card__locked-note">
+                        Em hãy hoàn thành bài{" "}
+                        {prerequisiteUnit?.title ?? "nền tảng"} trước khi bắt
+                        đầu luyện tập bài này.
+                      </p>
+                    ) : null}
                   </div>
-                  <p className="unit-card__progress">
-                    {recentAttempt
-                      ? `Tiến độ gần nhất: ${recentAttempt.answeredCount}/${recentAttempt.totalQuestions} câu · Đúng ${recentAttempt.correctCount} câu`
-                      : "Em chưa bắt đầu bài học này."}
-                  </p>
+                  <div className="unit-card__metadata-region">
+                    <span className="unit-card__question-count">
+                      {unit.totalQuestions} câu luyện tập
+                    </span>
+                    <p className="unit-card__progress">
+                      {recentAttempt
+                        ? `Tiến độ gần nhất: ${recentAttempt.answeredCount}/${recentAttempt.totalQuestions} câu · Đúng ${recentAttempt.correctCount} câu`
+                        : "Em chưa bắt đầu bài học này."}
+                    </p>
+                  </div>
                   <div className="unit-card__actions">
                     {item.state === "LOCKED" ? (
                       <>
-                        <p className="unit-card__locked-note">
-                          Em hãy hoàn thành bài{" "}
-                          {prerequisiteUnit?.title ?? "nền tảng"} trước khi bắt
-                          đầu luyện tập bài này.
-                        </p>
                         <Button href={href}>Đọc lý thuyết</Button>
                         <Button
                           href={

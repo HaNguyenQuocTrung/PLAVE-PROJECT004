@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-02T12:01:12.290Z",
+  "status": "PASS",
+  "head": "5eb8ebae25366081587252b683c4843bd31e38a9",
+  "branch": "main",
+  "trackedFileCountAtHead": 1576,
+  "workingTree": {
+    "changedEntries": [],
+    "ignoredEntries": [
+      {
+        "path": ".env.generated-pilot.local",
+        "gitStatus": "!!",
+        "category": "LOCAL_SECRET",
+        "trackedAtHead": false
+      },
+      {
+        "path": ".env.local",
+        "gitStatus": "!!",
+        "category": "LOCAL_SECRET",
+        "trackedAtHead": false
+      },
+      {
+        "path": ".env.remote-dev.local",
+        "gitStatus": "!!",
+        "category": "LOCAL_SECRET",
+        "trackedAtHead": false
+      },
+      {
+        "path": ".local-artifacts",
+        "gitStatus": "!!",
+        "category": "LOCAL_CACHE",
+        "trackedAtHead": false
+      },
+      {
+        "path": ".next-generated-pilot-project004",
+        "gitStatus": "!!",
+        "category": "UNKNOWN",
+        "trackedAtHead": false
+      },
+      {
+        "path": ".next-owner-local-project004",
+        "gitStatus": "!!",
+        "category": "UNKNOWN",
+        "trackedAtHead": false
+      },
+      {
+        "path": ".next-remote-dev-project004",
+        "gitStatus": "!!",
+        "category": "UNKNOWN",
+        "trackedAtHead": false
+      },
+      {
+        "path": ".next",
+        "gitStatus": "!!",
+        "category": "LOCAL_CACHE",
+        "trackedAtHead": false
+      },
+      {
+        "path": ".project004-remote-migration-0041-approval.local",
+        "gitStatus": "!!",
+        "category": "LOCAL_SECRET",
+        "trackedAtHead": false
+      },
+      {
+        "path": "artifacts/.DS_Store",
+        "gitStatus": "!!",
+        "category": "GENERATED_ARTIFACT",
+        "trackedAtHead": false
+      },
+      {
+        "path": "artifacts/generated-candidates",
+        "gitStatus": "!!",
+        "category": "GENERATED_ARTIFACT",
+        "trackedAtHead": false
+      },
+      {
+        "path": "artifacts/generated-pilot-acceptance/desktop-1280x800.png",
+        "gitStatus": "!!",
+        "category": "OPTIONAL_EVIDENCE",
+        "trackedAtHead": false
+      },
+      {
+        "path": "artifacts/generated-pilot-acceptance/mobile-390x844.png",
+        "gitStatus": "!!",
+        "category": "OPTIONAL_EVIDENCE",
+        "trackedAtHead": false
+      },
+      {
+        "path": "artifacts/official-contract-review",
+        "gitStatus": "!!",
+        "category": "GENERATED_ARTIFACT",
+        "trackedAtHead": false
+      },
+      {
+        "path": "artifacts/official-gdpt-source",
+        "gitStatus": "!!",
+        "category": "GENERATED_ARTIFACT",
+        "trackedAtHead": false
+      },
+      {
+        "path": "next-env.d.ts",
+        "gitStatus": "!!",
+        "category": "GENERATED_ARTIFACT",
+        "trackedAtHead": false
+      },
+      {
+        "path": "node_modules",
+        "gitStatus": "!!",
+        "category": "LOCAL_CACHE",
+        "trackedAtHead": false
+      },
+      {
+        "path": "supabase/.branches",
+        "gitStatus": "!!",
+        "category": "LOCAL_CACHE",
+        "trackedAtHead": false
+      },
+      {
+        "path": "supabase/.temp",
+        "gitStatus": "!!",
+        "category": "LOCAL_CACHE",
+        "trackedAtHead": false
+      }
+    ],
+    "modifiedTrackedCount": 0,
+    "untrackedCount": 0,
+    "requiredModifiedCount": 0,
+    "requiredUntrackedCount": 0,
+    "requiredModifiedFiles": [],
+    "requiredUntrackedFiles": [],
+    "ignoredImplementationFiles": [],
+    "generatedEvidenceCount": 0,
+    "localSecretPaths": [
+      ".env.generated-pilot.local",
+      ".env.local",
+      ".env.remote-dev.local",
+      ".project004-remote-migration-0041-approval.local"
+    ]
+  },
+  "cleanCheckout": {
+    "reproducibleFromHead": true,
+    "exactMissingRequiredFiles": [],
+    "exactChangedRequiredFiles": [],
+    "blocker": null
+  },
+  "intendedWorkingTreeSnapshot": {
+    "environment": "DOCUMENTED_LOCAL_ENV_WITH_AI_DISABLED_AND_NO_PROVIDER_KEY",
+    "nodeModules": "COPY_ON_WRITE_CLONE_OF_CURRENT_LOCKFILE_INSTALL_FOR_OFFLINE_CHECK",
+    "typecheck": {
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 26710,
+      "routeCount": null,
+      "failureSummary": []
+    },
+    "build": {
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 53593,
+      "routeCount": 115,
+      "failureSummary": []
+    },
+    "cleanRoomCleanup": "PASS"
+  },
+  "checkpoint": {
+    "authorization": "OWNER_AUTHORIZED_LOCAL_STAGE_AND_CHECKPOINT_COMMIT",
+    "mode": "LOCAL_ONLY_NO_PUSH",
+    "preCheckpointHead": "37fc040b9854867d8b04e4f5bf8de8beda9121ef",
+    "auditedCheckpointHead": "5eb8ebae25366081587252b683c4843bd31e38a9",
+    "stagedFiles": 945,
+    "stagedSecretOrCachePaths": 0,
+    "stagedSecretPatternHits": 0
+  },
+  "gitMutations": 1,
+  "gitPushes": 0,
+  "remoteMutations": 0
+}

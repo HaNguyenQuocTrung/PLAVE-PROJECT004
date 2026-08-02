@@ -1,0 +1,4923 @@
+{
+  "schemaVersion": 1,
+  "sprint": "8C.A",
+  "result": "PASS",
+  "audit": {
+    "outcomes": 98,
+    "difficulties": 3,
+    "seedsPerDifficulty": 20,
+    "generatedSamples": 5880
+  },
+  "policy": {
+    "exactDuplicateRate": 0,
+    "nearDuplicateDefinition": "same Vietnamese prompt after numeric literals are normalized",
+    "nearDuplicatePairRateMaximum": 0.12,
+    "dominantAnswerRateMaximumForTwentySampleBatch": 0.6,
+    "deterministicReplay": true,
+    "difficultyStructuralSeparation": true
+  },
+  "summary": {
+    "maximumExactDuplicateRate": 0,
+    "maximumNearDuplicateRate": 0.1,
+    "maximumDominantAnswerRate": 0.55,
+    "failedBatches": 0
+  },
+  "perimeterAreaRegression": {
+    "priorHardNearDuplicateRate": 0.1316,
+    "target": 0.12,
+    "rerun": [
+      {
+        "difficulty": "EASY",
+        "samples": 100,
+        "exactDuplicateRate": 0,
+        "nearDuplicatePairRate": 0.013333333333333334,
+        "threshold": 0.12,
+        "result": "PASS"
+      },
+      {
+        "difficulty": "MEDIUM",
+        "samples": 100,
+        "exactDuplicateRate": 0,
+        "nearDuplicatePairRate": 0.008282828282828282,
+        "threshold": 0.12,
+        "result": "PASS"
+      },
+      {
+        "difficulty": "HARD",
+        "samples": 100,
+        "exactDuplicateRate": 0,
+        "nearDuplicatePairRate": 0.01575757575757576,
+        "threshold": 0.12,
+        "result": "PASS"
+      }
+    ]
+  },
+  "outcomes": [
+    {
+      "outcomeId": "MOET2018-G1-NUM-P021-001",
+      "variantId": "NUMBER_RECOGNITION_REPRESENTATION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"READ_REPRESENTATION:representation-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"PLACE_VALUE_CHART\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P021-001",
+      "variantId": "NUMBER_RECOGNITION_REPRESENTATION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.3,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"DIGIT_VALUE:representation-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"PLACE_VALUE_CHART\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P021-001",
+      "variantId": "NUMBER_RECOGNITION_REPRESENTATION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.3,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"DIGIT_VALUE:representation-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"PLACE_VALUE_CHART\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-002",
+      "variantId": "MIXED_ARITHMETIC_EXPRESSION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"+-:expression-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-002",
+      "variantId": "MIXED_ARITHMETIC_EXPRESSION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.2,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"-+:expression-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-002",
+      "variantId": "MIXED_ARITHMETIC_EXPRESSION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"+-UNKNOWN:expression-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-004",
+      "variantId": "ADD_SUB_MEANING",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.25,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"interaction\":\"INTEGER_INPUT\",\"visual\":\"OBJECT_GROUPS\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-004",
+      "variantId": "ADD_SUB_MEANING",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.3,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"interaction\":\"INTEGER_INPUT\",\"visual\":\"OBJECT_GROUPS\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-004",
+      "variantId": "ADD_SUB_MEANING",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.45,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"OBJECT_GROUPS\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-005",
+      "variantId": "APPLIED_ARITHMETIC",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.2,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"applied:ONE_STEP:relevant-2:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-005",
+      "variantId": "APPLIED_ARITHMETIC",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"applied:TWO_STEP:relevant-3:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-005",
+      "variantId": "APPLIED_ARITHMETIC",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"applied:SELECT_RELEVANT_THEN_TWO_STEP:relevant-4:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-006",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"order:ASC:count-3:representation-whole:steps-1\",\"interaction\":\"ORDERING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-006",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"order:DESC:count-4:representation-whole:steps-2\",\"interaction\":\"ORDERING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-006",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"order:ASC:count-4:representation-whole:steps-3\",\"interaction\":\"ORDERING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-007",
+      "variantId": "ADD_SUB_CALCULATION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"+:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"-:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-007",
+      "variantId": "ADD_SUB_CALCULATION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"+:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"-:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-007",
+      "variantId": "ADD_SUB_CALCULATION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"-:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"+:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-008",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"+:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"*:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"/:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"-:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-008",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"-:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"*:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"/:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"+:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-008",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"/:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"*:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"-:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"+:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-010",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.3,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"+:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"-:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"/:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"*:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-010",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.35,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"-:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"*:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"/:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"+:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-010",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.2,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"/:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"+:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"*:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"-:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P024-002",
+      "variantId": "COUNTING_SEQUENCE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"pattern:arithmetic:unknown-1:representation-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P024-002",
+      "variantId": "COUNTING_SEQUENCE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"pattern:arithmetic:unknown-2:representation-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P024-002",
+      "variantId": "COUNTING_SEQUENCE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"pattern:arithmetic:unknown-3:representation-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-005",
+      "variantId": "OPERATION_COMPONENTS",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"match:add:representation-1:roles-3\",\"interaction\":\"MATCHING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-005",
+      "variantId": "OPERATION_COMPONENTS",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"match:add:representation-2:roles-3\",\"interaction\":\"MATCHING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-005",
+      "variantId": "OPERATION_COMPONENTS",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"match:add:representation-3:roles-3\",\"interaction\":\"MATCHING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-006",
+      "variantId": "OPERATION_COMPONENTS",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"match:multiply:representation-1:roles-3\",\"interaction\":\"MATCHING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-006",
+      "variantId": "OPERATION_COMPONENTS",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"match:multiply:representation-2:roles-3\",\"interaction\":\"MATCHING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-006",
+      "variantId": "OPERATION_COMPONENTS",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"match:multiply:representation-3:roles-3\",\"interaction\":\"MATCHING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-007",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"order:ASC:count-3:representation-whole:steps-1\",\"interaction\":\"ORDERING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-007",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"order:DESC:count-4:representation-whole:steps-2\",\"interaction\":\"ORDERING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-007",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"order:ASC:count-4:representation-whole:steps-3\",\"interaction\":\"ORDERING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-009",
+      "variantId": "MULTIPLY_DIVIDE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"*:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-009",
+      "variantId": "MULTIPLY_DIVIDE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.010526315789473684,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 18,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"/:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-009",
+      "variantId": "MULTIPLY_DIVIDE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.2,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"*:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"/:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-011",
+      "variantId": "WRITTEN_ARITHMETIC",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"-:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"+:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-011",
+      "variantId": "WRITTEN_ARITHMETIC",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"+:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"*:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"/:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"-:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-011",
+      "variantId": "WRITTEN_ARITHMETIC",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"+:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"-:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"/:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"*:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-012",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"+:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"-:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"/:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"*:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-012",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"*:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"-:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"+:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-012",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"+:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"-:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"/:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"*:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-013",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"-:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"*:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"/:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"+:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-013",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.2,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"-:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"+:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"*:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"/:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-013",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"+:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"-:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"/:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"*:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-014",
+      "variantId": "COMPARE_ORDER_ESTIMATE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"order:ASC:count-3:representation-whole:steps-1\",\"interaction\":\"ORDERING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-014",
+      "variantId": "COMPARE_ORDER_ESTIMATE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"order:DESC:count-4:representation-whole:steps-2\",\"interaction\":\"ORDERING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-014",
+      "variantId": "COMPARE_ORDER_ESTIMATE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"estimate:group-tens:representation-objects:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-015",
+      "variantId": "MIXED_ARITHMETIC_EXPRESSION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"+-:expression-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-015",
+      "variantId": "MIXED_ARITHMETIC_EXPRESSION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.2,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"-+:expression-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-015",
+      "variantId": "MIXED_ARITHMETIC_EXPRESSION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"+-UNKNOWN:expression-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-016",
+      "variantId": "ROUND_ESTIMATE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"round:integer:place-10:representation-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-016",
+      "variantId": "ROUND_ESTIMATE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.2,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"round:integer:place-100:representation-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-016",
+      "variantId": "ROUND_ESTIMATE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.25,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"round:integer:place-100:representation-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-018",
+      "variantId": "MULTIPLY_DIVIDE_FACTS",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.5,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"OBJECT_GROUPS\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-018",
+      "variantId": "MULTIPLY_DIVIDE_FACTS",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.08947368421052632,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 9,
+      "dominantAnswerRate": 0.35,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"OBJECT_GROUPS\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-018",
+      "variantId": "MULTIPLY_DIVIDE_FACTS",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.06842105263157895,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 11,
+      "dominantAnswerRate": 0.25,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"interaction\":\"INTEGER_INPUT\",\"visual\":\"OBJECT_GROUPS\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-019",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"order:ASC:count-3:representation-whole:steps-1\",\"interaction\":\"ORDERING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-019",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"order:DESC:count-4:representation-whole:steps-2\",\"interaction\":\"ORDERING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P025-019",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"order:ASC:count-4:representation-whole:steps-3\",\"interaction\":\"ORDERING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P026-020",
+      "variantId": "APPLIED_ARITHMETIC",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"applied:ONE_STEP:relevant-2:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P026-020",
+      "variantId": "APPLIED_ARITHMETIC",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"applied:TWO_STEP:relevant-3:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P026-020",
+      "variantId": "APPLIED_ARITHMETIC",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"applied:SELECT_RELEVANT_THEN_TWO_STEP:relevant-4:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-GEO-P026-008",
+      "variantId": "SHAPE_RECOGNITION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.35,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"shape:SPHERE:task-1:orientation-varied\",\"interaction\":\"CONSTRUCTION_OR_VISUAL_SELECTION\",\"visual\":\"SHAPE_DIAGRAM\"}",
+        "{\"level\":1,\"fingerprint\":\"shape:CYLINDER:task-1:orientation-varied\",\"interaction\":\"CONSTRUCTION_OR_VISUAL_SELECTION\",\"visual\":\"SHAPE_DIAGRAM\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-GEO-P026-008",
+      "variantId": "SHAPE_RECOGNITION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"shape:CYLINDER:task-2:orientation-varied\",\"interaction\":\"CONSTRUCTION_OR_VISUAL_SELECTION\",\"visual\":\"SHAPE_DIAGRAM\"}",
+        "{\"level\":2,\"fingerprint\":\"shape:SPHERE:task-2:orientation-varied\",\"interaction\":\"CONSTRUCTION_OR_VISUAL_SELECTION\",\"visual\":\"SHAPE_DIAGRAM\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G2-GEO-P026-008",
+      "variantId": "SHAPE_RECOGNITION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"shape:SPHERE:task-3:orientation-varied\",\"interaction\":\"CONSTRUCTION_OR_VISUAL_SELECTION\",\"visual\":\"SHAPE_DIAGRAM\"}",
+        "{\"level\":3,\"fingerprint\":\"shape:CYLINDER:task-3:orientation-varied\",\"interaction\":\"CONSTRUCTION_OR_VISUAL_SELECTION\",\"visual\":\"SHAPE_DIAGRAM\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-004",
+      "variantId": "PLACE_VALUE_COMPARE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.05789473684210526,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 11,
+      "dominantAnswerRate": 0.35,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"DIGIT_VALUE\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"PLACE_VALUE_CHART\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-004",
+      "variantId": "PLACE_VALUE_COMPARE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.1,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 9,
+      "dominantAnswerRate": 0.45,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"MAXIMUM\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"PLACE_VALUE_CHART\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-004",
+      "variantId": "PLACE_VALUE_COMPARE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.05789473684210526,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 11,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"ORDER_ASC\",\"interaction\":\"ORDERING\",\"visual\":\"PLACE_VALUE_CHART\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-012",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"-:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"/:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"+:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"*:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-012",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"+:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"/:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"-:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"*:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-012",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"+:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"*:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"/:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"-:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-014",
+      "variantId": "MIXED_ARITHMETIC_EXPRESSION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"+-:expression-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-014",
+      "variantId": "MIXED_ARITHMETIC_EXPRESSION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"*+:expression-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-014",
+      "variantId": "MIXED_ARITHMETIC_EXPRESSION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"PARENTHESIZED:expression-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-016",
+      "variantId": "DIVISION_WITH_REMAINDER",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"division-remainder:task-1:remainder-zero:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-016",
+      "variantId": "DIVISION_WITH_REMAINDER",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.3,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"division-remainder:task-2:remainder-positive:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-016",
+      "variantId": "DIVISION_WITH_REMAINDER",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"division-remainder:task-3:remainder-positive:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-022",
+      "variantId": "MISSING_COMPONENT",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"-:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"/:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"*:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"+:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-022",
+      "variantId": "MISSING_COMPONENT",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"+:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"/:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"-:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"*:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-022",
+      "variantId": "MISSING_COMPONENT",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"*:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"+:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"/:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"-:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G3-EXP-P034-002",
+      "variantId": "DATA_CLASSIFICATION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"data:ORDER_RECORDS:records-4:steps-1\",\"interaction\":\"ORDERING\",\"visual\":\"DATA_TABLE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G3-EXP-P034-002",
+      "variantId": "DATA_CLASSIFICATION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.25,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"data:SELECT_ABOVE_THRESHOLD:records-4:steps-2\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"DATA_TABLE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G3-EXP-P034-002",
+      "variantId": "DATA_CLASSIFICATION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.2,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"data:ORDER_BY_DERIVED_VALUE:records-4:steps-3\",\"interaction\":\"ORDERING\",\"visual\":\"DATA_TABLE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-007",
+      "variantId": "ROUND_ESTIMATE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"round:integer:place-10:representation-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-007",
+      "variantId": "ROUND_ESTIMATE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.010526315789473684,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 18,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"round:integer:place-100:representation-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-007",
+      "variantId": "ROUND_ESTIMATE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"round:integer:place-1000:representation-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-008",
+      "variantId": "WRITTEN_ARITHMETIC",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"-:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"+:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-008",
+      "variantId": "WRITTEN_ARITHMETIC",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"*:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"+:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"-:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"/:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-008",
+      "variantId": "WRITTEN_ARITHMETIC",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"/:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"+:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"*:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"-:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-009",
+      "variantId": "MULTIPLY_DIVIDE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"*:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-009",
+      "variantId": "MULTIPLY_DIVIDE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"/:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-009",
+      "variantId": "MULTIPLY_DIVIDE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"*:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"/:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-010",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"*:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"-:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"+:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-010",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"+:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"*:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"-:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"/:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-010",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"*:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"-:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"/:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"+:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-011",
+      "variantId": "WRITTEN_ARITHMETIC",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"+:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"-:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-011",
+      "variantId": "WRITTEN_ARITHMETIC",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"/:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"-:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"+:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"*:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-011",
+      "variantId": "WRITTEN_ARITHMETIC",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"/:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"*:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"-:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"+:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-013",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"*:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"/:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"-:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"+:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-013",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"+:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"/:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"-:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"*:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-013",
+      "variantId": "MENTAL_ARITHMETIC",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"+:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"/:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"-:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"*:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-014",
+      "variantId": "OPERATION_PROPERTY",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.35,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"classify:OPERATION_PROPERTY:ADDITION_ASSOCIATIVE:representation-1:steps-1\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-014",
+      "variantId": "OPERATION_PROPERTY",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.35,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"classify:OPERATION_PROPERTY:ADDITION_ASSOCIATIVE:representation-2:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-014",
+      "variantId": "OPERATION_PROPERTY",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"classify:OPERATION_PROPERTY:ADDITION_ASSOCIATIVE:representation-3:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-015",
+      "variantId": "OPERATION_PROPERTY",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.5,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"classify:OPERATION_PROPERTY:MULTIPLICATION_ASSOCIATIVE:representation-1:steps-1\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-015",
+      "variantId": "OPERATION_PROPERTY",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.3,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"classify:OPERATION_PROPERTY:MULTIPLICATION_ASSOCIATIVE:representation-2:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-015",
+      "variantId": "OPERATION_PROPERTY",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.35,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"classify:OPERATION_PROPERTY:MULTIPLICATION_ASSOCIATIVE:representation-3:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P036-017",
+      "variantId": "APPLIED_ARITHMETIC",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"applied:ONE_STEP:relevant-2:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P036-017",
+      "variantId": "APPLIED_ARITHMETIC",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"applied:TWO_STEP:relevant-3:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P036-017",
+      "variantId": "APPLIED_ARITHMETIC",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"applied:SELECT_RELEVANT_THEN_TWO_STEP:relevant-4:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P040-001",
+      "variantId": "NUMBER_RECOGNITION_REPRESENTATION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"READ_REPRESENTATION:representation-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"PLACE_VALUE_CHART\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P040-001",
+      "variantId": "NUMBER_RECOGNITION_REPRESENTATION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.25,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"DIGIT_VALUE:representation-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"PLACE_VALUE_CHART\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P040-001",
+      "variantId": "NUMBER_RECOGNITION_REPRESENTATION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.3,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"DIGIT_VALUE:representation-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"PLACE_VALUE_CHART\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P040-002",
+      "variantId": "APPLIED_ARITHMETIC",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"applied:ONE_STEP:relevant-2:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P040-002",
+      "variantId": "APPLIED_ARITHMETIC",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"applied:TWO_STEP:relevant-3:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P040-002",
+      "variantId": "APPLIED_ARITHMETIC",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"applied:SELECT_RELEVANT_THEN_TWO_STEP:relevant-4:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P040-003",
+      "variantId": "WRITTEN_ARITHMETIC",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"-:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"+:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P040-003",
+      "variantId": "WRITTEN_ARITHMETIC",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"+:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"/:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"*:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"-:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P040-003",
+      "variantId": "WRITTEN_ARITHMETIC",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"/:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"*:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"-:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"+:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P040-004",
+      "variantId": "OPERATION_PROPERTY",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"classify:OPERATION_PROPERTY:DISTRIBUTIVE:representation-1:steps-1\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P040-004",
+      "variantId": "OPERATION_PROPERTY",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"classify:OPERATION_PROPERTY:DISTRIBUTIVE:representation-2:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P040-004",
+      "variantId": "OPERATION_PROPERTY",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"classify:OPERATION_PROPERTY:DISTRIBUTIVE:representation-3:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G5-STA-P045-008",
+      "variantId": "DATA_CLASSIFICATION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"data:ORDER_RECORDS:records-4:steps-1\",\"interaction\":\"ORDERING\",\"visual\":\"DATA_TABLE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G5-STA-P045-008",
+      "variantId": "DATA_CLASSIFICATION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.2,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"data:SELECT_ABOVE_THRESHOLD:records-4:steps-2\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"DATA_TABLE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G5-STA-P045-008",
+      "variantId": "DATA_CLASSIFICATION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.2,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"data:ORDER_BY_DERIVED_VALUE:records-4:steps-3\",\"interaction\":\"ORDERING\",\"visual\":\"DATA_TABLE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-001",
+      "variantId": "ROMAN_NUMERAL",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"roman:direction-1:representation-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-001",
+      "variantId": "ROMAN_NUMERAL",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"roman:direction-2:representation-2:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-001",
+      "variantId": "ROMAN_NUMERAL",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"roman:direction-3:representation-3:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-003",
+      "variantId": "DIVISIBILITY_RULE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"multi-select:DIVISIBILITY_RULE:candidates-6:representation-1:steps-1\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-003",
+      "variantId": "DIVISIBILITY_RULE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"multi-select:DIVISIBILITY_RULE:candidates-6:representation-2:steps-2\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-003",
+      "variantId": "DIVISIBILITY_RULE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"multi-select:DIVISIBILITY_RULE:candidates-6:representation-3:steps-3\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-005",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"order:ASC:count-3:representation-whole:steps-1\",\"interaction\":\"ORDERING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-005",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"order:DESC:count-4:representation-whole:steps-2\",\"interaction\":\"ORDERING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-005",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"order:ASC:count-4:representation-whole:steps-3\",\"interaction\":\"ORDERING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-006",
+      "variantId": "FACTOR_MULTIPLE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"multi-select:FACTOR_MULTIPLE:candidates-6:representation-1:steps-1\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-006",
+      "variantId": "FACTOR_MULTIPLE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"multi-select:FACTOR_MULTIPLE:candidates-6:representation-2:steps-2\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-006",
+      "variantId": "FACTOR_MULTIPLE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"multi-select:FACTOR_MULTIPLE:candidates-6:representation-3:steps-3\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-007",
+      "variantId": "SET_MEMBERSHIP",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"set:even:representation-1:size-8\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"set:even:representation-1:size-7\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"set:even:representation-1:size-9\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"set:even:representation-1:size-11\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"set:even:representation-1:size-10\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"set:even:representation-1:size-6\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-007",
+      "variantId": "SET_MEMBERSHIP",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"set:even:representation-2:size-11\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"set:even:representation-2:size-10\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"set:even:representation-2:size-6\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"set:even:representation-2:size-8\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"set:even:representation-2:size-7\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"set:even:representation-2:size-9\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-007",
+      "variantId": "SET_MEMBERSHIP",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"set:multiple3:representation-3:size-8\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"set:multiple3:representation-3:size-6\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"set:multiple3:representation-3:size-7\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"set:multiple3:representation-3:size-10\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"set:multiple3:representation-3:size-9\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"set:multiple3:representation-3:size-11\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-008",
+      "variantId": "MIXED_ARITHMETIC_EXPRESSION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"+-:expression-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-008",
+      "variantId": "MIXED_ARITHMETIC_EXPRESSION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"*+:expression-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-008",
+      "variantId": "MIXED_ARITHMETIC_EXPRESSION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"PARENTHESIZED:expression-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-009",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.2,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"power:MULTIPLY_SAME_BASE:exponents-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-009",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"power:MULTIPLY_SAME_BASE:exponents-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-009",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.25,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"power:DIVIDE_SAME_BASE:exponents-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-010",
+      "variantId": "SET_MEMBERSHIP",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"set:even:representation-1:size-10\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"set:even:representation-1:size-7\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"set:even:representation-1:size-8\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"set:even:representation-1:size-9\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"set:even:representation-1:size-6\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-010",
+      "variantId": "SET_MEMBERSHIP",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"set:even:representation-2:size-9\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"set:even:representation-2:size-11\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"set:even:representation-2:size-7\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"set:even:representation-2:size-8\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"set:even:representation-2:size-6\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"set:even:representation-2:size-10\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-010",
+      "variantId": "SET_MEMBERSHIP",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"set:multiple3:representation-3:size-11\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"set:multiple3:representation-3:size-9\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"set:multiple3:representation-3:size-7\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"set:multiple3:representation-3:size-8\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"set:multiple3:representation-3:size-10\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"set:multiple3:representation-3:size-6\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-011",
+      "variantId": "WRITTEN_ARITHMETIC",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"+:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"-:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-011",
+      "variantId": "WRITTEN_ARITHMETIC",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"-:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"*:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"/:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"+:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-011",
+      "variantId": "WRITTEN_ARITHMETIC",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"+:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"-:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"*:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"/:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-013",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"power:EVALUATE_POWER:exponents-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-013",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"power:MULTIPLY_SAME_BASE:exponents-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-013",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"power:DIVIDE_SAME_BASE:exponents-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-014",
+      "variantId": "DIVISIBILITY_RULE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"multi-select:DIVISIBILITY_RULE:candidates-6:representation-1:steps-1\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-014",
+      "variantId": "DIVISIBILITY_RULE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"multi-select:DIVISIBILITY_RULE:candidates-6:representation-2:steps-2\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-014",
+      "variantId": "DIVISIBILITY_RULE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"multi-select:DIVISIBILITY_RULE:candidates-6:representation-3:steps-3\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-015",
+      "variantId": "OPERATION_PROPERTY",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.3,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"classify:OPERATION_PROPERTY:DISTRIBUTIVE:representation-1:steps-1\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-015",
+      "variantId": "OPERATION_PROPERTY",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"classify:OPERATION_PROPERTY:DISTRIBUTIVE:representation-2:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-015",
+      "variantId": "OPERATION_PROPERTY",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"classify:OPERATION_PROPERTY:DISTRIBUTIVE:representation-3:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-016",
+      "variantId": "OPERATION_PROPERTY",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.35,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"classify:OPERATION_PROPERTY:DISTRIBUTIVE:representation-1:steps-1\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-016",
+      "variantId": "OPERATION_PROPERTY",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.35,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"classify:OPERATION_PROPERTY:DISTRIBUTIVE:representation-2:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-016",
+      "variantId": "OPERATION_PROPERTY",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.3,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"classify:OPERATION_PROPERTY:DISTRIBUTIVE:representation-3:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-017",
+      "variantId": "INTEGER_NUMBER_LINE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"integer-line:READ_MARK:visual-required:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NUMBER_LINE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-017",
+      "variantId": "INTEGER_NUMBER_LINE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"integer-line:OPPOSITE:visual-required:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NUMBER_LINE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-017",
+      "variantId": "INTEGER_NUMBER_LINE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"integer-line:DISTANCE_FROM_ZERO:visual-required:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NUMBER_LINE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-018",
+      "variantId": "PRIME_COMPOSITE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.5,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"classify:PRIME_COMPOSITE:DISTRIBUTIVE:representation-1:steps-1\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-018",
+      "variantId": "PRIME_COMPOSITE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.45,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"classify:PRIME_COMPOSITE:DISTRIBUTIVE:representation-2:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-018",
+      "variantId": "PRIME_COMPOSITE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.45,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"classify:PRIME_COMPOSITE:DISTRIBUTIVE:representation-3:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-020",
+      "variantId": "INTEGER_NUMBER_LINE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"integer-line:READ_MARK:visual-required:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NUMBER_LINE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-020",
+      "variantId": "INTEGER_NUMBER_LINE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"integer-line:OPPOSITE:visual-required:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NUMBER_LINE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-020",
+      "variantId": "INTEGER_NUMBER_LINE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"integer-line:DISTANCE_FROM_ZERO:visual-required:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NUMBER_LINE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-021",
+      "variantId": "INTEGER_NUMBER_LINE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"integer-line:READ_MARK:visual-required:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NUMBER_LINE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-021",
+      "variantId": "INTEGER_NUMBER_LINE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"integer-line:OPPOSITE:visual-required:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NUMBER_LINE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-021",
+      "variantId": "INTEGER_NUMBER_LINE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.2,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"integer-line:DISTANCE_FROM_ZERO:visual-required:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NUMBER_LINE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-022",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"order:ASC:count-3:representation-signed:steps-1\",\"interaction\":\"ORDERING\",\"visual\":\"NUMBER_LINE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-022",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"order:DESC:count-4:representation-signed:steps-2\",\"interaction\":\"ORDERING\",\"visual\":\"NUMBER_LINE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-022",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"order:ASC:count-4:representation-signed:steps-3\",\"interaction\":\"ORDERING\",\"visual\":\"NUMBER_LINE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-023",
+      "variantId": "APPLIED_ARITHMETIC",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"applied:SIGNED_CONTEXT:relevant-2:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-023",
+      "variantId": "APPLIED_ARITHMETIC",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"applied:SIGNED_CONTEXT:relevant-3:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-023",
+      "variantId": "APPLIED_ARITHMETIC",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"applied:SIGNED_CONTEXT:relevant-4:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-024",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"order:ASC:count-3:representation-signed:steps-1\",\"interaction\":\"ORDERING\",\"visual\":\"NUMBER_LINE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-024",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"order:DESC:count-4:representation-signed:steps-2\",\"interaction\":\"ORDERING\",\"visual\":\"NUMBER_LINE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-024",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"order:ASC:count-4:representation-signed:steps-3\",\"interaction\":\"ORDERING\",\"visual\":\"NUMBER_LINE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-026",
+      "variantId": "INTEGER_OPERATION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"-:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"*:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"+:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-026",
+      "variantId": "INTEGER_OPERATION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"*:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"-:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"+:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-026",
+      "variantId": "INTEGER_OPERATION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"*:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"+:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"-:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-027",
+      "variantId": "PRIME_FACTORIZATION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.3,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"classify:PRIME_FACTORIZATION:DISTRIBUTIVE:representation-1:steps-1\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-027",
+      "variantId": "PRIME_FACTORIZATION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.45,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"classify:PRIME_FACTORIZATION:DISTRIBUTIVE:representation-2:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-027",
+      "variantId": "PRIME_FACTORIZATION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.3,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"classify:PRIME_FACTORIZATION:DISTRIBUTIVE:representation-3:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-029",
+      "variantId": "INTEGER_OPERATION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"*:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"-:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":1,\"fingerprint\":\"+:DIRECT:unknown-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-029",
+      "variantId": "INTEGER_OPERATION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"+:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"*:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"-:MISSING_OPERAND:unknown-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-029",
+      "variantId": "INTEGER_OPERATION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"-:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"*:INVERSE_CHECK:unknown-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"+:two-step:combined-operation:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-030",
+      "variantId": "FACTOR_MULTIPLE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"multi-select:FACTOR_MULTIPLE:candidates-6:representation-1:steps-1\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-030",
+      "variantId": "FACTOR_MULTIPLE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"multi-select:FACTOR_MULTIPLE:candidates-6:representation-2:steps-2\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P048-030",
+      "variantId": "FACTOR_MULTIPLE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"multi-select:FACTOR_MULTIPLE:candidates-6:representation-3:steps-3\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-032",
+      "variantId": "APPLIED_ARITHMETIC",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"applied:SIGNED_CONTEXT:relevant-2:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-032",
+      "variantId": "APPLIED_ARITHMETIC",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"applied:SIGNED_CONTEXT:relevant-3:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-032",
+      "variantId": "APPLIED_ARITHMETIC",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"applied:SIGNED_CONTEXT:relevant-4:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-034",
+      "variantId": "MIXED_NUMBER_REPRESENTATION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.2,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"mixed-number:task-1:representation-1:steps-1\",\"interaction\":\"FRACTION_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-034",
+      "variantId": "MIXED_NUMBER_REPRESENTATION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"mixed-number:task-2:representation-2:steps-2\",\"interaction\":\"FRACTION_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-034",
+      "variantId": "MIXED_NUMBER_REPRESENTATION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"mixed-number:task-3:representation-3:steps-3\",\"interaction\":\"FRACTION_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-037",
+      "variantId": "DIVISIBILITY_RULE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"multi-select:DIVISIBILITY_RULE:candidates-6:representation-1:steps-1\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-037",
+      "variantId": "DIVISIBILITY_RULE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"multi-select:DIVISIBILITY_RULE:candidates-6:representation-2:steps-2\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-037",
+      "variantId": "DIVISIBILITY_RULE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"multi-select:DIVISIBILITY_RULE:candidates-6:representation-3:steps-3\",\"interaction\":\"MULTI_SELECT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-039",
+      "variantId": "RATIONAL_NUMBER_REASONING",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.45,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"fraction:compare:representation-1:steps-1\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-039",
+      "variantId": "RATIONAL_NUMBER_REASONING",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"fraction:compare:representation-2:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-039",
+      "variantId": "RATIONAL_NUMBER_REASONING",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"fraction:compare:representation-3:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-042",
+      "variantId": "FRACTION_PERCENT_VALUE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"rate:fraction:FIND_PART:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-042",
+      "variantId": "FRACTION_PERCENT_VALUE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"rate:fraction:FIND_PART:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-042",
+      "variantId": "FRACTION_PERCENT_VALUE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"rate:fraction:RECOVER_WHOLE:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-046",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"order:ASC:count-3:representation-decimal:steps-1\",\"interaction\":\"ORDERING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-046",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"order:DESC:count-4:representation-decimal:steps-2\",\"interaction\":\"ORDERING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-046",
+      "variantId": "COMPARE_ORDER",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.010526315789473684,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 18,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"order:ASC:count-4:representation-decimal:steps-3\",\"interaction\":\"ORDERING\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-048",
+      "variantId": "ROUND_ESTIMATE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"round:decimal:step-1:representation-1\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-048",
+      "variantId": "ROUND_ESTIMATE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"round:decimal:step-0.1:representation-2\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-048",
+      "variantId": "ROUND_ESTIMATE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"round:decimal:step-0.01:representation-3\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-049",
+      "variantId": "FRACTION_PERCENT_VALUE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"rate:percent:FIND_PART:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-049",
+      "variantId": "FRACTION_PERCENT_VALUE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"rate:percent:FIND_PART:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-049",
+      "variantId": "FRACTION_PERCENT_VALUE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"rate:percent:RECOVER_WHOLE:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-008",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.25,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"power:EVALUATE_POWER:exponents-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-008",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"power:MULTIPLY_SAME_BASE:exponents-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-008",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.2,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"power:DIVIDE_SAME_BASE:exponents-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-009",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"root:index-2:representation-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-009",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"root:index-2:representation-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-009",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"root:index-2:representation-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-017",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.2,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"root:index-2:representation-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-017",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"root:index-2:representation-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-017",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"root:index-2:representation-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-021",
+      "variantId": "ALGEBRAIC_EXPRESSION_RECOGNITION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.3,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"algebra:recognition:task-1:steps-1\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-021",
+      "variantId": "ALGEBRAIC_EXPRESSION_RECOGNITION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.45,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"algebra:recognition:task-2:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-021",
+      "variantId": "ALGEBRAIC_EXPRESSION_RECOGNITION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.55,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"algebra:recognition:task-3:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-022",
+      "variantId": "MIXED_ARITHMETIC_EXPRESSION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"+-:expression-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-022",
+      "variantId": "MIXED_ARITHMETIC_EXPRESSION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"*+:expression-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-022",
+      "variantId": "MIXED_ARITHMETIC_EXPRESSION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"PARENTHESIZED:expression-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-023",
+      "variantId": "ALGEBRAIC_EXPRESSION_RECOGNITION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"algebra:recognition:task-1:steps-1\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-023",
+      "variantId": "ALGEBRAIC_EXPRESSION_RECOGNITION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"algebra:recognition:task-2:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-023",
+      "variantId": "ALGEBRAIC_EXPRESSION_RECOGNITION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.35,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"algebra:recognition:task-3:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-025",
+      "variantId": "ALGEBRAIC_EXPRESSION_RECOGNITION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"algebra:recognition:task-1:steps-1\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-025",
+      "variantId": "ALGEBRAIC_EXPRESSION_RECOGNITION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.35,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"algebra:recognition:task-2:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-025",
+      "variantId": "ALGEBRAIC_EXPRESSION_RECOGNITION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.3,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"algebra:recognition:task-3:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-029",
+      "variantId": "ROUND_ESTIMATE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"round:decimal:step-1:representation-1\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-029",
+      "variantId": "ROUND_ESTIMATE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"round:decimal:step-0.1:representation-2\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-029",
+      "variantId": "ROUND_ESTIMATE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"round:decimal:step-0.01:representation-3\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-EXP-P062-001",
+      "variantId": "BANKING_FINANCE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.015789473684210527,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 18,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"banking:TRANSACTION_BALANCE:periods-1:steps-1\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-EXP-P062-001",
+      "variantId": "BANKING_FINANCE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"banking:SIMPLE_INTEREST:periods-1:steps-2\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"banking:SIMPLE_INTEREST:periods-3:steps-2\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"banking:SIMPLE_INTEREST:periods-2:steps-2\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G7-EXP-P062-001",
+      "variantId": "BANKING_FINANCE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"banking:FIND_PRINCIPAL:periods-3:steps-3\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"banking:FIND_PRINCIPAL:periods-1:steps-3\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"banking:FIND_PRINCIPAL:periods-2:steps-3\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P063-002",
+      "variantId": "ALGEBRAIC_EXPRESSION_RECOGNITION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.45,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"algebra:recognition:task-1:steps-1\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P063-002",
+      "variantId": "ALGEBRAIC_EXPRESSION_RECOGNITION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.35,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"algebra:recognition:task-2:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P063-002",
+      "variantId": "ALGEBRAIC_EXPRESSION_RECOGNITION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.45,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"algebra:recognition:task-3:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P063-004",
+      "variantId": "POLYNOMIAL_OPERATION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.35,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"polynomial:ADD:degree-2:steps-1\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P063-004",
+      "variantId": "POLYNOMIAL_OPERATION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.3,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"polynomial:SUBTRACT:degree-2:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P063-004",
+      "variantId": "POLYNOMIAL_OPERATION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.3,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"polynomial:MULTIPLY_LINEAR:degree-2:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P063-005",
+      "variantId": "POLYNOMIAL_OPERATION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"polynomial:ADD:degree-2:steps-1\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P063-005",
+      "variantId": "POLYNOMIAL_OPERATION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.35,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"polynomial:SUBTRACT:degree-2:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P063-005",
+      "variantId": "POLYNOMIAL_OPERATION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.35,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"polynomial:MULTIPLY_LINEAR:degree-2:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P063-006",
+      "variantId": "POLYNOMIAL_OPERATION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"polynomial:ADD:degree-2:steps-1\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P063-006",
+      "variantId": "POLYNOMIAL_OPERATION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.35,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"polynomial:SUBTRACT:degree-2:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P063-006",
+      "variantId": "POLYNOMIAL_OPERATION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.3,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"polynomial:MULTIPLY_LINEAR:degree-2:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P063-008",
+      "variantId": "POLYNOMIAL_OPERATION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"polynomial:EVALUATE:degree-2:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P063-008",
+      "variantId": "POLYNOMIAL_OPERATION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"polynomial:EVALUATE:degree-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P063-008",
+      "variantId": "POLYNOMIAL_OPERATION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"polynomial:EVALUATE:degree-2:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P064-016",
+      "variantId": "RATIONAL_EXPRESSION_OPERATION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"algebra:rational:task-1:steps-1\",\"interaction\":\"FRACTION_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P064-016",
+      "variantId": "RATIONAL_EXPRESSION_OPERATION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"algebra:rational:task-2:steps-2\",\"interaction\":\"FRACTION_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P064-016",
+      "variantId": "RATIONAL_EXPRESSION_OPERATION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"algebra:rational:task-3:steps-3\",\"interaction\":\"FRACTION_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P064-020",
+      "variantId": "RATIONAL_EXPRESSION_OPERATION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"algebra:rational:task-1:steps-1\",\"interaction\":\"FRACTION_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P064-020",
+      "variantId": "RATIONAL_EXPRESSION_OPERATION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"algebra:rational:task-2:steps-2\",\"interaction\":\"FRACTION_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P064-020",
+      "variantId": "RATIONAL_EXPRESSION_OPERATION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"algebra:rational:task-3:steps-3\",\"interaction\":\"FRACTION_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-STA-P068-003",
+      "variantId": "DATA_RELATION_REASONING",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"data:DIFFERENCE_RELATION:records-4:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"DATA_TABLE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-STA-P068-003",
+      "variantId": "DATA_RELATION_REASONING",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"data:DIFFERENCE_RELATION:records-4:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"DATA_TABLE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-STA-P068-003",
+      "variantId": "DATA_RELATION_REASONING",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"data:MISSING_FROM_TOTAL:records-4:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"DATA_TABLE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-EXP-P070-002",
+      "variantId": "BANKING_FINANCE",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"banking:FIND_PRINCIPAL:periods-1:steps-1\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-EXP-P070-002",
+      "variantId": "BANKING_FINANCE",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"banking:FIND_PRINCIPAL:periods-3:steps-2\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"banking:FIND_PRINCIPAL:periods-1:steps-2\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":2,\"fingerprint\":\"banking:FIND_PRINCIPAL:periods-2:steps-2\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G8-EXP-P070-002",
+      "variantId": "BANKING_FINANCE",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.05,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"banking:FIND_PRINCIPAL:periods-2:steps-3\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"banking:FIND_PRINCIPAL:periods-3:steps-3\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}",
+        "{\"level\":3,\"fingerprint\":\"banking:FIND_PRINCIPAL:periods-1:steps-3\",\"interaction\":\"DECIMAL_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P071-002",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"root:index-2:representation-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P071-002",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.2,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"root:index-2:representation-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P071-002",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.2,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"root:index-3:representation-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P071-003",
+      "variantId": "RADICAL_EXPRESSION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"radical:task-1:perfect-factor:steps-1\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P071-003",
+      "variantId": "RADICAL_EXPRESSION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.3,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"radical:task-2:perfect-factor:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P071-003",
+      "variantId": "RADICAL_EXPRESSION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.35,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"radical:task-3:perfect-factor:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P071-007",
+      "variantId": "RADICAL_EXPRESSION",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"radical:task-1:perfect-factor:steps-1\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P071-007",
+      "variantId": "RADICAL_EXPRESSION",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.35,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"radical:task-2:perfect-factor:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P071-007",
+      "variantId": "RADICAL_EXPRESSION",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.45,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"radical:task-3:perfect-factor:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P071-008",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0.005263157894736842,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 19,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"root:index-2:representation-1:steps-1\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P071-008",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.1,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"root:index-2:representation-2:steps-2\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P071-008",
+      "variantId": "POWER_AND_ROOT",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.15,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"root:index-3:representation-3:steps-3\",\"interaction\":\"INTEGER_INPUT\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P073-024",
+      "variantId": "INEQUALITY_PROPERTY",
+      "difficulty": "EASY",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.5,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":1,\"fingerprint\":\"inequality:task-1:sign-1:steps-1\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P073-024",
+      "variantId": "INEQUALITY_PROPERTY",
+      "difficulty": "MEDIUM",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.4,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":2,\"fingerprint\":\"inequality:task-2:sign-1:steps-2\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P073-024",
+      "variantId": "INEQUALITY_PROPERTY",
+      "difficulty": "HARD",
+      "samples": 20,
+      "exactUnique": 20,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 0,
+      "nearDuplicateThreshold": 0.12,
+      "uniqueTemplates": 20,
+      "dominantAnswerRate": 0.55,
+      "deterministicReplay": "PASS",
+      "structuralFingerprints": [
+        "{\"level\":3,\"fingerprint\":\"inequality:task-3:sign--1:steps-3\",\"interaction\":\"SINGLE_CHOICE\",\"visual\":\"NONE\"}"
+      ]
+    }
+  ]
+}

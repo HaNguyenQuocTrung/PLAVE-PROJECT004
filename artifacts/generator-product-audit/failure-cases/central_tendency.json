@@ -1,0 +1,99 @@
+{
+  "variant": "CENTRAL_TENDENCY",
+  "severity": "HIGH",
+  "categories": [
+    "OUTCOME_ALIGNMENT_WRONG",
+    "VISUAL_MISSING_OR_INCORRECT",
+    "INVALID_OR_AMBIGUOUS_QUESTION"
+  ],
+  "summary": "Query chỉ là tên family; solver thường lấy max/mean mà không nêu đại lượng cần đọc hoặc so sánh.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-94aa0d98521f555330de510ee068518d5a9065f6b60b6fff",
+  "reproductionSeedFingerprint": "94aa0d98521f5553",
+  "reproductionSampleId": "CENTRAL_TENDENCY:EASY:1",
+  "sample": {
+    "sampleId": "CENTRAL_TENDENCY:EASY:1",
+    "variant": "CENTRAL_TENDENCY",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-94aa0d98521f555330de510ee068518d5a9065f6b60b6fff",
+    "seedFingerprint": "94aa0d98521f5553",
+    "runtimeReachable": true,
+    "grade": 4,
+    "outcomeId": "MOET2018-G4-NUM-P035-012",
+    "unitId": "grade-4-number-patterns-p1",
+    "astKind": "DATA",
+    "complexity": 1,
+    "prompt": "Bộ dữ liệu 1: Cho dữ liệu 5, 6, 7, 8, 9. Hãy thực hiện số trung bình, trung vị hoặc mốt.",
+    "normalizedTemplate": "xộ xữ liệu #: cho xữ liệu #, #, #, #, #. hãy thựx hiện số trung xình, trung vị hoặx mốt.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "7",
+      "8",
+      "6",
+      "9"
+    ],
+    "correctOptionKey": "A",
+    "correctOptionLabel": "7",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn A."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-21ff9a3ac8a51b1ba1265aec70ab1b67",
+      "position": 1,
+      "prompt": "Bộ dữ liệu 1: Cho dữ liệu 5, 6, 7, 8, 9. Hãy thực hiện số trung bình, trung vị hoặc mốt.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "7"
+        },
+        {
+          "key": "B",
+          "label": "8"
+        },
+        {
+          "key": "C",
+          "label": "6"
+        },
+        {
+          "key": "D",
+          "label": "9"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "HIGH",
+      "categories": [
+        "OUTCOME_ALIGNMENT_WRONG",
+        "VISUAL_MISSING_OR_INCORRECT",
+        "INVALID_OR_AMBIGUOUS_QUESTION"
+      ],
+      "summary": "Query chỉ là tên family; solver thường lấy max/mean mà không nêu đại lượng cần đọc hoặc so sánh."
+    }
+  }
+}

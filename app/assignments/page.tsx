@@ -32,7 +32,7 @@ export default async function StudentAssignmentsPage() {
   }
 
   return (
-    <div className="student-assignments-page page-shell">
+    <div className="student-assignments-page student-workspace-page--v2 page-shell">
       <header className="catalog-hero catalog-hero--lessons">
         <p className="eyebrow">Bài tập trong lớp</p>
         <h1>Bài giáo viên giao</h1>

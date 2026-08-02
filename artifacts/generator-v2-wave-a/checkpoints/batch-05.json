@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "batch": 5,
+  "outcomeCount": 18,
+  "outcomeIds": [
+    "MOET2018-G7-NAA-P057-023",
+    "MOET2018-G7-NAA-P057-025",
+    "MOET2018-G7-NAA-P057-029",
+    "MOET2018-G7-EXP-P062-001",
+    "MOET2018-G8-NAA-P063-002",
+    "MOET2018-G8-NAA-P063-004",
+    "MOET2018-G8-NAA-P063-005",
+    "MOET2018-G8-NAA-P063-006",
+    "MOET2018-G8-NAA-P063-008",
+    "MOET2018-G8-NAA-P064-016",
+    "MOET2018-G8-NAA-P064-020",
+    "MOET2018-G8-STA-P068-003",
+    "MOET2018-G8-EXP-P070-002",
+    "MOET2018-G9-NAA-P071-002",
+    "MOET2018-G9-NAA-P071-003",
+    "MOET2018-G9-NAA-P071-007",
+    "MOET2018-G9-NAA-P071-008",
+    "MOET2018-G9-NAA-P073-024"
+  ],
+  "generatedSamples": 1080,
+  "solver": "PASS",
+  "validator": "PASS",
+  "diversity": "PASS",
+  "difficulty": "PASS",
+  "negativeControls": "PASS_BY_CAPABILITY_SUITE"
+}

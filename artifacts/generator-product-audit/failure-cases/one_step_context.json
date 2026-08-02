@@ -1,0 +1,99 @@
+{
+  "variant": "ONE_STEP_CONTEXT",
+  "severity": "HIGH",
+  "categories": [
+    "OUTCOME_ALIGNMENT_WRONG",
+    "LANGUAGE_QUALITY",
+    "FEEDBACK_OR_EXPLANATION_WEAK"
+  ],
+  "summary": "Không tạo tình huống toán học thật; chỉ liệt kê đại lượng hoặc lặp lại câu mô tả outcome.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-59e5c2391dd0bf412b7aab710abf03d5043ab903388c1d0a",
+  "reproductionSeedFingerprint": "59e5c2391dd0bf41",
+  "reproductionSampleId": "ONE_STEP_CONTEXT:EASY:1",
+  "sample": {
+    "sampleId": "ONE_STEP_CONTEXT:EASY:1",
+    "variant": "ONE_STEP_CONTEXT",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-59e5c2391dd0bf412b7aab710abf03d5043ab903388c1d0a",
+    "seedFingerprint": "59e5c2391dd0bf41",
+    "runtimeReachable": true,
+    "grade": 5,
+    "outcomeId": "MOET2018-G5-GEO-P044-008",
+    "unitId": "grade-5-calculator-motion-p1",
+    "astKind": "CONTEXT",
+    "complexity": 1,
+    "prompt": "Tình huống 1: Một tình huống có các đại lượng 52, 14, 3. Hãy thực hiện bài toán một bước.",
+    "normalizedTemplate": "tình huống #: một tình huống xó xáx đại lượng #, #, #. hãy thựx hiện xài toán một xướx.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "66",
+      "67",
+      "65",
+      "68"
+    ],
+    "correctOptionKey": "A",
+    "correctOptionLabel": "66",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn A."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-6593a0c3570d92de81d8b3c59bd62798",
+      "position": 1,
+      "prompt": "Tình huống 1: Một tình huống có các đại lượng 52, 14, 3. Hãy thực hiện bài toán một bước.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "66"
+        },
+        {
+          "key": "B",
+          "label": "67"
+        },
+        {
+          "key": "C",
+          "label": "65"
+        },
+        {
+          "key": "D",
+          "label": "68"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "HIGH",
+      "categories": [
+        "OUTCOME_ALIGNMENT_WRONG",
+        "LANGUAGE_QUALITY",
+        "FEEDBACK_OR_EXPLANATION_WEAK"
+      ],
+      "summary": "Không tạo tình huống toán học thật; chỉ liệt kê đại lượng hoặc lặp lại câu mô tả outcome."
+    }
+  }
+}

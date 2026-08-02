@@ -93,7 +93,7 @@ export default async function AdaptivePracticePage({
   }
 
   return (
-    <div className="practice-page page-shell">
+    <div className="practice-page practice-focus-shell page-shell">
       <AdaptivePracticeRunner
         initialState={result.data}
         unitTitle={unit.title}

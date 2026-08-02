@@ -47,7 +47,7 @@ export default async function CurriculumPreviewPage({
 
   if (!unit) {
     return (
-      <main className="page-shell preview-page">
+      <div className="page-shell preview-page preview-page--v2">
         <div className="preview-empty-state" role="status">
           <h1>Chưa có chủ đề để học</h1>
           <p>Hãy quay lại sau hoặc chọn một bài học thử khác.</p>
@@ -55,7 +55,7 @@ export default async function CurriculumPreviewPage({
             Mở bài học thử
           </a>
         </div>
-      </main>
+      </div>
     );
   }
 
@@ -66,7 +66,7 @@ export default async function CurriculumPreviewPage({
   const unitTitle = studentUnitTitle(unit);
 
   return (
-    <main className="page-shell preview-page" id="main-content">
+    <div className="page-shell preview-page preview-page--v2" id="preview-content">
       <header className="preview-hero">
         <p className="eyebrow">Học thử Toán · Lớp 1–9</p>
         <h1>Chọn một chủ đề và bắt đầu học</h1>
@@ -200,8 +200,8 @@ export default async function CurriculumPreviewPage({
 
       <nav className="preview-footer-nav" aria-label="Điều hướng chủ đề">
         <a href="#unit-list">Quay lại danh sách chủ đề</a>
-        <a href="#main-content">Lên đầu trang</a>
+        <a href="#preview-content">Lên đầu trang</a>
       </nav>
-    </main>
+    </div>
   );
 }

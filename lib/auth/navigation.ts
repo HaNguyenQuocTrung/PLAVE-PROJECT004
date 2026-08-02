@@ -31,6 +31,7 @@ const protectedPaths = [
   "/learning-progress",
   "/learning-history",
   "/teacher",
+  "/tutor",
 ] as const;
 
 const authEntryPaths = ["/login", "/register"] as const;
@@ -51,19 +52,32 @@ export function getHeaderNavigation(
           activePrefixes: ["/dashboard", "/diagnostic", "/grade-1"],
         },
         {
-          href: "/learn",
-          label: "Lý thuyết",
-          activePrefixes: ["/learn"],
-        },
-        {
           href: "/lessons",
           label: "Bài học",
-          activePrefixes: ["/lessons", "/practice", "/assignments"],
+          activePrefixes: [
+            "/lessons",
+            "/learn",
+            "/practice",
+            "/curriculum-practice",
+            "/on-demand-practice",
+            "/adaptive-practice",
+            "/assignments",
+          ],
+        },
+        {
+          href: "/tutor",
+          label: "AI Tutor",
+          activePrefixes: ["/tutor"],
+        },
+        {
+          href: "/learning-progress",
+          label: "Tiến bộ",
+          activePrefixes: ["/learning-progress"],
         },
         {
           href: "/results",
-          label: "Kết quả",
-          activePrefixes: ["/results", "/review"],
+          label: "Lịch sử",
+          activePrefixes: ["/results", "/review", "/learning-history"],
         },
         {
           href: "/goals",

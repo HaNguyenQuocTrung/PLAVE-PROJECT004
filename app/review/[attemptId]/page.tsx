@@ -120,7 +120,7 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
     : null;
 
   return (
-    <div className="review-page page-shell">
+    <div className="review-page review-page--v2 page-shell">
       <header className="review-summary">
         <div>
           <p className="eyebrow">
@@ -131,12 +131,12 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
               : "Đang tiếp tục"}
           </p>
           <h1>
-            Em làm đúng {review.correctCount}/{review.totalQuestions} câu
+            Em đã hoàn thành {unit.title}
           </h1>
           <p className="review-summary__score">{percent}%</p>
           <p>
             {review.status === "COMPLETED"
-              ? "Kết quả này đã được lưu vào lịch sử luyện tập."
+              ? `Em trả lời đúng ${review.correctCount}/${review.totalQuestions} câu. Kết quả đã được lưu vào lịch sử.`
               : `Em đã trả lời ${review.answeredCount}/${review.totalQuestions} câu.`}
           </p>
         </div>
@@ -152,8 +152,8 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
           <p className="eyebrow">Theo các nhóm kỹ năng</p>
           <h2 id="skills-title">Em đang tiến bộ thế nào?</h2>
           <p>
-            Nhóm đạt từ 75% trở lên được xếp vào “Em làm tốt”. Đây là quy tắc
-            cố định, không sử dụng AI.
+            Kết quả dưới đây chỉ dựa trên các câu em vừa làm. Em có thể xem lại
+            lời giải và luyện thêm bất cứ lúc nào.
           </p>
         </div>
         <div className="skill-result-grid">
@@ -171,7 +171,7 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
         </div>
         <div className="review-guidance-grid">
           <article>
-            <h3>✓ Em làm tốt</h3>
+            <h3>Em đang làm tốt</h3>
             {strengths.length > 0 ? (
               <ul>
                 {strengths.map((result) => (
@@ -183,7 +183,7 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
             )}
           </article>
           <article>
-            <h3>↻ Em cần ôn thêm</h3>
+            <h3>Phần nên ôn thêm</h3>
             {reviewSkills.length > 0 ? (
               <ul>
                 {reviewSkills.map((result) => (
@@ -260,12 +260,12 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
       </section>
 
       <div className="review-actions">
-        <Button href="/dashboard">Về trang chủ</Button>
+        <Button href="/lessons">Chọn bài tiếp theo</Button>
         <Button
           href={getLessonPath(unit.slug)}
           variant="secondary"
         >
-          Học lại bài
+          Xem lại lý thuyết
         </Button>
         {review.status === "COMPLETED" ? (
           <StartPracticeButton

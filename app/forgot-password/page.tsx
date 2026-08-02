@@ -4,6 +4,7 @@ import Link from "next/link";
 import { type FormEvent, useRef, useState, useTransition } from "react";
 
 import { requestPasswordReset } from "@/app/forgot-password/actions";
+import { AuthBrandPanel } from "@/components/AuthBrandPanel";
 import { Button } from "@/components/Button";
 import { FormField } from "@/components/FormField";
 
@@ -42,15 +43,18 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <section className="auth-page auth-page--compact page-shell">
-      <div className="auth-intro">
-        <p className="eyebrow">Khôi phục tài khoản</p>
-        <h1>Quên mật khẩu?</h1>
-        <p>
-          Nhập email. Phản hồi luôn giống nhau để bảo vệ thông tin tài khoản.
-        </p>
-      </div>
-      <form className="auth-card" onSubmit={submit} noValidate>
+    <section className="auth-page auth-page--v2 auth-page--compact page-shell">
+      <AuthBrandPanel
+        eyebrow="Tài khoản an toàn"
+        title="Trở lại nhịp học của bạn."
+        description="Khôi phục quyền truy cập mà không làm lộ thông tin tài khoản."
+      />
+      <form className="auth-card auth-card--v2" onSubmit={submit} noValidate>
+        <div className="auth-card__heading">
+          <p className="eyebrow">Khôi phục tài khoản</p>
+          <h2>Quên mật khẩu?</h2>
+          <p>Nhập email để nhận hướng dẫn đặt lại mật khẩu.</p>
+        </div>
         <FormField
           id="forgot-email"
           label="Email"
@@ -69,8 +73,8 @@ export default function ForgotPasswordPage() {
           placeholder="ban@example.com"
           disabled={isPending}
         />
-        <Button type="submit" fullWidth disabled={isPending}>
-          {isPending ? "Đang gửi yêu cầu…" : "Gửi hướng dẫn"}
+        <Button type="submit" fullWidth disabled={isPending} loading={isPending}>
+          Gửi hướng dẫn
         </Button>
         {notice ? (
           <p className="form-success" role="status">

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "sprint": "8C.D",
+  "runDate": "2026-08-02",
+  "status": "PASS_WITH_NPM_AUDIT_BLOCKED_BY_NETWORK_POLICY",
+  "wavesAThroughC": {
+    "status": "PASS",
+    "waveA": "8/8; 98/98 outcomes; 5,880/5,880 samples; browser contract evidence PASS",
+    "waveB": "8/8; 61/61 outcomes; 3,660/3,660 samples; browser evidence PASS",
+    "waveC": "8/8; 57/57 outcomes; 3,420/3,420 samples; browser evidence PASS"
+  },
+  "generatorV2": {
+    "core": "PASS 10/10",
+    "waveD": "PASS 10/10",
+    "fullCoverage": "PASS 6/6; 452/546 implemented; 94 explicitly remaining",
+    "negativeControls": "PASS"
+  },
+  "persistenceAndSecurity": {
+    "contractTests": "PASS 7/7",
+    "databaseProofContract": "PASS 3/3",
+    "authenticatedWaveDProof": "PASS 50/50 capabilities; 612 persisted questions",
+    "migrations": "42/42 byte-identical; no migration created or modified",
+    "casExactlyOnceRlsCleanup": "PASS"
+  },
+  "practice": "PASS 550/550",
+  "curriculum": {
+    "grades1To9": "PASS 9/9",
+    "universal": "PASS 21/21"
+  },
+  "competency": "PASS 10/10 (learning path 6/6; UI 4/4)",
+  "uiUx": "PASS 13/13",
+  "aiTutor": {
+    "coreAndConfigure": "PASS 25/25",
+    "quality": "PASS 6/6",
+    "authenticatedLocalRuntime": "PASS 9/9",
+    "paidProviderRequests": 0,
+    "implementationChanged": false
+  },
+  "typecheck": "PASS",
+  "lint": "PASS 0 errors, 0 warnings",
+  "productionBuild": "PASS; Next.js 16.2.12; 76/76 static pages generated",
+  "npmAudit": {
+    "status": "BLOCKED_NETWORK_POLICY_NOT_CLAIMED_PASS",
+    "sandboxFailure": "getaddrinfo ENOTFOUND registry.npmjs.org",
+    "readOnlyRetry": "POLICY_REJECTED_DEPENDENCY_METADATA_EGRESS_NOT_AUTHORIZED",
+    "lastRecordedProjectResult": "0 vulnerabilities on 2026-08-01",
+    "dependencyOrLockfileChangedBySprint": false
+  }
+}

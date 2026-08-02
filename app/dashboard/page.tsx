@@ -34,6 +34,7 @@ import {
 import { loadParentWeeklySummary } from "@/lib/parent-dashboard/server";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentGeneratedPracticePilotEligibility } from "@/lib/curriculum/generated-practice-pilot";
+import { getLessonPath } from "@/lib/practice/catalog";
 
 export const metadata = {
   title: "Tổng quan",
@@ -96,7 +97,7 @@ export default async function DashboardPage() {
         : [];
 
     return (
-      <div className="dashboard-page page-shell">
+      <div className="dashboard-page dashboard-page--parent page-shell">
         <header className="dashboard-header">
           <div>
             <p className="eyebrow">Dành cho phụ huynh</p>
@@ -150,7 +151,7 @@ export default async function DashboardPage() {
     return (
       <section className="content-page page-shell">
         <p className="eyebrow">Dữ liệu chưa sẵn sàng</p>
-        <h1>Chưa thể mở dashboard học sinh.</h1>
+        <h1>Chưa thể mở trang học của em.</h1>
         <p>
           Không có dữ liệu riêng tư nào được hiển thị. Vui lòng thử tải lại sau.
         </p>
@@ -246,15 +247,27 @@ export default async function DashboardPage() {
       role: "STUDENT",
       schoolGrade: studentProfile.grade,
     }).eligible;
+  const currentUnit = universalProgress?.units.find(
+    (unit) => unit.status === "IN_PROGRESS",
+  );
+  const recentUnits = universalProgress
+    ? [...universalProgress.units]
+        .filter((unit) => unit.lastActivityAt)
+        .sort((left, right) =>
+          String(right.lastActivityAt).localeCompare(String(left.lastActivityAt)),
+        )
+        .slice(0, 3)
+    : [];
 
   return (
-    <div className="dashboard-page page-shell">
+    <div className="dashboard-page dashboard-page--student page-shell">
       <header className="dashboard-header">
         <div>
-          <p className="eyebrow">Dashboard học sinh</p>
+          <p className="eyebrow">Không gian Toán lớp {studentProfile.grade}</p>
           <h1>Xin chào, {profile.full_name ?? "em"}!</h1>
-          <p>Em đang học lớp {studentProfile.grade}.</p>
+          <p>Hôm nay em chỉ cần bắt đầu từ một bước phù hợp.</p>
         </div>
+        <Button href="/lessons" variant="secondary">Khám phá lộ trình</Button>
       </header>
 
       {controlledPilotUnit ? (
@@ -267,26 +280,26 @@ export default async function DashboardPage() {
           aria-labelledby="universal-progress-title"
         >
           <div>
-            <p className="eyebrow">Chương trình Toán lớp {studentProfile.grade}</p>
+            <p className="eyebrow">
+              {currentUnit ? "Bài học đang dở" : "Bước đầu tiên của em"}
+            </p>
             <h2 id="universal-progress-title">
-              Đã hoàn thành{" "}
-              {
-                universalProgress.units.filter(
-                  (unit) => unit.status === "COMPLETED",
-                ).length
-              }
-              /{universalProgress.units.length} chủ đề
+              {currentUnit
+                ? `Tiếp tục: ${currentUnit.title}`
+                : `Bắt đầu lộ trình Toán lớp ${studentProfile.grade}`}
             </h2>
             <p>{universalProgress.masteryExplanation}</p>
+            <div className="dashboard-diagnostic-card__actions">
+              <Button
+                href={currentUnit ? getLessonPath(currentUnit.unitId) : "/lessons"}
+              >
+                {currentUnit ? "Tiếp tục bài này" : "Chọn bài để học"}
+              </Button>
+            </div>
           </div>
-          <div className="dashboard-diagnostic-card__actions">
-            <Button href="/lessons">Tiếp tục học</Button>
-            <Button href="/learning-progress" variant="secondary">
-              Xem tiến trình
-            </Button>
-            <Button href="/learning-history" variant="quiet">
-              Lịch sử
-            </Button>
+          <div className="student-summary__meter" aria-label={`${universalProgress.units.filter((unit) => unit.status === "COMPLETED").length} trên ${universalProgress.units.length} bài đã hoàn thành`}>
+            <strong>{universalProgress.units.filter((unit) => unit.status === "COMPLETED").length}</strong>
+            <span>/{universalProgress.units.length} bài</span>
           </div>
         </section>
       ) : personalizedPath && personalizedPath.units.length > 0 ? (
@@ -309,6 +322,35 @@ export default async function DashboardPage() {
 
       {competencyDashboard ? (
         <CompetencyLearningPathPanel model={competencyDashboard} />
+      ) : null}
+
+      {recentUnits.length > 0 ? (
+        <section className="dashboard-section recent-learning" aria-labelledby="recent-learning-title">
+          <div className="section-heading section-heading--compact">
+            <p className="eyebrow">Hoạt động gần đây</p>
+            <h2 id="recent-learning-title">Các bài em vừa học</h2>
+          </div>
+          <ul>
+            {recentUnits.map((unit) => (
+              <li key={unit.unitId}>
+                <div>
+                  <strong>{unit.title}</strong>
+                  <span>
+                    {unit.status === "COMPLETED"
+                      ? "Đã hoàn thành"
+                      : "Đang học"}
+                  </span>
+                </div>
+                <Button href={getLessonPath(unit.unitId)} variant="secondary">
+                  {unit.status === "COMPLETED" ? "Xem lại" : "Tiếp tục"}
+                </Button>
+              </li>
+            ))}
+          </ul>
+          <Button href="/learning-history" variant="tertiary">
+            Xem toàn bộ lịch sử
+          </Button>
+        </section>
       ) : null}
 
       {generatedPilotEligible ? <GeneratedPracticePilotCard compact /> : null}

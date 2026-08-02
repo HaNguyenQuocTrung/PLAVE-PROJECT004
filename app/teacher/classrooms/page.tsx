@@ -48,7 +48,7 @@ export default async function TeacherClassroomsPage() {
     .join("|");
 
   return (
-    <div className="teacher-classrooms-page page-shell">
+    <div className="teacher-classrooms-page teacher-workspace-page--v2 page-shell">
       <header className="catalog-hero teacher-hero">
         <p className="eyebrow">Không gian giáo viên</p>
         <h1>Lớp học</h1>

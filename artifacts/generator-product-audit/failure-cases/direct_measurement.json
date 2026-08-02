@@ -1,0 +1,102 @@
+{
+  "variant": "DIRECT_MEASUREMENT",
+  "severity": "HIGH",
+  "categories": [
+    "INVALID_OR_AMBIGUOUS_QUESTION",
+    "VISUAL_MISSING_OR_INCORRECT",
+    "OUTCOME_ALIGNMENT_WRONG"
+  ],
+  "summary": "Đơn vị/đích đổi/hình và vai trò các số đo không được nêu nhất quán; TIME_MONEY vẫn dùng cm.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-cd3d695c23b9bc86b724cb6062e43167beb65b4d9ca07f9c",
+  "reproductionSeedFingerprint": "cd3d695c23b9bc86",
+  "reproductionSampleId": "DIRECT_MEASUREMENT:EASY:1",
+  "sample": {
+    "sampleId": "DIRECT_MEASUREMENT:EASY:1",
+    "variant": "DIRECT_MEASUREMENT",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-cd3d695c23b9bc86b724cb6062e43167beb65b4d9ca07f9c",
+    "seedFingerprint": "cd3d695c23b9bc86",
+    "runtimeReachable": true,
+    "grade": 1,
+    "outcomeId": "MOET2018-G1-GEO-P023-008",
+    "unitId": "grade-1-length-centimetres",
+    "astKind": "MEASURE",
+    "complexity": 1,
+    "prompt": "Thực hiện đo trực tiếp với các số đo 6, 2, 2 cm.",
+    "normalizedTemplate": "thựx hiện đo trựx tiếp với xáx số đo #, #, # cm.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "7",
+      "5",
+      "8",
+      "6"
+    ],
+    "correctOptionKey": "D",
+    "correctOptionLabel": "6",
+    "visualType": "MEASUREMENT_SCALE",
+    "visualTemplate": "{\"type\":\"MEASUREMENT_SCALE\",\"start\":#,\"end\":#,\"unit\":\"cm\",\"description\":\"Hình minh họa chỉ thể hiện các dữ kiện đã nêu trong câu hỏi.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn D."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-756f621c1ee4de5d66777a986a04a6a1",
+      "position": 1,
+      "prompt": "Thực hiện đo trực tiếp với các số đo 6, 2, 2 cm.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "7"
+        },
+        {
+          "key": "B",
+          "label": "5"
+        },
+        {
+          "key": "C",
+          "label": "8"
+        },
+        {
+          "key": "D",
+          "label": "6"
+        }
+      ],
+      "visual": {
+        "type": "MEASUREMENT_SCALE",
+        "start": 0,
+        "end": 6,
+        "unit": "cm",
+        "description": "Hình minh họa chỉ thể hiện các dữ kiện đã nêu trong câu hỏi."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "HIGH",
+      "categories": [
+        "INVALID_OR_AMBIGUOUS_QUESTION",
+        "VISUAL_MISSING_OR_INCORRECT",
+        "OUTCOME_ALIGNMENT_WRONG"
+      ],
+      "summary": "Đơn vị/đích đổi/hình và vai trò các số đo không được nêu nhất quán; TIME_MONEY vẫn dùng cm."
+    }
+  }
+}

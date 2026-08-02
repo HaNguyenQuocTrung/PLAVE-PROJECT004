@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "result": "PASS",
+  "outcomeControls": [
+    {
+      "outcomeId": "MOET2018-G1-NUM-P022-003",
+      "capability": "TENS_ONES_STRUCTURE",
+      "controls": [
+        "MALFORMED_PROMPT_CONTRACT",
+        "INCORRECT_SOLVER_OUTPUT",
+        "OUT_OF_GRADE_OR_INVALID_PARAMETER",
+        "IMPOSSIBLE_VISUAL_OR_PROMPT_VISUAL_MISMATCH",
+        "PRIVATE_METADATA_LEAK"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G2-GEO-P026-004",
+      "capability": "MASS_COMPARISON_REASONING",
+      "controls": [
+        "MALFORMED_PROMPT_CONTRACT",
+        "INCORRECT_SOLVER_OUTPUT",
+        "OUT_OF_GRADE_OR_INVALID_PARAMETER",
+        "IMPOSSIBLE_VISUAL_OR_PROMPT_VISUAL_MISMATCH",
+        "PRIVATE_METADATA_LEAK"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-GEO-P044-008",
+      "capability": "UNIFORM_MOTION_REASONING",
+      "controls": [
+        "MALFORMED_PROMPT_CONTRACT",
+        "INCORRECT_SOLVER_OUTPUT",
+        "OUT_OF_GRADE_OR_INVALID_PARAMETER",
+        "IMPOSSIBLE_VISUAL_OR_PROMPT_VISUAL_MISMATCH",
+        "PRIVATE_METADATA_LEAK"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G6-STA-P053-005",
+      "capability": "CROSS_CURRICULAR_STATISTICS_REASONING",
+      "controls": [
+        "MALFORMED_PROMPT_CONTRACT",
+        "INCORRECT_SOLVER_OUTPUT",
+        "OUT_OF_GRADE_OR_INVALID_PARAMETER",
+        "IMPOSSIBLE_VISUAL_OR_PROMPT_VISUAL_MISMATCH",
+        "PRIVATE_METADATA_LEAK"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-EXP-P062-002",
+      "capability": "TAX_CALCULATION_REASONING",
+      "controls": [
+        "MALFORMED_PROMPT_CONTRACT",
+        "INCORRECT_SOLVER_OUTPUT",
+        "OUT_OF_GRADE_OR_INVALID_PARAMETER",
+        "IMPOSSIBLE_VISUAL_OR_PROMPT_VISUAL_MISMATCH",
+        "PRIVATE_METADATA_LEAK"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-STA-P061-005",
+      "capability": "CROSS_CURRICULAR_STATISTICS_REASONING",
+      "controls": [
+        "MALFORMED_PROMPT_CONTRACT",
+        "INCORRECT_SOLVER_OUTPUT",
+        "OUT_OF_GRADE_OR_INVALID_PARAMETER",
+        "IMPOSSIBLE_VISUAL_OR_PROMPT_VISUAL_MISMATCH",
+        "PRIVATE_METADATA_LEAK"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G8-EXP-P070-008",
+      "capability": "SCIENTIFIC_ALGEBRA_REASONING",
+      "controls": [
+        "MALFORMED_PROMPT_CONTRACT",
+        "INCORRECT_SOLVER_OUTPUT",
+        "OUT_OF_GRADE_OR_INVALID_PARAMETER",
+        "IMPOSSIBLE_VISUAL_OR_PROMPT_VISUAL_MISMATCH",
+        "PRIVATE_METADATA_LEAK"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P064-010",
+      "capability": "RATIONAL_EXPRESSION_PROPERTY_REASONING",
+      "controls": [
+        "MALFORMED_PROMPT_CONTRACT",
+        "INCORRECT_SOLVER_OUTPUT",
+        "OUT_OF_GRADE_OR_INVALID_PARAMETER",
+        "IMPOSSIBLE_VISUAL_OR_PROMPT_VISUAL_MISMATCH",
+        "PRIVATE_METADATA_LEAK"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P064-011",
+      "capability": "RATIONAL_EXPRESSION_CONCEPT_REASONING",
+      "controls": [
+        "MALFORMED_PROMPT_CONTRACT",
+        "INCORRECT_SOLVER_OUTPUT",
+        "OUT_OF_GRADE_OR_INVALID_PARAMETER",
+        "IMPOSSIBLE_VISUAL_OR_PROMPT_VISUAL_MISMATCH",
+        "PRIVATE_METADATA_LEAK"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G8-STA-P069-010",
+      "capability": "CROSS_CURRICULAR_STATISTICS_REASONING",
+      "controls": [
+        "MALFORMED_PROMPT_CONTRACT",
+        "INCORRECT_SOLVER_OUTPUT",
+        "OUT_OF_GRADE_OR_INVALID_PARAMETER",
+        "IMPOSSIBLE_VISUAL_OR_PROMPT_VISUAL_MISMATCH",
+        "PRIVATE_METADATA_LEAK"
+      ],
+      "result": "PASS"
+    }
+  ],
+  "unknownOutcome": "GENERATOR_V2_OUTCOME_NOT_IMPLEMENTED",
+  "malformedContract": "REJECTED",
+  "invalidDomainOrParameter": "REJECTED",
+  "ambiguousAnswer": "REJECTED",
+  "promptVisualMismatch": "REJECTED",
+  "privateLeak": "REJECTED",
+  "exactDuplicateViolation": "REJECTED",
+  "nearDuplicateViolation": "REJECTED",
+  "capabilityFamiliesCovered": 8
+}

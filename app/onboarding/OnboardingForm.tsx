@@ -114,7 +114,12 @@ export function OnboardingForm({
   };
 
   return (
-    <form className="auth-card" onSubmit={submit} noValidate>
+    <form className="auth-card auth-card--v2" onSubmit={submit} noValidate>
+      <div className="auth-card__heading">
+        <p className="eyebrow">Bước cuối</p>
+        <h2>Hoàn tất thông tin cơ bản</h2>
+        <p>Thông tin này giúp PLAVE mở đúng trải nghiệm cho bạn.</p>
+      </div>
       <FormField
         id="onboarding-full-name"
         label="Họ và tên"

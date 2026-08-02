@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "status": "FAIL_PRODUCT_AND_INDEPENDENCE_FINDINGS",
+  "registry": {
+    "canonicalOutcomes": 546,
+    "uniqueExplicitMappings": 546,
+    "canonicalCapabilities": 198,
+    "missingIds": [],
+    "duplicateIds": [],
+    "conflictingMappings": [],
+    "syntheticCoverage": [],
+    "genericFallbackCount": 0,
+    "keywordRoutingCount": 0,
+    "unknownOutcome": "GENERATOR_V2_OUTCOME_NOT_IMPLEMENTED"
+  },
+  "freshFullAudit": {
+    "commandRunOnIsolatedCopy": true,
+    "expectedSamples": 32760,
+    "executedSamples": 32760,
+    "reportedValidatedSamples": 32760,
+    "failedBatches": 0,
+    "exactDuplicateMaximum": 0,
+    "nearDuplicateMaximum": 0.11578947368421053,
+    "nearDuplicateThreshold": 0.12,
+    "durationMs": 5260
+  },
+  "validationQuality": {
+    "independentOracleConfirmed": false,
+    "reason": "Generation/audit/validation reuse solveModel or trust question.validation for multiple capability families.",
+    "nearDuplicateAlgorithm": "PROMPT_TEXT_WITH_NUMERIC_LITERAL_NORMALIZATION",
+    "semanticStructuralDiversityOracle": false
+  },
+  "freshDatabaseBrowserProof": {
+    "migrations": "42/42",
+    "capabilities": "198/198",
+    "persistedQuestions": 2388,
+    "viewports": ["390x844", "1280x800"],
+    "consoleErrors": 0,
+    "hydrationErrors": 0,
+    "pageErrors": 0,
+    "overflowErrors": 0,
+    "privateLeaks": 0,
+    "promptVisualMismatchesReported": 0,
+    "cleanup": "PASS"
+  },
+  "studentRuntimeIntegration": {
+    "realStudentV2Route": false,
+    "internalProofRoutesOnly": true,
+    "curriculumRuntimePipeline": "STATIC_CURRICULUM_RPC",
+    "onDemandPipeline": "LEGACY_ON_DEMAND_GENERATOR",
+    "v2RepositoryDefault": "OFF"
+  },
+  "representativeInvalidContracts": [
+    {"outcomeId": "MOET2018-G2-NUM-P024-002", "issue": "Counting sequence omits requested term/index and sequence evidence."},
+    {"outcomeId": "MOET2018-G7-NAA-P056-005", "issue": "Prompt asks for reduced fraction but interaction is DECIMAL_INPUT; direction/sign is unclear."},
+    {"outcomeId": "MOET2018-G8-NAA-P064-018", "issue": "Integer function value is requested through FRACTION_INPUT."},
+    {"outcomeId": "MOET2018-G8-NAA-P064-016", "issue": "Two rational expressions are given but the operation is not named."},
+    {"outcomeId": "MOET2018-G1-GEO-P023-008", "issue": "Unit conversion omits units and direction and conflicts with INTEGER_INPUT."},
+    {"outcomeId": "MOET2018-G2-GEO-P027-011", "issue": "Measurement model omits the required operation/units in the prompt."},
+    {"outcomeId": "MOET2018-G5-GEO-P043-002", "issue": "Cuboid prompt does not distinguish total versus lateral surface area."},
+    {"outcomeId": "MOET2018-G9-GEO-P074-008", "issue": "Right-triangle sine prompt does not identify the acute angle."},
+    {"outcomeId": "MOET2018-G6-NAA-P050-044", "issue": "A quantity change is given without specifying increase/decrease."}
+  ],
+  "languageQuality": {
+    "ownerManifestSamples": 198,
+    "phraseTrongHoatDongTai": 36,
+    "phraseDuaTren": 47,
+    "observedIssues": [
+      "boilerplate contexts",
+      "irrelevant scenario labels",
+      "mechanical imperative wording",
+      "technical proof metadata shown on internal completion screen"
+    ]
+  },
+  "findingIds": ["F-002", "F-003", "F-005", "F-009", "F-010"]
+}

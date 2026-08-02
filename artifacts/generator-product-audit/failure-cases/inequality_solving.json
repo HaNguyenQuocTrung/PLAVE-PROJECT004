@@ -1,0 +1,99 @@
+{
+  "variant": "INEQUALITY_SOLVING",
+  "severity": "HIGH",
+  "categories": [
+    "OUTCOME_ALIGNMENT_WRONG",
+    "GRADE_LEVEL_WRONG",
+    "INVALID_OR_AMBIGUOUS_QUESTION"
+  ],
+  "summary": "Hầu hết variant đại số dùng cùng AST ax+b và cùng phép thế giá trị, kể cả khi outcome yêu cầu việc khác.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-15442f37b4ce0b5aa391771abd25efc26b921634fb93ba36",
+  "reproductionSeedFingerprint": "15442f37b4ce0b5a",
+  "reproductionSampleId": "INEQUALITY_SOLVING:EASY:1",
+  "sample": {
+    "sampleId": "INEQUALITY_SOLVING:EASY:1",
+    "variant": "INEQUALITY_SOLVING",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-15442f37b4ce0b5aa391771abd25efc26b921634fb93ba36",
+    "seedFingerprint": "15442f37b4ce0b5a",
+    "runtimeReachable": true,
+    "grade": 9,
+    "outcomeId": "MOET2018-G9-NAA-P072-016",
+    "unitId": "grade-9-secondary-naa-p1-4",
+    "astKind": "ALGEBRA",
+    "complexity": 1,
+    "prompt": "Thực hiện giải bất phương trình với biểu thức 2x + 41, x = 81.",
+    "normalizedTemplate": "thựx hiện giải xất phương trình với biểu thứx #x + #, x = #.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "x > 81",
+      "x < 81",
+      "x = 81",
+      "-x > 81"
+    ],
+    "correctOptionKey": "A",
+    "correctOptionLabel": "x > 81",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn A."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-f0ee707ddc90c06d1d4ab84d85f54c7d",
+      "position": 1,
+      "prompt": "Thực hiện giải bất phương trình với biểu thức 2x + 41, x = 81.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "x > 81"
+        },
+        {
+          "key": "B",
+          "label": "x < 81"
+        },
+        {
+          "key": "C",
+          "label": "x = 81"
+        },
+        {
+          "key": "D",
+          "label": "-x > 81"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "HIGH",
+      "categories": [
+        "OUTCOME_ALIGNMENT_WRONG",
+        "GRADE_LEVEL_WRONG",
+        "INVALID_OR_AMBIGUOUS_QUESTION"
+      ],
+      "summary": "Hầu hết variant đại số dùng cùng AST ax+b và cùng phép thế giá trị, kể cả khi outcome yêu cầu việc khác."
+    }
+  }
+}

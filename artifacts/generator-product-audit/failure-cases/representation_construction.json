@@ -1,0 +1,60 @@
+{
+  "variant": "REPRESENTATION_CONSTRUCTION",
+  "severity": "CRITICAL",
+  "categories": [
+    "UNIMPLEMENTED_VARIANT",
+    "RUNTIME_DISCONNECTED"
+  ],
+  "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-238cc3b6fdde52e6178355dde6bf2ec77b5dd291ff26b62c",
+  "reproductionSeedFingerprint": "238cc3b6fdde52e6",
+  "reproductionSampleId": "REPRESENTATION_CONSTRUCTION:EASY:1",
+  "sample": {
+    "sampleId": "REPRESENTATION_CONSTRUCTION:EASY:1",
+    "variant": "REPRESENTATION_CONSTRUCTION",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-238cc3b6fdde52e6178355dde6bf2ec77b5dd291ff26b62c",
+    "seedFingerprint": "238cc3b6fdde52e6",
+    "runtimeReachable": false,
+    "grade": null,
+    "outcomeId": null,
+    "unitId": null,
+    "astKind": "CONCEPT",
+    "complexity": 1,
+    "prompt": "Chọn phát biểu đúng cho yêu cầu: Synthetic proof-only REPRESENTATION_CONSTRUCTION",
+    "normalizedTemplate": "chọn phát biểu đúng cho yêu xầu: synthetic proof-only representation_construction",
+    "answerType": null,
+    "optionLabels": [],
+    "correctOptionKey": null,
+    "correctOptionLabel": "Synthetic proof-only REPRESENTATION_CONSTRUCTION",
+    "visualType": null,
+    "visualTemplate": null,
+    "solutionSteps": [],
+    "feedback": null,
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": null,
+    "productVerdict": {
+      "usable": false,
+      "severity": "CRITICAL",
+      "categories": [
+        "UNIMPLEMENTED_VARIANT",
+        "RUNTIME_DISCONNECTED"
+      ],
+      "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist."
+    }
+  }
+}

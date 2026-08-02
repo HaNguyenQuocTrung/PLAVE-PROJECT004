@@ -1,0 +1,86 @@
+{
+  "status": "BOUNDED_REVIEW_PASS",
+  "disclaimer": "This is a bounded rubric review of six samples, not a claim of absolute LLM mathematical correctness.",
+  "sampleCount": 6,
+  "responseTextStored": false,
+  "samples": [
+    {
+      "model": "gemini-3.5-flash",
+      "promptId": "ADDITION_WITH_CARRYING",
+      "completed": true,
+      "completeness": true,
+      "mathematicalCorrectness": true,
+      "vietnameseTutoringQuality": true,
+      "gradeAppropriate": true,
+      "hintDidNotRevealFinalAnswer": true,
+      "outputWords": 70,
+      "finishReason": "STOP",
+      "errorCode": null
+    },
+    {
+      "model": "gemini-3.5-flash",
+      "promptId": "FRACTION_COMPARISON",
+      "completed": true,
+      "completeness": true,
+      "mathematicalCorrectness": true,
+      "vietnameseTutoringQuality": true,
+      "gradeAppropriate": true,
+      "hintDidNotRevealFinalAnswer": null,
+      "outputWords": 270,
+      "finishReason": "STOP",
+      "errorCode": null
+    },
+    {
+      "model": "gemini-3.6-flash",
+      "promptId": "ADDITION_WITH_CARRYING",
+      "completed": true,
+      "completeness": true,
+      "mathematicalCorrectness": true,
+      "vietnameseTutoringQuality": true,
+      "gradeAppropriate": true,
+      "hintDidNotRevealFinalAnswer": true,
+      "outputWords": 79,
+      "finishReason": "STOP",
+      "errorCode": null
+    },
+    {
+      "model": "gemini-3.6-flash",
+      "promptId": "FRACTION_COMPARISON",
+      "completed": true,
+      "completeness": true,
+      "mathematicalCorrectness": true,
+      "vietnameseTutoringQuality": true,
+      "gradeAppropriate": true,
+      "hintDidNotRevealFinalAnswer": null,
+      "outputWords": 233,
+      "finishReason": "STOP",
+      "errorCode": null
+    },
+    {
+      "model": "gemini-3.5-flash-lite",
+      "promptId": "ADDITION_WITH_CARRYING",
+      "completed": true,
+      "completeness": true,
+      "mathematicalCorrectness": true,
+      "vietnameseTutoringQuality": true,
+      "gradeAppropriate": true,
+      "hintDidNotRevealFinalAnswer": true,
+      "outputWords": 71,
+      "finishReason": "STOP",
+      "errorCode": null
+    },
+    {
+      "model": "gemini-3.5-flash-lite",
+      "promptId": "FRACTION_COMPARISON",
+      "completed": false,
+      "completeness": false,
+      "mathematicalCorrectness": false,
+      "vietnameseTutoringQuality": false,
+      "gradeAppropriate": true,
+      "hintDidNotRevealFinalAnswer": null,
+      "outputWords": 231,
+      "finishReason": "STOP",
+      "errorCode": "AI_RESPONSE_TRUNCATED"
+    }
+  ]
+}

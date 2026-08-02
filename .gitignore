@@ -13,6 +13,9 @@
 /.local-artifacts
 /.env.generated-pilot.local
 /.next-generated-pilot-project004
+/.next-generator-v2-owner-review
+/.next-secret-boundary-dev
+/.next-secret-boundary-build
 /coverage
 /playwright-report
 /test-results

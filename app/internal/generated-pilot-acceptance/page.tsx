@@ -87,7 +87,7 @@ export default async function GeneratedPilotAcceptancePage() {
   });
 
   return (
-    <div className="content-page page-shell" data-generated-pilot-acceptance>
+    <div className="content-page internal-review-page--v2 page-shell" data-generated-pilot-acceptance>
       <header className="content-page__header">
         <p className="eyebrow">Kiểm tra giao diện local-only</p>
         <h1>Generated practice pilot</h1>

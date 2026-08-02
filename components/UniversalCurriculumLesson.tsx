@@ -27,7 +27,7 @@ export function UniversalCurriculumLesson({
         : "Bắt đầu luyện tập";
 
   return (
-    <div className="real-learning-page page-shell universal-learning-page">
+    <div className="real-learning-page real-learning-page--v2 page-shell universal-learning-page">
       <nav className="learning-breadcrumb" aria-label="Đường dẫn">
         <Button href="/lessons" variant="quiet">
           ← Danh sách chủ đề

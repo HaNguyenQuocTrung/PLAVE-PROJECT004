@@ -1,0 +1,22 @@
+{
+  "studentB": {
+    "state": 403,
+    "submit": 403
+  },
+  "parent": {
+    "state": 403,
+    "submit": 403
+  },
+  "teacher": {
+    "state": 403,
+    "submit": 403
+  },
+  "anonymous": {
+    "state": 401
+  },
+  "directTableInsert": 403,
+  "directTableUpdate": 403,
+  "privateSolutionRead": 404,
+  "legacyRpcBypass": 403,
+  "result": "PASS"
+}

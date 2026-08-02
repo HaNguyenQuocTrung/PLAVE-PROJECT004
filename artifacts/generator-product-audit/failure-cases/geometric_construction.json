@@ -1,0 +1,99 @@
+{
+  "variant": "GEOMETRIC_CONSTRUCTION",
+  "severity": "CRITICAL",
+  "categories": [
+    "VISUAL_MISSING_OR_INCORRECT",
+    "INVALID_OR_AMBIGUOUS_QUESTION",
+    "LANGUAGE_QUALITY"
+  ],
+  "summary": "Giả thiết/visual không xác định bài toán cụ thể và đáp án có thể là tên variant nội bộ.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-ace60a5cfcfe2e2baf08cca57230ece293d93feb5427d5a9",
+  "reproductionSeedFingerprint": "ace60a5cfcfe2e2b",
+  "reproductionSampleId": "GEOMETRIC_CONSTRUCTION:EASY:1",
+  "sample": {
+    "sampleId": "GEOMETRIC_CONSTRUCTION:EASY:1",
+    "variant": "GEOMETRIC_CONSTRUCTION",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-ace60a5cfcfe2e2baf08cca57230ece293d93feb5427d5a9",
+    "seedFingerprint": "ace60a5cfcfe2e2b",
+    "runtimeReachable": true,
+    "grade": 1,
+    "outcomeId": "MOET2018-G1-NUM-P022-009",
+    "unitId": "grade-1-applied-problem-solving",
+    "astKind": "GEOMETRIC_RELATION",
+    "complexity": 1,
+    "prompt": "Dựa vào các giả thiết A=15; B=3; Nhận biết được ý nghĩa thực tiễn của phép tính (cộng, trừ) thông qua tranh ảnh, hình vẽ hoặc tình huống thực tiễn., hãy xác định dựng hình.",
+    "normalizedTemplate": "xựx vào xáx giả thiết x=#; x=#; nhận biết đượx ý nghĩx thựx tiễn xủx phép tính (xộng, trừ) thông qua tranh ảnh, hình vẽ hoặx tình huống thựx tiễn., hãy xáx định xựng hình.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "GEOMETRIC_CONSTRUCTION",
+      "Phát biểu đảo của quan hệ đã nêu",
+      "Một quan hệ không suy ra từ dữ kiện",
+      "Không đủ dữ kiện"
+    ],
+    "correctOptionKey": "A",
+    "correctOptionLabel": "GEOMETRIC_CONSTRUCTION",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn A."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-66197ac223800122861b08a2b88e4604",
+      "position": 1,
+      "prompt": "Dựa vào các giả thiết A=15; B=3; Nhận biết được ý nghĩa thực tiễn của phép tính (cộng, trừ) thông qua tranh ảnh, hình vẽ hoặc tình huống thực tiễn., hãy xác định dựng hình.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "GEOMETRIC_CONSTRUCTION"
+        },
+        {
+          "key": "B",
+          "label": "Phát biểu đảo của quan hệ đã nêu"
+        },
+        {
+          "key": "C",
+          "label": "Một quan hệ không suy ra từ dữ kiện"
+        },
+        {
+          "key": "D",
+          "label": "Không đủ dữ kiện"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "CRITICAL",
+      "categories": [
+        "VISUAL_MISSING_OR_INCORRECT",
+        "INVALID_OR_AMBIGUOUS_QUESTION",
+        "LANGUAGE_QUALITY"
+      ],
+      "summary": "Giả thiết/visual không xác định bài toán cụ thể và đáp án có thể là tên variant nội bộ."
+    }
+  }
+}

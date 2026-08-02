@@ -737,7 +737,7 @@ test("Sprint 2C A1. Guest navbar contains public auth actions", () => {
 test("Sprint 2C A2. Authenticated navbar contains learning and logout context", () => {
   assert.deepEqual(
     getHeaderNavigation(true, "STUDENT").map((item) => item.label),
-    ["Tổng quan", "Lý thuyết", "Bài học", "Kết quả", "Mục tiêu"],
+    ["Tổng quan", "Bài học", "AI Tutor", "Tiến bộ", "Lịch sử", "Mục tiêu"],
   );
   const headerSource = readFileSync(
     join(process.cwd(), "components/HeaderNavigation.tsx"),
@@ -1056,27 +1056,29 @@ test("Sprint 2E 1. Header uses the supplied optimized brand asset through next/i
   );
   assert.match(headerSource, /import Image from "next\/image"/);
   assert.match(headerSource, /plave-logo-header\.png/);
-  assert.match(
-    headerSource,
-    /PLAVE – Personalized Learning App for Vietnam Education/,
-  );
+  assert.match(headerSource, /alt="PLAVE"/);
+  assert.match(headerSource, /aria-label=/);
 });
 
 test("Sprint 2E 2. Active navigation covers all student areas and learning flows", () => {
   const items = getHeaderNavigation(true, "STUDENT");
   const overview = items.find((item) => item.href === "/dashboard");
-  const learn = items.find((item) => item.href === "/learn");
   const lessons = items.find((item) => item.href === "/lessons");
+  const progress = items.find((item) => item.href === "/learning-progress");
   const results = items.find((item) => item.href === "/results");
   const goals = items.find((item) => item.href === "/goals");
   assert.ok(overview);
-  assert.ok(learn);
   assert.ok(lessons);
+  assert.ok(progress);
   assert.ok(results);
   assert.ok(goals);
   assert.equal(isHeaderItemActive("/dashboard", overview), true);
-  assert.equal(isHeaderItemActive("/learn/grade-1/numbers-to-10", learn), true);
+  assert.equal(
+    isHeaderItemActive("/learn/grade-1/numbers-to-10", lessons),
+    true,
+  );
   assert.equal(isHeaderItemActive("/practice/example", lessons), true);
+  assert.equal(isHeaderItemActive("/learning-progress", progress), true);
   assert.equal(isHeaderItemActive("/review/example", results), true);
   assert.equal(isHeaderItemActive("/goals", goals), true);
 });
@@ -1236,20 +1238,27 @@ test("Sprint 2F 2. Required Vietnamese page titles use the root PLAVE template",
   }
 });
 
-test("Sprint 2F 3. Student navigation has distinct theory and lesson links", () => {
+test("Sprint 7A. Student navigation keeps lessons canonical and learn compatible", () => {
   const items = getHeaderNavigation(true, "STUDENT");
   assert.deepEqual(
     items.map(({ href, label }) => ({ href, label })),
     [
       { href: "/dashboard", label: "Tổng quan" },
-      { href: "/learn", label: "Lý thuyết" },
       { href: "/lessons", label: "Bài học" },
-      { href: "/results", label: "Kết quả" },
+      { href: "/tutor", label: "AI Tutor" },
+      { href: "/learning-progress", label: "Tiến bộ" },
+      { href: "/results", label: "Lịch sử" },
       { href: "/goals", label: "Mục tiêu" },
     ],
   );
-  assert.equal(items.filter((item) => item.href === "/learn").length, 1);
+  assert.equal(items.filter((item) => item.href === "/learn").length, 0);
   assert.equal(items.filter((item) => item.href === "/lessons").length, 1);
+  const lessons = items.find((item) => item.href === "/lessons");
+  assert.ok(lessons);
+  assert.equal(
+    isHeaderItemActive("/learn/grade-1/numbers-to-10", lessons),
+    true,
+  );
 });
 
 test("Sprint 2F 4. About CTA branches from the shared server auth state", () => {
@@ -1269,7 +1278,7 @@ test("Sprint 2F 4. About CTA branches from the shared server auth state", () => 
   assert.match(aboutSource, /await getPublicAuthState\(\)/);
   assert.match(aboutSource, /authState\.authenticated \?/);
   assert.match(aboutSource, /Tiếp tục học/);
-  assert.match(aboutSource, /Xem lý thuyết/);
+  assert.match(aboutSource, /Xem bài học/);
   assert.match(aboutSource, /Học thử/);
   assert.match(aboutSource, /Tạo tài khoản/);
   assert.match(aboutSource, /Đăng nhập/);
@@ -1296,23 +1305,22 @@ test("Student navigation 1. Profile dropdown is accessible and closes safely", (
   assert.match(source, /event\.key === "End"/);
 });
 
-test("Student navigation 2. Profile actions use real routes and notifications remain disabled", () => {
+test("Student navigation 2. Profile actions expose real routes only", () => {
   const source = readFileSync(
     join(process.cwd(), "components/HeaderNavigation.tsx"),
     "utf8",
   );
 
-  for (const label of ["Chỉnh sửa hồ sơ", "Cài đặt", "Thông báo"]) {
+  for (const label of ["Chỉnh sửa hồ sơ", "Cài đặt"]) {
     assert.match(source, new RegExp(label));
   }
-  assert.match(source, /<small>Sắp có<\/small>/);
   assert.match(source, /href="\/profile"/);
   assert.match(source, /href="\/profile\/edit"/);
   assert.match(source, /href="\/settings"/);
   assert.match(source, /href="\/privacy"/);
   assert.match(source, /<LogoutForm/);
   assert.match(source, /profile-menu__logout/);
-  assert.doesNotMatch(source, /href="\/notifications"/);
+  assert.doesNotMatch(source, /Thông báo|Sắp có|href="\/notifications"/);
 });
 
 test("Student navigation 3. Lessons, goals, and profile are protected functional routes", () => {
@@ -2032,7 +2040,7 @@ test("Student profile 7. Double submit acquires only one update slot", () => {
   assert.equal(gate.tryStart(), true);
 });
 
-test("Student profile 8. Profile dropdown exposes only real routes plus disabled notifications", () => {
+test("Student profile 8. Profile dropdown exposes only functional routes", () => {
   const source = readFileSync(
     join(process.cwd(), "components/HeaderNavigation.tsx"),
     "utf8",
@@ -2046,8 +2054,7 @@ test("Student profile 8. Profile dropdown exposes only real routes plus disabled
   ]) {
     assert.match(source, new RegExp(`href="${href.replace("/", "\\/")}"`));
   }
-  assert.match(source, /<span>Thông báo<\/span>[\s\S]*<small>Sắp có<\/small>/);
-  assert.match(source, /aria-disabled="true"/);
+  assert.doesNotMatch(source, /Thông báo|Sắp có|href="\/notifications"/);
   assert.match(source, /<LogoutForm/);
 });
 
@@ -2566,7 +2573,7 @@ test("Parent connection 19. UI enforces two-step consent and single-flight reque
   assert.equal(gate.tryStart(), false);
 });
 
-test("Parent connection 20. Student route is protected without changing five-item navigation", () => {
+test("Parent connection 20. Student route protection coexists with the Tutor navigation entry", () => {
   const studentNavigation = getHeaderNavigation(true, "STUDENT", true);
   const dashboardSource = readFileSync(
     join(process.cwd(), "app/dashboard/page.tsx"),
@@ -2577,7 +2584,8 @@ test("Parent connection 20. Student route is protected without changing five-ite
     "utf8",
   );
 
-  assert.equal(studentNavigation.length, 5);
+  assert.equal(studentNavigation.length, 6);
+  assert.equal(studentNavigation.some((item) => item.href === "/tutor"), true);
   assert.equal(
     getAuthNavigationDecision("/connections", false),
     "LOGIN",
@@ -4367,13 +4375,13 @@ test("Classroom 16. Class code stays in POST bodies and out of storage or URLs",
   assert.match(studentSource, /body: JSON\.stringify/);
 });
 
-test("Classroom 17. Student navigation remains five items and classrooms use a Dashboard card", () => {
+test("Classroom 17. Student navigation includes Tutor while classrooms use a Dashboard card", () => {
   const studentNavigation = getHeaderNavigation(
     true,
     "STUDENT",
     true,
   );
-  assert.equal(studentNavigation.length, 5);
+  assert.equal(studentNavigation.length, 6);
   assert.equal(
     studentNavigation.some((item) => item.href === "/classrooms"),
     false,
@@ -5240,7 +5248,8 @@ test("Assignment 21. Teacher and Student navigation expose only functional assig
     true,
   );
   const studentNavigation = getHeaderNavigation(true, "STUDENT", true);
-  assert.equal(studentNavigation.length, 5);
+  assert.equal(studentNavigation.length, 6);
+  assert.equal(studentNavigation.some((item) => item.href === "/tutor"), true);
   assert.equal(
     studentNavigation.some((item) => item.href === "/assignments"),
     false,
@@ -12756,7 +12765,7 @@ test("Sprint 5M 16. Diagnostic answers and solutions stay hidden until completed
   );
 });
 
-test("Sprint 5M 17. Student routes are protected without adding a sixth navbar item", () => {
+test("Sprint 5M 17. Diagnostic routes stay protected after the Tutor nav addition", () => {
   assert.equal(
     getAuthNavigationDecision("/diagnostic", false),
     "LOGIN",
@@ -12768,7 +12777,7 @@ test("Sprint 5M 17. Student routes are protected without adding a sixth navbar i
     ),
     "LOGIN",
   );
-  assert.equal(getHeaderNavigation(true, "STUDENT").length, 5);
+  assert.equal(getHeaderNavigation(true, "STUDENT").length, 6);
   assert.equal(
     isHeaderItemActive(
       "/diagnostic",
@@ -13175,10 +13184,11 @@ test("Sprint 5N 11. Student path loading is owner-scoped and raw diagnostic answ
   );
 });
 
-test("Sprint 5N 12. Guest protection and the five-item Student navbar remain unchanged", () => {
+test("Sprint 5N 12. Guest protection remains unchanged with the Student Tutor entry", () => {
   assert.equal(getAuthNavigationDecision("/lessons", false), "LOGIN");
   assert.equal(getAuthNavigationDecision("/dashboard", false), "LOGIN");
-  assert.equal(getHeaderNavigation(true, "STUDENT").length, 5);
+  assert.equal(getHeaderNavigation(true, "STUDENT").length, 6);
+  assert.equal(getAuthNavigationDecision("/tutor", false), "LOGIN");
 });
 
 test("Sprint 5N 13. Navigation remains server-driven without session or path data in browser storage", () => {
@@ -13230,11 +13240,15 @@ test("Sprint 5N 15. No migration or dependency is added for read-only personaliz
     readFileSync(join(process.cwd(), "package.json"), "utf8"),
   ) as { dependencies?: Record<string, string> };
   assert.deepEqual(Object.keys(packageJson.dependencies ?? {}).sort(), [
+    "@google/genai",
+    "@modelcontextprotocol/sdk",
     "@supabase/ssr",
     "@supabase/supabase-js",
     "next",
+    "openai",
     "react",
     "react-dom",
+    "server-only",
   ]);
 });
 
@@ -13434,12 +13448,12 @@ test("Sprint 5O 11. Parent receives only the allowlisted completion aggregate", 
   );
 });
 
-test("Sprint 5O 12. Grade 1 summary is protected without a sixth Student nav item", () => {
+test("Sprint 5O 12. Grade 1 summary remains protected with the Tutor nav item", () => {
   assert.equal(
     getAuthNavigationDecision("/grade-1/summary", false),
     "LOGIN",
   );
-  assert.equal(getHeaderNavigation(true, "STUDENT").length, 5);
+  assert.equal(getHeaderNavigation(true, "STUDENT").length, 6);
   assert.equal(
     isHeaderItemActive(
       "/grade-1/summary",
@@ -13514,11 +13528,15 @@ test("Sprint 5O 15. Existing Teacher, Classroom and public demo contracts remain
     readFileSync(join(process.cwd(), "package.json"), "utf8"),
   ) as { dependencies?: Record<string, string>; scripts?: Record<string, string> };
   assert.deepEqual(Object.keys(packageJson.dependencies ?? {}).sort(), [
+    "@google/genai",
+    "@modelcontextprotocol/sdk",
     "@supabase/ssr",
     "@supabase/supabase-js",
     "next",
+    "openai",
     "react",
     "react-dom",
+    "server-only",
   ]);
   assert.equal(
     packageJson.scripts?.["validate:grade1"],
@@ -13765,10 +13783,14 @@ test("Sprint 6B 8. No grade transition mutation, dependency, or Grade 2 seed is 
   assert.doesNotMatch(migration, /update public\.student_profiles/);
   assert.doesNotMatch(migration, /grade-2-|numbers-to-1000/i);
   assert.deepEqual(Object.keys(packageJson.dependencies ?? {}).sort(), [
+    "@google/genai",
+    "@modelcontextprotocol/sdk",
     "@supabase/ssr",
     "@supabase/supabase-js",
     "next",
+    "openai",
     "react",
     "react-dom",
+    "server-only",
   ]);
 });

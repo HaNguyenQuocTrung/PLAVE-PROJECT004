@@ -1,0 +1,99 @@
+{
+  "variant": "NUMBER_REPRESENTATION",
+  "severity": "HIGH",
+  "categories": [
+    "OUTCOME_ALIGNMENT_WRONG",
+    "LANGUAGE_QUALITY",
+    "FEEDBACK_OR_EXPLANATION_WEAK"
+  ],
+  "summary": "Không tạo tình huống toán học thật; chỉ liệt kê đại lượng hoặc lặp lại câu mô tả outcome.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-ffb7435b4dbe1c5193437759b5149fc2b9b220e2b2d4ae82",
+  "reproductionSeedFingerprint": "ffb7435b4dbe1c51",
+  "reproductionSampleId": "NUMBER_REPRESENTATION:EASY:1",
+  "sample": {
+    "sampleId": "NUMBER_REPRESENTATION:EASY:1",
+    "variant": "NUMBER_REPRESENTATION",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-ffb7435b4dbe1c5193437759b5149fc2b9b220e2b2d4ae82",
+    "seedFingerprint": "ffb7435b4dbe1c51",
+    "runtimeReachable": true,
+    "grade": 1,
+    "outcomeId": "MOET2018-G1-NUM-P021-001",
+    "unitId": "grade-1-number-foundations-p0",
+    "astKind": "NUMBER_STRUCTURE",
+    "complexity": 1,
+    "prompt": "Biểu diễn số 72 bằng cách viết số thích hợp.",
+    "normalizedTemplate": "biểu diễn số # xằng xách viết số thích hợp.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "74",
+      "72",
+      "73",
+      "71"
+    ],
+    "correctOptionKey": "B",
+    "correctOptionLabel": "72",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn B."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-fdbce6e8f90f666766c82dabb91461c0",
+      "position": 1,
+      "prompt": "Biểu diễn số 72 bằng cách viết số thích hợp.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "74"
+        },
+        {
+          "key": "B",
+          "label": "72"
+        },
+        {
+          "key": "C",
+          "label": "73"
+        },
+        {
+          "key": "D",
+          "label": "71"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "HIGH",
+      "categories": [
+        "OUTCOME_ALIGNMENT_WRONG",
+        "LANGUAGE_QUALITY",
+        "FEEDBACK_OR_EXPLANATION_WEAK"
+      ],
+      "summary": "Không tạo tình huống toán học thật; chỉ liệt kê đại lượng hoặc lặp lại câu mô tả outcome."
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "status": "FAIL_SECRET_AT_REST",
+  "environmentFiles": [
+    {"path": ".env.local", "tracked": false, "ignored": true, "mode": "0600"},
+    {"path": ".env.remote-dev.local", "tracked": false, "ignored": true, "mode": "0600"},
+    {"path": ".env.generated-pilot.local", "tracked": false, "ignored": true, "mode": "0600"},
+    {"path": ".env.example", "tracked": true, "mode": "0644"}
+  ],
+  "directProcessEnvironmentVariables": 40,
+  "publicVariables": [
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"
+  ],
+  "serverOnlyAiVariables": [
+    "PLAVE_AI_TUTOR_ENABLED",
+    "PLAVE_AI_PROVIDER",
+    "GOOGLE_API_KEY",
+    "GOOGLE_AI_MODEL"
+  ],
+  "aiConfiguration": {
+    "enabledInLocalEnv": true,
+    "provider": "GOOGLE",
+    "model": "gemini-3.6-flash",
+    "keyConfigured": true,
+    "keyValueReported": false,
+    "remoteRuntimeDefault": "OFF",
+    "repositoryDefault": "OFF"
+  },
+  "secretScans": {
+    "exactConfiguredKeyInNextDevCache": 16,
+    "cacheAggregateBytes": 239401257,
+    "cacheFileMode": "0644",
+    "exactConfiguredKeyInArtifactsDocsPublicLocalArtifacts": 0,
+    "exactConfiguredKeyInClientStaticBundle": 0,
+    "exactConfiguredKeyInProductionServerBundle": 0,
+    "genericSecretPatternsInSourceDocsArtifactsPublicMigrations": 0
+  },
+  "locks": {
+    "aiTutorConfigLockPresent": false,
+    "staleSensitiveTempFilesFound": 0
+  },
+  "findingIds": ["F-001"]
+}

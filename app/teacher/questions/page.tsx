@@ -36,7 +36,7 @@ export default async function TeacherQuestionsPage() {
   }
 
   return (
-    <div className="teacher-questions-page page-shell">
+    <div className="teacher-questions-page teacher-workspace-page--v2 page-shell">
       <header className="catalog-hero teacher-hero">
         <p className="eyebrow">Nội dung của riêng bạn</p>
         <h1>Kho câu hỏi</h1>

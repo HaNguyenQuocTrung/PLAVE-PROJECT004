@@ -55,7 +55,7 @@ export default async function AssignmentReviewPage({ params }: Props) {
 
   const { review } = result;
   return (
-    <div className="assignment-review-page page-shell">
+    <div className="assignment-review-page result-page--v2 page-shell">
       <header className="catalog-hero catalog-hero--results">
         <p className="eyebrow">{review.assignment.classroomName}</p>
         <h1>{review.assignment.title}</h1>

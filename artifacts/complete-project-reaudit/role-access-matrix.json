@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_REPRESENTATIVE_WITH_PRODUCT_ROUTE_GAP",
+  "roles": ["ANONYMOUS", "STUDENT", "PARENT", "TEACHER"],
+  "matrix": [
+    {"surface": "public_legal_marketing", "anonymous": "ALLOW", "student": "ALLOW", "parent": "ALLOW", "teacher": "ALLOW", "evidence": "fresh diagnostic browser"},
+    {"surface": "auth_login_register_forgot", "anonymous": "ALLOW", "student": "REDIRECT_OR_NAVIGATE_AWAY", "parent": "REDIRECT_OR_NAVIGATE_AWAY", "teacher": "REDIRECT_OR_NAVIGATE_AWAY", "evidence": "proxy source + browser"},
+    {"surface": "student_dashboard", "anonymous": "REDIRECT_LOGIN", "student": "ALLOW", "parent": "ROLE_ROUTED_PARENT_DASHBOARD", "teacher": "ROLE_ROUTED_TEACHER", "evidence": "fresh browser + server source"},
+    {"surface": "student_lessons_and_static_practice", "anonymous": "REDIRECT_LOGIN", "student": "ALLOW", "parent": "DENY_OR_ROLE_ROUTE", "teacher": "DENY_OR_ROLE_ROUTE", "evidence": "23/23 role/security tests + fresh browser"},
+    {"surface": "generator_v2_internal_proof", "anonymous": "DENY", "student": "ALLOW_ONLY_DEV_LOOPBACK_PROOF_FLAG", "parent": "DENY", "teacher": "DENY", "evidence": "fresh full database/browser proof"},
+    {"surface": "generator_v2_real_student_practice", "anonymous": "NOT_AVAILABLE", "student": "NOT_AVAILABLE", "parent": "NOT_AVAILABLE", "teacher": "NOT_AVAILABLE", "evidence": "route/source tracing"},
+    {"surface": "ai_tutor", "anonymous": "REDIRECT_LOGIN", "student": "ALLOW_ONLY_LOCAL_ENABLED_PROCESS", "parent": "DENY", "teacher": "DENY", "evidence": "25/25 AI Tutor tests and route guards"},
+    {"surface": "connections", "anonymous": "REDIRECT_LOGIN", "student": "ALLOW_OWN_REQUESTS", "parent": "ALLOW_OWN_REQUESTS", "teacher": "DENY", "evidence": "server authorization + browser"},
+    {"surface": "parent_dashboard", "anonymous": "REDIRECT_LOGIN", "student": "DENY", "parent": "ALLOW", "teacher": "DENY", "evidence": "parent server role guard + browser"},
+    {"surface": "parent_student_detail", "anonymous": "REDIRECT_LOGIN", "student": "DENY", "parent": "ALLOW_LINKED_CONNECTION_ONLY", "teacher": "DENY", "evidence": "RLS/server ownership + browser"},
+    {"surface": "teacher_dashboard", "anonymous": "REDIRECT_LOGIN", "student": "DENY", "parent": "DENY", "teacher": "ALLOW_VERIFIED_ONLY", "evidence": "teacher server role guard + browser"},
+    {"surface": "teacher_questions", "anonymous": "DENY", "student": "DENY", "parent": "DENY", "teacher": "ALLOW_VERIFIED_ONLY", "evidence": "API/server tests + browser"},
+    {"surface": "teacher_classrooms_gradebook", "anonymous": "DENY", "student": "STUDENT_MEMBERSHIP_SURFACES_ONLY", "parent": "DENY", "teacher": "ALLOW_OWN_CLASSROOM_ONLY", "evidence": "API/server tests + browser"},
+    {"surface": "teacher_assignments", "anonymous": "DENY", "student": "ALLOW_ASSIGNED_ATTEMPT_ONLY", "parent": "DENY", "teacher": "ALLOW_OWN_ASSIGNMENT_ONLY", "evidence": "server ownership tests + browser"},
+    {"surface": "profile_settings", "anonymous": "REDIRECT_LOGIN", "student": "ALLOW_OWN", "parent": "ALLOW_OWN", "teacher": "ALLOW_OWN", "evidence": "server source + browser"}
+  ],
+  "directApiAssessment": {
+    "navigationOnlyChecksAccepted": false,
+    "serverRoleChecksPresent": true,
+    "representativeCrossRoleStatusContracts": "PASS",
+    "freshDisposableRlsIsolation": "PASS",
+    "authBypassFound": 0,
+    "idorFound": 0,
+    "roleEscalationFound": 0
+  },
+  "limitations": [
+    "No remote auth mutation or live email flow was performed.",
+    "Not every one of 56 API routes was dynamically invoked by all four roles; representative critical APIs were combined with server/RLS inspection.",
+    "Generator V2 has no real Student product route to authorize."
+  ],
+  "findingIds": ["F-002"]
+}

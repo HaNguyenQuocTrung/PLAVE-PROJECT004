@@ -1,0 +1,1315 @@
+{
+  "status": "PASS",
+  "checkpoint": "SPRINT_7B_1_COLLAPSED_LAYOUT_FIX",
+  "browserEngine": "chromium",
+  "browserVersion": "150.0.7871.186",
+  "playwrightPackage": "playwright-core",
+  "playwrightVersion": "1.51.1",
+  "localPlaywright": true,
+  "inAppBrowserUsed": false,
+  "baseURL": "http://127.0.0.1:3016",
+  "remoteAccessPerformed": false,
+  "remoteMutationPerformed": false,
+  "migrationPerformed": false,
+  "activationPerformed": false,
+  "generatedRuntimeDefaultEnabled": false,
+  "previousVisualAcceptance": {
+    "status": "INVALIDATED",
+    "reason": "Owner browser evidence exposed a critical collapsed /lessons card that the previous visual review missed.",
+    "previousCriticalHighVisualIssuesZeroClaimValid": false
+  },
+  "collapsedLayoutFix": {
+    "route": "/lessons",
+    "component": "app/lessons/page.tsx:personalized-unit-card",
+    "affectedVariant": "locked prerequisite lesson card",
+    "reproducedViewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "rootCause": "The auto action grid track took the locked-note max-content width, collapsing minmax(0,1fr) content to 0px; global overflow-wrap:anywhere then produced character-level wrapping.",
+    "architecture": "Explicit status, content, metadata/progress and compact action regions; desktop uses minmax(0,1fr) plus max-content and mobile stacks all regions.",
+    "beforeComputedEvidence": "artifacts/uiux-redesign-checkpoint/collapsed-layout-before.json",
+    "afterComputedEvidence": "artifacts/uiux-redesign-checkpoint/collapsed-layout-after.json",
+    "criticalIssuesFound": 1,
+    "criticalIssuesFixed": 1,
+    "criticalIssuesRemaining": 0,
+    "highIssuesRemaining": 0
+  },
+  "viewports": [
+    {
+      "width": 320,
+      "height": 568,
+      "overflow": 0,
+      "headerOverlap": false,
+      "footerWithinPage": true,
+      "focusVisible": true,
+      "touchTargets": true,
+      "mathOverflow": 0,
+      "zoom200Overflow": 0,
+      "consoleErrors": 0,
+      "hydrationErrors": 0
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "overflow": 0,
+      "headerOverlap": false,
+      "footerWithinPage": true,
+      "focusVisible": true,
+      "touchTargets": true,
+      "mathOverflow": 0,
+      "zoom200Overflow": 0,
+      "consoleErrors": 0,
+      "hydrationErrors": 0
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "overflow": 0,
+      "headerOverlap": false,
+      "footerWithinPage": true,
+      "focusVisible": true,
+      "touchTargets": true,
+      "mathOverflow": 0,
+      "zoom200Overflow": 0,
+      "consoleErrors": 0,
+      "hydrationErrors": 0
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "overflow": 0,
+      "headerOverlap": false,
+      "footerWithinPage": true,
+      "focusVisible": true,
+      "touchTargets": true,
+      "mathOverflow": 0,
+      "zoom200Overflow": 0,
+      "consoleErrors": 0,
+      "hydrationErrors": 0
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "overflow": 0,
+      "headerOverlap": false,
+      "footerWithinPage": true,
+      "focusVisible": true,
+      "touchTargets": true,
+      "mathOverflow": 0,
+      "zoom200Overflow": 0,
+      "consoleErrors": 0,
+      "hydrationErrors": 0
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "overflow": 0,
+      "headerOverlap": false,
+      "footerWithinPage": true,
+      "focusVisible": true,
+      "touchTargets": true,
+      "mathOverflow": 0,
+      "zoom200Overflow": 0,
+      "consoleErrors": 0,
+      "hydrationErrors": 0
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "overflow": 0,
+      "headerOverlap": false,
+      "footerWithinPage": true,
+      "focusVisible": true,
+      "touchTargets": true,
+      "mathOverflow": 0,
+      "zoom200Overflow": 0,
+      "consoleErrors": 0,
+      "hydrationErrors": 0
+    }
+  ],
+  "journeys": {
+    "anonymous": "PASS",
+    "studentZeroProgress": "PASS",
+    "returningStudent": "PASS",
+    "generatedPilotRuntimeOff": "PASS",
+    "parent": "PASS",
+    "teacher": "PASS"
+  },
+  "accessibility": {
+    "domAssertions": "PASS",
+    "keyboardFocus": "PASS",
+    "reducedMotion": "PASS",
+    "zoom200": "PASS"
+  },
+  "collapsedTextRegression": {
+    "status": "PASS",
+    "representativeRouteAudits": [
+      {
+        "label": "LANDING_DESKTOP",
+        "inspected": 41,
+        "issues": []
+      },
+      {
+        "label": "LOGIN_DESKTOP",
+        "inspected": 31,
+        "issues": []
+      },
+      {
+        "label": "REGISTER_MOBILE",
+        "inspected": 25,
+        "issues": []
+      },
+      {
+        "label": "STUDENT_DASHBOARD_DESKTOP",
+        "inspected": 86,
+        "issues": []
+      },
+      {
+        "label": "STUDENT_DASHBOARD_MOBILE",
+        "inspected": 86,
+        "issues": []
+      },
+      {
+        "label": "LESSONS_DESKTOP",
+        "inspected": 121,
+        "issues": []
+      },
+      {
+        "label": "LESSONS_320",
+        "inspected": 121,
+        "issues": []
+      },
+      {
+        "label": "LESSONS_360",
+        "inspected": 121,
+        "issues": []
+      },
+      {
+        "label": "LESSONS_390",
+        "inspected": 121,
+        "issues": []
+      },
+      {
+        "label": "LESSONS_768",
+        "inspected": 121,
+        "issues": []
+      },
+      {
+        "label": "LESSONS_1024",
+        "inspected": 121,
+        "issues": []
+      },
+      {
+        "label": "LESSONS_1280",
+        "inspected": 121,
+        "issues": []
+      },
+      {
+        "label": "LESSONS_1440",
+        "inspected": 121,
+        "issues": []
+      },
+      {
+        "label": "LESSON_DETAIL",
+        "inspected": 74,
+        "issues": []
+      },
+      {
+        "label": "PRACTICE_DESKTOP",
+        "inspected": 15,
+        "issues": []
+      },
+      {
+        "label": "RESULTS",
+        "inspected": 307,
+        "issues": []
+      },
+      {
+        "label": "LEARNING_PROGRESS",
+        "inspected": 81,
+        "issues": []
+      },
+      {
+        "label": "PARENT_DASHBOARD",
+        "inspected": 28,
+        "issues": []
+      },
+      {
+        "label": "TEACHER_DASHBOARD",
+        "inspected": 27,
+        "issues": []
+      }
+    ],
+    "lessonCardViewports": [
+      {
+        "viewportWidth": 320,
+        "pageOverflow": 0,
+        "cards": [
+          {
+            "index": 0,
+            "cardWidth": 304,
+            "cardHeight": 298.25,
+            "titleWidth": 257.8125,
+            "titleLines": 1,
+            "contentWidth": 257.8125,
+            "metadataWidth": 257.8125,
+            "actionWidth": 257.8125
+          },
+          {
+            "index": 1,
+            "cardWidth": 304,
+            "cardHeight": 390.015625,
+            "titleWidth": 257.8125,
+            "titleLines": 1,
+            "contentWidth": 257.8125,
+            "metadataWidth": 257.8125,
+            "actionWidth": 257.8125
+          },
+          {
+            "index": 2,
+            "cardWidth": 304,
+            "cardHeight": 390.015625,
+            "titleWidth": 257.8125,
+            "titleLines": 1,
+            "contentWidth": 257.8125,
+            "metadataWidth": 257.8125,
+            "actionWidth": 257.8125
+          },
+          {
+            "index": 3,
+            "cardWidth": 304,
+            "cardHeight": 390.015625,
+            "titleWidth": 257.8125,
+            "titleLines": 1,
+            "contentWidth": 257.8125,
+            "metadataWidth": 257.8125,
+            "actionWidth": 257.8125
+          },
+          {
+            "index": 4,
+            "cardWidth": 304,
+            "cardHeight": 413.21875,
+            "titleWidth": 257.8125,
+            "titleLines": 2,
+            "contentWidth": 257.8125,
+            "metadataWidth": 257.8125,
+            "actionWidth": 257.8125
+          },
+          {
+            "index": 5,
+            "cardWidth": 304,
+            "cardHeight": 413.21875,
+            "titleWidth": 257.8125,
+            "titleLines": 2,
+            "contentWidth": 257.8125,
+            "metadataWidth": 257.8125,
+            "actionWidth": 257.8125
+          },
+          {
+            "index": 6,
+            "cardWidth": 304,
+            "cardHeight": 411.78125,
+            "titleWidth": 257.8125,
+            "titleLines": 1,
+            "contentWidth": 257.8125,
+            "metadataWidth": 257.8125,
+            "actionWidth": 257.8125
+          },
+          {
+            "index": 7,
+            "cardWidth": 304,
+            "cardHeight": 436.015625,
+            "titleWidth": 257.8125,
+            "titleLines": 2,
+            "contentWidth": 257.8125,
+            "metadataWidth": 257.8125,
+            "actionWidth": 257.8125
+          },
+          {
+            "index": 8,
+            "cardWidth": 304,
+            "cardHeight": 457.78125,
+            "titleWidth": 257.8125,
+            "titleLines": 2,
+            "contentWidth": 257.8125,
+            "metadataWidth": 257.8125,
+            "actionWidth": 257.8125
+          },
+          {
+            "index": 9,
+            "cardWidth": 304,
+            "cardHeight": 434.578125,
+            "titleWidth": 257.8125,
+            "titleLines": 1,
+            "contentWidth": 257.8125,
+            "metadataWidth": 257.8125,
+            "actionWidth": 257.8125
+          },
+          {
+            "index": 10,
+            "cardWidth": 304,
+            "cardHeight": 390.015625,
+            "titleWidth": 257.8125,
+            "titleLines": 1,
+            "contentWidth": 257.8125,
+            "metadataWidth": 257.8125,
+            "actionWidth": 257.8125
+          },
+          {
+            "index": 11,
+            "cardWidth": 304,
+            "cardHeight": 390.015625,
+            "titleWidth": 257.8125,
+            "titleLines": 1,
+            "contentWidth": 257.8125,
+            "metadataWidth": 257.8125,
+            "actionWidth": 257.8125
+          },
+          {
+            "index": 12,
+            "cardWidth": 304,
+            "cardHeight": 413.21875,
+            "titleWidth": 257.8125,
+            "titleLines": 2,
+            "contentWidth": 257.8125,
+            "metadataWidth": 257.8125,
+            "actionWidth": 257.8125
+          }
+        ],
+        "issues": []
+      },
+      {
+        "viewportWidth": 360,
+        "pageOverflow": 0,
+        "cards": [
+          {
+            "index": 0,
+            "cardWidth": 344,
+            "cardHeight": 257.53125,
+            "titleWidth": 297.8125,
+            "titleLines": 1,
+            "contentWidth": 297.8125,
+            "metadataWidth": 297.8125,
+            "actionWidth": 297.8125
+          },
+          {
+            "index": 1,
+            "cardWidth": 344,
+            "cardHeight": 390.015625,
+            "titleWidth": 297.8125,
+            "titleLines": 1,
+            "contentWidth": 297.8125,
+            "metadataWidth": 297.8125,
+            "actionWidth": 297.8125
+          },
+          {
+            "index": 2,
+            "cardWidth": 344,
+            "cardHeight": 390.015625,
+            "titleWidth": 297.8125,
+            "titleLines": 1,
+            "contentWidth": 297.8125,
+            "metadataWidth": 297.8125,
+            "actionWidth": 297.8125
+          },
+          {
+            "index": 3,
+            "cardWidth": 344,
+            "cardHeight": 390.015625,
+            "titleWidth": 297.8125,
+            "titleLines": 1,
+            "contentWidth": 297.8125,
+            "metadataWidth": 297.8125,
+            "actionWidth": 297.8125
+          },
+          {
+            "index": 4,
+            "cardWidth": 344,
+            "cardHeight": 413.21875,
+            "titleWidth": 297.8125,
+            "titleLines": 2,
+            "contentWidth": 297.8125,
+            "metadataWidth": 297.8125,
+            "actionWidth": 297.8125
+          },
+          {
+            "index": 5,
+            "cardWidth": 344,
+            "cardHeight": 413.21875,
+            "titleWidth": 297.8125,
+            "titleLines": 2,
+            "contentWidth": 297.8125,
+            "metadataWidth": 297.8125,
+            "actionWidth": 297.8125
+          },
+          {
+            "index": 6,
+            "cardWidth": 344,
+            "cardHeight": 390.015625,
+            "titleWidth": 297.8125,
+            "titleLines": 1,
+            "contentWidth": 297.8125,
+            "metadataWidth": 297.8125,
+            "actionWidth": 297.8125
+          },
+          {
+            "index": 7,
+            "cardWidth": 344,
+            "cardHeight": 436.015625,
+            "titleWidth": 297.8125,
+            "titleLines": 2,
+            "contentWidth": 297.8125,
+            "metadataWidth": 297.8125,
+            "actionWidth": 297.8125
+          },
+          {
+            "index": 8,
+            "cardWidth": 344,
+            "cardHeight": 436.015625,
+            "titleWidth": 297.8125,
+            "titleLines": 2,
+            "contentWidth": 297.8125,
+            "metadataWidth": 297.8125,
+            "actionWidth": 297.8125
+          },
+          {
+            "index": 9,
+            "cardWidth": 344,
+            "cardHeight": 390.015625,
+            "titleWidth": 297.8125,
+            "titleLines": 1,
+            "contentWidth": 297.8125,
+            "metadataWidth": 297.8125,
+            "actionWidth": 297.8125
+          },
+          {
+            "index": 10,
+            "cardWidth": 344,
+            "cardHeight": 390.015625,
+            "titleWidth": 297.8125,
+            "titleLines": 1,
+            "contentWidth": 297.8125,
+            "metadataWidth": 297.8125,
+            "actionWidth": 297.8125
+          },
+          {
+            "index": 11,
+            "cardWidth": 344,
+            "cardHeight": 390.015625,
+            "titleWidth": 297.8125,
+            "titleLines": 1,
+            "contentWidth": 297.8125,
+            "metadataWidth": 297.8125,
+            "actionWidth": 297.8125
+          },
+          {
+            "index": 12,
+            "cardWidth": 344,
+            "cardHeight": 413.21875,
+            "titleWidth": 297.8125,
+            "titleLines": 2,
+            "contentWidth": 297.8125,
+            "metadataWidth": 297.8125,
+            "actionWidth": 297.8125
+          }
+        ],
+        "issues": []
+      },
+      {
+        "viewportWidth": 390,
+        "pageOverflow": 0,
+        "cards": [
+          {
+            "index": 0,
+            "cardWidth": 374,
+            "cardHeight": 230.6875,
+            "titleWidth": 327.8125,
+            "titleLines": 1,
+            "contentWidth": 327.8125,
+            "metadataWidth": 327.8125,
+            "actionWidth": 327.8125
+          },
+          {
+            "index": 1,
+            "cardWidth": 374,
+            "cardHeight": 341.40625,
+            "titleWidth": 327.8125,
+            "titleLines": 1,
+            "contentWidth": 327.8125,
+            "metadataWidth": 327.8125,
+            "actionWidth": 327.8125
+          },
+          {
+            "index": 2,
+            "cardWidth": 374,
+            "cardHeight": 363.171875,
+            "titleWidth": 327.8125,
+            "titleLines": 1,
+            "contentWidth": 327.8125,
+            "metadataWidth": 327.8125,
+            "actionWidth": 327.8125
+          },
+          {
+            "index": 3,
+            "cardWidth": 374,
+            "cardHeight": 341.40625,
+            "titleWidth": 327.8125,
+            "titleLines": 1,
+            "contentWidth": 327.8125,
+            "metadataWidth": 327.8125,
+            "actionWidth": 327.8125
+          },
+          {
+            "index": 4,
+            "cardWidth": 374,
+            "cardHeight": 364.609375,
+            "titleWidth": 327.8125,
+            "titleLines": 2,
+            "contentWidth": 327.8125,
+            "metadataWidth": 327.8125,
+            "actionWidth": 327.8125
+          },
+          {
+            "index": 5,
+            "cardWidth": 374,
+            "cardHeight": 386.375,
+            "titleWidth": 327.8125,
+            "titleLines": 2,
+            "contentWidth": 327.8125,
+            "metadataWidth": 327.8125,
+            "actionWidth": 327.8125
+          },
+          {
+            "index": 6,
+            "cardWidth": 374,
+            "cardHeight": 363.171875,
+            "titleWidth": 327.8125,
+            "titleLines": 1,
+            "contentWidth": 327.8125,
+            "metadataWidth": 327.8125,
+            "actionWidth": 327.8125
+          },
+          {
+            "index": 7,
+            "cardWidth": 374,
+            "cardHeight": 387.40625,
+            "titleWidth": 327.8125,
+            "titleLines": 2,
+            "contentWidth": 327.8125,
+            "metadataWidth": 327.8125,
+            "actionWidth": 327.8125
+          },
+          {
+            "index": 8,
+            "cardWidth": 374,
+            "cardHeight": 386.375,
+            "titleWidth": 327.8125,
+            "titleLines": 2,
+            "contentWidth": 327.8125,
+            "metadataWidth": 327.8125,
+            "actionWidth": 327.8125
+          },
+          {
+            "index": 9,
+            "cardWidth": 374,
+            "cardHeight": 363.171875,
+            "titleWidth": 327.8125,
+            "titleLines": 1,
+            "contentWidth": 327.8125,
+            "metadataWidth": 327.8125,
+            "actionWidth": 327.8125
+          },
+          {
+            "index": 10,
+            "cardWidth": 374,
+            "cardHeight": 341.40625,
+            "titleWidth": 327.8125,
+            "titleLines": 1,
+            "contentWidth": 327.8125,
+            "metadataWidth": 327.8125,
+            "actionWidth": 327.8125
+          },
+          {
+            "index": 11,
+            "cardWidth": 374,
+            "cardHeight": 341.40625,
+            "titleWidth": 327.8125,
+            "titleLines": 1,
+            "contentWidth": 327.8125,
+            "metadataWidth": 327.8125,
+            "actionWidth": 327.8125
+          },
+          {
+            "index": 12,
+            "cardWidth": 374,
+            "cardHeight": 364.609375,
+            "titleWidth": 327.8125,
+            "titleLines": 2,
+            "contentWidth": 327.8125,
+            "metadataWidth": 327.8125,
+            "actionWidth": 327.8125
+          }
+        ],
+        "issues": []
+      },
+      {
+        "viewportWidth": 768,
+        "pageOverflow": 0,
+        "cards": [
+          {
+            "index": 0,
+            "cardWidth": 736,
+            "cardHeight": 153.5,
+            "titleWidth": 510.015625,
+            "titleLines": 1,
+            "contentWidth": 510.015625,
+            "metadataWidth": 510.015625,
+            "actionWidth": 155.796875
+          },
+          {
+            "index": 1,
+            "cardWidth": 736,
+            "cardHeight": 207.421875,
+            "titleWidth": 507.28125,
+            "titleLines": 1,
+            "contentWidth": 507.28125,
+            "metadataWidth": 507.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 2,
+            "cardWidth": 736,
+            "cardHeight": 207.421875,
+            "titleWidth": 507.28125,
+            "titleLines": 1,
+            "contentWidth": 507.28125,
+            "metadataWidth": 507.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 3,
+            "cardWidth": 736,
+            "cardHeight": 207.421875,
+            "titleWidth": 507.28125,
+            "titleLines": 1,
+            "contentWidth": 507.28125,
+            "metadataWidth": 507.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 4,
+            "cardWidth": 736,
+            "cardHeight": 207.421875,
+            "titleWidth": 507.28125,
+            "titleLines": 1,
+            "contentWidth": 507.28125,
+            "metadataWidth": 507.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 5,
+            "cardWidth": 736,
+            "cardHeight": 207.421875,
+            "titleWidth": 507.28125,
+            "titleLines": 1,
+            "contentWidth": 507.28125,
+            "metadataWidth": 507.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 6,
+            "cardWidth": 736,
+            "cardHeight": 207.421875,
+            "titleWidth": 507.28125,
+            "titleLines": 1,
+            "contentWidth": 507.28125,
+            "metadataWidth": 507.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 7,
+            "cardWidth": 736,
+            "cardHeight": 230.21875,
+            "titleWidth": 507.28125,
+            "titleLines": 1,
+            "contentWidth": 507.28125,
+            "metadataWidth": 507.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 8,
+            "cardWidth": 736,
+            "cardHeight": 230.21875,
+            "titleWidth": 507.28125,
+            "titleLines": 1,
+            "contentWidth": 507.28125,
+            "metadataWidth": 507.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 9,
+            "cardWidth": 736,
+            "cardHeight": 230.21875,
+            "titleWidth": 507.28125,
+            "titleLines": 1,
+            "contentWidth": 507.28125,
+            "metadataWidth": 507.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 10,
+            "cardWidth": 736,
+            "cardHeight": 207.421875,
+            "titleWidth": 507.28125,
+            "titleLines": 1,
+            "contentWidth": 507.28125,
+            "metadataWidth": 507.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 11,
+            "cardWidth": 736,
+            "cardHeight": 207.421875,
+            "titleWidth": 507.28125,
+            "titleLines": 1,
+            "contentWidth": 507.28125,
+            "metadataWidth": 507.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 12,
+            "cardWidth": 736,
+            "cardHeight": 207.421875,
+            "titleWidth": 507.28125,
+            "titleLines": 1,
+            "contentWidth": 507.28125,
+            "metadataWidth": 507.28125,
+            "actionWidth": 158.53125
+          }
+        ],
+        "issues": []
+      },
+      {
+        "viewportWidth": 1024,
+        "pageOverflow": 0,
+        "cards": [
+          {
+            "index": 0,
+            "cardWidth": 712,
+            "cardHeight": 153.5,
+            "titleWidth": 486.015625,
+            "titleLines": 1,
+            "contentWidth": 486.015625,
+            "metadataWidth": 486.015625,
+            "actionWidth": 155.796875
+          },
+          {
+            "index": 1,
+            "cardWidth": 712,
+            "cardHeight": 207.421875,
+            "titleWidth": 483.28125,
+            "titleLines": 1,
+            "contentWidth": 483.28125,
+            "metadataWidth": 483.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 2,
+            "cardWidth": 712,
+            "cardHeight": 207.421875,
+            "titleWidth": 483.28125,
+            "titleLines": 1,
+            "contentWidth": 483.28125,
+            "metadataWidth": 483.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 3,
+            "cardWidth": 712,
+            "cardHeight": 207.421875,
+            "titleWidth": 483.28125,
+            "titleLines": 1,
+            "contentWidth": 483.28125,
+            "metadataWidth": 483.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 4,
+            "cardWidth": 712,
+            "cardHeight": 207.421875,
+            "titleWidth": 483.28125,
+            "titleLines": 1,
+            "contentWidth": 483.28125,
+            "metadataWidth": 483.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 5,
+            "cardWidth": 712,
+            "cardHeight": 207.421875,
+            "titleWidth": 483.28125,
+            "titleLines": 1,
+            "contentWidth": 483.28125,
+            "metadataWidth": 483.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 6,
+            "cardWidth": 712,
+            "cardHeight": 207.421875,
+            "titleWidth": 483.28125,
+            "titleLines": 1,
+            "contentWidth": 483.28125,
+            "metadataWidth": 483.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 7,
+            "cardWidth": 712,
+            "cardHeight": 230.21875,
+            "titleWidth": 483.28125,
+            "titleLines": 1,
+            "contentWidth": 483.28125,
+            "metadataWidth": 483.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 8,
+            "cardWidth": 712,
+            "cardHeight": 230.21875,
+            "titleWidth": 483.28125,
+            "titleLines": 1,
+            "contentWidth": 483.28125,
+            "metadataWidth": 483.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 9,
+            "cardWidth": 712,
+            "cardHeight": 230.21875,
+            "titleWidth": 483.28125,
+            "titleLines": 1,
+            "contentWidth": 483.28125,
+            "metadataWidth": 483.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 10,
+            "cardWidth": 712,
+            "cardHeight": 207.421875,
+            "titleWidth": 483.28125,
+            "titleLines": 1,
+            "contentWidth": 483.28125,
+            "metadataWidth": 483.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 11,
+            "cardWidth": 712,
+            "cardHeight": 207.421875,
+            "titleWidth": 483.28125,
+            "titleLines": 1,
+            "contentWidth": 483.28125,
+            "metadataWidth": 483.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 12,
+            "cardWidth": 712,
+            "cardHeight": 207.421875,
+            "titleWidth": 483.28125,
+            "titleLines": 1,
+            "contentWidth": 483.28125,
+            "metadataWidth": 483.28125,
+            "actionWidth": 158.53125
+          }
+        ],
+        "issues": []
+      },
+      {
+        "viewportWidth": 1280,
+        "pageOverflow": 0,
+        "cards": [
+          {
+            "index": 0,
+            "cardWidth": 968,
+            "cardHeight": 153.5,
+            "titleWidth": 742.015625,
+            "titleLines": 1,
+            "contentWidth": 742.015625,
+            "metadataWidth": 742.015625,
+            "actionWidth": 155.796875
+          },
+          {
+            "index": 1,
+            "cardWidth": 968,
+            "cardHeight": 185.65625,
+            "titleWidth": 739.28125,
+            "titleLines": 1,
+            "contentWidth": 739.28125,
+            "metadataWidth": 739.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 2,
+            "cardWidth": 968,
+            "cardHeight": 185.65625,
+            "titleWidth": 739.28125,
+            "titleLines": 1,
+            "contentWidth": 739.28125,
+            "metadataWidth": 739.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 3,
+            "cardWidth": 968,
+            "cardHeight": 185.65625,
+            "titleWidth": 739.28125,
+            "titleLines": 1,
+            "contentWidth": 739.28125,
+            "metadataWidth": 739.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 4,
+            "cardWidth": 968,
+            "cardHeight": 185.65625,
+            "titleWidth": 739.28125,
+            "titleLines": 1,
+            "contentWidth": 739.28125,
+            "metadataWidth": 739.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 5,
+            "cardWidth": 968,
+            "cardHeight": 185.65625,
+            "titleWidth": 739.28125,
+            "titleLines": 1,
+            "contentWidth": 739.28125,
+            "metadataWidth": 739.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 6,
+            "cardWidth": 968,
+            "cardHeight": 185.65625,
+            "titleWidth": 739.28125,
+            "titleLines": 1,
+            "contentWidth": 739.28125,
+            "metadataWidth": 739.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 7,
+            "cardWidth": 968,
+            "cardHeight": 185.65625,
+            "titleWidth": 739.28125,
+            "titleLines": 1,
+            "contentWidth": 739.28125,
+            "metadataWidth": 739.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 8,
+            "cardWidth": 968,
+            "cardHeight": 185.65625,
+            "titleWidth": 739.28125,
+            "titleLines": 1,
+            "contentWidth": 739.28125,
+            "metadataWidth": 739.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 9,
+            "cardWidth": 968,
+            "cardHeight": 185.65625,
+            "titleWidth": 739.28125,
+            "titleLines": 1,
+            "contentWidth": 739.28125,
+            "metadataWidth": 739.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 10,
+            "cardWidth": 968,
+            "cardHeight": 185.65625,
+            "titleWidth": 739.28125,
+            "titleLines": 1,
+            "contentWidth": 739.28125,
+            "metadataWidth": 739.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 11,
+            "cardWidth": 968,
+            "cardHeight": 185.65625,
+            "titleWidth": 739.28125,
+            "titleLines": 1,
+            "contentWidth": 739.28125,
+            "metadataWidth": 739.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 12,
+            "cardWidth": 968,
+            "cardHeight": 185.65625,
+            "titleWidth": 739.28125,
+            "titleLines": 1,
+            "contentWidth": 739.28125,
+            "metadataWidth": 739.28125,
+            "actionWidth": 158.53125
+          }
+        ],
+        "issues": []
+      },
+      {
+        "viewportWidth": 1440,
+        "pageOverflow": 0,
+        "cards": [
+          {
+            "index": 0,
+            "cardWidth": 1128,
+            "cardHeight": 153.5,
+            "titleWidth": 902.015625,
+            "titleLines": 1,
+            "contentWidth": 902.015625,
+            "metadataWidth": 902.015625,
+            "actionWidth": 155.796875
+          },
+          {
+            "index": 1,
+            "cardWidth": 1128,
+            "cardHeight": 185.65625,
+            "titleWidth": 899.28125,
+            "titleLines": 1,
+            "contentWidth": 899.28125,
+            "metadataWidth": 899.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 2,
+            "cardWidth": 1128,
+            "cardHeight": 185.65625,
+            "titleWidth": 899.28125,
+            "titleLines": 1,
+            "contentWidth": 899.28125,
+            "metadataWidth": 899.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 3,
+            "cardWidth": 1128,
+            "cardHeight": 185.65625,
+            "titleWidth": 899.28125,
+            "titleLines": 1,
+            "contentWidth": 899.28125,
+            "metadataWidth": 899.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 4,
+            "cardWidth": 1128,
+            "cardHeight": 185.65625,
+            "titleWidth": 899.28125,
+            "titleLines": 1,
+            "contentWidth": 899.28125,
+            "metadataWidth": 899.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 5,
+            "cardWidth": 1128,
+            "cardHeight": 185.65625,
+            "titleWidth": 899.28125,
+            "titleLines": 1,
+            "contentWidth": 899.28125,
+            "metadataWidth": 899.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 6,
+            "cardWidth": 1128,
+            "cardHeight": 185.65625,
+            "titleWidth": 899.28125,
+            "titleLines": 1,
+            "contentWidth": 899.28125,
+            "metadataWidth": 899.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 7,
+            "cardWidth": 1128,
+            "cardHeight": 185.65625,
+            "titleWidth": 899.28125,
+            "titleLines": 1,
+            "contentWidth": 899.28125,
+            "metadataWidth": 899.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 8,
+            "cardWidth": 1128,
+            "cardHeight": 185.65625,
+            "titleWidth": 899.28125,
+            "titleLines": 1,
+            "contentWidth": 899.28125,
+            "metadataWidth": 899.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 9,
+            "cardWidth": 1128,
+            "cardHeight": 185.65625,
+            "titleWidth": 899.28125,
+            "titleLines": 1,
+            "contentWidth": 899.28125,
+            "metadataWidth": 899.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 10,
+            "cardWidth": 1128,
+            "cardHeight": 185.65625,
+            "titleWidth": 899.28125,
+            "titleLines": 1,
+            "contentWidth": 899.28125,
+            "metadataWidth": 899.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 11,
+            "cardWidth": 1128,
+            "cardHeight": 185.65625,
+            "titleWidth": 899.28125,
+            "titleLines": 1,
+            "contentWidth": 899.28125,
+            "metadataWidth": 899.28125,
+            "actionWidth": 158.53125
+          },
+          {
+            "index": 12,
+            "cardWidth": 1128,
+            "cardHeight": 185.65625,
+            "titleWidth": 899.28125,
+            "titleLines": 1,
+            "contentWidth": 899.28125,
+            "metadataWidth": 899.28125,
+            "actionWidth": 158.53125
+          }
+        ],
+        "issues": []
+      }
+    ]
+  },
+  "visualReview": {
+    "previousReviewInvalidated": true,
+    "screenshotsOpenedAtOriginalResolution": true,
+    "lessonViewportScreenshotsReviewed": 7,
+    "representativeScreenshotsReviewed": 24,
+    "criticalIssuesRemaining": 0,
+    "highIssuesRemaining": 0,
+    "ownerApprovalClaimed": false
+  },
+  "regressionGates": {
+    "collapsedLayoutAndUiNavigation": "13/13 PASS",
+    "practice": "550/550 PASS",
+    "practiceVisualReadability": "3/3 PASS",
+    "grades1To9Curriculum": "9/9 PASS",
+    "universalCurriculum": "21/21 PASS",
+    "competencyAndRecommendation": "10/10 PASS",
+    "roleIsolation": "14/14 PASS",
+    "securityPrivateSolution": "6/6 PASS",
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "productionBuild": "PASS (67 routes)",
+    "localPlaywright": "PASS (7/7 viewports, 33 screenshots)"
+  },
+  "exactRemainingBlockers": [
+    "OWNER_RECHECK_REQUIRED",
+    "OWNER_STYLE_APPROVAL_NOT_GRANTED",
+    "V2_ROUTE_PROPAGATION_INTENTIONALLY_NOT_STARTED"
+  ],
+  "remainingRoutesNotPropagated": [
+    "/about",
+    "/demo",
+    "/forgot-password",
+    "/update-password",
+    "/auth/confirm",
+    "/privacy",
+    "/terms",
+    "/onboarding",
+    "/profile",
+    "/profile/edit",
+    "/settings",
+    "/connections",
+    "/goals",
+    "/learn",
+    "/learn/[gradeSlug]/[lessonSlug] variants",
+    "/learning-progress",
+    "/learning-history",
+    "/classrooms",
+    "/assignments",
+    "/assignments/[assignmentId]",
+    "/assignments/[assignmentId]/review",
+    "/diagnostic",
+    "/diagnostic/[attemptId]",
+    "/diagnostic/[attemptId]/review",
+    "/grade-1/summary",
+    "/adaptive-practice/[attemptId]",
+    "/curriculum-practice/[attemptId]",
+    "/on-demand-practice/[attemptId]",
+    "/parent/children/[connectionId]",
+    "/teacher/onboarding",
+    "/teacher/profile",
+    "/teacher/classrooms",
+    "/teacher/classrooms/[classroomId]",
+    "/teacher/classes/[classroomId]/gradebook",
+    "/teacher/questions",
+    "/teacher/assignments",
+    "/teacher/assignments/new",
+    "/teacher/assignments/[assignmentId]",
+    "/teacher/assignments/[assignmentId]/analysis",
+    "/curriculum-preview",
+    "/internal/generated-pilot-acceptance"
+  ],
+  "consoleErrors": 0,
+  "hydrationErrors": 0,
+  "screenshots": [
+    "artifacts/uiux-redesign-checkpoint/lesson-card-detail-before.png",
+    "artifacts/uiux-redesign-checkpoint/landing-desktop.png",
+    "artifacts/uiux-redesign-checkpoint/landing-mobile.png",
+    "artifacts/uiux-redesign-checkpoint/public-mobile-menu.png",
+    "artifacts/uiux-redesign-checkpoint/login-desktop.png",
+    "artifacts/uiux-redesign-checkpoint/login-mobile.png",
+    "artifacts/uiux-redesign-checkpoint/register-role.png",
+    "artifacts/uiux-redesign-checkpoint/error-state.png",
+    "artifacts/uiux-redesign-checkpoint/student-dashboard-desktop.png",
+    "artifacts/uiux-redesign-checkpoint/student-dashboard-mobile.png",
+    "artifacts/uiux-redesign-checkpoint/mobile-navigation.png",
+    "artifacts/uiux-redesign-checkpoint/lesson-card-detail-after.png",
+    "artifacts/uiux-redesign-checkpoint/lessons-desktop.png",
+    "artifacts/uiux-redesign-checkpoint/lessons-320.png",
+    "artifacts/uiux-redesign-checkpoint/lessons-360.png",
+    "artifacts/uiux-redesign-checkpoint/lessons-390.png",
+    "artifacts/uiux-redesign-checkpoint/lessons-768.png",
+    "artifacts/uiux-redesign-checkpoint/lessons-1024.png",
+    "artifacts/uiux-redesign-checkpoint/lessons-1280.png",
+    "artifacts/uiux-redesign-checkpoint/lessons-1440.png",
+    "artifacts/uiux-redesign-checkpoint/lessons-mobile.png",
+    "artifacts/uiux-redesign-checkpoint/lesson-detail.png",
+    "artifacts/uiux-redesign-checkpoint/practice-desktop.png",
+    "artifacts/uiux-redesign-checkpoint/practice-mobile.png",
+    "artifacts/uiux-redesign-checkpoint/practice-correct.png",
+    "artifacts/uiux-redesign-checkpoint/practice-incorrect.png",
+    "artifacts/uiux-redesign-checkpoint/results.png",
+    "artifacts/uiux-redesign-checkpoint/history.png",
+    "artifacts/uiux-redesign-checkpoint/competency-recommendation.png",
+    "artifacts/uiux-redesign-checkpoint/ineligible-state.png",
+    "artifacts/uiux-redesign-checkpoint/parent-dashboard.png",
+    "artifacts/uiux-redesign-checkpoint/empty-state.png",
+    "artifacts/uiux-redesign-checkpoint/teacher-dashboard.png"
+  ],
+  "serverWarnings": 0
+}

@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 
 import { OnboardingForm } from "@/app/onboarding/OnboardingForm";
 import { AccessDenied } from "@/components/AccessDenied";
+import { AuthBrandPanel } from "@/components/AuthBrandPanel";
 import { isValidRegistrationGrade } from "@/lib/onboarding/validation";
 import { createClient } from "@/lib/supabase/server";
 
@@ -53,15 +54,12 @@ export default async function OnboardingPage() {
     : null;
 
   return (
-    <section className="auth-page page-shell">
-      <div className="auth-intro">
-        <p className="eyebrow">Hồ sơ riêng tư</p>
-        <h1>Hoàn tất thông tin cơ bản</h1>
-        <p>
-          PLAVE chỉ thu thập dữ liệu tối thiểu cho vai trò của bạn. Vai trò không
-          thể thay đổi trong biểu mẫu này.
-        </p>
-      </div>
+    <section className="auth-page auth-page--v2 page-shell">
+      <AuthBrandPanel
+        eyebrow="Hồ sơ riêng tư"
+        title="Sẵn sàng cho lộ trình của riêng bạn."
+        description="PLAVE chỉ dùng thông tin cần thiết để mở đúng nội dung và vai trò."
+      />
       <OnboardingForm
         role={profile.role}
         initialFullName={profile.full_name ?? ""}

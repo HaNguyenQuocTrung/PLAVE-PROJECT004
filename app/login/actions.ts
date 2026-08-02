@@ -23,14 +23,10 @@ export async function loginWithPassword(input: {
       });
 
     if (signInError) {
-      const isUnconfirmed =
-        signInError.code === "email_not_confirmed" ||
-        signInError.message.toLowerCase().includes("email not confirmed");
       return {
         ok: false,
-        message: isUnconfirmed
-          ? "Email chưa được xác nhận. Hãy kiểm tra hộp thư và mở liên kết xác nhận."
-          : "Email hoặc mật khẩu không đúng.",
+        message:
+          "Chưa thể đăng nhập bằng thông tin này. Hãy kiểm tra email, mật khẩu và email xác nhận nếu bạn vừa đăng ký.",
       };
     }
 

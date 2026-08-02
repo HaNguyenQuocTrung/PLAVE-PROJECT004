@@ -44,7 +44,7 @@ export default async function StudentClassroomsPage() {
     .join("|");
 
   return (
-    <div className="student-classrooms-page page-shell">
+    <div className="student-classrooms-page student-workspace-page--v2 page-shell">
       <header className="catalog-hero catalog-hero--lessons">
         <p className="eyebrow">Kết nối lớp học</p>
         <h1>Lớp học của em</h1>

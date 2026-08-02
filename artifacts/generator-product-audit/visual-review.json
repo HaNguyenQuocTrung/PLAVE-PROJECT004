@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "reviewedAtOriginalResolution": true,
+  "reviewMethod": "Local image inspection after Playwright Chromium capture",
+  "screenshots": [
+    {
+      "path": "artifacts/generator-product-audit/screenshots/text-question-desktop.png",
+      "size": "1280x887",
+      "finding": "The comparison stem is answerable and choices are readable, but the card reserves a large unused vertical region."
+    },
+    {
+      "path": "artifacts/generator-product-audit/screenshots/multiple-choice-mobile.png",
+      "size": "390x944",
+      "finding": "The mobile choices are readable and do not overflow; this is still one repeated text-only template."
+    },
+    {
+      "path": "artifacts/generator-product-audit/screenshots/numeric-input-static-bank.png",
+      "size": "390x844",
+      "finding": "Numeric input renders correctly, but this is explicitly a static-bank renderer control; the semantic generator produced zero numeric-input samples."
+    },
+    {
+      "path": "artifacts/generator-product-audit/screenshots/fraction-question.png",
+      "size": "1280x887",
+      "finding": "CRITICAL: 'nhận biết phân số' does not specify an operation, yet the answer is the decimal sum of 7/3 and 5/7; no fraction visual is shown."
+    },
+    {
+      "path": "artifacts/generator-product-audit/screenshots/algebra-question.png",
+      "size": "1280x887",
+      "finding": "The equation is mathematically answerable, but distractors are adjacent values and the same template is reused across seeds and difficulties."
+    },
+    {
+      "path": "artifacts/generator-product-audit/screenshots/geometry-visual.png",
+      "size": "1280x1123",
+      "finding": "HIGH: the rectangle visual uses 38 cm and 12 cm while the prompt includes an unexplained third value 2 cm; answer choices omit cm²."
+    },
+    {
+      "path": "artifacts/generator-product-audit/screenshots/chart-statistics.png",
+      "size": "1280x989",
+      "finding": "HIGH: the chart is legible but labels are generic and the prompt never asks which quantity/statistic to identify; the solver silently chooses the maximum."
+    },
+    {
+      "path": "artifacts/generator-product-audit/screenshots/correct-feedback.png",
+      "size": "1280x1032",
+      "finding": "HIGH: correct-state structure is accessible, but the explanation only says to read data and perform the required reasoning; it never explains why 16 is greatest. The skip link is also visibly exposed while feedback has focus."
+    },
+    {
+      "path": "artifacts/generator-product-audit/screenshots/incorrect-feedback.png",
+      "size": "1280x1032",
+      "finding": "HIGH: incorrect feedback repeats the same generic steps as correct feedback and gives no misconception-specific help. The skip link is also visibly exposed while feedback has focus."
+    },
+    {
+      "path": "artifacts/generator-product-audit/screenshots/result-summary.png",
+      "size": "1280x800",
+      "finding": "Completion routing controls render, but the summary reports only score and does not identify the skill improved or next semantic recommendation."
+    },
+    {
+      "path": "artifacts/generator-product-audit/screenshots/empty-state.png",
+      "size": "1280x800",
+      "finding": "The empty state explains that progress is saved, but provides no explicit reload/retry control."
+    },
+    {
+      "path": "artifacts/generator-product-audit/screenshots/error-recovery.png",
+      "size": "1280x887",
+      "finding": "The error remains readable and the same selected answer can be retried; the large desktop card still leaves unused space."
+    }
+  ],
+  "criticalHighIssues": [
+    "Invalid/ambiguous fraction task and unrelated scoring operation",
+    "Area visual/prompt data mismatch and missing squared unit",
+    "Chart prompt lacks a concrete query",
+    "Correct and incorrect feedback are generic and identical in substance"
+  ],
+  "mediumIssues": [
+    "Desktop simple-question cards have excessive empty space",
+    "Completion and empty states are not generator-aware enough",
+    "The skip link remains visible during focused correct/incorrect feedback"
+  ],
+  "diagnosticCorrections": [
+    "The first touch-target result counted a hidden 0×0 mobile-menu button; the final visible-only check passes."
+  ],
+  "issuesFixedDuringSprint8A": [],
+  "reasonNotFixed": "Sprint 8A is an audit baseline. Only diagnostic and artifact-generation code was changed."
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import type { RefObject } from "react";
+import { PlaveIcon } from "@/components/PlaveIcon";
 
 export type RegistrationRole = "student" | "parent" | "teacher";
 
@@ -50,7 +51,7 @@ export function RoleSelector({
       aria-describedby={error ? "role-error" : undefined}
       aria-invalid={Boolean(error)}
     >
-      <legend>Em/Bạn đăng ký với vai trò nào?</legend>
+      <legend>Bạn muốn dùng PLAVE với vai trò nào?</legend>
       <div className="role-selector__grid">
         {roles.map((role) => (
           <label
@@ -67,6 +68,7 @@ export function RoleSelector({
               disabled={role.disabled}
               onChange={() => onChange(role.value)}
             />
+            <PlaveIcon name={role.value} className="role-option__icon" />
             <span className="role-option__title">{role.label}</span>
             <span className="role-option__description">{role.description}</span>
             {role.disabledMessage ? (

@@ -1,0 +1,99 @@
+{
+  "variant": "FUNCTION_INPUT_OUTPUT",
+  "severity": "HIGH",
+  "categories": [
+    "LOW_VARIATION",
+    "DIFFICULTY_NOT_MEANINGFUL",
+    "FEEDBACK_OR_EXPLANATION_WEAK"
+  ],
+  "summary": "Stem có thể giải đúng riêng lẻ nhưng chưa production-usable: lặp template, độ khó chưa tách biệt thực chất và lời giải không giải thích phép toán cụ thể.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-15d2ff919e01f25461f693e54d464df1186319b01a7d208a",
+  "reproductionSeedFingerprint": "15d2ff919e01f254",
+  "reproductionSampleId": "FUNCTION_INPUT_OUTPUT:EASY:1",
+  "sample": {
+    "sampleId": "FUNCTION_INPUT_OUTPUT:EASY:1",
+    "variant": "FUNCTION_INPUT_OUTPUT",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-15d2ff919e01f25461f693e54d464df1186319b01a7d208a",
+    "seedFingerprint": "15d2ff919e01f254",
+    "runtimeReachable": true,
+    "grade": 8,
+    "outcomeId": "MOET2018-G8-NAA-P064-012",
+    "unitId": "grade-8-secondary-naa-p1-3",
+    "astKind": "ALGEBRA",
+    "complexity": 1,
+    "prompt": "Thực hiện giá trị của hàm số với biểu thức 2x + 28, x = 62.",
+    "normalizedTemplate": "thựx hiện giá trị xủx hàm số với biểu thứx #x + #, x = #.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "151",
+      "154",
+      "152",
+      "153"
+    ],
+    "correctOptionKey": "C",
+    "correctOptionLabel": "152",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn C."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": true,
+    "publicQuestion": {
+      "questionId": "pilot-b6d65dba52e946e0e7e6a33a72c916f5",
+      "position": 1,
+      "prompt": "Thực hiện giá trị của hàm số với biểu thức 2x + 28, x = 62.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "151"
+        },
+        {
+          "key": "B",
+          "label": "154"
+        },
+        {
+          "key": "C",
+          "label": "152"
+        },
+        {
+          "key": "D",
+          "label": "153"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "HIGH",
+      "categories": [
+        "LOW_VARIATION",
+        "DIFFICULTY_NOT_MEANINGFUL",
+        "FEEDBACK_OR_EXPLANATION_WEAK"
+      ],
+      "summary": "Stem có thể giải đúng riêng lẻ nhưng chưa production-usable: lặp template, độ khó chưa tách biệt thực chất và lời giải không giải thích phép toán cụ thể."
+    }
+  }
+}

@@ -128,6 +128,14 @@ export function StudentAssignmentsPanel({
         ) : null}
       </div>
 
+      {!compact ? (
+        <div className="section-heading section-heading--compact assignment-panel__heading">
+          <p className="eyebrow">Danh sách của em</p>
+          <h2>Bài tập hiện tại</h2>
+          <p>Mở bài đang làm hoặc bắt đầu khi giáo viên đã giao bài.</p>
+        </div>
+      ) : null}
+
       {shownAssignments.length ? (
         <ul className="student-assignment-list">
           {shownAssignments.map((assignment) => (

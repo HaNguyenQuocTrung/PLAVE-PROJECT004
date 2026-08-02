@@ -117,7 +117,7 @@ export default async function PracticePage({ params }: PracticePageProps) {
   }
 
   return (
-    <div className="practice-page page-shell">
+    <div className="practice-page practice-focus-shell page-shell">
       <PracticeRunner
         attemptId={attempt.id}
         unitTitle={unit.title}

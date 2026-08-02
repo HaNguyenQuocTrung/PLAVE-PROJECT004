@@ -116,7 +116,7 @@ export default function DemoPage() {
   );
 
   return (
-    <div className="demo-page page-shell">
+    <div className="demo-page demo-page--v2 page-shell">
       <section className="demo-hero" id="lesson-start" tabIndex={-1}>
         <p className="eyebrow">Học thử · Toán lớp 1</p>
         <h1>{demoLesson.title}</h1>

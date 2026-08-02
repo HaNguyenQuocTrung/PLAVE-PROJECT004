@@ -1,0 +1,508 @@
+{
+  "schemaVersion": 2,
+  "audit": "SPRINT_8A_GENERATOR_PRODUCT_AUDIT",
+  "scope": "PLAVE Grades 1–9",
+  "status": "COMPLETE",
+  "productConclusion": {
+    "generatorClassification": "INCOMPLETE_AND_NOT_PRODUCT_USABLE",
+    "productionUsableSamples": 0,
+    "totalSamples": 3540,
+    "mathematicallyAnswerableStems": 300,
+    "mathematicallyAnswerableStemRate": 0.0847457627118644,
+    "productionReadyVariants": 0,
+    "reason": "A stem that is independently answerable is still not product-usable when it repeats one template, has weak difficulty separation, generic feedback, or does not reach the real Student runtime."
+  },
+  "runtimePipeline": {
+    "diagram": [
+      "Student /lessons",
+      "├─ Grade 1 default → /api/practice/start → start_or_resume_practice → legacy static question bank → /practice/[attemptId]",
+      "├─ Grades 2–9 default → /api/curriculum-runtime/start → start_or_resume_curriculum_unit → frozen materialized release → /curriculum-practice/[attemptId]",
+      "└─ Optional eligible pilot CTA → /api/on-demand-curriculum/start → runtime flags + Student eligibility → progress → recommendation/outcome → semantic variant → AST → solver/alignment → immutable signed snapshot → start_or_resume_semantic_generated_curriculum → /on-demand-practice/[attemptId]",
+      "On-demand submit → /api/on-demand-curriculum/answer → submit_generated_curriculum_answer → feedback after submit → evidence/progress/history → state/resume"
+    ],
+    "canonicalDefaultFlow": {
+      "route": "/lessons",
+      "grade1": "STATIC_BANK_STILL_USED",
+      "grades2To9": "MATERIALIZED_FROZEN_RELEASE_USED",
+      "semanticGeneratorIsDefault": false
+    },
+    "semanticOnDemandFlow": {
+      "entryComponents": [
+        "components/AdaptiveOnDemandStartButton.tsx",
+        "components/GeneratedPracticePilotCard.tsx"
+      ],
+      "route": "/api/on-demand-curriculum/start",
+      "runtimeFunction": "lib/curriculum/on-demand-runtime.ts::startOrResumeAdaptiveOnDemand",
+      "generatorFunction": "lib/curriculum/semantic-pilot-generation.ts::generateSemanticPilotAttemptSnapshot",
+      "persistenceRpc": "public.start_or_resume_semantic_generated_curriculum",
+      "submitRpc": "public.submit_generated_curriculum_answer",
+      "renderer": "app/curriculum-practice/[attemptId]/UniversalCurriculumRunner.tsx + app/curriculum-preview/CurriculumVisual.tsx"
+    },
+    "localActualProbe": {
+      "httpStatus": 503,
+      "publicErrorCode": "RUNTIME_DISABLED",
+      "featureFlagState": "OFF",
+      "activeLocalReleases": 0,
+      "localReleaseUnits": 171,
+      "localReleaseQuestions": 2052,
+      "semanticPersistenceRpcAvailable": false,
+      "actualStudentStartReachedGenerator": false,
+      "actualPersistenceResumeHistoryVerified": false,
+      "classification": [
+        "FEATURE_FLAG_BLOCKED",
+        "RUNTIME_DISCONNECTED"
+      ],
+      "note": "These are sanitized local audit-runtime observations. No remote environment was read or changed."
+    },
+    "implementedButNotReachedInLocalJourney": [
+      "server-derived deterministic seed",
+      "semantic snapshot generation",
+      "immutable public/private persistence contract",
+      "post-submit feedback boundary",
+      "generated evidence aggregation",
+      "resume and idempotency SQL paths"
+    ],
+    "proofOrDisconnectedOnly": [
+      "tests/generated-practice-shadow-proof.test.ts synthesizes contracts for all 59 registry variants after the real-outcome loop",
+      "lib/generation-semantic/remote-shadow.ts validates synthetic variant contracts",
+      "tests/on-demand-generation.test.ts and tests/on-demand-pedagogical-quality.test.ts exercise generateOnDemandAttemptSnapshot, not the semantic runtime generator",
+      "scripts/run-learning-product-local-acceptance.ts recomputes the older generateOnDemandAttemptSnapshot pipeline"
+    ]
+  },
+  "auditSet": {
+    "semanticVariants": 59,
+    "runtimeMappedVariants": 50,
+    "proofOnlyVariants": 9,
+    "difficulties": [
+      "EASY",
+      "MEDIUM",
+      "HARD"
+    ],
+    "seedsPerVariantPerDifficulty": 20,
+    "samplesPerVariant": 60,
+    "totalSamples": 3540,
+    "runtimeGeneratedSamples": 3000,
+    "syntheticProofOnlySamples": 540,
+    "source": "artifacts/generator-product-audit/sample-index.json"
+  },
+  "coverageByGrade": [
+    { "grade": 1, "samples": 600, "variants": 10, "productionUsable": 0, "mathematicallyAnswerableStems": 60 },
+    { "grade": 2, "samples": 540, "variants": 9, "productionUsable": 0, "mathematicallyAnswerableStems": 60 },
+    { "grade": 3, "samples": 600, "variants": 10, "productionUsable": 0, "mathematicallyAnswerableStems": 0 },
+    { "grade": 4, "samples": 360, "variants": 6, "productionUsable": 0, "mathematicallyAnswerableStems": 60 },
+    { "grade": 5, "samples": 180, "variants": 3, "productionUsable": 0, "mathematicallyAnswerableStems": 0 },
+    { "grade": 6, "samples": 180, "variants": 3, "productionUsable": 0, "mathematicallyAnswerableStems": 0 },
+    { "grade": 7, "samples": 120, "variants": 2, "productionUsable": 0, "mathematicallyAnswerableStems": 0 },
+    { "grade": 8, "samples": 180, "variants": 3, "productionUsable": 0, "mathematicallyAnswerableStems": 60 },
+    { "grade": 9, "samples": 240, "variants": 4, "productionUsable": 0, "mathematicallyAnswerableStems": 60 }
+  ],
+  "proofOnlyVariants": [
+    "EXPRESSION_CONSTRUCTION",
+    "RELATION_INTERPRETATION",
+    "COORDINATE",
+    "MULTI_STEP_CONTEXT",
+    "INFORMATION_SELECTION",
+    "INSUFFICIENT_INFORMATION",
+    "ERROR_DETECTION",
+    "MATHEMATICAL_MODELING",
+    "REPRESENTATION_CONSTRUCTION"
+  ],
+  "semanticVariantResults": {
+    "productionUsable": [],
+    "critical": [
+      "INTEGER_OPERATIONS",
+      "FRACTION_RECOGNITION",
+      "FRACTION_EQUIVALENCE",
+      "FRACTION_COMPARISON",
+      "FRACTION_OPERATIONS",
+      "DECIMAL_REPRESENTATION",
+      "DECIMAL_COMPARISON",
+      "DECIMAL_OPERATIONS",
+      "RATIO",
+      "PERCENTAGE",
+      "EXPRESSION_CONSTRUCTION",
+      "RELATION_INTERPRETATION",
+      "SHAPE_PROPERTIES",
+      "ANGLE",
+      "COORDINATE",
+      "GEOMETRIC_CONSTRUCTION",
+      "GEOMETRIC_RELATION",
+      "THEOREM_APPLICATION",
+      "SPATIAL_REASONING",
+      "EXPERIMENTAL_PROBABILITY",
+      "THEORETICAL_PROBABILITY",
+      "SAMPLE_SPACE",
+      "MULTI_STEP_CONTEXT",
+      "INFORMATION_SELECTION",
+      "INSUFFICIENT_INFORMATION",
+      "ERROR_DETECTION",
+      "MATHEMATICAL_MODELING",
+      "REPRESENTATION_CONSTRUCTION"
+    ],
+    "high": [
+      "PLACE_VALUE",
+      "NUMBER_REPRESENTATION",
+      "NUMBER_COMPARISON",
+      "NUMBER_ORDERING",
+      "ADDITION_SUBTRACTION",
+      "MULTIPLICATION_DIVISION",
+      "DIVISIBILITY",
+      "POWER_ROOT",
+      "NUMERICAL_EXPRESSION",
+      "MISSING_VALUE",
+      "SUBSTITUTION",
+      "LIKE_TERM_COMBINATION",
+      "ALGEBRAIC_TRANSFORMATION",
+      "EQUATION_SOLVING",
+      "INEQUALITY_SOLVING",
+      "SEQUENCE_RULE",
+      "FUNCTION_INPUT_OUTPUT",
+      "DIRECT_MEASUREMENT",
+      "UNIT_CONVERSION",
+      "TIME_MONEY",
+      "PERIMETER",
+      "AREA",
+      "VOLUME",
+      "TABLE_INTERPRETATION",
+      "CHART_INTERPRETATION",
+      "FREQUENCY",
+      "RELATIVE_FREQUENCY",
+      "CENTRAL_TENDENCY",
+      "DATA_COMPARISON",
+      "ONE_STEP_CONTEXT",
+      "EXPLANATION_REASONING"
+    ],
+    "details": "artifacts/generator-product-audit/diversity-analysis.json"
+  },
+  "diversity": {
+    "exactDuplicateRateMean": 0.18248587570621466,
+    "nearDuplicatePairRateMean": 1,
+    "nearDuplicatePairRateMinimumAcrossVariants": 1,
+    "uniqueNormalizedTemplatesPerVariantRange": [1, 2],
+    "dominantTemplateRateMean": 0.9152542372881353,
+    "linguisticTemplateDiversityMean": 0.0209039548022599,
+    "distractorTemplateDiversityMean": 0.0070621468926553655,
+    "answerKeyDistributionForRuntimeSamples": {
+      "A": 735,
+      "B": 736,
+      "C": 711,
+      "D": 818
+    },
+    "answerTypesForRuntimeSamples": {
+      "MULTIPLE_CHOICE": 3000,
+      "NUMBER_INPUT": 0,
+      "TEXT_INPUT": 0
+    },
+    "visualTypesForRuntimeSamples": {
+      "TEXT_ONLY": 2460,
+      "ANGLE_DIAGRAM": 60,
+      "AREA_MODEL": 120,
+      "DATA_DISPLAY": 120,
+      "MEASUREMENT_SCALE": 60,
+      "PLACE_VALUE_CHART": 60,
+      "SHAPE_SCENE": 60,
+      "SOLID_NET": 60
+    },
+    "feedbackStringCount": 1,
+    "solutionStepTemplates": 4,
+    "difficultyFinding": "All variants change a numeric complexity field, but each difficulty retains one normalized template and one visual type; this is parameter scaling, not meaningful pedagogical separation.",
+    "source": "artifacts/generator-product-audit/diversity-analysis.json"
+  },
+  "rootCauses": [
+    {
+      "id": "RC-01",
+      "severity": "CRITICAL",
+      "categories": ["RUNTIME_DISCONNECTED", "FEATURE_FLAG_BLOCKED", "STATIC_BANK_STILL_USED"],
+      "summary": "The semantic generator is not the default Student practice path and the local real start is disabled before authentication or generation.",
+      "files": [
+        "app/lessons/page.tsx",
+        "components/UniversalCurriculumCatalog.tsx",
+        "lib/curriculum/on-demand-feature-flag.ts",
+        "lib/curriculum/on-demand-runtime.ts",
+        "app/api/on-demand-curriculum/start/route.ts"
+      ],
+      "route": "/api/on-demand-curriculum/start"
+    },
+    {
+      "id": "RC-02",
+      "severity": "CRITICAL",
+      "categories": ["RUNTIME_DISCONNECTED"],
+      "summary": "Two generator pipelines coexist. Product-quality tests primarily exercise the older preview/template generator while runtime calls the semantic generator.",
+      "files": [
+        "lib/curriculum/on-demand-generation.ts",
+        "lib/curriculum/semantic-pilot-generation.ts",
+        "tests/on-demand-generation.test.ts",
+        "tests/on-demand-pedagogical-quality.test.ts",
+        "scripts/run-learning-product-local-acceptance.ts"
+      ],
+      "functions": ["generateOnDemandAttemptSnapshot", "generateSemanticPilotAttemptSnapshot"]
+    },
+    {
+      "id": "RC-03",
+      "severity": "CRITICAL",
+      "categories": ["UNIMPLEMENTED_VARIANT", "RUNTIME_DISCONNECTED"],
+      "summary": "Nine registry variants have no real outcome selected by the runtime. The all-variants proof creates synthetic contracts and therefore does not prove real coverage.",
+      "files": [
+        "tests/generated-practice-shadow-proof.test.ts",
+        "lib/generation-semantic/remote-shadow.ts",
+        "lib/generation-semantic/variant-engine.ts"
+      ],
+      "variants": [
+        "EXPRESSION_CONSTRUCTION",
+        "RELATION_INTERPRETATION",
+        "COORDINATE",
+        "MULTI_STEP_CONTEXT",
+        "INFORMATION_SELECTION",
+        "INSUFFICIENT_INFORMATION",
+        "ERROR_DETECTION",
+        "MATHEMATICAL_MODELING",
+        "REPRESENTATION_CONSTRUCTION"
+      ],
+      "reproductionSeed": "pilot-58c387029ee18423499f231973da2ce98dae572b40019270"
+    },
+    {
+      "id": "RC-04",
+      "severity": "CRITICAL",
+      "categories": ["FAMILY_MAPPING_WRONG", "OUTCOME_ALIGNMENT_WRONG"],
+      "summary": "Broad substring regexes dispatch variants to the wrong AST family before the intended handler runs.",
+      "files": ["lib/generation-semantic/variant-engine.ts"],
+      "functions": ["generateVariantAst"],
+      "examples": [
+        {
+          "variant": "INTEGER_OPERATIONS",
+          "actualAst": "RATIONAL",
+          "cause": "OPERATIONS contains the substring RATIO and matches the earlier DECIMAL|RATIO|PERCENT branch",
+          "reproductionSeed": "pilot-f3da68ac00508015e11e01b04fdf08b79c2dad8977b1bda6"
+        },
+        {
+          "variant": "GEOMETRIC_RELATION",
+          "actualAst": "ALGEBRA",
+          "cause": "GEOMETRIC_RELATION matches the earlier RELATION algebra branch",
+          "reproductionSeed": "pilot-e3f447270cedf3fe9f841db6ae6165ce31caeb1d5584af75"
+        }
+      ]
+    },
+    {
+      "id": "RC-05",
+      "severity": "CRITICAL",
+      "categories": ["INVALID_OR_AMBIGUOUS_QUESTION", "OUTCOME_ALIGNMENT_WRONG", "GRADE_LEVEL_WRONG"],
+      "summary": "The validator checks that contract, AST and solver repeat the same variant/solver identifiers; it does not prove that the generated mathematics answers the outcome or that the prompt supplies the solver inputs.",
+      "files": ["lib/generation-semantic/variant-engine.ts"],
+      "functions": ["validateOutcomeSemanticAlignment", "solveVariantAst", "renderVariantPrompt"]
+    },
+    {
+      "id": "RC-06",
+      "severity": "CRITICAL",
+      "categories": ["INVALID_OR_AMBIGUOUS_QUESTION", "WEAK_DISTRACTORS", "LANGUAGE_QUALITY"],
+      "summary": "Catch-all family handlers translate skill labels into vague instructions while the solver silently chooses addition, maximum, mean, or another operation.",
+      "files": ["lib/generation-semantic/variant-engine.ts", "lib/curriculum/semantic-pilot-generation.ts"],
+      "examples": [
+        {
+          "variant": "FRACTION_RECOGNITION",
+          "grade": 4,
+          "outcome": "MOET2018-G4-NUM-P036-016",
+          "result": "A recognition prompt is scored as the sum of two fractions converted to a decimal.",
+          "reproductionSeed": "pilot-6e36f0e3777e0c5aaf410d34fc079615e82fd434f94280e7"
+        },
+        {
+          "variant": "THEORETICAL_PROBABILITY",
+          "grade": 2,
+          "outcome": "MOET2018-G2-STA-P028-002",
+          "result": "The favorable and total counts used by the solver are absent from the prompt and visual.",
+          "reproductionSeed": "pilot-d1e29e751a50708f236150ded3a132e6dfe3cc4236a2ab10"
+        }
+      ]
+    },
+    {
+      "id": "RC-07",
+      "severity": "HIGH",
+      "categories": ["LOW_VARIATION", "DIFFICULTY_NOT_MEANINGFUL", "WEAK_DISTRACTORS"],
+      "summary": "Every variant has a 100% near-duplicate pair rate; most change numbers only. Distractors are predominantly answer ± complexity and normalized distractor diversity is 0.7%."
+    },
+    {
+      "id": "RC-08",
+      "severity": "HIGH",
+      "categories": ["VISUAL_MISSING_OR_INCORRECT", "UI_RENDERING_ERROR"],
+      "summary": "82% of runtime samples are TEXT_ONLY. Rendered geometry and data visuals can look polished while omitting the actual question, using unexplained generic labels, unused data, or wrong units.",
+      "files": [
+        "lib/curriculum/semantic-pilot-generation.ts",
+        "app/curriculum-preview/CurriculumVisual.tsx"
+      ],
+      "examples": [
+        {
+          "variant": "AREA",
+          "reproductionSeed": "pilot-e186e3bbee6144cc9f7f60e266f2cab10e3af8f393dab693",
+          "screenshot": "artifacts/generator-product-audit/screenshots/geometry-visual.png"
+        },
+        {
+          "variant": "CHART_INTERPRETATION",
+          "reproductionSeed": "pilot-a935794c0738bc37471b5d9d7bf36bb041c1791a49ded559",
+          "screenshot": "artifacts/generator-product-audit/screenshots/chart-statistics.png"
+        }
+      ]
+    },
+    {
+      "id": "RC-09",
+      "severity": "HIGH",
+      "categories": ["FEEDBACK_OR_EXPLANATION_WEAK"],
+      "summary": "All 3000 runtime samples share one feedback sentence. The four solution templates differ only by answer option key and never explain the actual operation or misconception.",
+      "files": ["lib/curriculum/semantic-pilot-generation.ts"],
+      "function": "generateSemanticPilotAttemptSnapshot"
+    },
+    {
+      "id": "RC-10",
+      "severity": "HIGH",
+      "categories": ["UI_RENDERING_ERROR"],
+      "summary": "The semantic pipeline emits MULTIPLE_CHOICE for all 3000 runtime samples. Numeric input is supported by the shared renderer but is only demonstrated by the static-bank control in this audit.",
+      "files": [
+        "lib/curriculum/semantic-pilot-generation.ts",
+        "app/curriculum-practice/[attemptId]/UniversalCurriculumRunner.tsx"
+      ]
+    },
+    {
+      "id": "RC-11",
+      "severity": "MEDIUM",
+      "categories": ["UI_RENDERING_ERROR"],
+      "summary": "The practice surface has no horizontal or visual overflow and visible primary controls meet the touch-target check, but desktop one-line questions reserve excessive empty vertical space and the skip link remains visually exposed in post-submit captures while feedback receives focus.",
+      "files": ["app/globals.css", "app/curriculum-practice/[attemptId]/UniversalCurriculumRunner.tsx"]
+    }
+  ],
+  "browser": {
+    "engine": "chromium",
+    "browserVersion": "150.0.7871.186",
+    "playwrightPackage": "playwright-core",
+    "playwrightVersion": "1.51.1",
+    "localPlaywright": true,
+    "inAppBrowserUsed": false,
+    "viewports": [
+      { "width": 390, "height": 844 },
+      { "width": 1280, "height": 800 }
+    ],
+    "productionRenderer": "PASS",
+    "actualRuntimeStart": "BLOCKED_BY_RUNTIME_FLAG",
+    "feedbackRendering": "PASS_WITH_API_SHAPED_LOCAL_STUB_ONLY",
+    "duplicateSubmitUiGuard": "PASS_ONE_REQUEST",
+    "refreshRenderer": "PASS",
+    "horizontalOverflow": 0,
+    "visualOverflow": 0,
+    "hydrationErrors": 0,
+    "uncaughtPageErrors": 0,
+    "privateFieldsBeforeSubmit": 0,
+    "accessibility": {
+      "headingHierarchy": "PASS",
+      "formLabels": "PASS",
+      "duplicateIds": "PASS",
+      "reducedMotion": "PASS",
+      "primaryTouchTargets": "PASS"
+    },
+    "screenshots": [
+      "artifacts/generator-product-audit/screenshots/text-question-desktop.png",
+      "artifacts/generator-product-audit/screenshots/multiple-choice-mobile.png",
+      "artifacts/generator-product-audit/screenshots/numeric-input-static-bank.png",
+      "artifacts/generator-product-audit/screenshots/fraction-question.png",
+      "artifacts/generator-product-audit/screenshots/algebra-question.png",
+      "artifacts/generator-product-audit/screenshots/geometry-visual.png",
+      "artifacts/generator-product-audit/screenshots/chart-statistics.png",
+      "artifacts/generator-product-audit/screenshots/correct-feedback.png",
+      "artifacts/generator-product-audit/screenshots/incorrect-feedback.png",
+      "artifacts/generator-product-audit/screenshots/result-summary.png",
+      "artifacts/generator-product-audit/screenshots/empty-state.png",
+      "artifacts/generator-product-audit/screenshots/error-recovery.png"
+    ],
+    "details": "artifacts/generator-product-audit/playwright-result.json"
+  },
+  "manualVisualReview": {
+    "allScreenshotsOpenedAtOriginalResolution": true,
+    "screenshotsReviewed": 12,
+    "criticalOrHighFindings": [
+      "Fraction recognition has no explicit task and is scored by an unrelated decimal sum.",
+      "Area visual uses 38×12 but the prompt includes an unexplained third value and answer options omit square units.",
+      "Chart prompt does not ask which bar or statistic to read; labels are generic Mục 1–5.",
+      "Correct and incorrect feedback use the same generic non-explanatory steps."
+    ],
+    "mediumFindings": [
+      "Desktop simple-question cards reserve a large unused vertical area.",
+      "Completion and empty states provide limited generator-aware recovery guidance.",
+      "The skip link remains visible in correct/incorrect feedback captures while feedback is focused."
+    ],
+    "diagnosticCorrections": [
+      "A first-pass touch-target failure was invalid: it measured a hidden 0×0 mobile-menu control. The final visible-only audit passes."
+    ],
+    "details": "artifacts/generator-product-audit/visual-review.json"
+  },
+  "privacy": {
+    "preSubmitSolutionLeak": false,
+    "preSubmitTechnicalFieldLeak": false,
+    "screenshotEmail": false,
+    "screenshotUuid": false,
+    "artifactSecret": false,
+    "remoteAccess": false,
+    "remoteMutation": false
+  },
+  "tests": {
+    "generatorProductDiagnostic": "PASS: 3540/3540 generated and classified; 0 production-usable",
+    "generationV1": "4/4 PASS",
+    "legacyOnDemandGeneration": "9/9 PASS",
+    "legacyOnDemandPedagogy": "2/2 PASS",
+    "generatedPersistenceContract": "7/7 PASS",
+    "semanticShadowProof": "1/1 PASS",
+    "onDemandApiSecurity": "6/6 PASS",
+    "universalCurriculum": "21/21 PASS",
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "productionBuild": "PASS: 67 static pages generated",
+    "localPlaywright": "PASS_WITH_RUNTIME_BLOCKED: 12 screenshots",
+    "interpretation": "These passing structural tests do not contradict the product verdict because most test the old generator, self-consistency, persistence shape, or synthetic contracts rather than rendered mathematical usefulness."
+  },
+  "filesToChangeInSprint8B": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts",
+    "lib/curriculum/on-demand-generation.ts",
+    "lib/generation-semantic/remote-shadow.ts",
+    "tests/generated-practice-shadow-proof.test.ts",
+    "tests/on-demand-generation.test.ts",
+    "tests/on-demand-pedagogical-quality.test.ts",
+    "scripts/run-learning-product-local-acceptance.ts",
+    "app/curriculum-practice/[attemptId]/UniversalCurriculumRunner.tsx",
+    "app/curriculum-preview/CurriculumVisual.tsx",
+    "app/globals.css"
+  ],
+  "sprint8BImplementationOrder": [
+    "Define production-quality fixtures and reviewer rubrics per grade/domain/variant before implementation.",
+    "Select one canonical runtime generator and remove or explicitly quarantine the disconnected older proof pipeline.",
+    "Replace substring-regex AST dispatch with exhaustive typed variant handlers and explicit outcome mappings.",
+    "Implement mathematically independent validators for sufficiency, unique answer, units, grade bounds and outcome evidence form.",
+    "Build real template/context families with meaningful EASY/MEDIUM/HARD dimensions and diversity thresholds.",
+    "Implement misconception-based distractors and appropriate MC/numeric/text answer policies.",
+    "Create semantic visual contracts for fractions, geometry, measurement, tables, charts, number lines and probability.",
+    "Generate step-specific Vietnamese feedback from the solved AST without exposing private solution before submit.",
+    "Run the one canonical generator through a fully migrated disposable local runtime and verify start, submit, reconnect, resume, completion, history and progress in Chromium.",
+    "Perform representative mathematical/manual review across Grades 1–9 and obtain Owner review before any broader runtime enablement."
+  ],
+  "remainingBlockers": [
+    "A real local on-demand Student journey cannot pass start while the runtime flag is OFF.",
+    "The current local database has no ACTIVE/ACTIVE curriculum release and does not expose the 0041 semantic start RPC.",
+    "Enabling or migrating those surfaces is outside Sprint 8A; Sprint 8B must use an isolated disposable local fixture, not remote mutation.",
+    "No semantic variant is production-ready under the Owner's product-usefulness definition."
+  ],
+  "boundariesObserved": {
+    "remoteMutation": false,
+    "deployment": false,
+    "migrationCreatedOrApplied": false,
+    "publicationOrActivation": false,
+    "activeReleaseChanged": false,
+    "globalRuntimeEnabled": false,
+    "aiTutorStarted": false,
+    "gitMutation": false
+  },
+  "artifacts": {
+    "sampleIndex": "artifacts/generator-product-audit/sample-index.json",
+    "diversityAnalysis": "artifacts/generator-product-audit/diversity-analysis.json",
+    "failureCasesDirectory": "artifacts/generator-product-audit/failure-cases/",
+    "failureCaseCount": 59,
+    "screenshotsDirectory": "artifacts/generator-product-audit/screenshots/",
+    "playwrightResult": "artifacts/generator-product-audit/playwright-result.json",
+    "visualReview": "artifacts/generator-product-audit/visual-review.json"
+  }
+}

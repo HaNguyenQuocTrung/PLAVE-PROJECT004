@@ -1,0 +1,99 @@
+{
+  "variant": "ALGEBRAIC_TRANSFORMATION",
+  "severity": "HIGH",
+  "categories": [
+    "OUTCOME_ALIGNMENT_WRONG",
+    "GRADE_LEVEL_WRONG",
+    "INVALID_OR_AMBIGUOUS_QUESTION"
+  ],
+  "summary": "Hầu hết variant đại số dùng cùng AST ax+b và cùng phép thế giá trị, kể cả khi outcome yêu cầu việc khác.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-58d026b7de4d724b091d149fbe08a48497e6c06c0fedf840",
+  "reproductionSeedFingerprint": "58d026b7de4d724b",
+  "reproductionSampleId": "ALGEBRAIC_TRANSFORMATION:EASY:1",
+  "sample": {
+    "sampleId": "ALGEBRAIC_TRANSFORMATION:EASY:1",
+    "variant": "ALGEBRAIC_TRANSFORMATION",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-58d026b7de4d724b091d149fbe08a48497e6c06c0fedf840",
+    "seedFingerprint": "58d026b7de4d724b",
+    "runtimeReachable": true,
+    "grade": 4,
+    "outcomeId": "MOET2018-G4-NUM-P036-022",
+    "unitId": "grade-4-fraction-foundations-p1",
+    "astKind": "ALGEBRA",
+    "complexity": 1,
+    "prompt": "Thực hiện biến đổi biểu thức với biểu thức 2x + 19, x = 11.",
+    "normalizedTemplate": "thựx hiện biến đổi biểu thứx với biểu thứx #x + #, x = #.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "43",
+      "41",
+      "42",
+      "40"
+    ],
+    "correctOptionKey": "B",
+    "correctOptionLabel": "41",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn B."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-c7d4ff8231d11000e7c2fabee586ca17",
+      "position": 1,
+      "prompt": "Thực hiện biến đổi biểu thức với biểu thức 2x + 19, x = 11.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "43"
+        },
+        {
+          "key": "B",
+          "label": "41"
+        },
+        {
+          "key": "C",
+          "label": "42"
+        },
+        {
+          "key": "D",
+          "label": "40"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "HIGH",
+      "categories": [
+        "OUTCOME_ALIGNMENT_WRONG",
+        "GRADE_LEVEL_WRONG",
+        "INVALID_OR_AMBIGUOUS_QUESTION"
+      ],
+      "summary": "Hầu hết variant đại số dùng cùng AST ax+b và cùng phép thế giá trị, kể cả khi outcome yêu cầu việc khác."
+    }
+  }
+}

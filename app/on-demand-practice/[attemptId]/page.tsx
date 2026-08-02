@@ -43,7 +43,7 @@ export default async function OnDemandPracticePage({ params }: PageProps) {
     return <LearningAccessState kind="UNAVAILABLE" />;
   }
   return (
-    <div className="practice-page page-shell universal-practice-page">
+    <div className="practice-page practice-focus-shell page-shell universal-practice-page">
       <UniversalCurriculumRunner
         initialState={result.state}
         runtimeMode="ON_DEMAND"

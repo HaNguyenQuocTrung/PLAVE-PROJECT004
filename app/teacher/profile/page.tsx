@@ -35,7 +35,7 @@ export default async function TeacherProfilePage() {
   }
 
   return (
-    <div className="profile-page teacher-profile-page page-shell">
+    <div className="profile-page teacher-profile-page account-page--v2 teacher-workspace-page--v2 page-shell">
       <header className="catalog-hero teacher-hero">
         <p className="eyebrow">Hồ sơ giáo viên</p>
         <h1>{account.profile.fullName}</h1>

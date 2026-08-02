@@ -13,6 +13,9 @@ import {
 import { loginWithPassword } from "@/app/login/actions";
 import { Button } from "@/components/Button";
 import { FormField } from "@/components/FormField";
+import { PasswordField } from "@/components/PasswordField";
+import { Alert } from "@/components/UiStates";
+import { AuthBrandPanel } from "@/components/AuthBrandPanel";
 
 const rememberedEmailKey = "plave_remembered_email";
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -26,7 +29,6 @@ export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [rememberEmail, setRememberEmail] = useState(false);
   const [errors, setErrors] = useState<LoginErrors>({});
   const [notice, setNotice] = useState("");
@@ -115,16 +117,19 @@ export default function LoginPage() {
   };
 
   return (
-    <section className="auth-page page-shell">
-      <div className="auth-intro">
-        <p className="eyebrow">Chào mừng trở lại</p>
-        <h1>Đăng nhập PLAVE</h1>
-        <p>
-          Dùng tài khoản đã xác nhận để tiếp tục onboarding hoặc mở dashboard.
-        </p>
-      </div>
+    <section className="auth-page auth-page--v2 page-shell">
+      <AuthBrandPanel
+        eyebrow="Chào mừng trở lại"
+        title="Tiếp tục hành trình của bạn."
+        description="Đăng nhập để trở lại đúng bài học, tiến độ và không gian PLAVE của bạn."
+      />
 
-      <form className="auth-card" onSubmit={submit} noValidate>
+      <form className="auth-card auth-card--v2" onSubmit={submit} noValidate>
+        <div className="auth-card__heading">
+          <p className="eyebrow">Tài khoản PLAVE</p>
+          <h2>Đăng nhập</h2>
+          <p>Nhập email và mật khẩu đã đăng ký.</p>
+        </div>
         <FormField
           id="login-email"
           label="Email"
@@ -145,10 +150,9 @@ export default function LoginPage() {
           disabled={isPending}
         />
 
-        <FormField
+        <PasswordField
           id="login-password"
           label="Mật khẩu"
-          type={showPassword ? "text" : "password"}
           value={password}
           onChange={(event) => {
             setPassword(event.target.value);
@@ -160,18 +164,6 @@ export default function LoginPage() {
           error={errors.password}
           inputRef={passwordRef}
           disabled={isPending}
-          action={
-            <button
-              className="field__action"
-              type="button"
-              disabled={isPending}
-              onClick={() => setShowPassword((current) => !current)}
-              aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
-              aria-pressed={showPassword}
-            >
-              {showPassword ? "Ẩn" : "Hiện"}
-            </button>
-          }
         />
 
         <div className="form-row">
@@ -187,19 +179,15 @@ export default function LoginPage() {
           <Link href="/forgot-password">Quên mật khẩu?</Link>
         </div>
 
-        <Button type="submit" fullWidth disabled={isPending}>
-          {isPending ? "Đang đăng nhập…" : "Đăng nhập"}
+        <Button type="submit" fullWidth disabled={isPending} loading={isPending}>
+          Đăng nhập
         </Button>
 
         {notice ? (
-          <p className="form-error-box" role="alert">
-            {notice}
-          </p>
+          <Alert tone="error">{notice}</Alert>
         ) : null}
         {successNotice ? (
-          <p className="form-success" role="status">
-            {successNotice}
-          </p>
+          <Alert tone="success">{successNotice}</Alert>
         ) : null}
 
         <p className="auth-card__footer">

@@ -56,7 +56,7 @@ export default async function AssignmentRunnerPage({ params }: Props) {
   }
 
   return (
-    <div className="assignment-runner-page page-shell">
+    <div className="assignment-runner-page learning-runner-page--v2 page-shell">
       <AssignmentRunner initialState={result.state} />
     </div>
   );

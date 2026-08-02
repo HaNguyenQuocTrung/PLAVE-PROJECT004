@@ -1,0 +1,60 @@
+{
+  "variant": "COORDINATE",
+  "severity": "CRITICAL",
+  "categories": [
+    "UNIMPLEMENTED_VARIANT",
+    "RUNTIME_DISCONNECTED"
+  ],
+  "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-d9e5e099e7c73316c2be0ff2bde1f327aeca2b603c23e920",
+  "reproductionSeedFingerprint": "d9e5e099e7c73316",
+  "reproductionSampleId": "COORDINATE:EASY:1",
+  "sample": {
+    "sampleId": "COORDINATE:EASY:1",
+    "variant": "COORDINATE",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-d9e5e099e7c73316c2be0ff2bde1f327aeca2b603c23e920",
+    "seedFingerprint": "d9e5e099e7c73316",
+    "runtimeReachable": false,
+    "grade": null,
+    "outcomeId": null,
+    "unitId": null,
+    "astKind": "GEOMETRIC_RELATION",
+    "complexity": 1,
+    "prompt": "Dựa vào các giả thiết A=13; B=17; Synthetic proof-only COORDINATE, hãy xác định coordinate.",
+    "normalizedTemplate": "xựx vào xáx giả thiết x=#; x=#; synthetic proof-only coordinate, hãy xáx định coordinate.",
+    "answerType": null,
+    "optionLabels": [],
+    "correctOptionKey": null,
+    "correctOptionLabel": "(13; 17)",
+    "visualType": null,
+    "visualTemplate": null,
+    "solutionSteps": [],
+    "feedback": null,
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": null,
+    "productVerdict": {
+      "usable": false,
+      "severity": "CRITICAL",
+      "categories": [
+        "UNIMPLEMENTED_VARIANT",
+        "RUNTIME_DISCONNECTED"
+      ],
+      "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist."
+    }
+  }
+}

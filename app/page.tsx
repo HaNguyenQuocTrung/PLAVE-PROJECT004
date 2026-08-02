@@ -1,31 +1,32 @@
 import { Button } from "@/components/Button";
-import { LessonCard } from "@/components/LessonCard";
+import { PlaveIcon } from "@/components/PlaveIcon";
+import { SkyMathJourney } from "@/components/SkyMathJourney";
 import { getPublicAuthState } from "@/lib/auth/public-state";
 
 const pillars = [
   {
     number: "01",
-    title: "Lộ trình phù hợp với từng học sinh",
+    title: "Bắt đầu đúng nơi",
     description:
-      "PLAVE hướng tới giúp mỗi em học theo tốc độ và mức độ hiểu của riêng mình.",
+      "Bài học được sắp theo khối lớp, tiến độ và phần kiến thức em đang cần.",
   },
   {
     number: "02",
-    title: "Lời giải từng bước, dễ hiểu",
+    title: "Hiểu qua từng bước",
     description:
       "Mỗi câu hỏi đều đi cùng cách suy nghĩ rõ ràng để học sinh hiểu vì sao đáp án đúng.",
   },
   {
     number: "03",
-    title: "Theo dõi năng lực và tiến bộ",
+    title: "Nhìn thấy tiến bộ",
     description:
       "Kết quả từng lượt học được lưu riêng, giúp học sinh nhìn lại phần đã vững và phần cần ôn.",
   },
   {
     number: "04",
-    title: "Hướng tới chương trình giáo dục Việt Nam",
+    title: "Toán lớp 1–9",
     description:
-      "Nội dung được phát triển theo từng khối lớp, với mục tiêu bám sát nhu cầu học tập tại Việt Nam.",
+      "Nội dung được tổ chức theo từng khối lớp và nhu cầu học tập tại Việt Nam.",
   },
 ] as const;
 
@@ -33,65 +34,52 @@ export default async function HomePage() {
   const { authenticated } = await getPublicAuthState();
 
   return (
-    <>
-      <section className="hero page-shell">
+    <div className="home-v2">
+      <section className="hero hero-v2 page-shell">
         <div className="hero__content">
-          <p className="eyebrow">
-            PLAVE · Personalized Learning App for Vietnam Education
-          </p>
+          <p className="eyebrow">Không gian học Toán lớp 1–9</p>
           <h1>
-            Học Toán theo
-            <span> nhịp riêng của em</span>
+            Hiểu Toán theo
+            <span> nhịp của riêng em.</span>
           </h1>
           <p className="hero__lead">
-            PLAVE là ứng dụng học tập cá nhân hóa dành cho học sinh Việt Nam từ
-            6–15 tuổi, giúp mỗi em xây dựng nền tảng Toán học theo tốc độ và khả
-            năng của riêng mình.
+            PLAVE giúp học sinh học bài, luyện tập và nhìn lại tiến bộ trong
+            một lộ trình rõ ràng—không so sánh, không tạo áp lực.
           </p>
           <div className="hero__actions">
             {authenticated ? (
               <Button href="/dashboard">Tiếp tục học</Button>
             ) : (
               <>
-                <Button href="/demo">Học thử miễn phí</Button>
-                <Button href="/register" variant="secondary">
-                  Tạo tài khoản
-                </Button>
+                <Button href="/register">Bắt đầu với PLAVE <PlaveIcon name="arrow" /></Button>
+                <Button href="/demo" variant="secondary">Xem bài học thử</Button>
               </>
             )}
           </div>
           <p className="hero__note">
-            Bắt đầu từ một bài học ngắn, luyện tập theo nhịp phù hợp và xem
-            lời giải rõ ràng sau từng câu.
+            Dành cho học sinh, phụ huynh và giáo viên · Bắt đầu miễn phí
           </p>
         </div>
-        <div
-          className="hero__visual"
-          role="img"
-          aria-label="Minh hoạ hành trình học Toán theo từng bước"
-        >
-          <div className="number-cloud" aria-hidden="true">
-            <span>1</span>
-            <span>4</span>
-            <span>7</span>
-            <span>10</span>
-          </div>
-          <div className="hero__lesson">
-            <p>Bài học Toán lớp 1</p>
-            <strong>Các số trong phạm vi 10</strong>
-            <span>Học bài · Luyện tập · Xem tiến bộ</span>
-          </div>
+        <SkyMathJourney />
+      </section>
+
+      <section className="home-v2__trust" aria-label="Phạm vi sản phẩm">
+        <div className="page-shell">
+          <strong>Toán lớp 1–9</strong><span>•</span>
+          <span>Bài học theo khối lớp</span><span>•</span>
+          <span>Gợi ý có giải thích</span><span>•</span>
+          <span>Tiến độ riêng tư</span>
         </div>
       </section>
 
-      <section className="section section--soft" aria-labelledby="pillars-title">
+      <section className="section home-v2__method" aria-labelledby="pillars-title">
         <div className="page-shell">
           <div className="section-heading">
-            <p className="eyebrow">Bốn trụ cột của PLAVE</p>
-            <h2 id="pillars-title">Mỗi học sinh cần một cách học vừa sức</h2>
+            <p className="eyebrow">Một hành trình có định hướng</p>
+            <h2 id="pillars-title">Biết mình đang ở đâu. Biết bước tiếp theo.</h2>
             <p>
-              PLAVE chuyển mục tiêu giáo dục thành bài học, bài tập, tiến độ và
-              phản hồi dễ hiểu trong từng buổi học.
+              PLAVE nối bài học, luyện tập và phản hồi thành một dòng học liền
+              mạch để mỗi em có thể tiến lên với sự tự tin.
             </p>
           </div>
           <div className="learning-grid">
@@ -106,45 +94,44 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="brand-story page-shell" aria-labelledby="vision-title">
+      <section className="brand-story brand-story--v2 page-shell" aria-labelledby="vision-title">
         <div>
-          <p className="eyebrow">Từ hiểu bài đến tiến bộ thật</p>
-          <h2 id="vision-title">Không phải một cách dạy cho tất cả</h2>
+          <p className="eyebrow">Học theo năng lực</p>
+          <h2 id="vision-title">Không có một nhịp học chung cho tất cả.</h2>
         </div>
         <div className="brand-story__content">
           <p>
-            PLAVE hướng tới xây dựng mô hình năng lực học sinh có thể giải thích
-            được, để mỗi gợi ý học tập đều có lý do rõ ràng.
+            Gợi ý học tập của PLAVE dựa trên hoạt động đã có và luôn kèm lý do
+            ngắn, dễ hiểu.
           </p>
           <p>
-            Hỗ trợ học tập bằng AI đang được phát triển theo hướng giải thích và
-            đồng hành, không chỉ đưa đáp án. Những tính năng này chưa được xem là
-            đã hoàn thiện trong phiên bản hiện tại.
+            PLAVE không gắn nhãn học sinh. Khi bằng chứng còn ít, sản phẩm nói
+            rõ và khuyến khích em học thêm trước khi đưa ra gợi ý mới.
           </p>
         </div>
       </section>
 
-      <section className="section page-shell">
-        <LessonCard
-          eyebrow="Bài học đang có"
-          title="Đếm, đọc, viết và cấu tạo số trong phạm vi 10"
-          description="Một bài học lớp 1 với phần lý thuyết ngắn, 24 câu luyện tập và lời giải từng bước."
-        >
-          <Button href={authenticated ? "/lessons" : "/demo"}>
-            {authenticated ? "Mở bài học" : "Học thử miễn phí"}
+      <section className="home-v2__lesson-preview page-shell" aria-labelledby="lesson-preview-title">
+        <div className="home-v2__lesson-index" aria-hidden="true">01<span>→</span>09</div>
+        <div>
+          <p className="eyebrow">Từ nền tảng đến tự tin</p>
+          <h2 id="lesson-preview-title">Một không gian học lớn lên cùng học sinh.</h2>
+          <p>Giao diện rõ ràng cho học sinh nhỏ tuổi, đủ chín chắn cho học sinh lớp 8–9, và dễ theo dõi với người lớn.</p>
+          <Button href={authenticated ? "/lessons" : "/demo"} variant="secondary">
+            {authenticated ? "Mở lộ trình của em" : "Khám phá bài học"}
           </Button>
-        </LessonCard>
+        </div>
       </section>
 
-      <section className="closing-cta page-shell">
+      <section className="closing-cta closing-cta--v2 page-shell">
         <div>
           <p className="eyebrow">Bắt đầu từ hôm nay</p>
-          <h2>Một bước nhỏ, hiểu chắc hơn mỗi ngày.</h2>
+          <h2>Một bước nhỏ hôm nay. Một nền tảng vững ngày mai.</h2>
         </div>
         <Button href={authenticated ? "/dashboard" : "/register"}>
           {authenticated ? "Tiếp tục học" : "Tạo tài khoản"}
         </Button>
       </section>
-    </>
+    </div>
   );
 }

@@ -1,0 +1,99 @@
+{
+  "variant": "FRACTION_EQUIVALENCE",
+  "severity": "CRITICAL",
+  "categories": [
+    "OUTCOME_ALIGNMENT_WRONG",
+    "INVALID_OR_AMBIGUOUS_QUESTION",
+    "WEAK_DISTRACTORS"
+  ],
+  "summary": "Prompt nêu tên kỹ năng chung nhưng solver mặc định cộng hai giá trị hoặc dùng phép khác với outcome.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-98daa3b655c3cde7482f2b6771c6ac021c49831b95cd4b1a",
+  "reproductionSeedFingerprint": "98daa3b655c3cde7",
+  "reproductionSampleId": "FRACTION_EQUIVALENCE:EASY:1",
+  "sample": {
+    "sampleId": "FRACTION_EQUIVALENCE:EASY:1",
+    "variant": "FRACTION_EQUIVALENCE",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-98daa3b655c3cde7482f2b6771c6ac021c49831b95cd4b1a",
+    "seedFingerprint": "98daa3b655c3cde7",
+    "runtimeReachable": true,
+    "grade": 5,
+    "outcomeId": "MOET2018-G5-NUM-P041-009",
+    "unitId": "grade-5-fraction-operations",
+    "astKind": "RATIONAL",
+    "complexity": 1,
+    "prompt": "Thực hiện yêu cầu phân số bằng nhau với 3/6 và 7/8.",
+    "normalizedTemplate": "thựx hiện yêu xầu phân số xằng nhau với #/# và #/#.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "3.375",
+      "1.375",
+      "2.375",
+      "0.375"
+    ],
+    "correctOptionKey": "B",
+    "correctOptionLabel": "1.375",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn B."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-fce59ffc7ab23e8373aad21b9969acf1",
+      "position": 1,
+      "prompt": "Thực hiện yêu cầu phân số bằng nhau với 3/6 và 7/8.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "3.375"
+        },
+        {
+          "key": "B",
+          "label": "1.375"
+        },
+        {
+          "key": "C",
+          "label": "2.375"
+        },
+        {
+          "key": "D",
+          "label": "0.375"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "CRITICAL",
+      "categories": [
+        "OUTCOME_ALIGNMENT_WRONG",
+        "INVALID_OR_AMBIGUOUS_QUESTION",
+        "WEAK_DISTRACTORS"
+      ],
+      "summary": "Prompt nêu tên kỹ năng chung nhưng solver mặc định cộng hai giá trị hoặc dùng phép khác với outcome."
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "measurementScope": "DIRECT_REAL_GOOGLE_PROVIDER_LOCAL_PROCESS",
+  "selectedModel": "gemini-3.6-flash",
+  "targets": {
+    "simpleMedianFirstVisibleTokenMs": 4000,
+    "simpleMedianTotalResponseMs": 10000
+  },
+  "selectedSimple": {
+    "timeToFirstProviderChunkMs": 1170.1,
+    "timeToFirstVisibleTokenMs": 1170.1,
+    "totalLatencyMs": 1628.5,
+    "thinkingTokens": null,
+    "outputTokens": 107,
+    "finishReason": "STOP",
+    "chunkCount": 7
+  },
+  "providerModelAggregates": [
+    {
+      "model": "gemini-3.5-flash",
+      "requests": 2,
+      "completed": 2,
+      "reviewedPass": 2,
+      "medianTimeToFirstVisibleTokenMs": 8704.1,
+      "medianTotalLatencyMs": 9594.1,
+      "inputTokens": 1087,
+      "outputTokens": 540,
+      "thinkingTokens": 688
+    },
+    {
+      "model": "gemini-3.6-flash",
+      "requests": 2,
+      "completed": 2,
+      "reviewedPass": 2,
+      "medianTimeToFirstVisibleTokenMs": 1172.4,
+      "medianTotalLatencyMs": 2251.8,
+      "inputTokens": 1087,
+      "outputTokens": 513,
+      "thinkingTokens": 0
+    },
+    {
+      "model": "gemini-3.5-flash-lite",
+      "requests": 2,
+      "completed": 1,
+      "reviewedPass": 1,
+      "medianTimeToFirstVisibleTokenMs": 812.7,
+      "medianTotalLatencyMs": 1584.3,
+      "inputTokens": 1087,
+      "outputTokens": 573,
+      "thinkingTokens": 0
+    }
+  ],
+  "authenticatedBrowserBreakdown": "BLOCKED_IN_APP_BROWSER_BACKENDS_AVAILABLE_0",
+  "authContextMs": null,
+  "serverPreparationMs": null,
+  "streamBufferingMs": null,
+  "clientRenderingMs": null,
+  "latencyTargetMet": true,
+  "secretsLogged": false
+}

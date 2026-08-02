@@ -124,7 +124,7 @@ export default async function ParentChildLearningPage({
   );
 
   return (
-    <div className="parent-learning-page page-shell">
+    <div className="parent-learning-page parent-learning-page--v2 page-shell">
       <header className="catalog-hero parent-learning-hero">
         <p className="eyebrow">Tổng quan dành cho phụ huynh</p>
         <h1>Tiến độ học tập của {universalProgress.student.displayName}</h1>
@@ -178,13 +178,13 @@ export default async function ParentChildLearningPage({
           {gradeOneCompletionSummary ? (
             <strong>
               {gradeOneCompletionSummary.completedUnitCount}/
-              {gradeOneCompletionSummary.totalUnitCount} unit
+              {gradeOneCompletionSummary.totalUnitCount} bài
             </strong>
           ) : null}
         </div>
         {!gradeOneCompletionSummary ? (
           <div className="parent-empty-state">
-            <h3>Chưa thể tải tiến độ unit</h3>
+            <h3>Chưa thể tải tiến độ từng bài</h3>
             <p>
               Tổng kết tạm thời chưa sẵn sàng. Các thông tin học tập khác vẫn
               được giữ nguyên.
@@ -214,7 +214,7 @@ export default async function ParentChildLearningPage({
             </p>
             {gradeOneCompletionSummary.isComplete ? (
               <p className="parent-section-note">
-                Học sinh đã hoàn thành ít nhất một lượt ở toàn bộ 13 unit
+                Học sinh đã hoàn thành ít nhất một lượt ở toàn bộ 13 bài
                 hiện có.
               </p>
             ) : (
@@ -350,7 +350,7 @@ export default async function ParentChildLearningPage({
                 <p>{weeklyInsights.message}</p>
                 <dl>
                   <div>
-                    <dt>Làm tốt nhất</dt>
+                    <dt>Có nhiều bằng chứng nhất</dt>
                     <dd>
                       {weeklyInsights.bestSkill
                         ? getParentSkillLabel(
@@ -360,7 +360,7 @@ export default async function ParentChildLearningPage({
                     </dd>
                   </div>
                   <div>
-                    <dt>Cần ôn thêm</dt>
+                    <dt>Có thể cùng con ôn</dt>
                     <dd>
                       {weeklyInsights.reviewSkill
                         ? getParentSkillLabel(

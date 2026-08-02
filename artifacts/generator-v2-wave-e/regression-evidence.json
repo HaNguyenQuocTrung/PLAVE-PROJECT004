@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "sprint": "8C.E",
+  "runDate": "2026-08-02",
+  "status": "PASS_WITH_NPM_AUDIT_UNVERIFIED_BY_NETWORK_POLICY",
+  "wavesAThroughD": {
+    "status": "PASS",
+    "waveA": "PASS 8/8; 98/98 outcomes; 5,880/5,880 samples; browser contract evidence PASS",
+    "waveB": "PASS 8/8; 61/61 outcomes; 3,660/3,660 samples; browser evidence PASS",
+    "waveC": "PASS 8/8; 57/57 outcomes; 3,420/3,420 samples; browser evidence PASS",
+    "waveD": "PASS 10/10; 232/232 outcomes; 13,920/13,920 samples; browser evidence PASS"
+  },
+  "generatorV2": {
+    "core": "PASS 10/10",
+    "waveE": "PASS 5/5; 86/86 outcomes; 5,160/5,160 samples",
+    "fullCoverage": "PASS 6/6; 536/546 implemented; 10 Wave F outcomes explicitly remaining",
+    "negativeControls": "PASS"
+  },
+  "persistenceAndSecurity": {
+    "contractTests": "PASS 7/7",
+    "databaseProofContract": "PASS 3/3",
+    "authenticatedWaveEProof": "PASS 48/48 capabilities; 588 persisted questions",
+    "migrations": "42/42 byte-identical; no migration created or modified",
+    "casExactlyOnceRlsCleanup": "PASS"
+  },
+  "practice": "PASS 550/550",
+  "practiceVisualReadability": "PASS 3/3",
+  "curriculum": {
+    "grades1To9": "PASS 9/9",
+    "universal": "PASS 21/21"
+  },
+  "competency": "PASS 10/10 (learning path 6/6; UI 4/4)",
+  "uiUx": "PASS 13/13",
+  "aiTutor": {
+    "coreAndConfigure": "PASS 25/25; local pseudo-TTY required for configure lifecycle tests",
+    "quality": "PASS 6/6",
+    "authenticatedLocalRuntime": "PASS 9/9",
+    "paidProviderRequests": 0,
+    "implementationChanged": false
+  },
+  "typecheck": "PASS",
+  "lint": "PASS 0 errors, 0 warnings",
+  "productionBuild": "PASS; Next.js 16.2.12; 76/76 static pages generated",
+  "npmAudit": {
+    "status": "UNVERIFIED_NETWORK_POLICY_NOT_CLAIMED_PASS",
+    "sandboxFailure": "getaddrinfo ENOTFOUND registry.npmjs.org",
+    "readOnlyRetry": "POLICY_REJECTED_DEPENDENCY_METADATA_EGRESS_NOT_AUTHORIZED",
+    "lastVerifiedProjectResult": "0 vulnerabilities on 2026-08-01",
+    "dependencyOrLockfileChangedBySprint": false
+  }
+}

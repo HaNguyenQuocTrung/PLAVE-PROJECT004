@@ -2,8 +2,10 @@ import type { Metadata, Viewport } from "next";
 
 import { PublicFooter } from "@/components/PublicFooter";
 import { PublicHeader } from "@/components/PublicHeader";
+import { RouteFocusManager } from "@/components/RouteFocusManager";
 
 import "./globals.css";
+import "./visual-system-v2.css";
 
 export const metadata: Metadata = {
   title: {
@@ -19,7 +21,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   colorScheme: "light",
-  themeColor: "#f4f7fb",
+  themeColor: "#f1f8ff",
 };
 
 export default function RootLayout({
@@ -29,7 +31,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi">
-      <body>
+      <body className="plave-v2">
+        <RouteFocusManager />
         <a className="skip-link" href="#main-content">
           Chuyển đến nội dung chính
         </a>

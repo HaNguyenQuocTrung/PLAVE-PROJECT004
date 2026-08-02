@@ -1,0 +1,102 @@
+{
+  "variant": "PERIMETER",
+  "severity": "HIGH",
+  "categories": [
+    "INVALID_OR_AMBIGUOUS_QUESTION",
+    "VISUAL_MISSING_OR_INCORRECT",
+    "OUTCOME_ALIGNMENT_WRONG"
+  ],
+  "summary": "Đơn vị/đích đổi/hình và vai trò các số đo không được nêu nhất quán; TIME_MONEY vẫn dùng cm.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-078e563d29f6b00ab4e159b941dea193a566e76a1ba98715",
+  "reproductionSeedFingerprint": "078e563d29f6b00a",
+  "reproductionSampleId": "PERIMETER:EASY:1",
+  "sample": {
+    "sampleId": "PERIMETER:EASY:1",
+    "variant": "PERIMETER",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-078e563d29f6b00ab4e159b941dea193a566e76a1ba98715",
+    "seedFingerprint": "078e563d29f6b00a",
+    "runtimeReachable": true,
+    "grade": 3,
+    "outcomeId": "MOET2018-G3-GEO-P032-022",
+    "unitId": "grade-3-length-reasoning",
+    "astKind": "MEASURE",
+    "complexity": 1,
+    "prompt": "Thực hiện chu vi với các số đo 37, 15, 2 cm.",
+    "normalizedTemplate": "thựx hiện chu vi với xáx số đo #, #, # cm.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "105",
+      "103",
+      "106",
+      "104"
+    ],
+    "correctOptionKey": "D",
+    "correctOptionLabel": "104",
+    "visualType": "AREA_MODEL",
+    "visualTemplate": "{\"type\":\"AREA_MODEL\",\"shape\":\"RECTANGLE\",\"width\":#,\"height\":#,\"description\":\"Hình minh họa chỉ thể hiện các dữ kiện đã nêu trong câu hỏi.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn D."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-98862d8be70f3c12f1ecd6a9b96479b4",
+      "position": 1,
+      "prompt": "Thực hiện chu vi với các số đo 37, 15, 2 cm.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "105"
+        },
+        {
+          "key": "B",
+          "label": "103"
+        },
+        {
+          "key": "C",
+          "label": "106"
+        },
+        {
+          "key": "D",
+          "label": "104"
+        }
+      ],
+      "visual": {
+        "type": "AREA_MODEL",
+        "shape": "RECTANGLE",
+        "width": 37,
+        "height": 15,
+        "description": "Hình minh họa chỉ thể hiện các dữ kiện đã nêu trong câu hỏi."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "HIGH",
+      "categories": [
+        "INVALID_OR_AMBIGUOUS_QUESTION",
+        "VISUAL_MISSING_OR_INCORRECT",
+        "OUTCOME_ALIGNMENT_WRONG"
+      ],
+      "summary": "Đơn vị/đích đổi/hình và vai trò các số đo không được nêu nhất quán; TIME_MONEY vẫn dùng cm."
+    }
+  }
+}

@@ -79,7 +79,7 @@ export default async function DiagnosticReviewPage({
   );
 
   return (
-    <main className="diagnostic-review-page page-shell">
+    <div className="diagnostic-review-page result-page--v2 page-shell">
       <header className="catalog-hero diagnostic-review-hero">
         <p className="eyebrow">Kết quả đánh giá năng lực</p>
         <h1>
@@ -280,6 +280,6 @@ export default async function DiagnosticReviewPage({
           ))}
         </ol>
       </section>
-    </main>
+    </div>
   );
 }

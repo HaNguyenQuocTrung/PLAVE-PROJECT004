@@ -1,0 +1,99 @@
+{
+  "variant": "FRACTION_RECOGNITION",
+  "severity": "CRITICAL",
+  "categories": [
+    "OUTCOME_ALIGNMENT_WRONG",
+    "INVALID_OR_AMBIGUOUS_QUESTION",
+    "WEAK_DISTRACTORS"
+  ],
+  "summary": "Prompt nêu tên kỹ năng chung nhưng solver mặc định cộng hai giá trị hoặc dùng phép khác với outcome.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-509ada19c2ed1704fbc9e0311e4e9ae853adf0c979b676df",
+  "reproductionSeedFingerprint": "509ada19c2ed1704",
+  "reproductionSampleId": "FRACTION_RECOGNITION:EASY:1",
+  "sample": {
+    "sampleId": "FRACTION_RECOGNITION:EASY:1",
+    "variant": "FRACTION_RECOGNITION",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-509ada19c2ed1704fbc9e0311e4e9ae853adf0c979b676df",
+    "seedFingerprint": "509ada19c2ed1704",
+    "runtimeReachable": true,
+    "grade": 4,
+    "outcomeId": "MOET2018-G4-NUM-P036-016",
+    "unitId": "grade-4-fraction-foundations-p1",
+    "astKind": "RATIONAL",
+    "complexity": 1,
+    "prompt": "Thực hiện yêu cầu nhận biết phân số với 9/2 và 5/7.",
+    "normalizedTemplate": "thựx hiện yêu xầu nhận biết phân số với #/# và #/#.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "7.2143",
+      "5.2143",
+      "6.2143",
+      "4.2143"
+    ],
+    "correctOptionKey": "B",
+    "correctOptionLabel": "5.2143",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn B."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-f117e0c32a69690c428fa9f0165709a3",
+      "position": 1,
+      "prompt": "Thực hiện yêu cầu nhận biết phân số với 9/2 và 5/7.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "7.2143"
+        },
+        {
+          "key": "B",
+          "label": "5.2143"
+        },
+        {
+          "key": "C",
+          "label": "6.2143"
+        },
+        {
+          "key": "D",
+          "label": "4.2143"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "CRITICAL",
+      "categories": [
+        "OUTCOME_ALIGNMENT_WRONG",
+        "INVALID_OR_AMBIGUOUS_QUESTION",
+        "WEAK_DISTRACTORS"
+      ],
+      "summary": "Prompt nêu tên kỹ năng chung nhưng solver mặc định cộng hai giá trị hoặc dùng phép khác với outcome."
+    }
+  }
+}

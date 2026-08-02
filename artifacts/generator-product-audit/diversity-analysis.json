@@ -1,0 +1,4280 @@
+{
+  "schemaVersion": 1,
+  "variantsWithRealOutcomes": 50,
+  "proofOnlyVariants": [
+    "EXPRESSION_CONSTRUCTION",
+    "RELATION_INTERPRETATION",
+    "COORDINATE",
+    "MULTI_STEP_CONTEXT",
+    "INFORMATION_SELECTION",
+    "INSUFFICIENT_INFORMATION",
+    "ERROR_DETECTION",
+    "MATHEMATICAL_MODELING",
+    "REPRESENTATION_CONSTRUCTION"
+  ],
+  "usable": 0,
+  "unusable": 3540,
+  "mathematicallyAnswerableStems": 300,
+  "usableRate": 0,
+  "grades": [
+    {
+      "grade": 1,
+      "sampleCount": 600,
+      "variantCount": 10,
+      "usable": 0,
+      "unusable": 600,
+      "mathematicallyAnswerableStems": 60
+    },
+    {
+      "grade": 2,
+      "sampleCount": 540,
+      "variantCount": 9,
+      "usable": 0,
+      "unusable": 540,
+      "mathematicallyAnswerableStems": 60
+    },
+    {
+      "grade": 3,
+      "sampleCount": 600,
+      "variantCount": 10,
+      "usable": 0,
+      "unusable": 600,
+      "mathematicallyAnswerableStems": 0
+    },
+    {
+      "grade": 4,
+      "sampleCount": 360,
+      "variantCount": 6,
+      "usable": 0,
+      "unusable": 360,
+      "mathematicallyAnswerableStems": 60
+    },
+    {
+      "grade": 5,
+      "sampleCount": 180,
+      "variantCount": 3,
+      "usable": 0,
+      "unusable": 180,
+      "mathematicallyAnswerableStems": 0
+    },
+    {
+      "grade": 6,
+      "sampleCount": 180,
+      "variantCount": 3,
+      "usable": 0,
+      "unusable": 180,
+      "mathematicallyAnswerableStems": 0
+    },
+    {
+      "grade": 7,
+      "sampleCount": 120,
+      "variantCount": 2,
+      "usable": 0,
+      "unusable": 120,
+      "mathematicallyAnswerableStems": 0
+    },
+    {
+      "grade": 8,
+      "sampleCount": 180,
+      "variantCount": 3,
+      "usable": 0,
+      "unusable": 180,
+      "mathematicallyAnswerableStems": 60
+    },
+    {
+      "grade": 9,
+      "sampleCount": 240,
+      "variantCount": 4,
+      "usable": 0,
+      "unusable": 240,
+      "mathematicallyAnswerableStems": 60
+    }
+  ],
+  "variants": [
+    {
+      "variant": "PLACE_VALUE",
+      "runtimeReachable": true,
+      "representativeGrade": 4,
+      "representativeOutcomeId": "MOET2018-G4-NUM-P035-007",
+      "representativeUnitId": "grade-4-number-patterns-p1",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.01666666666666672,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.9833333333333333,
+      "answerLabelDiversity": 0.16666666666666666,
+      "answerKeyDistribution": {
+        "A": 13,
+        "B": 16,
+        "C": 12,
+        "D": 19
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 45,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "PLACE_VALUE_CHART"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 45,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "PLACE_VALUE_CHART"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 46,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "PLACE_VALUE_CHART"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "LOW_VARIATION",
+          "DIFFICULTY_NOT_MEANINGFUL",
+          "FEEDBACK_OR_EXPLANATION_WEAK"
+        ],
+        "summary": "Stem có thể giải đúng riêng lẻ nhưng chưa production-usable: lặp template, độ khó chưa tách biệt thực chất và lời giải không giải thích phép toán cụ thể."
+      }
+    },
+    {
+      "variant": "NUMBER_REPRESENTATION",
+      "runtimeReachable": true,
+      "representativeGrade": 1,
+      "representativeOutcomeId": "MOET2018-G1-NUM-P021-001",
+      "representativeUnitId": "grade-1-number-foundations-p0",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.08333333333333337,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.9166666666666666,
+      "answerLabelDiversity": 0.9166666666666666,
+      "answerKeyDistribution": {
+        "A": 13,
+        "B": 15,
+        "C": 17,
+        "D": 15
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 45,
+          "medianNumberCount": 1,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 44,
+          "medianNumberCount": 1,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 45,
+          "medianNumberCount": 1,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "LANGUAGE_QUALITY",
+          "FEEDBACK_OR_EXPLANATION_WEAK"
+        ],
+        "summary": "Không tạo tình huống toán học thật; chỉ liệt kê đại lượng hoặc lặp lại câu mô tả outcome."
+      }
+    },
+    {
+      "variant": "NUMBER_COMPARISON",
+      "runtimeReachable": true,
+      "representativeGrade": 2,
+      "representativeOutcomeId": "MOET2018-G2-NUM-P025-007",
+      "representativeUnitId": "grade-2-number-order-and-line-p0",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.050000000000000044,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 2,
+      "dominantTemplateRate": 0.6666666666666666,
+      "operandSignatureDiversity": 0.95,
+      "answerLabelDiversity": 0.65,
+      "answerKeyDistribution": {
+        "A": 12,
+        "B": 14,
+        "C": 21,
+        "D": 13
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.03333333333333333,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 40,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 40,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 44,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "LOW_VARIATION",
+          "DIFFICULTY_NOT_MEANINGFUL",
+          "FEEDBACK_OR_EXPLANATION_WEAK"
+        ],
+        "summary": "Stem có thể giải đúng riêng lẻ nhưng chưa production-usable: lặp template, độ khó chưa tách biệt thực chất và lời giải không giải thích phép toán cụ thể."
+      }
+    },
+    {
+      "variant": "NUMBER_ORDERING",
+      "runtimeReachable": true,
+      "representativeGrade": 1,
+      "representativeOutcomeId": "MOET2018-G1-NUM-P022-002",
+      "representativeUnitId": "grade-1-number-foundations-p0",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.08333333333333337,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 2,
+      "dominantTemplateRate": 0.6666666666666666,
+      "operandSignatureDiversity": 0.9166666666666666,
+      "answerLabelDiversity": 0.9166666666666666,
+      "answerKeyDistribution": {
+        "A": 12,
+        "B": 12,
+        "C": 11,
+        "D": 25
+      },
+      "distractorTemplateDiversity": 0.011111111111111112,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.03333333333333333,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 47,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 47,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 51,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "LOW_VARIATION",
+          "DIFFICULTY_NOT_MEANINGFUL",
+          "FEEDBACK_OR_EXPLANATION_WEAK"
+        ],
+        "summary": "Stem có thể giải đúng riêng lẻ nhưng chưa production-usable: lặp template, độ khó chưa tách biệt thực chất và lời giải không giải thích phép toán cụ thể."
+      }
+    },
+    {
+      "variant": "ADDITION_SUBTRACTION",
+      "runtimeReachable": true,
+      "representativeGrade": 1,
+      "representativeOutcomeId": "MOET2018-G1-NUM-P022-004",
+      "representativeUnitId": "grade-1-numbers-to-10",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.35,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 2,
+      "dominantTemplateRate": 0.6666666666666666,
+      "operandSignatureDiversity": 0.65,
+      "answerLabelDiversity": 0.6166666666666667,
+      "answerKeyDistribution": {
+        "A": 14,
+        "B": 12,
+        "C": 16,
+        "D": 18
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.03333333333333333,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 48,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 48,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 52,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "DIFFICULTY_NOT_MEANINGFUL",
+          "LANGUAGE_QUALITY"
+        ],
+        "summary": "Prompt gộp nhiều phép toán nhưng solver âm thầm chọn một phép; không nói rõ học sinh phải tính gì."
+      }
+    },
+    {
+      "variant": "MULTIPLICATION_DIVISION",
+      "runtimeReachable": true,
+      "representativeGrade": 2,
+      "representativeOutcomeId": "MOET2018-G2-NUM-P025-006",
+      "representativeUnitId": "grade-2-multiplication-division-components-p1",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.35,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 2,
+      "dominantTemplateRate": 0.6666666666666666,
+      "operandSignatureDiversity": 0.65,
+      "answerLabelDiversity": 0.65,
+      "answerKeyDistribution": {
+        "A": 10,
+        "B": 14,
+        "C": 19,
+        "D": 17
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.03333333333333333,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 49,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 49,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 53,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "DIFFICULTY_NOT_MEANINGFUL",
+          "LANGUAGE_QUALITY"
+        ],
+        "summary": "Prompt gộp nhiều phép toán nhưng solver âm thầm chọn một phép; không nói rõ học sinh phải tính gì."
+      }
+    },
+    {
+      "variant": "INTEGER_OPERATIONS",
+      "runtimeReachable": true,
+      "representativeGrade": 6,
+      "representativeOutcomeId": "MOET2018-G6-NAA-P048-029",
+      "representativeUnitId": "grade-6-integer-calculation-context-p1",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.9166666666666666,
+      "answerKeyDistribution": {
+        "A": 13,
+        "B": 16,
+        "C": 12,
+        "D": 19
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 62,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 62,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 63,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "WEAK_DISTRACTORS"
+        ],
+        "summary": "Prompt nêu tên kỹ năng chung nhưng solver mặc định cộng hai giá trị hoặc dùng phép khác với outcome."
+      }
+    },
+    {
+      "variant": "FRACTION_RECOGNITION",
+      "runtimeReachable": true,
+      "representativeGrade": 4,
+      "representativeOutcomeId": "MOET2018-G4-NUM-P036-016",
+      "representativeUnitId": "grade-4-fraction-foundations-p1",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.9666666666666667,
+      "answerKeyDistribution": {
+        "A": 16,
+        "B": 14,
+        "C": 12,
+        "D": 18
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 51,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 51,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 51,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "WEAK_DISTRACTORS"
+        ],
+        "summary": "Prompt nêu tên kỹ năng chung nhưng solver mặc định cộng hai giá trị hoặc dùng phép khác với outcome."
+      }
+    },
+    {
+      "variant": "FRACTION_EQUIVALENCE",
+      "runtimeReachable": true,
+      "representativeGrade": 5,
+      "representativeOutcomeId": "MOET2018-G5-NUM-P041-009",
+      "representativeUnitId": "grade-5-fraction-operations",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.95,
+      "answerKeyDistribution": {
+        "A": 12,
+        "B": 15,
+        "C": 9,
+        "D": 24
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 51,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 51,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 51,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "WEAK_DISTRACTORS"
+        ],
+        "summary": "Prompt nêu tên kỹ năng chung nhưng solver mặc định cộng hai giá trị hoặc dùng phép khác với outcome."
+      }
+    },
+    {
+      "variant": "FRACTION_COMPARISON",
+      "runtimeReachable": true,
+      "representativeGrade": 7,
+      "representativeOutcomeId": "MOET2018-G7-NAA-P055-001",
+      "representativeUnitId": "grade-7-rational-number-foundations-p1",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.01666666666666672,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.9833333333333333,
+      "answerLabelDiversity": 0.05,
+      "answerKeyDistribution": {
+        "A": 14,
+        "B": 13,
+        "C": 16,
+        "D": 17
+      },
+      "distractorTemplateDiversity": 0.016666666666666666,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 49,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 49,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 49,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "WEAK_DISTRACTORS"
+        ],
+        "summary": "Prompt nêu tên kỹ năng chung nhưng solver mặc định cộng hai giá trị hoặc dùng phép khác với outcome."
+      }
+    },
+    {
+      "variant": "FRACTION_OPERATIONS",
+      "runtimeReachable": true,
+      "representativeGrade": 3,
+      "representativeOutcomeId": "MOET2018-G3-NUM-P031-024",
+      "representativeUnitId": "grade-3-unit-fractions",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.033333333333333326,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.9666666666666667,
+      "answerLabelDiversity": 0.8666666666666667,
+      "answerKeyDistribution": {
+        "A": 18,
+        "B": 12,
+        "C": 13,
+        "D": 17
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 55,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 55,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 55,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "WEAK_DISTRACTORS"
+        ],
+        "summary": "Prompt nêu tên kỹ năng chung nhưng solver mặc định cộng hai giá trị hoặc dùng phép khác với outcome."
+      }
+    },
+    {
+      "variant": "DECIMAL_REPRESENTATION",
+      "runtimeReachable": true,
+      "representativeGrade": 2,
+      "representativeOutcomeId": "MOET2018-G2-NUM-P024-001",
+      "representativeUnitId": "grade-2-numbers-to-1000-preview",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.033333333333333326,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.9666666666666667,
+      "answerLabelDiversity": 0.9166666666666666,
+      "answerKeyDistribution": {
+        "A": 10,
+        "B": 12,
+        "C": 16,
+        "D": 22
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 60,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 60,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 62,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "WEAK_DISTRACTORS"
+        ],
+        "summary": "Prompt nêu tên kỹ năng chung nhưng solver mặc định cộng hai giá trị hoặc dùng phép khác với outcome."
+      }
+    },
+    {
+      "variant": "DECIMAL_COMPARISON",
+      "runtimeReachable": true,
+      "representativeGrade": 3,
+      "representativeOutcomeId": "MOET2018-G3-NUM-P029-003",
+      "representativeUnitId": "grade-3-number-sense-to-100000-p1",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.033333333333333326,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.9666666666666667,
+      "answerLabelDiversity": 0.03333333333333333,
+      "answerKeyDistribution": {
+        "A": 17,
+        "B": 14,
+        "C": 15,
+        "D": 14
+      },
+      "distractorTemplateDiversity": 0.016666666666666666,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 58,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 59,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 60,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "WEAK_DISTRACTORS"
+        ],
+        "summary": "Prompt nêu tên kỹ năng chung nhưng solver mặc định cộng hai giá trị hoặc dùng phép khác với outcome."
+      }
+    },
+    {
+      "variant": "DECIMAL_OPERATIONS",
+      "runtimeReachable": true,
+      "representativeGrade": 3,
+      "representativeOutcomeId": "MOET2018-G3-NUM-P029-007",
+      "representativeUnitId": "grade-3-additive-fluency-p1",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.050000000000000044,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.95,
+      "answerLabelDiversity": 0.8666666666666667,
+      "answerKeyDistribution": {
+        "A": 14,
+        "B": 18,
+        "C": 13,
+        "D": 15
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 64,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 64,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 66,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "WEAK_DISTRACTORS"
+        ],
+        "summary": "Prompt nêu tên kỹ năng chung nhưng solver mặc định cộng hai giá trị hoặc dùng phép khác với outcome."
+      }
+    },
+    {
+      "variant": "RATIO",
+      "runtimeReachable": true,
+      "representativeGrade": 7,
+      "representativeOutcomeId": "MOET2018-G7-NAA-P057-019",
+      "representativeUnitId": "grade-7-inverse-proportion-p0",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.9833333333333333,
+      "answerKeyDistribution": {
+        "A": 18,
+        "B": 13,
+        "C": 15,
+        "D": 14
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 43,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 44,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 46,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "WEAK_DISTRACTORS"
+        ],
+        "summary": "Prompt nêu tên kỹ năng chung nhưng solver mặc định cộng hai giá trị hoặc dùng phép khác với outcome."
+      }
+    },
+    {
+      "variant": "PERCENTAGE",
+      "runtimeReachable": true,
+      "representativeGrade": 5,
+      "representativeOutcomeId": "MOET2018-G5-NUM-P043-024",
+      "representativeUnitId": "grade-5-calculator-motion-p1",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.7166666666666667,
+      "answerKeyDistribution": {
+        "A": 10,
+        "B": 14,
+        "C": 16,
+        "D": 20
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 54,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 54,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 55,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "WEAK_DISTRACTORS"
+        ],
+        "summary": "Prompt nêu tên kỹ năng chung nhưng solver mặc định cộng hai giá trị hoặc dùng phép khác với outcome."
+      }
+    },
+    {
+      "variant": "DIVISIBILITY",
+      "runtimeReachable": true,
+      "representativeGrade": 2,
+      "representativeOutcomeId": "MOET2018-G2-NUM-P024-002",
+      "representativeUnitId": "grade-2-numbers-to-1000-preview",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.31666666666666665,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 2,
+      "dominantTemplateRate": 0.6666666666666666,
+      "operandSignatureDiversity": 0.6833333333333333,
+      "answerLabelDiversity": 0.016666666666666666,
+      "answerKeyDistribution": {
+        "A": 9,
+        "B": 22,
+        "C": 15,
+        "D": 14
+      },
+      "distractorTemplateDiversity": 0.016666666666666666,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.03333333333333333,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 50,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 50,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 54,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "DIFFICULTY_NOT_MEANINGFUL",
+          "LANGUAGE_QUALITY"
+        ],
+        "summary": "Prompt gộp nhiều phép toán nhưng solver âm thầm chọn một phép; không nói rõ học sinh phải tính gì."
+      }
+    },
+    {
+      "variant": "POWER_ROOT",
+      "runtimeReachable": true,
+      "representativeGrade": 6,
+      "representativeOutcomeId": "MOET2018-G6-NAA-P047-009",
+      "representativeUnitId": "grade-6-powers-and-order",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.16666666666666663,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 2,
+      "dominantTemplateRate": 0.6666666666666666,
+      "operandSignatureDiversity": 0.8333333333333334,
+      "answerLabelDiversity": 0.8333333333333334,
+      "answerKeyDistribution": {
+        "A": 15,
+        "B": 13,
+        "C": 16,
+        "D": 16
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.03333333333333333,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 60,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 60,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 67,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "DIFFICULTY_NOT_MEANINGFUL",
+          "LANGUAGE_QUALITY"
+        ],
+        "summary": "Prompt gộp nhiều phép toán nhưng solver âm thầm chọn một phép; không nói rõ học sinh phải tính gì."
+      }
+    },
+    {
+      "variant": "NUMERICAL_EXPRESSION",
+      "runtimeReachable": true,
+      "representativeGrade": 3,
+      "representativeOutcomeId": "MOET2018-G3-NUM-P030-014",
+      "representativeUnitId": "grade-3-expression-order-p1",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.033333333333333326,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.9666666666666667,
+      "answerLabelDiversity": 0.8,
+      "answerKeyDistribution": {
+        "A": 16,
+        "B": 14,
+        "C": 17,
+        "D": 13
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 62,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 62.5,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 63,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "DIFFICULTY_NOT_MEANINGFUL",
+          "LANGUAGE_QUALITY"
+        ],
+        "summary": "Prompt gộp nhiều phép toán nhưng solver âm thầm chọn một phép; không nói rõ học sinh phải tính gì."
+      }
+    },
+    {
+      "variant": "MISSING_VALUE",
+      "runtimeReachable": true,
+      "representativeGrade": 3,
+      "representativeOutcomeId": "MOET2018-G3-NUM-P030-022",
+      "representativeUnitId": "grade-3-expression-order-p1",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.6166666666666667,
+      "answerKeyDistribution": {
+        "A": 15,
+        "B": 14,
+        "C": 11,
+        "D": 20
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 61.5,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 61,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 62,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "GRADE_LEVEL_WRONG",
+          "INVALID_OR_AMBIGUOUS_QUESTION"
+        ],
+        "summary": "Hầu hết variant đại số dùng cùng AST ax+b và cùng phép thế giá trị, kể cả khi outcome yêu cầu việc khác."
+      }
+    },
+    {
+      "variant": "SUBSTITUTION",
+      "runtimeReachable": true,
+      "representativeGrade": 3,
+      "representativeOutcomeId": "MOET2018-G3-NUM-P030-019",
+      "representativeUnitId": "grade-3-multiplicative-expression-p1",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.01666666666666672,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.9833333333333333,
+      "answerLabelDiversity": 0.7833333333333333,
+      "answerKeyDistribution": {
+        "A": 20,
+        "B": 10,
+        "C": 15,
+        "D": 15
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 66,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 66,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 67,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "GRADE_LEVEL_WRONG",
+          "INVALID_OR_AMBIGUOUS_QUESTION"
+        ],
+        "summary": "Hầu hết variant đại số dùng cùng AST ax+b và cùng phép thế giá trị, kể cả khi outcome yêu cầu việc khác."
+      }
+    },
+    {
+      "variant": "EXPRESSION_CONSTRUCTION",
+      "runtimeReachable": false,
+      "representativeGrade": null,
+      "representativeOutcomeId": null,
+      "representativeUnitId": null,
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.9833333333333333,
+      "answerKeyDistribution": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "distractorTemplateDiversity": 0,
+      "visualTypeDiversity": 0,
+      "visualTemplateDiversity": 0,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 64,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 64,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 65,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "UNIMPLEMENTED_VARIANT",
+          "RUNTIME_DISCONNECTED"
+        ],
+        "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist."
+      }
+    },
+    {
+      "variant": "LIKE_TERM_COMBINATION",
+      "runtimeReachable": true,
+      "representativeGrade": 8,
+      "representativeOutcomeId": "MOET2018-G8-NAA-P063-007",
+      "representativeUnitId": "grade-8-secondary-naa-p1-2",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.8166666666666667,
+      "answerKeyDistribution": {
+        "A": 14,
+        "B": 17,
+        "C": 11,
+        "D": 18
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 65.5,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 66,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 66,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "GRADE_LEVEL_WRONG",
+          "INVALID_OR_AMBIGUOUS_QUESTION"
+        ],
+        "summary": "Hầu hết variant đại số dùng cùng AST ax+b và cùng phép thế giá trị, kể cả khi outcome yêu cầu việc khác."
+      }
+    },
+    {
+      "variant": "ALGEBRAIC_TRANSFORMATION",
+      "runtimeReachable": true,
+      "representativeGrade": 4,
+      "representativeOutcomeId": "MOET2018-G4-NUM-P036-022",
+      "representativeUnitId": "grade-4-fraction-foundations-p1",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.01666666666666672,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.9833333333333333,
+      "answerLabelDiversity": 0.8666666666666667,
+      "answerKeyDistribution": {
+        "A": 13,
+        "B": 21,
+        "C": 14,
+        "D": 12
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 58.5,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 58.5,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 59,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "GRADE_LEVEL_WRONG",
+          "INVALID_OR_AMBIGUOUS_QUESTION"
+        ],
+        "summary": "Hầu hết variant đại số dùng cùng AST ax+b và cùng phép thế giá trị, kể cả khi outcome yêu cầu việc khác."
+      }
+    },
+    {
+      "variant": "EQUATION_SOLVING",
+      "runtimeReachable": true,
+      "representativeGrade": 9,
+      "representativeOutcomeId": "MOET2018-G9-NAA-P072-010",
+      "representativeUnitId": "grade-9-linear-systems",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.85,
+      "answerKeyDistribution": {
+        "A": 20,
+        "B": 18,
+        "C": 11,
+        "D": 11
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 32,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 31.5,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 32,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "LOW_VARIATION",
+          "DIFFICULTY_NOT_MEANINGFUL",
+          "FEEDBACK_OR_EXPLANATION_WEAK"
+        ],
+        "summary": "Stem có thể giải đúng riêng lẻ nhưng chưa production-usable: lặp template, độ khó chưa tách biệt thực chất và lời giải không giải thích phép toán cụ thể."
+      }
+    },
+    {
+      "variant": "INEQUALITY_SOLVING",
+      "runtimeReachable": true,
+      "representativeGrade": 9,
+      "representativeOutcomeId": "MOET2018-G9-NAA-P072-016",
+      "representativeUnitId": "grade-9-secondary-naa-p1-4",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.7666666666666667,
+      "answerKeyDistribution": {
+        "A": 17,
+        "B": 10,
+        "C": 15,
+        "D": 18
+      },
+      "distractorTemplateDiversity": 0.016666666666666666,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 62,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 62,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 62.5,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "GRADE_LEVEL_WRONG",
+          "INVALID_OR_AMBIGUOUS_QUESTION"
+        ],
+        "summary": "Hầu hết variant đại số dùng cùng AST ax+b và cùng phép thế giá trị, kể cả khi outcome yêu cầu việc khác."
+      }
+    },
+    {
+      "variant": "SEQUENCE_RULE",
+      "runtimeReachable": true,
+      "representativeGrade": 4,
+      "representativeOutcomeId": "MOET2018-G4-NUM-P036-018",
+      "representativeUnitId": "grade-4-fraction-foundations",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.050000000000000044,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.95,
+      "answerLabelDiversity": 0.95,
+      "answerKeyDistribution": {
+        "A": 16,
+        "B": 13,
+        "C": 10,
+        "D": 21
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 45,
+          "medianNumberCount": 1,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 45,
+          "medianNumberCount": 1,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 45,
+          "medianNumberCount": 1,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "GRADE_LEVEL_WRONG",
+          "INVALID_OR_AMBIGUOUS_QUESTION"
+        ],
+        "summary": "Hầu hết variant đại số dùng cùng AST ax+b và cùng phép thế giá trị, kể cả khi outcome yêu cầu việc khác."
+      }
+    },
+    {
+      "variant": "FUNCTION_INPUT_OUTPUT",
+      "runtimeReachable": true,
+      "representativeGrade": 8,
+      "representativeOutcomeId": "MOET2018-G8-NAA-P064-012",
+      "representativeUnitId": "grade-8-secondary-naa-p1-3",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.9333333333333333,
+      "answerKeyDistribution": {
+        "A": 21,
+        "B": 9,
+        "C": 14,
+        "D": 16
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 59,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 59,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 59.5,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "LOW_VARIATION",
+          "DIFFICULTY_NOT_MEANINGFUL",
+          "FEEDBACK_OR_EXPLANATION_WEAK"
+        ],
+        "summary": "Stem có thể giải đúng riêng lẻ nhưng chưa production-usable: lặp template, độ khó chưa tách biệt thực chất và lời giải không giải thích phép toán cụ thể."
+      }
+    },
+    {
+      "variant": "RELATION_INTERPRETATION",
+      "runtimeReachable": false,
+      "representativeGrade": null,
+      "representativeOutcomeId": null,
+      "representativeUnitId": null,
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.9666666666666667,
+      "answerKeyDistribution": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "distractorTemplateDiversity": 0,
+      "visualTypeDiversity": 0,
+      "visualTemplateDiversity": 0,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 64,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 64,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 65,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "UNIMPLEMENTED_VARIANT",
+          "RUNTIME_DISCONNECTED"
+        ],
+        "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist."
+      }
+    },
+    {
+      "variant": "DIRECT_MEASUREMENT",
+      "runtimeReachable": true,
+      "representativeGrade": 1,
+      "representativeOutcomeId": "MOET2018-G1-GEO-P023-008",
+      "representativeUnitId": "grade-1-length-centimetres",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.08333333333333337,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.9166666666666666,
+      "answerLabelDiversity": 0.38333333333333336,
+      "answerKeyDistribution": {
+        "A": 17,
+        "B": 12,
+        "C": 18,
+        "D": 13
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 49,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "MEASUREMENT_SCALE"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 48.5,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "MEASUREMENT_SCALE"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 49,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "MEASUREMENT_SCALE"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "VISUAL_MISSING_OR_INCORRECT",
+          "OUTCOME_ALIGNMENT_WRONG"
+        ],
+        "summary": "Đơn vị/đích đổi/hình và vai trò các số đo không được nêu nhất quán; TIME_MONEY vẫn dùng cm."
+      }
+    },
+    {
+      "variant": "UNIT_CONVERSION",
+      "runtimeReachable": true,
+      "representativeGrade": 2,
+      "representativeOutcomeId": "MOET2018-G2-GEO-P027-017",
+      "representativeUnitId": "grade-2-length-calculations",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.5833333333333334,
+      "answerKeyDistribution": {
+        "A": 12,
+        "B": 16,
+        "C": 14,
+        "D": 18
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 50,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 50,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 50,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "VISUAL_MISSING_OR_INCORRECT",
+          "OUTCOME_ALIGNMENT_WRONG"
+        ],
+        "summary": "Đơn vị/đích đổi/hình và vai trò các số đo không được nêu nhất quán; TIME_MONEY vẫn dùng cm."
+      }
+    },
+    {
+      "variant": "TIME_MONEY",
+      "runtimeReachable": true,
+      "representativeGrade": 1,
+      "representativeOutcomeId": "MOET2018-G1-GEO-P023-006",
+      "representativeUnitId": "grade-1-shape-and-informal-measure-p0",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.09999999999999998,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.9,
+      "answerLabelDiversity": 0.48333333333333334,
+      "answerKeyDistribution": {
+        "A": 17,
+        "B": 15,
+        "C": 12,
+        "D": 16
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 54,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 54,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 54,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "VISUAL_MISSING_OR_INCORRECT",
+          "OUTCOME_ALIGNMENT_WRONG"
+        ],
+        "summary": "Đơn vị/đích đổi/hình và vai trò các số đo không được nêu nhất quán; TIME_MONEY vẫn dùng cm."
+      }
+    },
+    {
+      "variant": "PERIMETER",
+      "runtimeReachable": true,
+      "representativeGrade": 3,
+      "representativeOutcomeId": "MOET2018-G3-GEO-P032-022",
+      "representativeUnitId": "grade-3-length-reasoning",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.06666666666666665,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.9333333333333333,
+      "answerLabelDiversity": 0.6666666666666666,
+      "answerKeyDistribution": {
+        "A": 13,
+        "B": 15,
+        "C": 14,
+        "D": 18
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 43,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "AREA_MODEL"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 43,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "AREA_MODEL"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 44,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "AREA_MODEL"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "VISUAL_MISSING_OR_INCORRECT",
+          "OUTCOME_ALIGNMENT_WRONG"
+        ],
+        "summary": "Đơn vị/đích đổi/hình và vai trò các số đo không được nêu nhất quán; TIME_MONEY vẫn dùng cm."
+      }
+    },
+    {
+      "variant": "AREA",
+      "runtimeReachable": true,
+      "representativeGrade": 3,
+      "representativeOutcomeId": "MOET2018-G3-GEO-P032-012",
+      "representativeUnitId": "grade-3-time-and-area-units-p1",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.033333333333333326,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.9666666666666667,
+      "answerLabelDiversity": 0.9166666666666666,
+      "answerKeyDistribution": {
+        "A": 17,
+        "B": 19,
+        "C": 13,
+        "D": 11
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 46.5,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "AREA_MODEL"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 46,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "AREA_MODEL"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 47,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "AREA_MODEL"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "VISUAL_MISSING_OR_INCORRECT",
+          "OUTCOME_ALIGNMENT_WRONG"
+        ],
+        "summary": "Đơn vị/đích đổi/hình và vai trò các số đo không được nêu nhất quán; TIME_MONEY vẫn dùng cm."
+      }
+    },
+    {
+      "variant": "VOLUME",
+      "runtimeReachable": true,
+      "representativeGrade": 1,
+      "representativeOutcomeId": "MOET2018-G1-GEO-P022-004",
+      "representativeUnitId": "grade-1-shapes",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.050000000000000044,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.95,
+      "answerLabelDiversity": 0.8,
+      "answerKeyDistribution": {
+        "A": 14,
+        "B": 10,
+        "C": 19,
+        "D": 17
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 45,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "SOLID_NET"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 45,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "SOLID_NET"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 45,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "SOLID_NET"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "VISUAL_MISSING_OR_INCORRECT",
+          "OUTCOME_ALIGNMENT_WRONG"
+        ],
+        "summary": "Đơn vị/đích đổi/hình và vai trò các số đo không được nêu nhất quán; TIME_MONEY vẫn dùng cm."
+      }
+    },
+    {
+      "variant": "SHAPE_PROPERTIES",
+      "runtimeReachable": true,
+      "representativeGrade": 1,
+      "representativeOutcomeId": "MOET2018-G1-GEO-P022-003",
+      "representativeUnitId": "grade-1-shapes",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.06666666666666665,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.9333333333333333,
+      "answerLabelDiversity": 0.016666666666666666,
+      "answerKeyDistribution": {
+        "A": 19,
+        "B": 20,
+        "C": 9,
+        "D": 12
+      },
+      "distractorTemplateDiversity": 0.016666666666666666,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 198,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "SHAPE_SCENE"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 197.5,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "SHAPE_SCENE"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 198.5,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "SHAPE_SCENE"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "VISUAL_MISSING_OR_INCORRECT",
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "LANGUAGE_QUALITY"
+        ],
+        "summary": "Giả thiết/visual không xác định bài toán cụ thể và đáp án có thể là tên variant nội bộ."
+      }
+    },
+    {
+      "variant": "ANGLE",
+      "runtimeReachable": true,
+      "representativeGrade": 3,
+      "representativeOutcomeId": "MOET2018-G3-GEO-P031-003",
+      "representativeUnitId": "grade-3-shape-relations-p1",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.033333333333333326,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.9666666666666667,
+      "answerLabelDiversity": 0.016666666666666666,
+      "answerKeyDistribution": {
+        "A": 18,
+        "B": 13,
+        "C": 18,
+        "D": 11
+      },
+      "distractorTemplateDiversity": 0.016666666666666666,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 99,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "ANGLE_DIAGRAM"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 99,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "ANGLE_DIAGRAM"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 100,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "ANGLE_DIAGRAM"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "VISUAL_MISSING_OR_INCORRECT",
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "LANGUAGE_QUALITY"
+        ],
+        "summary": "Giả thiết/visual không xác định bài toán cụ thể và đáp án có thể là tên variant nội bộ."
+      }
+    },
+    {
+      "variant": "COORDINATE",
+      "runtimeReachable": false,
+      "representativeGrade": null,
+      "representativeOutcomeId": null,
+      "representativeUnitId": null,
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.01666666666666672,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.9833333333333333,
+      "answerLabelDiversity": 0.9833333333333333,
+      "answerKeyDistribution": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "distractorTemplateDiversity": 0,
+      "visualTypeDiversity": 0,
+      "visualTemplateDiversity": 0,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 91,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 91.5,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 92,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "UNIMPLEMENTED_VARIANT",
+          "RUNTIME_DISCONNECTED"
+        ],
+        "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist."
+      }
+    },
+    {
+      "variant": "GEOMETRIC_CONSTRUCTION",
+      "runtimeReachable": true,
+      "representativeGrade": 1,
+      "representativeOutcomeId": "MOET2018-G1-NUM-P022-009",
+      "representativeUnitId": "grade-1-applied-problem-solving",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.1166666666666667,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.8833333333333333,
+      "answerLabelDiversity": 0.016666666666666666,
+      "answerKeyDistribution": {
+        "A": 12,
+        "B": 18,
+        "C": 15,
+        "D": 15
+      },
+      "distractorTemplateDiversity": 0.016666666666666666,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 172,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 171.5,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 173,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "VISUAL_MISSING_OR_INCORRECT",
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "LANGUAGE_QUALITY"
+        ],
+        "summary": "Giả thiết/visual không xác định bài toán cụ thể và đáp án có thể là tên variant nội bộ."
+      }
+    },
+    {
+      "variant": "GEOMETRIC_RELATION",
+      "runtimeReachable": true,
+      "representativeGrade": 2,
+      "representativeOutcomeId": "MOET2018-G2-GEO-P026-002",
+      "representativeUnitId": "grade-2-shape-properties",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.050000000000000044,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.95,
+      "answerLabelDiversity": 0.8,
+      "answerKeyDistribution": {
+        "A": 21,
+        "B": 9,
+        "C": 18,
+        "D": 12
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 56,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 56,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 57,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "VISUAL_MISSING_OR_INCORRECT",
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "LANGUAGE_QUALITY"
+        ],
+        "summary": "Giả thiết/visual không xác định bài toán cụ thể và đáp án có thể là tên variant nội bộ."
+      }
+    },
+    {
+      "variant": "THEOREM_APPLICATION",
+      "runtimeReachable": true,
+      "representativeGrade": 6,
+      "representativeOutcomeId": "MOET2018-G6-NAA-P048-019",
+      "representativeUnitId": "grade-6-natural-operations-powers-p1",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.016666666666666666,
+      "answerKeyDistribution": {
+        "A": 11,
+        "B": 17,
+        "C": 14,
+        "D": 18
+      },
+      "distractorTemplateDiversity": 0.016666666666666666,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 125,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 125,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 125,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "VISUAL_MISSING_OR_INCORRECT",
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "LANGUAGE_QUALITY"
+        ],
+        "summary": "Giả thiết/visual không xác định bài toán cụ thể và đáp án có thể là tên variant nội bộ."
+      }
+    },
+    {
+      "variant": "SPATIAL_REASONING",
+      "runtimeReachable": true,
+      "representativeGrade": 1,
+      "representativeOutcomeId": "MOET2018-G1-GEO-P022-001",
+      "representativeUnitId": "grade-1-shapes",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.06666666666666665,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.9333333333333333,
+      "answerLabelDiversity": 0.016666666666666666,
+      "answerKeyDistribution": {
+        "A": 15,
+        "B": 17,
+        "C": 15,
+        "D": 13
+      },
+      "distractorTemplateDiversity": 0.016666666666666666,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 166,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 165.5,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 166,
+          "medianNumberCount": 2,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "VISUAL_MISSING_OR_INCORRECT",
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "LANGUAGE_QUALITY"
+        ],
+        "summary": "Giả thiết/visual không xác định bài toán cụ thể và đáp án có thể là tên variant nội bộ."
+      }
+    },
+    {
+      "variant": "TABLE_INTERPRETATION",
+      "runtimeReachable": true,
+      "representativeGrade": 2,
+      "representativeOutcomeId": "MOET2018-G2-NUM-P025-017",
+      "representativeUnitId": "grade-2-multiplication-division",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.7166666666666667,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 2,
+      "dominantTemplateRate": 0.6666666666666666,
+      "operandSignatureDiversity": 0.2833333333333333,
+      "answerLabelDiversity": 0.08333333333333333,
+      "answerKeyDistribution": {
+        "A": 17,
+        "B": 10,
+        "C": 11,
+        "D": 22
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 2,
+      "linguisticTemplateDiversity": 0.03333333333333333,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 72,
+          "medianNumberCount": 6,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "DATA_DISPLAY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 72,
+          "medianNumberCount": 6,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "DATA_DISPLAY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 78,
+          "medianNumberCount": 8,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "DATA_DISPLAY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "VISUAL_MISSING_OR_INCORRECT",
+          "INVALID_OR_AMBIGUOUS_QUESTION"
+        ],
+        "summary": "Query chỉ là tên family; solver thường lấy max/mean mà không nêu đại lượng cần đọc hoặc so sánh."
+      }
+    },
+    {
+      "variant": "CHART_INTERPRETATION",
+      "runtimeReachable": true,
+      "representativeGrade": 2,
+      "representativeOutcomeId": "MOET2018-G2-STA-P028-001",
+      "representativeUnitId": "grade-2-data-and-chance",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.7,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 2,
+      "dominantTemplateRate": 0.6666666666666666,
+      "operandSignatureDiversity": 0.3,
+      "answerLabelDiversity": 0.08333333333333333,
+      "answerKeyDistribution": {
+        "A": 15,
+        "B": 15,
+        "C": 13,
+        "D": 17
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 2,
+      "linguisticTemplateDiversity": 0.03333333333333333,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 67,
+          "medianNumberCount": 6,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "DATA_DISPLAY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 67,
+          "medianNumberCount": 6,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "DATA_DISPLAY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 73,
+          "medianNumberCount": 8,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "DATA_DISPLAY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "VISUAL_MISSING_OR_INCORRECT",
+          "INVALID_OR_AMBIGUOUS_QUESTION"
+        ],
+        "summary": "Query chỉ là tên family; solver thường lấy max/mean mà không nêu đại lượng cần đọc hoặc so sánh."
+      }
+    },
+    {
+      "variant": "FREQUENCY",
+      "runtimeReachable": true,
+      "representativeGrade": 8,
+      "representativeOutcomeId": "MOET2018-G8-EXP-P070-004",
+      "representativeUnitId": "grade-8-secondary-exp-p1-16",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.7,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 2,
+      "dominantTemplateRate": 0.6666666666666666,
+      "operandSignatureDiversity": 0.3,
+      "answerLabelDiversity": 0.016666666666666666,
+      "answerKeyDistribution": {
+        "A": 17,
+        "B": 14,
+        "C": 14,
+        "D": 15
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.03333333333333333,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 62,
+          "medianNumberCount": 6,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 62,
+          "medianNumberCount": 6,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 68,
+          "medianNumberCount": 8,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "VISUAL_MISSING_OR_INCORRECT",
+          "INVALID_OR_AMBIGUOUS_QUESTION"
+        ],
+        "summary": "Query chỉ là tên family; solver thường lấy max/mean mà không nêu đại lượng cần đọc hoặc so sánh."
+      }
+    },
+    {
+      "variant": "RELATIVE_FREQUENCY",
+      "runtimeReachable": true,
+      "representativeGrade": 9,
+      "representativeOutcomeId": "MOET2018-G9-STA-P077-012",
+      "representativeUnitId": "grade-9-secondary-sta-p1-15",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.7166666666666667,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 2,
+      "dominantTemplateRate": 0.6666666666666666,
+      "operandSignatureDiversity": 0.2833333333333333,
+      "answerLabelDiversity": 0.08333333333333333,
+      "answerKeyDistribution": {
+        "A": 14,
+        "B": 15,
+        "C": 12,
+        "D": 19
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.03333333333333333,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 72,
+          "medianNumberCount": 6,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 72,
+          "medianNumberCount": 6,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 78,
+          "medianNumberCount": 8,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "VISUAL_MISSING_OR_INCORRECT",
+          "INVALID_OR_AMBIGUOUS_QUESTION"
+        ],
+        "summary": "Query chỉ là tên family; solver thường lấy max/mean mà không nêu đại lượng cần đọc hoặc so sánh."
+      }
+    },
+    {
+      "variant": "CENTRAL_TENDENCY",
+      "runtimeReachable": true,
+      "representativeGrade": 4,
+      "representativeOutcomeId": "MOET2018-G4-NUM-P035-012",
+      "representativeUnitId": "grade-4-number-patterns-p1",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.7333333333333334,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 2,
+      "dominantTemplateRate": 0.6666666666666666,
+      "operandSignatureDiversity": 0.26666666666666666,
+      "answerLabelDiversity": 0.21666666666666667,
+      "answerKeyDistribution": {
+        "A": 14,
+        "B": 12,
+        "C": 18,
+        "D": 16
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.03333333333333333,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 88,
+          "medianNumberCount": 6,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 88,
+          "medianNumberCount": 6,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 94,
+          "medianNumberCount": 8,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "VISUAL_MISSING_OR_INCORRECT",
+          "INVALID_OR_AMBIGUOUS_QUESTION"
+        ],
+        "summary": "Query chỉ là tên family; solver thường lấy max/mean mà không nêu đại lượng cần đọc hoặc so sánh."
+      }
+    },
+    {
+      "variant": "DATA_COMPARISON",
+      "runtimeReachable": true,
+      "representativeGrade": 3,
+      "representativeOutcomeId": "MOET2018-G3-STA-P033-002",
+      "representativeUnitId": "grade-3-data-and-probability",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.7,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 2,
+      "dominantTemplateRate": 0.6666666666666666,
+      "operandSignatureDiversity": 0.3,
+      "answerLabelDiversity": 0.08333333333333333,
+      "answerKeyDistribution": {
+        "A": 15,
+        "B": 17,
+        "C": 14,
+        "D": 14
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.03333333333333333,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 71,
+          "medianNumberCount": 6,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 71,
+          "medianNumberCount": 6,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 77,
+          "medianNumberCount": 8,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "VISUAL_MISSING_OR_INCORRECT",
+          "INVALID_OR_AMBIGUOUS_QUESTION"
+        ],
+        "summary": "Query chỉ là tên family; solver thường lấy max/mean mà không nêu đại lượng cần đọc hoặc so sánh."
+      }
+    },
+    {
+      "variant": "EXPERIMENTAL_PROBABILITY",
+      "runtimeReachable": true,
+      "representativeGrade": 4,
+      "representativeOutcomeId": "MOET2018-G4-STA-P039-004",
+      "representativeUnitId": "grade-4-data-and-probability",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.7,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 2,
+      "dominantTemplateRate": 0.6666666666666666,
+      "operandSignatureDiversity": 0.3,
+      "answerLabelDiversity": 0.03333333333333333,
+      "answerKeyDistribution": {
+        "A": 9,
+        "B": 19,
+        "C": 14,
+        "D": 18
+      },
+      "distractorTemplateDiversity": 0.016666666666666666,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.03333333333333333,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 76,
+          "medianNumberCount": 6,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 76,
+          "medianNumberCount": 6,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 82,
+          "medianNumberCount": 8,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "VISUAL_MISSING_OR_INCORRECT",
+          "OUTCOME_ALIGNMENT_WRONG"
+        ],
+        "summary": "Số trường hợp thuận lợi/tổng trường hợp dùng để chấm không xuất hiện đầy đủ trong prompt/visual."
+      }
+    },
+    {
+      "variant": "THEORETICAL_PROBABILITY",
+      "runtimeReachable": true,
+      "representativeGrade": 2,
+      "representativeOutcomeId": "MOET2018-G2-STA-P028-002",
+      "representativeUnitId": "grade-2-data-and-chance",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.7,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 2,
+      "dominantTemplateRate": 0.6666666666666666,
+      "operandSignatureDiversity": 0.3,
+      "answerLabelDiversity": 0.03333333333333333,
+      "answerKeyDistribution": {
+        "A": 15,
+        "B": 16,
+        "C": 13,
+        "D": 16
+      },
+      "distractorTemplateDiversity": 0.016666666666666666,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.03333333333333333,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 76,
+          "medianNumberCount": 6,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 76,
+          "medianNumberCount": 6,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 82,
+          "medianNumberCount": 8,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "VISUAL_MISSING_OR_INCORRECT",
+          "OUTCOME_ALIGNMENT_WRONG"
+        ],
+        "summary": "Số trường hợp thuận lợi/tổng trường hợp dùng để chấm không xuất hiện đầy đủ trong prompt/visual."
+      }
+    },
+    {
+      "variant": "SAMPLE_SPACE",
+      "runtimeReachable": true,
+      "representativeGrade": 9,
+      "representativeOutcomeId": "MOET2018-G9-STA-P077-015",
+      "representativeUnitId": "grade-9-secondary-sta-p1-15",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.75,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 2,
+      "dominantTemplateRate": 0.6666666666666666,
+      "operandSignatureDiversity": 0.25,
+      "answerLabelDiversity": 0.06666666666666667,
+      "answerKeyDistribution": {
+        "A": 13,
+        "B": 21,
+        "C": 13,
+        "D": 13
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.03333333333333333,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 70,
+          "medianNumberCount": 6,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 70,
+          "medianNumberCount": 6,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 76,
+          "medianNumberCount": 8,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "INVALID_OR_AMBIGUOUS_QUESTION",
+          "VISUAL_MISSING_OR_INCORRECT",
+          "OUTCOME_ALIGNMENT_WRONG"
+        ],
+        "summary": "Số trường hợp thuận lợi/tổng trường hợp dùng để chấm không xuất hiện đầy đủ trong prompt/visual."
+      }
+    },
+    {
+      "variant": "ONE_STEP_CONTEXT",
+      "runtimeReachable": true,
+      "representativeGrade": 5,
+      "representativeOutcomeId": "MOET2018-G5-GEO-P044-008",
+      "representativeUnitId": "grade-5-calculator-motion-p1",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.7833333333333333,
+      "answerKeyDistribution": {
+        "A": 14,
+        "B": 18,
+        "C": 10,
+        "D": 18
+      },
+      "distractorTemplateDiversity": 0.005555555555555556,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 89,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 89,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 89,
+          "medianNumberCount": 4,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "LANGUAGE_QUALITY",
+          "FEEDBACK_OR_EXPLANATION_WEAK"
+        ],
+        "summary": "Không tạo tình huống toán học thật; chỉ liệt kê đại lượng hoặc lặp lại câu mô tả outcome."
+      }
+    },
+    {
+      "variant": "MULTI_STEP_CONTEXT",
+      "runtimeReachable": false,
+      "representativeGrade": null,
+      "representativeOutcomeId": null,
+      "representativeUnitId": null,
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.9166666666666666,
+      "answerKeyDistribution": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "distractorTemplateDiversity": 0,
+      "visualTypeDiversity": 0,
+      "visualTemplateDiversity": 0,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 76,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 76,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 77,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "UNIMPLEMENTED_VARIANT",
+          "RUNTIME_DISCONNECTED"
+        ],
+        "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist."
+      }
+    },
+    {
+      "variant": "INFORMATION_SELECTION",
+      "runtimeReachable": false,
+      "representativeGrade": null,
+      "representativeOutcomeId": null,
+      "representativeUnitId": null,
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.016666666666666666,
+      "answerKeyDistribution": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "distractorTemplateDiversity": 0,
+      "visualTypeDiversity": 0,
+      "visualTemplateDiversity": 0,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 79,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 80,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 80,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "UNIMPLEMENTED_VARIANT",
+          "RUNTIME_DISCONNECTED"
+        ],
+        "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist."
+      }
+    },
+    {
+      "variant": "INSUFFICIENT_INFORMATION",
+      "runtimeReachable": false,
+      "representativeGrade": null,
+      "representativeOutcomeId": null,
+      "representativeUnitId": null,
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.9166666666666666,
+      "answerKeyDistribution": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "distractorTemplateDiversity": 0,
+      "visualTypeDiversity": 0,
+      "visualTemplateDiversity": 0,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 82,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 82,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 83,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "UNIMPLEMENTED_VARIANT",
+          "RUNTIME_DISCONNECTED"
+        ],
+        "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist."
+      }
+    },
+    {
+      "variant": "ERROR_DETECTION",
+      "runtimeReachable": false,
+      "representativeGrade": null,
+      "representativeOutcomeId": null,
+      "representativeUnitId": null,
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.9333333333333333,
+      "answerKeyDistribution": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "distractorTemplateDiversity": 0,
+      "visualTypeDiversity": 0,
+      "visualTemplateDiversity": 0,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 73,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 73,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 74,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "UNIMPLEMENTED_VARIANT",
+          "RUNTIME_DISCONNECTED"
+        ],
+        "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist."
+      }
+    },
+    {
+      "variant": "MATHEMATICAL_MODELING",
+      "runtimeReachable": false,
+      "representativeGrade": null,
+      "representativeOutcomeId": null,
+      "representativeUnitId": null,
+      "sampleCount": 60,
+      "exactDuplicateRate": 0,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 1,
+      "answerLabelDiversity": 0.9333333333333333,
+      "answerKeyDistribution": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "distractorTemplateDiversity": 0,
+      "visualTypeDiversity": 0,
+      "visualTemplateDiversity": 0,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 79,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 80,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 80,
+          "medianNumberCount": 3,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "UNIMPLEMENTED_VARIANT",
+          "RUNTIME_DISCONNECTED"
+        ],
+        "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist."
+      }
+    },
+    {
+      "variant": "EXPLANATION_REASONING",
+      "runtimeReachable": true,
+      "representativeGrade": 1,
+      "representativeOutcomeId": "MOET2018-G1-NUM-P022-003",
+      "representativeUnitId": "grade-1-number-operations-to-100-preview",
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.9833333333333333,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.016666666666666666,
+      "answerLabelDiversity": 0.016666666666666666,
+      "answerKeyDistribution": {
+        "A": 14,
+        "B": 13,
+        "C": 18,
+        "D": 15
+      },
+      "distractorTemplateDiversity": 0.016666666666666666,
+      "visualTypeDiversity": 1,
+      "visualTemplateDiversity": 1,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 121,
+          "medianNumberCount": 1,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 121,
+          "medianNumberCount": 1,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 121,
+          "medianNumberCount": 1,
+          "uniqueTemplates": 1,
+          "visualTypes": [
+            "TEXT_ONLY"
+          ],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "HIGH",
+        "categories": [
+          "OUTCOME_ALIGNMENT_WRONG",
+          "LANGUAGE_QUALITY",
+          "FEEDBACK_OR_EXPLANATION_WEAK"
+        ],
+        "summary": "Không tạo tình huống toán học thật; chỉ liệt kê đại lượng hoặc lặp lại câu mô tả outcome."
+      }
+    },
+    {
+      "variant": "REPRESENTATION_CONSTRUCTION",
+      "runtimeReachable": false,
+      "representativeGrade": null,
+      "representativeOutcomeId": null,
+      "representativeUnitId": null,
+      "sampleCount": 60,
+      "exactDuplicateRate": 0.9833333333333333,
+      "nearDuplicatePairRate": 1,
+      "uniqueTemplateCount": 1,
+      "dominantTemplateRate": 1,
+      "operandSignatureDiversity": 0.016666666666666666,
+      "answerLabelDiversity": 0.016666666666666666,
+      "answerKeyDistribution": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "distractorTemplateDiversity": 0,
+      "visualTypeDiversity": 0,
+      "visualTemplateDiversity": 0,
+      "linguisticTemplateDiversity": 0.016666666666666666,
+      "difficulty": {
+        "EASY": {
+          "sampleCount": 20,
+          "medianPromptLength": 81,
+          "medianNumberCount": 0,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            1
+          ]
+        },
+        "MEDIUM": {
+          "sampleCount": 20,
+          "medianPromptLength": 81,
+          "medianNumberCount": 0,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            2
+          ]
+        },
+        "HARD": {
+          "sampleCount": 20,
+          "medianPromptLength": 81,
+          "medianNumberCount": 0,
+          "uniqueTemplates": 1,
+          "visualTypes": [],
+          "complexity": [
+            3
+          ]
+        }
+      },
+      "productVerdict": {
+        "usable": false,
+        "severity": "CRITICAL",
+        "categories": [
+          "UNIMPLEMENTED_VARIANT",
+          "RUNTIME_DISCONNECTED"
+        ],
+        "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist."
+      }
+    }
+  ]
+}

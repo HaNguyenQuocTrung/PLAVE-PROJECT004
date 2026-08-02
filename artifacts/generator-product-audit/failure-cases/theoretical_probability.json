@@ -1,0 +1,99 @@
+{
+  "variant": "THEORETICAL_PROBABILITY",
+  "severity": "CRITICAL",
+  "categories": [
+    "INVALID_OR_AMBIGUOUS_QUESTION",
+    "VISUAL_MISSING_OR_INCORRECT",
+    "OUTCOME_ALIGNMENT_WRONG"
+  ],
+  "summary": "Số trường hợp thuận lợi/tổng trường hợp dùng để chấm không xuất hiện đầy đủ trong prompt/visual.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-3bec3b1df8b4a055b9bfa43a776a9a155163369898eb30f0",
+  "reproductionSeedFingerprint": "3bec3b1df8b4a055",
+  "reproductionSampleId": "THEORETICAL_PROBABILITY:EASY:1",
+  "sample": {
+    "sampleId": "THEORETICAL_PROBABILITY:EASY:1",
+    "variant": "THEORETICAL_PROBABILITY",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-3bec3b1df8b4a055b9bfa43a776a9a155163369898eb30f0",
+    "seedFingerprint": "3bec3b1df8b4a055",
+    "runtimeReachable": true,
+    "grade": 2,
+    "outcomeId": "MOET2018-G2-STA-P028-002",
+    "unitId": "grade-2-data-and-chance",
+    "astKind": "DATA",
+    "complexity": 1,
+    "prompt": "Bộ dữ liệu 1: Cho dữ liệu 2, 3, 4, 5, 6. Hãy thực hiện xác suất của biến cố.",
+    "normalizedTemplate": "xộ xữ liệu #: cho xữ liệu #, #, #, #, #. hãy thựx hiện xáx suất xủx biến xố.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "Phát biểu đảo của quan hệ đã nêu",
+      "Một quan hệ không suy ra từ dữ kiện",
+      "Không đủ dữ kiện",
+      "1/4"
+    ],
+    "correctOptionKey": "D",
+    "correctOptionLabel": "1/4",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn D."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-73198ad4ad26bbe892c2a477d6c906e8",
+      "position": 1,
+      "prompt": "Bộ dữ liệu 1: Cho dữ liệu 2, 3, 4, 5, 6. Hãy thực hiện xác suất của biến cố.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "Phát biểu đảo của quan hệ đã nêu"
+        },
+        {
+          "key": "B",
+          "label": "Một quan hệ không suy ra từ dữ kiện"
+        },
+        {
+          "key": "C",
+          "label": "Không đủ dữ kiện"
+        },
+        {
+          "key": "D",
+          "label": "1/4"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "CRITICAL",
+      "categories": [
+        "INVALID_OR_AMBIGUOUS_QUESTION",
+        "VISUAL_MISSING_OR_INCORRECT",
+        "OUTCOME_ALIGNMENT_WRONG"
+      ],
+      "summary": "Số trường hợp thuận lợi/tổng trường hợp dùng để chấm không xuất hiện đầy đủ trong prompt/visual."
+    }
+  }
+}

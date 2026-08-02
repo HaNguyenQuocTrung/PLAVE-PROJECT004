@@ -1,0 +1,230 @@
+{
+  "status": "PASS",
+  "baselineChecksums": [
+    {
+      "version": "0001",
+      "sha256": "834717685a6a05610fea6d5b9574a06cc385f725fd69c9fd2633a49383b4fe47"
+    },
+    {
+      "version": "0002",
+      "sha256": "51d89eac020302b73bfbd4e7fff2ea7d48507780d56c4d2920a385405d82621c"
+    },
+    {
+      "version": "0003",
+      "sha256": "33c8bf3f09d7bc1abd00f05921a75cefd0c7723bdd40c7060e6a6d5a6a7d63f6"
+    },
+    {
+      "version": "0004",
+      "sha256": "523883eeff975728f9e51668a94c7b5b3efa77db5167352fdaba76012096d193"
+    },
+    {
+      "version": "0005",
+      "sha256": "f557d99a102f9c55c2de8edf11dd45339abbe140525c3a3c92aebf6006847048"
+    },
+    {
+      "version": "0006",
+      "sha256": "630dfedf10fdf426e7dd49bcf2a43964365086f9d94b6b9fba9aef775a4e5143"
+    },
+    {
+      "version": "0007",
+      "sha256": "57e9fa303e682a82c9754d7f796db9ca0d45408285a309f8d523332b6eae9231"
+    },
+    {
+      "version": "0008",
+      "sha256": "9a591ad4da319e174387ac7d73036c7ca2b1c54b81345f86fe726020eb07ad8b"
+    },
+    {
+      "version": "0009",
+      "sha256": "20fca973a30eb04608aa79ee879887c5987c84169dad2a065d0e6a4779a4316d"
+    },
+    {
+      "version": "0010",
+      "sha256": "e41d8df50a77f32f5d87a3c3623c5f082937530ec280ec31fc0028c691007e7c"
+    },
+    {
+      "version": "0011",
+      "sha256": "4eb84eed7b497d3f0f9be36240bdeb64f0316c9f640faf1c790798c7aefe1344"
+    },
+    {
+      "version": "0012",
+      "sha256": "b59029a8088d5f138dc051143345cbe13d73fc0fc4ffe833d6b8a259c9b858b2"
+    },
+    {
+      "version": "0013",
+      "sha256": "45e86e5b1f185cb7e1654c17ecae430d2c593e359a1ad7ecee214a39b9e52852"
+    },
+    {
+      "version": "0014",
+      "sha256": "74b7679c4337647986e7db460d019b1f68c983285fe483f4442785b532bd5a1b"
+    },
+    {
+      "version": "0015",
+      "sha256": "780492e2ebb7878497afb85d696a78110d0a9fe49a654a76f56bd791840e796b"
+    },
+    {
+      "version": "0016",
+      "sha256": "ecc2625713b618fbf0b45cd2eac16933d32c86da8db0931334526ec77914cbac"
+    },
+    {
+      "version": "0017",
+      "sha256": "b02fb31a38852a7e93c326ea220b61f155fd437924919fd49a5fbcf5ebd9a889"
+    },
+    {
+      "version": "0018",
+      "sha256": "bebf63d9955fb4e1a2e17dc282301d27d3250773e7d212481476203903fc9788"
+    },
+    {
+      "version": "0019",
+      "sha256": "3c3cc28a61720c2d82f49c20f68bf4892c364d15185209330c25e329c55a4230"
+    },
+    {
+      "version": "0020",
+      "sha256": "2894000aeaba173b2610ba51d7355c1e9d53a090875333c6918dfecad423234c"
+    },
+    {
+      "version": "0021",
+      "sha256": "ef63e2822e2a405052653a809364775f5d2c92fbcd190680f060e8b87de0e438"
+    },
+    {
+      "version": "0022",
+      "sha256": "26bb83099a5a564d5a3c974eefc90df0e2b1264c60fd1a9fc8b0e34ec72268aa"
+    },
+    {
+      "version": "0023",
+      "sha256": "eadb02abb8ea71a5ae7bcf1d2bf16871e67e6a97fc19bda7f437d04f75fa17d5"
+    },
+    {
+      "version": "0024",
+      "sha256": "5846538c19eb28a806f184ff834fb246fe12446cb4ba6300375506409fbde7cf"
+    },
+    {
+      "version": "0025",
+      "sha256": "7149158dbe50e55c4a383fb8216dffb454b2ef85d6e8aa4db5ac87bb15a6038e"
+    },
+    {
+      "version": "0026",
+      "sha256": "3ef58d800964ecd5e153dc9717ebc3bfa7df06005d0151e47eea05c581c9dc64"
+    },
+    {
+      "version": "0027",
+      "sha256": "379ffaba5331e0daaa11e7986857117b9e765f1183cf7a938ac0353b68288424"
+    },
+    {
+      "version": "0028",
+      "sha256": "f6fa938e2742a7694de051fb7348219fe4dc2946d6778946c9235b0c1a6bbe66"
+    },
+    {
+      "version": "0029",
+      "sha256": "f50a76c623bbcf712c58a42602bfe9d0542ff6cfce81549f7e41dcec01c7951d"
+    },
+    {
+      "version": "0030",
+      "sha256": "84cd4270713ca027a2998cead4159c5b48100efc3398553d55fbc24125e496ea"
+    },
+    {
+      "version": "0031",
+      "sha256": "6e9e539f6c83dabf375940189ee33c6d1dce7e4bd8be3580b4ebaed2057ef400"
+    },
+    {
+      "version": "0032",
+      "sha256": "d3d448c7ee050298a981d208c0b25cb347ea7433cdc4c4aa623b3168aa22c01c"
+    },
+    {
+      "version": "0033",
+      "sha256": "f16c67aba53b7d7cbb964bdd56bceb8adbde5794a13c46e052935eda591b4c78"
+    },
+    {
+      "version": "0034",
+      "sha256": "911e29673595d9a8d6b44dff06bfc228deb105499c4bb2a0cd62136477ad02a5"
+    },
+    {
+      "version": "0035",
+      "sha256": "67bef151f4a8744c107835ce98ab5a5c30372cf76ff0328e02c1ca8649c7f206"
+    },
+    {
+      "version": "0036",
+      "sha256": "d88b21c866c5d19708dc544faaa2c5828e3127844c50f0d7e76a3716c07fc6f1"
+    },
+    {
+      "version": "0037",
+      "sha256": "91e2a4bb918bf894903f313d65d93bd80d8be98fad4fa2a1ca7c59cbbfe1b070"
+    },
+    {
+      "version": "0038",
+      "sha256": "9eee72dbdb6f3a8115fa6e92e73092b178b34d2dd6514ce3b307ba65f55bea8f"
+    },
+    {
+      "version": "0039",
+      "sha256": "d696c9666b530d86f1cf7484757df657e542f243aa11f0daae8f81a23f79de58"
+    },
+    {
+      "version": "0040",
+      "sha256": "76029128509b49bc8635a76f1200f0b29e8346b510e039270171a1e6ee982643"
+    },
+    {
+      "version": "0041",
+      "sha256": "ddead90b474185686d859d9ba88aea969bebd7fc8e8fcff66fc38eea61f83e67"
+    }
+  ],
+  "baselineChecksumDigest": "6667db45c0fa6f2fcaca571da968d2b04402146d97302cb0b79451775e7293c4",
+  "migration0042Sha256": "c3adecf481c8eb8b50872a4b165ea29539598f568f91cdd5f7993b3cc04662d7",
+  "freshInstall": "PASS_VIA_GENERATOR_V2_DATABASE_PROOF",
+  "upgradePath": "PASS",
+  "transactionWrapped": true,
+  "failureInjectionRollback": "PASS",
+  "before": {
+    "label": "BEFORE_0042",
+    "owner": "postgres",
+    "proconfig": [
+      "search_path=\"\""
+    ],
+    "prosecdef": false,
+    "definition": "CREATE OR REPLACE FUNCTION private.enforce_generated_question_provenance()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO ''\nAS $function$\ndeclare\n  v_current public.curriculum_generated_questions%rowtype;\nbegin\n  select question.* into v_current\n  from public.curriculum_generated_questions as question\n  where question.attempt_id = new.attempt_id\n    and question.question_id = new.question_id;\n  if not found then return null; end if;\n  if\n    v_current.question_source = 'LEGACY_GENERATED_V1'\n    and (\n      v_current.semantic_provenance_locked\n      or v_current.semantic_variant_id is not null\n      or v_current.semantic_variant_version is not null\n      or v_current.solver_version is not null\n      or v_current.solver_receipt_hash is not null\n      or v_current.difficulty_policy_version is not null\n      or v_current.seed_fingerprint is not null\n      or v_current.ast_hash is not null\n      or v_current.visual_hash is not null\n    )\n  then\n    raise exception using errcode = 'P0001',\n      message = 'CURRICULUM:INVALID_SEMANTIC_PROVENANCE';\n  end if;\n  if\n    v_current.question_source = 'PENDING_SEMANTIC_V1'\n  then\n    if\n      pg_catalog.current_setting(\n        'plave.semantic_provenance_write',\n        true\n      ) = 'enabled'\n    then\n      return null;\n    end if;\n    raise exception using errcode = 'P0001',\n      message = 'CURRICULUM:INCOMPLETE_SEMANTIC_PROVENANCE';\n  end if;\n  if\n    v_current.question_source = 'SEMANTIC_GENERATED_V1'\n    and (\n      not v_current.semantic_provenance_locked\n      or v_current.semantic_variant_id is null\n      or v_current.semantic_variant_version is null\n      or v_current.solver_version is null\n      or v_current.solver_receipt_hash is null\n      or v_current.difficulty_policy_version is null\n      or v_current.seed_fingerprint is null\n      or v_current.ast_hash is null\n      or v_current.visual_hash is null\n    )\n  then\n    raise exception using errcode = 'P0001',\n      message = 'CURRICULUM:INCOMPLETE_SEMANTIC_PROVENANCE';\n  end if;\n  return null;\nend;\n$function$\n",
+    "volatility": "v",
+    "anonExecute": false,
+    "migrationLast": "0041",
+    "publicExecute": false,
+    "migrationCount": 41,
+    "migrationFirst": "0001",
+    "triggerDeferrable": true,
+    "triggerDefinition": "CREATE CONSTRAINT TRIGGER curriculum_generated_question_provenance_complete AFTER INSERT OR UPDATE ON curriculum_generated_questions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION private.enforce_generated_question_provenance()",
+    "authenticatedExecute": false,
+    "privateSolutionsSelect": false,
+    "generatedQuestionsDelete": false,
+    "generatedQuestionsInsert": false,
+    "generatedQuestionsSelect": false,
+    "generatedQuestionsUpdate": false,
+    "triggerInitiallyDeferred": true
+  },
+  "after": {
+    "label": "AFTER_0042",
+    "owner": "postgres",
+    "proconfig": [
+      "search_path=\"\""
+    ],
+    "prosecdef": true,
+    "definition": "CREATE OR REPLACE FUNCTION private.enforce_generated_question_provenance()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\ndeclare\n  v_current public.curriculum_generated_questions%rowtype;\nbegin\n  select question.* into v_current\n  from public.curriculum_generated_questions as question\n  where question.attempt_id = new.attempt_id\n    and question.question_id = new.question_id;\n  if not found then return null; end if;\n  if\n    v_current.question_source = 'LEGACY_GENERATED_V1'\n    and (\n      v_current.semantic_provenance_locked\n      or v_current.semantic_variant_id is not null\n      or v_current.semantic_variant_version is not null\n      or v_current.solver_version is not null\n      or v_current.solver_receipt_hash is not null\n      or v_current.difficulty_policy_version is not null\n      or v_current.seed_fingerprint is not null\n      or v_current.ast_hash is not null\n      or v_current.visual_hash is not null\n    )\n  then\n    raise exception using errcode = 'P0001',\n      message = 'CURRICULUM:INVALID_SEMANTIC_PROVENANCE';\n  end if;\n  if\n    v_current.question_source = 'PENDING_SEMANTIC_V1'\n  then\n    if\n      pg_catalog.current_setting(\n        'plave.semantic_provenance_write',\n        true\n      ) = 'enabled'\n    then\n      return null;\n    end if;\n    raise exception using errcode = 'P0001',\n      message = 'CURRICULUM:INCOMPLETE_SEMANTIC_PROVENANCE';\n  end if;\n  if\n    v_current.question_source = 'SEMANTIC_GENERATED_V1'\n    and (\n      not v_current.semantic_provenance_locked\n      or v_current.semantic_variant_id is null\n      or v_current.semantic_variant_version is null\n      or v_current.solver_version is null\n      or v_current.solver_receipt_hash is null\n      or v_current.difficulty_policy_version is null\n      or v_current.seed_fingerprint is null\n      or v_current.ast_hash is null\n      or v_current.visual_hash is null\n    )\n  then\n    raise exception using errcode = 'P0001',\n      message = 'CURRICULUM:INCOMPLETE_SEMANTIC_PROVENANCE';\n  end if;\n  return null;\nend;\n$function$\n",
+    "volatility": "v",
+    "anonExecute": false,
+    "migrationLast": "0042",
+    "publicExecute": false,
+    "migrationCount": 42,
+    "migrationFirst": "0001",
+    "triggerDeferrable": true,
+    "triggerDefinition": "CREATE CONSTRAINT TRIGGER curriculum_generated_question_provenance_complete AFTER INSERT OR UPDATE ON curriculum_generated_questions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION private.enforce_generated_question_provenance()",
+    "authenticatedExecute": false,
+    "privateSolutionsSelect": false,
+    "generatedQuestionsDelete": false,
+    "generatedQuestionsInsert": false,
+    "generatedQuestionsSelect": false,
+    "generatedQuestionsUpdate": false,
+    "triggerInitiallyDeferred": true
+  },
+  "directInvocation": "DENIED",
+  "directTablePrivileges": "DENIED",
+  "privateSolutionRead": "DENIED",
+  "searchPathShadowing": "PASS",
+  "remoteAccessPerformed": false,
+  "remoteMutationPerformed": false,
+  "cleanup": "PASS"
+}

@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "result": "PASS",
+  "provenSliceControls": {
+    "status": "PASS_EXISTING_V2_BASELINE",
+    "evidence": "tests/generation-v2.test.ts",
+    "controls": [
+      "AMBIGUOUS_ANSWERS",
+      "INVALID_UNITS",
+      "OUT_OF_GRADE_BOUNDS",
+      "PROMPT_MODEL_MISMATCH",
+      "VISUAL_DATA_MISMATCH",
+      "RELABELED_AST",
+      "DUPLICATE_DISTRACTORS",
+      "DISTRACTOR_ALSO_CORRECT",
+      "UNSUPPORTED_INTERACTION",
+      "DIFFICULTY_RELABEL_WITHOUT_STRUCTURE_CHANGE",
+      "PRIVATE_SOLUTION_LEAK"
+    ]
+  },
+  "fullCoverageControls": {
+    "status": "PASS",
+    "capabilityFamilies": 198,
+    "waveArtifacts": [
+      "artifacts/generator-v2-wave-a/negative-controls.json",
+      "artifacts/generator-v2-wave-b/negative-controls.json",
+      "artifacts/generator-v2-wave-c/negative-controls.json",
+      "artifacts/generator-v2-wave-d/negative-controls.json",
+      "artifacts/generator-v2-wave-e/negative-controls.json",
+      "artifacts/generator-v2-wave-f/negative-controls.json"
+    ],
+    "unknownOutcome": "GENERATOR_V2_OUTCOME_NOT_IMPLEMENTED",
+    "malformedContract": "REJECTED",
+    "invalidDomainOrParameter": "REJECTED",
+    "ambiguousAnswer": "REJECTED",
+    "invalidUnitOrPrecision": "REJECTED",
+    "impossibleVisualOrDataState": "REJECTED",
+    "outOfGradeContent": "REJECTED",
+    "promptVisualMismatch": "REJECTED",
+    "privateLeak": "REJECTED",
+    "duplicateViolation": "REJECTED",
+    "nearDuplicateViolation": "REJECTED"
+  }
+}

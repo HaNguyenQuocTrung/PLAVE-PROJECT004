@@ -1,0 +1,99 @@
+{
+  "variant": "SUBSTITUTION",
+  "severity": "HIGH",
+  "categories": [
+    "OUTCOME_ALIGNMENT_WRONG",
+    "GRADE_LEVEL_WRONG",
+    "INVALID_OR_AMBIGUOUS_QUESTION"
+  ],
+  "summary": "Hầu hết variant đại số dùng cùng AST ax+b và cùng phép thế giá trị, kể cả khi outcome yêu cầu việc khác.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-02c894c19975fd8ec048bf65c64648497fc30c11d2dce51b",
+  "reproductionSeedFingerprint": "02c894c19975fd8e",
+  "reproductionSampleId": "SUBSTITUTION:EASY:1",
+  "sample": {
+    "sampleId": "SUBSTITUTION:EASY:1",
+    "variant": "SUBSTITUTION",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-02c894c19975fd8ec048bf65c64648497fc30c11d2dce51b",
+    "seedFingerprint": "02c894c19975fd8e",
+    "runtimeReachable": true,
+    "grade": 3,
+    "outcomeId": "MOET2018-G3-NUM-P030-019",
+    "unitId": "grade-3-multiplicative-expression-p1",
+    "astKind": "ALGEBRA",
+    "complexity": 1,
+    "prompt": "Thực hiện thay giá trị vào biểu thức với biểu thức 2x + 11, x = 13.",
+    "normalizedTemplate": "thựx hiện thay giá trị vào biểu thứx với biểu thứx #x + #, x = #.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "36",
+      "39",
+      "37",
+      "38"
+    ],
+    "correctOptionKey": "C",
+    "correctOptionLabel": "37",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn C."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-1830545f95905e4a6548b4db21995d63",
+      "position": 1,
+      "prompt": "Thực hiện thay giá trị vào biểu thức với biểu thức 2x + 11, x = 13.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "36"
+        },
+        {
+          "key": "B",
+          "label": "39"
+        },
+        {
+          "key": "C",
+          "label": "37"
+        },
+        {
+          "key": "D",
+          "label": "38"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "HIGH",
+      "categories": [
+        "OUTCOME_ALIGNMENT_WRONG",
+        "GRADE_LEVEL_WRONG",
+        "INVALID_OR_AMBIGUOUS_QUESTION"
+      ],
+      "summary": "Hầu hết variant đại số dùng cùng AST ax+b và cùng phép thế giá trị, kể cả khi outcome yêu cầu việc khác."
+    }
+  }
+}

@@ -1,0 +1,577 @@
+{
+  "schemaVersion": 1,
+  "result": "PASS",
+  "controls": [
+    {
+      "outcomeId": "MOET2018-G2-NUM-P024-001",
+      "capability": "NUMBER_RECOGNITION_REPRESENTATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P024-003",
+      "capability": "PLACE_VALUE_COMPOSE",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P024-004",
+      "capability": "PLACE_VALUE_COMPOSE",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-001",
+      "capability": "NUMBER_RECOGNITION_REPRESENTATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-002",
+      "capability": "ROUND_ESTIMATE",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-003",
+      "capability": "COMPARE_ORDER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-005",
+      "capability": "ROMAN_NUMERAL",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-006",
+      "capability": "PLACE_VALUE_COMPOSE",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-007",
+      "capability": "OPERATION_PROPERTY",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-008",
+      "capability": "WRITTEN_ARITHMETIC",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-009",
+      "capability": "COMPARE_ORDER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-011",
+      "capability": "COMPARE_ORDER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-015",
+      "capability": "OPERATION_PROPERTY",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-017",
+      "capability": "MULTIPLY_DIVIDE",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-018",
+      "capability": "WRITTEN_ARITHMETIC",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P031-024",
+      "capability": "FRACTION_UNIT_QUANTITY",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P034-001",
+      "capability": "NUMBER_RECOGNITION_REPRESENTATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P034-003",
+      "capability": "COMPARE_ORDER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P034-005",
+      "capability": "PARITY_CLASSIFICATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P036-016",
+      "capability": "FRACTION_REPRESENTATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P036-019",
+      "capability": "FRACTION_EQUIVALENCE",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P041-009",
+      "capability": "RATIONAL_COMPARE_ORDER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P041-011",
+      "capability": "DECIMAL_COMPARE_ORDER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "UNCONTROLLED_DECIMAL_SCALE"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P043-024",
+      "capability": "PERCENTAGE_REASONING",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "UNCONTROLLED_DECIMAL_SCALE"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-STA-P045-007",
+      "capability": "PERCENTAGE_REASONING",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-002",
+      "capability": "NUMBER_RECOGNITION_REPRESENTATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-031",
+      "capability": "FRACTION_APPLICATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-033",
+      "capability": "FRACTION_EQUIVALENCE",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-035",
+      "capability": "FRACTION_EQUIVALENCE",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-038",
+      "capability": "OPPOSITE_NUMBER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-040",
+      "capability": "RATIONAL_OPERATIONS",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-043",
+      "capability": "NUMERIC_OPERATION_PROPERTIES",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-044",
+      "capability": "DECIMAL_APPLICATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "UNCONTROLLED_DECIMAL_SCALE"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-045",
+      "capability": "OPPOSITE_NUMBER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "UNCONTROLLED_DECIMAL_SCALE"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-047",
+      "capability": "DECIMAL_OPERATIONS",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "UNCONTROLLED_DECIMAL_SCALE"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-050",
+      "capability": "RATIO_PROPORTION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "UNCONTROLLED_DECIMAL_SCALE"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-051",
+      "capability": "NUMERIC_OPERATION_PROPERTIES",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "UNCONTROLLED_DECIMAL_SCALE"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G6-GEO-P051-008",
+      "capability": "SYMMETRY_RECOGNITION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G6-GEO-P051-010",
+      "capability": "SYMMETRY_RECOGNITION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P055-001",
+      "capability": "RATIONAL_NUMBER_LINE",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P055-002",
+      "capability": "OPPOSITE_NUMBER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P055-003",
+      "capability": "NUMBER_SET_CLASSIFICATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P055-004",
+      "capability": "NUMBER_SET_CLASSIFICATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-006",
+      "capability": "RATIONAL_POWER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-007",
+      "capability": "RATIONAL_OPERATION_ORDER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-010",
+      "capability": "OPPOSITE_NUMBER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-011",
+      "capability": "NUMBER_SET_CLASSIFICATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-012",
+      "capability": "NUMBER_SET_CLASSIFICATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-013",
+      "capability": "RATIONAL_COMPARE_ORDER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-014",
+      "capability": "RATIONAL_NUMBER_LINE",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-015",
+      "capability": "RATIONAL_COMPARE_ORDER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-016",
+      "capability": "RATIONAL_OPERATIONS",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-018",
+      "capability": "NUMERIC_OPERATION_PROPERTIES",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-019",
+      "capability": "PROPORTIONAL_REASONING",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "UNCONTROLLED_DECIMAL_SCALE"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-020",
+      "capability": "PROPORTIONAL_REASONING",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "UNCONTROLLED_DECIMAL_SCALE"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-026",
+      "capability": "REAL_NUMBER_ORDER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-027",
+      "capability": "REAL_NUMBER_ORDER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-028",
+      "capability": "RATIO_PROPORTION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "UNCONTROLLED_DECIMAL_SCALE"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-032",
+      "capability": "RATIO_PROPORTION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "UNCONTROLLED_DECIMAL_SCALE"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-EXP-P062-005",
+      "capability": "PERCENTAGE_REASONING",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "UNCONTROLLED_DECIMAL_SCALE"
+      ],
+      "result": "PASS"
+    }
+  ]
+}

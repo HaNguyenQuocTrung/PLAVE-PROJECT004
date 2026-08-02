@@ -22,7 +22,7 @@ export default async function ProfileEditPage() {
   }
 
   return (
-    <div className="profile-page page-shell">
+    <div className="profile-page account-page--v2 page-shell">
       <header className="catalog-hero profile-hero">
         <p className="eyebrow">Hồ sơ học sinh</p>
         <h1>Chỉnh sửa thông tin</h1>

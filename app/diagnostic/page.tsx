@@ -43,7 +43,7 @@ export default async function DiagnosticPage() {
     : null;
 
   return (
-    <main className="diagnostic-page page-shell">
+    <div className="diagnostic-page student-workspace-page--v2 page-shell">
       <header className="catalog-hero diagnostic-hero">
         <p className="eyebrow">Đánh giá năng lực Lớp 1</p>
         <h1>Khám phá bài học phù hợp với em</h1>
@@ -134,13 +134,12 @@ export default async function DiagnosticPage() {
             <p className="eyebrow">Sẵn sàng khi em muốn</p>
             <h2 id="diagnostic-start-title">Bắt đầu bài đánh giá đầu vào</h2>
             <p>
-              Kết quả giúp PLAVE đề xuất bài tiếp theo bằng quy tắc rõ ràng,
-              không sử dụng AI.
+              Kết quả giúp PLAVE gợi ý bài tiếp theo và nói rõ lý do lựa chọn.
             </p>
           </div>
           <StartDiagnosticButton label="Đánh giá năng lực" />
         </section>
       )}
-    </main>
+    </div>
   );
 }

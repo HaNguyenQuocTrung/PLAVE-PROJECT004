@@ -16,9 +16,9 @@ const content: Record<
   },
   GRADE: {
     eyebrow: "Nội dung chưa phù hợp",
-    title: "Bài học này dành cho học sinh lớp 1.",
+    title: "Bài học này không thuộc lớp hiện tại của em.",
     description:
-      "PLAVE không tự thay đổi lớp trong hồ sơ. Nội dung cho các lớp khác đang được xây dựng.",
+      "PLAVE giữ nguyên lớp trong hồ sơ để bảo vệ lộ trình và kết quả học. Em hãy chọn bài trong chương trình của mình.",
   },
   UNAVAILABLE: {
     eyebrow: "Dữ liệu chưa sẵn sàng",
@@ -43,7 +43,9 @@ export function LearningAccessState({ kind }: LearningAccessStateProps) {
       <h1>{state.title}</h1>
       <p>{state.description}</p>
       <div className="page-actions">
-        <Button href="/dashboard">Về trang chủ</Button>
+        <Button href={kind === "GRADE" ? "/lessons" : "/dashboard"}>
+          {kind === "GRADE" ? "Xem bài đúng lớp" : "Về Tổng quan"}
+        </Button>
       </div>
     </section>
   );

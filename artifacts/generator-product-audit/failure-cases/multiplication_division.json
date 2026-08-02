@@ -1,0 +1,99 @@
+{
+  "variant": "MULTIPLICATION_DIVISION",
+  "severity": "HIGH",
+  "categories": [
+    "INVALID_OR_AMBIGUOUS_QUESTION",
+    "DIFFICULTY_NOT_MEANINGFUL",
+    "LANGUAGE_QUALITY"
+  ],
+  "summary": "Prompt gộp nhiều phép toán nhưng solver âm thầm chọn một phép; không nói rõ học sinh phải tính gì.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-f7fb35c5212caacedc98c693de5560a1578a32c3a1b34785",
+  "reproductionSeedFingerprint": "f7fb35c5212caace",
+  "reproductionSampleId": "MULTIPLICATION_DIVISION:EASY:1",
+  "sample": {
+    "sampleId": "MULTIPLICATION_DIVISION:EASY:1",
+    "variant": "MULTIPLICATION_DIVISION",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-f7fb35c5212caacedc98c693de5560a1578a32c3a1b34785",
+    "seedFingerprint": "f7fb35c5212caace",
+    "runtimeReachable": true,
+    "grade": 2,
+    "outcomeId": "MOET2018-G2-NUM-P025-006",
+    "unitId": "grade-2-multiplication-division-components-p1",
+    "astKind": "OPERATION",
+    "complexity": 1,
+    "prompt": "Thực hiện yêu cầu nhân và chia với các số 30, 31.",
+    "normalizedTemplate": "thựx hiện yêu xầu nhân và chia với xáx số #, #.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "929",
+      "932",
+      "930",
+      "931"
+    ],
+    "correctOptionKey": "C",
+    "correctOptionLabel": "930",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn C."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-698cbd551b6654a8bb75f8480f6f3eed",
+      "position": 1,
+      "prompt": "Thực hiện yêu cầu nhân và chia với các số 30, 31.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "929"
+        },
+        {
+          "key": "B",
+          "label": "932"
+        },
+        {
+          "key": "C",
+          "label": "930"
+        },
+        {
+          "key": "D",
+          "label": "931"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "HIGH",
+      "categories": [
+        "INVALID_OR_AMBIGUOUS_QUESTION",
+        "DIFFICULTY_NOT_MEANINGFUL",
+        "LANGUAGE_QUALITY"
+      ],
+      "summary": "Prompt gộp nhiều phép toán nhưng solver âm thầm chọn một phép; không nói rõ học sinh phải tính gì."
+    }
+  }
+}

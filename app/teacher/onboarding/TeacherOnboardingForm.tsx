@@ -110,7 +110,12 @@ export function TeacherOnboardingForm({
   };
 
   return (
-    <form className="auth-card" onSubmit={submit} noValidate>
+    <form className="auth-card auth-card--v2" onSubmit={submit} noValidate>
+      <div className="auth-card__heading">
+        <p className="eyebrow">Tài khoản giáo viên</p>
+        <h2>Xác minh mã mời</h2>
+        <p>Mã được kiểm tra an toàn và không lưu trong URL hay trình duyệt.</p>
+      </div>
       <FormField
         id="teacher-full-name"
         label="Họ và tên"

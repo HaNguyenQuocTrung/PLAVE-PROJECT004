@@ -50,10 +50,10 @@ export function classifySignUpResult(
     (!error && data.user?.identities?.length === 0)
   ) {
     return {
-      ok: false,
+      ok: true,
       outcome: "USER_ALREADY_EXISTS",
       message:
-        "Tài khoản này có thể đã tồn tại. Hãy thử đăng nhập hoặc khôi phục mật khẩu.",
+        "Nếu thông tin hợp lệ, PLAVE sẽ gửi hướng dẫn xác nhận đến email này. Hãy kiểm tra cả thư rác trước khi thử đăng nhập.",
     };
   }
 

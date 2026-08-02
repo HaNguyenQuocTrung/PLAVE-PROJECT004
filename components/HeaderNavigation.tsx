@@ -10,6 +10,7 @@ import {
 } from "react";
 
 import { LogoutForm } from "@/components/LogoutForm";
+import { getNavigationIcon, PlaveIcon } from "@/components/PlaveIcon";
 import {
   isHeaderItemActive,
   type HeaderNavigationItem,
@@ -46,6 +47,8 @@ export function HeaderNavigation({
   const profileMenuOpen =
     profileMenuState.open && profileMenuState.pathname === pathname;
   const profileAreaRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const navigationPanelRef = useRef<HTMLDivElement>(null);
   const profileButtonRef = useRef<HTMLButtonElement>(null);
   const profileMenuRef = useRef<HTMLDivElement>(null);
   const setMenuOpen = (open: boolean) => {
@@ -65,13 +68,34 @@ export function HeaderNavigation({
           profileButtonRef.current?.focus();
         } else {
           setMenuState({ open: false, pathname });
-          document.getElementById("site-menu-toggle")?.focus();
+          menuButtonRef.current?.focus();
         }
       }
     };
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, [menuOpen, pathname, profileMenuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    window.requestAnimationFrame(() => {
+      navigationPanelRef.current
+        ?.querySelector<HTMLElement>("a, button:not([disabled])")
+        ?.focus();
+    });
+
+    const closeOnOutsideClick = (event: PointerEvent) => {
+      if (!(event.target instanceof Node)) return;
+      if (
+        !navigationPanelRef.current?.contains(event.target) &&
+        !menuButtonRef.current?.contains(event.target)
+      ) {
+        setMenuState({ open: false, pathname });
+      }
+    };
+    document.addEventListener("pointerdown", closeOnOutsideClick);
+    return () => document.removeEventListener("pointerdown", closeOnOutsideClick);
+  }, [menuOpen, pathname]);
 
   useEffect(() => {
     if (!profileMenuOpen) return;
@@ -205,6 +229,7 @@ export function HeaderNavigation({
   return (
     <>
       <button
+        ref={menuButtonRef}
         className="site-menu-toggle"
         id="site-menu-toggle"
         type="button"
@@ -227,6 +252,7 @@ export function HeaderNavigation({
       </button>
 
       <div
+        ref={navigationPanelRef}
         className={`site-navigation-panel ${
           menuOpen ? "site-navigation-panel--open" : ""
         }`}
@@ -242,7 +268,8 @@ export function HeaderNavigation({
                   key={item.href}
                   aria-disabled="true"
                 >
-                  {item.label}
+                  {authenticated ? <PlaveIcon name={getNavigationIcon(item.href)} /> : null}
+                  <span>{item.label}</span>
                   {item.badge ? <small>{item.badge}</small> : null}
                 </span>
               );
@@ -254,7 +281,8 @@ export function HeaderNavigation({
                 aria-current={active ? "page" : undefined}
                 onClick={() => setMenuOpen(false)}
               >
-                {item.label}
+                {authenticated ? <PlaveIcon name={getNavigationIcon(item.href)} /> : null}
+                <span>{item.label}</span>
               </Link>
             );
           })}
@@ -289,9 +317,7 @@ export function HeaderNavigation({
                         : "Tài khoản PLAVE"}
                 </span>
               </span>
-              <span className="profile-menu-trigger__chevron" aria-hidden="true">
-                ▾
-              </span>
+              <span className="profile-menu-trigger__chevron" aria-hidden="true" />
             </button>
 
             {profileMenuOpen ? (
@@ -345,14 +371,6 @@ export function HeaderNavigation({
                     Kết nối phụ huynh
                   </Link>
                 ) : null}
-                <div
-                  className="profile-menu__unavailable"
-                  role="menuitem"
-                  aria-disabled="true"
-                >
-                  <span>Thông báo</span>
-                  <small>Sắp có</small>
-                </div>
                 <Link
                   href="/privacy"
                   role="menuitem"

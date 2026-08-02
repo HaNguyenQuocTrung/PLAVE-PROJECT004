@@ -1,0 +1,121 @@
+{
+  "variant": "TABLE_INTERPRETATION",
+  "severity": "HIGH",
+  "categories": [
+    "OUTCOME_ALIGNMENT_WRONG",
+    "VISUAL_MISSING_OR_INCORRECT",
+    "INVALID_OR_AMBIGUOUS_QUESTION"
+  ],
+  "summary": "Query chỉ là tên family; solver thường lấy max/mean mà không nêu đại lượng cần đọc hoặc so sánh.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-7da1928819170c607bf2f7cb33030df10efa0410bd3e5194",
+  "reproductionSeedFingerprint": "7da1928819170c60",
+  "reproductionSampleId": "TABLE_INTERPRETATION:EASY:1",
+  "sample": {
+    "sampleId": "TABLE_INTERPRETATION:EASY:1",
+    "variant": "TABLE_INTERPRETATION",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-7da1928819170c607bf2f7cb33030df10efa0410bd3e5194",
+    "seedFingerprint": "7da1928819170c60",
+    "runtimeReachable": true,
+    "grade": 2,
+    "outcomeId": "MOET2018-G2-NUM-P025-017",
+    "unitId": "grade-2-multiplication-division",
+    "astKind": "DATA",
+    "complexity": 1,
+    "prompt": "Bộ dữ liệu 1: Cho dữ liệu 9, 1, 2, 3, 4. Hãy thực hiện đọc bảng dữ liệu.",
+    "normalizedTemplate": "xộ xữ liệu #: cho xữ liệu #, #, #, #, #. hãy thựx hiện đọx xảng xữ liệu.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "8",
+      "11",
+      "9",
+      "10"
+    ],
+    "correctOptionKey": "C",
+    "correctOptionLabel": "9",
+    "visualType": "DATA_DISPLAY",
+    "visualTemplate": "{\"type\":\"DATA_DISPLAY\",\"entries\":[{\"label\":\"Mục #\",\"count\":#},{\"label\":\"Mục #\",\"count\":#},{\"label\":\"Mục #\",\"count\":#},{\"label\":\"Mục #\",\"count\":#},{\"label\":\"Mục #\",\"count\":#}],\"description\":\"Hình minh họa chỉ thể hiện các dữ kiện đã nêu trong câu hỏi.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn C."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-fc1d1f80235e673094f4f64194dade27",
+      "position": 1,
+      "prompt": "Bộ dữ liệu 1: Cho dữ liệu 9, 1, 2, 3, 4. Hãy thực hiện đọc bảng dữ liệu.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "8"
+        },
+        {
+          "key": "B",
+          "label": "11"
+        },
+        {
+          "key": "C",
+          "label": "9"
+        },
+        {
+          "key": "D",
+          "label": "10"
+        }
+      ],
+      "visual": {
+        "type": "DATA_DISPLAY",
+        "entries": [
+          {
+            "label": "Mục 1",
+            "count": 9
+          },
+          {
+            "label": "Mục 2",
+            "count": 1
+          },
+          {
+            "label": "Mục 3",
+            "count": 2
+          },
+          {
+            "label": "Mục 4",
+            "count": 3
+          },
+          {
+            "label": "Mục 5",
+            "count": 4
+          }
+        ],
+        "description": "Hình minh họa chỉ thể hiện các dữ kiện đã nêu trong câu hỏi."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "HIGH",
+      "categories": [
+        "OUTCOME_ALIGNMENT_WRONG",
+        "VISUAL_MISSING_OR_INCORRECT",
+        "INVALID_OR_AMBIGUOUS_QUESTION"
+      ],
+      "summary": "Query chỉ là tên family; solver thường lấy max/mean mà không nêu đại lượng cần đọc hoặc so sánh."
+    }
+  }
+}

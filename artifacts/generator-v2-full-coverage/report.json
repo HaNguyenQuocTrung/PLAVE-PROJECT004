@@ -1,0 +1,220 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-02",
+  "sprint": "8C",
+  "result": "REOPENED_CRITICAL_REMEDIATION",
+  "milestone2Status": "REOPENED_CRITICAL_REMEDIATION",
+  "historicalOwnerApprovedStatus": "COMPLETE_OWNER_APPROVED",
+  "roadmap": {
+    "milestone1": "COMPLETE_OWNER_APPROVED",
+    "milestone2": "REOPENED_CRITICAL_REMEDIATION",
+    "milestone3": "REOPENED_SECURITY_AND_REPRODUCIBILITY_REMEDIATION"
+  },
+  "baseline": {
+    "officialOutcomeCount": 546,
+    "provenCanonicalVariantsPreserved": 12,
+    "provenOutcomeMappings": 12,
+    "implementedV2OutcomeMappings": 546,
+    "missingV2OutcomeMappings": 0,
+    "legacyVariantsAudited": 59,
+    "genericFallback": false,
+    "syntheticCoverage": false
+  },
+  "coverage": {
+    "IMPLEMENTED_VALIDATED": 546,
+    "IMPLEMENTED_REVIEW_REQUIRED": 0,
+    "BLOCKED_MISSING_CONTRACT": 0,
+    "DUPLICATE_COVERED_BY_CANONICAL_VARIANT": 0,
+    "NOT_IMPLEMENTED": 0,
+    "claims546Of546": true
+  },
+  "waveExecution": [
+    {
+      "wave": "A",
+      "outcomes": 98,
+      "implementedReviewRequired": 98,
+      "blockedMissingContract": 0,
+      "gate": "PASS",
+      "blockedVariantCandidates": [],
+      "blockedOutcomeIds": []
+    },
+    {
+      "wave": "B",
+      "outcomes": 61,
+      "implementedReviewRequired": 61,
+      "blockedMissingContract": 0,
+      "gate": "PASS",
+      "blockedVariantCandidates": [],
+      "blockedOutcomeIds": []
+    },
+    {
+      "wave": "C",
+      "outcomes": 57,
+      "implementedReviewRequired": 57,
+      "blockedMissingContract": 0,
+      "gate": "PASS",
+      "blockedVariantCandidates": [],
+      "blockedOutcomeIds": []
+    },
+    {
+      "wave": "D",
+      "outcomes": 232,
+      "implementedReviewRequired": 232,
+      "blockedMissingContract": 0,
+      "gate": "PASS",
+      "blockedVariantCandidates": [],
+      "blockedOutcomeIds": []
+    },
+    {
+      "wave": "E",
+      "outcomes": 86,
+      "implementedReviewRequired": 86,
+      "blockedMissingContract": 0,
+      "gate": "PASS",
+      "blockedVariantCandidates": [],
+      "blockedOutcomeIds": []
+    },
+    {
+      "wave": "F",
+      "outcomes": 12,
+      "implementedReviewRequired": 12,
+      "blockedMissingContract": 0,
+      "gate": "PASS",
+      "blockedVariantCandidates": [],
+      "blockedOutcomeIds": []
+    }
+  ],
+  "blockingGate": {
+    "code": null,
+    "blockedOutcomeCount": 0,
+    "blockedOutcomeIds": [],
+    "decision": "TECHNICAL_AUDIT_PASS_AND_OWNER_USEFULNESS_APPROVED"
+  },
+  "exactFullCoverageBlocker": {
+    "code": null,
+    "blockedOutcomeCount": 0,
+    "blockedOutcomeIds": [],
+    "matrix": "artifacts/generator-v2-full-coverage/outcome-matrix.json"
+  },
+  "artifacts": {
+    "outcomeMatrix": "artifacts/generator-v2-full-coverage/outcome-matrix.json",
+    "variantRegistry": "artifacts/generator-v2-full-coverage/variant-registry.json",
+    "diversity": "artifacts/generator-v2-full-coverage/diversity.json",
+    "negativeControls": "artifacts/generator-v2-full-coverage/negative-controls.json",
+    "reviewManifest": "artifacts/generator-v2-full-coverage/review-manifest.json",
+    "canonicalReconciliation": "artifacts/generator-v2-full-coverage/canonical-reconciliation.json",
+    "databaseProof": "artifacts/generator-v2-full-coverage/database-proof.json",
+    "browserAcceptance": "artifacts/generator-v2-full-coverage/browser-acceptance.json",
+    "screenshotReview": "artifacts/generator-v2-full-coverage/screenshot-review.json",
+    "screenshots": "artifacts/generator-v2-full-coverage/screenshots/"
+  },
+  "runtime": {
+    "changed": true,
+    "defaultEnabled": false,
+    "reason": "All 546 explicit mappings passed technical and Owner usefulness gates; repository default remains fail closed because approval does not activate or deploy a runtime."
+  },
+  "browserAcceptance": {
+    "status": "PASS",
+    "mockEvidenceUsed": false,
+    "canonicalCapabilitiesRepresented": "198/198",
+    "screenshotsCreated": 86,
+    "viewports": [
+      {
+        "width": 390,
+        "height": 844
+      },
+      {
+        "width": 1280,
+        "height": 800
+      }
+    ],
+    "criticalHighIssues": 0
+  },
+  "qualityGates": {
+    "status": "PASS_32760_OF_32760",
+    "intendedDiversitySamples": 32760,
+    "executedProvenSliceSamples": 32760,
+    "implementedSliceDiversityFailures": [],
+    "canonicalCapabilities": 198,
+    "provenanceCompleteness": "8/8",
+    "promptAnswerVisualMismatches": 0,
+    "mathematicallyInvalidOrAmbiguousSamples": 0,
+    "privateLeaks": 0
+  },
+  "regressionEvidence": {
+    "schemaVersion": 1,
+    "runDate": "2026-08-02",
+    "status": "PASS_WITH_NPM_AUDIT_UNVERIFIED_ENVIRONMENT_BLOCKED",
+    "generatorV2": {
+      "core": "10/10 PASS",
+      "waveA": "8/8 PASS; 5880/5880 audit samples",
+      "waveB": "9/9 PASS; 3660/3660 audit samples",
+      "waveC": "8/8 PASS; 3420/3420 audit samples",
+      "waveD": "10/10 PASS; 13920/13920 audit samples",
+      "waveE": "5/5 PASS; 5160/5160 audit samples",
+      "waveF": "4/4 PASS; 600/600 audit samples",
+      "fullCoverage": "6/6 PASS; 32760/32760 audit samples",
+      "databaseProofContracts": "3/3 PASS",
+      "generatedPersistenceContracts": "7/7 PASS"
+    },
+    "productRegressions": {
+      "practice": "550/550 PASS",
+      "curriculumGrades1To9": "9/9 PASS",
+      "universalCurriculum": "21/21 PASS",
+      "competency": "10/10 PASS",
+      "uiUx": "13/13 PASS",
+      "aiTutor": "40/40 PASS"
+    },
+    "aiTutorEnvironmentNote": "The initial sandboxed run could not open /dev/tty for five interactive lifecycle tests. The exact suite was rerun with approved TTY access and passed 25/25; local-runtime 9/9 and quality 6/6 also passed.",
+    "staticAndBuild": {
+      "typecheck": "PASS",
+      "lint": "PASS_0_ERRORS_0_WARNINGS",
+      "productionBuild": "PASS_77_OF_77_STATIC_PAGE_GENERATION_AFTER_OWNER_REVIEW_ROUTE"
+    },
+    "npmAudit": {
+      "status": "UNVERIFIED_ENVIRONMENT_BLOCKED",
+      "sandboxAttempt": "ENOTFOUND registry.npmjs.org",
+      "escalatedAttempt": "POLICY_REJECTED_DEPENDENCY_METADATA_EGRESS",
+      "currentPassClaimed": false,
+      "lastVerifiedResult": "0 vulnerabilities",
+      "lastVerifiedDate": "2026-08-01"
+    },
+    "boundaries": {
+      "remoteAccessOrMutation": false,
+      "migrationCreatedOrModified": false,
+      "deploymentOrPublication": false,
+      "gitMutation": false,
+      "aiTutorImplementationChanged": false,
+      "repositoryDefaultRuntimeEnabled": false
+    }
+  },
+  "ownerUsefulnessReview": {
+    "status": "COMPLETE_OWNER_APPROVED",
+    "samples": 198,
+    "capabilities": 198,
+    "reviewedCount": 198,
+    "totalCount": 198,
+    "ownerDecision": "APPROVED",
+    "ownerDecisionSource": "OWNER_EXPLICIT_DECISION",
+    "ownerDecisionRecordedAt": "2026-08-02T06:55:29Z",
+    "perSampleDecisionDataAvailable": false,
+    "approvedCount": null,
+    "rejectedCount": null,
+    "needsRevisionCount": null,
+    "notes": null,
+    "resultArtifact": "artifacts/generator-v2-owner-review/result.json",
+    "productionReadinessClaimed": false,
+    "remoteActivationPerformed": false
+  },
+  "boundariesObserved": [
+    "NO_REMOTE_MUTATION",
+    "NO_MIGRATION",
+    "NO_DEPLOYMENT",
+    "NO_PUBLICATION",
+    "NO_GIT_MUTATION",
+    "NO_REPOSITORY_DEFAULT_RUNTIME_ENABLE",
+    "NO_AI_TUTOR_IMPLEMENTATION_CHANGE",
+    "NO_GENERIC_FALLBACK",
+    "NO_SYNTHETIC_COVERAGE"
+  ]
+}

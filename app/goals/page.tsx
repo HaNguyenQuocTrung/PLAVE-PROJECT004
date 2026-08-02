@@ -43,7 +43,7 @@ export default async function GoalsPage() {
       .join("|") ?? "unavailable";
 
   return (
-    <div className="goals-page page-shell">
+    <div className="goals-page student-workspace-page--v2 page-shell">
       <header className="catalog-hero catalog-hero--goals">
         <p className="eyebrow">Kế hoạch học tập của em</p>
         <h1>Mục tiêu cá nhân</h1>

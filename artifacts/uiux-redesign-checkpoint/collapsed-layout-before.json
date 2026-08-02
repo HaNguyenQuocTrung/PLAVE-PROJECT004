@@ -1,0 +1,582 @@
+{
+  "route": "/lessons",
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "mediaQueries": [
+    {
+      "query": "(max-width: 700px)",
+      "matches": false
+    },
+    {
+      "query": "(max-width: 768px)",
+      "matches": false
+    },
+    {
+      "query": "(max-width: 980px)",
+      "matches": false
+    },
+    {
+      "query": "(max-width: 1024px)",
+      "matches": false
+    },
+    {
+      "query": "(max-width: 1040px)",
+      "matches": false
+    }
+  ],
+  "elements": {
+    "card": {
+      "selector": "article.unit-card",
+      "width": 968,
+      "height": 2405.265625,
+      "minWidth": "0px",
+      "maxWidth": "none",
+      "flex": "0 1 auto",
+      "flexBasis": "auto",
+      "flexShrink": "1",
+      "gridColumn": "auto",
+      "gridRow": "auto",
+      "gridTemplateColumns": "0px 897.812px",
+      "gridAutoColumns": "auto",
+      "display": "grid",
+      "position": "static",
+      "overflow": "visible",
+      "overflowX": "visible",
+      "overflowY": "visible",
+      "whiteSpace": "normal",
+      "wordBreak": "normal",
+      "overflowWrap": "normal",
+      "writingMode": "horizontal-tb",
+      "containerType": "normal",
+      "containerName": "none",
+      "lineCount": 105
+    },
+    "heading": {
+      "selector": "div.unit-card__heading",
+      "width": 0,
+      "height": 144.3125,
+      "minWidth": "auto",
+      "maxWidth": "none",
+      "flex": "0 1 auto",
+      "flexBasis": "auto",
+      "flexShrink": "1",
+      "gridColumn": "1",
+      "gridRow": "auto",
+      "gridTemplateColumns": "none",
+      "gridAutoColumns": "auto",
+      "display": "flex",
+      "position": "static",
+      "overflow": "visible",
+      "overflowX": "visible",
+      "overflowY": "visible",
+      "whiteSpace": "normal",
+      "wordBreak": "normal",
+      "overflowWrap": "normal",
+      "writingMode": "horizontal-tb",
+      "containerType": "normal",
+      "containerName": "none",
+      "lineCount": 8
+    },
+    "metadata": {
+      "selector": "span",
+      "width": 37.25,
+      "height": 82.875,
+      "minWidth": "auto",
+      "maxWidth": "none",
+      "flex": "0 1 auto",
+      "flexBasis": "auto",
+      "flexShrink": "1",
+      "gridColumn": "auto",
+      "gridRow": "auto",
+      "gridTemplateColumns": "none",
+      "gridAutoColumns": "auto",
+      "display": "block",
+      "position": "static",
+      "overflow": "visible",
+      "overflowX": "visible",
+      "overflowY": "visible",
+      "whiteSpace": "normal",
+      "wordBreak": "normal",
+      "overflowWrap": "normal",
+      "writingMode": "horizontal-tb",
+      "containerType": "normal",
+      "containerName": "none",
+      "lineCount": 4
+    },
+    "title": {
+      "selector": "h3",
+      "width": 0,
+      "height": 487.265625,
+      "minWidth": "auto",
+      "maxWidth": "none",
+      "flex": "0 1 auto",
+      "flexBasis": "auto",
+      "flexShrink": "1",
+      "gridColumn": "1",
+      "gridRow": "auto",
+      "gridTemplateColumns": "none",
+      "gridAutoColumns": "auto",
+      "display": "block",
+      "position": "static",
+      "overflow": "visible",
+      "overflowX": "visible",
+      "overflowY": "visible",
+      "whiteSpace": "normal",
+      "wordBreak": "normal",
+      "overflowWrap": "anywhere",
+      "writingMode": "horizontal-tb",
+      "containerType": "normal",
+      "containerName": "none",
+      "lineCount": 21
+    },
+    "description": {
+      "selector": "p",
+      "width": 0,
+      "height": 1208.234375,
+      "minWidth": "auto",
+      "maxWidth": "none",
+      "flex": "0 1 auto",
+      "flexBasis": "auto",
+      "flexShrink": "1",
+      "gridColumn": "1",
+      "gridRow": "auto",
+      "gridTemplateColumns": "none",
+      "gridAutoColumns": "auto",
+      "display": "block",
+      "position": "static",
+      "overflow": "visible",
+      "overflowX": "visible",
+      "overflowY": "visible",
+      "whiteSpace": "normal",
+      "wordBreak": "normal",
+      "overflowWrap": "anywhere",
+      "writingMode": "horizontal-tb",
+      "containerType": "normal",
+      "containerName": "none",
+      "lineCount": 53
+    },
+    "progress": {
+      "selector": "p.unit-card__progress",
+      "width": 0,
+      "height": 501.53125,
+      "minWidth": "auto",
+      "maxWidth": "none",
+      "flex": "0 1 auto",
+      "flexBasis": "auto",
+      "flexShrink": "1",
+      "gridColumn": "1",
+      "gridRow": "auto",
+      "gridTemplateColumns": "none",
+      "gridAutoColumns": "auto",
+      "display": "block",
+      "position": "static",
+      "overflow": "visible",
+      "overflowX": "visible",
+      "overflowY": "visible",
+      "whiteSpace": "normal",
+      "wordBreak": "normal",
+      "overflowWrap": "anywhere",
+      "writingMode": "horizontal-tb",
+      "containerType": "normal",
+      "containerName": "none",
+      "lineCount": 22
+    },
+    "action": {
+      "selector": "div.unit-card__actions",
+      "width": 897.8125,
+      "height": 84.296875,
+      "minWidth": "auto",
+      "maxWidth": "none",
+      "flex": "0 1 auto",
+      "flexBasis": "auto",
+      "flexShrink": "1",
+      "gridColumn": "2",
+      "gridRow": "1 / span 4",
+      "gridTemplateColumns": "none",
+      "gridAutoColumns": "auto",
+      "display": "flex",
+      "position": "static",
+      "overflow": "visible",
+      "overflowX": "visible",
+      "overflowY": "visible",
+      "whiteSpace": "normal",
+      "wordBreak": "normal",
+      "overflowWrap": "normal",
+      "writingMode": "horizontal-tb",
+      "containerType": "normal",
+      "containerName": "none",
+      "lineCount": 4
+    }
+  },
+  "containerAncestors": [],
+  "matchingRules": {
+    "card": [
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*",
+        "declarations": "box-sizing: border-box;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".unit-card",
+        "declarations": "border-radius: var(--radius-lg); min-width: 0px; box-shadow: var(--shadow); background: rgb(255, 255, 255); border: 1px solid rgb(167, 223, 242); align-content: start; padding: clamp(1.25rem, 4vw, 2rem); display: grid;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".unit-card--addition",
+        "declarations": "background: rgb(255, 253, 248); border-color: rgb(244, 196, 108);",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*, ::before, ::after",
+        "declarations": "scroll-behavior: auto !important; transition: none !important;",
+        "conditions": [
+          "(prefers-reduced-motion: reduce)"
+        ]
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".catalog-page--v2 .unit-card",
+        "declarations": "box-shadow: none; background: rgb(255, 255, 255); border-width: 0px 0px 0px 3px; border-style: none none none solid; border-color: currentcolor currentcolor currentcolor rgb(197, 212, 227); border-image: none; border-radius: 0px 0.9rem 0.9rem 0px; grid-template-columns: minmax(0px, 1fr) auto; gap: 0.4rem 1.5rem; padding: 1.2rem 1.35rem; display: grid;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".catalog-page--v2 .unit-card",
+        "declarations": "grid-template-columns: 1fr;",
+        "conditions": [
+          "(max-width: 700px)"
+        ]
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".unit-card",
+        "declarations": "box-shadow: none;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*, ::before, ::after",
+        "declarations": "scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;",
+        "conditions": [
+          "(prefers-reduced-motion: reduce)"
+        ]
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".catalog-page--v2 .unit-catalog > .unit-catalog__grid .unit-card",
+        "declarations": "min-height: 0px;",
+        "conditions": []
+      }
+    ],
+    "heading": [
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*",
+        "declarations": "box-sizing: border-box;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".unit-card__heading",
+        "declarations": "color: var(--text-secondary); justify-content: space-between; align-items: center; gap: 0.75rem; font-size: 0.8rem; font-weight: 750; display: flex;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".unit-card__heading",
+        "declarations": "flex-wrap: wrap;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*, ::before, ::after",
+        "declarations": "scroll-behavior: auto !important; transition: none !important;",
+        "conditions": [
+          "(prefers-reduced-motion: reduce)"
+        ]
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".catalog-page--v2 .unit-card__heading, .catalog-page--v2 .unit-card h3, .catalog-page--v2 .unit-card > p, .catalog-page--v2 .unit-card__objective",
+        "declarations": "grid-column: 1;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*, ::before, ::after",
+        "declarations": "scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;",
+        "conditions": [
+          "(prefers-reduced-motion: reduce)"
+        ]
+      }
+    ],
+    "metadata": [
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*",
+        "declarations": "box-sizing: border-box;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*, ::before, ::after",
+        "declarations": "scroll-behavior: auto !important; transition: none !important;",
+        "conditions": [
+          "(prefers-reduced-motion: reduce)"
+        ]
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*, ::before, ::after",
+        "declarations": "scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;",
+        "conditions": [
+          "(prefers-reduced-motion: reduce)"
+        ]
+      }
+    ],
+    "title": [
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*",
+        "declarations": "box-sizing: border-box;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "h1, h2, h3, p",
+        "declarations": "overflow-wrap: anywhere;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "h1, h2, h3",
+        "declarations": "line-height: 1.18;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".unit-card h3",
+        "declarations": "color: var(--brand-navy); margin: 1rem 0px 0.5rem; font-size: clamp(1.45rem, 4vw, 2rem);",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*, ::before, ::after",
+        "declarations": "scroll-behavior: auto !important; transition: none !important;",
+        "conditions": [
+          "(prefers-reduced-motion: reduce)"
+        ]
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".plave-v2 h1, .plave-v2 h2, .plave-v2 h3",
+        "declarations": "color: var(--brand-navy); letter-spacing: -0.035em; font-family: \"Avenir Next\", Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif; font-weight: 750;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".plave-v2 h3",
+        "declarations": "line-height: 1.25;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".catalog-page--v2 .unit-card__heading, .catalog-page--v2 .unit-card h3, .catalog-page--v2 .unit-card > p, .catalog-page--v2 .unit-card__objective",
+        "declarations": "grid-column: 1;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".catalog-page--v2 .unit-card h3",
+        "declarations": "margin: 0.2rem 0px; font-size: 1.16rem;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "h1, h2, h3",
+        "declarations": "text-wrap: balance;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*, ::before, ::after",
+        "declarations": "scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;",
+        "conditions": [
+          "(prefers-reduced-motion: reduce)"
+        ]
+      }
+    ],
+    "description": [
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*",
+        "declarations": "box-sizing: border-box;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "h1, h2, h3, p",
+        "declarations": "overflow-wrap: anywhere;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".unit-card > p",
+        "declarations": "color: var(--text-secondary);",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*, ::before, ::after",
+        "declarations": "scroll-behavior: auto !important; transition: none !important;",
+        "conditions": [
+          "(prefers-reduced-motion: reduce)"
+        ]
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".catalog-page--v2 .unit-card__heading, .catalog-page--v2 .unit-card h3, .catalog-page--v2 .unit-card > p, .catalog-page--v2 .unit-card__objective",
+        "declarations": "grid-column: 1;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".catalog-page--v2 .unit-card > p",
+        "declarations": "color: var(--text-secondary); margin: 0px; font-size: 0.88rem;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "p, li, dd",
+        "declarations": "text-wrap: pretty;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*, ::before, ::after",
+        "declarations": "scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;",
+        "conditions": [
+          "(prefers-reduced-motion: reduce)"
+        ]
+      }
+    ],
+    "progress": [
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*",
+        "declarations": "box-sizing: border-box;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "h1, h2, h3, p",
+        "declarations": "overflow-wrap: anywhere;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".unit-card > p",
+        "declarations": "color: var(--text-secondary);",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".unit-card__progress",
+        "declarations": "min-height: 3rem; font-size: 0.9rem; font-weight: 700;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*, ::before, ::after",
+        "declarations": "scroll-behavior: auto !important; transition: none !important;",
+        "conditions": [
+          "(prefers-reduced-motion: reduce)"
+        ]
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".catalog-page--v2 .unit-card__heading, .catalog-page--v2 .unit-card h3, .catalog-page--v2 .unit-card > p, .catalog-page--v2 .unit-card__objective",
+        "declarations": "grid-column: 1;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".catalog-page--v2 .unit-card > p",
+        "declarations": "color: var(--text-secondary); margin: 0px; font-size: 0.88rem;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "p, li, dd",
+        "declarations": "text-wrap: pretty;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*, ::before, ::after",
+        "declarations": "scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;",
+        "conditions": [
+          "(prefers-reduced-motion: reduce)"
+        ]
+      }
+    ],
+    "action": [
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*",
+        "declarations": "box-sizing: border-box;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".unit-card__actions",
+        "declarations": "flex-wrap: wrap; align-items: flex-start; gap: 0.65rem; margin-top: auto; display: flex;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".unit-card__actions",
+        "declarations": "flex-direction: column; align-items: stretch;",
+        "conditions": [
+          "(max-width: 700px)"
+        ]
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*, ::before, ::after",
+        "declarations": "scroll-behavior: auto !important; transition: none !important;",
+        "conditions": [
+          "(prefers-reduced-motion: reduce)"
+        ]
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".catalog-page--v2 .unit-card > .button, .catalog-page--v2 .unit-card__actions",
+        "declarations": "grid-area: 1 / 2 / span 4; align-self: center;",
+        "conditions": []
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": ".catalog-page--v2 .unit-card > .button, .catalog-page--v2 .unit-card__actions, .catalog-page--v2 .unit-recommendation-badge",
+        "declarations": "grid-area: auto / 1; justify-self: stretch;",
+        "conditions": [
+          "(max-width: 700px)"
+        ]
+      },
+      {
+        "source": "/_next/static/chunks/app_1xvil6v._.css",
+        "selector": "*, ::before, ::after",
+        "declarations": "scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;",
+        "conditions": [
+          "(prefers-reduced-motion: reduce)"
+        ]
+      }
+    ]
+  }
+}

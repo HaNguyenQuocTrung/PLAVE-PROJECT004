@@ -96,7 +96,7 @@ export default async function TeacherAssignmentAnalysisPage({
     analysis.submittedCount >= analysis.minimumSubmissionsForInsight;
 
   return (
-    <div className="teacher-assignment-analysis-page page-shell">
+    <div className="teacher-assignment-analysis-page teacher-workspace-page--v2 page-shell">
       <header className="catalog-hero teacher-hero">
         <div>
           <p className="eyebrow">
@@ -225,7 +225,7 @@ export default async function TeacherAssignmentAnalysisPage({
             </h2>
           </div>
           <p className="assignment-analysis-note">
-            Đây là thống kê đúng/sai từ assignment, không phải chẩn đoán mức
+            Đây là thống kê đúng/sai từ bài được giao, không phải chẩn đoán mức
             độ học tập và không cộng vào luyện tập độc lập.
           </p>
           <div className="parent-universal-columns">

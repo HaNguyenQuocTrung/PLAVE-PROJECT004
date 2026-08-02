@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/Button";
@@ -104,6 +104,7 @@ export function AdaptivePracticeRunner({
 }: AdaptivePracticeRunnerProps) {
   const router = useRouter();
   const questionRef = useRef<HTMLDivElement>(null);
+  const feedbackRef = useRef<HTMLDivElement>(null);
   const idempotencyKey = useRef<string | null>(null);
   const [state, setState] = useState(initialState);
   const [pendingState, setPendingState] =
@@ -133,6 +134,11 @@ export function AdaptivePracticeRunner({
         .join(" ") || undefined,
     [error, question?.accessibilityDescription],
   );
+
+  useEffect(() => {
+    if (!feedback) return;
+    window.requestAnimationFrame(() => feedbackRef.current?.focus());
+  }, [feedback]);
 
   const updateAnswer = (value: string) => {
     if (feedback || isSubmitting) return;
@@ -311,13 +317,18 @@ export function AdaptivePracticeRunner({
           <p className="eyebrow">Luyện tập theo năng lực</p>
           <h1 id="adaptive-practice-title">{unitTitle}</h1>
         </div>
-        <p
-          className="adaptive-progress"
-          aria-label={`Đã làm ${displayState.answeredCount} câu`}
-          aria-live="polite"
-        >
-          Đã làm {displayState.answeredCount} câu
-        </p>
+        <div className="practice-progress-summary">
+          <p
+            className="adaptive-progress"
+            aria-label={`Đã làm ${displayState.answeredCount} câu`}
+            aria-live="polite"
+          >
+            Đã làm {displayState.answeredCount} câu
+          </p>
+          <Button href="/lessons" variant="tertiary">
+            Thoát bài
+          </Button>
+        </div>
       </div>
 
       <div className="real-question-card" ref={questionRef} tabIndex={-1}>
@@ -398,12 +409,14 @@ export function AdaptivePracticeRunner({
 
         {feedback ? (
           <div
+            ref={feedbackRef}
             className={`feedback ${
               feedback.isCorrect
                 ? "feedback--correct"
                 : "feedback--incorrect"
             }`}
             aria-live="polite"
+            tabIndex={-1}
           >
             <p className="feedback__status">
               <span aria-hidden="true">
@@ -455,14 +468,13 @@ export function AdaptivePracticeRunner({
                 </Button>
               ) : null}
               <Button
-                disabled={isSubmitting || isRefreshing}
+                disabled={isSubmitting || isRefreshing || !answer.trim()}
+                loading={isSubmitting}
                 onClick={() => void submitAnswer()}
               >
-                {isSubmitting
-                  ? "Đang lưu câu trả lời…"
-                  : manualRetry
+                {manualRetry
                     ? "Thử gửi lại"
-                    : "Kiểm tra"}
+                    : "Kiểm tra câu trả lời"}
               </Button>
             </>
           )}

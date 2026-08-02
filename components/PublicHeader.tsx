@@ -22,7 +22,12 @@ export async function PublicHeader() {
   );
 
   return (
-    <header className="site-header">
+    <header
+      className={`site-header ${
+        authState.authenticated ? "site-header--application" : "site-header--public"
+      }`}
+      data-role={authState.role?.toLowerCase() ?? "public"}
+    >
       <div className="site-header__inner">
         <Link
           className="brand"
@@ -31,7 +36,7 @@ export async function PublicHeader() {
             authState.authenticated && authState.onboardingCompleted
               ? authState.role === "TEACHER"
                 ? "PLAVE — Tổng quan giáo viên"
-                : "PLAVE — Dashboard học tập"
+                : "PLAVE — Tổng quan học tập"
               : authState.authenticated
                 ? authState.role === "TEACHER"
                   ? "PLAVE — Xác minh giáo viên"
@@ -41,7 +46,7 @@ export async function PublicHeader() {
         >
           <Image
             src="/brand/plave-logo-header.png"
-            alt="PLAVE – Personalized Learning App for Vietnam Education"
+            alt="PLAVE"
             width={210}
             height={60}
             priority

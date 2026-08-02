@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { Button } from "@/components/Button";
 import { PracticeVisual } from "@/components/PracticeVisual";
@@ -77,6 +78,7 @@ export function PracticeRunner({
   const router = useRouter();
   const [requestGate] = useState(createSingleFlightGate);
   const questionRef = useRef<HTMLDivElement>(null);
+  const feedbackRef = useRef<HTMLDivElement>(null);
   const initialResults = useMemo(
     () => initialGradedAnswers(initialAnswers, questions.length),
     [initialAnswers, questions.length],
@@ -108,6 +110,11 @@ export function PracticeRunner({
   const answer = drafts[question.code] ?? "";
   const result = results[question.code];
   const currentOptions = question.options;
+
+  useEffect(() => {
+    if (!result) return;
+    window.requestAnimationFrame(() => feedbackRef.current?.focus());
+  }, [question.code, result]);
 
   const updateAnswer = (value: string) => {
     if (result || isSubmitting) return;
@@ -261,9 +268,14 @@ export function PracticeRunner({
 
   return (
     <section className="practice-runner" aria-labelledby="practice-runner-title">
+      <div className="practice-brandline">
+        <Link href="/lessons" aria-label="PLAVE — trở về bài học">PLAVE</Link>
+        <span>Không gian luyện tập</span>
+        <Button href="/lessons" variant="tertiary">Thoát bài</Button>
+      </div>
       <div className="practice-runner__header">
         <div>
-          <p className="eyebrow">Luyện tập thật</p>
+          <p className="eyebrow">Luyện tập</p>
           <h1 id="practice-runner-title">{unitTitle}</h1>
         </div>
         <div className="practice-progress-summary">
@@ -273,7 +285,7 @@ export function PracticeRunner({
             label="Số câu đã làm"
           />
           <p className="practice-live-score" aria-live="polite">
-            Đúng {correctCount}/{questions.length} câu
+            Đã làm {answeredCount}/{questions.length} câu · Đúng {correctCount} câu
           </p>
         </div>
       </div>
@@ -283,17 +295,17 @@ export function PracticeRunner({
           Câu {questionIndex + 1}/{questions.length}
         </p>
 
-        {question.visualSpec ? (
-          <PracticeVisual spec={question.visualSpec} />
-        ) : null}
-
         {question.questionType === "MULTIPLE_CHOICE" && currentOptions ? (
-          <fieldset
-            className="demo-question"
-            aria-describedby={error ? "practice-answer-error" : undefined}
-            aria-invalid={Boolean(error)}
-          >
-            <legend className="demo-question__prompt">{question.prompt}</legend>
+          <>
+            <h2 className="real-question-card__prompt" id="choice-prompt">{question.prompt}</h2>
+            {question.visualSpec ? <PracticeVisual spec={question.visualSpec} /> : null}
+            <fieldset
+              className="demo-question"
+              aria-labelledby="choice-prompt"
+              aria-describedby={error ? "practice-answer-error" : undefined}
+              aria-invalid={Boolean(error)}
+            >
+            <legend className="sr-only">Chọn một đáp án</legend>
             <div className="choice-grid">
               {optionKeys.map((optionKey) => (
                 <label
@@ -317,12 +329,14 @@ export function PracticeRunner({
                 </label>
               ))}
             </div>
-          </fieldset>
+            </fieldset>
+          </>
         ) : (
           <div>
             <h2 className="real-question-card__prompt" id="number-prompt">
               {question.prompt}
             </h2>
+            {question.visualSpec ? <PracticeVisual spec={question.visualSpec} /> : null}
             <label className="number-answer" htmlFor="number-answer">
               Câu trả lời của em
               <input
@@ -353,12 +367,14 @@ export function PracticeRunner({
 
         {result ? (
           <div
+            ref={feedbackRef}
             className={`feedback ${
               result.isCorrect
                 ? "feedback--correct"
                 : "feedback--incorrect"
             }`}
             aria-live="polite"
+            tabIndex={-1}
           >
             <p className="feedback__status">
               <span aria-hidden="true">{result.isCorrect ? "✓" : "!"}</span>
@@ -403,14 +419,11 @@ export function PracticeRunner({
             </Button>
           ) : (
             <Button
-              disabled={isSubmitting || !retryAllowed}
+              disabled={isSubmitting || !retryAllowed || !answer.trim()}
+              loading={isSubmitting}
               onClick={submitAnswer}
             >
-              {isSubmitting
-                ? "Đang chấm…"
-                : showRetryLabel
-                  ? "Thử lại"
-                  : "Kiểm tra"}
+              {showRetryLabel ? "Thử lại" : "Kiểm tra câu trả lời"}
             </Button>
           )}
         </div>

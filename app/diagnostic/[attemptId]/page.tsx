@@ -56,7 +56,7 @@ export default async function DiagnosticRunnerPage({
   }
 
   return (
-    <main className="diagnostic-page page-shell">
+    <div className="diagnostic-page learning-runner-page--v2 page-shell">
       <DiagnosticRunner
         attemptId={attemptId}
         questions={result.state.questions}
@@ -64,6 +64,6 @@ export default async function DiagnosticRunnerPage({
           result.state.answeredQuestionIds
         }
       />
-    </main>
+    </div>
   );
 }

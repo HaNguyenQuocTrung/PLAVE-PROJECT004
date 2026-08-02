@@ -1,0 +1,99 @@
+{
+  "variant": "MISSING_VALUE",
+  "severity": "HIGH",
+  "categories": [
+    "OUTCOME_ALIGNMENT_WRONG",
+    "GRADE_LEVEL_WRONG",
+    "INVALID_OR_AMBIGUOUS_QUESTION"
+  ],
+  "summary": "Hầu hết variant đại số dùng cùng AST ax+b và cùng phép thế giá trị, kể cả khi outcome yêu cầu việc khác.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-1916c68385cd09db90ae845539c46a2730e3439dbeb95a38",
+  "reproductionSeedFingerprint": "1916c68385cd09db",
+  "reproductionSampleId": "MISSING_VALUE:EASY:1",
+  "sample": {
+    "sampleId": "MISSING_VALUE:EASY:1",
+    "variant": "MISSING_VALUE",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-1916c68385cd09db90ae845539c46a2730e3439dbeb95a38",
+    "seedFingerprint": "1916c68385cd09db",
+    "runtimeReachable": true,
+    "grade": 3,
+    "outcomeId": "MOET2018-G3-NUM-P030-022",
+    "unitId": "grade-3-expression-order-p1",
+    "astKind": "ALGEBRA",
+    "complexity": 1,
+    "prompt": "Thực hiện tìm giá trị chưa biết với biểu thức 2x + 11, x = 31.",
+    "normalizedTemplate": "thựx hiện tìm giá trị chưx biết với biểu thứx #x + #, x = #.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "33",
+      "31",
+      "32",
+      "30"
+    ],
+    "correctOptionKey": "B",
+    "correctOptionLabel": "31",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn B."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-3396d7889620ef8ec49d8b9cacb3c2ee",
+      "position": 1,
+      "prompt": "Thực hiện tìm giá trị chưa biết với biểu thức 2x + 11, x = 31.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "33"
+        },
+        {
+          "key": "B",
+          "label": "31"
+        },
+        {
+          "key": "C",
+          "label": "32"
+        },
+        {
+          "key": "D",
+          "label": "30"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "HIGH",
+      "categories": [
+        "OUTCOME_ALIGNMENT_WRONG",
+        "GRADE_LEVEL_WRONG",
+        "INVALID_OR_AMBIGUOUS_QUESTION"
+      ],
+      "summary": "Hầu hết variant đại số dùng cùng AST ax+b và cùng phép thế giá trị, kể cả khi outcome yêu cầu việc khác."
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "variant": "ANGLE",
+  "severity": "CRITICAL",
+  "categories": [
+    "VISUAL_MISSING_OR_INCORRECT",
+    "INVALID_OR_AMBIGUOUS_QUESTION",
+    "LANGUAGE_QUALITY"
+  ],
+  "summary": "Giả thiết/visual không xác định bài toán cụ thể và đáp án có thể là tên variant nội bộ.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-1208bc755f8ea5fee9776cf4df2e132a666f98392633bda4",
+  "reproductionSeedFingerprint": "1208bc755f8ea5fe",
+  "reproductionSampleId": "ANGLE:EASY:1",
+  "sample": {
+    "sampleId": "ANGLE:EASY:1",
+    "variant": "ANGLE",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-1208bc755f8ea5fee9776cf4df2e132a666f98392633bda4",
+    "seedFingerprint": "1208bc755f8ea5fe",
+    "runtimeReachable": true,
+    "grade": 3,
+    "outcomeId": "MOET2018-G3-GEO-P031-003",
+    "unitId": "grade-3-shape-relations-p1",
+    "astKind": "GEOMETRIC_RELATION",
+    "complexity": 1,
+    "prompt": "Dựa vào các giả thiết A=9; B=18; Nhận biết được góc, góc vuông, góc không vuông., hãy xác định góc.",
+    "normalizedTemplate": "xựx vào xáx giả thiết x=#; x=#; nhận biết đượx góx, góx vuông, góx không vuông., hãy xáx định góx.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "Một quan hệ không suy ra từ dữ kiện",
+      "Không đủ dữ kiện",
+      "ANGLE",
+      "Phát biểu đảo của quan hệ đã nêu"
+    ],
+    "correctOptionKey": "C",
+    "correctOptionLabel": "ANGLE",
+    "visualType": "ANGLE_DIAGRAM",
+    "visualTemplate": "{\"type\":\"ANGLE_DIAGRAM\",\"degrees\":#,\"description\":\"Hình minh họa chỉ thể hiện các dữ kiện đã nêu trong câu hỏi.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn C."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-35aeba9776d7d953a1f2e660323d11a3",
+      "position": 1,
+      "prompt": "Dựa vào các giả thiết A=9; B=18; Nhận biết được góc, góc vuông, góc không vuông., hãy xác định góc.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "Một quan hệ không suy ra từ dữ kiện"
+        },
+        {
+          "key": "B",
+          "label": "Không đủ dữ kiện"
+        },
+        {
+          "key": "C",
+          "label": "ANGLE"
+        },
+        {
+          "key": "D",
+          "label": "Phát biểu đảo của quan hệ đã nêu"
+        }
+      ],
+      "visual": {
+        "type": "ANGLE_DIAGRAM",
+        "degrees": 9,
+        "description": "Hình minh họa chỉ thể hiện các dữ kiện đã nêu trong câu hỏi."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "CRITICAL",
+      "categories": [
+        "VISUAL_MISSING_OR_INCORRECT",
+        "INVALID_OR_AMBIGUOUS_QUESTION",
+        "LANGUAGE_QUALITY"
+      ],
+      "summary": "Giả thiết/visual không xác định bài toán cụ thể và đáp án có thể là tên variant nội bộ."
+    }
+  }
+}

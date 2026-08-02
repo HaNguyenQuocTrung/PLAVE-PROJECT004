@@ -1,0 +1,104 @@
+{
+  "status": "PASS_WITH_MOCK_PROVIDER_REAL_KEY_PENDING",
+  "activeMilestoneStatus": "REOPENED_SECURITY_AND_REPRODUCIBILITY_REMEDIATION",
+  "historicalOwnerApprovedStatus": "COMPLETE_OWNER_APPROVED_LOCAL_MVP",
+  "browserEngine": "Chromium",
+  "browserVersion": "150.0.7871.186",
+  "playwrightPackage": "playwright-core",
+  "playwrightVersion": "1.51.1",
+  "localPlaywright": true,
+  "inAppBrowserUsed": false,
+  "viewports": [
+    {
+      "width": 320,
+      "height": 568,
+      "overflow": 0
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "overflow": 0
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "overflow": 0
+    }
+  ],
+  "journeys": {
+    "login": "PASS_LOCAL_AUTHENTICATED_STUDENT",
+    "welcome": "PASS",
+    "suggestedPrompt": "PASS",
+    "streaming": "PASS",
+    "stop": "PASS",
+    "retry": "PASS",
+    "regenerate": "PASS",
+    "copy": "PASS",
+    "newConversation": "PASS",
+    "clearConfirmation": "PASS",
+    "refreshResume": "NOT_SUPPORTED_MVP_NO_CONVERSATION_SCHEMA",
+    "longMathematicalResponse": "PASS",
+    "errorState": "PASS_SANITIZED"
+  },
+  "accessibility": {
+    "keyboard": "PASS",
+    "narrowKeyboardAndTap": "PASS",
+    "visibleFocus": true,
+    "dialogFocusTrapAndEscape": "PASS",
+    "ariaLive": "PASS_CONTRACT_AND_BROWSER",
+    "primaryTouchTargets": "PASS"
+  },
+  "security": {
+    "anonymousRequest": "DENIED_401",
+    "parentRequest": "DENIED_403",
+    "teacherRequest": "DENIED_403",
+    "studentOwnerRequest": "PASS",
+    "crossUserAccess": "DENIED_403",
+    "duplicateSend": "DENIED_409",
+    "concurrentSend": "ONE_ACTIVE_ONE_DENIED_409",
+    "oversizedMessage": "DENIED_413",
+    "clientProviderModelIdentityInjection": "DENIED_400",
+    "promptInjection": "LOCAL_SAFE_RESPONSE",
+    "secretsLeaked": 0,
+    "rawProviderErrorsLeaked": 0,
+    "xss": 0
+  },
+  "consoleErrors": 0,
+  "hydrationErrors": 0,
+  "horizontalOverflowFailures": 0,
+  "secretPrivateLeaks": 0,
+  "xssFailures": 0,
+  "expectedClientAbortRequestFailures": 1,
+  "screenshots": [
+    "artifacts/ai-tutor-acceptance/screenshots/tutor-welcome-desktop.png",
+    "artifacts/ai-tutor-acceptance/screenshots/tutor-streaming-desktop.png",
+    "artifacts/ai-tutor-acceptance/screenshots/tutor-response-desktop.png",
+    "artifacts/ai-tutor-acceptance/screenshots/tutor-error-desktop.png",
+    "artifacts/ai-tutor-acceptance/screenshots/tutor-long-response-desktop.png",
+    "artifacts/ai-tutor-acceptance/screenshots/tutor-welcome-mobile.png",
+    "artifacts/ai-tutor-acceptance/screenshots/tutor-streaming-mobile.png",
+    "artifacts/ai-tutor-acceptance/screenshots/tutor-stopped-mobile.png",
+    "artifacts/ai-tutor-acceptance/screenshots/tutor-dialog-mobile.png",
+    "artifacts/ai-tutor-acceptance/screenshots/tutor-response-narrow-320.png"
+  ],
+  "providerValidation": {
+    "officialOpenAiAdapter": "TESTED_WITH_CONTRACT_AND_UNIT_TESTS",
+    "officialGoogleAdapter": "TESTED_WITH_CONTRACT_AND_UNIT_TESTS",
+    "configuredBrowserProvider": "GOOGLE",
+    "localBrowserProvider": "DETERMINISTIC_TEST_MODE_GOOGLE_CONFIG",
+    "realProviderValidated": false,
+    "paidRequestsMade": 0
+  },
+  "persistence": {
+    "mode": "IN_MEMORY_AUTHENTICATED_PROCESS_AND_CLIENT_STATE",
+    "refreshResume": false,
+    "limitation": "NO_EXISTING_SAFE_CONVERSATION_SCHEMA; NO_MIGRATION_CREATED_FOR_MVP"
+  },
+  "migrationsApplied": "42/42_DISPOSABLE_ONLY",
+  "disposableCleanup": "PASS",
+  "remoteAccessPerformed": false,
+  "remoteMutationPerformed": false,
+  "exactRemainingBlockers": [
+    "OWNER_GOOGLE_KEY_CONFIGURATION_AND_BOUNDED_REAL_PROVIDER_SMOKE"
+  ]
+}

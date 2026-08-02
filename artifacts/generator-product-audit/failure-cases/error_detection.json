@@ -1,0 +1,60 @@
+{
+  "variant": "ERROR_DETECTION",
+  "severity": "CRITICAL",
+  "categories": [
+    "UNIMPLEMENTED_VARIANT",
+    "RUNTIME_DISCONNECTED"
+  ],
+  "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-c6b0e40b03ffcd5006e56a3a9c02a8c1825d76e902740ee2",
+  "reproductionSeedFingerprint": "c6b0e40b03ffcd50",
+  "reproductionSampleId": "ERROR_DETECTION:EASY:1",
+  "sample": {
+    "sampleId": "ERROR_DETECTION:EASY:1",
+    "variant": "ERROR_DETECTION",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-c6b0e40b03ffcd5006e56a3a9c02a8c1825d76e902740ee2",
+    "seedFingerprint": "c6b0e40b03ffcd50",
+    "runtimeReachable": false,
+    "grade": null,
+    "outcomeId": null,
+    "unitId": null,
+    "astKind": "CONTEXT",
+    "complexity": 1,
+    "prompt": "Một tình huống có các đại lượng 21, 31, 3. Hãy thực hiện error detection.",
+    "normalizedTemplate": "một tình huống xó xáx đại lượng #, #, #. hãy thựx hiện error detection.",
+    "answerType": null,
+    "optionLabels": [],
+    "correctOptionKey": null,
+    "correctOptionLabel": "52",
+    "visualType": null,
+    "visualTemplate": null,
+    "solutionSteps": [],
+    "feedback": null,
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": null,
+    "productVerdict": {
+      "usable": false,
+      "severity": "CRITICAL",
+      "categories": [
+        "UNIMPLEMENTED_VARIANT",
+        "RUNTIME_DISCONNECTED"
+      ],
+      "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist."
+    }
+  }
+}

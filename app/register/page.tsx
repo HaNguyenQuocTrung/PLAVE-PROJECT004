@@ -7,10 +7,12 @@ import { registerAccount } from "@/app/register/actions";
 import type { RegistrationOutcome } from "@/lib/auth/registration-result";
 import { Button } from "@/components/Button";
 import { FormField } from "@/components/FormField";
+import { PasswordField } from "@/components/PasswordField";
 import {
   RoleSelector,
   type RegistrationRole,
 } from "@/components/RoleSelector";
+import { AuthBrandPanel } from "@/components/AuthBrandPanel";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -162,7 +164,8 @@ export default function RegisterPage() {
 
   if (registrationComplete) {
     const confirmationExpected =
-      registrationOutcome === "CREATED_REQUIRES_CONFIRMATION";
+      registrationOutcome === "CREATED_REQUIRES_CONFIRMATION" ||
+      registrationOutcome === "USER_ALREADY_EXISTS";
     const deliveryUncertain =
       registrationOutcome === "CREATED_EMAIL_DELIVERY_UNCERTAIN";
     return (
@@ -172,7 +175,7 @@ export default function RegisterPage() {
         </p>
         <h1>
           {confirmationExpected
-            ? "Kiểm tra email để xác nhận tài khoản"
+            ? "Kiểm tra email để tiếp tục"
             : deliveryUncertain
               ? "Tài khoản có thể đã được tạo"
               : "Tài khoản đã được tạo"}
@@ -183,7 +186,7 @@ export default function RegisterPage() {
         {confirmationExpected ? (
           <p>
             Hãy mở liên kết trong email để tiếp tục{" "}
-            {role === "teacher" ? "xác minh giáo viên" : "onboarding"}.
+            {role === "teacher" ? "xác minh giáo viên" : "hoàn tất hồ sơ"}.
           </p>
         ) : null}
         {deliveryUncertain ? (
@@ -212,16 +215,14 @@ export default function RegisterPage() {
   }
 
   return (
-    <section className="register-page page-shell">
-      <div className="auth-intro">
-        <p className="eyebrow">Tạo tài khoản PLAVE</p>
-        <h1>Hai bước ngắn để bắt đầu</h1>
-        <p>
-          Học sinh và phụ huynh có thể đăng ký trực tiếp. Tài khoản giáo viên
-          cần mã mời riêng của PLAVE.
-        </p>
-      </div>
+    <section className="register-page register-page--v2 page-shell">
+      <AuthBrandPanel
+        eyebrow="Bắt đầu với PLAVE"
+        title="Mỗi vai trò, một không gian phù hợp."
+        description="Chọn cách bạn đồng hành cùng việc học Toán. Học sinh và phụ huynh đăng ký trực tiếp; giáo viên dùng mã mời riêng."
+      />
 
+      <div className="register-workspace">
       <div className="step-indicator" aria-label={`Bước ${step} trên 2`}>
         <span className="step-indicator__active">
           <strong>1</strong> Chọn vai trò
@@ -232,7 +233,7 @@ export default function RegisterPage() {
       </div>
 
       {step === 1 ? (
-        <div className="auth-card">
+        <div className="auth-card auth-card--v2">
           <RoleSelector
             selectedRole={role}
             onChange={chooseRole}
@@ -247,7 +248,7 @@ export default function RegisterPage() {
           </p>
         </div>
       ) : (
-        <form className="auth-card register-form" onSubmit={submit} noValidate>
+        <form className="auth-card auth-card--v2 register-form" onSubmit={submit} noValidate>
           <div className="selected-role">
             <span>Vai trò đã chọn</span>
             <strong>{role ? roleLabels[role] : "Chưa chọn"}</strong>
@@ -368,10 +369,9 @@ export default function RegisterPage() {
           />
 
           <div className="form-grid">
-            <FormField
+            <PasswordField
               id="register-password"
               label="Mật khẩu"
-              type="password"
               value={password}
               onChange={(event) => {
                 setPassword(event.target.value);
@@ -383,15 +383,14 @@ export default function RegisterPage() {
               }}
               autoComplete="new-password"
               required
-              hint="Ít nhất 8 ký tự. Supabase quản lý mật khẩu an toàn."
+              hint="Ít nhất 8 ký tự. Không dùng lại mật khẩu của tài khoản khác."
               error={errors.password}
               inputRef={passwordRef}
               disabled={isPending}
             />
-            <FormField
+            <PasswordField
               id="register-confirm-password"
               label="Xác nhận mật khẩu"
-              type="password"
               value={confirmPassword}
               onChange={(event) => {
                 setConfirmPassword(event.target.value);
@@ -439,8 +438,8 @@ export default function RegisterPage() {
             ) : null}
           </div>
 
-          <Button type="submit" fullWidth disabled={isPending}>
-            {isPending ? "Đang tạo tài khoản…" : "Tạo tài khoản"}
+          <Button type="submit" fullWidth disabled={isPending} loading={isPending}>
+            Tạo tài khoản
           </Button>
 
           {notice ? (
@@ -450,10 +449,11 @@ export default function RegisterPage() {
           ) : null}
 
           <p className="privacy-note">
-            PLAVE không lưu mật khẩu trong bảng dữ liệu ứng dụng.
+            PLAVE không hiển thị mật khẩu của bạn trong hồ sơ.
           </p>
         </form>
       )}
+      </div>
     </section>
   );
 }

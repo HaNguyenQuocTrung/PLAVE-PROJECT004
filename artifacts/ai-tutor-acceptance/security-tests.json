@@ -1,0 +1,15 @@
+{
+  "anonymousRequest": "DENIED_401",
+  "parentRequest": "DENIED_403",
+  "teacherRequest": "DENIED_403",
+  "studentOwnerRequest": "PASS",
+  "crossUserAccess": "DENIED_403",
+  "duplicateSend": "DENIED_409",
+  "concurrentSend": "ONE_ACTIVE_ONE_DENIED_409",
+  "oversizedMessage": "DENIED_413",
+  "clientProviderModelIdentityInjection": "DENIED_400",
+  "promptInjection": "LOCAL_SAFE_RESPONSE",
+  "secretsLeaked": 0,
+  "rawProviderErrorsLeaked": 0,
+  "xss": 0
+}

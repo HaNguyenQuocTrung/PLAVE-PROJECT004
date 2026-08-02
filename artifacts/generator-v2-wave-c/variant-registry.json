@@ -1,0 +1,1903 @@
+{
+  "schemaVersion": 1,
+  "count": 57,
+  "canonicalCapabilities": 41,
+  "fallbackCount": 0,
+  "keywordRoutingCount": 0,
+  "entries": [
+    {
+      "capabilityId": "MIXED_ARITHMETIC_EXPRESSION",
+      "outcomeId": "MOET2018-G3-NUM-P030-019",
+      "grade": 3,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "NUMERIC_EXPRESSION_PARENTHESES",
+      "interactions": [
+        "INTEGER_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "MIXED_ARITHMETIC_EXPRESSION",
+        "mode": "NUMERIC_EXPRESSION_PARENTHESES",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one exact integer",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_MIXED_ARITHMETIC_EXPRESSION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_MIXED_ARITHMETIC_EXPRESSION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 3 feedback identifies the MIXED_ARITHMETIC_EXPRESSION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "operation order",
+        "parentheses ignored"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "MIXED_ARITHMETIC_EXPRESSION",
+      "outcomeId": "MOET2018-G3-NUM-P030-020",
+      "grade": 3,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "NUMERIC_EXPRESSION_ORDER",
+      "interactions": [
+        "INTEGER_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "MIXED_ARITHMETIC_EXPRESSION",
+        "mode": "NUMERIC_EXPRESSION_ORDER",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one exact integer",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_MIXED_ARITHMETIC_EXPRESSION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_MIXED_ARITHMETIC_EXPRESSION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 3 feedback identifies the MIXED_ARITHMETIC_EXPRESSION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "operation order",
+        "parentheses ignored"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "ALGEBRAIC_SUBSTITUTION",
+      "outcomeId": "MOET2018-G4-NUM-P035-006",
+      "grade": 4,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "MULTIVARIABLE_SUBSTITUTION",
+      "interactions": [
+        "INTEGER_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "ALGEBRAIC_SUBSTITUTION",
+        "mode": "MULTIVARIABLE_SUBSTITUTION",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one exact integer or reduced rational",
+      "visualModel": "DATA_TABLE when assignments are evidence",
+      "solver": "WAVE_C_ALGEBRAIC_SUBSTITUTION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_ALGEBRAIC_SUBSTITUTION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 4 feedback identifies the ALGEBRAIC_SUBSTITUTION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "wrong variable value",
+        "sign error"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "RATIONAL_COMPARE_ORDER",
+      "outcomeId": "MOET2018-G4-NUM-P036-020",
+      "grade": 4,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "FRACTION_COMPARE_ORDER",
+      "interactions": [
+        "ORDERING"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "RATIONAL_COMPARE_ORDER",
+        "mode": "FRACTION_COMPARE_ORDER",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "exact ordered item ids",
+      "visualModel": "FRACTION_MODEL when representation is evidence",
+      "solver": "WAVE_C_RATIONAL_COMPARE_ORDER_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_RATIONAL_COMPARE_ORDER_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 4 feedback identifies the RATIONAL_COMPARE_ORDER misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "denominator-only comparison",
+        "reversed order"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "FRACTION_COMMON_DENOMINATOR",
+      "outcomeId": "MOET2018-G4-NUM-P036-021",
+      "grade": 4,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "COMMON_DENOMINATOR",
+      "interactions": [
+        "INTEGER_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "FRACTION_COMMON_DENOMINATOR",
+        "mode": "COMMON_DENOMINATOR",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one reduced equivalent rational target",
+      "visualModel": "FRACTION_MODEL",
+      "solver": "WAVE_C_FRACTION_COMMON_DENOMINATOR_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_FRACTION_COMMON_DENOMINATOR_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 4 feedback identifies the FRACTION_COMMON_DENOMINATOR misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "only numerator scaled",
+        "wrong common denominator"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "FRACTION_EQUIVALENCE",
+      "outcomeId": "MOET2018-G4-NUM-P036-022",
+      "grade": 4,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "FRACTION_SIMPLIFY",
+      "interactions": [
+        "FRACTION_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "FRACTION_EQUIVALENCE",
+        "mode": "FRACTION_SIMPLIFY",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "any mathematically equivalent fraction normalizes to one value",
+      "visualModel": "FRACTION_MODEL",
+      "solver": "WAVE_C_FRACTION_EQUIVALENCE_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_FRACTION_EQUIVALENCE_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 4 feedback identifies the FRACTION_EQUIVALENCE misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "numerator/denominator not scaled together"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "NUMERIC_OPERATION_PROPERTIES",
+      "outcomeId": "MOET2018-G4-NUM-P036-023",
+      "grade": 4,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "DISTRIBUTIVE_PROPERTY",
+      "interactions": [
+        "SINGLE_CHOICE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "NUMERIC_OPERATION_PROPERTIES",
+        "mode": "DISTRIBUTIVE_PROPERTY",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one equivalent expression id",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_NUMERIC_OPERATION_PROPERTIES_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_NUMERIC_OPERATION_PROPERTIES_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 4 feedback identifies the NUMERIC_OPERATION_PROPERTIES misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "invalid distribution",
+        "invalid association"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "RATIONAL_COMPARE_ORDER",
+      "outcomeId": "MOET2018-G4-NUM-P036-024",
+      "grade": 4,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "FRACTION_EXTREME",
+      "interactions": [
+        "SINGLE_CHOICE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "RATIONAL_COMPARE_ORDER",
+        "mode": "FRACTION_EXTREME",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "exact ordered item ids",
+      "visualModel": "FRACTION_MODEL when representation is evidence",
+      "solver": "WAVE_C_RATIONAL_COMPARE_ORDER_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_RATIONAL_COMPARE_ORDER_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 4 feedback identifies the RATIONAL_COMPARE_ORDER misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "denominator-only comparison",
+        "reversed order"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "FRACTION_APPLICATION",
+      "outcomeId": "MOET2018-G4-NUM-P037-025",
+      "grade": 4,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "FRACTION_MULTI_STEP_APPLICATION",
+      "interactions": [
+        "FRACTION_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "FRACTION_APPLICATION",
+        "mode": "FRACTION_MULTI_STEP_APPLICATION",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one reduced rational or exact quantity",
+      "visualModel": "FRACTION_MODEL when partition is evidence",
+      "solver": "WAVE_C_FRACTION_APPLICATION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_FRACTION_APPLICATION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 4 feedback identifies the FRACTION_APPLICATION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "wrong operation",
+        "ignored step"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "RATIONAL_OPERATIONS",
+      "outcomeId": "MOET2018-G4-NUM-P037-026",
+      "grade": 4,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "FRACTION_MULTIPLY_DIVIDE",
+      "interactions": [
+        "FRACTION_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "RATIONAL_OPERATIONS",
+        "mode": "FRACTION_MULTIPLY_DIVIDE",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one reduced rational",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_RATIONAL_OPERATIONS_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_RATIONAL_OPERATIONS_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 4 feedback identifies the RATIONAL_OPERATIONS misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "denominators added",
+        "division not inverted"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "DATA_SEQUENCE_RECOGNITION",
+      "outcomeId": "MOET2018-G4-STA-P038-001",
+      "grade": 4,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "STATISTICAL_SEQUENCE",
+      "interactions": [
+        "ORDERING"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "DATA_SEQUENCE_RECOGNITION",
+        "mode": "STATISTICAL_SEQUENCE",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "exact ordered observation ids",
+      "visualModel": "DATA_TABLE",
+      "solver": "WAVE_C_DATA_SEQUENCE_RECOGNITION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_DATA_SEQUENCE_RECOGNITION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 4 feedback identifies the DATA_SEQUENCE_RECOGNITION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "sorted frequencies instead of observations",
+        "reversed order"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "DATA_INVESTIGATION",
+      "outcomeId": "MOET2018-G4-EXP-P040-003",
+      "grade": 4,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "DATA_COLLECTION_ANALYSIS",
+      "interactions": [
+        "TABLE_OR_CHART_RESPONSE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "DATA_INVESTIGATION",
+        "mode": "DATA_COLLECTION_ANALYSIS",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one exact statistic",
+      "visualModel": "DATA_TABLE",
+      "solver": "WAVE_C_DATA_INVESTIGATION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_DATA_INVESTIGATION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 4 feedback identifies the DATA_INVESTIGATION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "misread category",
+        "omitted observation"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "DECIMAL_REPRESENTATION",
+      "outcomeId": "MOET2018-G5-NUM-P041-005",
+      "grade": 5,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "DECIMAL_READ_WRITE",
+      "interactions": [
+        "DECIMAL_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "DECIMAL_REPRESENTATION",
+        "mode": "DECIMAL_READ_WRITE",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "integer-scaled decimal or digit",
+      "visualModel": "PLACE_VALUE_CHART",
+      "solver": "WAVE_C_DECIMAL_REPRESENTATION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_DECIMAL_REPRESENTATION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 5 feedback identifies the DECIMAL_REPRESENTATION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "decimal place shift",
+        "whole/fractional part confusion"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "FRACTION_APPLICATION",
+      "outcomeId": "MOET2018-G5-NUM-P041-006",
+      "grade": 5,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "FRACTION_MULTI_STEP_APPLICATION",
+      "interactions": [
+        "FRACTION_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "FRACTION_APPLICATION",
+        "mode": "FRACTION_MULTI_STEP_APPLICATION",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one reduced rational or exact quantity",
+      "visualModel": "FRACTION_MODEL when partition is evidence",
+      "solver": "WAVE_C_FRACTION_APPLICATION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_FRACTION_APPLICATION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 5 feedback identifies the FRACTION_APPLICATION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "wrong operation",
+        "ignored step"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "MIXED_DECIMAL_FRACTION_REPRESENTATION",
+      "outcomeId": "MOET2018-G5-NUM-P041-007",
+      "grade": 5,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "DECIMAL_FRACTION_MIXED_NUMBER",
+      "interactions": [
+        "FRACTION_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "MIXED_DECIMAL_FRACTION_REPRESENTATION",
+        "mode": "DECIMAL_FRACTION_MIXED_NUMBER",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one reduced rational",
+      "visualModel": "PLACE_VALUE_CHART",
+      "solver": "WAVE_C_MIXED_DECIMAL_FRACTION_REPRESENTATION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_MIXED_DECIMAL_FRACTION_REPRESENTATION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 5 feedback identifies the MIXED_DECIMAL_FRACTION_REPRESENTATION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "power-of-ten denominator error",
+        "whole part omitted"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "DECIMAL_REPRESENTATION",
+      "outcomeId": "MOET2018-G5-NUM-P041-008",
+      "grade": 5,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "DECIMAL_PLACE_VALUE",
+      "interactions": [
+        "INTEGER_INPUT",
+        "DECIMAL_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "DECIMAL_REPRESENTATION",
+        "mode": "DECIMAL_PLACE_VALUE",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "integer-scaled decimal or digit",
+      "visualModel": "PLACE_VALUE_CHART",
+      "solver": "WAVE_C_DECIMAL_REPRESENTATION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_DECIMAL_REPRESENTATION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 5 feedback identifies the DECIMAL_REPRESENTATION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "decimal place shift",
+        "whole/fractional part confusion"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "FRACTION_EQUIVALENCE",
+      "outcomeId": "MOET2018-G5-NUM-P041-010",
+      "grade": 5,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "FRACTION_SIMPLIFY",
+      "interactions": [
+        "FRACTION_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "FRACTION_EQUIVALENCE",
+        "mode": "FRACTION_SIMPLIFY",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "any mathematically equivalent fraction normalizes to one value",
+      "visualModel": "FRACTION_MODEL",
+      "solver": "WAVE_C_FRACTION_EQUIVALENCE_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_FRACTION_EQUIVALENCE_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 5 feedback identifies the FRACTION_EQUIVALENCE misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "numerator/denominator not scaled together"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "RATIONAL_OPERATIONS",
+      "outcomeId": "MOET2018-G5-NUM-P041-012",
+      "grade": 5,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "FRACTION_FOUR_OPERATIONS",
+      "interactions": [
+        "FRACTION_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "RATIONAL_OPERATIONS",
+        "mode": "FRACTION_FOUR_OPERATIONS",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one reduced rational",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_RATIONAL_OPERATIONS_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_RATIONAL_OPERATIONS_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 5 feedback identifies the RATIONAL_OPERATIONS misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "denominators added",
+        "division not inverted"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "RATIONAL_OPERATIONS",
+      "outcomeId": "MOET2018-G5-NUM-P041-013",
+      "grade": 5,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "FRACTION_ADD_SUB_PRODUCT_DENOMINATOR",
+      "interactions": [
+        "FRACTION_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "RATIONAL_OPERATIONS",
+        "mode": "FRACTION_ADD_SUB_PRODUCT_DENOMINATOR",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one reduced rational",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_RATIONAL_OPERATIONS_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_RATIONAL_OPERATIONS_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 5 feedback identifies the RATIONAL_OPERATIONS misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "denominators added",
+        "division not inverted"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "PERCENTAGE_REASONING",
+      "outcomeId": "MOET2018-G5-NUM-P042-014",
+      "grade": 5,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "PERCENT_OF_AND_RATE",
+      "interactions": [
+        "DECIMAL_INPUT",
+        "INTEGER_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "PERCENTAGE_REASONING",
+        "mode": "PERCENT_OF_AND_RATE",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one exact integer-scaled result",
+      "visualModel": "DATA_TABLE",
+      "solver": "WAVE_C_PERCENTAGE_REASONING_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_PERCENTAGE_REASONING_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 5 feedback identifies the PERCENTAGE_REASONING misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "wrong base quantity",
+        "percent treated as whole"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "DECIMAL_APPLICATION",
+      "outcomeId": "MOET2018-G5-NUM-P042-015",
+      "grade": 5,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "DECIMAL_MULTI_STEP_APPLICATION",
+      "interactions": [
+        "DECIMAL_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "DECIMAL_APPLICATION",
+        "mode": "DECIMAL_MULTI_STEP_APPLICATION",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one integer-scaled decimal",
+      "visualModel": "DATA_TABLE when quantities are evidence",
+      "solver": "WAVE_C_DECIMAL_APPLICATION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_DECIMAL_APPLICATION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 5 feedback identifies the DECIMAL_APPLICATION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "wrong operation",
+        "decimal alignment"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "DECIMAL_ROUNDING",
+      "outcomeId": "MOET2018-G5-NUM-P042-016",
+      "grade": 5,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "DECIMAL_ROUND_TO_PLACE",
+      "interactions": [
+        "DECIMAL_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "DECIMAL_ROUNDING",
+        "mode": "DECIMAL_ROUND_TO_PLACE",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one integer-scaled decimal at declared precision",
+      "visualModel": "NUMBER_LINE",
+      "solver": "WAVE_C_DECIMAL_ROUNDING_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_DECIMAL_ROUNDING_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 5 feedback identifies the DECIMAL_ROUNDING misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "wrong rounding place",
+        "ignored next digit"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "SCALE_REASONING",
+      "outcomeId": "MOET2018-G5-NUM-P042-017",
+      "grade": 5,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "MAP_SCALE",
+      "interactions": [
+        "INTEGER_INPUT",
+        "DECIMAL_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "SCALE_REASONING",
+        "mode": "MAP_SCALE",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one exact scaled distance with unit",
+      "visualModel": "DATA_TABLE",
+      "solver": "WAVE_C_SCALE_REASONING_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_SCALE_REASONING_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 5 feedback identifies the SCALE_REASONING misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "inverse scale",
+        "unit mismatch"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "DECIMAL_OPERATIONS",
+      "outcomeId": "MOET2018-G5-NUM-P042-018",
+      "grade": 5,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "DECIMAL_DIVISION",
+      "interactions": [
+        "DECIMAL_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "DECIMAL_OPERATIONS",
+        "mode": "DECIMAL_DIVISION",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one integer-scaled decimal",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_DECIMAL_OPERATIONS_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_DECIMAL_OPERATIONS_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 5 feedback identifies the DECIMAL_OPERATIONS misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "decimal alignment",
+        "incorrect scaling"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "DECIMAL_OPERATIONS",
+      "outcomeId": "MOET2018-G5-NUM-P042-019",
+      "grade": 5,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "DECIMAL_ADD_SUBTRACT",
+      "interactions": [
+        "DECIMAL_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "DECIMAL_OPERATIONS",
+        "mode": "DECIMAL_ADD_SUBTRACT",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one integer-scaled decimal",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_DECIMAL_OPERATIONS_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_DECIMAL_OPERATIONS_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 5 feedback identifies the DECIMAL_OPERATIONS misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "decimal alignment",
+        "incorrect scaling"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "DECIMAL_OPERATIONS",
+      "outcomeId": "MOET2018-G5-NUM-P042-020",
+      "grade": 5,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "DECIMAL_MULTIPLICATION",
+      "interactions": [
+        "DECIMAL_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "DECIMAL_OPERATIONS",
+        "mode": "DECIMAL_MULTIPLICATION",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one integer-scaled decimal",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_DECIMAL_OPERATIONS_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_DECIMAL_OPERATIONS_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 5 feedback identifies the DECIMAL_OPERATIONS misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "decimal alignment",
+        "incorrect scaling"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "DECIMAL_SCALE_OPERATION",
+      "outcomeId": "MOET2018-G5-NUM-P042-021",
+      "grade": 5,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "DECIMAL_POWER_OF_TEN",
+      "interactions": [
+        "DECIMAL_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "DECIMAL_SCALE_OPERATION",
+        "mode": "DECIMAL_POWER_OF_TEN",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one integer-scaled decimal",
+      "visualModel": "PLACE_VALUE_CHART",
+      "solver": "WAVE_C_DECIMAL_SCALE_OPERATION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_DECIMAL_SCALE_OPERATION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 5 feedback identifies the DECIMAL_SCALE_OPERATION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "decimal moved wrong direction",
+        "wrong number of places"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "DECIMAL_COMPARE_ORDER",
+      "outcomeId": "MOET2018-G5-NUM-P042-022",
+      "grade": 5,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "DECIMAL_COMPARE_ORDER",
+      "interactions": [
+        "ORDERING"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "DECIMAL_COMPARE_ORDER",
+        "mode": "DECIMAL_COMPARE_ORDER",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "exact ordered ids using integer scaling",
+      "visualModel": "NUMBER_LINE",
+      "solver": "WAVE_C_DECIMAL_COMPARE_ORDER_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_DECIMAL_COMPARE_ORDER_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 5 feedback identifies the DECIMAL_COMPARE_ORDER misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "string-length comparison",
+        "reversed order"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "NUMERIC_OPERATION_PROPERTIES",
+      "outcomeId": "MOET2018-G5-NUM-P042-023",
+      "grade": 5,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "DECIMAL_OPERATION_PROPERTY",
+      "interactions": [
+        "SINGLE_CHOICE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "NUMERIC_OPERATION_PROPERTIES",
+        "mode": "DECIMAL_OPERATION_PROPERTY",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one equivalent expression id",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_NUMERIC_OPERATION_PROPERTIES_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_NUMERIC_OPERATION_PROPERTIES_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 5 feedback identifies the NUMERIC_OPERATION_PROPERTIES misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "invalid distribution",
+        "invalid association"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "DATA_INVESTIGATION",
+      "outcomeId": "MOET2018-G5-EXP-P046-002",
+      "grade": 5,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "DATA_COLLECTION_ANALYSIS",
+      "interactions": [
+        "TABLE_OR_CHART_RESPONSE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "DATA_INVESTIGATION",
+        "mode": "DATA_COLLECTION_ANALYSIS",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one exact statistic",
+      "visualModel": "DATA_TABLE",
+      "solver": "WAVE_C_DATA_INVESTIGATION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_DATA_INVESTIGATION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 5 feedback identifies the DATA_INVESTIGATION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "misread category",
+        "omitted observation"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "SIGNED_FRACTION_REPRESENTATION",
+      "outcomeId": "MOET2018-G6-NAA-P049-036",
+      "grade": 6,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "SIGNED_FRACTION",
+      "interactions": [
+        "FRACTION_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "SIGNED_FRACTION_REPRESENTATION",
+        "mode": "SIGNED_FRACTION",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one reduced rational with normalized sign",
+      "visualModel": "NUMBER_LINE",
+      "solver": "WAVE_C_SIGNED_FRACTION_REPRESENTATION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_SIGNED_FRACTION_REPRESENTATION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 6 feedback identifies the SIGNED_FRACTION_REPRESENTATION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "negative denominator left unnormalized",
+        "sign lost"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "RATIO_PROPORTION",
+      "outcomeId": "MOET2018-G7-NAA-P057-024",
+      "grade": 7,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "EQUAL_RATIO_SEQUENCE",
+      "interactions": [
+        "TABLE_OR_CHART_RESPONSE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "RATIO_PROPORTION",
+        "mode": "EQUAL_RATIO_SEQUENCE",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one unique proportional value",
+      "visualModel": "DATA_TABLE",
+      "solver": "WAVE_C_RATIO_PROPORTION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_RATIO_PROPORTION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 7 feedback identifies the RATIO_PROPORTION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "non-equivalent scaling",
+        "ratio order reversed"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "ALGEBRAIC_SUBSTITUTION",
+      "outcomeId": "MOET2018-G7-NAA-P057-030",
+      "grade": 7,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "ALGEBRAIC_EXPRESSION_VALUE",
+      "interactions": [
+        "FRACTION_INPUT",
+        "INTEGER_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "ALGEBRAIC_SUBSTITUTION",
+        "mode": "ALGEBRAIC_EXPRESSION_VALUE",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one exact integer or reduced rational",
+      "visualModel": "DATA_TABLE when assignments are evidence",
+      "solver": "WAVE_C_ALGEBRAIC_SUBSTITUTION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_ALGEBRAIC_SUBSTITUTION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 7 feedback identifies the ALGEBRAIC_SUBSTITUTION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "wrong variable value",
+        "sign error"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "PROPORTIONAL_REASONING",
+      "outcomeId": "MOET2018-G7-NAA-P057-031",
+      "grade": 7,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "DIVIDE_IN_GIVEN_RATIO",
+      "interactions": [
+        "TABLE_OR_CHART_RESPONSE",
+        "INTEGER_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "PROPORTIONAL_REASONING",
+        "mode": "DIVIDE_IN_GIVEN_RATIO",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one unique requested part",
+      "visualModel": "DATA_TABLE",
+      "solver": "WAVE_C_PROPORTIONAL_REASONING_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_PROPORTIONAL_REASONING_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 7 feedback identifies the PROPORTIONAL_REASONING misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "used one ratio term as total",
+        "parts reversed"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "ALGEBRAIC_IDENTITY",
+      "outcomeId": "MOET2018-G8-NAA-P063-001",
+      "grade": 8,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "NOTABLE_IDENTITIES",
+      "interactions": [
+        "MATCHING"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "ALGEBRAIC_IDENTITY",
+        "mode": "NOTABLE_IDENTITIES",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one identity id or exact matching",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_ALGEBRAIC_IDENTITY_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_ALGEBRAIC_IDENTITY_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 8 feedback identifies the ALGEBRAIC_IDENTITY misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "middle term omitted",
+        "sign pattern error"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "ALGEBRAIC_IDENTITY",
+      "outcomeId": "MOET2018-G8-NAA-P063-003",
+      "grade": 8,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "IDENTITY_RECOGNITION",
+      "interactions": [
+        "SINGLE_CHOICE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "ALGEBRAIC_IDENTITY",
+        "mode": "IDENTITY_RECOGNITION",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one identity id or exact matching",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_ALGEBRAIC_IDENTITY_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_ALGEBRAIC_IDENTITY_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 8 feedback identifies the ALGEBRAIC_IDENTITY misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "middle term omitted",
+        "sign pattern error"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "POLYNOMIAL_SIMPLIFICATION",
+      "outcomeId": "MOET2018-G8-NAA-P063-007",
+      "grade": 8,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "COMBINE_LIKE_TERMS",
+      "interactions": [
+        "SHORT_STRUCTURED_RESPONSE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "POLYNOMIAL_SIMPLIFICATION",
+        "mode": "COMBINE_LIKE_TERMS",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "canonical coefficient expression",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_POLYNOMIAL_SIMPLIFICATION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_POLYNOMIAL_SIMPLIFICATION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 8 feedback identifies the POLYNOMIAL_SIMPLIFICATION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "unlike terms combined",
+        "coefficient sign error"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "FUNCTION_GRAPH_RECOGNITION",
+      "outcomeId": "MOET2018-G8-NAA-P064-012",
+      "grade": 8,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "FUNCTION_GRAPH",
+      "interactions": [
+        "CONSTRUCTION_OR_VISUAL_SELECTION"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "FUNCTION_GRAPH_RECOGNITION",
+        "mode": "FUNCTION_GRAPH",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one graph id satisfying vertical-line rule",
+      "visualModel": "COORDINATE_GRAPH",
+      "solver": "WAVE_C_FUNCTION_GRAPH_RECOGNITION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_FUNCTION_GRAPH_RECOGNITION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 8 feedback identifies the FUNCTION_GRAPH_RECOGNITION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "axes mistaken for graph",
+        "multiple y-values ignored"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "FUNCTION_EVALUATION",
+      "outcomeId": "MOET2018-G8-NAA-P064-018",
+      "grade": 8,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "FUNCTION_VALUE",
+      "interactions": [
+        "INTEGER_INPUT",
+        "FRACTION_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "FUNCTION_EVALUATION",
+        "mode": "FUNCTION_VALUE",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one exact integer or reduced rational",
+      "visualModel": "DATA_TABLE",
+      "solver": "WAVE_C_FUNCTION_EVALUATION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_FUNCTION_EVALUATION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 8 feedback identifies the FUNCTION_EVALUATION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "input not substituted everywhere",
+        "operation order"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "POLYNOMIAL_FACTORIZATION",
+      "outcomeId": "MOET2018-G8-NAA-P064-019",
+      "grade": 8,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "IDENTITY_FACTORIZATION",
+      "interactions": [
+        "SHORT_STRUCTURED_RESPONSE",
+        "SINGLE_CHOICE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "POLYNOMIAL_FACTORIZATION",
+        "mode": "IDENTITY_FACTORIZATION",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "canonical factorized expression",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_POLYNOMIAL_FACTORIZATION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_POLYNOMIAL_FACTORIZATION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 8 feedback identifies the POLYNOMIAL_FACTORIZATION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "common factor omitted",
+        "identity sign error"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "QUADRATIC_MODELING",
+      "outcomeId": "MOET2018-G9-NAA-P071-001",
+      "grade": 9,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "QUADRATIC_APPLICATION",
+      "interactions": [
+        "INTEGER_INPUT",
+        "DECIMAL_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "QUADRATIC_MODELING",
+        "mode": "QUADRATIC_APPLICATION",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one context-valid root",
+      "visualModel": "COORDINATE_GRAPH",
+      "solver": "WAVE_C_QUADRATIC_MODELING_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_QUADRATIC_MODELING_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 9 feedback identifies the QUADRATIC_MODELING misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "invalid root retained",
+        "linear model used"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "QUADRATIC_GRAPH_SYMMETRY",
+      "outcomeId": "MOET2018-G9-NAA-P071-004",
+      "grade": 9,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "QUADRATIC_AXIS",
+      "interactions": [
+        "DECIMAL_INPUT",
+        "SINGLE_CHOICE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "QUADRATIC_GRAPH_SYMMETRY",
+        "mode": "QUADRATIC_AXIS",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one exact axis value",
+      "visualModel": "COORDINATE_GRAPH",
+      "solver": "WAVE_C_QUADRATIC_GRAPH_SYMMETRY_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_QUADRATIC_GRAPH_SYMMETRY_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 9 feedback identifies the QUADRATIC_GRAPH_SYMMETRY misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "used intercept as axis",
+        "sign error in -b/2a"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "RADICAL_TRANSFORMATION",
+      "outcomeId": "MOET2018-G9-NAA-P071-006",
+      "grade": 9,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "RADICAL_SIMPLIFICATION",
+      "interactions": [
+        "SHORT_STRUCTURED_RESPONSE",
+        "SINGLE_CHOICE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "RADICAL_TRANSFORMATION",
+        "mode": "RADICAL_SIMPLIFICATION",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "canonical exact radical form",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_RADICAL_TRANSFORMATION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_RADICAL_TRANSFORMATION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 9 feedback identifies the RADICAL_TRANSFORMATION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "invalid radical split",
+        "square factor missed"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "LINEAR_SYSTEM",
+      "outcomeId": "MOET2018-G9-NAA-P072-010",
+      "grade": 9,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "LINEAR_SYSTEM_SOLVE",
+      "interactions": [
+        "MATCHING"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "LINEAR_SYSTEM",
+        "mode": "LINEAR_SYSTEM_SOLVE",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one ordered pair",
+      "visualModel": "NONE",
+      "solver": "PROVEN_V2_INDEPENDENT_SOLVER",
+      "validator": "PROVEN_V2_INDEPENDENT_VALIDATOR",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 9 feedback identifies the LINEAR_SYSTEM misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "sign error",
+        "pair satisfies one equation only"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "QUADRATIC_EQUATION_SOLVING",
+      "outcomeId": "MOET2018-G9-NAA-P072-011",
+      "grade": 9,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "QUADRATIC_SOLVE",
+      "interactions": [
+        "INTEGER_INPUT",
+        "ORDERING"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "QUADRATIC_EQUATION_SOLVING",
+        "mode": "QUADRATIC_SOLVE",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one double root or exact ordered roots",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_QUADRATIC_EQUATION_SOLVING_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_QUADRATIC_EQUATION_SOLVING_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 9 feedback identifies the QUADRATIC_EQUATION_SOLVING misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "one root omitted",
+        "factor sign error"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "RATIONAL_EQUATION_SOLVING",
+      "outcomeId": "MOET2018-G9-NAA-P072-012",
+      "grade": 9,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "RATIONAL_EQUATION",
+      "interactions": [
+        "FRACTION_INPUT",
+        "INTEGER_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "RATIONAL_EQUATION_SOLVING",
+        "mode": "RATIONAL_EQUATION",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one exact admissible root",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_RATIONAL_EQUATION_SOLVING_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_RATIONAL_EQUATION_SOLVING_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 9 feedback identifies the RATIONAL_EQUATION_SOLVING misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "excluded value retained",
+        "denominator not cleared"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "PRODUCT_EQUATION_SOLVING",
+      "outcomeId": "MOET2018-G9-NAA-P072-013",
+      "grade": 9,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "PRODUCT_EQUATION",
+      "interactions": [
+        "ORDERING"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "PRODUCT_EQUATION_SOLVING",
+        "mode": "PRODUCT_EQUATION",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "exact ordered roots",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_PRODUCT_EQUATION_SOLVING_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_PRODUCT_EQUATION_SOLVING_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 9 feedback identifies the PRODUCT_EQUATION_SOLVING misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "only one factor solved",
+        "sign error"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "LINEAR_SYSTEM_MODELING",
+      "outcomeId": "MOET2018-G9-NAA-P072-014",
+      "grade": 9,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "LINEAR_SYSTEM_APPLICATION",
+      "interactions": [
+        "MATCHING"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "LINEAR_SYSTEM_MODELING",
+        "mode": "LINEAR_SYSTEM_APPLICATION",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one ordered pair with named quantities",
+      "visualModel": "DATA_TABLE",
+      "solver": "WAVE_C_LINEAR_SYSTEM_MODELING_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_LINEAR_SYSTEM_MODELING_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 9 feedback identifies the LINEAR_SYSTEM_MODELING misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "quantities reversed",
+        "one equation modeled incorrectly"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "INEQUALITY_PROPERTY",
+      "outcomeId": "MOET2018-G9-NAA-P072-016",
+      "grade": 9,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "INEQUALITY_PROPERTIES",
+      "interactions": [
+        "SINGLE_CHOICE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "INEQUALITY_PROPERTY",
+        "mode": "INEQUALITY_PROPERTIES",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one valid transformation id",
+      "visualModel": "NUMBER_LINE",
+      "solver": "WAVE_C_INEQUALITY_PROPERTY_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_INEQUALITY_PROPERTY_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 9 feedback identifies the INEQUALITY_PROPERTY misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "direction not reversed",
+        "addition property misused"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "LINEAR_SYSTEM_SOLUTION_CHECK",
+      "outcomeId": "MOET2018-G9-NAA-P072-017",
+      "grade": 9,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "SYSTEM_SOLUTION_CONCEPT",
+      "interactions": [
+        "SINGLE_CHOICE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "LINEAR_SYSTEM_SOLUTION_CHECK",
+        "mode": "SYSTEM_SOLUTION_CONCEPT",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one ordered-pair option",
+      "visualModel": "COORDINATE_GRAPH",
+      "solver": "WAVE_C_LINEAR_SYSTEM_SOLUTION_CHECK_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_LINEAR_SYSTEM_SOLUTION_CHECK_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 9 feedback identifies the LINEAR_SYSTEM_SOLUTION_CHECK misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "checked only one equation",
+        "coordinates reversed"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "QUADRATIC_EQUATION_RECOGNITION",
+      "outcomeId": "MOET2018-G9-NAA-P072-018",
+      "grade": 9,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "QUADRATIC_DEFINITION",
+      "interactions": [
+        "SINGLE_CHOICE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "QUADRATIC_EQUATION_RECOGNITION",
+        "mode": "QUADRATIC_DEFINITION",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one equation id",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_QUADRATIC_EQUATION_RECOGNITION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_QUADRATIC_EQUATION_RECOGNITION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 9 feedback identifies the QUADRATIC_EQUATION_RECOGNITION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "degree misidentified",
+        "leading coefficient zero"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "LINEAR_SYSTEM_RECOGNITION",
+      "outcomeId": "MOET2018-G9-NAA-P072-019",
+      "grade": 9,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "LINEAR_SYSTEM_DEFINITION",
+      "interactions": [
+        "SINGLE_CHOICE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "LINEAR_SYSTEM_RECOGNITION",
+        "mode": "LINEAR_SYSTEM_DEFINITION",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one system id",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_LINEAR_SYSTEM_RECOGNITION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_LINEAR_SYSTEM_RECOGNITION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 9 feedback identifies the LINEAR_SYSTEM_RECOGNITION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "nonlinear term accepted",
+        "single equation mistaken for system"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "LINEAR_SYSTEM",
+      "outcomeId": "MOET2018-G9-NAA-P072-020",
+      "grade": 9,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "LINEAR_SYSTEM_CALCULATOR",
+      "interactions": [
+        "MATCHING"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "LINEAR_SYSTEM",
+        "mode": "LINEAR_SYSTEM_CALCULATOR",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one ordered pair",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_LINEAR_SYSTEM_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_LINEAR_SYSTEM_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 9 feedback identifies the LINEAR_SYSTEM misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "sign error",
+        "pair satisfies one equation only"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "QUADRATIC_EQUATION_SOLVING",
+      "outcomeId": "MOET2018-G9-NAA-P072-021",
+      "grade": 9,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "QUADRATIC_CALCULATOR",
+      "interactions": [
+        "INTEGER_INPUT",
+        "ORDERING"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "QUADRATIC_EQUATION_SOLVING",
+        "mode": "QUADRATIC_CALCULATOR",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one double root or exact ordered roots",
+      "visualModel": "NONE",
+      "solver": "WAVE_C_QUADRATIC_EQUATION_SOLVING_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_QUADRATIC_EQUATION_SOLVING_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 9 feedback identifies the QUADRATIC_EQUATION_SOLVING misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "one root omitted",
+        "factor sign error"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "QUADRATIC_MODELING",
+      "outcomeId": "MOET2018-G9-NAA-P072-022",
+      "grade": 9,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "QUADRATIC_EQUATION_APPLICATION",
+      "interactions": [
+        "INTEGER_INPUT",
+        "DECIMAL_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "QUADRATIC_MODELING",
+        "mode": "QUADRATIC_EQUATION_APPLICATION",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one context-valid root",
+      "visualModel": "COORDINATE_GRAPH",
+      "solver": "WAVE_C_QUADRATIC_MODELING_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_QUADRATIC_MODELING_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 9 feedback identifies the QUADRATIC_MODELING misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "invalid root retained",
+        "linear model used"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "LINEAR_INEQUALITY_SOLVING",
+      "outcomeId": "MOET2018-G9-NAA-P073-023",
+      "grade": 9,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "LINEAR_INEQUALITY",
+      "interactions": [
+        "SHORT_STRUCTURED_RESPONSE",
+        "SINGLE_CHOICE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "LINEAR_INEQUALITY_SOLVING",
+        "mode": "LINEAR_INEQUALITY",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "canonical interval inequality",
+      "visualModel": "NUMBER_LINE",
+      "solver": "WAVE_C_LINEAR_INEQUALITY_SOLVING_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_LINEAR_INEQUALITY_SOLVING_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 9 feedback identifies the LINEAR_INEQUALITY_SOLVING misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "direction not reversed",
+        "boundary sign error"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "LINEAR_INEQUALITY_RECOGNITION",
+      "outcomeId": "MOET2018-G9-NAA-P073-025",
+      "grade": 9,
+      "contractVersion": "wave-c-v2.1",
+      "taskMode": "LINEAR_INEQUALITY_CONCEPT",
+      "interactions": [
+        "SINGLE_CHOICE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "LINEAR_INEQUALITY_RECOGNITION",
+        "mode": "LINEAR_INEQUALITY_CONCEPT",
+        "requiredFields": [
+          "capability",
+          "taskMode",
+          "values",
+          "exactRationals",
+          "structureLevel"
+        ]
+      },
+      "answerModel": "one inequality id",
+      "visualModel": "NUMBER_LINE",
+      "solver": "WAVE_C_LINEAR_INEQUALITY_RECOGNITION_EXACT_SOLVER_V2",
+      "validator": "WAVE_C_LINEAR_INEQUALITY_RECOGNITION_INDEPENDENT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_C_DISTRACTOR_UNIQUENESS_AND_FALSEHOOD_V2",
+      "feedbackStrategy": "Vietnamese Grade 9 feedback identifies the LINEAR_INEQUALITY_RECOGNITION misconception, shows exact steps, and gives one next action.",
+      "misconceptions": [
+        "equation mistaken for inequality",
+        "nonlinear expression accepted"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    }
+  ]
+}

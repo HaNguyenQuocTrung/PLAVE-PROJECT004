@@ -62,7 +62,7 @@ export default async function TeacherClassroomDetailPage({
     .join("|");
 
   return (
-    <div className="teacher-classroom-detail page-shell">
+    <div className="teacher-classroom-detail teacher-workspace-page--v2 page-shell">
       <header className="catalog-hero teacher-hero">
         <div>
           <p className="eyebrow">Lớp {result.detail.classroom.grade}</p>

@@ -169,7 +169,7 @@ export default async function LearnPage() {
   }
 
   return (
-    <div className="catalog-page page-shell">
+    <div className="catalog-page theory-catalog-page--v2 page-shell">
       {gradeOneCompetencyDashboard ? (
         <CompetencyLearningPathPanel model={gradeOneCompetencyDashboard} />
       ) : null}

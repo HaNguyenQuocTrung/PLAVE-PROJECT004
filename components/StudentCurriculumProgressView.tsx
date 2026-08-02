@@ -4,11 +4,30 @@ import {
   type CurriculumProgressEvidence,
   type StudentCurriculumProgress,
 } from "@/lib/curriculum-runtime/contracts";
-import { getLessonPath } from "@/lib/practice/catalog";
+import {
+  getLessonPath,
+  getSkillLabel,
+} from "@/lib/practice/catalog";
+import { skillCodes } from "@/lib/practice/contracts";
 
 type StudentCurriculumProgressViewProps = {
   progress: StudentCurriculumProgress;
 };
+
+const localizedLegacySkillTitles = new Map(
+  skillCodes.map((skillCode) => [
+    skillCode.replaceAll("_", " ").toLocaleLowerCase("vi"),
+    getSkillLabel(skillCode),
+  ]),
+);
+
+function studentFacingEvidenceTitle(item: CurriculumProgressEvidence) {
+  if (item.evidenceBasis !== "LEGACY_QUESTION_SKILL") return item.title;
+  return (
+    localizedLegacySkillTitles.get(item.title.toLocaleLowerCase("vi")) ??
+    "Kỹ năng Toán học"
+  );
+}
 
 function EvidenceList({
   title,
@@ -41,7 +60,7 @@ function EvidenceList({
               <span className="unit-status">
                 {curriculumMasteryLabelText[item.masteryLabel]}
               </span>
-              <h3>{item.title}</h3>
+              <h3>{studentFacingEvidenceTitle(item)}</h3>
               <p>
                 {item.correctCount}/{item.evidenceCount} bằng chứng đúng
               </p>
@@ -60,7 +79,7 @@ export function StudentCurriculumProgressView({
     (unit) => unit.status === "COMPLETED",
   ).length;
   return (
-    <div className="content-page page-shell learning-progress-page">
+    <div className="content-page page-shell learning-progress-page progress-page--v2">
       <header className="catalog-hero">
         <p className="eyebrow">Tiến trình học tập</p>
         <h1>Toán lớp {progress.grade}</h1>

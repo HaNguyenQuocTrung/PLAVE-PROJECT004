@@ -1,0 +1,99 @@
+{
+  "variant": "NUMBER_COMPARISON",
+  "severity": "HIGH",
+  "categories": [
+    "LOW_VARIATION",
+    "DIFFICULTY_NOT_MEANINGFUL",
+    "FEEDBACK_OR_EXPLANATION_WEAK"
+  ],
+  "summary": "Stem có thể giải đúng riêng lẻ nhưng chưa production-usable: lặp template, độ khó chưa tách biệt thực chất và lời giải không giải thích phép toán cụ thể.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-13653eef1ffd50aa3da00604f2916aec6d427d732b2df7fe",
+  "reproductionSeedFingerprint": "13653eef1ffd50aa",
+  "reproductionSampleId": "NUMBER_COMPARISON:EASY:1",
+  "sample": {
+    "sampleId": "NUMBER_COMPARISON:EASY:1",
+    "variant": "NUMBER_COMPARISON",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-13653eef1ffd50aa3da00604f2916aec6d427d732b2df7fe",
+    "seedFingerprint": "13653eef1ffd50aa",
+    "runtimeReachable": true,
+    "grade": 2,
+    "outcomeId": "MOET2018-G2-NUM-P025-007",
+    "unitId": "grade-2-number-order-and-line-p0",
+    "astKind": "NUMBER_STRUCTURE",
+    "complexity": 1,
+    "prompt": "Số nào lớn nhất trong các số 4, 11, 18?",
+    "normalizedTemplate": "số nào lớn nhất trong xáx số #, #, #?",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "17",
+      "20",
+      "18",
+      "19"
+    ],
+    "correctOptionKey": "C",
+    "correctOptionLabel": "18",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn C."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": true,
+    "publicQuestion": {
+      "questionId": "pilot-1b6a3d6e1eb87bab2d46f93b3c20e063",
+      "position": 1,
+      "prompt": "Số nào lớn nhất trong các số 4, 11, 18?",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "17"
+        },
+        {
+          "key": "B",
+          "label": "20"
+        },
+        {
+          "key": "C",
+          "label": "18"
+        },
+        {
+          "key": "D",
+          "label": "19"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "HIGH",
+      "categories": [
+        "LOW_VARIATION",
+        "DIFFICULTY_NOT_MEANINGFUL",
+        "FEEDBACK_OR_EXPLANATION_WEAK"
+      ],
+      "summary": "Stem có thể giải đúng riêng lẻ nhưng chưa production-usable: lặp template, độ khó chưa tách biệt thực chất và lời giải không giải thích phép toán cụ thể."
+    }
+  }
+}

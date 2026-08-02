@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { Button } from "@/components/Button";
 import { LearningAccessState } from "@/components/LearningAccessState";
 import { LogoutForm } from "@/components/LogoutForm";
+import { PageHeader } from "@/components/PageHeader";
 import { getStudentLearningContext } from "@/lib/practice/server";
 import { maskAccountEmail } from "@/lib/profile/validation";
 
@@ -24,15 +25,13 @@ export default async function SettingsPage() {
   }
 
   return (
-    <div className="settings-page page-shell">
-      <header className="catalog-hero settings-hero">
-        <p className="eyebrow">Tài khoản PLAVE</p>
-        <h1>Cài đặt tài khoản</h1>
-        <p>
-          Quản lý mật khẩu, quyền riêng tư và phiên đăng nhập của em tại một
-          nơi an toàn.
-        </p>
-      </header>
+    <div className="settings-page account-page--v2 page-shell">
+      <PageHeader
+        eyebrow="Tài khoản PLAVE"
+        title="Cài đặt tài khoản"
+        description="Quản lý mật khẩu, quyền riêng tư và phiên đăng nhập của em tại một nơi an toàn."
+        tone="student"
+      />
 
       <div className="settings-grid">
         <section

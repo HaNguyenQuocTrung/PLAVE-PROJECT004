@@ -1,0 +1,99 @@
+{
+  "variant": "DECIMAL_COMPARISON",
+  "severity": "CRITICAL",
+  "categories": [
+    "OUTCOME_ALIGNMENT_WRONG",
+    "INVALID_OR_AMBIGUOUS_QUESTION",
+    "WEAK_DISTRACTORS"
+  ],
+  "summary": "Prompt nêu tên kỹ năng chung nhưng solver mặc định cộng hai giá trị hoặc dùng phép khác với outcome.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-418db25219d0b4860b5e3bf965aea5d3f1c8dcfe38667734",
+  "reproductionSeedFingerprint": "418db25219d0b486",
+  "reproductionSampleId": "DECIMAL_COMPARISON:EASY:1",
+  "sample": {
+    "sampleId": "DECIMAL_COMPARISON:EASY:1",
+    "variant": "DECIMAL_COMPARISON",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-418db25219d0b4860b5e3bf965aea5d3f1c8dcfe38667734",
+    "seedFingerprint": "418db25219d0b486",
+    "runtimeReachable": true,
+    "grade": 3,
+    "outcomeId": "MOET2018-G3-NUM-P029-003",
+    "unitId": "grade-3-number-sense-to-100000-p1",
+    "astKind": "RATIONAL",
+    "complexity": 1,
+    "prompt": "Thực hiện yêu cầu so sánh số thập phân với 8/10 và 3/100.",
+    "normalizedTemplate": "thựx hiện yêu xầu so sánh số thập phân với #/# và #/#.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "Phát biểu đảo của quan hệ đã nêu",
+      "Một quan hệ không suy ra từ dữ kiện",
+      "Không đủ dữ kiện",
+      ">"
+    ],
+    "correctOptionKey": "D",
+    "correctOptionLabel": ">",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn D."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-c897a8013054a2cc883ac751bcde143b",
+      "position": 1,
+      "prompt": "Thực hiện yêu cầu so sánh số thập phân với 8/10 và 3/100.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "Phát biểu đảo của quan hệ đã nêu"
+        },
+        {
+          "key": "B",
+          "label": "Một quan hệ không suy ra từ dữ kiện"
+        },
+        {
+          "key": "C",
+          "label": "Không đủ dữ kiện"
+        },
+        {
+          "key": "D",
+          "label": ">"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "CRITICAL",
+      "categories": [
+        "OUTCOME_ALIGNMENT_WRONG",
+        "INVALID_OR_AMBIGUOUS_QUESTION",
+        "WEAK_DISTRACTORS"
+      ],
+      "summary": "Prompt nêu tên kỹ năng chung nhưng solver mặc định cộng hai giá trị hoặc dùng phép khác với outcome."
+    }
+  }
+}

@@ -1,0 +1,716 @@
+{
+  "status": "PASS",
+  "checkpoint": "MILESTONE_1_V2_SITEWIDE_PROPAGATION",
+  "browserEngine": "chromium",
+  "browserVersion": "150.0.7871.186",
+  "playwrightPackage": "playwright-core",
+  "playwrightVersion": "1.51.1",
+  "localPlaywright": true,
+  "inAppBrowserUsed": false,
+  "baseURL": "http://127.0.0.1:3017",
+  "remoteAccessPerformed": false,
+  "remoteMutationPerformed": false,
+  "migrationPerformed": false,
+  "activationPerformed": false,
+  "generatedRuntimeDefaultEnabled": false,
+  "ownerStyleApproval": {
+    "status": "GRANTED",
+    "scope": "PLAVE V2 visual language approved for sitewide propagation"
+  },
+  "previousVisualAcceptance": {
+    "status": "INVALIDATED",
+    "reason": "Owner browser evidence exposed a critical collapsed /lessons card that the previous visual review missed.",
+    "previousCriticalHighVisualIssuesZeroClaimValid": false
+  },
+  "collapsedLayoutFix": {
+    "route": "/lessons",
+    "component": "app/lessons/page.tsx:personalized-unit-card",
+    "affectedVariant": "locked prerequisite lesson card",
+    "reproducedViewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "rootCause": "The auto action grid track took the locked-note max-content width, collapsing minmax(0,1fr) content to 0px; global overflow-wrap:anywhere then produced character-level wrapping.",
+    "architecture": "Explicit status, content, metadata/progress and compact action regions; desktop uses minmax(0,1fr) plus max-content and mobile stacks all regions.",
+    "beforeComputedEvidence": "artifacts/uiux-v2-sitewide/collapsed-layout-before.json",
+    "afterComputedEvidence": "artifacts/uiux-v2-sitewide/collapsed-layout-after.json",
+    "criticalIssuesFound": 1,
+    "criticalIssuesFixed": 1,
+    "criticalIssuesRemaining": 0,
+    "highIssuesRemaining": 0
+  },
+  "viewports": [
+    {
+      "width": 320,
+      "height": 568,
+      "overflow": 0,
+      "headerOverlap": false,
+      "footerWithinPage": true,
+      "focusVisible": true,
+      "touchTargets": true,
+      "mathOverflow": 0,
+      "zoom200Overflow": 0,
+      "consoleErrors": 0,
+      "hydrationErrors": 0
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "overflow": 0,
+      "headerOverlap": false,
+      "footerWithinPage": true,
+      "focusVisible": true,
+      "touchTargets": true,
+      "mathOverflow": 0,
+      "zoom200Overflow": 0,
+      "consoleErrors": 0,
+      "hydrationErrors": 0
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "overflow": 0,
+      "headerOverlap": false,
+      "footerWithinPage": true,
+      "focusVisible": true,
+      "touchTargets": true,
+      "mathOverflow": 0,
+      "zoom200Overflow": 0,
+      "consoleErrors": 0,
+      "hydrationErrors": 0
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "overflow": 0,
+      "headerOverlap": false,
+      "footerWithinPage": true,
+      "focusVisible": true,
+      "touchTargets": true,
+      "mathOverflow": 0,
+      "zoom200Overflow": 0,
+      "consoleErrors": 0,
+      "hydrationErrors": 0
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "overflow": 0,
+      "headerOverlap": false,
+      "footerWithinPage": true,
+      "focusVisible": true,
+      "touchTargets": true,
+      "mathOverflow": 0,
+      "zoom200Overflow": 0,
+      "consoleErrors": 0,
+      "hydrationErrors": 0
+    },
+    {
+      "width": 1280,
+      "height": 800,
+      "overflow": 0,
+      "headerOverlap": false,
+      "footerWithinPage": true,
+      "focusVisible": true,
+      "touchTargets": true,
+      "mathOverflow": 0,
+      "zoom200Overflow": 0,
+      "consoleErrors": 0,
+      "hydrationErrors": 0
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "overflow": 0,
+      "headerOverlap": false,
+      "footerWithinPage": true,
+      "focusVisible": true,
+      "touchTargets": true,
+      "mathOverflow": 0,
+      "zoom200Overflow": 0,
+      "consoleErrors": 0,
+      "hydrationErrors": 0
+    }
+  ],
+  "journeys": {
+    "sitewidePublic": "PASS",
+    "anonymous": "PASS",
+    "sitewideStudent": "PASS",
+    "studentZeroProgress": "PASS",
+    "returningStudent": "PASS",
+    "generatedPilotRuntimeOff": "PASS",
+    "sitewideUniversalGrades": "V2_SOURCE_PROPAGATED; GRADE_7_PREVIEW_BROWSER_VERIFIED; SHARED_PRACTICE_SHELL_BROWSER_VERIFIED",
+    "sitewideParent": "PASS",
+    "parent": "PASS",
+    "sitewideTeacher": "PASS",
+    "teacher": "PASS"
+  },
+  "accessibility": {
+    "domAssertions": "PASS",
+    "keyboardFocus": "PASS",
+    "reducedMotion": "PASS",
+    "zoom200": "PASS"
+  },
+  "collapsedTextRegression": {
+    "status": "PASS",
+    "representativeRouteAudits": [
+      {
+        "label": "LANDING_DESKTOP",
+        "inspected": 41,
+        "issues": []
+      },
+      {
+        "label": "LOGIN_DESKTOP",
+        "inspected": 31,
+        "issues": []
+      },
+      {
+        "label": "REGISTER_MOBILE",
+        "inspected": 25,
+        "issues": []
+      },
+      {
+        "label": "STUDENT_DASHBOARD_DESKTOP",
+        "inspected": 86,
+        "issues": []
+      },
+      {
+        "label": "STUDENT_DASHBOARD_MOBILE",
+        "inspected": 86,
+        "issues": []
+      },
+      {
+        "label": "LESSONS_DESKTOP",
+        "inspected": 121,
+        "issues": []
+      },
+      {
+        "label": "LESSON_DETAIL",
+        "inspected": 74,
+        "issues": []
+      },
+      {
+        "label": "PRACTICE_DESKTOP",
+        "inspected": 15,
+        "issues": []
+      },
+      {
+        "label": "RESULTS",
+        "inspected": 307,
+        "issues": []
+      },
+      {
+        "label": "LEARNING_PROGRESS",
+        "inspected": 81,
+        "issues": []
+      },
+      {
+        "label": "PARENT_DASHBOARD",
+        "inspected": 28,
+        "issues": []
+      },
+      {
+        "label": "TEACHER_DASHBOARD",
+        "inspected": 27,
+        "issues": []
+      }
+    ],
+    "lessonCardViewports": []
+  },
+  "visualReview": {
+    "previousReviewInvalidated": true,
+    "screenshotsOpenedAtOriginalResolution": true,
+    "lessonViewportScreenshotsReviewed": 7,
+    "representativeScreenshotsReviewed": 24,
+    "criticalIssuesRemaining": 0,
+    "highIssuesRemaining": 0,
+    "ownerStyleApprovalClaimed": true,
+    "ownerFullSiteAcceptanceClaimed": false
+  },
+  "sitewidePropagation": {
+    "status": "PASS",
+    "routeEvidence": [
+      {
+        "route": "/about",
+        "requestedPath": "/about",
+        "status": 200,
+        "rootSelector": ".public-story-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 31,
+        "screenshot": "artifacts/uiux-v2-sitewide/about-desktop.png"
+      },
+      {
+        "route": "/demo",
+        "requestedPath": "/demo",
+        "status": 200,
+        "rootSelector": ".demo-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 51,
+        "screenshot": "artifacts/uiux-v2-sitewide/demo-desktop.png"
+      },
+      {
+        "route": "/forgot-password",
+        "requestedPath": "/forgot-password",
+        "status": 200,
+        "rootSelector": ".auth-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 26,
+        "screenshot": "artifacts/uiux-v2-sitewide/forgot-password-desktop.png"
+      },
+      {
+        "route": "/privacy",
+        "requestedPath": "/privacy",
+        "status": 200,
+        "rootSelector": ".legal-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 23,
+        "screenshot": "artifacts/uiux-v2-sitewide/privacy.png"
+      },
+      {
+        "route": "/terms",
+        "requestedPath": "/terms",
+        "status": 200,
+        "rootSelector": ".legal-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 21,
+        "screenshot": "artifacts/uiux-v2-sitewide/terms.png"
+      },
+      {
+        "route": "/curriculum-preview",
+        "requestedPath": "/curriculum-preview?grade=7&unit=grade-7-secondary-geo-p1-8",
+        "status": 200,
+        "rootSelector": ".preview-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 176,
+        "screenshot": "artifacts/uiux-v2-sitewide/curriculum-preview.png"
+      },
+      {
+        "route": "/forgot-password",
+        "requestedPath": "/forgot-password",
+        "status": 200,
+        "rootSelector": ".auth-page--v2",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 26,
+        "screenshot": "artifacts/uiux-v2-sitewide/forgot-password-mobile.png"
+      },
+      {
+        "route": "/learn",
+        "requestedPath": "/learn",
+        "status": 200,
+        "rootSelector": ".theory-catalog-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 114,
+        "screenshot": "artifacts/uiux-v2-sitewide/theory-catalog.png"
+      },
+      {
+        "route": "/learning-history",
+        "requestedPath": "/learning-history",
+        "status": 200,
+        "rootSelector": ".history-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 24,
+        "screenshot": "artifacts/uiux-v2-sitewide/learning-history.png"
+      },
+      {
+        "route": "/classrooms",
+        "requestedPath": "/classrooms",
+        "status": 200,
+        "rootSelector": ".student-workspace-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 35,
+        "screenshot": "artifacts/uiux-v2-sitewide/student-classrooms.png"
+      },
+      {
+        "route": "/assignments",
+        "requestedPath": "/assignments",
+        "status": 200,
+        "rootSelector": ".student-workspace-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 23,
+        "screenshot": "artifacts/uiux-v2-sitewide/student-assignments.png"
+      },
+      {
+        "route": "/diagnostic",
+        "requestedPath": "/diagnostic",
+        "status": 200,
+        "rootSelector": ".student-workspace-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 31,
+        "screenshot": "artifacts/uiux-v2-sitewide/diagnostic.png"
+      },
+      {
+        "route": "/grade-1/summary",
+        "requestedPath": "/grade-1/summary",
+        "status": 200,
+        "rootSelector": ".progress-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 108,
+        "screenshot": "artifacts/uiux-v2-sitewide/grade-summary.png"
+      },
+      {
+        "route": "/goals",
+        "requestedPath": "/goals",
+        "status": 200,
+        "rootSelector": ".student-workspace-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 31,
+        "screenshot": "artifacts/uiux-v2-sitewide/goals.png"
+      },
+      {
+        "route": "/connections",
+        "requestedPath": "/connections",
+        "status": 200,
+        "rootSelector": ".relationship-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 28,
+        "screenshot": "artifacts/uiux-v2-sitewide/student-connections.png"
+      },
+      {
+        "route": "/profile",
+        "requestedPath": "/profile",
+        "status": 200,
+        "rootSelector": ".account-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 36,
+        "screenshot": "artifacts/uiux-v2-sitewide/profile.png"
+      },
+      {
+        "route": "/profile/edit",
+        "requestedPath": "/profile/edit",
+        "status": 200,
+        "rootSelector": ".account-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 31,
+        "screenshot": "artifacts/uiux-v2-sitewide/profile-edit.png"
+      },
+      {
+        "route": "/settings",
+        "requestedPath": "/settings",
+        "status": 200,
+        "rootSelector": ".account-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 31,
+        "screenshot": "artifacts/uiux-v2-sitewide/settings.png"
+      },
+      {
+        "route": "/connections",
+        "requestedPath": "/connections",
+        "status": 200,
+        "rootSelector": ".relationship-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 32,
+        "screenshot": "artifacts/uiux-v2-sitewide/parent-connections.png"
+      },
+      {
+        "route": "/parent/children/[connectionId]",
+        "requestedPath": "/parent/children/[local-fixture]",
+        "status": 200,
+        "rootSelector": ".parent-learning-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 149,
+        "screenshot": "artifacts/uiux-v2-sitewide/parent-student-detail.png"
+      },
+      {
+        "route": "/teacher/profile",
+        "requestedPath": "/teacher/profile",
+        "status": 200,
+        "rootSelector": ".teacher-workspace-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 28,
+        "screenshot": "artifacts/uiux-v2-sitewide/teacher-profile.png"
+      },
+      {
+        "route": "/teacher/classrooms",
+        "requestedPath": "/teacher/classrooms",
+        "status": 200,
+        "rootSelector": ".teacher-workspace-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 26,
+        "screenshot": "artifacts/uiux-v2-sitewide/teacher-classrooms-empty.png"
+      },
+      {
+        "route": "/teacher/assignments",
+        "requestedPath": "/teacher/assignments",
+        "status": 200,
+        "rootSelector": ".teacher-workspace-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 20,
+        "screenshot": "artifacts/uiux-v2-sitewide/teacher-assignments-empty.png"
+      },
+      {
+        "route": "/teacher/classrooms/[classroomId]",
+        "requestedPath": "/teacher/classrooms/[local-fixture]",
+        "status": 200,
+        "rootSelector": ".teacher-workspace-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 34,
+        "screenshot": "artifacts/uiux-v2-sitewide/teacher-classroom-detail.png"
+      },
+      {
+        "route": "/teacher/classes/[classroomId]/gradebook",
+        "requestedPath": "/teacher/classes/[local-fixture]/gradebook",
+        "status": 200,
+        "rootSelector": ".teacher-workspace-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 20,
+        "screenshot": "artifacts/uiux-v2-sitewide/teacher-gradebook.png"
+      },
+      {
+        "route": "/teacher/questions",
+        "requestedPath": "/teacher/questions",
+        "status": 200,
+        "rootSelector": ".teacher-workspace-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 46,
+        "screenshot": "artifacts/uiux-v2-sitewide/teacher-questions.png"
+      },
+      {
+        "route": "/teacher/assignments/new",
+        "requestedPath": "/teacher/assignments/new",
+        "status": 200,
+        "rootSelector": ".teacher-workspace-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 42,
+        "screenshot": "artifacts/uiux-v2-sitewide/teacher-assignment-new.png"
+      },
+      {
+        "route": "/teacher/assignments/[assignmentId]",
+        "requestedPath": "/teacher/assignments/[local-fixture]",
+        "status": 200,
+        "rootSelector": ".teacher-workspace-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 38,
+        "screenshot": "artifacts/uiux-v2-sitewide/teacher-assignment-detail.png"
+      },
+      {
+        "route": "/teacher/assignments/[assignmentId]/analysis",
+        "requestedPath": "/teacher/assignments/[local-fixture]/analysis",
+        "status": 200,
+        "rootSelector": ".teacher-workspace-page--v2",
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "overflow": 0,
+        "clippedVisibleText": 0,
+        "textElementsInspected": 26,
+        "screenshot": "artifacts/uiux-v2-sitewide/teacher-assignment-analysis.png"
+      }
+    ],
+    "sourceScope": "Public/auth, Student, Parent, Teacher, account, legal, lesson, practice, result and recovery surfaces"
+  },
+  "regressionGates": {
+    "collapsedLayoutAndUiNavigation": "13/13 PASS",
+    "practice": "550/550 PASS",
+    "practiceVisualReadability": "3/3 PASS",
+    "grades1To9Curriculum": "9/9 PASS",
+    "universalCurriculum": "21/21 PASS",
+    "competencyAndRecommendation": "10/10 PASS",
+    "roleIsolation": "14/14 PASS",
+    "securityPrivateSolution": "6/6 PASS",
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "productionBuild": "PASS (67 routes)",
+    "localPlaywright": "PASS (7/7 viewports, 33 screenshots)"
+  },
+  "exactRemainingBlockers": [
+    "OWNER_FULL_SITE_VISUAL_REVIEW_REQUIRED"
+  ],
+  "remainingRoutesNotPropagated": [],
+  "consoleErrors": 0,
+  "hydrationErrors": 0,
+  "screenshots": [
+    "artifacts/uiux-v2-sitewide/landing-desktop.png",
+    "artifacts/uiux-v2-sitewide/landing-mobile.png",
+    "artifacts/uiux-v2-sitewide/mobile-menu.png",
+    "artifacts/uiux-v2-sitewide/login-desktop.png",
+    "artifacts/uiux-v2-sitewide/register-role-mobile.png",
+    "artifacts/uiux-v2-sitewide/error-state.png",
+    "artifacts/uiux-v2-sitewide/about-desktop.png",
+    "artifacts/uiux-v2-sitewide/demo-desktop.png",
+    "artifacts/uiux-v2-sitewide/forgot-password-desktop.png",
+    "artifacts/uiux-v2-sitewide/privacy.png",
+    "artifacts/uiux-v2-sitewide/terms.png",
+    "artifacts/uiux-v2-sitewide/curriculum-preview.png",
+    "artifacts/uiux-v2-sitewide/forgot-password-mobile.png",
+    "artifacts/uiux-v2-sitewide/student-dashboard-desktop.png",
+    "artifacts/uiux-v2-sitewide/student-dashboard-mobile.png",
+    "artifacts/uiux-v2-sitewide/lessons-desktop.png",
+    "artifacts/uiux-v2-sitewide/lessons-mobile.png",
+    "artifacts/uiux-v2-sitewide/lesson-detail.png",
+    "artifacts/uiux-v2-sitewide/practice-desktop.png",
+    "artifacts/uiux-v2-sitewide/practice-mobile.png",
+    "artifacts/uiux-v2-sitewide/practice-correct.png",
+    "artifacts/uiux-v2-sitewide/practice-incorrect.png",
+    "artifacts/uiux-v2-sitewide/practice-complete.png",
+    "artifacts/uiux-v2-sitewide/history.png",
+    "artifacts/uiux-v2-sitewide/competency-recommendation.png",
+    "artifacts/uiux-v2-sitewide/ineligible-state.png",
+    "artifacts/uiux-v2-sitewide/theory-catalog.png",
+    "artifacts/uiux-v2-sitewide/learning-history.png",
+    "artifacts/uiux-v2-sitewide/student-classrooms.png",
+    "artifacts/uiux-v2-sitewide/student-assignments.png",
+    "artifacts/uiux-v2-sitewide/diagnostic.png",
+    "artifacts/uiux-v2-sitewide/grade-summary.png",
+    "artifacts/uiux-v2-sitewide/goals.png",
+    "artifacts/uiux-v2-sitewide/student-connections.png",
+    "artifacts/uiux-v2-sitewide/profile.png",
+    "artifacts/uiux-v2-sitewide/profile-edit.png",
+    "artifacts/uiux-v2-sitewide/settings.png",
+    "artifacts/uiux-v2-sitewide/parent-dashboard.png",
+    "artifacts/uiux-v2-sitewide/empty-state.png",
+    "artifacts/uiux-v2-sitewide/parent-connections.png",
+    "artifacts/uiux-v2-sitewide/parent-student-detail.png",
+    "artifacts/uiux-v2-sitewide/teacher-dashboard.png",
+    "artifacts/uiux-v2-sitewide/teacher-profile.png",
+    "artifacts/uiux-v2-sitewide/teacher-classrooms-empty.png",
+    "artifacts/uiux-v2-sitewide/teacher-assignments-empty.png",
+    "artifacts/uiux-v2-sitewide/teacher-classroom-detail.png",
+    "artifacts/uiux-v2-sitewide/teacher-gradebook.png",
+    "artifacts/uiux-v2-sitewide/teacher-questions.png",
+    "artifacts/uiux-v2-sitewide/teacher-assignment-new.png",
+    "artifacts/uiux-v2-sitewide/teacher-assignment-detail.png",
+    "artifacts/uiux-v2-sitewide/teacher-assignment-analysis.png"
+  ],
+  "serverWarnings": 0
+}

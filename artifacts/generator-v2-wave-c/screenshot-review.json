@@ -1,0 +1,329 @@
+{
+  "schemaVersion": 1,
+  "sprint": "8C.C",
+  "reviewDate": "2026-08-02",
+  "status": "PASS",
+  "expected": 32,
+  "reviewed": 32,
+  "reviewedScreenshots": 32,
+  "manifestScreenshots": 32,
+  "criticalIssues": 0,
+  "highIssues": 0,
+  "unreviewedScreenshots": [],
+  "viewports": [
+    "390x844",
+    "1280x800"
+  ],
+  "coverage": {
+    "majorCapabilityGroups": 13,
+    "interactionTypes": 9,
+    "correctFeedback": true,
+    "incorrectFeedback": true,
+    "processRestartResume": true,
+    "completionResultsHistory": true
+  },
+  "issuesFoundDuringReviewAndFixedBeforeFinalRun": [
+    "ALGEBRAIC_SUBSTITUTION_TABLE_USED_COEFFICIENTS_INSTEAD_OF_ASSIGNMENTS",
+    "PERCENTAGE_SCALE_RATIO_PROPORTION_AND_LINEAR_SYSTEM_TABLES_EXPOSED_DERIVED_ANSWERS",
+    "DECIMAL_PLACE_VALUE_CHART_IGNORED_SCALE",
+    "FUNCTION_GRAPH_RECOGNITION_RENDERED_ONLY_THE_CORRECT_GRAPH",
+    "FRACTION_MODEL_CAPPED_PARTS_AND_CHANGED_THE_REPRESENTED_RATIO",
+    "MOBILE_GLOBAL_TABLE_RULE_COLLAPSED_DATA_ROWS_TO_CONTENT_WIDTH"
+  ],
+  "finalCriticalIssues": 0,
+  "finalHighIssues": 0,
+  "finalOverflowIssues": 0,
+  "finalPromptVisualMismatches": 0,
+  "finalPrivateLeaks": 0,
+  "notes": "Every PNG from the final clean Playwright run was opened at original detail and visually inspected. Earlier defective screenshots were deleted before the final run and are not evidence.",
+  "screenshots": [
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/mobile/group-numeric-expressions-mixed-arithmetic-expression.png",
+      "viewport": "390x844",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "MIXED_ARITHMETIC_EXPRESSION",
+      "interactionType": "INTEGER_INPUT",
+      "visuallyReviewed": true,
+      "sha256": "1f548364bdbc137a84d543f706c94b472257a8867f1ded1af2d14fe4646d3e5e"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/mobile/feedback-incorrect-mixed-arithmetic-expression.png",
+      "viewport": "390x844",
+      "kind": "INCORRECT_FEEDBACK",
+      "capabilityId": "MIXED_ARITHMETIC_EXPRESSION",
+      "interactionType": "INTEGER_INPUT",
+      "visuallyReviewed": true,
+      "sha256": "f8bcb59d310611ef455450accfcc709e93adadeaf19a1dcf3123ad1d544f9391"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/mobile/resume-mixed-arithmetic-expression.png",
+      "viewport": "390x844",
+      "kind": "REFRESH_PROCESS_RESTART_RESUME",
+      "capabilityId": "MIXED_ARITHMETIC_EXPRESSION",
+      "interactionType": "INTEGER_INPUT",
+      "visuallyReviewed": true,
+      "sha256": "c77b8edf97b7730517680b37ebeadf6db9da53074c241ebb500f096543a4c667"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/desktop/group-numeric-expressions-mixed-arithmetic-expression.png",
+      "viewport": "1280x800",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "MIXED_ARITHMETIC_EXPRESSION",
+      "interactionType": "INTEGER_INPUT",
+      "visuallyReviewed": true,
+      "sha256": "e7cae7fabede2c1b106fa2f3c965c1baf26fa97446c5512abb1b1a8e12723af6"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/desktop/feedback-correct-mixed-arithmetic-expression.png",
+      "viewport": "1280x800",
+      "kind": "CORRECT_FEEDBACK",
+      "capabilityId": "MIXED_ARITHMETIC_EXPRESSION",
+      "interactionType": "INTEGER_INPUT",
+      "visuallyReviewed": true,
+      "sha256": "fc537e571da7e0dc17bd7dc7340934d3c8165bd3430f366c10079b95d5db8819"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/desktop/completion-results-mixed-arithmetic-expression.png",
+      "viewport": "1280x800",
+      "kind": "COMPLETION_RESULTS_HISTORY",
+      "capabilityId": "MIXED_ARITHMETIC_EXPRESSION",
+      "interactionType": null,
+      "visuallyReviewed": true,
+      "sha256": "a35e89e62121dab9b33ffd67fd3cbf99cca57731a2c4c2b4d5d9cf303ec6e6ad"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/mobile/group-algebra-algebraic-substitution.png",
+      "viewport": "390x844",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "ALGEBRAIC_SUBSTITUTION",
+      "interactionType": "INTEGER_INPUT",
+      "visuallyReviewed": true,
+      "sha256": "b2212d279dff945d624776a5a0d45aa2ca2116f0a7890407b43de803ebb9790d"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/desktop/group-algebra-algebraic-substitution.png",
+      "viewport": "1280x800",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "ALGEBRAIC_SUBSTITUTION",
+      "interactionType": "INTEGER_INPUT",
+      "visuallyReviewed": true,
+      "sha256": "05024db13017db08811ff388c820559b1f399ca6657f3b73d11e3f79b92786d5"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/mobile/group-fractions-rational-compare-order.png",
+      "viewport": "390x844",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "RATIONAL_COMPARE_ORDER",
+      "interactionType": "ORDERING",
+      "visuallyReviewed": true,
+      "sha256": "9b73cd89c41746574e3cdaa8a9c345164d326ed3754238ab450737a826268848"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/desktop/group-fractions-rational-compare-order.png",
+      "viewport": "1280x800",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "RATIONAL_COMPARE_ORDER",
+      "interactionType": "ORDERING",
+      "visuallyReviewed": true,
+      "sha256": "20852e89d51f1449bdfad6b633f78df92c5fce78d7291ffde2af366b1e3ae409"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/mobile/interaction-fraction-input-fraction-equivalence.png",
+      "viewport": "390x844",
+      "kind": "INTERACTION_TYPE",
+      "capabilityId": "FRACTION_EQUIVALENCE",
+      "interactionType": "FRACTION_INPUT",
+      "visuallyReviewed": true,
+      "sha256": "8b57febf11dfcfdf408252b45a6b410d884bbb9190156f1c9bfa09166acd1ab7"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/mobile/group-operation-properties-numeric-operation-properties.png",
+      "viewport": "390x844",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "NUMERIC_OPERATION_PROPERTIES",
+      "interactionType": "SINGLE_CHOICE",
+      "visuallyReviewed": true,
+      "sha256": "cf98a66a685c173c9ad47df73af7ff99e425f7706889f51d9a89ddf413c2bf71"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/desktop/group-operation-properties-numeric-operation-properties.png",
+      "viewport": "1280x800",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "NUMERIC_OPERATION_PROPERTIES",
+      "interactionType": "SINGLE_CHOICE",
+      "visuallyReviewed": true,
+      "sha256": "f6f9bf8185fb34f0dc25406859bbb3f1a7c8c115d63bf044f1659284a5c00647"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/mobile/group-statistics-data-sequence-recognition.png",
+      "viewport": "390x844",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "DATA_SEQUENCE_RECOGNITION",
+      "interactionType": "ORDERING",
+      "visuallyReviewed": true,
+      "sha256": "449c8678e822ba04380582bc65bf3ada46bea7ddcbb04506c57e3f8167fd820d"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/desktop/group-statistics-data-sequence-recognition.png",
+      "viewport": "1280x800",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "DATA_SEQUENCE_RECOGNITION",
+      "interactionType": "ORDERING",
+      "visuallyReviewed": true,
+      "sha256": "af53efec6e05c46d00cc713953503ade54a39b44f6e538cf907790ae8f1048cd"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/mobile/interaction-table-or-chart-response-data-investigation.png",
+      "viewport": "390x844",
+      "kind": "INTERACTION_TYPE",
+      "capabilityId": "DATA_INVESTIGATION",
+      "interactionType": "TABLE_OR_CHART_RESPONSE",
+      "visuallyReviewed": true,
+      "sha256": "b3793dbf217f9b71f424f60f1f0af0078b78a77825049eb1248cfaaf97030389"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/mobile/group-decimals-decimal-representation.png",
+      "viewport": "390x844",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "DECIMAL_REPRESENTATION",
+      "interactionType": "DECIMAL_INPUT",
+      "visuallyReviewed": true,
+      "sha256": "b253cb2f9fbdffdb4d3e3ccd50aca19043bd9629c918fc3d63d954c2675bf484"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/desktop/group-decimals-decimal-representation.png",
+      "viewport": "1280x800",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "DECIMAL_REPRESENTATION",
+      "interactionType": "DECIMAL_INPUT",
+      "visuallyReviewed": true,
+      "sha256": "5d474dfdee0bedeb93eaf775c925dd94c3e723c60a8e7723bc026c51dfc5294c"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/mobile/group-percentage-percentage-reasoning.png",
+      "viewport": "390x844",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "PERCENTAGE_REASONING",
+      "interactionType": "DECIMAL_INPUT",
+      "visuallyReviewed": true,
+      "sha256": "076d01597ee4e5d9acb652bcf93c83f9a2dc9736ae89eaee02ed92aa65c96149"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/desktop/group-percentage-percentage-reasoning.png",
+      "viewport": "1280x800",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "PERCENTAGE_REASONING",
+      "interactionType": "DECIMAL_INPUT",
+      "visuallyReviewed": true,
+      "sha256": "a356c443e92aeb42306a66cd166977829abbdefb146379c7cf242dbe1168a82b"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/mobile/group-ratio-and-rate-scale-reasoning.png",
+      "viewport": "390x844",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "SCALE_REASONING",
+      "interactionType": "INTEGER_INPUT",
+      "visuallyReviewed": true,
+      "sha256": "f321accf0dc801811dce77da1a9f0a1e6cbeb73a77b18d4f98ada734be54ed6b"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/desktop/group-ratio-and-rate-scale-reasoning.png",
+      "viewport": "1280x800",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "SCALE_REASONING",
+      "interactionType": "INTEGER_INPUT",
+      "visuallyReviewed": true,
+      "sha256": "26264e8acad881a9d9752bc25938cd48e2b4a54ae127ea173cea8a14818a25d9"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/mobile/group-rational-numbers-signed-fraction-representation.png",
+      "viewport": "390x844",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "SIGNED_FRACTION_REPRESENTATION",
+      "interactionType": "FRACTION_INPUT",
+      "visuallyReviewed": true,
+      "sha256": "0bb1f19f275f8b030cae4cf48e7d93962762d917cb2cdb37bc6cf841f36ca159"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/desktop/group-rational-numbers-signed-fraction-representation.png",
+      "viewport": "1280x800",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "SIGNED_FRACTION_REPRESENTATION",
+      "interactionType": "FRACTION_INPUT",
+      "visuallyReviewed": true,
+      "sha256": "b651ab870ece8680b91e8b985632658f6e00d5b9987e7a0843cf1bf563af8357"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/mobile/interaction-matching-algebraic-identity.png",
+      "viewport": "390x844",
+      "kind": "INTERACTION_TYPE",
+      "capabilityId": "ALGEBRAIC_IDENTITY",
+      "interactionType": "MATCHING",
+      "visuallyReviewed": true,
+      "sha256": "e73c61598682c3bf54f7562f0d8f7452770913869a2b1b20c9bc2a5b8899eeaa"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/mobile/interaction-short-structured-response-polynomial-simplification.png",
+      "viewport": "390x844",
+      "kind": "INTERACTION_TYPE",
+      "capabilityId": "POLYNOMIAL_SIMPLIFICATION",
+      "interactionType": "SHORT_STRUCTURED_RESPONSE",
+      "visuallyReviewed": true,
+      "sha256": "3c1024e2c6991c4fec3d20ca05f697f75556268fe4eae3fa0cf0ab975e29878e"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/mobile/group-functions-function-graph-recognition.png",
+      "viewport": "390x844",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "FUNCTION_GRAPH_RECOGNITION",
+      "interactionType": "CONSTRUCTION_OR_VISUAL_SELECTION",
+      "visuallyReviewed": true,
+      "sha256": "ac263e8088abf29e170ec8cd41da6152fc5cc626b3e5316b6c8743b0032d1a6a"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/desktop/group-functions-function-graph-recognition.png",
+      "viewport": "1280x800",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "FUNCTION_GRAPH_RECOGNITION",
+      "interactionType": "CONSTRUCTION_OR_VISUAL_SELECTION",
+      "visuallyReviewed": true,
+      "sha256": "3b9731a208b6d654f08f3d9cc75b9c6039f91da20657a78ddfeb87d9a008b94a"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/mobile/group-equations-quadratic-equation-solving.png",
+      "viewport": "390x844",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "QUADRATIC_EQUATION_SOLVING",
+      "interactionType": "ORDERING",
+      "visuallyReviewed": true,
+      "sha256": "25574997032e034454595ec9080016eba3e4f6323e226611f71f59a8496caa1b"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/desktop/group-equations-quadratic-equation-solving.png",
+      "viewport": "1280x800",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "QUADRATIC_EQUATION_SOLVING",
+      "interactionType": "ORDERING",
+      "visuallyReviewed": true,
+      "sha256": "aa68ba1e8155cac21a140ea0034e0a1d24ebffe5b44441f98ecbd799afe4a9f2"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/mobile/group-inequalities-inequality-property.png",
+      "viewport": "390x844",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "INEQUALITY_PROPERTY",
+      "interactionType": "SINGLE_CHOICE",
+      "visuallyReviewed": true,
+      "sha256": "b10df798ff4ded1994d2bbab637c3eae169a115d920b4e0798c151b8c62babf7"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/screenshots/desktop/group-inequalities-inequality-property.png",
+      "viewport": "1280x800",
+      "kind": "MAJOR_CAPABILITY_GROUP",
+      "capabilityId": "INEQUALITY_PROPERTY",
+      "interactionType": "SINGLE_CHOICE",
+      "visuallyReviewed": true,
+      "sha256": "e27b3f3f06daf0b7d4452904791d0dded96438db77cb4bd457bdd3f9e76886cc"
+    }
+  ]
+}

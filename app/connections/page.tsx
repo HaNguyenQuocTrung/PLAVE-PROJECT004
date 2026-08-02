@@ -40,7 +40,7 @@ export default async function ConnectionsPage() {
   const isStudent = profile.role === "STUDENT";
 
   return (
-    <div className="connections-page page-shell">
+    <div className="connections-page relationship-page--v2 page-shell">
       <header className="catalog-hero connections-hero">
         <p className="eyebrow">Kết nối có sự đồng ý</p>
         <h1>

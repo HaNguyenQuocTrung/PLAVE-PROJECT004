@@ -1,19 +1,20 @@
 import { Button } from "@/components/Button";
+import { StatusBadge } from "@/components/UiStates";
 import type { StudentCompetencyDashboard } from "@/lib/competency/student-adapter";
 import { getLessonPath } from "@/lib/practice/catalog";
 
 const statusText = {
-  NOT_STARTED: "Chưa bắt đầu",
-  DEVELOPING: "Đang hình thành",
-  BASIC: "Đạt cơ bản",
-  PROFICIENT: "Thành thạo",
-  SECURE: "Vững chắc",
+  NOT_STARTED: "Mới bắt đầu",
+  DEVELOPING: "Đang tiến bộ",
+  BASIC: "Đang tiến bộ",
+  PROFICIENT: "Đã vững",
+  SECURE: "Đã vững",
 } as const;
 
-const confidenceText = {
-  LOW: "Thấp",
-  MEDIUM: "Vừa",
-  HIGH: "Cao",
+const evidenceText = {
+  LOW: "Bằng chứng còn ít; kết quả sẽ rõ hơn sau vài lượt học.",
+  MEDIUM: "Đã có một số lượt học để tham khảo.",
+  HIGH: "Đã có nhiều lượt học gần đây để tham khảo.",
 } as const;
 
 const reasonText = {
@@ -46,24 +47,29 @@ export function CompetencyLearningPathPanel({
           <div className="personalized-recommendation">
             <div className="personalized-recommendation__content">
               <h3>{recommendation.title}</h3>
-              <p>
-                {recommendationReasons.length > 0
-                  ? `Hệ thống gợi ý vì ${recommendationReasons.join(" và ")}.`
-                  : recommendation.explanation}
-              </p>
-              <p className="parent-section-note">
-                Đây là gợi ý minh bạch từ tiến độ của em, không phải chẩn đoán
-                sư phạm.
-              </p>
+              {recommendationReasons.length > 0 ? (
+                <>
+                  <p>Vì sao bài này phù hợp:</p>
+                  <ul className="recommendation-reasons">
+                    {recommendationReasons.map((reason) => (
+                      <li key={reason}>{reason}</li>
+                    ))}
+                  </ul>
+                </>
+              ) : (
+                <p>{recommendation.explanation}</p>
+              )}
             </div>
-            <Button href={getLessonPath(recommendation.candidateId)} variant="secondary">
-              Bắt đầu hoặc tiếp tục
+            <Button href={getLessonPath(recommendation.candidateId)}>
+              Học bài này
             </Button>
           </div>
         ) : (
-          <p className="empty-state">
-            Chưa có bài phù hợp để gợi ý. Em hãy thử hoàn thành bài đang học.
-          </p>
+          <div className="empty-state">
+            <h3>Chưa có đủ hoạt động để gợi ý</h3>
+            <p>Em hãy chọn một bài trong chương trình để bắt đầu.</p>
+            <Button href="/lessons">Xem bài học</Button>
+          </div>
         )}
       </section>
 
@@ -74,23 +80,40 @@ export function CompetencyLearningPathPanel({
         <div className="section-heading section-heading--compact">
           <p className="eyebrow">Ước tính từ hoạt động học hiện có</p>
           <h2 id="competency-title">Năng lực của em</h2>
-          <p>Hint, difficulty độc lập và retention chưa có dữ liệu riêng.</p>
+          <p>
+            Đây là bức tranh tạm thời từ các câu em đã làm, không phải đánh giá
+            cố định về khả năng của em.
+          </p>
         </div>
-        <ul className="competency-list">
-          {model.skills.map((skill) => (
-            <li className="competency-list__item" key={skill.skillId}>
-              <div>
-                <h3>{skill.displayName ?? skill.skillId}</h3>
-                <p>
-                  {statusText[skill.status]} · Độ tin cậy: {confidenceText[skill.confidence]}
-                </p>
-              </div>
-              <strong aria-label={`Mức ước tính ${skill.masteryScore} trên 100`}>
-                {skill.masteryScore}/100
-              </strong>
-            </li>
-          ))}
-        </ul>
+        <details className="competency-details" open={model.skills.length <= 6}>
+          <summary>Xem {model.skills.length} kỹ năng</summary>
+          <ul className="competency-list">
+            {model.skills.map((skill) => (
+              <li className="competency-list__item" key={skill.skillId}>
+                <div>
+                  <h3>{skill.displayName ?? "Kỹ năng Toán học"}</h3>
+                  <p>{evidenceText[skill.confidence]}</p>
+                </div>
+                <div className="competency-list__result">
+                  <StatusBadge
+                    tone={
+                      skill.status === "PROFICIENT" || skill.status === "SECURE"
+                        ? "success"
+                        : skill.status === "NOT_STARTED"
+                          ? "neutral"
+                          : "info"
+                    }
+                  >
+                    {statusText[skill.status]}
+                  </StatusBadge>
+                  <strong aria-label={`Mức hiện tại ${skill.masteryScore} trên 100`}>
+                    {skill.masteryScore}/100
+                  </strong>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </details>
       </section>
     </>
   );

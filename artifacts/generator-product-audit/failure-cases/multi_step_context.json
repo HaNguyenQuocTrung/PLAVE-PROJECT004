@@ -1,0 +1,60 @@
+{
+  "variant": "MULTI_STEP_CONTEXT",
+  "severity": "CRITICAL",
+  "categories": [
+    "UNIMPLEMENTED_VARIANT",
+    "RUNTIME_DISCONNECTED"
+  ],
+  "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-84ebdc5cceaa54ccbc6de9a9a8de59ef2079a783c4fd81a8",
+  "reproductionSeedFingerprint": "84ebdc5cceaa54cc",
+  "reproductionSampleId": "MULTI_STEP_CONTEXT:EASY:1",
+  "sample": {
+    "sampleId": "MULTI_STEP_CONTEXT:EASY:1",
+    "variant": "MULTI_STEP_CONTEXT",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-84ebdc5cceaa54ccbc6de9a9a8de59ef2079a783c4fd81a8",
+    "seedFingerprint": "84ebdc5cceaa54cc",
+    "runtimeReachable": false,
+    "grade": null,
+    "outcomeId": null,
+    "unitId": null,
+    "astKind": "CONTEXT",
+    "complexity": 1,
+    "prompt": "Một tình huống có các đại lượng 69, 3, 3. Hãy thực hiện multi step context.",
+    "normalizedTemplate": "một tình huống xó xáx đại lượng #, #, #. hãy thựx hiện multi step context.",
+    "answerType": null,
+    "optionLabels": [],
+    "correctOptionKey": null,
+    "correctOptionLabel": "72",
+    "visualType": null,
+    "visualTemplate": null,
+    "solutionSteps": [],
+    "feedback": null,
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": null,
+    "productVerdict": {
+      "usable": false,
+      "severity": "CRITICAL",
+      "categories": [
+        "UNIMPLEMENTED_VARIANT",
+        "RUNTIME_DISCONNECTED"
+      ],
+      "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist."
+    }
+  }
+}

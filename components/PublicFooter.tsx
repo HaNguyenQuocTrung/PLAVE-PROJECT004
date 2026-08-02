@@ -18,7 +18,7 @@ export async function PublicFooter() {
         <Link className="brand brand--small" href={homeHref}>
           <Image
             src="/brand/plave-logo-header.png"
-            alt="PLAVE – Personalized Learning App for Vietnam Education"
+            alt="PLAVE"
             width={150}
             height={43}
           />

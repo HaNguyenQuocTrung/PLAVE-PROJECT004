@@ -16,17 +16,16 @@ export default async function AboutPage() {
   const authState = await getPublicAuthState();
 
   return (
-    <div className="about-page page-shell">
+    <div className="about-page public-story-page--v2 page-shell">
       <header className="about-hero">
         <p className="eyebrow">
           PLAVE · Personalized Learning App for Vietnam Education
         </p>
         <h1>Để mỗi học sinh được học Toán theo cách phù hợp với mình</h1>
         <p>
-          PLAVE là nền tảng học Toán cá nhân hóa dành cho học sinh Việt Nam từ
-          6–15 tuổi. Chúng tôi hướng tới khắc phục giới hạn của cách học “một
-          phương pháp cho tất cả”, để mỗi em có thời gian hiểu bài và tiến bộ
-          theo nhịp riêng.
+          PLAVE là nền tảng học Toán lớp 1–9 dành cho học sinh Việt Nam từ
+          6–15 tuổi. Mỗi em có thể học theo chương trình đúng lớp, luyện tập và
+          nhìn lại tiến bộ theo nhịp riêng.
         </p>
       </header>
 
@@ -41,11 +40,10 @@ export default async function AboutPage() {
         </article>
         <article>
           <p className="eyebrow">Tầm nhìn</p>
-          <h2>Cá nhân hóa có thể giải thích</h2>
+          <h2>Gợi ý học tập có thể giải thích</h2>
           <p>
-            PLAVE hướng tới xây dựng mô hình năng lực minh bạch và hỗ trợ bằng
-            AI theo hướng giải thích. Các khả năng thích ứng nâng cao vẫn đang
-            được phát triển và chưa được quảng bá như tính năng đã hoàn thiện.
+            Mỗi gợi ý cần có lý do rõ ràng từ hoạt động học hiện có. Khi chưa
+            đủ bằng chứng, PLAVE nói rõ thay vì đưa ra kết luận về học sinh.
           </p>
         </article>
       </section>
@@ -80,7 +78,7 @@ export default async function AboutPage() {
             </Button>
             {authState.role === "STUDENT" ? (
               <Button href="/lessons" variant="secondary">
-                Xem lý thuyết
+                Xem bài học
               </Button>
             ) : null}
           </>

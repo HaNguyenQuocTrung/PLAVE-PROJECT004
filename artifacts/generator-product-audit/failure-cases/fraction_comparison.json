@@ -1,0 +1,99 @@
+{
+  "variant": "FRACTION_COMPARISON",
+  "severity": "CRITICAL",
+  "categories": [
+    "OUTCOME_ALIGNMENT_WRONG",
+    "INVALID_OR_AMBIGUOUS_QUESTION",
+    "WEAK_DISTRACTORS"
+  ],
+  "summary": "Prompt nêu tên kỹ năng chung nhưng solver mặc định cộng hai giá trị hoặc dùng phép khác với outcome.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-15498c0c6fe8980a11a165ad62fd9f56507c583a3760c610",
+  "reproductionSeedFingerprint": "15498c0c6fe8980a",
+  "reproductionSampleId": "FRACTION_COMPARISON:EASY:1",
+  "sample": {
+    "sampleId": "FRACTION_COMPARISON:EASY:1",
+    "variant": "FRACTION_COMPARISON",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-15498c0c6fe8980a11a165ad62fd9f56507c583a3760c610",
+    "seedFingerprint": "15498c0c6fe8980a",
+    "runtimeReachable": true,
+    "grade": 7,
+    "outcomeId": "MOET2018-G7-NAA-P055-001",
+    "unitId": "grade-7-rational-number-foundations-p1",
+    "astKind": "RATIONAL",
+    "complexity": 1,
+    "prompt": "Thực hiện yêu cầu so sánh phân số với 9/2 và 6/2.",
+    "normalizedTemplate": "thựx hiện yêu xầu so sánh phân số với #/# và #/#.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "Phát biểu đảo của quan hệ đã nêu",
+      "Một quan hệ không suy ra từ dữ kiện",
+      "Không đủ dữ kiện",
+      ">"
+    ],
+    "correctOptionKey": "D",
+    "correctOptionLabel": ">",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn D."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-fa0157bac58335b49f3207e221dda503",
+      "position": 1,
+      "prompt": "Thực hiện yêu cầu so sánh phân số với 9/2 và 6/2.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "Phát biểu đảo của quan hệ đã nêu"
+        },
+        {
+          "key": "B",
+          "label": "Một quan hệ không suy ra từ dữ kiện"
+        },
+        {
+          "key": "C",
+          "label": "Không đủ dữ kiện"
+        },
+        {
+          "key": "D",
+          "label": ">"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "CRITICAL",
+      "categories": [
+        "OUTCOME_ALIGNMENT_WRONG",
+        "INVALID_OR_AMBIGUOUS_QUESTION",
+        "WEAK_DISTRACTORS"
+      ],
+      "summary": "Prompt nêu tên kỹ năng chung nhưng solver mặc định cộng hai giá trị hoặc dùng phép khác với outcome."
+    }
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-02",
+  "sprint": "8C.F",
+  "result": "PASS_BROWSER_VALIDATED",
+  "roadmap": {
+    "milestone1": "COMPLETE_OWNER_APPROVED",
+    "milestone2": "IN_PROGRESS_AWAITING_OWNER_REVIEW",
+    "milestone3": "COMPLETE_OWNER_APPROVED_LOCAL_MVP"
+  },
+  "inventory": {
+    "taxonomyWaveFTotal": 12,
+    "preexistingWaveFBaselines": 2,
+    "exactFinalOutcomes": 10,
+    "newlyImplementedWaveF": 10,
+    "exactOutcomeIds": [
+      "MOET2018-G1-NUM-P022-003",
+      "MOET2018-G2-GEO-P026-004",
+      "MOET2018-G5-GEO-P044-008",
+      "MOET2018-G6-STA-P053-005",
+      "MOET2018-G7-EXP-P062-002",
+      "MOET2018-G7-STA-P061-005",
+      "MOET2018-G8-EXP-P070-008",
+      "MOET2018-G8-NAA-P064-010",
+      "MOET2018-G8-NAA-P064-011",
+      "MOET2018-G8-STA-P069-010"
+    ],
+    "canonicalCapabilitiesNew": 8,
+    "canonicalCapabilitiesWaveFTotal": 10,
+    "grades": [
+      1,
+      2,
+      5,
+      6,
+      7,
+      8
+    ],
+    "metadataInsufficientOutcomes": []
+  },
+  "coverage": {
+    "waveFTaxonomyTotal": 12,
+    "finalOutcomesImplemented": 10,
+    "preexistingBaselineOutcomes": 2,
+    "blocked": 0,
+    "generatedSamples": 600,
+    "expectedSamples": 600,
+    "fallbackCount": 0,
+    "keywordRoutingCount": 0,
+    "overallGeneratorV2ImplementedOutcomes": 546,
+    "fullCanonicalOutcomeTotal": 546,
+    "remainingUnimplementedOutcomes": 0,
+    "claimsOwnerApproved": false
+  },
+  "contracts": {
+    "type": "PLAVE_PRODUCT_ASSESSMENT_CONTRACT_V2",
+    "version": "wave-f-v2.1",
+    "explicitOutcomeRouting": true,
+    "genericFallback": false,
+    "syntheticAliases": false,
+    "runtimeLlmAnswering": false
+  },
+  "validation": {
+    "independentlySolvedAndValidated": 600,
+    "provenance8Of8": 600,
+    "deterministicReplay": "PASS",
+    "exactDuplicates": 0,
+    "maximumNearDuplicatePairRate": 0.005263157894736842,
+    "difficultyStructuralGates": "PASS",
+    "persistenceAdapterProofs": 30,
+    "promptVisualSolverMismatches": 0,
+    "mathematicallyInvalidOrAmbiguousSamples": 0,
+    "privateLeaks": 0
+  },
+  "negativeControls": {
+    "status": "PASS",
+    "outcomesTested": 10,
+    "capabilityFamilies": 8,
+    "unknownOutcome": "GENERATOR_V2_OUTCOME_NOT_IMPLEMENTED"
+  },
+  "runtime": {
+    "status": "PASS_LOCAL_AUTHENTICATED_DATABASE",
+    "questionSource": "GENERATED_V2",
+    "provenance": "8/8",
+    "resumeWithoutRegeneration": "PASS",
+    "casDuplicateSubmit": "PASS",
+    "exactlyOnceProgressHistory": "PASS",
+    "roleIsolation": "PASS",
+    "noOrphans": "PASS",
+    "defaultRuntimeEnabled": false
+  },
+  "browserAcceptance": {
+    "status": "PASS",
+    "capabilities": "10/10",
+    "viewports": [
+      {
+        "width": 390,
+        "height": 844
+      },
+      {
+        "width": 1280,
+        "height": 800
+      }
+    ],
+    "screenshotsCreated": 19,
+    "screenshotsVisuallyReviewed": 19,
+    "criticalHighIssues": 0,
+    "consoleErrors": 0,
+    "hydrationErrors": 0,
+    "pageErrors": 0,
+    "overflowFailures": 0,
+    "privateLeaks": 0,
+    "promptVisualMismatches": 0,
+    "fixtureCleanup": "PASS",
+    "remainingListener": "NONE",
+    "exactRemainingBlockers": []
+  },
+  "integratedTechnicalAudit": "PASS",
+  "ownerDecision": "NOT_RECORDED_NOT_ASSUMED",
+  "boundaries": [
+    "NO_REMOTE_ACCESS_OR_MUTATION",
+    "NO_MIGRATION_CHANGE",
+    "NO_DEPLOYMENT",
+    "NO_GIT_MUTATION",
+    "NO_AI_TUTOR_IMPLEMENTATION_CHANGE",
+    "NO_DEFAULT_RUNTIME_ENABLE",
+    "NO_GENERIC_FALLBACK"
+  ]
+}

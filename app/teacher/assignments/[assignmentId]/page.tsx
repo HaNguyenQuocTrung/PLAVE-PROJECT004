@@ -71,7 +71,7 @@ export default async function TeacherAssignmentDetailPage({
     (student) => student.submissionStatus === "SUBMITTED",
   ).length;
   return (
-    <div className="teacher-assignment-detail page-shell">
+    <div className="teacher-assignment-detail teacher-workspace-page--v2 page-shell">
       <header className="catalog-hero teacher-hero">
         <div>
           <p className="eyebrow">{assignment.classroomName}</p>

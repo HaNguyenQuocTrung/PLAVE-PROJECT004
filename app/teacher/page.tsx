@@ -53,14 +53,20 @@ export default async function TeacherDashboardPage() {
     : null;
 
   return (
-    <div className="teacher-dashboard page-shell">
+    <div className="teacher-dashboard teacher-dashboard--v2 page-shell">
       <header className="catalog-hero teacher-hero">
         <p className="eyebrow">Không gian giáo viên</p>
-        <h1>Xin chào, {account.profile.fullName}</h1>
+        <h1>Chào {account.profile.fullName},</h1>
         <p>
-          Tài khoản giáo viên của bạn đã được xác minh bằng mã mời PLAVE.
+          Lớp học, kho câu hỏi và bài tập của bạn ở cùng một nơi.
         </p>
       </header>
+
+      <section className="teacher-metric-strip" aria-label="Tóm tắt không gian giáo viên">
+        <div><strong>{classroomCount ?? "—"}</strong><span>Lớp học</span></div>
+        <div><strong>{activeQuestionCount ?? "—"}</strong><span>Câu đang dùng</span></div>
+        <div><strong>{assignmentCount ?? "—"}</strong><span>Bài đã giao</span></div>
+      </section>
 
       <section
         className="teacher-status-card"

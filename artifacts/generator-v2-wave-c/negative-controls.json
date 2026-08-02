@@ -1,0 +1,580 @@
+{
+  "schemaVersion": 1,
+  "result": "PASS",
+  "outcomeControls": [
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-019",
+      "capability": "MIXED_ARITHMETIC_EXPRESSION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-020",
+      "capability": "MIXED_ARITHMETIC_EXPRESSION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P035-006",
+      "capability": "ALGEBRAIC_SUBSTITUTION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P036-020",
+      "capability": "RATIONAL_COMPARE_ORDER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P036-021",
+      "capability": "FRACTION_COMMON_DENOMINATOR",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P036-022",
+      "capability": "FRACTION_EQUIVALENCE",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P036-023",
+      "capability": "NUMERIC_OPERATION_PROPERTIES",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P036-024",
+      "capability": "RATIONAL_COMPARE_ORDER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P037-025",
+      "capability": "FRACTION_APPLICATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P037-026",
+      "capability": "RATIONAL_OPERATIONS",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G4-STA-P038-001",
+      "capability": "DATA_SEQUENCE_RECOGNITION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G4-EXP-P040-003",
+      "capability": "DATA_INVESTIGATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P041-005",
+      "capability": "DECIMAL_REPRESENTATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P041-006",
+      "capability": "FRACTION_APPLICATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P041-007",
+      "capability": "MIXED_DECIMAL_FRACTION_REPRESENTATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P041-008",
+      "capability": "DECIMAL_REPRESENTATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P041-010",
+      "capability": "FRACTION_EQUIVALENCE",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P041-012",
+      "capability": "RATIONAL_OPERATIONS",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P041-013",
+      "capability": "RATIONAL_OPERATIONS",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P042-014",
+      "capability": "PERCENTAGE_REASONING",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P042-015",
+      "capability": "DECIMAL_APPLICATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P042-016",
+      "capability": "DECIMAL_ROUNDING",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P042-017",
+      "capability": "SCALE_REASONING",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P042-018",
+      "capability": "DECIMAL_OPERATIONS",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P042-019",
+      "capability": "DECIMAL_OPERATIONS",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P042-020",
+      "capability": "DECIMAL_OPERATIONS",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P042-021",
+      "capability": "DECIMAL_SCALE_OPERATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P042-022",
+      "capability": "DECIMAL_COMPARE_ORDER",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P042-023",
+      "capability": "NUMERIC_OPERATION_PROPERTIES",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G5-EXP-P046-002",
+      "capability": "DATA_INVESTIGATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-036",
+      "capability": "SIGNED_FRACTION_REPRESENTATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER",
+        "ZERO_DENOMINATOR"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-024",
+      "capability": "RATIO_PROPORTION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-030",
+      "capability": "ALGEBRAIC_SUBSTITUTION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-031",
+      "capability": "PROPORTIONAL_REASONING",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P063-001",
+      "capability": "ALGEBRAIC_IDENTITY",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P063-003",
+      "capability": "ALGEBRAIC_IDENTITY",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P063-007",
+      "capability": "POLYNOMIAL_SIMPLIFICATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P064-012",
+      "capability": "FUNCTION_GRAPH_RECOGNITION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P064-018",
+      "capability": "FUNCTION_EVALUATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G8-NAA-P064-019",
+      "capability": "POLYNOMIAL_FACTORIZATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P071-001",
+      "capability": "QUADRATIC_MODELING",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P071-004",
+      "capability": "QUADRATIC_GRAPH_SYMMETRY",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P071-006",
+      "capability": "RADICAL_TRANSFORMATION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P072-011",
+      "capability": "QUADRATIC_EQUATION_SOLVING",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P072-012",
+      "capability": "RATIONAL_EQUATION_SOLVING",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P072-013",
+      "capability": "PRODUCT_EQUATION_SOLVING",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P072-014",
+      "capability": "LINEAR_SYSTEM_MODELING",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P072-016",
+      "capability": "INEQUALITY_PROPERTY",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P072-017",
+      "capability": "LINEAR_SYSTEM_SOLUTION_CHECK",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P072-018",
+      "capability": "QUADRATIC_EQUATION_RECOGNITION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P072-019",
+      "capability": "LINEAR_SYSTEM_RECOGNITION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P072-020",
+      "capability": "LINEAR_SYSTEM",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P072-021",
+      "capability": "QUADRATIC_EQUATION_SOLVING",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P072-022",
+      "capability": "QUADRATIC_MODELING",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P073-023",
+      "capability": "LINEAR_INEQUALITY_SOLVING",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P073-025",
+      "capability": "LINEAR_INEQUALITY_RECOGNITION",
+      "controls": [
+        "PROMPT_MODEL_MISMATCH",
+        "INDEPENDENT_SOLVER_MISMATCH",
+        "OUT_OF_GRADE_PARAMETER"
+      ],
+      "result": "PASS"
+    }
+  ],
+  "unsupportedOutcome": "GENERATOR_V2_OUTCOME_NOT_IMPLEMENTED",
+  "capabilityFamiliesCovered": 41
+}

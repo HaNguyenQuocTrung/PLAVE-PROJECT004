@@ -32,7 +32,7 @@ export default async function GradeOneSummaryPage() {
   const { path } = result.data;
 
   return (
-    <div className="grade-one-summary-page page-shell">
+    <div className="grade-one-summary-page progress-page--v2 page-shell">
       <GradeOneCompletionSummary path={path} />
       <PersonalizedRecommendationCard path={path} />
       <PersonalizedLearningOverview path={path} />

@@ -23,6 +23,7 @@ export function UniversalCurriculumRunner({
 }: UniversalCurriculumRunnerProps) {
   const router = useRouter();
   const headingRef = useRef<HTMLDivElement>(null);
+  const feedbackRef = useRef<HTMLDivElement>(null);
   const submissionKey = useRef<string | null>(null);
   const [state, setState] = useState(initialState);
   const [submittedQuestion, setSubmittedQuestion] =
@@ -30,8 +31,6 @@ export function UniversalCurriculumRunner({
   const [answer, setAnswer] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const [errorCode, setErrorCode] = useState("");
-  const [correlationId, setCorrelationId] = useState("");
   const displayQuestion = state.feedback
     ? submittedQuestion
     : state.currentQuestion;
@@ -69,6 +68,11 @@ export function UniversalCurriculumRunner({
     }
   }, []);
 
+  useEffect(() => {
+    if (!state.feedback) return;
+    window.requestAnimationFrame(() => feedbackRef.current?.focus());
+  }, [state.feedback]);
+
   const loadCurrentState = async () => {
     const response = await fetch(
       `${apiBase}/state?attemptId=${encodeURIComponent(state.attemptId)}`,
@@ -101,8 +105,6 @@ export function UniversalCurriculumRunner({
     }
     setSubmitting(true);
     setError("");
-    setErrorCode("");
-    setCorrelationId("");
     submissionKey.current ??= crypto.randomUUID();
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), 6_000);
@@ -144,18 +146,6 @@ export function UniversalCurriculumRunner({
         "code" in payload.error
           ? payload.error.code
           : null;
-      const requestCorrelationId =
-        typeof payload === "object" &&
-        payload !== null &&
-        "error" in payload &&
-        typeof payload.error === "object" &&
-        payload.error !== null &&
-        "correlationId" in payload.error &&
-        typeof payload.error.correlationId === "string"
-          ? payload.error.correlationId
-          : response.headers.get("X-PLAVE-Correlation-ID") ?? "";
-      setErrorCode(typeof code === "string" ? code : "REQUEST_FAILED");
-      setCorrelationId(requestCorrelationId);
       if (code === "REVISION_CONFLICT") {
         const recovered = await loadCurrentState();
         setError(
@@ -185,7 +175,6 @@ export function UniversalCurriculumRunner({
           ? "Yêu cầu mất quá nhiều thời gian. Em có thể bấm kiểm tra lại an toàn."
           : "Kết nối bị gián đoạn. Em có thể bấm kiểm tra lại; câu trả lời không bị tính hai lần.",
       );
-      setErrorCode(timedOut ? "CLIENT_TIMEOUT" : "NETWORK_ERROR");
     } finally {
       window.clearTimeout(timeout);
       setSubmitting(false);
@@ -202,8 +191,6 @@ export function UniversalCurriculumRunner({
     setSubmittedQuestion(null);
     setAnswer("");
     setError("");
-    setErrorCode("");
-    setCorrelationId("");
     window.requestAnimationFrame(() => headingRef.current?.focus());
   };
 
@@ -254,6 +241,9 @@ export function UniversalCurriculumRunner({
           <p aria-live="polite">
             Đã làm {state.answeredCount}/{state.totalQuestions} câu
           </p>
+          <Button href="/lessons" variant="tertiary">
+            Thoát bài
+          </Button>
         </div>
       </div>
 
@@ -326,27 +316,25 @@ export function UniversalCurriculumRunner({
         )}
 
         {error ? (
-          <div
+          <p
             id="curriculum-answer-error"
             className="question-error"
             role="alert"
           >
-            <p>{error}</p>
-            <p>
-              Mã lỗi: <strong>{errorCode}</strong>
-              {correlationId ? ` · Mã hỗ trợ: ${correlationId}` : ""}
-            </p>
-          </div>
+            {error}
+          </p>
         ) : null}
 
         {state.feedback ? (
           <div
+            ref={feedbackRef}
             className={`feedback ${
               state.feedback.isCorrect
                 ? "feedback--correct"
                 : "feedback--incorrect"
             }`}
             aria-live="polite"
+            tabIndex={-1}
           >
             <p className="feedback__status">
               <span aria-hidden="true">
@@ -381,8 +369,12 @@ export function UniversalCurriculumRunner({
                 : "Câu tiếp theo"}
             </Button>
           ) : (
-            <Button disabled={submitting} onClick={submit}>
-              {submitting ? "Đang chấm…" : "Kiểm tra"}
+            <Button
+              disabled={submitting || !answer.trim()}
+              loading={submitting}
+              onClick={submit}
+            >
+              Kiểm tra câu trả lời
             </Button>
           )}
         </div>

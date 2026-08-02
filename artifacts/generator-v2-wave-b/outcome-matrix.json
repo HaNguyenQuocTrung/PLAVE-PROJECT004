@@ -1,0 +1,2347 @@
+{
+  "schemaVersion": 1,
+  "count": 61,
+  "rows": [
+    {
+      "outcomeId": "MOET2018-G2-NUM-P024-001",
+      "grade": 2,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số và cấu tạo thập phân của một số",
+      "outcomeTitle": "Đếm, đọc, viết được các số trong phạm vi 1000.",
+      "unitIds": [
+        "grade-2-numbers-to-1000-preview"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "NUMBER_RECOGNITION_REPRESENTATION",
+      "taskKind": "READ_NATURAL",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "NUMBER_SENSE",
+      "interactionPolicy": [
+        "INTEGER_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 1000,
+        "maxSteps": 1,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 10,
+        "allowNegative": false,
+        "languageBand": "primary-early"
+      },
+      "difficultyPolicy": {
+        "EASY": "NUMBER_RECOGNITION_REPRESENTATION: direct one-step evidence in one representation",
+        "MEDIUM": "NUMBER_RECOGNITION_REPRESENTATION: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "NUMBER_RECOGNITION_REPRESENTATION: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_READ_NATURAL_SOLVER_V2",
+      "validator": "WAVE_B_READ_NATURAL_VALIDATOR_V2",
+      "visualPolicy": "PLACE_VALUE_CHART",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P024-003",
+      "grade": 2,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số và cấu tạo thập phân của một số",
+      "outcomeTitle": "Nhận biết được số tròn trăm.",
+      "unitIds": [
+        "grade-2-number-order-and-line-p0"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "PLACE_VALUE_COMPOSE",
+      "taskKind": "PLACE_VALUE",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "PLACE_VALUE",
+      "interactionPolicy": [
+        "INTEGER_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 1000,
+        "maxSteps": 1,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 10,
+        "allowNegative": false,
+        "languageBand": "primary-early"
+      },
+      "difficultyPolicy": {
+        "EASY": "PLACE_VALUE_COMPOSE: direct one-step evidence in one representation",
+        "MEDIUM": "PLACE_VALUE_COMPOSE: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "PLACE_VALUE_COMPOSE: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_PLACE_VALUE_SOLVER_V2",
+      "validator": "WAVE_B_PLACE_VALUE_VALIDATOR_V2",
+      "visualPolicy": "PLACE_VALUE_CHART",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G2-NUM-P024-004",
+      "grade": 2,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số và cấu tạo thập phân của một số",
+      "outcomeTitle": "Thực hiện được việc viết số thành tổng của trăm, chục, đơn vị.",
+      "unitIds": [
+        "grade-2-numbers-to-1000-preview"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "PLACE_VALUE_COMPOSE",
+      "taskKind": "PLACE_VALUE",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "PLACE_VALUE",
+      "interactionPolicy": [
+        "INTEGER_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 1000,
+        "maxSteps": 1,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 10,
+        "allowNegative": false,
+        "languageBand": "primary-early"
+      },
+      "difficultyPolicy": {
+        "EASY": "PLACE_VALUE_COMPOSE: direct one-step evidence in one representation",
+        "MEDIUM": "PLACE_VALUE_COMPOSE: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "PLACE_VALUE_COMPOSE: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_PLACE_VALUE_SOLVER_V2",
+      "validator": "WAVE_B_PLACE_VALUE_VALIDATOR_V2",
+      "visualPolicy": "PLACE_VALUE_CHART",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-001",
+      "grade": 3,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số và cấu tạo thập phân của một số",
+      "outcomeTitle": "Đọc, viết được các số trong phạm vi 10 000; trong phạm vi 100 000.",
+      "unitIds": [
+        "grade-3-number-sense-to-100000-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "NUMBER_RECOGNITION_REPRESENTATION",
+      "taskKind": "READ_NATURAL",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "NUMBER_SENSE",
+      "interactionPolicy": [
+        "INTEGER_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 100000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "NUMBER_RECOGNITION_REPRESENTATION: direct one-step evidence in one representation",
+        "MEDIUM": "NUMBER_RECOGNITION_REPRESENTATION: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "NUMBER_RECOGNITION_REPRESENTATION: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_READ_NATURAL_SOLVER_V2",
+      "validator": "WAVE_B_READ_NATURAL_VALIDATOR_V2",
+      "visualPolicy": "PLACE_VALUE_CHART",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-002",
+      "grade": 3,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số và cấu tạo thập phân của một số",
+      "outcomeTitle": "Làm tròn số Làm quen với việc làm tròn số đến tròn chục, tròn trăm, tròn nghìn, tròn mười nghìn (ví dụ: làm tròn số 1234 đến hàng chục thì được số 1230).",
+      "unitIds": [
+        "grade-3-number-sense-to-100000-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "ROUND_ESTIMATE",
+      "taskKind": "ROUND_NATURAL",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "NUMBER_SENSE",
+      "interactionPolicy": [
+        "INTEGER_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 100000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "ROUND_ESTIMATE: direct one-step evidence in one representation",
+        "MEDIUM": "ROUND_ESTIMATE: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "ROUND_ESTIMATE: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_ROUND_NATURAL_SOLVER_V2",
+      "validator": "WAVE_B_ROUND_NATURAL_VALIDATOR_V2",
+      "visualPolicy": "NUMBER_LINE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-003",
+      "grade": 3,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số và cấu tạo thập phân của một số",
+      "outcomeTitle": "Nhận biết được cách so sánh hai số trong phạm vi 100 000.",
+      "unitIds": [
+        "grade-3-number-sense-to-100000-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "COMPARE_ORDER",
+      "taskKind": "COMPARE_NATURAL",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "NUMBER_SENSE",
+      "interactionPolicy": [
+        "ORDERING"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 100000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "COMPARE_ORDER: direct one-step evidence in one representation",
+        "MEDIUM": "COMPARE_ORDER: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "COMPARE_ORDER: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_COMPARE_NATURAL_SOLVER_V2",
+      "validator": "WAVE_B_COMPARE_NATURAL_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-005",
+      "grade": 3,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số và cấu tạo thập phân của một số",
+      "outcomeTitle": "Nhận biết được chữ số La Mã và viết được các số tự nhiên trong phạm vi 20 bằng cách sử dụng chữ số La Mã.",
+      "unitIds": [
+        "grade-3-number-notation-order-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "ROMAN_NUMERAL",
+      "taskKind": "ROMAN_NATURAL",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "NUMBER_REPRESENTATION",
+      "interactionPolicy": [
+        "SINGLE_CHOICE"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 100000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "ROMAN_NUMERAL: direct one-step evidence in one representation",
+        "MEDIUM": "ROMAN_NUMERAL: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "ROMAN_NUMERAL: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_ROMAN_NATURAL_SOLVER_V2",
+      "validator": "WAVE_B_ROMAN_NATURAL_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-006",
+      "grade": 3,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số và cấu tạo thập phân của một số",
+      "outcomeTitle": "Nhận biết được số tròn nghìn, tròn mười nghìn.",
+      "unitIds": [
+        "grade-3-number-notation-order-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "PLACE_VALUE_COMPOSE",
+      "taskKind": "PLACE_VALUE",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "PLACE_VALUE",
+      "interactionPolicy": [
+        "INTEGER_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 100000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "PLACE_VALUE_COMPOSE: direct one-step evidence in one representation",
+        "MEDIUM": "PLACE_VALUE_COMPOSE: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "PLACE_VALUE_COMPOSE: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_PLACE_VALUE_SOLVER_V2",
+      "validator": "WAVE_B_PLACE_VALUE_VALIDATOR_V2",
+      "visualPolicy": "PLACE_VALUE_CHART",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-007",
+      "grade": 3,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số và cấu tạo thập phân của một số",
+      "outcomeTitle": "Nhận biết được tính chất giao hoán, tính chất kết hợp của phép cộng và mối quan hệ giữa phép cộng với phép trừ trong thực hành tính.",
+      "unitIds": [
+        "grade-3-additive-fluency-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "OPERATION_PROPERTY",
+      "taskKind": "WHOLE_OPERATION_PROPERTY",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "OPERATION_PROPERTIES",
+      "interactionPolicy": [
+        "SINGLE_CHOICE"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 100000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "OPERATION_PROPERTY: direct one-step evidence in one representation",
+        "MEDIUM": "OPERATION_PROPERTY: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "OPERATION_PROPERTY: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_WHOLE_OPERATION_PROPERTY_SOLVER_V2",
+      "validator": "WAVE_B_WHOLE_OPERATION_PROPERTY_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-008",
+      "grade": 3,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số và cấu tạo thập phân của một số",
+      "outcomeTitle": "Thực hiện được phép cộng, phép trừ các số có đến 5 chữ số (có nhớ không quá hai lượt và không liên tiếp).",
+      "unitIds": [
+        "grade-3-additive-fluency-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "WRITTEN_ARITHMETIC",
+      "taskKind": "WRITTEN_ADD_SUB",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "WHOLE_NUMBER_OPERATIONS",
+      "interactionPolicy": [
+        "INTEGER_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 100000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "WRITTEN_ARITHMETIC: direct one-step evidence in one representation",
+        "MEDIUM": "WRITTEN_ARITHMETIC: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "WRITTEN_ARITHMETIC: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_WRITTEN_ADD_SUB_SOLVER_V2",
+      "validator": "WAVE_B_WRITTEN_ADD_SUB_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-009",
+      "grade": 3,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số và cấu tạo thập phân của một số",
+      "outcomeTitle": "Thực hiện được việc sắp xếp các số theo thứ tự (từ bé đến lớn hoặc ngược lại) trong một nhóm có không quá 4 số (trong phạm vi 100 000).",
+      "unitIds": [
+        "grade-3-number-notation-order-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "COMPARE_ORDER",
+      "taskKind": "COMPARE_NATURAL",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "NUMBER_SENSE",
+      "interactionPolicy": [
+        "ORDERING"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 100000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "COMPARE_ORDER: direct one-step evidence in one representation",
+        "MEDIUM": "COMPARE_ORDER: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "COMPARE_ORDER: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_COMPARE_NATURAL_SOLVER_V2",
+      "validator": "WAVE_B_COMPARE_NATURAL_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P029-011",
+      "grade": 3,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số và cấu tạo thập phân của một số",
+      "outcomeTitle": "Xác định được số lớn nhất hoặc số bé nhất trong một nhóm có không quá 4 số (trong phạm vi 100 000).",
+      "unitIds": [
+        "grade-3-number-notation-order-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "COMPARE_ORDER",
+      "taskKind": "COMPARE_NATURAL",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "NUMBER_SENSE",
+      "interactionPolicy": [
+        "ORDERING"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 100000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "COMPARE_ORDER: direct one-step evidence in one representation",
+        "MEDIUM": "COMPARE_ORDER: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "COMPARE_ORDER: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_COMPARE_NATURAL_SOLVER_V2",
+      "validator": "WAVE_B_COMPARE_NATURAL_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-015",
+      "grade": 3,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số và cấu tạo thập phân của một số",
+      "outcomeTitle": "Nhận biết được tính chất giao hoán, tính chất kết hợp của phép nhân và mối quan hệ giữa phép nhân với phép chia trong thực hành tính.",
+      "unitIds": [
+        "grade-3-multiplicative-expression-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "OPERATION_PROPERTY",
+      "taskKind": "WHOLE_OPERATION_PROPERTY",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "OPERATION_PROPERTIES",
+      "interactionPolicy": [
+        "SINGLE_CHOICE"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 100000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "OPERATION_PROPERTY: direct one-step evidence in one representation",
+        "MEDIUM": "OPERATION_PROPERTY: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "OPERATION_PROPERTY: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_WHOLE_OPERATION_PROPERTY_SOLVER_V2",
+      "validator": "WAVE_B_WHOLE_OPERATION_PROPERTY_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-017",
+      "grade": 3,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số và cấu tạo thập phân của một số",
+      "outcomeTitle": "Thực hiện được phép chia cho số có một chữ số.",
+      "unitIds": [
+        "grade-3-multiplication-division"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "MULTIPLY_DIVIDE",
+      "taskKind": "DIVIDE_ONE_DIGIT",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "WHOLE_NUMBER_OPERATIONS",
+      "interactionPolicy": [
+        "INTEGER_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 100000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "MULTIPLY_DIVIDE: direct one-step evidence in one representation",
+        "MEDIUM": "MULTIPLY_DIVIDE: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "MULTIPLY_DIVIDE: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_DIVIDE_ONE_DIGIT_SOLVER_V2",
+      "validator": "WAVE_B_DIVIDE_ONE_DIGIT_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P030-018",
+      "grade": 3,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số và cấu tạo thập phân của một số",
+      "outcomeTitle": "Thực hiện được phép nhân với số có một chữ số (có nhớ không quá hai lượt và không liên tiếp).",
+      "unitIds": [
+        "grade-3-multiplication-division"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "WRITTEN_ARITHMETIC",
+      "taskKind": "WRITTEN_MULTIPLY",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "WHOLE_NUMBER_OPERATIONS",
+      "interactionPolicy": [
+        "INTEGER_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 100000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "WRITTEN_ARITHMETIC: direct one-step evidence in one representation",
+        "MEDIUM": "WRITTEN_ARITHMETIC: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "WRITTEN_ARITHMETIC: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_WRITTEN_MULTIPLY_SOLVER_V2",
+      "validator": "WAVE_B_WRITTEN_MULTIPLY_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G3-NUM-P031-024",
+      "grade": 3,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Phân số của nhóm",
+      "outcomeTitle": "Xác định phân số đơn vị của một nhóm đồ vật bằng cách chia thành các phần đều nhau.",
+      "unitIds": [
+        "grade-3-unit-fractions"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "FRACTION_UNIT_QUANTITY",
+      "taskKind": "UNIT_FRACTION_OF_GROUP",
+      "profile": "FRACTION",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "FRACTIONS",
+      "interactionPolicy": [
+        "FRACTION_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 100000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "FRACTION_UNIT_QUANTITY: direct one-step evidence in one representation",
+        "MEDIUM": "FRACTION_UNIT_QUANTITY: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "FRACTION_UNIT_QUANTITY: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_UNIT_FRACTION_OF_GROUP_SOLVER_V2",
+      "validator": "WAVE_B_UNIT_FRACTION_OF_GROUP_VALIDATOR_V2",
+      "visualPolicy": "FRACTION_MODEL",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P034-001",
+      "grade": 4,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số và cấu tạo thập phân của một số",
+      "outcomeTitle": "Đọc, viết được các số có nhiều chữ số (đến lớp triệu).",
+      "unitIds": [
+        "grade-4-place-value-millions-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "NUMBER_RECOGNITION_REPRESENTATION",
+      "taskKind": "READ_NATURAL",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "NUMBER_SENSE",
+      "interactionPolicy": [
+        "INTEGER_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 10000000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "NUMBER_RECOGNITION_REPRESENTATION: direct one-step evidence in one representation",
+        "MEDIUM": "NUMBER_RECOGNITION_REPRESENTATION: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "NUMBER_RECOGNITION_REPRESENTATION: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_READ_NATURAL_SOLVER_V2",
+      "validator": "WAVE_B_READ_NATURAL_VALIDATOR_V2",
+      "visualPolicy": "PLACE_VALUE_CHART",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P034-003",
+      "grade": 4,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số và cấu tạo thập phân của một số",
+      "outcomeTitle": "Nhận biết được cách so sánh hai số trong phạm vi lớp triệu.",
+      "unitIds": [
+        "grade-4-place-value-millions-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "COMPARE_ORDER",
+      "taskKind": "COMPARE_NATURAL",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "NUMBER_SENSE",
+      "interactionPolicy": [
+        "ORDERING"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 10000000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "COMPARE_ORDER: direct one-step evidence in one representation",
+        "MEDIUM": "COMPARE_ORDER: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "COMPARE_ORDER: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_COMPARE_NATURAL_SOLVER_V2",
+      "validator": "WAVE_B_COMPARE_NATURAL_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P034-005",
+      "grade": 4,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số và cấu tạo thập phân của một số",
+      "outcomeTitle": "Nhận biết được số chẵn, số lẻ.",
+      "unitIds": [
+        "grade-4-number-patterns-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "PARITY_CLASSIFICATION",
+      "taskKind": "PARITY",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "NUMBER_SENSE",
+      "interactionPolicy": [
+        "MULTI_SELECT"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 10000000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "PARITY_CLASSIFICATION: direct one-step evidence in one representation",
+        "MEDIUM": "PARITY_CLASSIFICATION: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "PARITY_CLASSIFICATION: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_PARITY_SOLVER_V2",
+      "validator": "WAVE_B_PARITY_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P036-016",
+      "grade": 4,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Nội dung Yêu cầu cần đạt",
+      "outcomeTitle": "Đọc, viết được các phân số.",
+      "unitIds": [
+        "grade-4-fraction-foundations-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "FRACTION_REPRESENTATION",
+      "taskKind": "READ_FRACTION",
+      "profile": "FRACTION",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "FRACTIONS",
+      "interactionPolicy": [
+        "FRACTION_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 10000000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "FRACTION_REPRESENTATION: direct one-step evidence in one representation",
+        "MEDIUM": "FRACTION_REPRESENTATION: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "FRACTION_REPRESENTATION: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_READ_FRACTION_SOLVER_V2",
+      "validator": "WAVE_B_READ_FRACTION_VALIDATOR_V2",
+      "visualPolicy": "FRACTION_MODEL",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P036-018",
+      "grade": 4,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Nội dung Yêu cầu cần đạt",
+      "outcomeTitle": "Nhận biết được khái niệm ban đầu về phân số, tử số, mẫu số.",
+      "unitIds": [
+        "grade-4-fraction-foundations"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "FRACTION_PART_WHOLE",
+      "taskKind": "PART_WHOLE_BASELINE",
+      "profile": "FRACTION",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "FRACTIONS",
+      "interactionPolicy": [
+        "FRACTION_INPUT",
+        "CONSTRUCTION_OR_VISUAL_SELECTION"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 10000000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "FRACTION_PART_WHOLE: direct one-step evidence in one representation",
+        "MEDIUM": "FRACTION_PART_WHOLE: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "FRACTION_PART_WHOLE: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "PROVEN_V2_INDEPENDENT_SOLVER",
+      "validator": "PROVEN_V2_INDEPENDENT_VALIDATOR",
+      "visualPolicy": "FRACTION_MODEL",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G4-NUM-P036-019",
+      "grade": 4,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Nội dung Yêu cầu cần đạt",
+      "outcomeTitle": "Nhận biết được tính chất cơ bản của phân số.",
+      "unitIds": [
+        "grade-4-fraction-foundations"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "FRACTION_EQUIVALENCE",
+      "taskKind": "FRACTION_EQUIVALENCE",
+      "profile": "FRACTION",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "FRACTIONS",
+      "interactionPolicy": [
+        "FRACTION_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 10000000,
+        "maxSteps": 2,
+        "maxDecimalPlaces": 0,
+        "maxDenominator": 12,
+        "allowNegative": false,
+        "languageBand": "primary"
+      },
+      "difficultyPolicy": {
+        "EASY": "FRACTION_EQUIVALENCE: direct one-step evidence in one representation",
+        "MEDIUM": "FRACTION_EQUIVALENCE: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "FRACTION_EQUIVALENCE: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_FRACTION_EQUIVALENCE_SOLVER_V2",
+      "validator": "WAVE_B_FRACTION_EQUIVALENCE_VALIDATOR_V2",
+      "visualPolicy": "FRACTION_MODEL",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P041-009",
+      "grade": 5,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Phân số",
+      "outcomeTitle": "Quy đồng, so sánh và xếp thứ tự các phân số trong phạm vi quy định.",
+      "unitIds": [
+        "grade-5-fraction-operations"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "RATIONAL_COMPARE_ORDER",
+      "taskKind": "FRACTION_COMPARE_ORDER",
+      "profile": "FRACTION",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "RATIONAL_NUMBERS",
+      "interactionPolicy": [
+        "ORDERING"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 1000000,
+        "maxSteps": 3,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 24,
+        "allowNegative": false,
+        "languageBand": "primary-upper"
+      },
+      "difficultyPolicy": {
+        "EASY": "RATIONAL_COMPARE_ORDER: direct one-step evidence in one representation",
+        "MEDIUM": "RATIONAL_COMPARE_ORDER: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "RATIONAL_COMPARE_ORDER: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_FRACTION_COMPARE_ORDER_SOLVER_V2",
+      "validator": "WAVE_B_FRACTION_COMPARE_ORDER_VALIDATOR_V2",
+      "visualPolicy": "NUMBER_LINE when signed",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P041-011",
+      "grade": 5,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Số thập phân",
+      "outcomeTitle": "So sánh hai số thập phân.",
+      "unitIds": [
+        "grade-5-decimal-operations",
+        "grade-5-core-operations-measurement-p0"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "DECIMAL_COMPARE_ORDER",
+      "taskKind": "DECIMAL_COMPARE_ORDER",
+      "profile": "DECIMAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "DECIMALS",
+      "interactionPolicy": [
+        "ORDERING"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 1000000,
+        "maxSteps": 3,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 24,
+        "allowNegative": false,
+        "languageBand": "primary-upper"
+      },
+      "difficultyPolicy": {
+        "EASY": "DECIMAL_COMPARE_ORDER: direct one-step evidence in one representation",
+        "MEDIUM": "DECIMAL_COMPARE_ORDER: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "DECIMAL_COMPARE_ORDER: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_DECIMAL_COMPARE_ORDER_SOLVER_V2",
+      "validator": "WAVE_B_DECIMAL_COMPARE_ORDER_VALIDATOR_V2",
+      "visualPolicy": "NUMBER_LINE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G5-NUM-P043-024",
+      "grade": 5,
+      "strand": "SỐ VÀ PHÉP TÍNH",
+      "domain": "Máy tính",
+      "outcomeTitle": "Sử dụng máy tính cầm tay cho phép tính số tự nhiên và bài toán phần trăm.",
+      "unitIds": [
+        "grade-5-calculator-motion-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "PERCENTAGE_REASONING",
+      "taskKind": "PERCENT_OF_QUANTITY",
+      "profile": "PERCENT",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "PERCENTAGE",
+      "interactionPolicy": [
+        "DECIMAL_INPUT",
+        "INTEGER_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 1000000,
+        "maxSteps": 3,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 24,
+        "allowNegative": false,
+        "languageBand": "primary-upper"
+      },
+      "difficultyPolicy": {
+        "EASY": "PERCENTAGE_REASONING: direct one-step evidence in one representation",
+        "MEDIUM": "PERCENTAGE_REASONING: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "PERCENTAGE_REASONING: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_PERCENT_OF_QUANTITY_SOLVER_V2",
+      "validator": "WAVE_B_PERCENT_OF_QUANTITY_VALIDATOR_V2",
+      "visualPolicy": "DATA_TABLE when data is evidence",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G5-STA-P045-007",
+      "grade": 5,
+      "strand": "MỘT SỐ YẾU TỐ THỐNG KÊ VÀ XÁC SUẤT",
+      "domain": "Một số yếu tố thống kê",
+      "outcomeTitle": "Nhận biết được mối liên hệ giữa thống kê với các kiến thức khác trong môn Toán và trong thực tiễn (ví dụ: số thập phân, tỉ số phần trăm,...).",
+      "unitIds": [
+        "grade-5-statistical-representations-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "PERCENTAGE_REASONING",
+      "taskKind": "STATISTICAL_PERCENT",
+      "profile": "DATA",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "PERCENTAGE",
+      "interactionPolicy": [
+        "DECIMAL_INPUT",
+        "INTEGER_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": 0,
+        "maximum": 1000000,
+        "maxSteps": 3,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 24,
+        "allowNegative": false,
+        "languageBand": "primary-upper"
+      },
+      "difficultyPolicy": {
+        "EASY": "PERCENTAGE_REASONING: direct one-step evidence in one representation",
+        "MEDIUM": "PERCENTAGE_REASONING: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "PERCENTAGE_REASONING: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_STATISTICAL_PERCENT_SOLVER_V2",
+      "validator": "WAVE_B_STATISTICAL_PERCENT_VALIDATOR_V2",
+      "visualPolicy": "DATA_TABLE when data is evidence",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P047-002",
+      "grade": 6,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số tự nhiên và tập hợp các số tự nhiên. Thứ tự trong tập hợp các số tự nhiên",
+      "outcomeTitle": "Biểu diễn được số tự nhiên trong hệ thập phân.",
+      "unitIds": [
+        "grade-6-natural-representation-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "NUMBER_RECOGNITION_REPRESENTATION",
+      "taskKind": "READ_NATURAL",
+      "profile": "WHOLE",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "NUMBER_SENSE",
+      "interactionPolicy": [
+        "INTEGER_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 3,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "NUMBER_RECOGNITION_REPRESENTATION: direct one-step evidence in one representation",
+        "MEDIUM": "NUMBER_RECOGNITION_REPRESENTATION: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "NUMBER_RECOGNITION_REPRESENTATION: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_READ_NATURAL_SOLVER_V2",
+      "validator": "WAVE_B_READ_NATURAL_VALIDATOR_V2",
+      "visualPolicy": "PLACE_VALUE_CHART",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-031",
+      "grade": 6,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "nhân đối với phép cộng, quy tắc dấu ngoặc trong tập hợp các số nguyên trong tính toán (tính viết và tính nhẩm, tính nhanh một cách hợp lí).",
+      "outcomeTitle": "Giải quyết được một số vấn đề thực tiễn gắn với các phép tính về phân số (ví dụ: các bài toán liên quan đến chuyển động trong Vật lí,...).",
+      "unitIds": [
+        "grade-6-fraction-reasoning-application-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "FRACTION_APPLICATION",
+      "taskKind": "FRACTION_APPLICATION",
+      "profile": "FRACTION",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "FRACTIONS",
+      "interactionPolicy": [
+        "FRACTION_INPUT",
+        "INTEGER_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 3,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "FRACTION_APPLICATION: direct one-step evidence in one representation",
+        "MEDIUM": "FRACTION_APPLICATION: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "FRACTION_APPLICATION: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_FRACTION_APPLICATION_SOLVER_V2",
+      "validator": "WAVE_B_FRACTION_APPLICATION_VALIDATOR_V2",
+      "visualPolicy": "FRACTION_MODEL when the partition is evidence",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-033",
+      "grade": 6,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "nhân đối với phép cộng, quy tắc dấu ngoặc trong tập hợp các số nguyên trong tính toán (tính viết và tính nhẩm, tính nhanh một cách hợp lí).",
+      "outcomeTitle": "Nêu được hai tính chất cơ bản của phân số.",
+      "unitIds": [
+        "grade-6-signed-fraction-representation-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "FRACTION_EQUIVALENCE",
+      "taskKind": "FRACTION_EQUIVALENCE",
+      "profile": "FRACTION",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "FRACTIONS",
+      "interactionPolicy": [
+        "FRACTION_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 3,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "FRACTION_EQUIVALENCE: direct one-step evidence in one representation",
+        "MEDIUM": "FRACTION_EQUIVALENCE: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "FRACTION_EQUIVALENCE: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_FRACTION_EQUIVALENCE_SOLVER_V2",
+      "validator": "WAVE_B_FRACTION_EQUIVALENCE_VALIDATOR_V2",
+      "visualPolicy": "FRACTION_MODEL",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-035",
+      "grade": 6,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "nhân đối với phép cộng, quy tắc dấu ngoặc trong tập hợp các số nguyên trong tính toán (tính viết và tính nhẩm, tính nhanh một cách hợp lí).",
+      "outcomeTitle": "Nhận biết được khái niệm hai phân số bằng nhau và nhận biết được quy tắc bằng nhau của hai phân số.",
+      "unitIds": [
+        "grade-6-fraction-operations"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "FRACTION_EQUIVALENCE",
+      "taskKind": "FRACTION_EQUIVALENCE",
+      "profile": "FRACTION",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "FRACTIONS",
+      "interactionPolicy": [
+        "FRACTION_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 3,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "FRACTION_EQUIVALENCE: direct one-step evidence in one representation",
+        "MEDIUM": "FRACTION_EQUIVALENCE: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "FRACTION_EQUIVALENCE: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_FRACTION_EQUIVALENCE_SOLVER_V2",
+      "validator": "WAVE_B_FRACTION_EQUIVALENCE_VALIDATOR_V2",
+      "visualPolicy": "FRACTION_MODEL",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-038",
+      "grade": 6,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "nhân đối với phép cộng, quy tắc dấu ngoặc trong tập hợp các số nguyên trong tính toán (tính viết và tính nhẩm, tính nhanh một cách hợp lí).",
+      "outcomeTitle": "Nhận biết được số đối của một phân số.",
+      "unitIds": [
+        "grade-6-signed-fraction-representation-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "OPPOSITE_NUMBER",
+      "taskKind": "OPPOSITE_FRACTION",
+      "profile": "FRACTION",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "RATIONAL_NUMBERS",
+      "interactionPolicy": [
+        "FRACTION_INPUT",
+        "DECIMAL_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 3,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "OPPOSITE_NUMBER: direct one-step evidence in one representation",
+        "MEDIUM": "OPPOSITE_NUMBER: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "OPPOSITE_NUMBER: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_OPPOSITE_FRACTION_SOLVER_V2",
+      "validator": "WAVE_B_OPPOSITE_FRACTION_VALIDATOR_V2",
+      "visualPolicy": "NUMBER_LINE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-040",
+      "grade": 6,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "nhân đối với phép cộng, quy tắc dấu ngoặc trong tập hợp các số nguyên trong tính toán (tính viết và tính nhẩm, tính nhanh một cách hợp lí).",
+      "outcomeTitle": "Thực hiện được các phép tính cộng, trừ, nhân, chia với phân số.",
+      "unitIds": [
+        "grade-6-fraction-operations",
+        "grade-6-integer-fraction-operations-p0"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "RATIONAL_OPERATIONS",
+      "taskKind": "FRACTION_OPERATIONS",
+      "profile": "FRACTION",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "RATIONAL_NUMBERS",
+      "interactionPolicy": [
+        "FRACTION_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 3,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "RATIONAL_OPERATIONS: direct one-step evidence in one representation",
+        "MEDIUM": "RATIONAL_OPERATIONS: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "RATIONAL_OPERATIONS: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_FRACTION_OPERATIONS_SOLVER_V2",
+      "validator": "WAVE_B_FRACTION_OPERATIONS_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P049-043",
+      "grade": 6,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "nhân đối với phép cộng, quy tắc dấu ngoặc trong tập hợp các số nguyên trong tính toán (tính viết và tính nhẩm, tính nhanh một cách hợp lí).",
+      "outcomeTitle": "Vận dụng được các tính chất giao hoán, kết hợp, phân phối của phép nhân đối với phép cộng, quy tắc dấu ngoặc với phân số trong tính toán (tính viết và tính nhẩm, tính nhanh một cách hợp lí).",
+      "unitIds": [
+        "grade-6-fraction-reasoning-application-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "NUMERIC_OPERATION_PROPERTIES",
+      "taskKind": "FRACTION_PROPERTIES",
+      "profile": "FRACTION",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "OPERATION_PROPERTIES",
+      "interactionPolicy": [
+        "SINGLE_CHOICE"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 3,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "NUMERIC_OPERATION_PROPERTIES: direct one-step evidence in one representation",
+        "MEDIUM": "NUMERIC_OPERATION_PROPERTIES: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "NUMERIC_OPERATION_PROPERTIES: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_FRACTION_PROPERTIES_SOLVER_V2",
+      "validator": "WAVE_B_FRACTION_PROPERTIES_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-044",
+      "grade": 6,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số thập phân và các phép tính với số thập phân. Tỉ số và tỉ số phần trăm",
+      "outcomeTitle": "Giải quyết được một số vấn đề thực tiễn gắn với các phép tính về số thập phân, tỉ số và tỉ số phần trăm (ví dụ: các bài toán liên quan đến lãi suất tín dụng, liên quan đến thành phần các chất trong Hoá học,...).",
+      "unitIds": [
+        "grade-6-ratio-percent-decimal-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "DECIMAL_APPLICATION",
+      "taskKind": "DECIMAL_APPLICATION",
+      "profile": "DECIMAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "DECIMALS",
+      "interactionPolicy": [
+        "DECIMAL_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 3,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "DECIMAL_APPLICATION: direct one-step evidence in one representation",
+        "MEDIUM": "DECIMAL_APPLICATION: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "DECIMAL_APPLICATION: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_DECIMAL_APPLICATION_SOLVER_V2",
+      "validator": "WAVE_B_DECIMAL_APPLICATION_VALIDATOR_V2",
+      "visualPolicy": "DATA_TABLE when quantities are tabulated",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-045",
+      "grade": 6,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số thập phân và các phép tính với số thập phân. Tỉ số và tỉ số phần trăm",
+      "outcomeTitle": "Nhận biết được số thập phân âm, số đối của một số thập phân.",
+      "unitIds": [
+        "grade-6-signed-decimal-operations-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "OPPOSITE_NUMBER",
+      "taskKind": "OPPOSITE_DECIMAL",
+      "profile": "DECIMAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "RATIONAL_NUMBERS",
+      "interactionPolicy": [
+        "FRACTION_INPUT",
+        "DECIMAL_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 3,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "OPPOSITE_NUMBER: direct one-step evidence in one representation",
+        "MEDIUM": "OPPOSITE_NUMBER: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "OPPOSITE_NUMBER: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_OPPOSITE_DECIMAL_SOLVER_V2",
+      "validator": "WAVE_B_OPPOSITE_DECIMAL_VALIDATOR_V2",
+      "visualPolicy": "NUMBER_LINE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-047",
+      "grade": 6,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số thập phân và các phép tính với số thập phân. Tỉ số và tỉ số phần trăm",
+      "outcomeTitle": "Thực hiện được các phép tính cộng, trừ, nhân, chia với số thập phân.",
+      "unitIds": [
+        "grade-6-signed-decimal-operations-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "DECIMAL_OPERATIONS",
+      "taskKind": "DECIMAL_OPERATIONS",
+      "profile": "DECIMAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "DECIMALS",
+      "interactionPolicy": [
+        "DECIMAL_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 3,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "DECIMAL_OPERATIONS: direct one-step evidence in one representation",
+        "MEDIUM": "DECIMAL_OPERATIONS: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "DECIMAL_OPERATIONS: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_DECIMAL_OPERATIONS_SOLVER_V2",
+      "validator": "WAVE_B_DECIMAL_OPERATIONS_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-050",
+      "grade": 6,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số thập phân và các phép tính với số thập phân. Tỉ số và tỉ số phần trăm",
+      "outcomeTitle": "Tính được tỉ số và tỉ số phần trăm của hai đại lượng.",
+      "unitIds": [
+        "grade-6-ratio-percent-decimal-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "RATIO_PROPORTION",
+      "taskKind": "RATIO_AND_PERCENT",
+      "profile": "RATIO",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "RATIO_AND_RATE",
+      "interactionPolicy": [
+        "TABLE_OR_CHART_RESPONSE",
+        "DECIMAL_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 3,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "RATIO_PROPORTION: direct one-step evidence in one representation",
+        "MEDIUM": "RATIO_PROPORTION: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "RATIO_PROPORTION: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_RATIO_AND_PERCENT_SOLVER_V2",
+      "validator": "WAVE_B_RATIO_AND_PERCENT_VALIDATOR_V2",
+      "visualPolicy": "DATA_TABLE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G6-NAA-P050-051",
+      "grade": 6,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số thập phân và các phép tính với số thập phân. Tỉ số và tỉ số phần trăm",
+      "outcomeTitle": "Vận dụng được các tính chất giao hoán, kết hợp, phân phối của phép nhân đối với phép cộng, quy tắc dấu ngoặc với số thập phân trong tính toán (tính viết và tính nhẩm, tính nhanh một cách hợp lí).",
+      "unitIds": [
+        "grade-6-ratio-percent-decimal-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "NUMERIC_OPERATION_PROPERTIES",
+      "taskKind": "DECIMAL_PROPERTIES",
+      "profile": "DECIMAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "OPERATION_PROPERTIES",
+      "interactionPolicy": [
+        "SINGLE_CHOICE"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 3,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "NUMERIC_OPERATION_PROPERTIES: direct one-step evidence in one representation",
+        "MEDIUM": "NUMERIC_OPERATION_PROPERTIES: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "NUMERIC_OPERATION_PROPERTIES: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_DECIMAL_PROPERTIES_SOLVER_V2",
+      "validator": "WAVE_B_DECIMAL_PROPERTIES_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G6-GEO-P051-008",
+      "grade": 6,
+      "strand": "HÌNH HỌC VÀ ĐO LƯỜNG",
+      "domain": "Số thập phân và các phép tính với số thập phân. Tỉ số và tỉ số phần trăm",
+      "outcomeTitle": "Nhận biết được tính đối xứng trong Toán học, tự nhiên, nghệ thuật, kiến trúc, công nghệ chế tạo,...",
+      "unitIds": [
+        "grade-6-symmetry-identification-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "SYMMETRY_RECOGNITION",
+      "taskKind": "SYMMETRY",
+      "profile": "GEOMETRY",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "GEOMETRY",
+      "interactionPolicy": [
+        "CONSTRUCTION_OR_VISUAL_SELECTION"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 3,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "SYMMETRY_RECOGNITION: direct one-step evidence in one representation",
+        "MEDIUM": "SYMMETRY_RECOGNITION: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "SYMMETRY_RECOGNITION: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_SYMMETRY_SOLVER_V2",
+      "validator": "WAVE_B_SYMMETRY_VALIDATOR_V2",
+      "visualPolicy": "SHAPE_DIAGRAM",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G6-GEO-P051-010",
+      "grade": 6,
+      "strand": "HÌNH HỌC VÀ ĐO LƯỜNG",
+      "domain": "Số thập phân và các phép tính với số thập phân. Tỉ số và tỉ số phần trăm",
+      "outcomeTitle": "Nhận biết được vẻ đẹp của thế giới tự nhiên biểu hiện qua tính đối xứng (ví dụ: nhận biết vẻ đẹp của một số loài thực vật, động vật trong tự nhiên có tâm đối xứng hoặc có trục đối xứng).",
+      "unitIds": [
+        "grade-6-symmetry-identification-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "SYMMETRY_RECOGNITION",
+      "taskKind": "SYMMETRY",
+      "profile": "GEOMETRY",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "GEOMETRY",
+      "interactionPolicy": [
+        "CONSTRUCTION_OR_VISUAL_SELECTION"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 3,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "SYMMETRY_RECOGNITION: direct one-step evidence in one representation",
+        "MEDIUM": "SYMMETRY_RECOGNITION: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "SYMMETRY_RECOGNITION: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_SYMMETRY_SOLVER_V2",
+      "validator": "WAVE_B_SYMMETRY_VALIDATOR_V2",
+      "visualPolicy": "SHAPE_DIAGRAM",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P055-001",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Biểu diễn được số hữu tỉ trên trục số.",
+      "unitIds": [
+        "grade-7-rational-number-foundations-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "RATIONAL_NUMBER_LINE",
+      "taskKind": "RATIONAL_NUMBER_LINE",
+      "profile": "RATIONAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "RATIONAL_NUMBERS",
+      "interactionPolicy": [
+        "FRACTION_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "RATIONAL_NUMBER_LINE: direct one-step evidence in one representation",
+        "MEDIUM": "RATIONAL_NUMBER_LINE: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "RATIONAL_NUMBER_LINE: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_RATIONAL_NUMBER_LINE_SOLVER_V2",
+      "validator": "WAVE_B_RATIONAL_NUMBER_LINE_VALIDATOR_V2",
+      "visualPolicy": "NUMBER_LINE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P055-002",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Nhận biết được số đối của một số hữu tỉ.",
+      "unitIds": [
+        "grade-7-rational-number-foundations-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "OPPOSITE_NUMBER",
+      "taskKind": "OPPOSITE_FRACTION",
+      "profile": "RATIONAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "RATIONAL_NUMBERS",
+      "interactionPolicy": [
+        "FRACTION_INPUT",
+        "DECIMAL_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "OPPOSITE_NUMBER: direct one-step evidence in one representation",
+        "MEDIUM": "OPPOSITE_NUMBER: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "OPPOSITE_NUMBER: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_OPPOSITE_FRACTION_SOLVER_V2",
+      "validator": "WAVE_B_OPPOSITE_FRACTION_VALIDATOR_V2",
+      "visualPolicy": "NUMBER_LINE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P055-003",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Nhận biết được số hữu tỉ và lấy được ví dụ về số hữu tỉ.",
+      "unitIds": [
+        "grade-7-rational-number-foundations-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "NUMBER_SET_CLASSIFICATION",
+      "taskKind": "RATIONAL_RECOGNITION",
+      "profile": "RATIONAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "NUMBER_SETS",
+      "interactionPolicy": [
+        "SINGLE_CHOICE",
+        "MULTI_SELECT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "NUMBER_SET_CLASSIFICATION: direct one-step evidence in one representation",
+        "MEDIUM": "NUMBER_SET_CLASSIFICATION: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "NUMBER_SET_CLASSIFICATION: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_RATIONAL_RECOGNITION_SOLVER_V2",
+      "validator": "WAVE_B_RATIONAL_RECOGNITION_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P055-004",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Nhận biết được tập hợp các số hữu tỉ.",
+      "unitIds": [
+        "grade-7-rational-number-foundations-p1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "NUMBER_SET_CLASSIFICATION",
+      "taskKind": "RATIONAL_SET",
+      "profile": "RATIONAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "NUMBER_SETS",
+      "interactionPolicy": [
+        "SINGLE_CHOICE",
+        "MULTI_SELECT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "NUMBER_SET_CLASSIFICATION: direct one-step evidence in one representation",
+        "MEDIUM": "NUMBER_SET_CLASSIFICATION: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "NUMBER_SET_CLASSIFICATION: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_RATIONAL_SET_SOLVER_V2",
+      "validator": "WAVE_B_RATIONAL_SET_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-006",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Mô tả được phép tính luỹ thừa với số mũ tự nhiên của một số hữu tỉ và một số tính chất của phép tính đó (tích và thương của hai luỹ thừa cùng cơ số, luỹ thừa của luỹ thừa).",
+      "unitIds": [
+        "grade-7-secondary-naa-p1-1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "RATIONAL_POWER",
+      "taskKind": "RATIONAL_POWER",
+      "profile": "RATIONAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "RATIONAL_NUMBERS",
+      "interactionPolicy": [
+        "FRACTION_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "RATIONAL_POWER: direct one-step evidence in one representation",
+        "MEDIUM": "RATIONAL_POWER: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "RATIONAL_POWER: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_RATIONAL_POWER_SOLVER_V2",
+      "validator": "WAVE_B_RATIONAL_POWER_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-007",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Mô tả được thứ tự thực hiện các phép tính, quy tắc dấu ngoặc, quy tắc chuyển vế trong tập hợp số hữu tỉ.",
+      "unitIds": [
+        "grade-7-rational-number-operations"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "RATIONAL_OPERATION_ORDER",
+      "taskKind": "RATIONAL_OPERATION_ORDER",
+      "profile": "RATIONAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "RATIONAL_NUMBERS",
+      "interactionPolicy": [
+        "FRACTION_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "RATIONAL_OPERATION_ORDER: direct one-step evidence in one representation",
+        "MEDIUM": "RATIONAL_OPERATION_ORDER: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "RATIONAL_OPERATION_ORDER: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_RATIONAL_OPERATION_ORDER_SOLVER_V2",
+      "validator": "WAVE_B_RATIONAL_OPERATION_ORDER_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-010",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Nhận biết được số đối của một số thực.",
+      "unitIds": [
+        "grade-7-secondary-naa-p1-1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "OPPOSITE_NUMBER",
+      "taskKind": "OPPOSITE_REAL",
+      "profile": "REAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "RATIONAL_NUMBERS",
+      "interactionPolicy": [
+        "FRACTION_INPUT",
+        "DECIMAL_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "OPPOSITE_NUMBER: direct one-step evidence in one representation",
+        "MEDIUM": "OPPOSITE_NUMBER: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "OPPOSITE_NUMBER: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_OPPOSITE_REAL_SOLVER_V2",
+      "validator": "WAVE_B_OPPOSITE_REAL_VALIDATOR_V2",
+      "visualPolicy": "NUMBER_LINE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-011",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Nhận biết được số thập phân hữu hạn và số thập phân vô hạn tuần hoàn.",
+      "unitIds": [
+        "grade-7-secondary-naa-p1-1"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "NUMBER_SET_CLASSIFICATION",
+      "taskKind": "DECIMAL_CLASSIFICATION",
+      "profile": "REAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "NUMBER_SETS",
+      "interactionPolicy": [
+        "SINGLE_CHOICE",
+        "MULTI_SELECT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "NUMBER_SET_CLASSIFICATION: direct one-step evidence in one representation",
+        "MEDIUM": "NUMBER_SET_CLASSIFICATION: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "NUMBER_SET_CLASSIFICATION: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_DECIMAL_CLASSIFICATION_SOLVER_V2",
+      "validator": "WAVE_B_DECIMAL_CLASSIFICATION_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-012",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Nhận biết được số vô tỉ, số thực, tập hợp các số thực.",
+      "unitIds": [
+        "grade-7-secondary-naa-p1-2"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "NUMBER_SET_CLASSIFICATION",
+      "taskKind": "REAL_NUMBER_CLASSIFICATION",
+      "profile": "REAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "NUMBER_SETS",
+      "interactionPolicy": [
+        "SINGLE_CHOICE",
+        "MULTI_SELECT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "NUMBER_SET_CLASSIFICATION: direct one-step evidence in one representation",
+        "MEDIUM": "NUMBER_SET_CLASSIFICATION: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "NUMBER_SET_CLASSIFICATION: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_REAL_NUMBER_CLASSIFICATION_SOLVER_V2",
+      "validator": "WAVE_B_REAL_NUMBER_CLASSIFICATION_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-013",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Nhận biết được thứ tự trong tập hợp các số hữu tỉ.",
+      "unitIds": [
+        "grade-7-secondary-naa-p1-2"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "RATIONAL_COMPARE_ORDER",
+      "taskKind": "RATIONAL_COMPARE",
+      "profile": "RATIONAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "RATIONAL_NUMBERS",
+      "interactionPolicy": [
+        "ORDERING"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "RATIONAL_COMPARE_ORDER: direct one-step evidence in one representation",
+        "MEDIUM": "RATIONAL_COMPARE_ORDER: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "RATIONAL_COMPARE_ORDER: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_RATIONAL_COMPARE_SOLVER_V2",
+      "validator": "WAVE_B_RATIONAL_COMPARE_VALIDATOR_V2",
+      "visualPolicy": "NUMBER_LINE when signed",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-014",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Nhận biết được trục số thực và biểu diễn được số thực trên trục số trong trường hợp thuận lợi.",
+      "unitIds": [
+        "grade-7-secondary-naa-p1-2"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "RATIONAL_NUMBER_LINE",
+      "taskKind": "RATIONAL_NUMBER_LINE",
+      "profile": "REAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "RATIONAL_NUMBERS",
+      "interactionPolicy": [
+        "FRACTION_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "RATIONAL_NUMBER_LINE: direct one-step evidence in one representation",
+        "MEDIUM": "RATIONAL_NUMBER_LINE: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "RATIONAL_NUMBER_LINE: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_RATIONAL_NUMBER_LINE_SOLVER_V2",
+      "validator": "WAVE_B_RATIONAL_NUMBER_LINE_VALIDATOR_V2",
+      "visualPolicy": "NUMBER_LINE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-015",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "So sánh được hai số hữu tỉ.",
+      "unitIds": [
+        "grade-7-secondary-naa-p1-2"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "RATIONAL_COMPARE_ORDER",
+      "taskKind": "RATIONAL_COMPARE",
+      "profile": "RATIONAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "RATIONAL_NUMBERS",
+      "interactionPolicy": [
+        "ORDERING"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "RATIONAL_COMPARE_ORDER: direct one-step evidence in one representation",
+        "MEDIUM": "RATIONAL_COMPARE_ORDER: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "RATIONAL_COMPARE_ORDER: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_RATIONAL_COMPARE_SOLVER_V2",
+      "validator": "WAVE_B_RATIONAL_COMPARE_VALIDATOR_V2",
+      "visualPolicy": "NUMBER_LINE when signed",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-016",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Thực hiện được các phép tính: cộng, trừ, nhân, chia trong tập hợp số hữu tỉ.",
+      "unitIds": [
+        "grade-7-rational-number-operations"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "RATIONAL_OPERATIONS",
+      "taskKind": "RATIONAL_OPERATIONS",
+      "profile": "RATIONAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "RATIONAL_NUMBERS",
+      "interactionPolicy": [
+        "FRACTION_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "RATIONAL_OPERATIONS: direct one-step evidence in one representation",
+        "MEDIUM": "RATIONAL_OPERATIONS: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "RATIONAL_OPERATIONS: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_RATIONAL_OPERATIONS_SOLVER_V2",
+      "validator": "WAVE_B_RATIONAL_OPERATIONS_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P056-018",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Vận dụng được các tính chất giao hoán, kết hợp, phân phối của phép nhân đối với phép cộng, quy tắc dấu ngoặc với số hữu tỉ trong tính toán (tính viết và tính nhẩm, tính nhanh một cách hợp lí).",
+      "unitIds": [
+        "grade-7-secondary-naa-p1-3"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "NUMERIC_OPERATION_PROPERTIES",
+      "taskKind": "RATIONAL_PROPERTIES",
+      "profile": "RATIONAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "OPERATION_PROPERTIES",
+      "interactionPolicy": [
+        "SINGLE_CHOICE"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "NUMERIC_OPERATION_PROPERTIES: direct one-step evidence in one representation",
+        "MEDIUM": "NUMERIC_OPERATION_PROPERTIES: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "NUMERIC_OPERATION_PROPERTIES: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_RATIONAL_PROPERTIES_SOLVER_V2",
+      "validator": "WAVE_B_RATIONAL_PROPERTIES_VALIDATOR_V2",
+      "visualPolicy": "NONE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-019",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Giải được một số bài toán đơn giản về đại lượng tỉ lệ nghịch (ví dụ: bài toán về thời gian hoàn thành kế hoạch và năng suất lao động,...).",
+      "unitIds": [
+        "grade-7-ratio-proportion",
+        "grade-7-inverse-proportion-p0"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "PROPORTIONAL_REASONING",
+      "taskKind": "INVERSE_PROPORTION",
+      "profile": "RATIO",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "RATIO_AND_RATE",
+      "interactionPolicy": [
+        "TABLE_OR_CHART_RESPONSE",
+        "INTEGER_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "PROPORTIONAL_REASONING: direct one-step evidence in one representation",
+        "MEDIUM": "PROPORTIONAL_REASONING: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "PROPORTIONAL_REASONING: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_INVERSE_PROPORTION_SOLVER_V2",
+      "validator": "WAVE_B_INVERSE_PROPORTION_VALIDATOR_V2",
+      "visualPolicy": "DATA_TABLE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-020",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Giải được một số bài toán đơn giản về đại lượng tỉ lệ thuận (ví dụ: bài toán về tổng sản phẩm thu được và năng suất lao động,...).",
+      "unitIds": [
+        "grade-7-ratio-proportion"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "PROPORTIONAL_REASONING",
+      "taskKind": "DIRECT_PROPORTION",
+      "profile": "RATIO",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "RATIO_AND_RATE",
+      "interactionPolicy": [
+        "TABLE_OR_CHART_RESPONSE",
+        "INTEGER_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "PROPORTIONAL_REASONING: direct one-step evidence in one representation",
+        "MEDIUM": "PROPORTIONAL_REASONING: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "PROPORTIONAL_REASONING: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_DIRECT_PROPORTION_SOLVER_V2",
+      "validator": "WAVE_B_DIRECT_PROPORTION_VALIDATOR_V2",
+      "visualPolicy": "DATA_TABLE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-026",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Nhận biết được giá trị tuyệt đối của một số thực.",
+      "unitIds": [
+        "grade-7-secondary-naa-p1-4"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "REAL_NUMBER_ORDER",
+      "taskKind": "ABSOLUTE_VALUE",
+      "profile": "REAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "REAL_NUMBERS",
+      "interactionPolicy": [
+        "DECIMAL_INPUT",
+        "ORDERING"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "REAL_NUMBER_ORDER: direct one-step evidence in one representation",
+        "MEDIUM": "REAL_NUMBER_ORDER: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "REAL_NUMBER_ORDER: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_ABSOLUTE_VALUE_SOLVER_V2",
+      "validator": "WAVE_B_ABSOLUTE_VALUE_VALIDATOR_V2",
+      "visualPolicy": "NUMBER_LINE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-027",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Nhận biết được thứ tự trong tập hợp các số thực.",
+      "unitIds": [
+        "grade-7-secondary-naa-p1-4"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "REAL_NUMBER_ORDER",
+      "taskKind": "REAL_ORDER",
+      "profile": "REAL",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "REAL_NUMBERS",
+      "interactionPolicy": [
+        "DECIMAL_INPUT",
+        "ORDERING"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "REAL_NUMBER_ORDER: direct one-step evidence in one representation",
+        "MEDIUM": "REAL_NUMBER_ORDER: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "REAL_NUMBER_ORDER: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_REAL_ORDER_SOLVER_V2",
+      "validator": "WAVE_B_REAL_ORDER_VALIDATOR_V2",
+      "visualPolicy": "NUMBER_LINE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-028",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Nhận biết được tỉ lệ thức và các tính chất của tỉ lệ thức.",
+      "unitIds": [
+        "grade-7-secondary-naa-p1-5"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "RATIO_PROPORTION",
+      "taskKind": "PROPORTION_PROPERTY",
+      "profile": "RATIO",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "RATIO_AND_RATE",
+      "interactionPolicy": [
+        "TABLE_OR_CHART_RESPONSE",
+        "DECIMAL_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "RATIO_PROPORTION: direct one-step evidence in one representation",
+        "MEDIUM": "RATIO_PROPORTION: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "RATIO_PROPORTION: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_PROPORTION_PROPERTY_SOLVER_V2",
+      "validator": "WAVE_B_PROPORTION_PROPERTY_VALIDATOR_V2",
+      "visualPolicy": "DATA_TABLE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-NAA-P057-032",
+      "grade": 7,
+      "strand": "SỐ VÀ ĐẠI SỐ",
+      "domain": "Số hữu tỉ và tập hợp các số hữu tỉ. Thứ tự trong tập hợp các số hữu tỉ",
+      "outcomeTitle": "Vận dụng được tính chất của tỉ lệ thức trong giải toán.",
+      "unitIds": [
+        "grade-7-secondary-naa-p1-6"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "RATIO_PROPORTION",
+      "taskKind": "PROPORTION_PROPERTY",
+      "profile": "RATIO",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "RATIO_AND_RATE",
+      "interactionPolicy": [
+        "TABLE_OR_CHART_RESPONSE",
+        "DECIMAL_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "RATIO_PROPORTION: direct one-step evidence in one representation",
+        "MEDIUM": "RATIO_PROPORTION: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "RATIO_PROPORTION: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_PROPORTION_PROPERTY_SOLVER_V2",
+      "validator": "WAVE_B_PROPORTION_PROPERTY_VALIDATOR_V2",
+      "visualPolicy": "DATA_TABLE",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    },
+    {
+      "outcomeId": "MOET2018-G7-EXP-P062-005",
+      "grade": 7,
+      "strand": "HOẠT ĐỘNG THỰC HÀNH VÀ TRẢI NGHIỆM",
+      "domain": "Tìm hiểu kiến thức tài chính",
+      "outcomeTitle": "Thực hành tính toán việc tăng, giảm theo giá trị phần trăm của một mặt hàng hoặc một kế hoạch sản xuất, kinh doanh.",
+      "unitIds": [
+        "grade-7-secondary-context-p1-14"
+      ],
+      "prerequisiteOutcomeIds": [],
+      "canonicalCapability": "PERCENTAGE_REASONING",
+      "taskKind": "PERCENT_CHANGE",
+      "profile": "PERCENT",
+      "contractVersion": "wave-b-v2.1",
+      "productFamily": "PERCENTAGE",
+      "interactionPolicy": [
+        "DECIMAL_INPUT",
+        "INTEGER_INPUT"
+      ],
+      "parameterBounds": {
+        "minimum": -1000000,
+        "maximum": 1000000,
+        "maxSteps": 4,
+        "maxDecimalPlaces": 3,
+        "maxDenominator": 30,
+        "allowNegative": true,
+        "languageBand": "lower-secondary"
+      },
+      "difficultyPolicy": {
+        "EASY": "PERCENTAGE_REASONING: direct one-step evidence in one representation",
+        "MEDIUM": "PERCENTAGE_REASONING: changed unknown position or equivalent representation with two linked steps",
+        "HARD": "PERCENTAGE_REASONING: bounded multi-step reasoning, error detection or information selection"
+      },
+      "solver": "WAVE_B_PERCENT_CHANGE_SOLVER_V2",
+      "validator": "WAVE_B_PERCENT_CHANGE_VALIDATOR_V2",
+      "visualPolicy": "DATA_TABLE when data is evidence",
+      "implementationStatus": "IMPLEMENTED_REVIEW_REQUIRED",
+      "productReviewStatus": "NEEDS_REVISION"
+    }
+  ]
+}

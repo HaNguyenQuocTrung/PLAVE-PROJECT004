@@ -43,7 +43,7 @@ export default async function NewTeacherAssignmentPage() {
   }
 
   return (
-    <div className="teacher-assignment-new-page page-shell">
+    <div className="teacher-assignment-new-page teacher-workspace-page--v2 page-shell">
       <TeacherCurriculumAssignmentBuilder
         classrooms={classrooms.state.classrooms}
       />

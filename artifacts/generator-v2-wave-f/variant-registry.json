@@ -1,0 +1,319 @@
+{
+  "schemaVersion": 1,
+  "count": 10,
+  "canonicalCapabilities": 8,
+  "fallbackCount": 0,
+  "keywordRoutingCount": 0,
+  "entries": [
+    {
+      "capabilityId": "TENS_ONES_STRUCTURE",
+      "outcomeId": "MOET2018-G1-NUM-P022-003",
+      "grade": 1,
+      "contractVersion": "wave-f-v2.1",
+      "engineVersion": "plave-generator-v2-wave-f.1",
+      "interactions": [
+        "MATCHING"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "TENS_ONES_STRUCTURE",
+        "requiredFields": [
+          "operation",
+          "values",
+          "labels",
+          "meta",
+          "structuralFingerprint"
+        ]
+      },
+      "answerModel": "one exact place-value mapping",
+      "visualModel": "DATA_TABLE generated from the same canonical problem model; never decorative",
+      "solver": "TENS_ONES_STRUCTURE_INDEPENDENT_SOLVER_V2",
+      "validator": "TENS_ONES_STRUCTURE_CONTRACT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_F_DISTRACTOR_UNIQUENESS_FALSEHOOD_V2",
+      "feedbackStrategy": "name the checked identify tens, ones and exact multiples of ten within 100, identify the misconception and give one Grade 1 next step",
+      "misconceptions": [
+        "tens-ones or round-ten confusion"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "MASS_COMPARISON_REASONING",
+      "outcomeId": "MOET2018-G2-GEO-P026-004",
+      "grade": 2,
+      "contractVersion": "wave-f-v2.1",
+      "engineVersion": "plave-generator-v2-wave-f.1",
+      "interactions": [
+        "ORDERING"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "MASS_COMPARISON_REASONING",
+        "requiredFields": [
+          "operation",
+          "values",
+          "labels",
+          "meta",
+          "structuralFingerprint"
+        ]
+      },
+      "answerModel": "one strict heaviest-to-lightest order",
+      "visualModel": "MEASUREMENT_MODEL generated from the same canonical problem model; never decorative",
+      "solver": "MASS_COMPARISON_REASONING_INDEPENDENT_SOLVER_V2",
+      "validator": "MASS_COMPARISON_REASONING_CONTRACT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_F_DISTRACTOR_UNIQUENESS_FALSEHOOD_V2",
+      "feedbackStrategy": "name the checked order objects by an explicit common-unit mass, identify the misconception and give one Grade 2 next step",
+      "misconceptions": [
+        "heavier-lighter direction confusion"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "UNIFORM_MOTION_REASONING",
+      "outcomeId": "MOET2018-G5-GEO-P044-008",
+      "grade": 5,
+      "contractVersion": "wave-f-v2.1",
+      "engineVersion": "plave-generator-v2-wave-f.1",
+      "interactions": [
+        "INTEGER_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "UNIFORM_MOTION_REASONING",
+        "requiredFields": [
+          "operation",
+          "values",
+          "labels",
+          "meta",
+          "structuralFingerprint"
+        ]
+      },
+      "answerModel": "one exact positive integer with stated unit",
+      "visualModel": "DATA_TABLE generated from the same canonical problem model; never decorative",
+      "solver": "UNIFORM_MOTION_REASONING_INDEPENDENT_SOLVER_V2",
+      "validator": "UNIFORM_MOTION_REASONING_CONTRACT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_F_DISTRACTOR_UNIQUENESS_FALSEHOOD_V2",
+      "feedbackStrategy": "name the checked apply distance = speed × time with one exact unknown, identify the misconception and give one Grade 5 next step",
+      "misconceptions": [
+        "speed-distance-time operation confusion"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "CROSS_CURRICULAR_STATISTICS_REASONING",
+      "outcomeId": "MOET2018-G6-STA-P053-005",
+      "grade": 6,
+      "contractVersion": "wave-f-v2.1",
+      "engineVersion": "plave-generator-v2-wave-f.1",
+      "interactions": [
+        "SINGLE_CHOICE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "CROSS_CURRICULAR_STATISTICS_REASONING",
+        "requiredFields": [
+          "operation",
+          "values",
+          "labels",
+          "meta",
+          "structuralFingerprint"
+        ]
+      },
+      "answerModel": "one evidence-supported statistical conclusion",
+      "visualModel": "DATA_TABLE generated from the same canonical problem model; never decorative",
+      "solver": "CROSS_CURRICULAR_STATISTICS_REASONING_INDEPENDENT_SOLVER_V2",
+      "validator": "CROSS_CURRICULAR_STATISTICS_REASONING_CONTRACT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_F_DISTRACTOR_UNIQUENESS_FALSEHOOD_V2",
+      "feedbackStrategy": "name the checked select the unique conclusion supported by a labelled cross-curricular dataset, identify the misconception and give one Grade 6 next step",
+      "misconceptions": [
+        "unsupported inference or row-column confusion"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "TAX_CALCULATION_REASONING",
+      "outcomeId": "MOET2018-G7-EXP-P062-002",
+      "grade": 7,
+      "contractVersion": "wave-f-v2.1",
+      "engineVersion": "plave-generator-v2-wave-f.1",
+      "interactions": [
+        "INTEGER_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "TAX_CALCULATION_REASONING",
+        "requiredFields": [
+          "operation",
+          "values",
+          "labels",
+          "meta",
+          "structuralFingerprint"
+        ]
+      },
+      "answerModel": "one exact nonnegative currency amount",
+      "visualModel": "DATA_TABLE generated from the same canonical problem model; never decorative",
+      "solver": "TAX_CALCULATION_REASONING_INDEPENDENT_SOLVER_V2",
+      "validator": "TAX_CALCULATION_REASONING_CONTRACT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_F_DISTRACTOR_UNIQUENESS_FALSEHOOD_V2",
+      "feedbackStrategy": "name the checked calculate tax, price after tax or pre-tax price from an explicit simplified rate, identify the misconception and give one Grade 7 next step",
+      "misconceptions": [
+        "tax-rate base confusion"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "CROSS_CURRICULAR_STATISTICS_REASONING",
+      "outcomeId": "MOET2018-G7-STA-P061-005",
+      "grade": 7,
+      "contractVersion": "wave-f-v2.1",
+      "engineVersion": "plave-generator-v2-wave-f.1",
+      "interactions": [
+        "SINGLE_CHOICE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "CROSS_CURRICULAR_STATISTICS_REASONING",
+        "requiredFields": [
+          "operation",
+          "values",
+          "labels",
+          "meta",
+          "structuralFingerprint"
+        ]
+      },
+      "answerModel": "one evidence-supported statistical conclusion",
+      "visualModel": "DATA_TABLE generated from the same canonical problem model; never decorative",
+      "solver": "CROSS_CURRICULAR_STATISTICS_REASONING_INDEPENDENT_SOLVER_V2",
+      "validator": "CROSS_CURRICULAR_STATISTICS_REASONING_CONTRACT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_F_DISTRACTOR_UNIQUENESS_FALSEHOOD_V2",
+      "feedbackStrategy": "name the checked select the unique conclusion supported by a labelled cross-curricular dataset, identify the misconception and give one Grade 7 next step",
+      "misconceptions": [
+        "unsupported inference or row-column confusion"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "SCIENTIFIC_ALGEBRA_REASONING",
+      "outcomeId": "MOET2018-G8-EXP-P070-008",
+      "grade": 8,
+      "contractVersion": "wave-f-v2.1",
+      "engineVersion": "plave-generator-v2-wave-f.1",
+      "interactions": [
+        "INTEGER_INPUT"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "SCIENTIFIC_ALGEBRA_REASONING",
+        "requiredFields": [
+          "operation",
+          "values",
+          "labels",
+          "meta",
+          "structuralFingerprint"
+        ]
+      },
+      "answerModel": "one exact integer satisfying the stated scientific relation",
+      "visualModel": "DATA_TABLE generated from the same canonical problem model; never decorative",
+      "solver": "SCIENTIFIC_ALGEBRA_REASONING_INDEPENDENT_SOLVER_V2",
+      "validator": "SCIENTIFIC_ALGEBRA_REASONING_CONTRACT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_F_DISTRACTOR_UNIQUENESS_FALSEHOOD_V2",
+      "feedbackStrategy": "name the checked use a stated linear chemistry or biology relation to determine one exact unknown, identify the misconception and give one Grade 8 next step",
+      "misconceptions": [
+        "coefficient-variable or inverse-operation confusion"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "RATIONAL_EXPRESSION_PROPERTY_REASONING",
+      "outcomeId": "MOET2018-G8-NAA-P064-010",
+      "grade": 8,
+      "contractVersion": "wave-f-v2.1",
+      "engineVersion": "plave-generator-v2-wave-f.1",
+      "interactions": [
+        "SINGLE_CHOICE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "RATIONAL_EXPRESSION_PROPERTY_REASONING",
+        "requiredFields": [
+          "operation",
+          "values",
+          "labels",
+          "meta",
+          "structuralFingerprint"
+        ]
+      },
+      "answerModel": "one symbolically valid property statement",
+      "visualModel": "DATA_TABLE generated from the same canonical problem model; never decorative",
+      "solver": "RATIONAL_EXPRESSION_PROPERTY_REASONING_INDEPENDENT_SOLVER_V2",
+      "validator": "RATIONAL_EXPRESSION_PROPERTY_REASONING_CONTRACT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_F_DISTRACTOR_UNIQUENESS_FALSEHOOD_V2",
+      "feedbackStrategy": "name the checked apply equality, sign and nonzero multiplier properties of rational algebraic expressions, identify the misconception and give one Grade 8 next step",
+      "misconceptions": [
+        "ignoring nonzero conditions or changing only one part"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "RATIONAL_EXPRESSION_CONCEPT_REASONING",
+      "outcomeId": "MOET2018-G8-NAA-P064-011",
+      "grade": 8,
+      "contractVersion": "wave-f-v2.1",
+      "engineVersion": "plave-generator-v2-wave-f.1",
+      "interactions": [
+        "MATCHING"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "RATIONAL_EXPRESSION_CONCEPT_REASONING",
+        "requiredFields": [
+          "operation",
+          "values",
+          "labels",
+          "meta",
+          "structuralFingerprint"
+        ]
+      },
+      "answerModel": "one exact concept-to-result mapping",
+      "visualModel": "DATA_TABLE generated from the same canonical problem model; never decorative",
+      "solver": "RATIONAL_EXPRESSION_CONCEPT_REASONING_INDEPENDENT_SOLVER_V2",
+      "validator": "RATIONAL_EXPRESSION_CONCEPT_REASONING_CONTRACT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_F_DISTRACTOR_UNIQUENESS_FALSEHOOD_V2",
+      "feedbackStrategy": "name the checked connect definition, domain, value and equality for one rational algebraic expression, identify the misconception and give one Grade 8 next step",
+      "misconceptions": [
+        "domain-value-equivalence confusion"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    },
+    {
+      "capabilityId": "CROSS_CURRICULAR_STATISTICS_REASONING",
+      "outcomeId": "MOET2018-G8-STA-P069-010",
+      "grade": 8,
+      "contractVersion": "wave-f-v2.1",
+      "engineVersion": "plave-generator-v2-wave-f.1",
+      "interactions": [
+        "SINGLE_CHOICE"
+      ],
+      "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
+      "promptModel": {
+        "kind": "CROSS_CURRICULAR_STATISTICS_REASONING",
+        "requiredFields": [
+          "operation",
+          "values",
+          "labels",
+          "meta",
+          "structuralFingerprint"
+        ]
+      },
+      "answerModel": "one evidence-supported statistical conclusion",
+      "visualModel": "DATA_TABLE generated from the same canonical problem model; never decorative",
+      "solver": "CROSS_CURRICULAR_STATISTICS_REASONING_INDEPENDENT_SOLVER_V2",
+      "validator": "CROSS_CURRICULAR_STATISTICS_REASONING_CONTRACT_VALIDATOR_V2",
+      "distractorValidator": "WAVE_F_DISTRACTOR_UNIQUENESS_FALSEHOOD_V2",
+      "feedbackStrategy": "name the checked select the unique conclusion supported by a labelled cross-curricular dataset, identify the misconception and give one Grade 8 next step",
+      "misconceptions": [
+        "unsupported inference or row-column confusion"
+      ],
+      "provenance": "GENERATED_V2_8_OF_8"
+    }
+  ]
+}

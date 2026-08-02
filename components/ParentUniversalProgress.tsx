@@ -139,13 +139,13 @@ export function ParentUniversalProgress({ progress }: Props) {
           <div>
             <p className="eyebrow">Gợi ý đồng hành</p>
             <h2 id="parent-learning-insights-title">
-              Điểm mạnh và nội dung cần luyện
+              Nội dung đang tiến bộ và phần có thể luyện thêm
             </h2>
           </div>
         </div>
         <div className="parent-universal-columns">
           <div>
-            <h3>Đang làm tốt</h3>
+            <h3>Đang có tiến bộ</h3>
             <EvidenceList
               items={progress.strengths}
               empty="Chưa đủ bằng chứng để ghi nhận điểm mạnh."
@@ -170,7 +170,7 @@ export function ParentUniversalProgress({ progress }: Props) {
           <div>
             <p className="eyebrow">Bài giáo viên giao</p>
             <h2 id="parent-assignment-evidence-title">
-              Kết quả assignment riêng biệt
+              Kết quả bài giáo viên giao
             </h2>
           </div>
           <strong>
@@ -188,14 +188,14 @@ export function ParentUniversalProgress({ progress }: Props) {
             <h3>Mục tiêu trong bài giao</h3>
             <EvidenceList
               items={progress.assignmentOutcomes}
-              empty="Chưa có evidence theo mục tiêu từ bài giáo viên giao."
+              empty="Chưa có kết quả theo mục tiêu từ bài giáo viên giao."
             />
           </div>
           <div>
             <h3>Kỹ năng trong bài giao</h3>
             <EvidenceList
               items={progress.assignmentSkills}
-              empty="Chưa có evidence theo kỹ năng từ bài giáo viên giao."
+              empty="Chưa có kết quả theo kỹ năng từ bài giáo viên giao."
             />
           </div>
         </div>

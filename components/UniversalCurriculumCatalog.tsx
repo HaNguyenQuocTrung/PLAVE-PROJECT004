@@ -79,16 +79,10 @@ export function UniversalCurriculumCatalog({
             </h2>
             <p>{recommendation.outcomeTitle}</p>
             <p>{recommendation.explanation}</p>
-            <dl className="personalized-recommendation__details">
-              <div>
-                <dt>Vì sao được chọn</dt>
-                <dd>{recommendation.reasonCode}</dd>
-              </div>
-              <div>
-                <dt>Chính sách</dt>
-                <dd>Giả thuyết sản phẩm · không phải chẩn đoán</dd>
-              </div>
-            </dl>
+            <p className="recommendation-note">
+              Gợi ý này dựa trên tiến độ hiện có và có thể thay đổi khi em học
+              thêm.
+            </p>
           </div>
           <div>
             <Button

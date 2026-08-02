@@ -1,0 +1,983 @@
+/* Deliberately imported after globals.css so the approved V2 foundation wins
+   over route-level legacy styles while it is propagated screen by screen. */
+.auth-page--v2,
+.register-page--v2 {
+  padding: 0;
+}
+
+@media (min-width: 981px) {
+  .site-header--application .brand {
+    width: 10.5rem;
+    border-radius: 0.65rem;
+    background: white;
+    padding: 0.45rem 0.6rem;
+  }
+
+  .site-header--application .brand img {
+    width: 9.3rem;
+    filter: none;
+  }
+}
+
+.dashboard-page--student > .student-summary:first-of-type
+  .dashboard-diagnostic-card__actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.catalog-page--v2 .unit-catalog > .unit-catalog__grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.catalog-page--v2 .unit-catalog > .unit-catalog__grid .unit-card {
+  min-height: 0;
+  min-width: 0;
+  grid-template-areas:
+    "status actions"
+    "content actions"
+    "metadata actions";
+  grid-template-columns: minmax(0, 1fr) max-content;
+}
+
+.catalog-page--v2 .unit-card__status-region {
+  min-width: 0;
+  justify-content: flex-start;
+  grid-area: status;
+}
+
+.catalog-page--v2 .unit-card__content-region {
+  min-width: 0;
+  grid-area: content;
+}
+
+.catalog-page--v2 .unit-card__metadata-region {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.85rem;
+  grid-area: metadata;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+}
+
+.catalog-page--v2 .unit-card__description,
+.catalog-page--v2 .unit-card__progress,
+.catalog-page--v2 .unit-card__locked-note,
+.catalog-page--v2 .unit-card h3 {
+  min-width: 0;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.catalog-page--v2 .unit-card__actions {
+  display: grid;
+  min-width: 9.5rem;
+  align-self: center;
+  align-items: stretch;
+  gap: 0.55rem;
+  grid-area: actions;
+}
+
+.catalog-page--v2 .unit-card__actions .button,
+.catalog-page--v2 .unit-card__actions .start-practice,
+.catalog-page--v2 .unit-card__actions .start-practice .button {
+  width: 100%;
+}
+
+.catalog-page--v2 > .personalized-recommendation {
+  border-color: #efd78d;
+  border-left: 5px solid var(--recommendation);
+  background: var(--recommendation-soft);
+  box-shadow: none;
+}
+
+.dashboard-page--parent .connections-manager
+  .connection-lookup-card > div p {
+  color: #c6d4e4;
+}
+
+.lesson-start-card h2 {
+  color: white;
+}
+
+.lesson-start-card > div > p:not(.eyebrow) {
+  color: #cbd7e6;
+}
+
+@media (max-width: 700px) {
+  .site-header--application .site-header__inner {
+    display: grid;
+    min-height: 7.5rem;
+    align-content: center;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.35rem 0.75rem;
+  }
+
+  .site-header--application .brand {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .site-header--application .site-user-area {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .site-header--application .site-nav {
+    position: static;
+    width: 100%;
+    min-height: 3.65rem;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    border: 0;
+    border-top: 1px solid var(--border);
+    padding: 0.3rem 0 0;
+    box-shadow: none;
+  }
+
+  body:has(.site-header--application) main {
+    padding-bottom: 1.5rem;
+  }
+
+  .catalog-page--v2 .unit-catalog > .unit-catalog__grid .unit-card,
+  .catalog-page--v2 .unit-domain-group .unit-catalog__grid .unit-card {
+    grid-template-areas:
+      "status"
+      "content"
+      "metadata"
+      "actions";
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .catalog-page--v2 .unit-card__actions {
+    width: 100%;
+    min-width: 0;
+    justify-self: stretch;
+  }
+
+  .practice-runner__header {
+    align-items: stretch;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .practice-runner__header h1 {
+    max-width: none;
+    font-size: 1.45rem;
+  }
+
+  .practice-progress-summary {
+    width: 100%;
+  }
+
+  .dashboard-page--student > .student-summary:first-of-type
+    .dashboard-diagnostic-card__actions {
+    display: grid;
+  }
+}
+
+/* Sprint 7C — owner-approved V2 propagation layer. This file is imported last
+   so secondary routes share the approved visual language without changing
+   their data, permissions, or runtime behavior. */
+
+.public-story-page--v2,
+.demo-page--v2,
+.theory-catalog-page--v2,
+.real-learning-page--v2,
+.progress-page--v2,
+.history-page--v2,
+.student-workspace-page--v2,
+.relationship-page--v2,
+.account-page--v2,
+.learning-runner-page--v2,
+.result-page--v2,
+.parent-learning-page--v2,
+.teacher-workspace-page--v2,
+.preview-page--v2,
+.internal-review-page--v2,
+.legal-page--v2 {
+  min-width: 0;
+  padding-block: clamp(1.75rem, 5vw, 4rem) 5rem;
+}
+
+:is(
+  .theory-catalog-page--v2,
+  .progress-page--v2,
+  .history-page--v2,
+  .student-workspace-page--v2,
+  .relationship-page--v2,
+  .account-page--v2,
+  .result-page--v2,
+  .parent-learning-page--v2,
+  .teacher-workspace-page--v2
+) > .catalog-hero {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 1.5rem;
+  background: var(--surface-soft);
+  padding: clamp(1.6rem, 4vw, 3rem);
+  box-shadow: none;
+}
+
+:is(
+  .theory-catalog-page--v2,
+  .progress-page--v2,
+  .history-page--v2,
+  .student-workspace-page--v2,
+  .relationship-page--v2,
+  .account-page--v2,
+  .result-page--v2,
+  .parent-learning-page--v2,
+  .teacher-workspace-page--v2
+) > .catalog-hero::after {
+  position: absolute;
+  right: -7rem;
+  bottom: -10rem;
+  width: 23rem;
+  height: 23rem;
+  border: 1px solid rgba(23, 104, 229, 0.16);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+:is(
+  .theory-catalog-page--v2,
+  .progress-page--v2,
+  .history-page--v2,
+  .student-workspace-page--v2,
+  .relationship-page--v2,
+  .account-page--v2,
+  .result-page--v2,
+  .parent-learning-page--v2,
+  .teacher-workspace-page--v2
+) > .catalog-hero h1 {
+  position: relative;
+  z-index: 1;
+  max-width: 18ch;
+  margin: 0.45rem 0 0.75rem;
+  font-size: clamp(2.15rem, 4.5vw, 3.7rem);
+}
+
+:is(
+  .theory-catalog-page--v2,
+  .progress-page--v2,
+  .history-page--v2,
+  .student-workspace-page--v2,
+  .relationship-page--v2,
+  .account-page--v2,
+  .result-page--v2,
+  .parent-learning-page--v2,
+  .teacher-workspace-page--v2
+) > .catalog-hero > p:last-of-type {
+  position: relative;
+  z-index: 1;
+  max-width: 46rem;
+  color: var(--text-secondary);
+}
+
+/* Public story, legal and demo */
+.public-story-page--v2 .about-hero {
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  border-radius: 1.75rem;
+  background: var(--brand-navy);
+  color: rgba(255, 255, 255, 0.74);
+  padding: clamp(2rem, 6vw, 5rem);
+  box-shadow: none;
+}
+
+.public-story-page--v2 .about-hero::after {
+  position: absolute;
+  right: -8rem;
+  bottom: -12rem;
+  width: 28rem;
+  height: 28rem;
+  border: 1px solid rgba(100, 200, 244, 0.25);
+  border-radius: 50%;
+  content: "";
+}
+
+.public-story-page--v2 .about-hero h1 {
+  max-width: 18ch;
+  color: white;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+}
+
+.public-story-page--v2 .about-hero .eyebrow { color: var(--brand-sky); }
+.public-story-page--v2 .about-hero > p:last-child {
+  max-width: 47rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 1.08rem;
+}
+
+.public-story-page--v2 .about-grid {
+  gap: 0;
+  margin-top: clamp(3rem, 7vw, 5.5rem);
+}
+
+.public-story-page--v2 .about-grid article {
+  border: 0;
+  border-top: 2px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  padding: 1.5rem clamp(1rem, 4vw, 2.5rem) 1.5rem 0;
+  box-shadow: none;
+}
+
+.public-story-page--v2 .about-grid article + article {
+  border-left: 1px solid var(--border);
+  padding-left: clamp(1rem, 4vw, 2.5rem);
+}
+
+.public-story-page--v2 .about-commitments {
+  margin-top: 3.5rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+}
+
+.public-story-page--v2 .about-commitments li {
+  display: grid;
+  grid-template-columns: 1.25rem minmax(0, 1fr);
+  align-items: start;
+  gap: 0.65rem;
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 0;
+}
+
+.public-story-page--v2 .about-commitments li::before {
+  position: static;
+  grid-column: 1;
+  line-height: 1.5;
+}
+
+.legal-page--v2 {
+  width: min(calc(100% - 2rem), 50rem);
+  max-width: none;
+}
+
+.legal-page--v2 > .eyebrow { margin-bottom: 0.75rem; }
+.legal-page--v2 > h1 {
+  max-width: 19ch;
+  margin: 0 0 3rem;
+  font-size: clamp(2.35rem, 6vw, 4.4rem);
+}
+
+.legal-page--v2 > h2 {
+  margin: 2.25rem 0 0.55rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--border);
+  font-size: 1.25rem;
+}
+
+.legal-page--v2 > p:not(.eyebrow) { color: var(--text-secondary); }
+
+.demo-page--v2 .demo-hero {
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  border-radius: 1.5rem;
+  background: var(--brand-navy);
+  color: rgba(255, 255, 255, 0.72);
+  padding: clamp(1.8rem, 5vw, 3.5rem);
+  box-shadow: none;
+}
+
+.demo-page--v2 .demo-hero h1 { color: white; }
+.demo-page--v2 .demo-hero .eyebrow { color: var(--brand-sky); }
+.demo-page--v2 .demo-hero > p { color: rgba(255, 255, 255, 0.72); }
+.demo-page--v2 .demo-hero__note {
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
+.demo-page--v2 > .lesson-section {
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  padding: clamp(2rem, 5vw, 3.5rem) 0;
+  box-shadow: none;
+}
+
+.demo-page--v2 .example-card {
+  border: 0;
+  border-left: 3px solid var(--brand-sky);
+  border-radius: 0 0.9rem 0.9rem 0;
+  background: white;
+  box-shadow: none;
+}
+
+.demo-page--v2 .practice-section {
+  border: 0;
+  border-radius: 1.5rem;
+  background: #eaf6ff;
+  padding: clamp(1rem, 4vw, 2.5rem);
+  box-shadow: none;
+}
+
+/* Auth edge states and onboarding */
+.auth-page--v2.auth-page--compact { max-width: none; }
+.auth-page--v2 > .auth-card--v2 { min-width: 0; }
+.auth-page--v2 .auth-card--v2 > .auth-card__heading:first-child { margin-top: 0; }
+.teacher-onboarding-page--v2 { position: relative; }
+.teacher-onboarding-page .teacher-onboarding-page__logout {
+  align-self: end;
+  width: min(100%, 36rem);
+  margin: -2.75rem auto 1.5rem;
+  grid-column: 2;
+  padding-inline: clamp(2rem, 5vw, 4rem);
+}
+
+/* Theory catalog and lesson detail */
+.theory-catalog-page--v2 > .competency-learning-path {
+  margin-top: 2rem;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  padding: 0 0 2rem;
+  box-shadow: none;
+}
+
+.theory-catalog-page--v2 .personalized-recommendation {
+  border: 1px solid #efd78d;
+  border-left: 5px solid var(--recommendation);
+  background: var(--recommendation-soft);
+  box-shadow: none;
+}
+
+.theory-catalog-page--v2 .unit-catalog { margin-top: 2.5rem; }
+.theory-catalog-page--v2 .unit-catalog__grid {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.7rem;
+}
+
+.theory-catalog-page--v2 .unit-card {
+  display: grid;
+  min-width: 0;
+  min-height: 0;
+  grid-template-areas:
+    "status action"
+    "title action"
+    "description action"
+    "objective action"
+    "metadata action";
+  grid-template-columns: minmax(0, 1fr) max-content;
+  gap: 0.35rem 1.5rem;
+  border: 0;
+  border-left: 3px solid #bfd0df;
+  border-radius: 0 0.9rem 0.9rem 0;
+  background: white;
+  padding: 1.25rem 1.4rem;
+  box-shadow: none;
+}
+
+.theory-catalog-page--v2 .unit-card__heading { grid-area: status; justify-content: flex-start; }
+.theory-catalog-page--v2 .unit-card > h3 { grid-area: title; margin: 0.15rem 0; }
+.theory-catalog-page--v2 .unit-card > h3 + p {
+  min-width: 0;
+  grid-area: description;
+  margin: 0;
+  color: var(--text-secondary);
+}
+.theory-catalog-page--v2 .unit-card__objective { grid-area: objective; margin-top: 0.35rem; }
+.theory-catalog-page--v2 .unit-card__progress { grid-area: metadata; margin: 0; }
+.theory-catalog-page--v2 .unit-card > .button {
+  min-width: 9.5rem;
+  align-self: center;
+  grid-area: action;
+}
+
+.real-learning-page--v2 .learning-breadcrumb { margin-bottom: 1rem; }
+.real-learning-page--v2 .real-lesson-hero {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 1.5rem;
+  background: var(--brand-navy);
+  color: rgba(255, 255, 255, 0.72);
+  padding: clamp(1.8rem, 5vw, 3.5rem);
+  box-shadow: none;
+}
+
+.real-learning-page--v2 .real-lesson-hero h1 { color: white; }
+.real-learning-page--v2 .real-lesson-hero .eyebrow { color: var(--brand-sky); }
+.real-learning-page--v2 .real-lesson-hero p { color: rgba(255, 255, 255, 0.72); }
+.real-learning-page--v2 .real-lesson-hero .unit-status { color: var(--brand-navy); }
+.real-learning-page--v2 > .lesson-section {
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  padding: clamp(2rem, 5vw, 3.5rem) 0;
+  box-shadow: none;
+}
+
+.real-learning-page--v2 .lesson-topic-grid,
+.real-learning-page--v2 .example-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.real-learning-page--v2 :is(.lesson-topic, .example-card) {
+  min-width: 0;
+  border: 0;
+  border-left: 3px solid var(--brand-sky);
+  border-radius: 0 0.9rem 0.9rem 0;
+  background: white;
+  box-shadow: none;
+}
+
+.real-learning-page--v2 .lesson-start-card {
+  border: 0;
+  border-radius: 1.5rem;
+  background: var(--primary);
+  box-shadow: none;
+}
+
+/* Progress, account and Student utilities */
+.progress-page--v2 .student-summary {
+  margin-top: 1.5rem;
+  border: 0;
+  border-radius: 1rem;
+  background: var(--competency-soft);
+  box-shadow: none;
+}
+
+.progress-page--v2 > .lesson-section,
+.history-page--v2 > .history-list {
+  margin-top: 2.5rem;
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  padding: 2rem 0 0;
+  box-shadow: none;
+}
+
+.progress-page--v2 .unit-catalog__grid { grid-template-columns: minmax(0, 1fr); }
+.progress-page--v2 .unit-card,
+.history-page--v2 .progress-evidence-card {
+  min-width: 0;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  padding: 1.15rem 0;
+  box-shadow: none;
+}
+
+.history-page--v2 .progress-evidence-grid { grid-template-columns: minmax(0, 1fr); }
+.history-page--v2 .progress-evidence-card {
+  grid-template-columns: minmax(0, 1fr) max-content;
+  align-items: center;
+}
+.history-page--v2 .progress-evidence-card > :not(.button) { grid-column: 1; }
+.history-page--v2 .progress-evidence-card > .button { grid-column: 2; grid-row: 1 / span 4; }
+
+.account-page--v2 > .catalog-hero { background: #e9f6ff; }
+.account-page--v2 .profile-card,
+.account-page--v2 .profile-edit-card,
+.account-page--v2 .settings-grid {
+  margin-top: 1.5rem;
+}
+
+.account-page--v2 .profile-card,
+.account-page--v2 .profile-edit-card {
+  border: 1px solid var(--border);
+  border-radius: 1.2rem;
+  background: white;
+  box-shadow: none;
+}
+
+.account-page--v2 .profile-code-card {
+  border: 0;
+  border-left: 5px solid var(--recommendation);
+  border-radius: 0 1rem 1rem 0;
+  background: var(--recommendation-soft);
+  box-shadow: none;
+}
+
+.account-page--v2 .settings-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  border-block: 1px solid var(--border);
+}
+
+.account-page--v2 .settings-card {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 1.5rem;
+  box-shadow: none;
+}
+.account-page--v2 .settings-card + .settings-card { border-left: 1px solid var(--border); }
+
+.student-workspace-page--v2 > :is(
+  .student-classrooms-manager,
+  .student-assignments-panel,
+  .goals-manager,
+  .diagnostic-intro-grid,
+  .diagnostic-status-card
+),
+.relationship-page--v2 > .connections-manager {
+  margin-top: 1.5rem;
+}
+
+.student-workspace-page--v2 :is(
+  .classroom-join-card,
+  .classroom-list-section,
+  .student-assignment-list,
+  .dashboard-section,
+  .goal-form,
+  .diagnostic-status-card
+),
+.relationship-page--v2 :is(.connection-lookup-card, .connection-list-section) {
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  padding: 1.75rem 0;
+  box-shadow: none;
+}
+
+.student-workspace-page--v2 :is(.classroom-card, .goal-card, .assignment-state),
+.relationship-page--v2 .connection-card {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: white;
+  box-shadow: none;
+}
+
+.student-workspace-page--v2 .diagnostic-intro-grid > article {
+  border: 0;
+  border-top: 2px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Assignment and diagnostic focused work */
+.learning-runner-page--v2 .assignment-runner,
+.learning-runner-page--v2 .diagnostic-runner {
+  min-width: 0;
+  max-width: 60rem;
+  margin-inline: auto;
+}
+
+.learning-runner-page--v2 :is(.assignment-runner__header, .diagnostic-runner__header) {
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  padding: 0 0 1.25rem;
+  box-shadow: none;
+}
+
+.learning-runner-page--v2 :is(.assignment-question-card, .real-question-card) {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  background: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.learning-runner-page--v2 .assignment-answer-options {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.result-page--v2 > .catalog-hero {
+  background: var(--brand-navy);
+  color: rgba(255, 255, 255, 0.72);
+}
+.result-page--v2 > .catalog-hero h1 { color: white; }
+.result-page--v2 > .catalog-hero .eyebrow { color: var(--brand-sky); }
+.result-page--v2 > .catalog-hero > p { color: rgba(255, 255, 255, 0.72); }
+
+.result-page--v2 :is(
+  .assignment-score-card,
+  .diagnostic-recommendation,
+  .diagnostic-unit-results,
+  .diagnostic-answer-review,
+  .assignment-analysis-summary
+) {
+  margin-top: 1.5rem;
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  padding: 2rem 0;
+  box-shadow: none;
+}
+
+.result-page--v2 :is(.assignment-review-list, .diagnostic-answer-list) {
+  min-width: 0;
+}
+
+.result-page--v2 :is(.assignment-review-list > li, .diagnostic-answer-card) {
+  min-width: 0;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  padding: 1.25rem 0;
+  box-shadow: none;
+}
+
+/* Parent detail */
+.parent-learning-page--v2 > .parent-learning-hero { background: #e9f6ff; }
+.parent-learning-page--v2 .parent-summary-grid {
+  margin: 1.5rem 0 0;
+  gap: 0;
+  border-block: 1px solid var(--border);
+}
+
+.parent-learning-page--v2 .parent-summary-grid article {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.parent-learning-page--v2 .parent-summary-grid article + article { border-left: 1px solid var(--border); }
+
+.parent-learning-page--v2 .parent-learning-section {
+  margin-top: 2.5rem;
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  padding: 2rem 0 0;
+  box-shadow: none;
+}
+
+.parent-learning-page--v2 :is(
+  .parent-current-practice__card,
+  .parent-weekly-insight,
+  .parent-diagnostic-summary__recommendation
+) {
+  border: 0;
+  border-left: 4px solid var(--recommendation);
+  border-radius: 0 1rem 1rem 0;
+  background: var(--recommendation-soft);
+  box-shadow: none;
+}
+
+.parent-learning-page--v2 :is(
+  .parent-attempt-card,
+  .parent-weekly-skills__grid article,
+  .parent-skill-grid article
+) {
+  min-width: 0;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Teacher workspace */
+.teacher-workspace-page--v2 > .teacher-hero { background: #e7f6ff; }
+.teacher-workspace-page--v2 > :is(
+  .teacher-classrooms-manager,
+  .classroom-code-card,
+  .classroom-roster-manager,
+  .gradebook-summary,
+  .teacher-question-manager,
+  .teacher-assignment-grid,
+  .teacher-authored-assignment-section,
+  .assignment-lifecycle-card,
+  .assignment-analysis-summary,
+  .assignment-analysis-insights,
+  .assignment-question-analysis,
+  .profile-card
+) {
+  margin-top: 1.5rem;
+}
+
+.teacher-workspace-page--v2 :is(
+  .classroom-create-card,
+  .classroom-list-section,
+  .classroom-code-card,
+  .classroom-roster-manager,
+  .gradebook-filter-card,
+  .gradebook-table-card,
+  .assignment-editor-card,
+  .teacher-authored-assignment-section,
+  .assignment-lifecycle-card,
+  .assignment-analysis-summary,
+  .assignment-analysis-insights,
+  .assignment-question-analysis
+) {
+  min-width: 0;
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  padding: 1.75rem 0;
+  box-shadow: none;
+}
+
+.teacher-workspace-page--v2 :is(
+  .classroom-card,
+  .teacher-question-list > li,
+  .teacher-assignment-grid > li,
+  .assignment-selected-order > li
+) {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: white;
+  box-shadow: none;
+}
+
+.teacher-workspace-page--v2 :is(
+  .gradebook-table,
+  .assignment-roster-table,
+  .assignment-question-analysis-table
+) {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  background: white;
+}
+
+.teacher-workspace-page--v2 table { min-width: 44rem; }
+
+/* Preview and internal review surfaces use V2 without exposing them as primary nav. */
+.preview-page--v2 .preview-hero,
+.internal-review-page--v2 .content-page__header {
+  border: 0;
+  border-radius: 1.5rem;
+  background: var(--brand-navy);
+  color: rgba(255, 255, 255, 0.72);
+  box-shadow: none;
+}
+.preview-page--v2 .preview-hero h1,
+.internal-review-page--v2 .content-page__header h1 { color: white; }
+.preview-page--v2 .preview-hero .eyebrow,
+.internal-review-page--v2 .content-page__header .eyebrow { color: var(--brand-sky); }
+
+.preview-page--v2 :is(.preview-unit-list, .preview-theory, .preview-examples, .preview-practice) {
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+@media (max-width: 980px) {
+  .account-page--v2 .settings-grid { grid-template-columns: minmax(0, 1fr); }
+  .account-page--v2 .settings-card + .settings-card {
+    border-top: 1px solid var(--border);
+    border-left: 0;
+  }
+
+  .real-learning-page--v2 .lesson-topic-grid,
+  .real-learning-page--v2 .example-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .public-story-page--v2,
+  .demo-page--v2,
+  .theory-catalog-page--v2,
+  .real-learning-page--v2,
+  .progress-page--v2,
+  .history-page--v2,
+  .student-workspace-page--v2,
+  .relationship-page--v2,
+  .account-page--v2,
+  .learning-runner-page--v2,
+  .result-page--v2,
+  .parent-learning-page--v2,
+  .teacher-workspace-page--v2,
+  .preview-page--v2,
+  .internal-review-page--v2,
+  .legal-page--v2 {
+    padding-block: 1rem calc(6rem + env(safe-area-inset-bottom));
+  }
+
+  :is(
+    .theory-catalog-page--v2,
+    .progress-page--v2,
+    .history-page--v2,
+    .student-workspace-page--v2,
+    .relationship-page--v2,
+    .account-page--v2,
+    .result-page--v2,
+    .parent-learning-page--v2,
+    .teacher-workspace-page--v2
+  ) > .catalog-hero,
+  .public-story-page--v2 .about-hero,
+  .demo-page--v2 .demo-hero,
+  .real-learning-page--v2 .real-lesson-hero {
+    border-radius: 1.1rem;
+    padding: 1.35rem;
+  }
+
+  .public-story-page--v2 .about-grid { grid-template-columns: minmax(0, 1fr); }
+  .public-story-page--v2 .about-grid article + article {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .teacher-onboarding-page .teacher-onboarding-page__logout {
+    width: 100%;
+    margin: -2.5rem 0 1rem;
+    grid-column: 1;
+    padding-inline: 1rem;
+  }
+
+  .theory-catalog-page--v2 .unit-card {
+    grid-template-areas:
+      "status"
+      "title"
+      "description"
+      "objective"
+      "metadata"
+      "action";
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .theory-catalog-page--v2 .unit-card > .button { width: 100%; min-width: 0; }
+
+  .history-page--v2 .progress-evidence-card { grid-template-columns: minmax(0, 1fr); }
+  .history-page--v2 .progress-evidence-card > :not(.button),
+  .history-page--v2 .progress-evidence-card > .button { grid-column: 1; grid-row: auto; }
+  .history-page--v2 .progress-evidence-card > .button { width: 100%; }
+
+  .learning-runner-page--v2 .assignment-answer-options { grid-template-columns: minmax(0, 1fr); }
+
+  .parent-learning-page--v2 .parent-summary-grid { grid-template-columns: minmax(0, 1fr); }
+  .parent-learning-page--v2 .parent-summary-grid article + article {
+    border-top: 1px solid var(--border);
+    border-left: 0;
+  }
+
+  .teacher-workspace-page--v2 :is(
+    .teacher-curriculum-actions,
+    .assignment-form__actions,
+    .assignment-lifecycle-actions,
+    .classroom-member-actions
+  ) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+  }
+
+  .teacher-workspace-page--v2 :is(
+    .teacher-curriculum-actions,
+    .assignment-form__actions,
+    .assignment-lifecycle-actions,
+    .classroom-member-actions
+  ) .button { width: 100%; }
+}

@@ -1,0 +1,99 @@
+{
+  "variant": "SEQUENCE_RULE",
+  "severity": "HIGH",
+  "categories": [
+    "OUTCOME_ALIGNMENT_WRONG",
+    "GRADE_LEVEL_WRONG",
+    "INVALID_OR_AMBIGUOUS_QUESTION"
+  ],
+  "summary": "Hầu hết variant đại số dùng cùng AST ax+b và cùng phép thế giá trị, kể cả khi outcome yêu cầu việc khác.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-82d90d6ecc068deb193e868c2b25cfca1f05bbc416826486",
+  "reproductionSeedFingerprint": "82d90d6ecc068deb",
+  "reproductionSampleId": "SEQUENCE_RULE:EASY:1",
+  "sample": {
+    "sampleId": "SEQUENCE_RULE:EASY:1",
+    "variant": "SEQUENCE_RULE",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-82d90d6ecc068deb193e868c2b25cfca1f05bbc416826486",
+    "seedFingerprint": "82d90d6ecc068deb",
+    "runtimeReachable": true,
+    "grade": 4,
+    "outcomeId": "MOET2018-G4-NUM-P036-018",
+    "unitId": "grade-4-fraction-foundations",
+    "astKind": "NUMBER_STRUCTURE",
+    "complexity": 1,
+    "prompt": "Biểu diễn số 380 bằng cách viết số thích hợp.",
+    "normalizedTemplate": "biểu diễn số # xằng xách viết số thích hợp.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "381",
+      "379",
+      "382",
+      "380"
+    ],
+    "correctOptionKey": "D",
+    "correctOptionLabel": "380",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn D."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-9aa366f886435b23e3f5562187d77093",
+      "position": 1,
+      "prompt": "Biểu diễn số 380 bằng cách viết số thích hợp.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "381"
+        },
+        {
+          "key": "B",
+          "label": "379"
+        },
+        {
+          "key": "C",
+          "label": "382"
+        },
+        {
+          "key": "D",
+          "label": "380"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "HIGH",
+      "categories": [
+        "OUTCOME_ALIGNMENT_WRONG",
+        "GRADE_LEVEL_WRONG",
+        "INVALID_OR_AMBIGUOUS_QUESTION"
+      ],
+      "summary": "Hầu hết variant đại số dùng cùng AST ax+b và cùng phép thế giá trị, kể cả khi outcome yêu cầu việc khác."
+    }
+  }
+}

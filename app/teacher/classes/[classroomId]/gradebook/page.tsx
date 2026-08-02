@@ -93,7 +93,7 @@ export default async function TeacherClassGradebookPage({
 
   const { gradebook } = result;
   return (
-    <div className="teacher-gradebook-page page-shell">
+    <div className="teacher-gradebook-page teacher-workspace-page--v2 page-shell">
       <header className="catalog-hero teacher-hero">
         <div>
           <p className="eyebrow">Lớp {gradebook.classroom.grade}</p>

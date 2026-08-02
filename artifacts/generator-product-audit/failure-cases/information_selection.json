@@ -1,0 +1,60 @@
+{
+  "variant": "INFORMATION_SELECTION",
+  "severity": "CRITICAL",
+  "categories": [
+    "UNIMPLEMENTED_VARIANT",
+    "RUNTIME_DISCONNECTED"
+  ],
+  "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-f817612874ace7dab6f28d5597cfde2d816d8e6e49817a92",
+  "reproductionSeedFingerprint": "f817612874ace7da",
+  "reproductionSampleId": "INFORMATION_SELECTION:EASY:1",
+  "sample": {
+    "sampleId": "INFORMATION_SELECTION:EASY:1",
+    "variant": "INFORMATION_SELECTION",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-f817612874ace7dab6f28d5597cfde2d816d8e6e49817a92",
+    "seedFingerprint": "f817612874ace7da",
+    "runtimeReachable": false,
+    "grade": null,
+    "outcomeId": null,
+    "unitId": null,
+    "astKind": "CONTEXT",
+    "complexity": 1,
+    "prompt": "Một tình huống có các đại lượng 91, 35, 3. Hãy thực hiện information selection.",
+    "normalizedTemplate": "một tình huống xó xáx đại lượng #, #, #. hãy thựx hiện information selection.",
+    "answerType": null,
+    "optionLabels": [],
+    "correctOptionKey": null,
+    "correctOptionLabel": "0,1",
+    "visualType": null,
+    "visualTemplate": null,
+    "solutionSteps": [],
+    "feedback": null,
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": null,
+    "productVerdict": {
+      "usable": false,
+      "severity": "CRITICAL",
+      "categories": [
+        "UNIMPLEMENTED_VARIANT",
+        "RUNTIME_DISCONNECTED"
+      ],
+      "summary": "Variant chỉ có synthetic proof; không có outcome thực để runtime chọn hoặc persist."
+    }
+  }
+}

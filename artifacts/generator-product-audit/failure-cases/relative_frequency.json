@@ -1,0 +1,99 @@
+{
+  "variant": "RELATIVE_FREQUENCY",
+  "severity": "HIGH",
+  "categories": [
+    "OUTCOME_ALIGNMENT_WRONG",
+    "VISUAL_MISSING_OR_INCORRECT",
+    "INVALID_OR_AMBIGUOUS_QUESTION"
+  ],
+  "summary": "Query chỉ là tên family; solver thường lấy max/mean mà không nêu đại lượng cần đọc hoặc so sánh.",
+  "exactFiles": [
+    "lib/generation-semantic/variant-engine.ts",
+    "lib/curriculum/semantic-pilot-generation.ts",
+    "lib/curriculum/on-demand-runtime.ts"
+  ],
+  "functions": [
+    "deriveVariant",
+    "generateVariantAst",
+    "solveVariantAst",
+    "renderVariantPrompt",
+    "generateSemanticPilotAttemptSnapshot"
+  ],
+  "route": "/api/on-demand-curriculum/start",
+  "reproductionSeed": "pilot-740212e902992ee9b505f7cf3240b54fe844bb3d748f7da8",
+  "reproductionSeedFingerprint": "740212e902992ee9",
+  "reproductionSampleId": "RELATIVE_FREQUENCY:EASY:1",
+  "sample": {
+    "sampleId": "RELATIVE_FREQUENCY:EASY:1",
+    "variant": "RELATIVE_FREQUENCY",
+    "difficulty": "EASY",
+    "seedIndex": 1,
+    "reproductionSeed": "pilot-740212e902992ee9b505f7cf3240b54fe844bb3d748f7da8",
+    "seedFingerprint": "740212e902992ee9",
+    "runtimeReachable": true,
+    "grade": 9,
+    "outcomeId": "MOET2018-G9-STA-P077-012",
+    "unitId": "grade-9-secondary-sta-p1-15",
+    "astKind": "DATA",
+    "complexity": 1,
+    "prompt": "Bộ dữ liệu 1: Cho dữ liệu 9, 1, 2, 3, 4. Hãy thực hiện tần số tương đối.",
+    "normalizedTemplate": "xộ xữ liệu #: cho xữ liệu #, #, #, #, #. hãy thựx hiện tần số tương đối.",
+    "answerType": "MULTIPLE_CHOICE",
+    "optionLabels": [
+      "11",
+      "9",
+      "10",
+      "8"
+    ],
+    "correctOptionKey": "B",
+    "correctOptionLabel": "9",
+    "visualType": "TEXT_ONLY",
+    "visualTemplate": "{\"type\":\"TEXT_ONLY\",\"description\":\"Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản.\"}",
+    "solutionSteps": [
+      "Đọc các dữ kiện toán học trong câu hỏi.",
+      "Thực hiện đúng phép biến đổi hoặc suy luận được yêu cầu.",
+      "Kết quả tương ứng với lựa chọn B."
+    ],
+    "feedback": "Em hãy đối chiếu từng dữ kiện với phép tính hoặc quan hệ vừa dùng.",
+    "stemMathematicallyAnswerable": false,
+    "publicQuestion": {
+      "questionId": "pilot-546747986976f2884102b28e192793dc",
+      "position": 1,
+      "prompt": "Bộ dữ liệu 1: Cho dữ liệu 9, 1, 2, 3, 4. Hãy thực hiện tần số tương đối.",
+      "answerType": "MULTIPLE_CHOICE",
+      "options": [
+        {
+          "key": "A",
+          "label": "11"
+        },
+        {
+          "key": "B",
+          "label": "9"
+        },
+        {
+          "key": "C",
+          "label": "10"
+        },
+        {
+          "key": "D",
+          "label": "8"
+        }
+      ],
+      "visual": {
+        "type": "TEXT_ONLY",
+        "description": "Câu hỏi này cung cấp đầy đủ dữ kiện bằng văn bản."
+      },
+      "cognitiveLevel": "UNDERSTAND"
+    },
+    "productVerdict": {
+      "usable": false,
+      "severity": "HIGH",
+      "categories": [
+        "OUTCOME_ALIGNMENT_WRONG",
+        "VISUAL_MISSING_OR_INCORRECT",
+        "INVALID_OR_AMBIGUOUS_QUESTION"
+      ],
+      "summary": "Query chỉ là tên family; solver thường lấy max/mean mà không nêu đại lượng cần đọc hoặc so sánh."
+    }
+  }
+}

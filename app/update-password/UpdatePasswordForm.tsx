@@ -5,7 +5,7 @@ import { type FormEvent, useRef, useState, useTransition } from "react";
 
 import { updatePassword } from "@/app/update-password/actions";
 import { Button } from "@/components/Button";
-import { FormField } from "@/components/FormField";
+import { PasswordField } from "@/components/PasswordField";
 
 type PasswordErrors = {
   password?: string;
@@ -62,11 +62,15 @@ export function UpdatePasswordForm() {
   };
 
   return (
-    <form className="auth-card" onSubmit={submit} noValidate>
-      <FormField
+    <form className="auth-card auth-card--v2" onSubmit={submit} noValidate>
+      <div className="auth-card__heading">
+        <p className="eyebrow">Phiên khôi phục</p>
+        <h2>Đặt mật khẩu mới</h2>
+        <p>Chọn mật khẩu dễ nhớ với bạn nhưng khó đoán với người khác.</p>
+      </div>
+      <PasswordField
         id="new-password"
         label="Mật khẩu mới"
-        type="password"
         value={password}
         onChange={(event) => {
           setPassword(event.target.value);
@@ -80,10 +84,9 @@ export function UpdatePasswordForm() {
         inputRef={passwordRef}
         disabled={isPending}
       />
-      <FormField
+      <PasswordField
         id="confirm-new-password"
         label="Xác nhận mật khẩu mới"
-        type="password"
         value={confirmPassword}
         onChange={(event) => {
           setConfirmPassword(event.target.value);
@@ -99,8 +102,8 @@ export function UpdatePasswordForm() {
         inputRef={confirmPasswordRef}
         disabled={isPending}
       />
-      <Button type="submit" fullWidth disabled={isPending}>
-        {isPending ? "Đang cập nhật…" : "Đặt mật khẩu mới"}
+      <Button type="submit" fullWidth disabled={isPending} loading={isPending}>
+        Đặt mật khẩu mới
       </Button>
       {notice ? (
         <p className="form-error-box" role="alert">

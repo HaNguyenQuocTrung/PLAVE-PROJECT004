@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 
 import { Button } from "@/components/Button";
 import { LearningAccessState } from "@/components/LearningAccessState";
+import { EmptyState } from "@/components/UiStates";
 import { loadStudentCurriculumHistory } from "@/lib/curriculum-runtime/server";
 
 export const metadata = { title: "Lịch sử học tập" };
@@ -27,7 +28,7 @@ export default async function LearningHistoryPage() {
   }
   const { history } = result;
   return (
-    <div className="content-page page-shell learning-history-page">
+    <div className="content-page page-shell learning-history-page history-page--v2">
       <header className="catalog-hero">
         <p className="eyebrow">Lịch sử học tập</p>
         <h1>Các lượt học Toán lớp {history.grade}</h1>
@@ -44,11 +45,12 @@ export default async function LearningHistoryPage() {
       </header>
 
       {history.attempts.length === 0 ? (
-        <section className="empty-state empty-state--large">
-          <h2>Em chưa có lượt học nào</h2>
-          <p>Hãy chọn một chủ đề và bắt đầu luyện tập.</p>
-          <Button href="/lessons">Mở chương trình học</Button>
-        </section>
+        <EmptyState
+          title="Em chưa có lượt học nào"
+          description="Hãy chọn một bài trong chương trình để bắt đầu luyện tập."
+          actionHref="/lessons"
+          actionLabel="Mở chương trình học"
+        />
       ) : (
         <section className="history-list" aria-labelledby="history-title">
           <h2 id="history-title">Lượt học gần đây</h2>

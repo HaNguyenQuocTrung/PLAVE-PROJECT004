@@ -42,7 +42,7 @@ export default async function TeacherAssignmentsPage() {
   }
 
   return (
-    <div className="teacher-assignments-page page-shell">
+    <div className="teacher-assignments-page teacher-workspace-page--v2 page-shell">
       <header className="catalog-hero teacher-hero">
         <div>
           <p className="eyebrow">Theo dõi giao bài</p>
