@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "PLAVE_GENERATOR_V2_REPAIRED_FAILURE_CASES_V1",
+  "privateAnswersIncluded": false,
+  "status": "REPAIRED_AND_REGRESSION_COVERED",
+  "cases": [
+    {
+      "id": "S10C-PRODUCT-001",
+      "capabilityId": "POLYNOMIAL_SIMPLIFICATION",
+      "outcomeId": "MOET2018-G8-NAA-P063-007",
+      "evidenceSurface": "AUTHENTICATED_STUDENT_RUNTIME_SCREENSHOT",
+      "previousDefect": "A prompt asking for the simplest polynomial accepted a zero-coefficient term such as 0x^2 plus a constant.",
+      "rootCause": "The canonical expression formatter always emitted the declared degree even when combined coefficients cancelled to zero.",
+      "repair": "Generator and independent oracle now independently omit zero-coefficient terms; public instructions state the canonical omission rule.",
+      "regressionSeed": "s10c-polynomial-cancellation-017",
+      "specialCaseSeedExclusions": 0
+    },
+    {
+      "id": "S10C-PRODUCT-002",
+      "capabilityId": "DATA_CLASSIFICATION",
+      "outcomeId": "MOET2018-G3-EXP-P034-002",
+      "evidenceSurface": "AUTHENTICATED_STUDENT_RUNTIME_SCREENSHOT",
+      "previousDefect": "An ordering task could inherit the generic instruction to find a missing value, contradicting the ORDERING interaction.",
+      "rootCause": "A capability-agnostic lead bank included task-specific instructions.",
+      "repair": "The DATA family now uses a diverse capability-specific lead bank that refers only to tables, criteria, records, selection, comparison, or ordering.",
+      "regressionCoverage": "20 seeds at each of EASY, MEDIUM, and HARD",
+      "specialCaseSeedExclusions": 0
+    },
+    {
+      "id": "S10C-PRODUCT-003",
+      "capabilityId": "DATA_CLASSIFICATION",
+      "outcomeId": "MOET2018-G3-EXP-P034-002",
+      "evidenceSurface": "AUTHENTICATED_STUDENT_RUNTIME_SCREENSHOT",
+      "previousDefect": "The ORDERING selection summary rendered internal option identifiers such as record-1 instead of Student-facing labels.",
+      "rootCause": "The shared ordering control joined canonical option IDs directly for its visible selection summary.",
+      "repair": "The shared renderer now resolves every selected ID to its public label and the browser harness rejects visible record identifiers.",
+      "regressionCoverage": "Authenticated Student browser journey plus visible-internal-ID assertion",
+      "specialCaseSeedExclusions": 0
+    },
+    {
+      "id": "S10C-PRODUCT-004",
+      "capabilityId": "CHART_DATA_INTERPRETATION",
+      "outcomeId": "MOET2018-G7-STA-P061-001",
+      "evidenceSurface": "AUTHENTICATED_STUDENT_RUNTIME_SCREENSHOT",
+      "previousDefect": "A chart described a measured quantity such as cycling distance without stating its unit in the prompt, visual, or response contract.",
+      "rootCause": "Chart context was modeled as a bare label instead of a unit-aware public quantity.",
+      "repair": "Each chart context now carries one explicit unit shared by prompt, public data, visual alternative, interaction, solver feedback, and integrity validation.",
+      "regressionCoverage": "20 seeds at each of EASY, MEDIUM, and HARD",
+      "specialCaseSeedExclusions": 0
+    }
+  ],
+  "regressionTest": "tests/generation-v2-oracle-known-failures.test.ts"
+}

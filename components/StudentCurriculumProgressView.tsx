@@ -52,10 +52,10 @@ function EvidenceList({
         </div>
       ) : (
         <div className="progress-evidence-grid">
-          {items.map((item) => (
+          {items.map((item, index) => (
             <article
               className="progress-evidence-card"
-              key={`${item.evidenceBasis}-${item.title}`}
+              key={`${item.evidenceBasis}-${item.title}-${index}`}
             >
               <span className="unit-status">
                 {curriculumMasteryLabelText[item.masteryLabel]}
@@ -112,8 +112,11 @@ export function StudentCurriculumProgressView({
       <section className="lesson-section" aria-labelledby="unit-progress-title">
         <h2 id="unit-progress-title">Tiến trình theo chủ đề</h2>
         <div className="unit-catalog__grid">
-          {progress.units.map((unit) => (
-            <article className="unit-card" key={unit.unitId}>
+          {progress.units.map((unit, index) => (
+            <article
+              className="unit-card"
+              key={`${unit.source}-${unit.unitId}-${index}`}
+            >
               <span
                 className={`unit-status ${
                   unit.status === "COMPLETED"

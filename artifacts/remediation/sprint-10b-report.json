@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "sprint": "10B",
+  "generatedAt": "2026-08-02T22:14:16+07:00",
+  "status": "PASS",
+  "marker": "SPRINT 10B COMPLETE — GENERATOR V2 CONNECTED TO REAL STUDENT RUNTIME, FULL CORRECTNESS REMEDIATION REQUIRED",
+  "checkpointBase": "c5c46f69227f",
+  "finding": {
+    "id": "F-002",
+    "status": "RESOLVED",
+    "resolutionScope": "BOUNDED_FAIL_CLOSED_REAL_STUDENT_RUNTIME_INTEGRATION"
+  },
+  "milestoneStatus": {
+    "milestone1": "COMPLETE_OWNER_APPROVED",
+    "milestone2": "REOPENED_CORRECTNESS_REMEDIATION",
+    "milestone3": "REOPENED_SECURITY_AND_REPRODUCIBILITY_REMEDIATION"
+  },
+  "runtime": {
+    "repositoryDefault": "OFF",
+    "actualMode": "GENERATED_V2",
+    "evidenceSurface": "AUTHENTICATED_PUBLIC_STUDENT_RUNTIME",
+    "publicEndpoints": [
+      "/api/curriculum-runtime/start",
+      "/api/curriculum-runtime/state",
+      "/api/curriculum-runtime/answer",
+      "/api/curriculum-runtime/progress",
+      "/api/curriculum-runtime/history"
+    ],
+    "publicPage": "/curriculum-practice/[attemptId]",
+    "internalProofOrReviewRoutesUsed": false,
+    "serverSelectsMode": true,
+    "genericFallback": 0,
+    "keywordRouting": 0,
+    "eligibleOutcomes": 6,
+    "registryOutcomes": 546,
+    "remainingFailClosed": 540,
+    "fullCorrectnessClaimed": false,
+    "productionReadyClaimed": false,
+    "remoteActivated": false
+  },
+  "databaseProof": {
+    "status": "PASS",
+    "schema": "0001-0042",
+    "migrationChanges": 0,
+    "attempts": 7,
+    "completedAttempts": 7,
+    "generatedQuestions": 84,
+    "privateSolutions": 84,
+    "answers": 84,
+    "provenance8of8Rows": 84,
+    "orphans": 0,
+    "concurrentStart": "PASS",
+    "duplicateSubmit": "IDEMPOTENT_ONE_WRITE",
+    "cas": "SINGLE_WINNER",
+    "exactlyOnceProgressHistory": "PASS",
+    "rollback": "PASS",
+    "resumeRegeneration": 0,
+    "cleanup": "PASS"
+  },
+  "browserProof": {
+    "status": "PASS",
+    "playwrightCore": "1.51.1",
+    "chrome": "150",
+    "viewports": [
+      "320x568",
+      "390x844",
+      "1280x800"
+    ],
+    "viewportsPassed": "3/3",
+    "screenshotsCreated": 24,
+    "screenshotsOpenedAndReviewed": 24,
+    "consoleErrors": 0,
+    "hydrationErrors": 0,
+    "pageErrors": 0,
+    "overflowErrors": 0,
+    "privateLeaks": 0,
+    "promptVisualOrAnswerMismatches": 0,
+    "deadControls": 0,
+    "touchTargetFailures": 0,
+    "criticalOrHighVisualIssuesRemaining": 0
+  },
+  "negativeMatrix": {
+    "status": "PASS",
+    "anonymous": 401,
+    "wrongStudent": 404,
+    "parent": 403,
+    "teacher": 403,
+    "forgedRoutingFields": 400,
+    "crossGrade": 403,
+    "correctnessReviewRequired": 503,
+    "releaseOff": 503,
+    "globalOff": 503,
+    "clientTrustedCorrectness": false,
+    "clientSelectableSeedOrCapability": false
+  },
+  "regressions": [
+    { "gate": "Generator V2 Student runtime", "result": "PASS", "tests": "8/8" },
+    { "gate": "Static Practice", "result": "PASS", "tests": "550/550" },
+    { "gate": "Generator V2 core/persistence/security", "result": "PASS", "tests": "34/34" },
+    { "gate": "Curriculum Grades 1-9", "result": "PASS", "tests": "9/9" },
+    { "gate": "Universal curriculum", "result": "PASS", "tests": "21/21" },
+    { "gate": "Competency", "result": "PASS", "tests": "10/10" },
+    { "gate": "UI/UX", "result": "PASS", "tests": "13/13" },
+    { "gate": "AI Tutor", "result": "PASS", "tests": "40/40", "paidRequests": 0 },
+    { "gate": "Typecheck", "result": "PASS" },
+    { "gate": "Lint", "result": "PASS", "warnings": 0 },
+    { "gate": "Production build clean-room", "result": "PASS", "pages": "77/77" },
+    { "gate": "Secret boundary canary clean-room", "result": "PASS", "occurrences": 0, "realKeyUsed": false }
+  ],
+  "reproducibility": {
+    "status": "PASS_INTENDED_WORKING_TREE",
+    "source": "CHECKPOINT_C5C46F69227F_PLUS_EXACT_SPRINT_10B_DELTA",
+    "environment": "ISOLATED_KEY_UNSET_CLEAN_ROOM",
+    "generatedCachesCopied": false,
+    "localSecretsCopied": false,
+    "build": "PASS",
+    "secretBoundary": "PASS",
+    "checkpointOnlyContainsSprint10B": false,
+    "note": "Sprint 10B remains an unstaged/uncommitted working-tree delta by explicit boundary."
+  },
+  "npmAudit": {
+    "status": "UNVERIFIED_ENVIRONMENT_BLOCKED",
+    "error": "getaddrinfo ENOTFOUND registry.npmjs.org",
+    "lastVerified": {
+      "vulnerabilities": 0,
+      "date": "2026-08-01"
+    }
+  },
+  "mutationsAndUsage": {
+    "remoteAccess": 0,
+    "remoteMutations": 0,
+    "migrationChanges": 0,
+    "gitStage": 0,
+    "gitCommit": 0,
+    "gitPush": 0,
+    "paidProviderRequests": 0
+  },
+  "cleanup": {
+    "status": "PASS",
+    "remainingAuditListeners": 0,
+    "remainingAuditContainers": 0,
+    "remainingAuditTempDirectories": 0,
+    "ownerAiTutorListenerPreserved": "127.0.0.1:3001"
+  },
+  "nextRequiredSprint": "10C_GENERATOR_CORRECTNESS_REMEDIATION"
+}

@@ -12,6 +12,10 @@ import { getUniversalCurriculumRuntimeFlag } from "@/lib/curriculum-runtime/feat
 import { isSameOriginRequest } from "@/lib/practice/errors";
 import { getStudentLearningContext } from "@/lib/practice/server";
 import { safeUpstreamCode } from "@/lib/runtime-diagnostics/server";
+import {
+  loadStudentGeneratedPracticeState,
+  toStudentStaticRuntimeState,
+} from "@/lib/generation-v2/student-runtime";
 
 export async function GET(request: Request) {
   const api = createCurriculumApiResponder(request);
@@ -44,6 +48,18 @@ export async function GET(request: Request) {
       serverErrorCode: "INVALID_ATTEMPT_ID",
     });
   }
+  const generated = await api.trace.measure("generation", () =>
+    loadStudentGeneratedPracticeState({ request, access, attemptId }),
+  );
+  if (generated.ok) {
+    return api.success({ ok: true, data: generated.state });
+  }
+  if (generated.code !== "PRACTICE_UNAVAILABLE") {
+    return api.error(generated.code, {
+      serverErrorCode: generated.code,
+      upstreamCode: safeUpstreamCode(generated.upstreamCode),
+    });
+  }
   const { data, error } = await api.trace.measure(
     "rpc",
     () =>
@@ -66,5 +82,8 @@ export async function GET(request: Request) {
       serverErrorCode: "RESPONSE_MAPPING_FAILED",
     });
   }
-  return api.success({ ok: true, data: state });
+  return api.success({
+    ok: true,
+    data: toStudentStaticRuntimeState(state),
+  });
 }

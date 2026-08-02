@@ -7,10 +7,19 @@ import { CurriculumVisual } from "@/app/curriculum-preview/CurriculumVisual";
 import { Button } from "@/components/Button";
 import { ProgressBar } from "@/components/ProgressBar";
 import {
+  AnswerControl as GeneratorV2AnswerControl,
+  QuestionVisual as GeneratorV2QuestionVisual,
+  isAnswerReady as isGeneratorV2AnswerReady,
+} from "@/app/internal/generator-v2/GeneratorV2LocalRunner";
+import {
   parseCurriculumAttemptApiState,
   type CurriculumAttemptQuestion,
   type CurriculumAttemptState,
 } from "@/lib/curriculum-runtime/contracts";
+import {
+  serializeGeneratorV2DatabaseAnswer,
+} from "@/lib/generation-v2/answer-transport";
+import type { CanonicalResponse } from "@/lib/generation-v2/types";
 
 type UniversalCurriculumRunnerProps = {
   initialState: CurriculumAttemptState;
@@ -28,12 +37,20 @@ export function UniversalCurriculumRunner({
   const [state, setState] = useState(initialState);
   const [submittedQuestion, setSubmittedQuestion] =
     useState<CurriculumAttemptQuestion | null>(null);
-  const [answer, setAnswer] = useState("");
+  const [answer, setAnswer] = useState<CanonicalResponse>("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const displayQuestion = state.feedback
     ? submittedQuestion
     : state.currentQuestion;
+  const generatedQuestion = displayQuestion?.generatorV2 ?? null;
+  const staticAnswerMissing =
+    typeof answer !== "string" || !answer.trim();
+  const answerReady = displayQuestion
+    ? generatedQuestion
+      ? isGeneratorV2AnswerReady(generatedQuestion, answer)
+      : !staticAnswerMissing
+    : false;
   const apiBase =
     runtimeMode === "ON_DEMAND"
       ? "/api/on-demand-curriculum"
@@ -98,7 +115,14 @@ export function UniversalCurriculumRunner({
 
   const submit = async () => {
     if (!displayQuestion || state.feedback || submitting) return;
-    const normalizedAnswer = answer.trim();
+    const normalizedAnswer = generatedQuestion
+      ? serializeGeneratorV2DatabaseAnswer(
+          generatedQuestion.interaction,
+          answer,
+        )
+      : typeof answer === "string"
+        ? answer.trim()
+        : null;
     if (!normalizedAnswer) {
       setError("Em hãy chọn hoặc nhập câu trả lời trước khi kiểm tra.");
       return;
@@ -255,9 +279,27 @@ export function UniversalCurriculumRunner({
         <p className="question-count">
           Câu {displayQuestion.position}/{state.totalQuestions}
         </p>
-        <CurriculumVisual spec={displayQuestion.visual} />
+        {generatedQuestion ? null : (
+          <CurriculumVisual spec={displayQuestion.visual} />
+        )}
 
-        {displayQuestion.answerType === "MULTIPLE_CHOICE" &&
+        {generatedQuestion ? (
+          <div data-generator-v2-student-question>
+            <GeneratorV2QuestionVisual question={generatedQuestion} />
+            <h2 className="real-question-card__prompt">
+              {generatedQuestion.publicPrompt}
+            </h2>
+            <p className="question-instruction">
+              {generatedQuestion.accessibility.responseInstruction}
+            </p>
+            <GeneratorV2AnswerControl
+              question={generatedQuestion}
+              value={answer}
+              onChange={setAnswer}
+              disabled={Boolean(state.feedback) || submitting}
+            />
+          </div>
+        ) : displayQuestion.answerType === "MULTIPLE_CHOICE" &&
         displayQuestion.options ? (
           <fieldset
             className="demo-question"
@@ -307,7 +349,7 @@ export function UniversalCurriculumRunner({
                 }
                 autoComplete="off"
                 maxLength={200}
-                value={answer}
+                value={typeof answer === "string" ? answer : ""}
                 disabled={Boolean(state.feedback) || submitting}
                 onChange={(event) => setAnswer(event.target.value)}
               />
@@ -370,7 +412,7 @@ export function UniversalCurriculumRunner({
             </Button>
           ) : (
             <Button
-              disabled={submitting || !answer.trim()}
+              disabled={submitting || !answerReady}
               loading={submitting}
               onClick={submit}
             >

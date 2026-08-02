@@ -32,16 +32,6 @@ class Random { private cursor = 0; private readonly seed: string; constructor(se
 const STRUCTURE = { EASY: 1, MEDIUM: 2, HARD: 3 } as const;
 const LEADS = ["Đọc kĩ dữ kiện", "Đối chiếu các nhãn", "Phân tích bảng đã cho", "Kiểm tra từng khả năng", "Hoàn thành nhiệm vụ", "Chọn bằng chứng phù hợp", "Tính từ dữ liệu gốc", "Giải thích bằng số liệu", "Xác định đại lượng cần tìm", "Kiểm tra kết quả", "So sánh hai biểu diễn", "Suy luận từng bước", "Đọc đúng đơn vị", "Hoàn thiện bảng", "Đánh giá nhận xét", "Chọn mô hình đúng", "Theo dõi phép thử", "Tìm quy luật", "Lập kế hoạch thực hành", "Dùng định nghĩa", "Kiểm tra miền giá trị", "Chuẩn hóa kết quả", "Nêu kết luận", "Giúp nhóm học tập", "Hoàn thành phiếu khảo sát", "Đọc biểu đồ", "Xác minh quan hệ", "Chọn cách biểu diễn", "Kiểm tra tỉ lệ", "Tách bài toán thành bước", "Đối chiếu phép tính", "Hoàn thiện báo cáo"] as const;
 const CONTEXTS = ["khảo sát lớp học", "câu lạc bộ Toán", "hoạt động thể thao", "vườn trường", "thư viện", "ngày hội khoa học", "bảng theo dõi thời tiết", "phiếu thực hành", "trò chơi xác suất", "dự án môi trường", "kế hoạch học tập", "chuyến tham quan", "bảng dữ liệu địa lí", "thí nghiệm khoa học", "góc thống kê", "buổi ôn tập"] as const;
-const PROFILE_CONTEXTS = {
-  ARITHMETIC: ["giờ luyện tính", "phiếu bài tập", "chuyến tham quan", "góc học tập", "trò chơi chia nhóm", "buổi ôn tập"],
-  DATA: ["khảo sát lớp học", "bảng theo dõi", "dự án môi trường", "báo cáo của nhóm", "bảng dữ liệu địa lí", "góc thống kê"],
-  PROBABILITY: ["trò chơi xác suất", "lượt thí nghiệm", "phiếu quan sát", "ngày hội khoa học", "mô phỏng ngẫu nhiên", "buổi thực hành"],
-  ALGEBRA: ["phiếu hàm số", "bài luyện tập", "bảng giá trị", "buổi ôn tập", "bài toán trên lớp", "góc đại số"],
-  GEOMETRY: ["giờ thực hành hình học", "phần mềm vẽ hình", "phiếu dựng hình", "bài học tam giác", "góc hình học", "buổi ôn tập"],
-  MEASUREMENT: ["buổi thực hành đo", "khuôn viên trường", "mô hình đo lường", "phiếu ước lượng", "dự án của lớp", "giờ vận dụng"],
-  FINANCE: ["kế hoạch đầu tư", "bảng chi phí", "tình huống bảo hiểm", "dự án tài chính", "phiếu so sánh", "buổi thực hành"],
-  APPLIED: ["thí nghiệm khoa học", "bài tập liên môn", "phiếu cân bằng", "buổi thực hành", "dự án của nhóm", "giờ vận dụng"],
-} as const;
 const EVIDENCE_FRAMES = ["trên phiếu dữ liệu", "trong bảng kiểm", "từ ghi chép của nhóm", "trên thẻ nhiệm vụ", "trong báo cáo ngắn", "từ sơ đồ đã cho", "trên bảng lớp", "trong sổ thực hành", "từ bộ thẻ học", "trong phần tự kiểm tra", "trên phiếu khảo sát", "từ bản nháp", "trong hồ sơ dự án", "trên bảng con", "từ phần trình bày", "trong bài kiểm tra nhanh"] as const;
 const LABEL_SETS = [["An", "Bình", "Chi", "Dũng"], ["Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm"], ["Nhóm A", "Nhóm B", "Nhóm C", "Nhóm D"], ["Đỏ", "Xanh", "Vàng", "Tím"], ["Mức 1", "Mức 2", "Mức 3", "Mức 4"]] as const;
 const SINGLE_LABELS = ["hợp lí", "không hợp lí", "chưa đủ dữ kiện", "không liên quan"] as const;
@@ -53,7 +43,17 @@ function makeModel(contract: WaveEOutcomeContract, input: GenerateQuestionInput,
   return { schemaVersion: 1, engineVersion: WAVE_E_ENGINE_VERSION, outcomeId: contract.outcomeId, variantId: contract.canonicalVariantId, profile: contract.profile, grade: contract.grade, difficulty: input.difficulty, structureLevel: level, structuralFingerprint: `${contract.canonicalVariantId}:${data.fingerprint}:structure-${level}`, templateIndex: random.int(0, LEADS.length - 1), contextIndex: random.int(0, CONTEXTS.length - 1), representationIndex: random.int(0, 15), interactionType, operation: data.operation, values: data.values ?? [], labels: data.labels ?? [], scale: data.scale ?? 1, meta: data.meta ?? {} };
 }
 
-function dataset(random: Random, level: number) { const base = random.int(3, 10 + level * 4); const values = [base, base + random.int(2, 7), base + random.int(8, 13), base + random.int(1, 10)]; return { values, labels: random.pick(LABEL_SETS) }; }
+function dataset(random: Random, level: number) {
+  const base = random.int(3, 10 + level * 4);
+  const sampled = [base, base + random.int(2, 7), base + random.int(8, 13), base + random.int(1, 10)];
+  const values: number[] = [];
+  for (const candidate of sampled) {
+    let value = candidate;
+    while (values.includes(value)) value += 1;
+    values.push(value);
+  }
+  return { values, labels: random.pick(LABEL_SETS) };
+}
 function buildModel(contract: WaveEOutcomeContract, input: GenerateQuestionInput, random: Random): WaveENormalizedProblemModel {
   const level = STRUCTURE[input.difficulty]; const cap = contract.canonicalVariantId; const data = dataset(random, level);
   switch (cap) {
@@ -171,10 +171,10 @@ function solveModel(m: WaveENormalizedProblemModel): SemanticSolution {
 }
 
 function promptFor(m: WaveENormalizedProblemModel): string {
-  const contexts = PROFILE_CONTEXTS[m.profile]; const context = contexts[m.contextIndex % contexts.length]!, lead = `${LEADS[m.templateIndex]!} ${EVIDENCE_FRAMES[m.representationIndex]!} trong ${context}`, v = m.values, labels = m.labels;
+  const lead = `Chủ đề: ${CONTEXTS[m.contextIndex]!}. Hãy đọc kĩ dữ kiện ${EVIDENCE_FRAMES[m.representationIndex]!}`, v = m.values, labels = m.labels;
   const table = labels.slice(0, Math.min(labels.length, v.length)).map((label, index) => `${label}: ${v[index]}`).join("; ");
   switch (m.operation) {
-    case "DIVIDE_FACT": return `${lead}. Trong ${context}, có ${v[0]} thẻ chia đều thành các nhóm ${v[1]} thẻ. Có bao nhiêu nhóm?`;
+    case "DIVIDE_FACT": return `${lead}. Có ${v[0]} thẻ được chia đều thành các nhóm ${v[1]} thẻ. Có bao nhiêu nhóm?`;
     case "CERTAIN": return `${lead}. Khi ${String(m.meta.trial)}, biến cố “kết quả từ 1 đến 6” thuộc loại nào?`;
     case "POSSIBLE": return `${lead}. Khi ${String(m.meta.trial)}, biến cố “rút được thẻ số ${v[0]}” thuộc loại nào?`;
     case "IMPOSSIBLE": return `${lead}. Khi ${String(m.meta.trial)}, biến cố “rút được thẻ số 8” thuộc loại nào?`;
@@ -182,7 +182,7 @@ function promptFor(m: WaveENormalizedProblemModel): string {
     case "MATCH_INSTRUMENT": return `${lead}. Ghép mỗi đại lượng với dụng cụ đo phù hợp.`;
     case "COIN_SPACE": case "DIE_SPACE": case "TWO_COIN_SPACE": return `${lead}. Chọn tất cả kết quả thuộc không gian mẫu của phép thử ${m.operation === "COIN_SPACE" ? "tung một đồng xu" : m.operation === "DIE_SPACE" ? "gieo một xúc xắc" : "tung hai đồng xu"}.`;
     case "GEOMETRY_TOOL_SEQUENCE": case "DATA_TOOL_SEQUENCE": case "MEDIA_EVIDENCE_SEQUENCE": return `${lead}. Sắp xếp các bước để hoàn thành ${m.operation === "GEOMETRY_TOOL_SEQUENCE" ? "hình vẽ bằng phần mềm" : m.operation === "DATA_TOOL_SEQUENCE" ? "bảng/biểu đồ hoặc mô phỏng" : "đoạn trình bày hình học có bằng chứng"}.`;
-    case "COMPARE_CATEGORIES": case "SHOW_CHANGE": case "SHOW_PART_WHOLE": case "LIST_VALUES": return `${lead}. Trong ${context}, cần ${m.operation === "COMPARE_CATEGORIES" ? "so sánh các nhóm" : m.operation === "SHOW_CHANGE" ? "thể hiện thay đổi theo thời gian" : m.operation === "SHOW_PART_WHOLE" ? "thể hiện các phần của một tổng" : "ghi chính xác từng giá trị"}. Chọn cách biểu diễn phù hợp nhất.`;
+    case "COMPARE_CATEGORIES": case "SHOW_CHANGE": case "SHOW_PART_WHOLE": case "LIST_VALUES": return `${lead}. Cần ${m.operation === "COMPARE_CATEGORIES" ? "so sánh các nhóm" : m.operation === "SHOW_CHANGE" ? "thể hiện thay đổi theo thời gian" : m.operation === "SHOW_PART_WHOLE" ? "thể hiện các phần của một tổng" : "ghi chính xác từng giá trị"}. Chọn cách biểu diễn phù hợp nhất.`;
     case "EVEN_DIE_EVENT": return `${lead}. Chọn tất cả kết quả thuận lợi cho biến cố “gieo xúc xắc được số chẵn”.`;
     case "VALID_TOTAL": case "INVALID_TOTAL": return `${lead}. Bốn nhóm có số liệu ${v.slice(0, 4).join(", ")}; báo cáo ghi tổng ${v[4]}. Nhận xét báo cáo có hợp lí không?`;
     case "MATCH_REPRESENTATIONS": return `${lead}. Ghép mỗi nhãn với giá trị tương ứng để hai biểu diễn cùng mô tả một tập dữ liệu.`;
@@ -201,7 +201,9 @@ function promptFor(m: WaveENormalizedProblemModel): string {
     case "AA_X_AA_RECESSIVE": return `${lead}. Với phép lai Aa × Aa, xác suất đời con có kiểu gen aa là bao nhiêu?`;
     case "AA_X_AA_DOMINANT": return `${lead}. Với phép lai Aa × Aa và trội hoàn toàn, xác suất đời con biểu hiện tính trạng trội là bao nhiêu?`;
     case "BOX_UNIT_CUBES": return `${lead}. Một hộp có kích thước ${v[0]} × ${v[1]} × ${v[2]} đơn vị. Ước lượng hộp chứa bao nhiêu khối lập phương đơn vị?`;
-    case "FAVORABLE_OVER_TOTAL": case "EXPERIMENTAL_RATIO": case "RELATIVE_FREQUENCY": return `${lead}. Có ${v[0]} trường hợp thuận lợi trong ${v[1]} trường hợp hoặc lượt thử. Viết xác suất/tần số tương đối dưới dạng phân số tối giản.`;
+    case "FAVORABLE_OVER_TOTAL": return `${lead}. Không gian mẫu có ${v[1]} kết quả đồng khả năng, trong đó ${v[0]} kết quả thuận lợi. Viết xác suất dưới dạng phân số tối giản.`;
+    case "EXPERIMENTAL_RATIO": return `${lead}. Trong ${v[1]} lượt thử, biến cố xảy ra ${v[0]} lần. Viết tần số tương đối dưới dạng phân số tối giản.`;
+    case "RELATIVE_FREQUENCY": return `${lead}. Trong ${v[1]} quan sát, giá trị cần xét xuất hiện ${v[0]} lần. Viết tần số tương đối dưới dạng phân số tối giản.`;
     case "ABSOLUTE_FREQUENCY": return `${lead}. Trong ${v[1]} quan sát, giá trị mục tiêu xuất hiện ${v[0]} lần. Tần số của giá trị là bao nhiêu?`;
     case "FREQUENCY_ROLE": return `${lead}. Trong bảng có ${v[1]} quan sát và một giá trị xuất hiện ${v[0]} lần. Ý nghĩa của tần số ${v[0]} là gì?`;
     case "RELATIVE_FREQUENCY_ROLE": return `${lead}. Một giá trị xuất hiện ${v[0]} lần trong ${v[1]} quan sát. Ý nghĩa của tần số tương đối là gì?`;
@@ -253,7 +255,7 @@ function visualFor(m: WaveENormalizedProblemModel): ProductVisual {
   if (type === "COORDINATE_GRAPH") return { type, description: "Hệ trục và dữ kiện hàm số của bài toán.", data: { values: v, labels: m.labels, operation: m.operation, graphKind: m.meta.graphKind ?? "FUNCTION", candidateGraphs: [{ id: "g1", kind: "CANONICAL", values: v }, { id: "g2", kind: "SIGN_ERROR", values: v.map((value) => -value) }] } };
   return { type: "NONE", description: "Không cần visual làm bằng chứng.", data: {} };
 }
-function interactionFor(m: WaveENormalizedProblemModel, solution: WaveESolution, random: Random): ProductInteractionContract { if (m.interactionType === "SINGLE_CHOICE" || m.interactionType === "CONSTRUCTION_OR_VISUAL_SELECTION") return { type: m.interactionType, options: solution.options, choiceCount: 1 }; if (m.interactionType === "MULTI_SELECT") return { type: "MULTI_SELECT", options: solution.options, choiceCount: Array.isArray(solution.correct) ? solution.correct.length : 1 }; if (m.interactionType === "ORDERING") return { type: "ORDERING", options: random.shuffle(solution.options ?? []), orderedItemIds: solution.correct as readonly string[] }; if (m.interactionType === "MATCHING") return { type: "MATCHING", leftItems: solution.leftItems, rightItems: random.shuffle(solution.rightItems ?? []) }; if (m.interactionType === "FRACTION_INPUT") return { type: "FRACTION_INPUT", inputLabel: "Phân số tối giản", inputMode: "text" }; if (m.interactionType === "DECIMAL_INPUT") return { type: "DECIMAL_INPUT", inputLabel: "Kết quả", inputMode: "decimal" }; if (m.interactionType === "TABLE_OR_CHART_RESPONSE") return { type: "TABLE_OR_CHART_RESPONSE", inputLabel: "Giá trị hoặc hàng dữ liệu", inputMode: "text" }; return { type: "INTEGER_INPUT", inputLabel: "Kết quả", inputMode: "numeric" }; }
+function interactionFor(m: WaveENormalizedProblemModel, solution: WaveESolution, random: Random): ProductInteractionContract { if (m.interactionType === "SINGLE_CHOICE" || m.interactionType === "CONSTRUCTION_OR_VISUAL_SELECTION") return { type: m.interactionType, options: solution.options, choiceCount: 1 }; if (m.interactionType === "MULTI_SELECT") return { type: "MULTI_SELECT", options: solution.options, choiceCount: Array.isArray(solution.correct) ? solution.correct.length : 1 }; if (m.interactionType === "ORDERING") return { type: "ORDERING", options: random.shuffle(solution.options ?? []) }; if (m.interactionType === "MATCHING") return { type: "MATCHING", leftItems: solution.leftItems, rightItems: random.shuffle(solution.rightItems ?? []) }; if (m.interactionType === "FRACTION_INPUT") return { type: "FRACTION_INPUT", inputLabel: "Phân số tối giản", inputMode: "text" }; if (m.interactionType === "DECIMAL_INPUT") return { type: "DECIMAL_INPUT", inputLabel: "Kết quả", inputMode: "decimal" }; if (m.interactionType === "TABLE_OR_CHART_RESPONSE") return { type: "TABLE_OR_CHART_RESPONSE", inputLabel: "Giá trị hoặc hàng dữ liệu", inputMode: "text" }; return { type: "INTEGER_INPUT", inputLabel: "Kết quả", inputMode: "numeric" }; }
 function validateModel(contract: WaveEOutcomeContract, model: WaveENormalizedProblemModel, solution: WaveESolution, prompt: string, interaction: ProductInteractionContract, visual: ProductVisual) {
   if (model.outcomeId !== contract.outcomeId || model.grade !== contract.grade || model.variantId !== contract.canonicalVariantId || model.engineVersion !== WAVE_E_ENGINE_VERSION) throw new GenerationV2Error("VALIDATION_FAILED");
   if (prompt !== promptFor(model) || interaction.type !== model.interactionType || visual.type !== WAVE_E_CAPABILITY_METADATA[model.variantId].visualType) throw new GenerationV2Error("VALIDATION_FAILED");

@@ -10,6 +10,8 @@ export default defineConfig([
     ".next-owner-local-project004/**",
     ".next-remote-dev-project004/**",
     ".next-generated-pilot-project004/**",
+    ".sprint-10b-runtime-*/**",
+    ".sprint-10b-secret-*/**",
     "out/**",
     "build/**",
     "supabase/.temp/**",

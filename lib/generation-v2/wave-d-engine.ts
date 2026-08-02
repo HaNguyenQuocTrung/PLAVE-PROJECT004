@@ -70,7 +70,14 @@ const reduce = (numerator: number, denominator: number): FractionValue => {
   const divisor = gcd(numerator, denominator);
   return { numerator: sign * numerator / divisor, denominator: sign * denominator / divisor };
 };
-const rounded = (value: number, places = 2) => Number(value.toFixed(places));
+const rounded = (value: number, places = 2) => {
+  const factor = 10 ** places;
+  // Generated operands are bounded integers/decimal constants. The small
+  // tolerance removes IEEE-754 representation drift at an exact decimal tie
+  // (for example 7.065 represented just below the midpoint) without changing
+  // any value at the requested precision.
+  return Math.round((value + 1e-10) * factor) / factor;
+};
 const display = (value: CanonicalResponse): string => {
   if (typeof value === "number") return String(value).replace(".", ",");
   if (typeof value === "string") return value;
@@ -307,7 +314,7 @@ function buildModel(contract: WaveDOutcomeContract, input: GenerateQuestionInput
     case "AREA_PERIMETER": {
       const a = random.int(3, 12 + level * 4); const b = random.int(2, 9 + level * 3); const c = random.int(2, 8);
       const operation = level === 1 ? "RECTANGLE_AREA" : level === 2 ? "TRIANGLE_AREA" : "TRAPEZOID_AREA";
-      return makeModel(contract, input, random, { operation, values: [a, b, c], fingerprint: `${operation}:band-${Math.floor(a / 4)}:orientation-${random.int(0, 3)}`, meta: { shape: operation.replace("_AREA", ""), unit: "cm" } });
+      return makeModel(contract, input, random, { operation, values: operation === "TRAPEZOID_AREA" ? [a, b, c] : [a, b], labels: operation === "RECTANGLE_AREA" ? ["chiều dài", "chiều rộng"] : operation === "TRIANGLE_AREA" ? ["đáy", "chiều cao"] : ["đáy lớn", "chiều cao", "đáy nhỏ"], fingerprint: `${operation}:band-${Math.floor(a / 4)}:orientation-${random.int(0, 3)}`, meta: { shape: operation.replace("_AREA", ""), unit: "cm" } });
     }
     case "CIRCLE_ANGLE_RELATION": {
       const inscribed = random.pick([20, 25, 30, 35, 40, 45, 50, 60]);
@@ -501,8 +508,29 @@ function buildModel(contract: WaveDOutcomeContract, input: GenerateQuestionInput
     }
     case "SOLID_SURFACE_VOLUME": {
       const shape = contract.grade <= 6 ? "RECTANGULAR_PRISM" : contract.grade === 7 ? "TRIANGULAR_PRISM" : contract.grade === 8 ? "SQUARE_PYRAMID" : random.pick(["CYLINDER", "CONE", "SPHERE"] as const);
-      const a = random.int(2, 8 + level * 2); const b = random.int(2, 7 + level); const c = shape === "SPHERE" ? a : random.int(2, 9 + level);
-      return makeModel(contract, input, random, { operation: level === 1 ? "VOLUME" : "SURFACE_MEASURE", values: [a, b, c], scale: 100, fingerprint: `${shape}:${level}:dimension-band-${Math.floor(a / 3)}-${Math.floor(b / 3)}`, meta: { shape, unit: "cm", pi: 3.14 } });
+      const operation = level === 1 ? "VOLUME" : "SURFACE_MEASURE";
+      if (shape === "RECTANGULAR_PRISM") {
+        const length = random.int(3, 12); const width = random.int(2, 9); const height = random.int(2, 10);
+        return makeModel(contract, input, random, { operation, values: [length, width, height], labels: ["chiều dài", "chiều rộng", "chiều cao"], scale: 100, fingerprint: `${shape}:${operation}:${length}-${width}-${height}`, meta: { shape, unit: "cm", pi: 3.14 } });
+      }
+      if (shape === "TRIANGULAR_PRISM") {
+        const [base0, height0, hypotenuse0] = random.pick([[3, 4, 5], [5, 12, 13], [6, 8, 10]] as const); const factor = random.int(1, 2); const length = random.int(3, 12);
+        return makeModel(contract, input, random, { operation, values: [base0 * factor, height0 * factor, length, hypotenuse0 * factor], labels: ["cạnh đáy tam giác vuông", "chiều cao tam giác vuông", "chiều dài lăng trụ", "cạnh huyền đáy"], scale: 100, fingerprint: `${shape}:${operation}:${base0}-${height0}:factor-${factor}:length-${length}`, meta: { shape, unit: "cm", pi: 3.14 } });
+      }
+      if (shape === "SQUARE_PYRAMID") {
+        const [halfBase0, height0, slant0] = random.pick([[3, 4, 5], [5, 12, 13], [6, 8, 10]] as const); const factor = random.int(1, 2); const baseSide = 2 * halfBase0 * factor; const height = height0 * factor; const slantHeight = slant0 * factor;
+        return makeModel(contract, input, random, { operation, values: [baseSide, height, slantHeight], labels: ["cạnh đáy vuông", "chiều cao hình chóp", "đường cao mặt bên"], scale: 100, fingerprint: `${shape}:${operation}:${halfBase0}-${height0}:factor-${factor}`, meta: { shape, unit: "cm", pi: 3.14 } });
+      }
+      if (shape === "SPHERE") {
+        const radius = random.int(2, 10);
+        return makeModel(contract, input, random, { operation, values: [radius], labels: ["bán kính"], scale: 100, fingerprint: `${shape}:${operation}:radius-${radius}`, meta: { shape, unit: "cm", pi: 3.14 } });
+      }
+      if (shape === "CONE") {
+        const [radius0, height0, slant0] = random.pick([[3, 4, 5], [5, 12, 13], [6, 8, 10]] as const); const factor = random.int(1, 2);
+        return makeModel(contract, input, random, { operation, values: [radius0 * factor, height0 * factor, slant0 * factor], labels: ["bán kính đáy", "chiều cao", "đường sinh"], scale: 100, fingerprint: `${shape}:${operation}:${radius0}-${height0}:factor-${factor}`, meta: { shape, unit: "cm", pi: 3.14 } });
+      }
+      const radius = random.int(2, 10); const height = random.int(3, 14);
+      return makeModel(contract, input, random, { operation, values: [radius, height], labels: ["bán kính đáy", "chiều cao"], scale: 100, fingerprint: `${shape}:${operation}:radius-${radius}:height-${height}`, meta: { shape, unit: "cm", pi: 3.14 } });
     }
     case "SPATIAL_POSITION": {
       const relation = random.pick(["ABOVE", "BELOW", "LEFT", "RIGHT", "BETWEEN", "IN_FRONT"] as const);
@@ -559,8 +587,13 @@ function buildModel(contract: WaveDOutcomeContract, input: GenerateQuestionInput
       return makeModel(contract, input, random, { operation: "IDENTIFY_SPECIAL_LINE", values: [level], fingerprint: `${line}:orientation-${random.int(0, 7)}:level-${level}`, meta: { shape: "TRIANGLE_SPECIAL_LINE", line } });
     }
     case "UNIT_CONVERSION_MEASUREMENT": {
-      const factor = random.pick(contract.grade <= 2 ? [10, 100, 1_000] : [10, 100, 1_000, 10_000]); const value = random.int(2, 50 + level * 20); const direction = random.int(0, 1);
-      return makeModel(contract, input, random, { operation: direction ? "MULTIPLY_UNIT_FACTOR" : "DIVIDE_UNIT_FACTOR", values: [value, factor], scale: factor, fingerprint: `unit-factor-${factor}:direction-${direction}:band-${Math.floor(value / 10)}`, meta: { unit: "đơn vị lớn", targetUnit: "đơn vị nhỏ" } });
+      if (contract.outcomeId === "MOET2018-G1-GEO-P023-008") {
+        const value = random.int(2, 100);
+        return makeModel(contract, input, random, { operation: "READ_CENTIMETER_MEASURE", values: [value], scale: 1, fingerprint: `read-centimeter:${Math.floor(value / 10)}:level-${level}`, meta: { unit: "cm", targetUnit: "cm" } });
+      }
+      const factor = random.pick(contract.grade <= 2 ? [10, 100, 1_000] : [10, 100, 1_000, 10_000]); const value = random.int(2, 50 + level * 20); const multiply = random.int(0, 1) === 1;
+      const units = factor === 10 ? ["cm", "mm"] : factor === 100 ? ["m", "cm"] : factor === 1_000 ? ["l", "ml"] : ["m²", "cm²"];
+      return makeModel(contract, input, random, { operation: multiply ? "MULTIPLY_UNIT_FACTOR" : "DIVIDE_UNIT_FACTOR", values: [value, factor], scale: factor, fingerprint: `unit-factor-${factor}:direction-${multiply ? "large-small" : "small-large"}:band-${Math.floor(value / 10)}`, meta: { unit: multiply ? units[0] : units[1], targetUnit: multiply ? units[1] : units[0] } });
     }
     case "UNIT_FRACTION_MODEL": {
       const denominator = random.pick([2, 3, 4, 5, 6, 8, 10]);
@@ -661,7 +694,25 @@ function solveModel(m: WaveDNormalizedProblemModel): SemanticSolution {
     case "SIMILARITY_THALES": { const answer = m.operation === "SIMILARITY_RATIO" ? v[1]! : m.operation === "THALES_MISSING_LENGTH" ? v[4]! : v[4]!; return result(answer, [String(v[0]! + v[1]!), String(v[3]!), String(rounded(v[4]! / v[1]!, 2))], [`Tỉ số đồng dạng là ${v[1]}.`, `${v[3]} × ${v[1]} = ${v[4]}.`], "Ghép đúng các cạnh tương ứng."); }
     case "SOLID_NET": { const solid = shapeLabel(String(m.meta.shape)); const answer = `hình khai triển hợp lệ của ${solid}`; return result(answer, ["hình bị chồng mặt khi gấp", "hình thiếu một mặt", "các mặt kề sai vị trí"], [`Đếm đủ các mặt của ${solid}.`, "Kiểm tra các mặt kề khi gấp."], "Hình khai triển hợp lệ không chồng mặt."); }
     case "SOLID_PROPERTIES": { const shape = String(m.meta.shape); const facts: Record<string, string> = { CUBE: "6 mặt vuông, 12 cạnh, 8 đỉnh", RECTANGULAR_PRISM: "6 mặt, 12 cạnh, 8 đỉnh", TRIANGULAR_PRISM: "2 đáy tam giác song song", QUADRILATERAL_PRISM: "2 đáy tứ giác song song", TRIANGULAR_PYRAMID: "đáy tam giác và 3 mặt bên", SQUARE_PYRAMID: "đáy vuông và 4 mặt bên", CONE: "một đáy tròn và một đỉnh", CYLINDER: "hai đáy tròn song song", SPHERE: "mọi điểm trên mặt cầu cách tâm bằng bán kính" }; const answer = facts[shape]!; return result(answer, ["không có mặt đáy", "mọi mặt đều là hình tròn", "chỉ có một cạnh", "không có tâm"].filter((item) => item !== answer), [`Nhận dạng ${shapeLabel(shape)}.`, `Thuộc tính đúng: ${answer}.`], "Phân biệt mặt, cạnh và đỉnh."); }
-    case "SOLID_SURFACE_VOLUME": { const [a, b, c] = v; const shape = String(m.meta.shape); let answer: number; if (m.operation === "VOLUME") answer = shape === "CYLINDER" ? rounded(3.14 * a * a * c, 2) : shape === "CONE" ? rounded(3.14 * a * a * c / 3, 2) : shape === "SPHERE" ? rounded(4 * 3.14 * a ** 3 / 3, 2) : shape === "SQUARE_PYRAMID" ? rounded(a * a * c / 3, 2) : a * b * c; else answer = shape === "CYLINDER" ? rounded(2 * 3.14 * a * c, 2) : shape === "CONE" ? rounded(3.14 * a * c, 2) : shape === "SPHERE" ? rounded(4 * 3.14 * a * a, 2) : 2 * (a * b + b * c + a * c); return result(answer, [String(a * b * c), String(2 * (a + b + c)), String(rounded(answer * 3, 2))].filter((item) => item !== String(answer)), [`Xác định ${shapeLabel(shape)} và đại lượng ${operationLabel(m.operation)}.`, `Thay kích thước vào công thức được ${answer}.`], "Kiểm tra đơn vị bình phương hay lập phương."); }
+    case "SOLID_SURFACE_VOLUME": {
+      const [a, b, c, d] = v; const shape = String(m.meta.shape); let answer: number;
+      if (m.operation === "VOLUME") {
+        answer = shape === "CYLINDER" ? rounded(3.14 * a! ** 2 * b!, 2)
+          : shape === "CONE" ? rounded(3.14 * a! ** 2 * b! / 3, 2)
+            : shape === "SPHERE" ? rounded(4 * 3.14 * a! ** 3 / 3, 2)
+              : shape === "SQUARE_PYRAMID" ? rounded(a! ** 2 * b! / 3, 2)
+                : shape === "TRIANGULAR_PRISM" ? rounded(a! * b! * c! / 2, 2)
+                  : a! * b! * c!;
+      } else {
+        answer = shape === "CYLINDER" ? rounded(2 * 3.14 * a! * (a! + b!), 2)
+          : shape === "CONE" ? rounded(3.14 * a! * (a! + c!), 2)
+            : shape === "SPHERE" ? rounded(4 * 3.14 * a! ** 2, 2)
+              : shape === "SQUARE_PYRAMID" ? rounded(a! ** 2 + 2 * a! * c!, 2)
+                : shape === "TRIANGULAR_PRISM" ? rounded(a! * b! + (a! + b! + d!) * c!, 2)
+                  : 2 * (a! * b! + b! * c! + a! * c!);
+      }
+      return result(answer, [String((a ?? 1) * (b ?? 1) * (c ?? 1)), String(2 * ((a ?? 0) + (b ?? 0) + (c ?? 0))), String(rounded(answer * 3, 2))].filter((item) => item !== String(answer)), [`Xác định ${shapeLabel(shape)} và đại lượng ${operationLabel(m.operation)}.`, `Dùng đúng các kích thước đã ghi, thay vào công thức được ${answer}.`], "Kiểm tra đơn vị bình phương hay lập phương.");
+    }
     case "SPATIAL_POSITION": { const answer = ({ ABOVE: "ở trên", BELOW: "ở dưới", LEFT: "bên trái", RIGHT: "bên phải", BETWEEN: "ở giữa", IN_FRONT: "ở trước" } as Record<string, string>)[String(m.meta.relation)]!; return result(answer, ["ở trên", "ở dưới", "bên trái", "bên phải", "ở giữa", "ở sau"].filter((item) => item !== answer), [`Quan sát vị trí của ${String(m.meta.objectA)} so với ${String(m.meta.objectB)}.`, `Quan hệ là ${answer}.`], "Nói rõ vật nào được so với vật nào."); }
     case "SPEED_DISTANCE_TIME": { const answer = m.operation === "READ_SPEED_UNIT" ? "km/h" : v[2]!; return result(answer, ["km", "giờ", "m²", String(v[0]! + v[1]!)].filter((item) => item !== String(answer)), [m.operation === "READ_SPEED_UNIT" ? "Vận tốc là quãng đường đi trong một đơn vị thời gian." : `${v[0]} × ${v[1]} = ${v[2]} km.`], "Kiểm tra đơn vị vận tốc, thời gian và quãng đường."); }
     case "SYMMETRY_REGULARITY": { const answer = v[0]!; return result(answer, [String(v[0]! - 1), String(v[0]! + 1), "2"].filter((item) => item !== String(answer)), [`Đa giác đều ${v[0]} cạnh có ${v[0]} trục/nhịp quay tương ứng.`, `Kết quả là ${v[0]}.`], "Phân biệt phép quay với phép phản xạ."); }
@@ -672,7 +723,7 @@ function solveModel(m: WaveDNormalizedProblemModel): SemanticSolution {
     case "TRIANGLE_CONGRUENCE": { const criterion = String(m.meta.criterion); return result(criterion, ["AAA", "SSA", "chỉ một cạnh", "chỉ một góc"].filter((item) => item !== criterion), [`Đối chiếu các cạnh/góc tương ứng.`, `Trường hợp hợp lệ là ${criterion}.`], "AAA chỉ chứng minh đồng dạng, không đủ cho bằng nhau."); }
     case "TRIANGLE_PROPERTIES": { const answer = m.operation === "TRIANGLE_ANGLE_SUM" ? v[2]! : m.operation === "TRIANGLE_INEQUALITY" ? "tạo được tam giác" : m.operation === "ISOSCELES_BASE_ANGLE" ? v[0]! : "đoạn vuông góc"; return result(answer, ["không tạo được tam giác", String(v[0]!), String(v[1]!), "đường xiên"].filter((item) => item !== String(answer)), [`Áp dụng ${operationLabel(m.operation)}.`, `Kết quả là ${display(answer)}.`], "Kiểm tra tổng góc hoặc bất đẳng thức tam giác."); }
     case "TRIANGLE_SPECIAL_LINES": { const names: Record<string, string> = { ALTITUDE: "đường cao", PERPENDICULAR_BISECTOR: "đường trung trực", MEDIAN: "đường trung tuyến", ANGLE_BISECTOR: "đường phân giác", ANGLE_BISECTOR_CONSTRUCTION: "dựng tia phân giác bằng hai cung tròn", SOFTWARE_CONSTRUCTION: "dựng và kiểm tra đường đặc biệt bằng công cụ hình học", INTERNAL_ANGLE_BISECTOR_THEOREM: "đường phân giác chia cạnh đối diện theo tỉ lệ hai cạnh kề" }; const answer = names[String(m.meta.line)]!; return result(answer, Object.values(names).filter((item) => item !== answer), [`Đối chiếu điểm đi qua và quan hệ vuông góc/chia đôi.`, `Kết luận đúng là ${answer}.`], "Nêu đủ điều kiện hoặc tỉ lệ của đường đặc biệt."); }
-    case "UNIT_CONVERSION_MEASUREMENT": { const answer = m.operation === "MULTIPLY_UNIT_FACTOR" ? v[0]! * v[1]! : rounded(v[0]! / v[1]!, 4); return result(answer, [String(v[0]!), String(v[0]! * 10), String(v[0]! / 10)].filter((item) => item !== String(answer)), [`Hệ số đổi là ${v[1]}.`, `${m.operation === "MULTIPLY_UNIT_FACTOR" ? "Nhân" : "Chia"} để được ${answer}.`], "Chỉ đổi giữa các đơn vị cùng đại lượng."); }
+    case "UNIT_CONVERSION_MEASUREMENT": { const answer = m.operation === "READ_CENTIMETER_MEASURE" ? v[0]! : m.operation === "MULTIPLY_UNIT_FACTOR" ? v[0]! * v[1]! : rounded(v[0]! / v[1]!, 4); return result(answer, [String(v[0]! + 1), String(v[0]! * 10), String(v[0]! / 10)].filter((item) => item !== String(answer)), [m.operation === "READ_CENTIMETER_MEASURE" ? `Đoạn thẳng dài ${v[0]} cm.` : `Hệ số đổi là ${v[1]}.`, m.operation === "READ_CENTIMETER_MEASURE" ? `Số đo cần viết là ${answer} cm.` : `${m.operation === "MULTIPLY_UNIT_FACTOR" ? "Nhân" : "Chia"} để được ${answer}.`], "Chỉ đổi giữa các đơn vị cùng đại lượng."); }
     case "UNIT_FRACTION_MODEL": { const answer = reduce(1, v[1]!); return result(answer, [`${v[1]}/1`, `1/${v[1]! + 1}`, `2/${v[1]}`], [`Một trong ${v[1]} phần bằng nhau là ${display(answer)}.`], "Phân số đơn vị luôn có tử số 1."); }
     case "VIETE_RELATION": return result([{ leftId: "x1", rightId: String(Math.min(v[2]!, v[3]!)) }, { leftId: "x2", rightId: String(Math.max(v[2]!, v[3]!)) }], [`${v[0]}; ${v[1]}`, `${-v[2]}; ${-v[3]}`], [`x₁ + x₂ = ${v[0]}.`, `x₁x₂ = ${v[1]}.`, `Hai nghiệm là ${v[2]} và ${v[3]}.`], "Kiểm tra đồng thời tổng và tích.");
     case "VISUAL_OPERATION_MODEL": { const answer = m.operation === "ADD" ? v[0]! + v[1]! : m.operation === "SUBTRACT" ? v[0]! - v[1]! : m.operation === "MULTIPLY" ? v[0]! * v[1]! : v[0]! / v[1]!; return result(answer, [String(v[0]! + v[1]!), String(Math.abs(v[0]! - v[1]!)), String(v[0]! * v[1]!)].filter((item) => item !== String(answer)), [`Mô hình thể hiện ${operationLabel(m.operation)}.`, `Kết quả là ${answer}.`], "Nói xem mô hình là thêm, bớt, nhóm đều hay chia đều."); }
@@ -686,19 +737,45 @@ function promptFor(m: WaveDNormalizedProblemModel): string {
   switch (cap) {
     case "ANGLE_MEASUREMENT": return `${prefix} Góc trong hình có số đo ${v[0]}°. ${m.operation === "READ_ANGLE" ? "Nhập số đo góc." : "Đó là loại góc nào?"}`;
     case "APPLIED_GEOMETRY_MEASUREMENT": return `${prefix} Hình chữ nhật có chiều dài ${v[0]} cm và chiều rộng ${v[1]} cm. ${m.operation === "RECTANGLE_PERIMETER" ? "Tính chu vi." : "Tính diện tích."}`;
-    case "APPLIED_MEASUREMENT_MODEL": return `${prefix} Hai số đo cùng loại là ${v[0]} và ${v[1]}, hệ số đổi là ${v[2]}. Hãy tìm số đo theo yêu cầu của mô hình.`;
-    case "APPLIED_RATIONAL_REASONING": return `${prefix} Một vị trí thay đổi ${v[0]}/${v[1]} m theo chiều có dấu. Viết độ thay đổi dưới dạng phân số tối giản.`;
-    case "AREA_PERIMETER": return `${prefix} Mô hình có các kích thước ${v.join(" cm; ")}. Tính ${m.operation === "RECTANGLE_AREA" ? "diện tích hình chữ nhật" : m.operation === "TRIANGLE_AREA" ? "diện tích tam giác" : "diện tích hình thang"}.`;
+    case "APPLIED_MEASUREMENT_MODEL": return m.operation === "SELECT_MEASURE"
+      ? `${prefix} Một vật có số đo ${v[0]} ${String(m.meta.unit)}. Hãy nhập số đo đó theo đơn vị ${String(m.meta.unit)}.`
+      : m.operation === "COMBINE_MEASURES"
+        ? `${prefix} Hai số đo cùng đơn vị là ${v[0]} ${String(m.meta.unit)} và ${v[1]} ${String(m.meta.unit)}. Cộng hai số đo và ghi kết quả theo ${String(m.meta.unit)}.`
+        : `${prefix} Hai số đo là ${v[0]} ${String(m.meta.unit)} và ${v[1]} ${String(m.meta.unit)}. Cộng chúng rồi đổi sang ${String(m.meta.targetUnit)}, biết 1 ${String(m.meta.targetUnit)} = ${v[2]} ${String(m.meta.unit)}.`;
+    case "APPLIED_RATIONAL_REASONING": return `${prefix} Một vị trí ${v[0]! < 0 ? "giảm" : "tăng"} ${Math.abs(v[0]!)}/${v[1]} m. Viết độ thay đổi có dấu dưới dạng phân số tối giản.`;
+    case "AREA_PERIMETER": return `${prefix} Mô hình có các kích thước ${v.map((value) => `${value} cm`).join("; ")}. Tính ${m.operation === "RECTANGLE_AREA" ? "diện tích hình chữ nhật" : m.operation === "TRIANGLE_AREA" ? "diện tích tam giác" : "diện tích hình thang"}.`;
     case "CIRCLE_ANGLE_RELATION": return m.operation === "IDENTIFY_CIRCLE_ANGLE"
       ? `${prefix} Góc có đỉnh nằm trên đường tròn và hai cạnh chứa hai dây cung. Hãy gọi tên góc.`
       : m.operation === "CENTRAL_FROM_INSCRIBED"
         ? `${prefix} Một góc nội tiếp chắn cung đã cho có số đo ${v[0]}°. Tính góc ở tâm cùng chắn cung.`
         : `${prefix} Góc ở tâm chắn cung đã cho có số đo ${v[1]}°. Tính góc nội tiếp cùng chắn cung.`;
-    case "CIRCLE_INSCRIBED_CIRCUMSCRIBED": return `${prefix} Hình có dữ kiện cạnh ${v[0]} cm và góc ${v[1]}°. Áp dụng quan hệ ${operationLabel(m.operation)} để tìm kết quả.`;
-    case "CIRCLE_MEASURE": return `${prefix} Đường tròn có bán kính ${v[0]} cm, góc ở tâm ${v[1]}°${m.operation === "ANNULUS_AREA" ? ` và bán kính trong ${v[2]} cm` : ""}. Tính ${operationLabel(m.operation)} với π=3,14.`;
-    case "CIRCLE_RELATION": return `${prefix} Hai bán kính/đại lượng là ${v[0]} và ${v[1]}, khoảng cách là ${v[2]}. Chọn kết luận đúng về ${operationLabel(m.operation)}.`;
+    case "CIRCLE_INSCRIBED_CIRCUMSCRIBED": return m.operation === "INCENTER_DEFINITION"
+      ? `${prefix} Trong một tam giác, tâm đường tròn nội tiếp là giao điểm của những đường nào?`
+      : m.operation === "CIRCUMCENTER_DEFINITION"
+        ? `${prefix} Trong một tam giác, tâm đường tròn ngoại tiếp là giao điểm của những đường nào?`
+        : m.operation === "CYCLIC_QUADRILATERAL_ANGLE"
+          ? `${prefix} Một tứ giác nội tiếp có một góc bằng ${v[1]}°. Tính số đo góc đối diện.`
+          : m.operation === "RECTANGLE_CIRCUMRADIUS"
+            ? `${prefix} Hình chữ nhật nội tiếp đường tròn có đường chéo dài ${v[0]} cm. Tính bán kính đường tròn ngoại tiếp.`
+            : m.operation === "RIGHT_TRIANGLE_CIRCUMRADIUS"
+              ? `${prefix} Tam giác vuông có cạnh huyền dài ${v[0]} cm. Tính bán kính đường tròn ngoại tiếp.`
+              : `${prefix} Tam giác đều có cạnh dài ${v[0]} cm. Tính bán kính đường tròn nội tiếp và làm tròn đến hai chữ số thập phân.`;
+    case "CIRCLE_MEASURE": return m.operation === "ANNULUS_AREA"
+      ? `${prefix} Một vành khuyên có bán kính ngoài ${v[0]} cm và bán kính trong ${v[2]} cm. Tính diện tích với π=3,14.`
+      : m.operation === "ARC_LENGTH" || m.operation === "SECTOR_AREA"
+        ? `${prefix} Đường tròn có bán kính ${v[0]} cm và góc ở tâm ${v[1]}°. Tính ${operationLabel(m.operation)} với π=3,14.`
+        : `${prefix} Đường tròn có bán kính ${v[0]} cm. Tính ${operationLabel(m.operation)} với π=3,14.`;
+    case "CIRCLE_RELATION": return m.operation === "TANGENT_PROPERTY"
+      ? `${prefix} Chọn tất cả tính chất đúng của tiếp tuyến và bán kính đi qua tiếp điểm.`
+      : m.operation === "CIRCLE_SYMMETRY"
+        ? `${prefix} Chọn tất cả tính chất đối xứng đúng của đường tròn.`
+        : m.operation === "CHORD_DIAMETER_COMPARE"
+          ? `${prefix} Chọn kết luận đúng khi so sánh độ dài một dây bất kỳ với đường kính của cùng đường tròn.`
+          : m.operation === "LINE_CIRCLE_POSITION"
+            ? `${prefix} Đường tròn có bán kính ${v[0]} cm; khoảng cách từ tâm đến đường thẳng là ${v[2]} cm. Xác định vị trí tương đối của đường thẳng và đường tròn.`
+            : `${prefix} Hai đường tròn có bán kính ${v[0]} cm và ${v[1]} cm; khoảng cách hai tâm là ${v[2]} cm. Xác định vị trí tương đối của hai đường tròn.`;
     case "COORDINATE_POINT": return `${prefix} Điểm M có hoành độ ${v[0]} và tung độ ${v[1]}. Ghép đúng hai tọa độ.`;
-    case "DIRECT_MEASUREMENT_ESTIMATION": return `${prefix} ${String(m.meta.instrument)} chỉ ${v[0]} ${String(m.meta.unit)}. Nhập hoặc chọn số đo phù hợp.`;
+    case "DIRECT_MEASUREMENT_ESTIMATION": return `${prefix} ${String(m.meta.instrument).replace(/^./u, (letter) => letter.toLocaleUpperCase("vi"))} chỉ ${v[0]} ${String(m.meta.unit)}. ${m.interactionType === "SINGLE_CHOICE" ? "Chọn số đo phù hợp." : "Nhập số đo phù hợp."}`;
     case "DIVISION_REMAINDER": return `${prefix} Thực hiện phép chia ${v[0]} cho ${v[1]}. Xác định thương và số dư.`;
     case "EARLY_ARITHMETIC_APPLICATION": return `${prefix} Có ${v[0]} ${String(m.meta.object)}${m.operation === "ADD" ? ` và thêm ${v[1]}` : ""}. Có tất cả bao nhiêu?`;
     case "FUNCTION_MODEL_RECOGNITION": return `${prefix} Bảng có các cặp (${v[0]};${v[1]}) và (${v[2]};${v[3]}). Quan hệ này có phải hàm số không?`;
@@ -736,22 +813,22 @@ function promptFor(m: WaveDNormalizedProblemModel): string {
           : m.operation === "IDENTIFY_SUFFICIENT_CONDITION"
             ? `${prefix} Chọn dấu hiệu đủ để nhận biết ${shapeLabel(String(m.meta.shape))}.`
             : `${prefix} ${shapeLabel(String(m.meta.shape))} đã được xoay. Chọn thuộc tính xác định đúng của hình.`;
-    case "POLYLINE_PERIMETER": return `${prefix} Đường gấp khúc có các đoạn dài ${v.join(" cm; ")}. Tính tổng độ dài.`;
+    case "POLYLINE_PERIMETER": return `${prefix} Đường gấp khúc có các đoạn dài ${v.map((value) => `${value} cm`).join("; ")}. Tính tổng độ dài.`;
     case "POLYNOMIAL_REASONING": return `${prefix} Với P(x)=${v[0]}x²${v[1]! >= 0 ? "+" : ""}${v[1]}x${v[2]! >= 0 ? "+" : ""}${v[2]} và x=${v[3]}, hãy ${operationLabel(m.operation)}.`;
     case "PYTHAGORE_APPLICATION": return m.operation === "FIND_HYPOTENUSE"
       ? `${prefix} Tam giác vuông có hai cạnh góc vuông dài ${v[0]} m và ${v[1]} m. Dùng định lí Pythagore tìm cạnh huyền.`
       : `${prefix} Tam giác vuông có một cạnh góc vuông dài ${v[0]} m và cạnh huyền dài ${v[2]} m. Dùng định lí Pythagore tìm cạnh góc vuông còn lại.`;
-    case "QUADRATIC_GRAPH_CONSTRUCTION": return `${prefix} Chọn parabol y=${v[0]}(x−(${v[1]}))²${v[2]! >= 0 ? "+" : ""}${v[2]} từ đỉnh và chiều mở.`;
+    case "QUADRATIC_GRAPH_CONSTRUCTION": return `${prefix} Chọn parabol y=${v[0]}(x ${v[1]! >= 0 ? "−" : "+"} ${Math.abs(v[1]!)})² ${v[2]! >= 0 ? "+" : "−"} ${Math.abs(v[2]!)} từ đỉnh và chiều mở.`;
     case "RIGHT_TRIANGLE_TRIGONOMETRY": return m.operation === "FIND_SIDE_BY_RATIO"
       ? `${prefix} Tam giác vuông có một cạnh góc vuông dài ${v[0]} và cạnh huyền dài ${v[2]}. Dùng hệ thức lượng để tìm cạnh góc vuông còn lại.`
-      : `${prefix} Tam giác vuông có hai cạnh góc vuông ${v[0]}, ${v[1]} và cạnh huyền ${v[2]}. Tính ${operationLabel(m.operation)}.`;
+      : `${prefix} Xét góc A của tam giác vuông: cạnh đối diện góc A dài ${v[0]}, cạnh kề góc A dài ${v[1]} và cạnh huyền dài ${v[2]}. Tính ${operationLabel(m.operation)} của góc A.`;
     case "SHAPE_CLASSIFICATION": return `${prefix} Hình được mô tả trong sơ đồ. Chọn đúng tên hình theo cạnh và góc, không theo hướng xoay.`;
     case "SIMILARITY_THALES": return m.operation === "SIMILARITY_RATIO"
       ? `${prefix} Hai hình đồng dạng có một cặp cạnh tương ứng dài ${v[0]} và ${v[2]}. Tìm tỉ số đồng dạng từ hình thứ nhất sang hình thứ hai.`
-      : `${prefix} Hai hình đồng dạng có tỉ số ${v[1]}; một cặp cạnh là ${v[0]} và ${v[2]}, cạnh tương ứng khác ở hình thứ nhất là ${v[3]}. Tìm độ dài tương ứng ở hình thứ hai.`;
+      : `${prefix} Hai hình đồng dạng theo tỉ số từ hình thứ nhất sang hình thứ hai là ${v[1]}. Một cạnh của hình thứ nhất dài ${v[3]}. Tìm độ dài cạnh tương ứng ở hình thứ hai.`;
     case "SOLID_NET": return `${prefix} Chọn hình khai triển có đủ mặt và quan hệ kề đúng cho ${shapeLabel(String(m.meta.shape))}.`;
     case "SOLID_PROPERTIES": return `${prefix} Quan sát ${shapeLabel(String(m.meta.shape))}. Chọn mô tả đúng về mặt, cạnh, đỉnh hoặc yếu tố đặc trưng.`;
-    case "SOLID_SURFACE_VOLUME": return `${prefix} ${shapeLabel(String(m.meta.shape))} có các kích thước ${v.join(" cm; ")}. Tính ${m.operation === "VOLUME" ? "thể tích" : "diện tích bề mặt được yêu cầu"}.`;
+    case "SOLID_SURFACE_VOLUME": return `${prefix} ${shapeLabel(String(m.meta.shape)).replace(/^./u, (letter) => letter.toLocaleUpperCase("vi"))} có ${m.labels.map((label, index) => `${label} ${v[index]} cm`).join(", ")}. Tính ${m.operation === "VOLUME" ? "thể tích (cm³)" : "diện tích toàn phần (cm²)"}${["CYLINDER", "CONE", "SPHERE"].includes(String(m.meta.shape)) ? " với π=3,14" : ""}.`;
     case "SPATIAL_POSITION": return `${prefix} Trong sơ đồ, ${String(m.meta.objectA)} có vị trí nào so với ${String(m.meta.objectB)}?`;
     case "SPEED_DISTANCE_TIME": return `${prefix} Chuyển động có vận tốc ${v[0]} km/h trong ${v[1]} giờ. ${m.operation === "READ_SPEED_UNIT" ? "Chọn đơn vị vận tốc." : "Tính quãng đường."}`;
     case "SYMMETRY_REGULARITY": return `${prefix} Đa giác đều có ${v[0]} cạnh. Xác định ${m.operation === "SYMMETRY_AXES" ? "số trục đối xứng" : "bậc đối xứng quay"}.`;
@@ -768,9 +845,13 @@ function promptFor(m: WaveDNormalizedProblemModel): string {
       ? `${prefix} Tam giác có hai góc ${v[0]}° và ${v[1]}°. Tìm góc còn lại.`
       : m.operation === "ISOSCELES_BASE_ANGLE"
         ? `${prefix} Tam giác cân có góc ở đỉnh ${v[1]}°. Tìm số đo mỗi góc ở đáy.`
-        : `${prefix} Tam giác có dữ kiện ${v.join("; ")}. Áp dụng ${operationLabel(m.operation)} để tìm kết quả.`;
+        : m.operation === "TRIANGLE_INEQUALITY"
+          ? `${prefix} Ba đoạn thẳng dài ${v[0]} cm, ${v[1]} cm và ${v[2]} cm. Chúng có tạo thành một tam giác không?`
+          : `${prefix} Từ điểm đã cho đến đường thẳng, chọn đoạn biểu diễn khoảng cách ngắn nhất.`;
     case "TRIANGLE_SPECIAL_LINES": return `${prefix} Đoạn thẳng trong tam giác có dấu hiệu tương ứng. Đó là đường đặc biệt nào?`;
-    case "UNIT_CONVERSION_MEASUREMENT": return `${prefix} Số đo ${v[0]} cần đổi với hệ số ${v[1]}. Tính giá trị sau khi đổi đúng chiều.`;
+    case "UNIT_CONVERSION_MEASUREMENT": return m.operation === "READ_CENTIMETER_MEASURE"
+      ? `${prefix} Một đoạn thẳng dài ${v[0]} cm. Hãy viết số đo của đoạn thẳng theo xăng-ti-mét (cm).`
+      : `${prefix} Đổi ${v[0]} ${String(m.meta.unit)} sang ${String(m.meta.targetUnit)} bằng cách ${m.operation === "MULTIPLY_UNIT_FACTOR" ? "nhân" : "chia"} với hệ số ${v[1]}.`;
     case "UNIT_FRACTION_MODEL": return `${prefix} Một hình được chia thành ${v[1]} phần bằng nhau và chọn một phần. Viết phân số đơn vị.`;
     case "VIETE_RELATION": return `${prefix} Hai nghiệm có tổng ${v[0]} và tích ${v[1]}. Ghép đúng x₁, x₂.`;
     case "VISUAL_OPERATION_MODEL": return `${prefix} Mô hình ${String(m.meta.object)} biểu diễn ${operationLabel(m.operation)} với các số ${v.join(" và ")}. Tính kết quả.`;
@@ -892,7 +973,7 @@ function visualFor(m: WaveDNormalizedProblemModel): ProductVisual {
 function interactionFor(m: WaveDNormalizedProblemModel, solution: WaveDSolution, random: Random): ProductInteractionContract {
   if (m.interactionType === "SINGLE_CHOICE" || m.interactionType === "CONSTRUCTION_OR_VISUAL_SELECTION") return { type: m.interactionType, options: solution.options, choiceCount: 1 };
   if (m.interactionType === "MULTI_SELECT") return { type: "MULTI_SELECT", options: solution.options, choiceCount: Array.isArray(solution.correct) ? solution.correct.length : 1 };
-  if (m.interactionType === "ORDERING") return { type: "ORDERING", options: random.shuffle(solution.options ?? []), orderedItemIds: Array.isArray(solution.correct) ? solution.correct as readonly string[] : [] };
+  if (m.interactionType === "ORDERING") return { type: "ORDERING", options: random.shuffle(solution.options ?? []) };
   if (m.interactionType === "MATCHING") return { type: "MATCHING", leftItems: solution.leftItems, rightItems: random.shuffle(solution.rightItems ?? []) };
   if (m.interactionType === "FRACTION_INPUT") return { type: "FRACTION_INPUT", inputLabel: "Phân số tối giản", inputMode: "text" };
   if (m.interactionType === "DECIMAL_INPUT") return { type: "DECIMAL_INPUT", inputLabel: "Kết quả", inputMode: "decimal" };

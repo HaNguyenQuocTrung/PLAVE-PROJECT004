@@ -75,6 +75,14 @@ const divide = (a: FractionValue, b: FractionValue) => {
 const fractionText = (value: FractionValue) => `${value.numerator}/${value.denominator}`;
 const scaledText = (value: number, scale: number) => (value / scale).toFixed(Math.log10(scale)).replace(".", ",").replace(/,?0+$/u, "");
 const signedTerm = (coefficient: number, variable = "x") => `${coefficient >= 0 ? "+" : "−"} ${Math.abs(coefficient)}${variable}`;
+const canonicalPolynomial = (coefficient: number, constant: number, variable: "x" | "x^2") => {
+  const variableTerm = coefficient === 0
+    ? ""
+    : `${coefficient < 0 ? "-" : ""}${Math.abs(coefficient) === 1 ? "" : Math.abs(coefficient)}${variable}`;
+  if (!variableTerm) return String(constant);
+  if (constant === 0) return variableTerm;
+  return `${variableTerm}${constant > 0 ? "+" : ""}${constant}`;
+};
 
 const normalize = (value: CanonicalResponse): string => {
   if (typeof value === "number") return String(Number(value.toFixed(8)));
@@ -199,7 +207,9 @@ function buildModel(contract: WaveCOutcomeContract, input: GenerateQuestionInput
     }
     case "FRACTION_APPLICATION": {
       const denominator = random.pick([3, 4, 5, 6, 8, 10]); const numerator = random.int(1, denominator - 1); const quantity = denominator * random.int(3, 15);
-      const second = fraction(random, 12);
+      const second = level === 3
+        ? reduce(random.int(1, Math.max(1, 8 - numerator)), 10)
+        : fraction(random, 12);
       return model(contract, input, random, { operation: level === 1 ? "FRACTION_OF_QUANTITY" : level === 2 ? "FRACTION_REMAINING" : "TWO_FRACTION_STEPS", values: [quantity], rationals: [reduce(numerator, denominator), second], fingerprint: `steps-${level}:denominator-${denominator}:context-${random.int(0, 4)}` });
     }
     case "RATIONAL_OPERATIONS": {
@@ -463,7 +473,7 @@ function solveModel(m: WaveCNormalizedProblemModel): WaveCSolution {
       return { correct: "correct", accepted: ["correct"], options, optionMisconceptions: optionMisconceptions(["wrong-1", "wrong-2", "wrong-3"], "LIKE_TERM_ERROR"), steps: ["Một đồng nhất thức phải đúng với mọi giá trị biến.", "Khai triển lựa chọn đúng để kiểm tra."], nextStep: "Thử thêm x=1 và x=−1 để loại các lựa chọn sai." };
     }
     case "POLYNOMIAL_SIMPLIFICATION": {
-      const [a, b, c, d] = v; const linear = m.operation === "LINEAR"; const xCoefficient = a! + c!; const constant = b! + d!; const result = linear ? `${xCoefficient}x${constant >= 0 ? "+" : ""}${constant}` : `${xCoefficient}x^2${constant >= 0 ? "+" : ""}${constant}`;
+      const [a, b, c, d] = v; const linear = m.operation === "LINEAR"; const xCoefficient = a! + c!; const constant = b! + d!; const result = canonicalPolynomial(xCoefficient, constant, linear ? "x" : "x^2");
       return baseSolution(result, [`Nhóm các hạng tử ${linear ? "bậc nhất" : "bậc hai"} với nhau.`, `Cộng hệ số ${a} và ${c}; cộng hằng số ${b} và ${d}.`, `Dạng thu gọn là ${result}.`], "Thay x=1 vào hai biểu thức để kiểm tra.");
     }
     case "FUNCTION_GRAPH_RECOGNITION": {
@@ -576,7 +586,11 @@ function promptFor(m: WaveCNormalizedProblemModel) {
     case "FRACTION_COMMON_DENOMINATOR": return `${lead}: Viết phân số bằng ${v[0]}/${v[1]} có mẫu số ${v[2]}. Nhập tử số còn thiếu.`;
     case "FRACTION_EQUIVALENCE": return `${lead}: Rút gọn phân số ${fractionText(r[0]!)} về dạng tối giản.`;
     case "NUMERIC_OPERATION_PROPERTIES": return `${lead}: Chọn phép biến đổi giữ nguyên giá trị của biểu thức theo đúng tính chất phép tính.`;
-    case "FRACTION_APPLICATION": return m.operation === "FRACTION_OF_QUANTITY" ? `${lead}: ${context} có ${v[0]} phần bằng nhau về đơn vị đo; sử dụng ${fractionText(r[0]!)} số đó. Tìm lượng đã sử dụng.` : `${lead}: Trong ${context}, một nhiệm vụ dùng ${fractionText(r[0]!)} toàn bộ. Tìm phần còn lại hoặc kết quả sau các bước đã nêu.`;
+    case "FRACTION_APPLICATION": return m.operation === "FRACTION_OF_QUANTITY"
+      ? `${lead}: ${context} có ${v[0]} đơn vị; sử dụng ${fractionText(r[0]!)} số đó. Tìm lượng đã sử dụng.`
+      : m.operation === "FRACTION_REMAINING"
+        ? `${lead}: Trong ${context}, một nhiệm vụ đã dùng ${fractionText(r[0]!)} toàn bộ. Phần chưa dùng chiếm bao nhiêu của toàn bộ? Viết phân số tối giản.`
+        : `${lead}: Trong ${context}, nhóm hoàn thành ${fractionText(r[0]!)} công việc ở bước đầu và ${fractionText(r[1]!)} ở bước sau, nhưng phải loại ${fractionText({ numerator: 1, denominator: 10 })} phần bị tính trùng. Thực tế nhóm đã hoàn thành bao nhiêu phần công việc?`;
     case "RATIONAL_OPERATIONS": return `${lead}: Tính ${fractionText(r[0]!)} ${m.operation === "ADD" ? "+" : m.operation === "SUBTRACT" ? "−" : m.operation === "MULTIPLY" ? "×" : "÷"} ${fractionText(r[1]!)} và rút gọn.`;
     case "DATA_SEQUENCE_RECOGNITION": return `${lead}: Dãy số liệu tại ${context} là ${v.join(", ")}. Sắp xếp theo thứ tự ${m.operation === "DESC" ? "giảm dần" : "tăng dần"}.`;
     case "DATA_INVESTIGATION": return `${lead}: Bảng khảo sát tại ${context} có các giá trị ${m.labels.map((label, index) => `${label}: ${v[index]}`).join("; ")}. ${m.operation === "TOTAL" ? "Tính tổng." : m.operation === "RANGE" ? "Tính khoảng biến thiên (lớn nhất trừ bé nhất)." : "Tính chênh lệch tổng hai nhóm đầu và hai nhóm cuối."}`;
@@ -598,7 +612,7 @@ function promptFor(m: WaveCNormalizedProblemModel) {
     case "RATIO_PROPORTION": return `${lead}: Hoàn thành dãy tỉ số bằng nhau ${v[0]}:${v[1]} = ${v[2]}:□.`;
     case "PROPORTIONAL_REASONING": return `${lead}: Chia ${v[2]} theo tỉ lệ ${v[0]}:${v[1]}. Tìm ${m.operation === "RIGHT_PART" ? "phần thứ hai" : "phần thứ nhất"}.`;
     case "ALGEBRAIC_IDENTITY": return m.operation === "MATCH_IDENTITIES" ? `${lead}: Ghép mỗi hằng đẳng thức với khai triển đúng.` : `${lead}: Chọn đồng nhất thức đúng với mọi giá trị x.`;
-    case "POLYNOMIAL_SIMPLIFICATION": return `${lead}: Thu gọn ${v[0]}${m.operation === "LINEAR" ? "x" : "x²"} ${v[1]! >= 0 ? "+" : "−"} ${Math.abs(v[1]!)} ${signedTerm(v[2]!, m.operation === "LINEAR" ? "x" : "x²")} ${v[3]! >= 0 ? "+" : "−"} ${Math.abs(v[3]!)}. Nhập dạng ax+b hoặc ax^2+b.`;
+    case "POLYNOMIAL_SIMPLIFICATION": return `${lead}: Thu gọn ${v[0]}${m.operation === "LINEAR" ? "x" : "x²"} ${v[1]! >= 0 ? "+" : "−"} ${Math.abs(v[1]!)} ${signedTerm(v[2]!, m.operation === "LINEAR" ? "x" : "x²")} ${v[3]! >= 0 ? "+" : "−"} ${Math.abs(v[3]!)}. Nhập đa thức đã thu gọn; bỏ hạng tử có hệ số 0.`;
     case "FUNCTION_GRAPH_RECOGNITION": return `${lead}: Chọn hình biểu diễn đồ thị của một hàm số theo quy tắc đường thẳng đứng.`;
     case "FUNCTION_EVALUATION": return `${lead}: Cho f(x)=${v[0]}${m.operation === "QUADRATIC_FUNCTION" ? "x²" : "x"} ${v[1]! >= 0 ? "+" : "−"} ${Math.abs(v[1]!)}. Tính f(${v[2]}).`;
     case "POLYNOMIAL_FACTORIZATION": return `${lead}: Phân tích ${m.operation === "COMMON_FACTOR" ? `${v[0]}x+${v[0]! * v[1]!}` : m.operation === "DIFFERENCE_SQUARES" ? `x²−${v[1]! * v[1]!}` : `x²+${2 * v[1]!}x+${v[1]! * v[1]!}`} thành nhân tử. Dùng * cho phép nhân nếu cần.`;
@@ -609,12 +623,12 @@ function promptFor(m: WaveCNormalizedProblemModel) {
     case "LINEAR_SYSTEM_MODELING":
     case "LINEAR_SYSTEM_SOLUTION_CHECK": return `${lead}: Xét hệ ${v[0]}x ${signedTerm(v[1]!, "y")} = ${v[2]}; ${v[3]}x ${signedTerm(v[4]!, "y")} = ${v[5]}. ${m.variantId === "LINEAR_SYSTEM_SOLUTION_CHECK" ? "Chọn cặp (x;y) thỏa cả hai phương trình." : "Tìm x và y."}`;
     case "QUADRATIC_EQUATION_SOLVING": return `${lead}: Giải phương trình x² ${signedTerm(v[1]!, "x")} ${v[2]! >= 0 ? "+" : "−"} ${Math.abs(v[2]!)}=0.${m.interactionType === "ORDERING" ? " Chọn các nghiệm theo thứ tự tăng dần." : ""}`;
-    case "RATIONAL_EQUATION_SOLVING": return `${lead}: Giải phương trình (x−${v[1]})/(x−${v[0]})=0 và kiểm tra điều kiện xác định.`;
+    case "RATIONAL_EQUATION_SOLVING": return `${lead}: Giải phương trình (x ${v[1]! >= 0 ? "−" : "+"} ${Math.abs(v[1]!)})/(x ${v[0]! >= 0 ? "−" : "+"} ${Math.abs(v[0]!)})=0 và kiểm tra điều kiện xác định.`;
     case "PRODUCT_EQUATION_SOLVING": return `${lead}: Giải (${v[0]}x ${v[1]! >= 0 ? "+" : "−"} ${Math.abs(v[1]!)})(${v[2]}x ${v[3]! >= 0 ? "+" : "−"} ${Math.abs(v[3]!)})=0.`;
     case "INEQUALITY_PROPERTY": return `${lead}: Biết ${v[0]}<${v[1]}. Chọn kết luận đúng sau khi ${m.operation === "ADD_BOTH_SIDES" ? "cộng" : "nhân"} hai vế với ${v[2]}.`;
     case "QUADRATIC_EQUATION_RECOGNITION": return `${lead}: Chọn phương trình bậc hai một ẩn đúng định nghĩa.`;
     case "LINEAR_SYSTEM_RECOGNITION": return `${lead}: Chọn hệ hai phương trình bậc nhất hai ẩn.`;
-    case "LINEAR_INEQUALITY_SOLVING": return `${lead}: Giải bất phương trình ${v[0]}x ${v[1]! >= 0 ? "+" : "−"} ${Math.abs(v[1]!)} ${String(m.meta.relation)} ${v[2]}. Nhập dạng x<k, x<=k, x>k hoặc x>=k.`;
+    case "LINEAR_INEQUALITY_SOLVING": return `${lead}: Giải bất phương trình ${v[0]}x ${v[1]! >= 0 ? "+" : "−"} ${Math.abs(v[1]!)} ${String(m.meta.relation)} ${v[2]}. ${m.interactionType === "SINGLE_CHOICE" ? "Chọn tập nghiệm đúng." : "Nhập dạng x<k, x<=k, x>k hoặc x>=k."}`;
     case "LINEAR_INEQUALITY_RECOGNITION": return `${lead}: Chọn bất phương trình bậc nhất một ẩn.`;
   }
 }
@@ -668,7 +682,7 @@ function visualFor(m: WaveCNormalizedProblemModel): ProductVisual {
 
 function interactionFor(m: WaveCNormalizedProblemModel, solution: WaveCSolution, random: Random): ProductInteractionContract {
   if (m.interactionType === "SINGLE_CHOICE" || m.interactionType === "CONSTRUCTION_OR_VISUAL_SELECTION") return { type: m.interactionType, options: random.shuffle(solution.options ?? []), choiceCount: 1 };
-  if (m.interactionType === "ORDERING") return { type: "ORDERING", options: random.shuffle(solution.options ?? []), orderedItemIds: solution.options?.map((item) => item.id) };
+  if (m.interactionType === "ORDERING") return { type: "ORDERING", options: random.shuffle(solution.options ?? []) };
   if (m.interactionType === "MATCHING") return { type: "MATCHING", leftItems: solution.leftItems, rightItems: random.shuffle(solution.rightItems ?? []) };
   if (m.interactionType === "FRACTION_INPUT") return { type: "FRACTION_INPUT", inputLabel: "Phân số tối giản", inputMode: "text" };
   if (m.interactionType === "DECIMAL_INPUT") return { type: "DECIMAL_INPUT", inputLabel: "Kết quả", inputMode: "decimal" };
@@ -707,6 +721,15 @@ function responseInstruction(interaction: ProductInteractionContract) {
   return "Nhập giá trị chính xác.";
 }
 
+function publicValuesFor(model: WaveCNormalizedProblemModel): readonly number[] {
+  // The generated solution of a system is private. Only the six public
+  // coefficients/constants are needed to render and independently solve it.
+  if (model.variantId === "LINEAR_SYSTEM" || model.variantId === "LINEAR_SYSTEM_MODELING") {
+    return model.values.slice(0, 6);
+  }
+  return model.values;
+}
+
 export function generateWaveCQuestion(contract: WaveCOutcomeContract, input: GenerateQuestionInput): GeneratedProductQuestion {
   if (contract.grade !== input.grade) throw new GenerationV2Error("GRADE_MISMATCH");
   const random = new Random(`${contract.outcomeId}:${input.difficulty}:${input.seed}`);
@@ -727,7 +750,7 @@ export function generateWaveCQuestion(contract: WaveCOutcomeContract, input: Gen
     variantVersion: VARIANT_VERSION,
     difficulty: input.difficulty,
     publicPrompt: prompt,
-    publicData: { taskMode: contract.taskMode, operation: normalizedModel.operation, values: normalizedModel.values, rationals: normalizedModel.rationals, labels: normalizedModel.labels, scale: normalizedModel.scale, meta: normalizedModel.meta, structuralFingerprint: normalizedModel.structuralFingerprint, difficultyStructure: normalizedModel.structureLevel },
+    publicData: { taskMode: contract.taskMode, operation: normalizedModel.operation, values: publicValuesFor(normalizedModel), rationals: normalizedModel.rationals, labels: normalizedModel.labels, scale: normalizedModel.scale, meta: normalizedModel.meta, structuralFingerprint: normalizedModel.structuralFingerprint, difficultyStructure: normalizedModel.structureLevel },
     interaction,
     visual,
     accessibility: { prompt, visualAlternative: visual.description, responseInstruction: responseInstruction(interaction) },

@@ -9748,6 +9748,14 @@ body:has(.practice-focus-shell) main {
     box-shadow: 0 -14px 28px -26px rgba(15, 23, 42, 0.8);
   }
 
+  .real-question-card:has([data-generator-v2-student-question])
+    .question-card__actions {
+    position: static;
+    margin: 1.25rem 0 0;
+    padding-inline: 0;
+    box-shadow: none;
+  }
+
   table {
     display: block;
     max-width: 100%;

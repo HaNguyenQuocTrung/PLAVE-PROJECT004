@@ -85,8 +85,7 @@ const interactionPolicy = (capability: WaveDCapabilityId, grade: number, outcome
   if (outcomeId === "MOET2018-G7-NAA-P058-034") return ["SHORT_STRUCTURED_RESPONSE"] as const;
   if (capability === "POLYGON_PROPERTIES") {
     if (POLYGON_CONSTRUCTION_OUTCOMES.has(outcomeId)) return ["CONSTRUCTION_OR_VISUAL_SELECTION"] as const;
-    if (grade <= 4) return ["SINGLE_CHOICE"] as const;
-    return defaults.filter((type) => type !== "CONSTRUCTION_OR_VISUAL_SELECTION");
+    return ["SINGLE_CHOICE"] as const;
   }
   if (capability !== "MONEY_FINANCE") return defaults;
   if (outcomeId === "MOET2018-G8-EXP-P070-001") return ["TABLE_OR_CHART_RESPONSE", "SINGLE_CHOICE"] as const;

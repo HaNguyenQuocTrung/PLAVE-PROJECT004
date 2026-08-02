@@ -1,9 +1,15 @@
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 
 import { LearningAccessState } from "@/components/LearningAccessState";
 import { parseCurriculumAttemptState } from "@/lib/curriculum-runtime/contracts";
 import { getUniversalCurriculumRuntimeFlag } from "@/lib/curriculum-runtime/feature-flag";
 import { getStudentLearningContext } from "@/lib/practice/server";
+import {
+  loadStudentGeneratedPracticeState,
+  toStudentStaticRuntimeState,
+} from "@/lib/generation-v2/student-runtime";
+import { readGeneratorV2StudentRuntimePolicy } from "@/lib/generation-v2/student-runtime-policy";
 
 import { UniversalCurriculumRunner } from "./UniversalCurriculumRunner";
 
@@ -35,8 +41,36 @@ export default async function CurriculumPracticePage({ params }: PageProps) {
       />
     );
   }
-  if (access.grade === 1) {
+  if (
+    access.grade === 1 &&
+    !readGeneratorV2StudentRuntimePolicy().globalEnabled
+  ) {
     return <LearningAccessState kind="NOT_FOUND" />;
+  }
+  const requestHeaders = await headers();
+  const host = requestHeaders.get("host") ?? "invalid.local";
+  const forwardedProtocol = requestHeaders.get("x-forwarded-proto");
+  const protocol = forwardedProtocol === "https" ? "https" : "http";
+  const runtimeRequest = new Request(
+    `${protocol}://${host}/curriculum-practice/${attemptId}`,
+  );
+  const generated = await loadStudentGeneratedPracticeState({
+    request: runtimeRequest,
+    access,
+    attemptId,
+  });
+  if (generated.ok) {
+    if (generated.state.feedback !== null) {
+      return <LearningAccessState kind="UNAVAILABLE" />;
+    }
+    return (
+      <div className="practice-page practice-focus-shell page-shell universal-practice-page">
+        <UniversalCurriculumRunner initialState={generated.state} />
+      </div>
+    );
+  }
+  if (generated.code !== "PRACTICE_UNAVAILABLE") {
+    return <LearningAccessState kind="UNAVAILABLE" />;
   }
   const { data, error } = await access.supabase.rpc(
     "get_curriculum_attempt_state",
@@ -49,7 +83,9 @@ export default async function CurriculumPracticePage({ params }: PageProps) {
   }
   return (
     <div className="practice-page practice-focus-shell page-shell universal-practice-page">
-      <UniversalCurriculumRunner initialState={state} />
+      <UniversalCurriculumRunner
+        initialState={toStudentStaticRuntimeState(state)}
+      />
     </div>
   );
 }

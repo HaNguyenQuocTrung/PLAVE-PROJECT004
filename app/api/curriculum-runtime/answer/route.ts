@@ -13,6 +13,10 @@ import { getUniversalCurriculumRuntimeFlag } from "@/lib/curriculum-runtime/feat
 import { isSameOriginRequest } from "@/lib/practice/errors";
 import { getStudentLearningContext } from "@/lib/practice/server";
 import { safeUpstreamCode } from "@/lib/runtime-diagnostics/server";
+import {
+  submitStudentGeneratorV2Answer,
+  toStudentStaticRuntimeState,
+} from "@/lib/generation-v2/student-runtime";
 
 export async function POST(request: Request) {
   const api = createCurriculumApiResponder(request);
@@ -48,6 +52,26 @@ export async function POST(request: Request) {
       serverErrorCode: "INVALID_INPUT",
     });
   }
+  const generated = await api.trace.measure("generation", () =>
+    submitStudentGeneratorV2Answer({ request, access, ...input }),
+  );
+  if (generated.ok) {
+    if (
+      !generated.state.feedback ||
+      generated.state.feedback.questionId !== input.questionId
+    ) {
+      return api.error("REQUEST_FAILED", {
+        serverErrorCode: "GENERATOR_V2_RESPONSE_MAPPING_FAILED",
+      });
+    }
+    return api.success({ ok: true, data: generated.state });
+  }
+  if (generated.code !== "PRACTICE_UNAVAILABLE") {
+    return api.error(generated.code, {
+      serverErrorCode: generated.code,
+      upstreamCode: safeUpstreamCode(generated.upstreamCode),
+    });
+  }
   const { data, error } = await api.trace.measure(
     "rpc",
     () =>
@@ -79,5 +103,8 @@ export async function POST(request: Request) {
       serverErrorCode: "RESPONSE_MAPPING_FAILED",
     });
   }
-  return api.success({ ok: true, data: state });
+  return api.success({
+    ok: true,
+    data: toStudentStaticRuntimeState(state),
+  });
 }

@@ -475,7 +475,11 @@ function promptFor(model: WaveBNormalizedProblemModel) {
     case "FRACTION_PROPERTIES":
     case "DECIMAL_PROPERTIES":
     case "RATIONAL_PROPERTIES": return `${lead} tại ${context}: Chọn đẳng thức áp dụng đúng tính chất ${String(model.meta.property)}.`;
-    case "DECIMAL_APPLICATION": return `${lead} tại ${context}: Một lượng ban đầu là ${scaledText(a!, model.scale)} kg, thay đổi ${scaledText(b!, model.scale)} kg${model.operation === "ADD_THEN_SUBTRACT" ? ` rồi bớt ${scaledText(c!, model.scale)} kg` : ""}. Tính lượng cuối cùng.`;
+    case "DECIMAL_APPLICATION": return model.operation === "ADD"
+      ? `${lead} tại ${context}: Một lượng ban đầu là ${scaledText(a!, model.scale)} kg, sau đó thêm ${scaledText(b!, model.scale)} kg. Tính lượng cuối cùng.`
+      : model.operation === "SUBTRACT"
+        ? `${lead} tại ${context}: Một lượng ban đầu là ${scaledText(a!, model.scale)} kg, sau đó bớt ${scaledText(b!, model.scale)} kg. Tính lượng còn lại.`
+        : `${lead} tại ${context}: Một lượng ban đầu là ${scaledText(a!, model.scale)} kg, thêm ${scaledText(b!, model.scale)} kg rồi bớt ${scaledText(c!, model.scale)} kg. Tính lượng cuối cùng.`;
     case "DECIMAL_OPERATIONS": return `${lead} tại ${context}: Tính ${scaledText(a!, model.scale)} ${model.operation === "ADD" ? "+" : model.operation === "SUBTRACT" ? "−" : model.operation === "MULTIPLY_INTEGER" ? "×" : ":"} ${model.operation === "ADD" || model.operation === "SUBTRACT" ? scaledText(b!, model.scale) : c}.`;
     case "RATIO_AND_PERCENT": return model.operation === "EQUIVALENT_RATIO" ? `${lead} tại ${context}: Hoàn thành tỉ số tương đương ${a}:${b} = ${c}:?.` : model.operation === "PERCENT_RATIO" ? `${lead} tại ${context}: Tính tỉ số phần trăm của ${a} so với ${b}.` : `${lead} tại ${context}: ${a} là ${b}% của một đại lượng. Tìm đại lượng ban đầu.`;
     case "DIRECT_PROPORTION": return `${lead} tại ${context}: ${a} sản phẩm có giá ${b}. Với ${c} sản phẩm cùng đơn giá, giá trị còn thiếu trong bảng là bao nhiêu?`;
@@ -487,7 +491,7 @@ function promptFor(model: WaveBNormalizedProblemModel) {
     case "RATIONAL_SET": return `${lead} tại ${context}: Phân số −3/5 thuộc tập hợp nào?`;
     case "DECIMAL_CLASSIFICATION": return `${lead} tại ${context}: Phân loại số 0,(3).`;
     case "REAL_NUMBER_CLASSIFICATION": return `${lead} tại ${context}: Phân loại số √2.`;
-    case "RATIONAL_POWER": return `${lead} tại ${context}: Tính ${model.operation === "POWER_OF_POWER" ? `(${fractionText(f1!)}^${a})^${b}` : `${fractionText(f1!)}^${a}`}.`;
+    case "RATIONAL_POWER": return `${lead} tại ${context}: Tính ${model.operation === "POWER_OF_POWER" ? `((${fractionText(f1!)})^${a})^${b}` : `(${fractionText(f1!)})^${a}`}.`;
     case "ABSOLUTE_VALUE": return `${lead} tại ${context}: Tính giá trị tuyệt đối của ${scaledText(a!, model.scale)}.`;
     case "REAL_ORDER": return `${lead} tại ${context}: Sắp xếp ${model.values.map((value) => scaledText(value, model.scale)).join("; ")} theo thứ tự ${model.operation === "DESC" ? "giảm" : "tăng"} dần.`;
     case "PART_WHOLE_BASELINE": throw new GenerationV2Error("MODEL_CONSTRAINT_FAILED");
@@ -545,7 +549,7 @@ function interactionFor(model: WaveBNormalizedProblemModel, solution: WaveBSolut
     const options = model.taskKind === "FRACTION_COMPARE_ORDER" || model.taskKind === "RATIONAL_COMPARE"
       ? model.fractions.map((value, index) => ({ id: model.labels[index]!, label: fractionText(value) }))
       : model.values.map((value, index) => ({ id: model.labels[index]!, label: model.scale === 1 ? String(value) : scaledText(value, model.scale) }));
-    return { type: "ORDERING", options, orderedItemIds: options.map((option) => option.id) };
+    return { type: "ORDERING", options };
   }
   if (typeof solution.correct === "object" && !Array.isArray(solution.correct)) return { type: "FRACTION_INPUT", inputLabel: "Phân số", inputMode: "text" };
   if (["RATIO_AND_PERCENT", "DIRECT_PROPORTION", "INVERSE_PROPORTION", "PROPORTION_PROPERTY"].includes(model.taskKind) && model.operation !== "PERCENT_RATIO" && model.operation !== "RECOVER_WHOLE") return { type: "TABLE_OR_CHART_RESPONSE", inputLabel: "Giá trị ô còn thiếu", inputMode: "numeric" };

@@ -31,8 +31,14 @@ test("owner usefulness manifest has one public-only sample for all 198 canonical
     difficulties: string[];
     interactionTypes: string[];
     privateSolutionIncluded: boolean;
-    ownerDecision: null;
-    samples: { capabilityId: string; ownerDecision: null; ownerNote: string }[];
+    ownerDecision: "APPROVED";
+    overallDecisionSource: "OWNER_EXPLICIT_DECISION";
+    perSampleDecisionDataAvailable: false;
+    samples: {
+      capabilityId: string;
+      ownerDecision?: never;
+      ownerNote?: never;
+    }[];
   };
   assert.equal(manifest.sampleCount, 198);
   assert.equal(manifest.canonicalCapabilities, 198);
@@ -40,10 +46,18 @@ test("owner usefulness manifest has one public-only sample for all 198 canonical
   assert.deepEqual(manifest.difficulties, ["EASY", "HARD", "MEDIUM"]);
   assert.equal(manifest.interactionTypes.length, 10);
   assert.equal(manifest.privateSolutionIncluded, false);
-  assert.equal(manifest.ownerDecision, null);
+  assert.equal(manifest.ownerDecision, "APPROVED");
+  assert.equal(manifest.overallDecisionSource, "OWNER_EXPLICIT_DECISION");
+  assert.equal(manifest.perSampleDecisionDataAvailable, false);
   assert.equal(manifest.samples.length, 198);
   assert.equal(new Set(manifest.samples.map((sample) => sample.capabilityId)).size, 198);
-  assert.equal(manifest.samples.every((sample) => sample.ownerDecision === null && sample.ownerNote === ""), true);
+  assert.equal(
+    manifest.samples.every(
+      (sample) =>
+        sample.ownerDecision === undefined && sample.ownerNote === undefined,
+    ),
+    true,
+  );
   const serialized = JSON.stringify(manifest.samples);
   for (const field of ["correctResponse", "solverReceipt", "privateSolution", "rawSeed", "acceptedResponses", "postSubmitFeedback", "\"solution\":"]) {
     assert.equal(serialized.includes(field), false, field);

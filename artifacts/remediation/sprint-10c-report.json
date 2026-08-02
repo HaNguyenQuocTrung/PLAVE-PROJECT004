@@ -1,0 +1,366 @@
+{
+  "schemaVersion": "PLAVE_SPRINT_10C_REPORT_V1",
+  "generatedAt": "2026-08-02T21:12:19Z",
+  "sprint": "10C",
+  "status": "COMPLETE_PENDING_INDEPENDENT_REAUDIT",
+  "successMarker": "SPRINT 10C COMPLETE — 546/546 OUTCOMES INDEPENDENTLY VALIDATED AND STUDENT-RUNTIME ELIGIBLE, REAUDIT REQUIRED",
+  "milestone2": "REOPENED_AWAITING_SPRINT_10D_REAUDIT",
+  "repositoryDefaultGeneratorRuntime": "OFF",
+  "ownerApprovalRecordedBySprint": false,
+  "baseline": {
+    "checkpoint": "c5c46f69227f0b68091dd5eab00fd811a5e875c5",
+    "branch": "main",
+    "sprint10A": "COMPLETE",
+    "sprint10B": "COMPLETE"
+  },
+  "findings": {
+    "F-002": "RESOLVED_IN_SPRINT_10B",
+    "F-003": "RESOLVED_PENDING_INDEPENDENT_REAUDIT",
+    "F-005": "RESOLVED_PENDING_INDEPENDENT_REAUDIT",
+    "notClosedByThisSprint": [
+      "F-009",
+      "F-010"
+    ]
+  },
+  "oracle": {
+    "package": "lib/generation-v2-oracle",
+    "importsGeneratorImplementation": false,
+    "importsGeneratorSolver": false,
+    "importsRuntimeSubmitValidator": false,
+    "dependencyAudit": "PASS",
+    "dependencyViolations": [],
+    "mutationTests": "PASS",
+    "mutationScore": "7/7",
+    "knownFailureRegressions": "8/8",
+    "privateAnswersInArtifacts": false
+  },
+  "fullCorrectness": {
+    "result": "PASS",
+    "outcomes": 546,
+    "capabilities": 198,
+    "difficulties": 3,
+    "seedsPerDifficulty": 20,
+    "expected": 32760,
+    "attempted": 32760,
+    "uniqueCoordinates": 32760,
+    "missingCoordinates": 0,
+    "duplicateCoordinates": 0,
+    "oracleValidated": 32760,
+    "mathematicallyInvalid": 0,
+    "insufficientData": 0,
+    "unintendedAmbiguity": 0,
+    "promptVisualMismatch": 0,
+    "interactionMismatch": 0,
+    "invalidDistractorSet": 0,
+    "answerMismatch": 0,
+    "privateLeak": 0,
+    "genericFallback": 0,
+    "keywordRouting": 0,
+    "exactDuplicates": 0,
+    "maximumNearDuplicatePairRate": 0.1,
+    "nearDuplicateThreshold": 0.12,
+    "nearDuplicateFailedBatches": 0,
+    "provenance8Of8": 32760,
+    "deterministicReplay": 32760,
+    "failuresRecorded": 0
+  },
+  "developerProductReview": {
+    "status": "PASS",
+    "publicOnlySamplesReviewed": 198,
+    "capabilitiesCovered": 198,
+    "grades": "1-9",
+    "difficulties": [
+      "EASY",
+      "MEDIUM",
+      "HARD"
+    ],
+    "interactionTypes": 10,
+    "visualFamilies": 12,
+    "privateAnswersIncluded": false,
+    "ownerApprovalRecorded": false,
+    "canonicalProductDefectsFoundAndRepaired": 4,
+    "specialCaseSeedExclusions": 0
+  },
+  "eligibility": {
+    "result": "PASS",
+    "eligibleCapabilities": 198,
+    "blockedCapabilities": 0,
+    "eligibleOutcomes": 546,
+    "blockedOutcomes": 0,
+    "status": "STUDENT_RUNTIME_ELIGIBLE",
+    "promotionRule": "ALL_MAPPED_OUTCOMES_ORACLE_PASS_PLUS_NEGATIVE_MUTATION_PRODUCT_RUNTIME_BROWSER_GATES",
+    "repositoryDefault": "OFF"
+  },
+  "authenticatedStudentRuntime": {
+    "status": "PASS",
+    "evidenceSurface": "PUBLIC_AUTHENTICATED_STUDENT_RUNTIME",
+    "paths": [
+      "/api/curriculum-runtime/start",
+      "/api/curriculum-runtime/state",
+      "/api/curriculum-runtime/answer",
+      "/api/curriculum-runtime/progress",
+      "/api/curriculum-runtime/history",
+      "/curriculum-practice/[attemptId]"
+    ],
+    "internalProofOrReviewRoutesUsed": false,
+    "capabilities": "198/198",
+    "schema": "0001-0042",
+    "migrations": 42,
+    "attempts": 215,
+    "completedAttempts": 215,
+    "generatedQuestions": 2580,
+    "provenance8Of8Rows": 2580,
+    "orphans": 0,
+    "rollback": "PASS",
+    "concurrentStart": "PASS",
+    "duplicateSubmit": "IDEMPOTENT_ONE_WRITE",
+    "cas": "SINGLE_WINNER",
+    "resumeWithoutRegeneration": "PASS",
+    "roleAndFlagMatrix": "PASS",
+    "privateLeaks": 0,
+    "cleanup": "PASS",
+    "remainingListener": "NONE"
+  },
+  "browser": {
+    "status": "PASS",
+    "engine": "Playwright Core 1.51.1 with installed Chrome 150",
+    "viewports": [
+      "320x568",
+      "390x844",
+      "768x1024",
+      "1280x800",
+      "1440x900"
+    ],
+    "viewportsPassed": "5/5",
+    "screenshotsReviewed": "22/22",
+    "criticalIssues": 0,
+    "highIssues": 0,
+    "consoleErrors": 0,
+    "hydrationErrors": 0,
+    "pageErrors": 0,
+    "overflowErrors": 0,
+    "privateLeaks": 0,
+    "promptVisualMismatches": 0
+  },
+  "regressionGates": [
+    {
+      "name": "practice",
+      "command": "npm run --silent test:practice",
+      "status": "PASS",
+      "tests": "550/550"
+    },
+    {
+      "name": "generatorCore",
+      "command": "npm run --silent test:generation-v2",
+      "status": "PASS",
+      "tests": "10/10"
+    },
+    {
+      "name": "oracleIndependenceAndRegression",
+      "command": "npm run --silent test:generation-v2-oracle",
+      "status": "PASS",
+      "tests": "7/7 mutations; 8/8 regressions"
+    },
+    {
+      "name": "fullCorrectness",
+      "command": "npm run --silent audit:generator-v2-independent-oracle",
+      "status": "PASS",
+      "tests": "32760/32760"
+    },
+    {
+      "name": "studentRuntimeUnit",
+      "command": "npm run --silent test:generator-v2-student-runtime",
+      "status": "PASS",
+      "tests": "9/9"
+    },
+    {
+      "name": "authenticatedStudentRuntime",
+      "command": "npm run --silent acceptance:generator-v2-correctness-runtime",
+      "status": "PASS",
+      "tests": "198/198 capabilities; 5/5 viewports"
+    },
+    {
+      "name": "persistence",
+      "command": "npm run --silent test:generated-practice-persistence",
+      "status": "PASS",
+      "tests": "7/7"
+    },
+    {
+      "name": "curriculum",
+      "command": "npm run --silent test:curriculum-1-9",
+      "status": "PASS",
+      "tests": "9/9"
+    },
+    {
+      "name": "curriculumGenerationCoverage",
+      "command": "npm run --silent test:curriculum-generation",
+      "status": "PASS",
+      "tests": "1/1; all 546 outcomes"
+    },
+    {
+      "name": "universalCurriculumSecurity",
+      "command": "npm run --silent test:universal-curriculum",
+      "status": "PASS",
+      "tests": "21/21"
+    },
+    {
+      "name": "competency",
+      "command": "npm run --silent test:competency-learning-path and test:competency-ui",
+      "status": "PASS",
+      "tests": "10/10"
+    },
+    {
+      "name": "uiux",
+      "command": "npm run --silent test:uiux",
+      "status": "PASS",
+      "tests": "13/13"
+    },
+    {
+      "name": "aiTutor",
+      "command": "test:ai-tutor; test:ai-tutor-quality; test:ai-tutor-local-runtime",
+      "status": "PASS",
+      "tests": "40/40",
+      "providerRequests": 0
+    },
+    {
+      "name": "secretBoundary",
+      "command": "npm run --silent security:secret-boundary",
+      "status": "PASS",
+      "environment": "DISPOSABLE_INTENDED_SOURCE_WITH_EMPTY_ENV_LOCAL_AND_CANARY_ONLY",
+      "realKeyUsed": false,
+      "providerRequests": 0,
+      "cleanup": "PASS"
+    },
+    {
+      "name": "typecheck",
+      "command": "npm run --silent typecheck",
+      "status": "PASS"
+    },
+    {
+      "name": "lint",
+      "command": "npm run --silent lint",
+      "status": "PASS",
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "name": "productionBuild",
+      "command": "npm run --silent build",
+      "status": "PASS",
+      "staticGenerationWorkItems": "77/77"
+    },
+    {
+      "name": "intendedSourceCleanRoom",
+      "command": "npm run --silent audit:clean-checkout-reproducibility",
+      "status": "PASS_INTENDED_SNAPSHOT",
+      "typecheck": "PASS",
+      "build": "PASS",
+      "cleanup": "PASS",
+      "headReproducible": false,
+      "headStatusReason": "SPRINT_10B_AND_10C_CHANGES_INTENTIONALLY_UNSTAGED_UNCOMMITTED"
+    },
+    {
+      "name": "npmAudit",
+      "command": "npm audit --json",
+      "status": "UNVERIFIED_ENVIRONMENT_BLOCKED",
+      "sandboxError": "getaddrinfo ENOTFOUND registry.npmjs.org",
+      "escalation": "REJECTED_EXTERNAL_DEPENDENCY_METADATA_EXPORT",
+      "lastVerified": {
+        "vulnerabilities": 0,
+        "date": "2026-08-01"
+      }
+    }
+  ],
+  "workingTreeInventory": {
+    "checkpoint": "c5c46f69227f0b68091dd5eab00fd811a5e875c5",
+    "capturedImmediatelyBeforeWritingThisReport": true,
+    "postWriteExpected": {
+      "changedPaths": 112,
+      "modifiedTracked": 30,
+      "untracked": 82,
+      "requiredUntrackedSourceTestDocumentation": 18,
+      "untrackedEvidence": 64,
+      "screenshotFiles": 46
+    },
+    "modifiedTracked": [
+      ".env.example",
+      ".gitignore",
+      "app/api/curriculum-runtime/answer/route.ts",
+      "app/api/curriculum-runtime/start/route.ts",
+      "app/api/curriculum-runtime/state/route.ts",
+      "app/curriculum-practice/[attemptId]/UniversalCurriculumRunner.tsx",
+      "app/curriculum-practice/[attemptId]/page.tsx",
+      "app/globals.css",
+      "app/internal/generator-product-audit/page.tsx",
+      "app/internal/generator-v2/GeneratorV2LocalRunner.tsx",
+      "artifacts/ai-tutor-acceptance/google-real-smoke.json",
+      "artifacts/remediation/clean-checkout-reproducibility.json",
+      "components/StudentCurriculumProgressView.tsx",
+      "docs/status/PLAVE_THREE_MILESTONE_ROADMAP.md",
+      "eslint.config.mjs",
+      "lib/curriculum-runtime/api-response.ts",
+      "lib/curriculum-runtime/contracts.ts",
+      "lib/curriculum-runtime/errors.ts",
+      "lib/generation-v2/generator.ts",
+      "lib/generation-v2/wave-a-engine.ts",
+      "lib/generation-v2/wave-b-engine.ts",
+      "lib/generation-v2/wave-c-contracts.ts",
+      "lib/generation-v2/wave-c-engine.ts",
+      "lib/generation-v2/wave-d-capability-metadata.ts",
+      "lib/generation-v2/wave-d-contracts.ts",
+      "lib/generation-v2/wave-d-engine.ts",
+      "lib/generation-v2/wave-e-engine.ts",
+      "lib/generation-v2/wave-f-engine.ts",
+      "package.json",
+      "tests/generation-v2-database-proof-contract.test.ts"
+    ],
+    "requiredUntrackedSourceTestDocumentation": [
+      "docs/architecture/GENERATOR_V2_INDEPENDENT_ORACLE.md",
+      "docs/architecture/GENERATOR_V2_STUDENT_RUNTIME_INTEGRATION.md",
+      "docs/status/SPRINT_10B_GENERATOR_STUDENT_RUNTIME_INTEGRATION.md",
+      "docs/status/SPRINT_10C_GENERATOR_CORRECTNESS_REMEDIATION.md",
+      "lib/generation-v2-oracle/exact.ts",
+      "lib/generation-v2-oracle/index.ts",
+      "lib/generation-v2-oracle/oracle.ts",
+      "lib/generation-v2-oracle/types.ts",
+      "lib/generation-v2/student-answer-display.ts",
+      "lib/generation-v2/student-runtime-policy.ts",
+      "lib/generation-v2/student-runtime.ts",
+      "scripts/audit-generator-v2-independent-oracle.ts",
+      "scripts/audit-generator-v2-oracle-independence.ts",
+      "scripts/build-generator-v2-correctness-product-review.ts",
+      "scripts/finalize-generator-v2-correctness-eligibility.ts",
+      "scripts/run-generator-v2-student-runtime.ts",
+      "tests/generation-v2-oracle-known-failures.test.ts",
+      "tests/generator-v2-student-runtime.test.ts"
+    ],
+    "preExistingUnrelatedPreserved": [
+      "artifacts/ai-tutor-acceptance/google-real-smoke.json"
+    ],
+    "localSecretsIncluded": false,
+    "localCachesIncluded": false,
+    "runtimeFixturesIncluded": false,
+    "gitStage": 0,
+    "gitCommit": 0,
+    "gitPush": 0
+  },
+  "cleanup": {
+    "disposableDatabase": "PASS",
+    "runtimeFixture": "PASS",
+    "secretBoundaryFixture": "PASS",
+    "remainingAuditListener": "NONE",
+    "preExistingOwnerTutorPidPreserved": 6279
+  },
+  "boundaries": {
+    "remoteAccess": 0,
+    "remoteMutations": 0,
+    "newOrModifiedMigrations": 0,
+    "deployments": 0,
+    "publications": 0,
+    "activations": 0,
+    "gitMutations": 0,
+    "paidProviderRequests": 0,
+    "aiTutorImplementationChanges": 0,
+    "ownerDecisionChanges": 0
+  }
+}

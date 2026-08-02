@@ -1,0 +1,4483 @@
+{
+  "schemaVersion": "PLAVE_GENERATOR_V2_CORRECTNESS_ELIGIBILITY_V2",
+  "sprint": "10C",
+  "result": "PASS",
+  "rule": "A capability is STUDENT_RUNTIME_ELIGIBLE only when every mapped outcome and all 60 samples per outcome pass the independent public-snapshot oracle, dependency and mutation controls pass, a public-only product sample is reviewed, and the capability passes authenticated public Student runtime persistence proof.",
+  "repositoryDefault": "OFF",
+  "ownerApprovalRecorded": false,
+  "gates": {
+    "independentOracle": "32760/32760",
+    "oracleDependencyBoundary": "PASS",
+    "mutationControls": "7/7",
+    "developerProductReview": "198/198",
+    "authenticatedStudentRuntime": "198/198",
+    "browserViewports": "5/5",
+    "screenshotReview": "22/22"
+  },
+  "eligibleCapabilities": [
+    "ADD_SUB_CALCULATION",
+    "ADD_SUB_MEANING",
+    "ALGEBRAIC_EXPRESSION_RECOGNITION",
+    "ALGEBRAIC_IDENTITY",
+    "ALGEBRAIC_SUBSTITUTION",
+    "ANGLE_MEASUREMENT",
+    "APPLIED_ARITHMETIC",
+    "APPLIED_GEOMETRY_MEASUREMENT",
+    "APPLIED_MEASUREMENT_MODEL",
+    "APPLIED_RATIONAL_REASONING",
+    "APPLIED_TWO_STEP",
+    "AREA_PERIMETER",
+    "ARITHMETIC_MEAN",
+    "BANKING_FINANCE",
+    "BAR_CHART_PATTERN",
+    "BAR_CHART_PROBLEM",
+    "BAR_CHART_READ",
+    "CHART_DATA_INTERPRETATION",
+    "CHEMICAL_EQUATION_SYSTEM",
+    "CIRCLE_ANGLE_RELATION",
+    "CIRCLE_INSCRIBED_CIRCUMSCRIBED",
+    "CIRCLE_MEASURE",
+    "CIRCLE_RELATION",
+    "COMPARE_ORDER",
+    "COMPARE_ORDER_ESTIMATE",
+    "COORDINATE_POINT",
+    "COUNTING_SEQUENCE",
+    "CROSS_CURRICULAR_DATA_READ",
+    "CROSS_CURRICULAR_STATISTICS_REASONING",
+    "DATA_CLASSIFICATION",
+    "DATA_COLLECTION_CLASSIFICATION",
+    "DATA_ERROR_REASONING",
+    "DATA_INVESTIGATION",
+    "DATA_REASONABLENESS",
+    "DATA_RELATION_REASONING",
+    "DATA_REPRESENTATION_EQUIVALENCE",
+    "DATA_SEQUENCE_RECOGNITION",
+    "DECIMAL_APPLICATION",
+    "DECIMAL_COMPARE_ORDER",
+    "DECIMAL_OPERATIONS",
+    "DECIMAL_REPRESENTATION",
+    "DECIMAL_ROUNDING",
+    "DECIMAL_SCALE_OPERATION",
+    "DIRECT_MEASUREMENT_ESTIMATION",
+    "DIVISIBILITY_RULE",
+    "DIVISION_FACT_APPLICATION",
+    "DIVISION_REMAINDER",
+    "DIVISION_WITH_REMAINDER",
+    "EARLY_ARITHMETIC_APPLICATION",
+    "EVENT_CERTAINTY_LANGUAGE",
+    "EXPERIMENT_FREQUENCY",
+    "EXPERIMENTAL_PROBABILITY",
+    "FACTOR_MULTIPLE",
+    "FRACTION_APPLICATION",
+    "FRACTION_COMMON_DENOMINATOR",
+    "FRACTION_EQUIVALENCE",
+    "FRACTION_PART_WHOLE",
+    "FRACTION_PERCENT_VALUE",
+    "FRACTION_REPRESENTATION",
+    "FRACTION_UNIT_QUANTITY",
+    "FREQUENCY_COUNT",
+    "FREQUENCY_INTERPRETATION",
+    "FUNCTION_EVALUATION",
+    "FUNCTION_GRAPH_RECOGNITION",
+    "FUNCTION_MODEL_RECOGNITION",
+    "GENETICS_PROBABILITY",
+    "GEOMETRIC_CONSTRUCTION_PLAN",
+    "GEOMETRIC_PROOF_REASONING",
+    "GEOMETRY_MEDIA_PLAN",
+    "GEOMETRY_PROPERTIES",
+    "GROUPED_FREQUENCY_TABLE",
+    "GROWTH_INVESTMENT",
+    "INEQUALITY_PROPERTY",
+    "INSURANCE_REASONING",
+    "INTEGER_NUMBER_LINE",
+    "INTEGER_OPERATION",
+    "LINE_RELATION",
+    "LINEAR_EQUATION_MODEL",
+    "LINEAR_FUNCTION_MODEL",
+    "LINEAR_FUNCTION_TABLE",
+    "LINEAR_GRAPH_CONSTRUCTION",
+    "LINEAR_GRAPH_RELATION",
+    "LINEAR_INEQUALITY_RECOGNITION",
+    "LINEAR_INEQUALITY_SOLVING",
+    "LINEAR_SYSTEM",
+    "LINEAR_SYSTEM_MODELING",
+    "LINEAR_SYSTEM_RECOGNITION",
+    "LINEAR_SYSTEM_SOLUTION_CHECK",
+    "MASS_COMPARISON_REASONING",
+    "MENTAL_ARITHMETIC",
+    "MISSING_COMPONENT",
+    "MIXED_ARITHMETIC_EXPRESSION",
+    "MIXED_DECIMAL_FRACTION_REPRESENTATION",
+    "MIXED_NUMBER_REPRESENTATION",
+    "MONEY_FINANCE",
+    "MULTIFORM_DATA_PATTERN",
+    "MULTIFORM_DATA_PROBLEM",
+    "MULTIFORM_DATA_READ",
+    "MULTIPLY_DIVIDE",
+    "MULTIPLY_DIVIDE_FACTS",
+    "NATURAL_NUMBER_STRUCTURE",
+    "NUMBER_LINE_PLACEMENT",
+    "NUMBER_RECOGNITION_REPRESENTATION",
+    "NUMBER_SET_CLASSIFICATION",
+    "NUMERIC_OPERATION_PROPERTIES",
+    "OPERATION_COMPONENTS",
+    "OPERATION_PROPERTY",
+    "OPPOSITE_NUMBER",
+    "PARITY_CLASSIFICATION",
+    "PERCENTAGE_REASONING",
+    "PERIMETER_AREA",
+    "PICTOGRAPH_INFERENCE",
+    "PICTOGRAPH_READ",
+    "PIE_CHART_PROBLEM",
+    "PIE_CHART_READ",
+    "PIE_LINE_CHART_PROBLEM",
+    "PIE_LINE_PATTERN",
+    "PLACE_VALUE_COMPARE",
+    "PLACE_VALUE_COMPOSE",
+    "POINT_LINE_RELATION",
+    "POLYGON_PROPERTIES",
+    "POLYLINE_PERIMETER",
+    "POLYNOMIAL_FACTORIZATION",
+    "POLYNOMIAL_OPERATION",
+    "POLYNOMIAL_REASONING",
+    "POLYNOMIAL_SIMPLIFICATION",
+    "POWER_AND_ROOT",
+    "PRACTICAL_DATA_REPRESENTATION",
+    "PRACTICAL_MEASUREMENT_PLAN",
+    "PRIME_COMPOSITE",
+    "PRIME_FACTORIZATION",
+    "PROBABILITY_MODEL",
+    "PRODUCT_EQUATION_SOLVING",
+    "PROPORTIONAL_REASONING",
+    "PYTHAGORE_APPLICATION",
+    "QUADRATIC_EQUATION_RECOGNITION",
+    "QUADRATIC_EQUATION_SOLVING",
+    "QUADRATIC_FUNCTION_TABLE_GRAPH",
+    "QUADRATIC_GRAPH_CONSTRUCTION",
+    "QUADRATIC_GRAPH_SYMMETRY",
+    "QUADRATIC_MODELING",
+    "RADICAL_EXPRESSION",
+    "RADICAL_TRANSFORMATION",
+    "RATIO_PROPORTION",
+    "RATIONAL_COMPARE_ORDER",
+    "RATIONAL_EQUATION_SOLVING",
+    "RATIONAL_EXPRESSION_CONCEPT_REASONING",
+    "RATIONAL_EXPRESSION_OPERATION",
+    "RATIONAL_EXPRESSION_PROPERTY_REASONING",
+    "RATIONAL_NUMBER_LINE",
+    "RATIONAL_NUMBER_REASONING",
+    "RATIONAL_OPERATION_ORDER",
+    "RATIONAL_OPERATIONS",
+    "RATIONAL_POWER",
+    "REAL_NUMBER_ORDER",
+    "RELATIVE_EXPERIMENT_FREQUENCY",
+    "REPRESENTATION_SELECTION",
+    "RIGHT_TRIANGLE_TRIGONOMETRY",
+    "ROMAN_NUMERAL",
+    "ROUND_ESTIMATE",
+    "SAMPLE_SPACE_RANDOM_TRIAL",
+    "SCALE_REASONING",
+    "SCIENTIFIC_ALGEBRA_REASONING",
+    "SET_MEMBERSHIP",
+    "SHAPE_CLASSIFICATION",
+    "SHAPE_RECOGNITION",
+    "SIGNED_FRACTION_REPRESENTATION",
+    "SIMILARITY_THALES",
+    "SIMPLE_TRIAL_OUTCOMES",
+    "SOFTWARE_DATA_TOOL",
+    "SOFTWARE_GEOMETRY_CONSTRUCTION",
+    "SOLID_MEASUREMENT_APPLICATION",
+    "SOLID_NET",
+    "SOLID_PROPERTIES",
+    "SOLID_SURFACE_VOLUME",
+    "SPATIAL_POSITION",
+    "SPEED_DISTANCE_TIME",
+    "SYMMETRY_RECOGNITION",
+    "SYMMETRY_REGULARITY",
+    "TABLE_DATA_INFERENCE",
+    "TABLE_DATA_READ",
+    "TAX_CALCULATION_REASONING",
+    "TENS_ONES_STRUCTURE",
+    "THEORETICAL_PROBABILITY_RATIO",
+    "TIME_CALENDAR",
+    "TRIANGLE_CONGRUENCE",
+    "TRIANGLE_MIDLINE_REASONING",
+    "TRIANGLE_PROPERTIES",
+    "TRIANGLE_SPECIAL_LINES",
+    "TRIGONOMETRIC_FIELD_MEASUREMENT",
+    "UNIFORM_MOTION_REASONING",
+    "UNIT_CONVERSION",
+    "UNIT_CONVERSION_MEASUREMENT",
+    "UNIT_FRACTION_MODEL",
+    "VIETE_RELATION",
+    "VISUAL_OPERATION_MODEL",
+    "VOLUME_ESTIMATION",
+    "WRITTEN_ARITHMETIC"
+  ],
+  "blockedCapabilities": [],
+  "eligibleOutcomes": [
+    "MOET2018-G1-EXP-P024-001",
+    "MOET2018-G1-EXP-P024-002",
+    "MOET2018-G1-EXP-P024-003",
+    "MOET2018-G1-GEO-P022-001",
+    "MOET2018-G1-GEO-P022-003",
+    "MOET2018-G1-GEO-P022-004",
+    "MOET2018-G1-GEO-P023-006",
+    "MOET2018-G1-GEO-P023-007",
+    "MOET2018-G1-GEO-P023-008",
+    "MOET2018-G1-GEO-P023-009",
+    "MOET2018-G1-GEO-P023-010",
+    "MOET2018-G1-GEO-P023-011",
+    "MOET2018-G1-GEO-P023-012",
+    "MOET2018-G1-GEO-P023-013",
+    "MOET2018-G1-GEO-P023-014",
+    "MOET2018-G1-GEO-P023-015",
+    "MOET2018-G1-NUM-P021-001",
+    "MOET2018-G1-NUM-P022-002",
+    "MOET2018-G1-NUM-P022-003",
+    "MOET2018-G1-NUM-P022-004",
+    "MOET2018-G1-NUM-P022-005",
+    "MOET2018-G1-NUM-P022-006",
+    "MOET2018-G1-NUM-P022-007",
+    "MOET2018-G1-NUM-P022-008",
+    "MOET2018-G1-NUM-P022-009",
+    "MOET2018-G1-NUM-P022-010",
+    "MOET2018-G2-EXP-P028-001",
+    "MOET2018-G2-EXP-P028-002",
+    "MOET2018-G2-GEO-P026-001",
+    "MOET2018-G2-GEO-P026-002",
+    "MOET2018-G2-GEO-P026-003",
+    "MOET2018-G2-GEO-P026-004",
+    "MOET2018-G2-GEO-P026-005",
+    "MOET2018-G2-GEO-P026-006",
+    "MOET2018-G2-GEO-P026-007",
+    "MOET2018-G2-GEO-P026-008",
+    "MOET2018-G2-GEO-P026-009",
+    "MOET2018-G2-GEO-P027-010",
+    "MOET2018-G2-GEO-P027-011",
+    "MOET2018-G2-GEO-P027-012",
+    "MOET2018-G2-GEO-P027-013",
+    "MOET2018-G2-GEO-P027-014",
+    "MOET2018-G2-GEO-P027-015",
+    "MOET2018-G2-GEO-P027-016",
+    "MOET2018-G2-GEO-P027-017",
+    "MOET2018-G2-GEO-P027-018",
+    "MOET2018-G2-GEO-P027-019",
+    "MOET2018-G2-NUM-P024-001",
+    "MOET2018-G2-NUM-P024-002",
+    "MOET2018-G2-NUM-P024-003",
+    "MOET2018-G2-NUM-P024-004",
+    "MOET2018-G2-NUM-P025-005",
+    "MOET2018-G2-NUM-P025-006",
+    "MOET2018-G2-NUM-P025-007",
+    "MOET2018-G2-NUM-P025-008",
+    "MOET2018-G2-NUM-P025-009",
+    "MOET2018-G2-NUM-P025-010",
+    "MOET2018-G2-NUM-P025-011",
+    "MOET2018-G2-NUM-P025-012",
+    "MOET2018-G2-NUM-P025-013",
+    "MOET2018-G2-NUM-P025-014",
+    "MOET2018-G2-NUM-P025-015",
+    "MOET2018-G2-NUM-P025-016",
+    "MOET2018-G2-NUM-P025-017",
+    "MOET2018-G2-NUM-P025-018",
+    "MOET2018-G2-NUM-P025-019",
+    "MOET2018-G2-NUM-P026-020",
+    "MOET2018-G2-STA-P028-001",
+    "MOET2018-G2-STA-P028-002",
+    "MOET2018-G2-STA-P028-003",
+    "MOET2018-G2-STA-P028-004",
+    "MOET2018-G3-EXP-P034-001",
+    "MOET2018-G3-EXP-P034-002",
+    "MOET2018-G3-GEO-P031-001",
+    "MOET2018-G3-GEO-P031-002",
+    "MOET2018-G3-GEO-P031-003",
+    "MOET2018-G3-GEO-P031-004",
+    "MOET2018-G3-GEO-P031-005",
+    "MOET2018-G3-GEO-P031-006",
+    "MOET2018-G3-GEO-P031-007",
+    "MOET2018-G3-GEO-P031-008",
+    "MOET2018-G3-GEO-P031-009",
+    "MOET2018-G3-GEO-P032-011",
+    "MOET2018-G3-GEO-P032-012",
+    "MOET2018-G3-GEO-P032-013",
+    "MOET2018-G3-GEO-P032-014",
+    "MOET2018-G3-GEO-P032-015",
+    "MOET2018-G3-GEO-P032-016",
+    "MOET2018-G3-GEO-P032-017",
+    "MOET2018-G3-GEO-P032-018",
+    "MOET2018-G3-GEO-P032-019",
+    "MOET2018-G3-GEO-P032-020",
+    "MOET2018-G3-GEO-P032-021",
+    "MOET2018-G3-GEO-P032-022",
+    "MOET2018-G3-GEO-P033-023",
+    "MOET2018-G3-GEO-P033-024",
+    "MOET2018-G3-GEO-P033-025",
+    "MOET2018-G3-NUM-P029-001",
+    "MOET2018-G3-NUM-P029-002",
+    "MOET2018-G3-NUM-P029-003",
+    "MOET2018-G3-NUM-P029-004",
+    "MOET2018-G3-NUM-P029-005",
+    "MOET2018-G3-NUM-P029-006",
+    "MOET2018-G3-NUM-P029-007",
+    "MOET2018-G3-NUM-P029-008",
+    "MOET2018-G3-NUM-P029-009",
+    "MOET2018-G3-NUM-P029-010",
+    "MOET2018-G3-NUM-P029-011",
+    "MOET2018-G3-NUM-P030-012",
+    "MOET2018-G3-NUM-P030-013",
+    "MOET2018-G3-NUM-P030-014",
+    "MOET2018-G3-NUM-P030-015",
+    "MOET2018-G3-NUM-P030-016",
+    "MOET2018-G3-NUM-P030-017",
+    "MOET2018-G3-NUM-P030-018",
+    "MOET2018-G3-NUM-P030-019",
+    "MOET2018-G3-NUM-P030-020",
+    "MOET2018-G3-NUM-P030-022",
+    "MOET2018-G3-NUM-P031-023",
+    "MOET2018-G3-NUM-P031-024",
+    "MOET2018-G3-STA-P033-001",
+    "MOET2018-G3-STA-P033-002",
+    "MOET2018-G3-STA-P033-003",
+    "MOET2018-G3-STA-P033-004",
+    "MOET2018-G4-EXP-P039-001",
+    "MOET2018-G4-EXP-P040-002",
+    "MOET2018-G4-EXP-P040-003",
+    "MOET2018-G4-GEO-P037-001",
+    "MOET2018-G4-GEO-P037-002",
+    "MOET2018-G4-GEO-P037-003",
+    "MOET2018-G4-GEO-P037-004",
+    "MOET2018-G4-GEO-P037-005",
+    "MOET2018-G4-GEO-P037-006",
+    "MOET2018-G4-GEO-P038-007",
+    "MOET2018-G4-GEO-P038-008",
+    "MOET2018-G4-GEO-P038-009",
+    "MOET2018-G4-GEO-P038-010",
+    "MOET2018-G4-GEO-P038-011",
+    "MOET2018-G4-GEO-P038-012",
+    "MOET2018-G4-GEO-P038-013",
+    "MOET2018-G4-GEO-P038-014",
+    "MOET2018-G4-NUM-P034-001",
+    "MOET2018-G4-NUM-P034-002",
+    "MOET2018-G4-NUM-P034-003",
+    "MOET2018-G4-NUM-P034-004",
+    "MOET2018-G4-NUM-P034-005",
+    "MOET2018-G4-NUM-P035-006",
+    "MOET2018-G4-NUM-P035-007",
+    "MOET2018-G4-NUM-P035-008",
+    "MOET2018-G4-NUM-P035-009",
+    "MOET2018-G4-NUM-P035-010",
+    "MOET2018-G4-NUM-P035-011",
+    "MOET2018-G4-NUM-P035-012",
+    "MOET2018-G4-NUM-P035-013",
+    "MOET2018-G4-NUM-P035-014",
+    "MOET2018-G4-NUM-P035-015",
+    "MOET2018-G4-NUM-P036-016",
+    "MOET2018-G4-NUM-P036-017",
+    "MOET2018-G4-NUM-P036-018",
+    "MOET2018-G4-NUM-P036-019",
+    "MOET2018-G4-NUM-P036-020",
+    "MOET2018-G4-NUM-P036-021",
+    "MOET2018-G4-NUM-P036-022",
+    "MOET2018-G4-NUM-P036-023",
+    "MOET2018-G4-NUM-P036-024",
+    "MOET2018-G4-NUM-P037-025",
+    "MOET2018-G4-NUM-P037-026",
+    "MOET2018-G4-STA-P038-001",
+    "MOET2018-G4-STA-P039-002",
+    "MOET2018-G4-STA-P039-003",
+    "MOET2018-G4-STA-P039-004",
+    "MOET2018-G4-STA-P039-005",
+    "MOET2018-G4-STA-P039-006",
+    "MOET2018-G4-STA-P039-007",
+    "MOET2018-G5-EXP-P046-001",
+    "MOET2018-G5-EXP-P046-002",
+    "MOET2018-G5-EXP-P046-003",
+    "MOET2018-G5-GEO-P043-001",
+    "MOET2018-G5-GEO-P043-002",
+    "MOET2018-G5-GEO-P043-003",
+    "MOET2018-G5-GEO-P043-004",
+    "MOET2018-G5-GEO-P043-005",
+    "MOET2018-G5-GEO-P043-006",
+    "MOET2018-G5-GEO-P043-007",
+    "MOET2018-G5-GEO-P044-008",
+    "MOET2018-G5-GEO-P044-009",
+    "MOET2018-G5-GEO-P044-010",
+    "MOET2018-G5-GEO-P044-011",
+    "MOET2018-G5-GEO-P044-012",
+    "MOET2018-G5-GEO-P044-013",
+    "MOET2018-G5-GEO-P044-014",
+    "MOET2018-G5-GEO-P044-015",
+    "MOET2018-G5-GEO-P044-016",
+    "MOET2018-G5-GEO-P044-017",
+    "MOET2018-G5-NUM-P040-001",
+    "MOET2018-G5-NUM-P040-002",
+    "MOET2018-G5-NUM-P040-003",
+    "MOET2018-G5-NUM-P040-004",
+    "MOET2018-G5-NUM-P041-005",
+    "MOET2018-G5-NUM-P041-006",
+    "MOET2018-G5-NUM-P041-007",
+    "MOET2018-G5-NUM-P041-008",
+    "MOET2018-G5-NUM-P041-009",
+    "MOET2018-G5-NUM-P041-010",
+    "MOET2018-G5-NUM-P041-011",
+    "MOET2018-G5-NUM-P041-012",
+    "MOET2018-G5-NUM-P041-013",
+    "MOET2018-G5-NUM-P042-014",
+    "MOET2018-G5-NUM-P042-015",
+    "MOET2018-G5-NUM-P042-016",
+    "MOET2018-G5-NUM-P042-017",
+    "MOET2018-G5-NUM-P042-018",
+    "MOET2018-G5-NUM-P042-019",
+    "MOET2018-G5-NUM-P042-020",
+    "MOET2018-G5-NUM-P042-021",
+    "MOET2018-G5-NUM-P042-022",
+    "MOET2018-G5-NUM-P042-023",
+    "MOET2018-G5-NUM-P043-024",
+    "MOET2018-G5-STA-P045-001",
+    "MOET2018-G5-STA-P045-002",
+    "MOET2018-G5-STA-P045-003",
+    "MOET2018-G5-STA-P045-004",
+    "MOET2018-G5-STA-P045-005",
+    "MOET2018-G5-STA-P045-006",
+    "MOET2018-G5-STA-P045-007",
+    "MOET2018-G5-STA-P045-008",
+    "MOET2018-G6-EXP-P054-001",
+    "MOET2018-G6-EXP-P054-002",
+    "MOET2018-G6-EXP-P054-003",
+    "MOET2018-G6-EXP-P055-001",
+    "MOET2018-G6-EXP-P055-002",
+    "MOET2018-G6-EXP-P055-003",
+    "MOET2018-G6-GEO-P050-001",
+    "MOET2018-G6-GEO-P050-002",
+    "MOET2018-G6-GEO-P051-003",
+    "MOET2018-G6-GEO-P051-004",
+    "MOET2018-G6-GEO-P051-005",
+    "MOET2018-G6-GEO-P051-006",
+    "MOET2018-G6-GEO-P051-007",
+    "MOET2018-G6-GEO-P051-008",
+    "MOET2018-G6-GEO-P051-009",
+    "MOET2018-G6-GEO-P051-010",
+    "MOET2018-G6-GEO-P051-011",
+    "MOET2018-G6-GEO-P052-012",
+    "MOET2018-G6-GEO-P052-013",
+    "MOET2018-G6-GEO-P052-014",
+    "MOET2018-G6-GEO-P052-015",
+    "MOET2018-G6-GEO-P052-016",
+    "MOET2018-G6-GEO-P052-017",
+    "MOET2018-G6-GEO-P052-018",
+    "MOET2018-G6-GEO-P052-019",
+    "MOET2018-G6-GEO-P052-020",
+    "MOET2018-G6-GEO-P052-021",
+    "MOET2018-G6-GEO-P052-022",
+    "MOET2018-G6-NAA-P047-001",
+    "MOET2018-G6-NAA-P047-002",
+    "MOET2018-G6-NAA-P047-003",
+    "MOET2018-G6-NAA-P047-004",
+    "MOET2018-G6-NAA-P047-005",
+    "MOET2018-G6-NAA-P047-006",
+    "MOET2018-G6-NAA-P047-007",
+    "MOET2018-G6-NAA-P047-008",
+    "MOET2018-G6-NAA-P047-009",
+    "MOET2018-G6-NAA-P047-010",
+    "MOET2018-G6-NAA-P047-011",
+    "MOET2018-G6-NAA-P047-013",
+    "MOET2018-G6-NAA-P047-014",
+    "MOET2018-G6-NAA-P047-015",
+    "MOET2018-G6-NAA-P047-016",
+    "MOET2018-G6-NAA-P048-017",
+    "MOET2018-G6-NAA-P048-018",
+    "MOET2018-G6-NAA-P048-019",
+    "MOET2018-G6-NAA-P048-020",
+    "MOET2018-G6-NAA-P048-021",
+    "MOET2018-G6-NAA-P048-022",
+    "MOET2018-G6-NAA-P048-023",
+    "MOET2018-G6-NAA-P048-024",
+    "MOET2018-G6-NAA-P048-026",
+    "MOET2018-G6-NAA-P048-027",
+    "MOET2018-G6-NAA-P048-028",
+    "MOET2018-G6-NAA-P048-029",
+    "MOET2018-G6-NAA-P048-030",
+    "MOET2018-G6-NAA-P049-031",
+    "MOET2018-G6-NAA-P049-032",
+    "MOET2018-G6-NAA-P049-033",
+    "MOET2018-G6-NAA-P049-034",
+    "MOET2018-G6-NAA-P049-035",
+    "MOET2018-G6-NAA-P049-036",
+    "MOET2018-G6-NAA-P049-037",
+    "MOET2018-G6-NAA-P049-038",
+    "MOET2018-G6-NAA-P049-039",
+    "MOET2018-G6-NAA-P049-040",
+    "MOET2018-G6-NAA-P049-042",
+    "MOET2018-G6-NAA-P049-043",
+    "MOET2018-G6-NAA-P050-044",
+    "MOET2018-G6-NAA-P050-045",
+    "MOET2018-G6-NAA-P050-046",
+    "MOET2018-G6-NAA-P050-047",
+    "MOET2018-G6-NAA-P050-048",
+    "MOET2018-G6-NAA-P050-049",
+    "MOET2018-G6-NAA-P050-050",
+    "MOET2018-G6-NAA-P050-051",
+    "MOET2018-G6-STA-P053-001",
+    "MOET2018-G6-STA-P053-002",
+    "MOET2018-G6-STA-P053-003",
+    "MOET2018-G6-STA-P053-004",
+    "MOET2018-G6-STA-P053-005",
+    "MOET2018-G6-STA-P053-006",
+    "MOET2018-G6-STA-P053-007",
+    "MOET2018-G6-STA-P053-008",
+    "MOET2018-G6-STA-P054-009",
+    "MOET2018-G6-STA-P054-011",
+    "MOET2018-G7-EXP-P062-001",
+    "MOET2018-G7-EXP-P062-002",
+    "MOET2018-G7-EXP-P062-003",
+    "MOET2018-G7-EXP-P062-004",
+    "MOET2018-G7-EXP-P062-005",
+    "MOET2018-G7-EXP-P062-006",
+    "MOET2018-G7-EXP-P063-001",
+    "MOET2018-G7-GEO-P058-001",
+    "MOET2018-G7-GEO-P058-002",
+    "MOET2018-G7-GEO-P058-003",
+    "MOET2018-G7-GEO-P058-004",
+    "MOET2018-G7-GEO-P058-005",
+    "MOET2018-G7-GEO-P059-006",
+    "MOET2018-G7-GEO-P059-007",
+    "MOET2018-G7-GEO-P059-008",
+    "MOET2018-G7-GEO-P059-009",
+    "MOET2018-G7-GEO-P059-010",
+    "MOET2018-G7-GEO-P059-011",
+    "MOET2018-G7-GEO-P059-012",
+    "MOET2018-G7-GEO-P059-013",
+    "MOET2018-G7-GEO-P059-014",
+    "MOET2018-G7-GEO-P059-015",
+    "MOET2018-G7-GEO-P059-016",
+    "MOET2018-G7-GEO-P059-017",
+    "MOET2018-G7-GEO-P059-018",
+    "MOET2018-G7-GEO-P059-019",
+    "MOET2018-G7-GEO-P060-020",
+    "MOET2018-G7-GEO-P060-021",
+    "MOET2018-G7-GEO-P060-022",
+    "MOET2018-G7-GEO-P060-023",
+    "MOET2018-G7-GEO-P060-024",
+    "MOET2018-G7-GEO-P060-025",
+    "MOET2018-G7-NAA-P055-001",
+    "MOET2018-G7-NAA-P055-002",
+    "MOET2018-G7-NAA-P055-003",
+    "MOET2018-G7-NAA-P055-004",
+    "MOET2018-G7-NAA-P056-005",
+    "MOET2018-G7-NAA-P056-006",
+    "MOET2018-G7-NAA-P056-007",
+    "MOET2018-G7-NAA-P056-008",
+    "MOET2018-G7-NAA-P056-009",
+    "MOET2018-G7-NAA-P056-010",
+    "MOET2018-G7-NAA-P056-011",
+    "MOET2018-G7-NAA-P056-012",
+    "MOET2018-G7-NAA-P056-013",
+    "MOET2018-G7-NAA-P056-014",
+    "MOET2018-G7-NAA-P056-015",
+    "MOET2018-G7-NAA-P056-016",
+    "MOET2018-G7-NAA-P056-017",
+    "MOET2018-G7-NAA-P056-018",
+    "MOET2018-G7-NAA-P057-019",
+    "MOET2018-G7-NAA-P057-020",
+    "MOET2018-G7-NAA-P057-021",
+    "MOET2018-G7-NAA-P057-022",
+    "MOET2018-G7-NAA-P057-023",
+    "MOET2018-G7-NAA-P057-024",
+    "MOET2018-G7-NAA-P057-025",
+    "MOET2018-G7-NAA-P057-026",
+    "MOET2018-G7-NAA-P057-027",
+    "MOET2018-G7-NAA-P057-028",
+    "MOET2018-G7-NAA-P057-029",
+    "MOET2018-G7-NAA-P057-030",
+    "MOET2018-G7-NAA-P057-031",
+    "MOET2018-G7-NAA-P057-032",
+    "MOET2018-G7-NAA-P058-033",
+    "MOET2018-G7-NAA-P058-034",
+    "MOET2018-G7-NAA-P058-035",
+    "MOET2018-G7-STA-P061-001",
+    "MOET2018-G7-STA-P061-002",
+    "MOET2018-G7-STA-P061-003",
+    "MOET2018-G7-STA-P061-004",
+    "MOET2018-G7-STA-P061-005",
+    "MOET2018-G7-STA-P061-006",
+    "MOET2018-G7-STA-P061-007",
+    "MOET2018-G7-STA-P062-010",
+    "MOET2018-G8-EXP-P070-001",
+    "MOET2018-G8-EXP-P070-002",
+    "MOET2018-G8-EXP-P070-003",
+    "MOET2018-G8-EXP-P070-004",
+    "MOET2018-G8-EXP-P070-005",
+    "MOET2018-G8-EXP-P070-006",
+    "MOET2018-G8-EXP-P070-007",
+    "MOET2018-G8-EXP-P070-008",
+    "MOET2018-G8-EXP-P070-009",
+    "MOET2018-G8-GEO-P065-001",
+    "MOET2018-G8-GEO-P065-002",
+    "MOET2018-G8-GEO-P065-003",
+    "MOET2018-G8-GEO-P065-005",
+    "MOET2018-G8-GEO-P065-006",
+    "MOET2018-G8-GEO-P066-007",
+    "MOET2018-G8-GEO-P066-008",
+    "MOET2018-G8-GEO-P066-009",
+    "MOET2018-G8-GEO-P066-010",
+    "MOET2018-G8-GEO-P066-011",
+    "MOET2018-G8-GEO-P066-012",
+    "MOET2018-G8-GEO-P066-013",
+    "MOET2018-G8-GEO-P066-014",
+    "MOET2018-G8-GEO-P066-015",
+    "MOET2018-G8-GEO-P066-016",
+    "MOET2018-G8-GEO-P066-017",
+    "MOET2018-G8-GEO-P066-018",
+    "MOET2018-G8-GEO-P067-019",
+    "MOET2018-G8-GEO-P067-020",
+    "MOET2018-G8-GEO-P067-021",
+    "MOET2018-G8-GEO-P067-022",
+    "MOET2018-G8-GEO-P067-023",
+    "MOET2018-G8-GEO-P067-024",
+    "MOET2018-G8-GEO-P067-025",
+    "MOET2018-G8-GEO-P067-026",
+    "MOET2018-G8-GEO-P067-027",
+    "MOET2018-G8-GEO-P067-028",
+    "MOET2018-G8-GEO-P067-029",
+    "MOET2018-G8-GEO-P068-001",
+    "MOET2018-G8-GEO-P068-002",
+    "MOET2018-G8-NAA-P063-001",
+    "MOET2018-G8-NAA-P063-002",
+    "MOET2018-G8-NAA-P063-003",
+    "MOET2018-G8-NAA-P063-004",
+    "MOET2018-G8-NAA-P063-005",
+    "MOET2018-G8-NAA-P063-006",
+    "MOET2018-G8-NAA-P063-007",
+    "MOET2018-G8-NAA-P063-008",
+    "MOET2018-G8-NAA-P064-009",
+    "MOET2018-G8-NAA-P064-010",
+    "MOET2018-G8-NAA-P064-011",
+    "MOET2018-G8-NAA-P064-012",
+    "MOET2018-G8-NAA-P064-013",
+    "MOET2018-G8-NAA-P064-014",
+    "MOET2018-G8-NAA-P064-015",
+    "MOET2018-G8-NAA-P064-016",
+    "MOET2018-G8-NAA-P064-018",
+    "MOET2018-G8-NAA-P064-019",
+    "MOET2018-G8-NAA-P064-020",
+    "MOET2018-G8-NAA-P064-021",
+    "MOET2018-G8-NAA-P064-022",
+    "MOET2018-G8-NAA-P065-023",
+    "MOET2018-G8-NAA-P065-024",
+    "MOET2018-G8-NAA-P065-025",
+    "MOET2018-G8-STA-P068-001",
+    "MOET2018-G8-STA-P068-002",
+    "MOET2018-G8-STA-P068-003",
+    "MOET2018-G8-STA-P068-004",
+    "MOET2018-G8-STA-P068-007",
+    "MOET2018-G8-STA-P069-008",
+    "MOET2018-G8-STA-P069-009",
+    "MOET2018-G8-STA-P069-010",
+    "MOET2018-G8-STA-P069-011",
+    "MOET2018-G8-STA-P069-012",
+    "MOET2018-G8-STA-P069-013",
+    "MOET2018-G8-STA-P069-014",
+    "MOET2018-G9-EXP-P078-001",
+    "MOET2018-G9-EXP-P078-002",
+    "MOET2018-G9-EXP-P078-003",
+    "MOET2018-G9-EXP-P078-004",
+    "MOET2018-G9-EXP-P078-005",
+    "MOET2018-G9-EXP-P078-006",
+    "MOET2018-G9-EXP-P078-007",
+    "MOET2018-G9-EXP-P078-008",
+    "MOET2018-G9-EXP-P078-009",
+    "MOET2018-G9-GEO-P073-001",
+    "MOET2018-G9-GEO-P073-002",
+    "MOET2018-G9-GEO-P073-003",
+    "MOET2018-G9-GEO-P073-004",
+    "MOET2018-G9-GEO-P073-005",
+    "MOET2018-G9-GEO-P073-006",
+    "MOET2018-G9-GEO-P073-007",
+    "MOET2018-G9-GEO-P074-008",
+    "MOET2018-G9-GEO-P074-009",
+    "MOET2018-G9-GEO-P074-010",
+    "MOET2018-G9-GEO-P074-011",
+    "MOET2018-G9-GEO-P074-012",
+    "MOET2018-G9-GEO-P074-013",
+    "MOET2018-G9-GEO-P074-014",
+    "MOET2018-G9-GEO-P074-015",
+    "MOET2018-G9-GEO-P074-016",
+    "MOET2018-G9-GEO-P074-017",
+    "MOET2018-G9-GEO-P074-018",
+    "MOET2018-G9-GEO-P075-019",
+    "MOET2018-G9-GEO-P075-020",
+    "MOET2018-G9-GEO-P075-021",
+    "MOET2018-G9-GEO-P075-022",
+    "MOET2018-G9-GEO-P075-023",
+    "MOET2018-G9-GEO-P075-024",
+    "MOET2018-G9-GEO-P075-025",
+    "MOET2018-G9-GEO-P075-026",
+    "MOET2018-G9-GEO-P075-027",
+    "MOET2018-G9-GEO-P075-028",
+    "MOET2018-G9-GEO-P075-029",
+    "MOET2018-G9-GEO-P076-001",
+    "MOET2018-G9-GEO-P076-002",
+    "MOET2018-G9-GEO-P076-003",
+    "MOET2018-G9-GEO-P076-004",
+    "MOET2018-G9-GEO-P076-005",
+    "MOET2018-G9-GEO-P076-006",
+    "MOET2018-G9-GEO-P076-007",
+    "MOET2018-G9-NAA-P071-001",
+    "MOET2018-G9-NAA-P071-002",
+    "MOET2018-G9-NAA-P071-003",
+    "MOET2018-G9-NAA-P071-004",
+    "MOET2018-G9-NAA-P071-005",
+    "MOET2018-G9-NAA-P071-006",
+    "MOET2018-G9-NAA-P071-007",
+    "MOET2018-G9-NAA-P071-008",
+    "MOET2018-G9-NAA-P071-009",
+    "MOET2018-G9-NAA-P072-010",
+    "MOET2018-G9-NAA-P072-011",
+    "MOET2018-G9-NAA-P072-012",
+    "MOET2018-G9-NAA-P072-013",
+    "MOET2018-G9-NAA-P072-014",
+    "MOET2018-G9-NAA-P072-015",
+    "MOET2018-G9-NAA-P072-016",
+    "MOET2018-G9-NAA-P072-017",
+    "MOET2018-G9-NAA-P072-018",
+    "MOET2018-G9-NAA-P072-019",
+    "MOET2018-G9-NAA-P072-020",
+    "MOET2018-G9-NAA-P072-021",
+    "MOET2018-G9-NAA-P072-022",
+    "MOET2018-G9-NAA-P073-023",
+    "MOET2018-G9-NAA-P073-024",
+    "MOET2018-G9-NAA-P073-025",
+    "MOET2018-G9-STA-P076-001",
+    "MOET2018-G9-STA-P076-002",
+    "MOET2018-G9-STA-P076-008",
+    "MOET2018-G9-STA-P076-011",
+    "MOET2018-G9-STA-P077-012",
+    "MOET2018-G9-STA-P077-013",
+    "MOET2018-G9-STA-P077-014",
+    "MOET2018-G9-STA-P077-015",
+    "MOET2018-G9-STA-P077-016",
+    "MOET2018-G9-STA-P077-017",
+    "MOET2018-G9-STA-P077-018",
+    "MOET2018-G9-STA-P077-019",
+    "MOET2018-G9-STA-P077-020",
+    "MOET2018-G9-STA-P077-021"
+  ],
+  "blockedOutcomes": [],
+  "capabilities": [
+    {
+      "capabilityId": "ADD_SUB_CALCULATION",
+      "outcomes": [
+        "MOET2018-G1-NUM-P022-007"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "ADD_SUB_MEANING",
+      "outcomes": [
+        "MOET2018-G1-NUM-P022-004"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "ALGEBRAIC_EXPRESSION_RECOGNITION",
+      "outcomes": [
+        "MOET2018-G7-NAA-P057-021",
+        "MOET2018-G7-NAA-P057-023",
+        "MOET2018-G7-NAA-P057-025",
+        "MOET2018-G8-NAA-P063-002"
+      ],
+      "attempted": 240,
+      "validated": 240,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "240/240",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "ALGEBRAIC_IDENTITY",
+      "outcomes": [
+        "MOET2018-G8-NAA-P063-001",
+        "MOET2018-G8-NAA-P063-003"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "ALGEBRAIC_SUBSTITUTION",
+      "outcomes": [
+        "MOET2018-G4-NUM-P035-006",
+        "MOET2018-G7-NAA-P057-030"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "ANGLE_MEASUREMENT",
+      "outcomes": [
+        "MOET2018-G3-GEO-P031-003",
+        "MOET2018-G4-GEO-P037-002",
+        "MOET2018-G4-GEO-P038-010",
+        "MOET2018-G4-GEO-P038-012",
+        "MOET2018-G6-GEO-P052-013",
+        "MOET2018-G6-GEO-P052-018",
+        "MOET2018-G7-GEO-P059-013"
+      ],
+      "attempted": 420,
+      "validated": 420,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "420/420",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "APPLIED_ARITHMETIC",
+      "outcomes": [
+        "MOET2018-G1-NUM-P022-005",
+        "MOET2018-G2-NUM-P026-020",
+        "MOET2018-G4-NUM-P036-017",
+        "MOET2018-G5-NUM-P040-002",
+        "MOET2018-G6-NAA-P048-023",
+        "MOET2018-G6-NAA-P049-032"
+      ],
+      "attempted": 360,
+      "validated": 360,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "360/360",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "APPLIED_GEOMETRY_MEASUREMENT",
+      "outcomes": [
+        "MOET2018-G2-GEO-P026-001"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "APPLIED_MEASUREMENT_MODEL",
+      "outcomes": [
+        "MOET2018-G2-GEO-P027-011",
+        "MOET2018-G3-EXP-P034-001",
+        "MOET2018-G3-GEO-P033-023",
+        "MOET2018-G4-EXP-P039-001",
+        "MOET2018-G4-GEO-P038-007",
+        "MOET2018-G5-EXP-P046-003",
+        "MOET2018-G5-GEO-P044-011",
+        "MOET2018-G5-GEO-P044-012"
+      ],
+      "attempted": 480,
+      "validated": 480,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "480/480",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "APPLIED_RATIONAL_REASONING",
+      "outcomes": [
+        "MOET2018-G7-NAA-P056-005"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "APPLIED_TWO_STEP",
+      "outcomes": [
+        "MOET2018-G3-NUM-P030-013"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "AREA_PERIMETER",
+      "outcomes": [
+        "MOET2018-G3-GEO-P032-012",
+        "MOET2018-G3-GEO-P032-013",
+        "MOET2018-G3-GEO-P032-022",
+        "MOET2018-G3-GEO-P033-025",
+        "MOET2018-G4-GEO-P038-008",
+        "MOET2018-G5-GEO-P043-003",
+        "MOET2018-G5-GEO-P044-016"
+      ],
+      "attempted": 420,
+      "validated": 420,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "420/420",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "ARITHMETIC_MEAN",
+      "outcomes": [
+        "MOET2018-G4-NUM-P035-012",
+        "MOET2018-G4-STA-P039-007"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "BANKING_FINANCE",
+      "outcomes": [
+        "MOET2018-G7-EXP-P062-001",
+        "MOET2018-G8-EXP-P070-002"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "BAR_CHART_PATTERN",
+      "outcomes": [
+        "MOET2018-G4-STA-P039-005",
+        "MOET2018-G4-STA-P039-006"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "BAR_CHART_PROBLEM",
+      "outcomes": [
+        "MOET2018-G4-STA-P039-003"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "BAR_CHART_READ",
+      "outcomes": [
+        "MOET2018-G4-STA-P039-002"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "CHART_DATA_INTERPRETATION",
+      "outcomes": [
+        "MOET2018-G7-STA-P061-001"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "CHEMICAL_EQUATION_SYSTEM",
+      "outcomes": [
+        "MOET2018-G9-EXP-P078-007"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "CIRCLE_ANGLE_RELATION",
+      "outcomes": [
+        "MOET2018-G9-GEO-P075-020",
+        "MOET2018-G9-GEO-P075-021",
+        "MOET2018-G9-GEO-P075-024"
+      ],
+      "attempted": 180,
+      "validated": 180,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "180/180",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "CIRCLE_INSCRIBED_CIRCUMSCRIBED",
+      "outcomes": [
+        "MOET2018-G9-GEO-P075-022",
+        "MOET2018-G9-GEO-P075-023",
+        "MOET2018-G9-GEO-P075-025",
+        "MOET2018-G9-GEO-P075-027",
+        "MOET2018-G9-GEO-P075-028",
+        "MOET2018-G9-GEO-P075-029"
+      ],
+      "attempted": 360,
+      "validated": 360,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "360/360",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "CIRCLE_MEASURE",
+      "outcomes": [
+        "MOET2018-G5-GEO-P044-015",
+        "MOET2018-G9-GEO-P075-019",
+        "MOET2018-G9-GEO-P075-026"
+      ],
+      "attempted": 180,
+      "validated": 180,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "180/180",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "CIRCLE_RELATION",
+      "outcomes": [
+        "MOET2018-G9-GEO-P074-009",
+        "MOET2018-G9-GEO-P074-012",
+        "MOET2018-G9-GEO-P074-013",
+        "MOET2018-G9-GEO-P074-015",
+        "MOET2018-G9-GEO-P074-017"
+      ],
+      "attempted": 300,
+      "validated": 300,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "300/300",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "COMPARE_ORDER",
+      "outcomes": [
+        "MOET2018-G1-NUM-P022-006",
+        "MOET2018-G2-NUM-P025-007",
+        "MOET2018-G2-NUM-P025-019",
+        "MOET2018-G3-NUM-P029-003",
+        "MOET2018-G3-NUM-P029-009",
+        "MOET2018-G3-NUM-P029-011",
+        "MOET2018-G4-NUM-P034-003",
+        "MOET2018-G6-NAA-P047-005",
+        "MOET2018-G6-NAA-P048-022",
+        "MOET2018-G6-NAA-P048-024",
+        "MOET2018-G6-NAA-P050-046"
+      ],
+      "attempted": 660,
+      "validated": 660,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "660/660",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "COMPARE_ORDER_ESTIMATE",
+      "outcomes": [
+        "MOET2018-G2-NUM-P025-014"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "COORDINATE_POINT",
+      "outcomes": [
+        "MOET2018-G8-NAA-P064-022"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "COUNTING_SEQUENCE",
+      "outcomes": [
+        "MOET2018-G2-NUM-P024-002"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "CROSS_CURRICULAR_DATA_READ",
+      "outcomes": [
+        "MOET2018-G6-EXP-P054-003",
+        "MOET2018-G7-EXP-P062-006",
+        "MOET2018-G9-STA-P077-014"
+      ],
+      "attempted": 180,
+      "validated": 180,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "180/180",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "CROSS_CURRICULAR_STATISTICS_REASONING",
+      "outcomes": [
+        "MOET2018-G6-STA-P053-005",
+        "MOET2018-G7-STA-P061-005",
+        "MOET2018-G8-STA-P069-010"
+      ],
+      "attempted": 180,
+      "validated": 180,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "180/180",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DATA_CLASSIFICATION",
+      "outcomes": [
+        "MOET2018-G3-EXP-P034-002",
+        "MOET2018-G5-STA-P045-008"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DATA_COLLECTION_CLASSIFICATION",
+      "outcomes": [
+        "MOET2018-G2-EXP-P028-001",
+        "MOET2018-G2-STA-P028-004",
+        "MOET2018-G3-STA-P033-004",
+        "MOET2018-G6-STA-P053-008",
+        "MOET2018-G8-STA-P068-007"
+      ],
+      "attempted": 300,
+      "validated": 300,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "300/300",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DATA_ERROR_REASONING",
+      "outcomes": [
+        "MOET2018-G9-STA-P076-008"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DATA_INVESTIGATION",
+      "outcomes": [
+        "MOET2018-G4-EXP-P040-003",
+        "MOET2018-G5-EXP-P046-002"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DATA_REASONABLENESS",
+      "outcomes": [
+        "MOET2018-G6-STA-P053-006",
+        "MOET2018-G7-STA-P061-003",
+        "MOET2018-G8-STA-P068-001",
+        "MOET2018-G8-STA-P068-004"
+      ],
+      "attempted": 240,
+      "validated": 240,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "240/240",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DATA_RELATION_REASONING",
+      "outcomes": [
+        "MOET2018-G8-STA-P068-003"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DATA_REPRESENTATION_EQUIVALENCE",
+      "outcomes": [
+        "MOET2018-G7-STA-P061-006",
+        "MOET2018-G8-STA-P069-009",
+        "MOET2018-G8-STA-P069-013",
+        "MOET2018-G9-STA-P076-002"
+      ],
+      "attempted": 240,
+      "validated": 240,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "240/240",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DATA_SEQUENCE_RECOGNITION",
+      "outcomes": [
+        "MOET2018-G4-STA-P038-001"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DECIMAL_APPLICATION",
+      "outcomes": [
+        "MOET2018-G5-NUM-P042-015",
+        "MOET2018-G6-NAA-P050-044"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DECIMAL_COMPARE_ORDER",
+      "outcomes": [
+        "MOET2018-G5-NUM-P041-011",
+        "MOET2018-G5-NUM-P042-022"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DECIMAL_OPERATIONS",
+      "outcomes": [
+        "MOET2018-G5-NUM-P042-018",
+        "MOET2018-G5-NUM-P042-019",
+        "MOET2018-G5-NUM-P042-020",
+        "MOET2018-G6-NAA-P050-047"
+      ],
+      "attempted": 240,
+      "validated": 240,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "240/240",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DECIMAL_REPRESENTATION",
+      "outcomes": [
+        "MOET2018-G5-NUM-P041-005",
+        "MOET2018-G5-NUM-P041-008"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DECIMAL_ROUNDING",
+      "outcomes": [
+        "MOET2018-G5-NUM-P042-016"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DECIMAL_SCALE_OPERATION",
+      "outcomes": [
+        "MOET2018-G5-NUM-P042-021"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DIRECT_MEASUREMENT_ESTIMATION",
+      "outcomes": [
+        "MOET2018-G1-GEO-P023-011",
+        "MOET2018-G2-GEO-P026-005",
+        "MOET2018-G2-GEO-P027-016",
+        "MOET2018-G2-GEO-P027-018",
+        "MOET2018-G3-GEO-P032-020",
+        "MOET2018-G3-GEO-P033-024",
+        "MOET2018-G4-GEO-P038-014",
+        "MOET2018-G7-GEO-P060-021"
+      ],
+      "attempted": 480,
+      "validated": 480,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "480/480",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DIVISIBILITY_RULE",
+      "outcomes": [
+        "MOET2018-G6-NAA-P047-003",
+        "MOET2018-G6-NAA-P047-014",
+        "MOET2018-G6-NAA-P049-037"
+      ],
+      "attempted": 180,
+      "validated": 180,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "180/180",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DIVISION_FACT_APPLICATION",
+      "outcomes": [
+        "MOET2018-G2-NUM-P025-017",
+        "MOET2018-G3-NUM-P029-010"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DIVISION_REMAINDER",
+      "outcomes": [
+        "MOET2018-G6-NAA-P048-019"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "DIVISION_WITH_REMAINDER",
+      "outcomes": [
+        "MOET2018-G3-NUM-P030-016"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "EARLY_ARITHMETIC_APPLICATION",
+      "outcomes": [
+        "MOET2018-G1-EXP-P024-002"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "EVENT_CERTAINTY_LANGUAGE",
+      "outcomes": [
+        "MOET2018-G2-STA-P028-002"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "EXPERIMENT_FREQUENCY",
+      "outcomes": [
+        "MOET2018-G4-STA-P039-004"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "EXPERIMENTAL_PROBABILITY",
+      "outcomes": [
+        "MOET2018-G8-STA-P069-011"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "FACTOR_MULTIPLE",
+      "outcomes": [
+        "MOET2018-G6-NAA-P047-006",
+        "MOET2018-G6-NAA-P048-030"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "FRACTION_APPLICATION",
+      "outcomes": [
+        "MOET2018-G4-NUM-P037-025",
+        "MOET2018-G5-NUM-P041-006",
+        "MOET2018-G6-NAA-P049-031"
+      ],
+      "attempted": 180,
+      "validated": 180,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "180/180",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "FRACTION_COMMON_DENOMINATOR",
+      "outcomes": [
+        "MOET2018-G4-NUM-P036-021"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "FRACTION_EQUIVALENCE",
+      "outcomes": [
+        "MOET2018-G4-NUM-P036-019",
+        "MOET2018-G4-NUM-P036-022",
+        "MOET2018-G5-NUM-P041-010",
+        "MOET2018-G6-NAA-P049-033",
+        "MOET2018-G6-NAA-P049-035"
+      ],
+      "attempted": 300,
+      "validated": 300,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "300/300",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "FRACTION_PART_WHOLE",
+      "outcomes": [
+        "MOET2018-G4-NUM-P036-018"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "FRACTION_PERCENT_VALUE",
+      "outcomes": [
+        "MOET2018-G6-NAA-P049-042",
+        "MOET2018-G6-NAA-P050-049"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "FRACTION_REPRESENTATION",
+      "outcomes": [
+        "MOET2018-G4-NUM-P036-016"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "FRACTION_UNIT_QUANTITY",
+      "outcomes": [
+        "MOET2018-G3-NUM-P031-024"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "FREQUENCY_COUNT",
+      "outcomes": [
+        "MOET2018-G9-STA-P076-011"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "FREQUENCY_INTERPRETATION",
+      "outcomes": [
+        "MOET2018-G9-STA-P077-012",
+        "MOET2018-G9-STA-P077-013",
+        "MOET2018-G9-STA-P077-021"
+      ],
+      "attempted": 180,
+      "validated": 180,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "180/180",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "FUNCTION_EVALUATION",
+      "outcomes": [
+        "MOET2018-G8-NAA-P064-018"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "FUNCTION_GRAPH_RECOGNITION",
+      "outcomes": [
+        "MOET2018-G8-NAA-P064-012"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "FUNCTION_MODEL_RECOGNITION",
+      "outcomes": [
+        "MOET2018-G8-NAA-P064-014"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "GENETICS_PROBABILITY",
+      "outcomes": [
+        "MOET2018-G9-EXP-P078-009"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "GEOMETRIC_CONSTRUCTION_PLAN",
+      "outcomes": [
+        "MOET2018-G1-GEO-P023-007",
+        "MOET2018-G2-GEO-P026-006",
+        "MOET2018-G3-GEO-P031-001",
+        "MOET2018-G3-GEO-P031-007",
+        "MOET2018-G3-GEO-P031-008",
+        "MOET2018-G4-GEO-P037-001",
+        "MOET2018-G4-GEO-P037-005",
+        "MOET2018-G5-GEO-P043-001",
+        "MOET2018-G6-EXP-P055-003",
+        "MOET2018-G7-EXP-P062-003",
+        "MOET2018-G7-GEO-P060-024",
+        "MOET2018-G8-EXP-P070-007",
+        "MOET2018-G8-GEO-P068-001",
+        "MOET2018-G8-GEO-P068-002",
+        "MOET2018-G9-GEO-P076-006",
+        "MOET2018-G9-GEO-P076-007"
+      ],
+      "attempted": 960,
+      "validated": 960,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "960/960",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "GEOMETRIC_PROOF_REASONING",
+      "outcomes": [
+        "MOET2018-G7-GEO-P059-012",
+        "MOET2018-G7-GEO-P060-020"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "GEOMETRY_MEDIA_PLAN",
+      "outcomes": [
+        "MOET2018-G9-EXP-P078-005"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "GEOMETRY_PROPERTIES",
+      "outcomes": [
+        "MOET2018-G3-GEO-P031-004"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "GROUPED_FREQUENCY_TABLE",
+      "outcomes": [
+        "MOET2018-G9-STA-P077-016",
+        "MOET2018-G9-STA-P077-017",
+        "MOET2018-G9-STA-P077-018",
+        "MOET2018-G9-STA-P077-019"
+      ],
+      "attempted": 240,
+      "validated": 240,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "240/240",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "GROWTH_INVESTMENT",
+      "outcomes": [
+        "MOET2018-G9-EXP-P078-001",
+        "MOET2018-G9-EXP-P078-004"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "INEQUALITY_PROPERTY",
+      "outcomes": [
+        "MOET2018-G9-NAA-P072-016",
+        "MOET2018-G9-NAA-P073-024"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "INSURANCE_REASONING",
+      "outcomes": [
+        "MOET2018-G9-EXP-P078-002"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "INTEGER_NUMBER_LINE",
+      "outcomes": [
+        "MOET2018-G6-NAA-P048-017",
+        "MOET2018-G6-NAA-P048-020",
+        "MOET2018-G6-NAA-P048-021"
+      ],
+      "attempted": 180,
+      "validated": 180,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "180/180",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "INTEGER_OPERATION",
+      "outcomes": [
+        "MOET2018-G6-NAA-P048-026",
+        "MOET2018-G6-NAA-P048-029"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "LINE_RELATION",
+      "outcomes": [
+        "MOET2018-G4-GEO-P037-003",
+        "MOET2018-G4-GEO-P037-006",
+        "MOET2018-G6-GEO-P052-017",
+        "MOET2018-G7-GEO-P059-008",
+        "MOET2018-G7-GEO-P059-009",
+        "MOET2018-G7-GEO-P059-010",
+        "MOET2018-G7-GEO-P059-019"
+      ],
+      "attempted": 420,
+      "validated": 420,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "420/420",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "LINEAR_EQUATION_MODEL",
+      "outcomes": [
+        "MOET2018-G8-NAA-P065-023",
+        "MOET2018-G8-NAA-P065-024"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "LINEAR_FUNCTION_MODEL",
+      "outcomes": [
+        "MOET2018-G8-NAA-P065-025"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "LINEAR_FUNCTION_TABLE",
+      "outcomes": [
+        "MOET2018-G8-NAA-P064-015"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "LINEAR_GRAPH_CONSTRUCTION",
+      "outcomes": [
+        "MOET2018-G8-NAA-P064-021"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "LINEAR_GRAPH_RELATION",
+      "outcomes": [
+        "MOET2018-G8-NAA-P064-009",
+        "MOET2018-G8-NAA-P064-013"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "LINEAR_INEQUALITY_RECOGNITION",
+      "outcomes": [
+        "MOET2018-G9-NAA-P073-025"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "LINEAR_INEQUALITY_SOLVING",
+      "outcomes": [
+        "MOET2018-G9-NAA-P073-023"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "LINEAR_SYSTEM",
+      "outcomes": [
+        "MOET2018-G9-NAA-P072-010",
+        "MOET2018-G9-NAA-P072-020"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "LINEAR_SYSTEM_MODELING",
+      "outcomes": [
+        "MOET2018-G9-NAA-P072-014"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "LINEAR_SYSTEM_RECOGNITION",
+      "outcomes": [
+        "MOET2018-G9-NAA-P072-019"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "LINEAR_SYSTEM_SOLUTION_CHECK",
+      "outcomes": [
+        "MOET2018-G9-NAA-P072-017"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "MASS_COMPARISON_REASONING",
+      "outcomes": [
+        "MOET2018-G2-GEO-P026-004"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "MENTAL_ARITHMETIC",
+      "outcomes": [
+        "MOET2018-G1-NUM-P022-008",
+        "MOET2018-G1-NUM-P022-010",
+        "MOET2018-G2-NUM-P025-012",
+        "MOET2018-G2-NUM-P025-013",
+        "MOET2018-G3-NUM-P030-012",
+        "MOET2018-G4-NUM-P035-010",
+        "MOET2018-G4-NUM-P035-013"
+      ],
+      "attempted": 420,
+      "validated": 420,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "420/420",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "MISSING_COMPONENT",
+      "outcomes": [
+        "MOET2018-G3-NUM-P030-022"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "MIXED_ARITHMETIC_EXPRESSION",
+      "outcomes": [
+        "MOET2018-G1-NUM-P022-002",
+        "MOET2018-G2-NUM-P025-015",
+        "MOET2018-G3-NUM-P030-014",
+        "MOET2018-G3-NUM-P030-019",
+        "MOET2018-G3-NUM-P030-020",
+        "MOET2018-G6-NAA-P047-008",
+        "MOET2018-G7-NAA-P057-022"
+      ],
+      "attempted": 420,
+      "validated": 420,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "420/420",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "MIXED_DECIMAL_FRACTION_REPRESENTATION",
+      "outcomes": [
+        "MOET2018-G5-NUM-P041-007"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "MIXED_NUMBER_REPRESENTATION",
+      "outcomes": [
+        "MOET2018-G6-NAA-P049-034"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "MONEY_FINANCE",
+      "outcomes": [
+        "MOET2018-G2-GEO-P027-015",
+        "MOET2018-G3-GEO-P032-018",
+        "MOET2018-G4-EXP-P040-002",
+        "MOET2018-G5-EXP-P046-001",
+        "MOET2018-G6-EXP-P054-001",
+        "MOET2018-G6-EXP-P054-002",
+        "MOET2018-G6-NAA-P047-004",
+        "MOET2018-G6-NAA-P048-028",
+        "MOET2018-G8-EXP-P070-001"
+      ],
+      "attempted": 540,
+      "validated": 540,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "540/540",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "MULTIFORM_DATA_PATTERN",
+      "outcomes": [
+        "MOET2018-G6-STA-P053-007",
+        "MOET2018-G8-STA-P069-012"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "MULTIFORM_DATA_PROBLEM",
+      "outcomes": [
+        "MOET2018-G6-STA-P053-002",
+        "MOET2018-G8-STA-P069-008"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "MULTIFORM_DATA_READ",
+      "outcomes": [
+        "MOET2018-G6-STA-P053-001"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "MULTIPLY_DIVIDE",
+      "outcomes": [
+        "MOET2018-G2-NUM-P025-009",
+        "MOET2018-G3-NUM-P030-017",
+        "MOET2018-G4-NUM-P035-009"
+      ],
+      "attempted": 180,
+      "validated": 180,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "180/180",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "MULTIPLY_DIVIDE_FACTS",
+      "outcomes": [
+        "MOET2018-G2-NUM-P025-018"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "NATURAL_NUMBER_STRUCTURE",
+      "outcomes": [
+        "MOET2018-G4-NUM-P034-002",
+        "MOET2018-G4-NUM-P034-004"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "NUMBER_LINE_PLACEMENT",
+      "outcomes": [
+        "MOET2018-G2-NUM-P025-008"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "NUMBER_RECOGNITION_REPRESENTATION",
+      "outcomes": [
+        "MOET2018-G1-NUM-P021-001",
+        "MOET2018-G2-NUM-P024-001",
+        "MOET2018-G3-NUM-P029-001",
+        "MOET2018-G4-NUM-P034-001",
+        "MOET2018-G5-NUM-P040-001",
+        "MOET2018-G6-NAA-P047-002"
+      ],
+      "attempted": 360,
+      "validated": 360,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "360/360",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "NUMBER_SET_CLASSIFICATION",
+      "outcomes": [
+        "MOET2018-G7-NAA-P055-003",
+        "MOET2018-G7-NAA-P055-004",
+        "MOET2018-G7-NAA-P056-011",
+        "MOET2018-G7-NAA-P056-012"
+      ],
+      "attempted": 240,
+      "validated": 240,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "240/240",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "NUMERIC_OPERATION_PROPERTIES",
+      "outcomes": [
+        "MOET2018-G4-NUM-P036-023",
+        "MOET2018-G5-NUM-P042-023",
+        "MOET2018-G6-NAA-P049-043",
+        "MOET2018-G6-NAA-P050-051",
+        "MOET2018-G7-NAA-P056-018"
+      ],
+      "attempted": 300,
+      "validated": 300,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "300/300",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "OPERATION_COMPONENTS",
+      "outcomes": [
+        "MOET2018-G2-NUM-P025-005",
+        "MOET2018-G2-NUM-P025-006"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "OPERATION_PROPERTY",
+      "outcomes": [
+        "MOET2018-G3-NUM-P029-007",
+        "MOET2018-G3-NUM-P030-015",
+        "MOET2018-G4-NUM-P035-014",
+        "MOET2018-G4-NUM-P035-015",
+        "MOET2018-G5-NUM-P040-004",
+        "MOET2018-G6-NAA-P047-015",
+        "MOET2018-G6-NAA-P047-016"
+      ],
+      "attempted": 420,
+      "validated": 420,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "420/420",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "OPPOSITE_NUMBER",
+      "outcomes": [
+        "MOET2018-G6-NAA-P049-038",
+        "MOET2018-G6-NAA-P050-045",
+        "MOET2018-G7-NAA-P055-002",
+        "MOET2018-G7-NAA-P056-010"
+      ],
+      "attempted": 240,
+      "validated": 240,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "240/240",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PARITY_CLASSIFICATION",
+      "outcomes": [
+        "MOET2018-G4-NUM-P034-005"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PERCENTAGE_REASONING",
+      "outcomes": [
+        "MOET2018-G5-NUM-P042-014",
+        "MOET2018-G5-NUM-P043-024",
+        "MOET2018-G5-STA-P045-007",
+        "MOET2018-G7-EXP-P062-005"
+      ],
+      "attempted": 240,
+      "validated": 240,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "240/240",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PERIMETER_AREA",
+      "outcomes": [
+        "MOET2018-G6-GEO-P051-003"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PICTOGRAPH_INFERENCE",
+      "outcomes": [
+        "MOET2018-G2-STA-P028-003"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PICTOGRAPH_READ",
+      "outcomes": [
+        "MOET2018-G2-STA-P028-001"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PIE_CHART_PROBLEM",
+      "outcomes": [
+        "MOET2018-G5-STA-P045-003",
+        "MOET2018-G5-STA-P045-004"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PIE_CHART_READ",
+      "outcomes": [
+        "MOET2018-G5-STA-P045-002",
+        "MOET2018-G5-STA-P045-006"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PIE_LINE_CHART_PROBLEM",
+      "outcomes": [
+        "MOET2018-G7-STA-P061-002"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PIE_LINE_PATTERN",
+      "outcomes": [
+        "MOET2018-G7-STA-P061-007"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PLACE_VALUE_COMPARE",
+      "outcomes": [
+        "MOET2018-G3-NUM-P029-004"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PLACE_VALUE_COMPOSE",
+      "outcomes": [
+        "MOET2018-G2-NUM-P024-003",
+        "MOET2018-G2-NUM-P024-004",
+        "MOET2018-G3-NUM-P029-006"
+      ],
+      "attempted": 180,
+      "validated": 180,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "180/180",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "POINT_LINE_RELATION",
+      "outcomes": [
+        "MOET2018-G2-GEO-P026-002",
+        "MOET2018-G2-GEO-P026-009",
+        "MOET2018-G3-GEO-P031-002",
+        "MOET2018-G6-EXP-P055-002",
+        "MOET2018-G6-GEO-P052-012",
+        "MOET2018-G6-GEO-P052-014",
+        "MOET2018-G6-GEO-P052-015",
+        "MOET2018-G6-GEO-P052-016",
+        "MOET2018-G6-GEO-P052-019",
+        "MOET2018-G6-GEO-P052-020"
+      ],
+      "attempted": 600,
+      "validated": 600,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "600/600",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "POLYGON_PROPERTIES",
+      "outcomes": [
+        "MOET2018-G2-GEO-P026-007",
+        "MOET2018-G3-GEO-P031-006",
+        "MOET2018-G3-GEO-P031-009",
+        "MOET2018-G4-GEO-P037-004",
+        "MOET2018-G5-GEO-P043-007",
+        "MOET2018-G6-GEO-P050-001",
+        "MOET2018-G6-GEO-P050-002",
+        "MOET2018-G6-GEO-P051-004",
+        "MOET2018-G6-GEO-P051-011",
+        "MOET2018-G8-GEO-P066-008",
+        "MOET2018-G8-GEO-P066-009",
+        "MOET2018-G8-GEO-P066-010",
+        "MOET2018-G8-GEO-P066-011",
+        "MOET2018-G8-GEO-P066-012",
+        "MOET2018-G8-GEO-P066-013",
+        "MOET2018-G8-GEO-P066-014",
+        "MOET2018-G8-GEO-P066-015",
+        "MOET2018-G8-GEO-P066-016",
+        "MOET2018-G8-GEO-P066-017",
+        "MOET2018-G8-GEO-P066-018"
+      ],
+      "attempted": 1200,
+      "validated": 1200,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "1200/1200",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "POLYLINE_PERIMETER",
+      "outcomes": [
+        "MOET2018-G2-GEO-P027-019"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "POLYNOMIAL_FACTORIZATION",
+      "outcomes": [
+        "MOET2018-G8-NAA-P064-019"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "POLYNOMIAL_OPERATION",
+      "outcomes": [
+        "MOET2018-G8-NAA-P063-004",
+        "MOET2018-G8-NAA-P063-005",
+        "MOET2018-G8-NAA-P063-006",
+        "MOET2018-G8-NAA-P063-008"
+      ],
+      "attempted": 240,
+      "validated": 240,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "240/240",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "POLYNOMIAL_REASONING",
+      "outcomes": [
+        "MOET2018-G7-NAA-P058-033",
+        "MOET2018-G7-NAA-P058-034",
+        "MOET2018-G7-NAA-P058-035"
+      ],
+      "attempted": 180,
+      "validated": 180,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "180/180",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "POLYNOMIAL_SIMPLIFICATION",
+      "outcomes": [
+        "MOET2018-G8-NAA-P063-007"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "POWER_AND_ROOT",
+      "outcomes": [
+        "MOET2018-G6-NAA-P047-009",
+        "MOET2018-G6-NAA-P047-013",
+        "MOET2018-G7-NAA-P056-008",
+        "MOET2018-G7-NAA-P056-009",
+        "MOET2018-G7-NAA-P056-017",
+        "MOET2018-G9-NAA-P071-002",
+        "MOET2018-G9-NAA-P071-008"
+      ],
+      "attempted": 420,
+      "validated": 420,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "420/420",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PRACTICAL_DATA_REPRESENTATION",
+      "outcomes": [
+        "MOET2018-G7-EXP-P062-004"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PRACTICAL_MEASUREMENT_PLAN",
+      "outcomes": [
+        "MOET2018-G2-EXP-P028-002"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PRIME_COMPOSITE",
+      "outcomes": [
+        "MOET2018-G6-NAA-P048-018"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PRIME_FACTORIZATION",
+      "outcomes": [
+        "MOET2018-G6-NAA-P048-027"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PROBABILITY_MODEL",
+      "outcomes": [
+        "MOET2018-G6-STA-P053-003"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PRODUCT_EQUATION_SOLVING",
+      "outcomes": [
+        "MOET2018-G9-NAA-P072-013"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PROPORTIONAL_REASONING",
+      "outcomes": [
+        "MOET2018-G7-NAA-P057-019",
+        "MOET2018-G7-NAA-P057-020",
+        "MOET2018-G7-NAA-P057-031"
+      ],
+      "attempted": 180,
+      "validated": 180,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "180/180",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "PYTHAGORE_APPLICATION",
+      "outcomes": [
+        "MOET2018-G8-EXP-P070-009",
+        "MOET2018-G8-GEO-P065-002",
+        "MOET2018-G8-GEO-P065-006",
+        "MOET2018-G8-GEO-P066-007"
+      ],
+      "attempted": 240,
+      "validated": 240,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "240/240",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "QUADRATIC_EQUATION_RECOGNITION",
+      "outcomes": [
+        "MOET2018-G9-NAA-P072-018"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "QUADRATIC_EQUATION_SOLVING",
+      "outcomes": [
+        "MOET2018-G9-NAA-P072-011",
+        "MOET2018-G9-NAA-P072-021"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "QUADRATIC_FUNCTION_TABLE_GRAPH",
+      "outcomes": [
+        "MOET2018-G9-NAA-P071-005"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "QUADRATIC_GRAPH_CONSTRUCTION",
+      "outcomes": [
+        "MOET2018-G9-NAA-P071-009"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "QUADRATIC_GRAPH_SYMMETRY",
+      "outcomes": [
+        "MOET2018-G9-NAA-P071-004"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "QUADRATIC_MODELING",
+      "outcomes": [
+        "MOET2018-G9-NAA-P071-001",
+        "MOET2018-G9-NAA-P072-022"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "RADICAL_EXPRESSION",
+      "outcomes": [
+        "MOET2018-G9-NAA-P071-003",
+        "MOET2018-G9-NAA-P071-007"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "RADICAL_TRANSFORMATION",
+      "outcomes": [
+        "MOET2018-G9-NAA-P071-006"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "RATIO_PROPORTION",
+      "outcomes": [
+        "MOET2018-G6-NAA-P050-050",
+        "MOET2018-G7-NAA-P057-024",
+        "MOET2018-G7-NAA-P057-028",
+        "MOET2018-G7-NAA-P057-032"
+      ],
+      "attempted": 240,
+      "validated": 240,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "240/240",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "RATIONAL_COMPARE_ORDER",
+      "outcomes": [
+        "MOET2018-G4-NUM-P036-020",
+        "MOET2018-G4-NUM-P036-024",
+        "MOET2018-G5-NUM-P041-009",
+        "MOET2018-G7-NAA-P056-013",
+        "MOET2018-G7-NAA-P056-015"
+      ],
+      "attempted": 300,
+      "validated": 300,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "300/300",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "RATIONAL_EQUATION_SOLVING",
+      "outcomes": [
+        "MOET2018-G9-NAA-P072-012"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "RATIONAL_EXPRESSION_CONCEPT_REASONING",
+      "outcomes": [
+        "MOET2018-G8-NAA-P064-011"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "RATIONAL_EXPRESSION_OPERATION",
+      "outcomes": [
+        "MOET2018-G8-NAA-P064-016",
+        "MOET2018-G8-NAA-P064-020"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "RATIONAL_EXPRESSION_PROPERTY_REASONING",
+      "outcomes": [
+        "MOET2018-G8-NAA-P064-010"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "RATIONAL_NUMBER_LINE",
+      "outcomes": [
+        "MOET2018-G7-NAA-P055-001",
+        "MOET2018-G7-NAA-P056-014"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "RATIONAL_NUMBER_REASONING",
+      "outcomes": [
+        "MOET2018-G6-NAA-P049-039"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "RATIONAL_OPERATION_ORDER",
+      "outcomes": [
+        "MOET2018-G7-NAA-P056-007"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "RATIONAL_OPERATIONS",
+      "outcomes": [
+        "MOET2018-G4-NUM-P037-026",
+        "MOET2018-G5-NUM-P041-012",
+        "MOET2018-G5-NUM-P041-013",
+        "MOET2018-G6-NAA-P049-040",
+        "MOET2018-G7-NAA-P056-016"
+      ],
+      "attempted": 300,
+      "validated": 300,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "300/300",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "RATIONAL_POWER",
+      "outcomes": [
+        "MOET2018-G7-NAA-P056-006"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "REAL_NUMBER_ORDER",
+      "outcomes": [
+        "MOET2018-G7-NAA-P057-026",
+        "MOET2018-G7-NAA-P057-027"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "RELATIVE_EXPERIMENT_FREQUENCY",
+      "outcomes": [
+        "MOET2018-G5-STA-P045-001",
+        "MOET2018-G6-STA-P054-009",
+        "MOET2018-G6-STA-P054-011"
+      ],
+      "attempted": 180,
+      "validated": 180,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "180/180",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "REPRESENTATION_SELECTION",
+      "outcomes": [
+        "MOET2018-G5-STA-P045-005",
+        "MOET2018-G6-STA-P053-004",
+        "MOET2018-G7-STA-P061-004",
+        "MOET2018-G8-STA-P068-002",
+        "MOET2018-G9-STA-P076-001"
+      ],
+      "attempted": 300,
+      "validated": 300,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "300/300",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "RIGHT_TRIANGLE_TRIGONOMETRY",
+      "outcomes": [
+        "MOET2018-G9-GEO-P074-008",
+        "MOET2018-G9-GEO-P074-010",
+        "MOET2018-G9-GEO-P074-011",
+        "MOET2018-G9-GEO-P074-014",
+        "MOET2018-G9-GEO-P074-016",
+        "MOET2018-G9-GEO-P074-018"
+      ],
+      "attempted": 360,
+      "validated": 360,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "360/360",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "ROMAN_NUMERAL",
+      "outcomes": [
+        "MOET2018-G3-NUM-P029-005",
+        "MOET2018-G6-NAA-P047-001"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "ROUND_ESTIMATE",
+      "outcomes": [
+        "MOET2018-G2-NUM-P025-016",
+        "MOET2018-G3-NUM-P029-002",
+        "MOET2018-G4-NUM-P035-007",
+        "MOET2018-G6-NAA-P050-048",
+        "MOET2018-G7-NAA-P057-029"
+      ],
+      "attempted": 300,
+      "validated": 300,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "300/300",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SAMPLE_SPACE_RANDOM_TRIAL",
+      "outcomes": [
+        "MOET2018-G9-STA-P077-015"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SCALE_REASONING",
+      "outcomes": [
+        "MOET2018-G5-NUM-P042-017"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SCIENTIFIC_ALGEBRA_REASONING",
+      "outcomes": [
+        "MOET2018-G8-EXP-P070-008"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SET_MEMBERSHIP",
+      "outcomes": [
+        "MOET2018-G6-NAA-P047-007",
+        "MOET2018-G6-NAA-P047-010"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SHAPE_CLASSIFICATION",
+      "outcomes": [
+        "MOET2018-G1-GEO-P022-003",
+        "MOET2018-G5-GEO-P043-005"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SHAPE_RECOGNITION",
+      "outcomes": [
+        "MOET2018-G2-GEO-P026-008"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SIGNED_FRACTION_REPRESENTATION",
+      "outcomes": [
+        "MOET2018-G6-NAA-P049-036"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SIMILARITY_THALES",
+      "outcomes": [
+        "MOET2018-G8-GEO-P067-019",
+        "MOET2018-G8-GEO-P067-020",
+        "MOET2018-G8-GEO-P067-021",
+        "MOET2018-G8-GEO-P067-022",
+        "MOET2018-G8-GEO-P067-025",
+        "MOET2018-G8-GEO-P067-027",
+        "MOET2018-G8-GEO-P067-028",
+        "MOET2018-G8-GEO-P067-029"
+      ],
+      "attempted": 480,
+      "validated": 480,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "480/480",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SIMPLE_TRIAL_OUTCOMES",
+      "outcomes": [
+        "MOET2018-G3-STA-P033-003"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SOFTWARE_DATA_TOOL",
+      "outcomes": [
+        "MOET2018-G8-EXP-P070-003",
+        "MOET2018-G8-EXP-P070-004",
+        "MOET2018-G8-EXP-P070-005",
+        "MOET2018-G9-EXP-P078-003"
+      ],
+      "attempted": 240,
+      "validated": 240,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "240/240",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SOFTWARE_GEOMETRY_CONSTRUCTION",
+      "outcomes": [
+        "MOET2018-G6-GEO-P052-021",
+        "MOET2018-G6-GEO-P052-022"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SOLID_MEASUREMENT_APPLICATION",
+      "outcomes": [
+        "MOET2018-G9-EXP-P078-006"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SOLID_NET",
+      "outcomes": [
+        "MOET2018-G5-GEO-P043-004"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SOLID_PROPERTIES",
+      "outcomes": [
+        "MOET2018-G1-GEO-P022-004",
+        "MOET2018-G3-GEO-P031-005",
+        "MOET2018-G7-GEO-P058-003",
+        "MOET2018-G7-GEO-P058-004",
+        "MOET2018-G8-GEO-P065-003",
+        "MOET2018-G9-GEO-P073-002",
+        "MOET2018-G9-GEO-P073-003",
+        "MOET2018-G9-GEO-P073-004",
+        "MOET2018-G9-GEO-P073-005"
+      ],
+      "attempted": 540,
+      "validated": 540,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "540/540",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SOLID_SURFACE_VOLUME",
+      "outcomes": [
+        "MOET2018-G5-GEO-P043-002",
+        "MOET2018-G5-GEO-P044-009",
+        "MOET2018-G5-GEO-P044-017",
+        "MOET2018-G6-EXP-P055-001",
+        "MOET2018-G7-EXP-P063-001",
+        "MOET2018-G7-GEO-P058-001",
+        "MOET2018-G7-GEO-P058-002",
+        "MOET2018-G7-GEO-P058-005",
+        "MOET2018-G8-EXP-P070-006",
+        "MOET2018-G8-GEO-P065-001",
+        "MOET2018-G8-GEO-P065-005",
+        "MOET2018-G9-GEO-P073-001",
+        "MOET2018-G9-GEO-P073-006",
+        "MOET2018-G9-GEO-P073-007"
+      ],
+      "attempted": 840,
+      "validated": 840,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "840/840",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SPATIAL_POSITION",
+      "outcomes": [
+        "MOET2018-G1-EXP-P024-001",
+        "MOET2018-G1-GEO-P022-001"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SPEED_DISTANCE_TIME",
+      "outcomes": [
+        "MOET2018-G5-GEO-P044-010"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SYMMETRY_RECOGNITION",
+      "outcomes": [
+        "MOET2018-G6-GEO-P051-008",
+        "MOET2018-G6-GEO-P051-010"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "SYMMETRY_REGULARITY",
+      "outcomes": [
+        "MOET2018-G6-GEO-P051-005",
+        "MOET2018-G6-GEO-P051-006",
+        "MOET2018-G6-GEO-P051-007",
+        "MOET2018-G6-GEO-P051-009",
+        "MOET2018-G9-GEO-P076-001",
+        "MOET2018-G9-GEO-P076-002",
+        "MOET2018-G9-GEO-P076-003",
+        "MOET2018-G9-GEO-P076-004",
+        "MOET2018-G9-GEO-P076-005"
+      ],
+      "attempted": 540,
+      "validated": 540,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "540/540",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "TABLE_DATA_INFERENCE",
+      "outcomes": [
+        "MOET2018-G3-STA-P033-002"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "TABLE_DATA_READ",
+      "outcomes": [
+        "MOET2018-G3-STA-P033-001"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "TAX_CALCULATION_REASONING",
+      "outcomes": [
+        "MOET2018-G7-EXP-P062-002"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "TENS_ONES_STRUCTURE",
+      "outcomes": [
+        "MOET2018-G1-NUM-P022-003"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "THEORETICAL_PROBABILITY_RATIO",
+      "outcomes": [
+        "MOET2018-G7-STA-P062-010",
+        "MOET2018-G8-STA-P069-014",
+        "MOET2018-G9-STA-P077-020"
+      ],
+      "attempted": 180,
+      "validated": 180,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "180/180",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "TIME_CALENDAR",
+      "outcomes": [
+        "MOET2018-G1-EXP-P024-003",
+        "MOET2018-G1-GEO-P023-006",
+        "MOET2018-G1-GEO-P023-009",
+        "MOET2018-G1-GEO-P023-010",
+        "MOET2018-G1-GEO-P023-014",
+        "MOET2018-G1-GEO-P023-015",
+        "MOET2018-G2-GEO-P027-010",
+        "MOET2018-G2-GEO-P027-013",
+        "MOET2018-G2-GEO-P027-014",
+        "MOET2018-G3-GEO-P032-011",
+        "MOET2018-G3-GEO-P032-019",
+        "MOET2018-G4-GEO-P038-009"
+      ],
+      "attempted": 720,
+      "validated": 720,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "720/720",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "TRIANGLE_CONGRUENCE",
+      "outcomes": [
+        "MOET2018-G7-GEO-P059-006",
+        "MOET2018-G7-GEO-P059-015"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "TRIANGLE_MIDLINE_REASONING",
+      "outcomes": [
+        "MOET2018-G8-GEO-P067-024",
+        "MOET2018-G8-GEO-P067-026"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "TRIANGLE_PROPERTIES",
+      "outcomes": [
+        "MOET2018-G7-GEO-P059-007",
+        "MOET2018-G7-GEO-P059-011",
+        "MOET2018-G7-GEO-P059-016",
+        "MOET2018-G7-GEO-P059-017"
+      ],
+      "attempted": 240,
+      "validated": 240,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "240/240",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "TRIANGLE_SPECIAL_LINES",
+      "outcomes": [
+        "MOET2018-G5-GEO-P043-006",
+        "MOET2018-G7-GEO-P059-014",
+        "MOET2018-G7-GEO-P059-018",
+        "MOET2018-G7-GEO-P060-022",
+        "MOET2018-G7-GEO-P060-023",
+        "MOET2018-G7-GEO-P060-025",
+        "MOET2018-G8-GEO-P067-023"
+      ],
+      "attempted": 420,
+      "validated": 420,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "420/420",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "TRIGONOMETRIC_FIELD_MEASUREMENT",
+      "outcomes": [
+        "MOET2018-G9-EXP-P078-008"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "UNIFORM_MOTION_REASONING",
+      "outcomes": [
+        "MOET2018-G5-GEO-P044-008"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "UNIT_CONVERSION",
+      "outcomes": [
+        "MOET2018-G5-GEO-P044-013"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "UNIT_CONVERSION_MEASUREMENT",
+      "outcomes": [
+        "MOET2018-G1-GEO-P023-008",
+        "MOET2018-G1-GEO-P023-012",
+        "MOET2018-G1-GEO-P023-013",
+        "MOET2018-G2-GEO-P026-003",
+        "MOET2018-G2-GEO-P027-012",
+        "MOET2018-G2-GEO-P027-017",
+        "MOET2018-G3-GEO-P032-014",
+        "MOET2018-G3-GEO-P032-015",
+        "MOET2018-G3-GEO-P032-016",
+        "MOET2018-G3-GEO-P032-017",
+        "MOET2018-G3-GEO-P032-021",
+        "MOET2018-G4-GEO-P038-011",
+        "MOET2018-G4-GEO-P038-013"
+      ],
+      "attempted": 780,
+      "validated": 780,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "780/780",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "UNIT_FRACTION_MODEL",
+      "outcomes": [
+        "MOET2018-G3-NUM-P031-023"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "VIETE_RELATION",
+      "outcomes": [
+        "MOET2018-G9-NAA-P072-015"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "VISUAL_OPERATION_MODEL",
+      "outcomes": [
+        "MOET2018-G1-NUM-P022-009",
+        "MOET2018-G2-NUM-P025-010"
+      ],
+      "attempted": 120,
+      "validated": 120,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "120/120",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "VOLUME_ESTIMATION",
+      "outcomes": [
+        "MOET2018-G5-GEO-P044-014"
+      ],
+      "attempted": 60,
+      "validated": 60,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "60/60",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    },
+    {
+      "capabilityId": "WRITTEN_ARITHMETIC",
+      "outcomes": [
+        "MOET2018-G2-NUM-P025-011",
+        "MOET2018-G3-NUM-P029-008",
+        "MOET2018-G3-NUM-P030-018",
+        "MOET2018-G4-NUM-P035-008",
+        "MOET2018-G4-NUM-P035-011",
+        "MOET2018-G5-NUM-P040-003",
+        "MOET2018-G6-NAA-P047-011"
+      ],
+      "attempted": 420,
+      "validated": 420,
+      "status": "STUDENT_RUNTIME_ELIGIBLE",
+      "diagnostics": {},
+      "gates": {
+        "oracleSamples": "420/420",
+        "negativeAndMutationControls": "PASS",
+        "interactionAndVisualValidation": "PASS",
+        "languageProductReview": "REVIEWED_ACCEPTED",
+        "authenticatedRuntimePersistence": "PASS"
+      }
+    }
+  ]
+}

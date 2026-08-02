@@ -1,4 +1,27 @@
 import type { PreviewOption, PreviewVisualSpec } from "../curriculum/types.ts";
+import type {
+  ProductDifficulty,
+  ProductInteractionContract,
+  ProductVisual,
+} from "../generation-v2/types.ts";
+
+export type CurriculumRuntimeMode = "STATIC" | "GENERATED_V2";
+
+export type StudentGeneratorV2Question = Readonly<{
+  schemaVersion: 2;
+  questionId: string;
+  grade: number;
+  difficulty: ProductDifficulty;
+  publicPrompt: string;
+  publicData: Readonly<Record<string, unknown>>;
+  interaction: ProductInteractionContract;
+  visual: ProductVisual;
+  accessibility: Readonly<{
+    prompt: string;
+    visualAlternative: string;
+    responseInstruction: string;
+  }>;
+}>;
 
 export const curriculumMasteryLabels = [
   "NOT_STARTED",
@@ -32,6 +55,7 @@ export type CurriculumAttemptQuestion = Readonly<{
   options: readonly PreviewOption[] | null;
   visual: PreviewVisualSpec;
   cognitiveLevel: "UNDERSTAND" | "APPLY" | "REASON";
+  generatorV2: StudentGeneratorV2Question | null;
 }>;
 
 export type CurriculumAttemptFeedback = Readonly<{
@@ -43,6 +67,7 @@ export type CurriculumAttemptFeedback = Readonly<{
 }>;
 
 export type CurriculumAttemptState = Readonly<{
+  runtimeMode: CurriculumRuntimeMode;
   attemptId: string;
   releaseId: string;
   contentVersion: string;
@@ -138,6 +163,14 @@ export const curriculumRuntimeErrorCodes = [
   "INVALID_REQUEST",
   "REQUEST_TIMEOUT",
   "REQUEST_FAILED",
+  "GENERATOR_V2_RUNTIME_DISABLED",
+  "GENERATOR_V2_LOOPBACK_REQUIRED",
+  "GENERATOR_V2_RELEASE_DISABLED",
+  "GENERATOR_V2_SCHEMA_INCOMPATIBLE",
+  "GENERATOR_V2_SIGNING_KEY_UNAVAILABLE",
+  "GENERATOR_V2_OUTCOME_NOT_IMPLEMENTED",
+  "GENERATOR_V2_CORRECTNESS_REVIEW_REQUIRED",
+  "GENERATOR_V2_GENERATION_FAILED",
 ] as const;
 
 export type CurriculumRuntimeErrorCode =
@@ -219,6 +252,7 @@ function parseOptions(value: unknown): readonly PreviewOption[] | null {
 function parseQuestion(value: unknown): CurriculumAttemptQuestion | null {
   if (!isRecord(value)) return null;
   const options = parseOptions(value.options);
+  const generatorV2 = parseStudentGeneratorV2Question(value.generator_v2);
   if (
     !isSlug(value.question_id) ||
     !isInteger(value.position, 1, 100) ||
@@ -231,7 +265,10 @@ function parseQuestion(value: unknown): CurriculumAttemptQuestion | null {
     !isRecord(value.visual) ||
     !["UNDERSTAND", "APPLY", "REASON"].includes(
       String(value.cognitive_level),
-    )
+    ) ||
+    (value.generator_v2 !== null &&
+      value.generator_v2 !== undefined &&
+      generatorV2 === null)
   ) {
     return null;
   }
@@ -244,7 +281,53 @@ function parseQuestion(value: unknown): CurriculumAttemptQuestion | null {
     visual: value.visual as PreviewVisualSpec,
     cognitiveLevel:
       value.cognitive_level as CurriculumAttemptQuestion["cognitiveLevel"],
+    generatorV2,
   };
+}
+
+function parseStudentGeneratorV2Question(
+  value: unknown,
+): StudentGeneratorV2Question | null {
+  if (value === null || value === undefined) return null;
+  if (!isRecord(value)) return null;
+  const interaction = isRecord(value.interaction) ? value.interaction : null;
+  const visual = isRecord(value.visual) ? value.visual : null;
+  const accessibility = isRecord(value.accessibility)
+    ? value.accessibility
+    : null;
+  const interactionTypes = [
+    "SINGLE_CHOICE",
+    "MULTI_SELECT",
+    "INTEGER_INPUT",
+    "DECIMAL_INPUT",
+    "FRACTION_INPUT",
+    "ORDERING",
+    "MATCHING",
+    "TABLE_OR_CHART_RESPONSE",
+    "CONSTRUCTION_OR_VISUAL_SELECTION",
+    "SHORT_STRUCTURED_RESPONSE",
+  ];
+  if (
+    value.schemaVersion !== 2 ||
+    !isSlug(value.questionId) ||
+    !isInteger(value.grade, 1, 9) ||
+    !["EASY", "MEDIUM", "HARD"].includes(String(value.difficulty)) ||
+    !isText(value.publicPrompt) ||
+    !isRecord(value.publicData) ||
+    !interaction ||
+    !interactionTypes.includes(String(interaction.type)) ||
+    !visual ||
+    !isText(visual.type, 80) ||
+    !isText(visual.description, 1000) ||
+    !isRecord(visual.data) ||
+    !accessibility ||
+    !isText(accessibility.prompt) ||
+    !isText(accessibility.visualAlternative, 1000) ||
+    !isText(accessibility.responseInstruction, 1000)
+  ) {
+    return null;
+  }
+  return value as StudentGeneratorV2Question;
 }
 
 function parseFeedback(value: unknown): CurriculumAttemptFeedback | null {
@@ -300,6 +383,8 @@ export function parseCurriculumAttemptState(
     return null;
   }
   return {
+    runtimeMode:
+      value.runtime_mode === "GENERATED_V2" ? "GENERATED_V2" : "STATIC",
     attemptId: value.attempt_id,
     releaseId: value.release_id,
     contentVersion: value.content_version,
@@ -331,6 +416,7 @@ export function parseCurriculumAttemptApiState(
         options: value.currentQuestion.options,
         visual: value.currentQuestion.visual,
         cognitive_level: value.currentQuestion.cognitiveLevel,
+        generator_v2: value.currentQuestion.generatorV2,
       }
     : value.currentQuestion;
   const feedback = isRecord(value.feedback)
@@ -343,6 +429,7 @@ export function parseCurriculumAttemptApiState(
       }
     : value.feedback;
   return parseCurriculumAttemptState({
+    runtime_mode: value.runtimeMode,
     attempt_id: value.attemptId,
     release_id: value.releaseId,
     content_version: value.contentVersion,

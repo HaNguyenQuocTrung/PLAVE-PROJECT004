@@ -81,6 +81,10 @@ const LEADS = [
   "Thử cách làm hợp lí", "Phân tích yêu cầu", "Đối chiếu các dữ kiện", "Giúp nhóm học tập", "Trình bày kết quả", "Chọn bước bắt đầu", "Dùng quy tắc phù hợp", "Kiểm tra kết luận", "Hoàn thành phiếu học tập", "Giải thích bằng phép tính", "Tìm quy luật cần dùng", "Xác định điều phải tìm",
   "Đọc biểu diễn toán học", "Chọn phép kiểm tra", "Lập kế hoạch ngắn", "Giúp bạn Lan hoàn thiện", "Tách bài toán thành bước", "Nêu kết quả chính xác", "Kiểm tra miền giá trị", "Dùng dữ kiện cần thiết", "Hoàn thành bảng con", "Thử một cách suy luận", "Đọc kĩ kí hiệu", "Kết nối các quan hệ",
 ] as const;
+const DATA_LEADS = [
+  "Đọc kĩ bảng rồi thực hiện", "Quan sát các bản ghi và làm theo tiêu chí", "Dựa vào bảng dữ liệu", "Đối chiếu từng hàng trước khi trả lời", "Xác định đúng tiêu chí của bảng", "Sắp xếp dữ kiện theo giá trị trong bảng", "Phân tích bốn bản ghi trong bảng", "Kiểm tra nhãn và giá trị", "Đọc các giá trị rồi kết luận", "Dùng thứ tự tăng dần đã nêu trong câu hỏi",
+  "So sánh các bản ghi trong bảng", "Kiểm tra dữ liệu trước khi chọn", "Hoàn thành nhiệm vụ từ bảng", "Theo dõi từng giá trị trong bảng", "Chọn bằng chứng trực tiếp từ bảng", "Làm việc với bốn bản ghi đã cho", "Đọc đúng hàng và cột", "Dựa trên tiêu chí công khai", "Xem lại các số liệu rồi trả lời", "Thực hiện yêu cầu với bảng dữ liệu",
+] as const;
 const CONTEXTS = [
   "góc học tập", "thư viện lớp", "câu lạc bộ Toán", "khu vườn trường", "quầy sách", "bảng theo dõi", "hộp thẻ số", "buổi thực hành", "kho dụng cụ", "chuyến tham quan", "gian hàng nhỏ", "phòng thí nghiệm",
   "tủ đồ dùng", "ngày hội Toán", "sân trường", "phòng đọc", "nhóm trực nhật", "bàn trưng bày", "xưởng mô hình", "phiếu khảo sát", "góc tái chế", "lớp học xanh", "khu trải nghiệm", "bảng kế hoạch",
@@ -307,11 +311,14 @@ function buildWaveAModel(contract: WaveAOutcomeContract, input: GenerateQuestion
       return model(contract, input, random, { task: level === 1 ? "NEXT" : level === 2 ? "PREVIOUS" : "MISSING_MIDDLE", operation: "ARITHMETIC_SEQUENCE", values: [start, step, start + step, start + 2 * step, start + 3 * step], labels: ["bắt đầu", "bước", "t1", "t2", "t3"], meta: { unknownPosition: level, representation: level === 3 ? "gap-sequence" : "number-line", reasoningSteps: level }, structuralFingerprint: `pattern:arithmetic:unknown-${level}:representation-${level}` });
     }
     case "APPLIED": {
-      const a = random.int(contract.grade <= 2 ? 5 : 20, Math.min(contract.grade <= 2 ? 80 : 500, max));
-      const b = random.int(2, Math.min(40, a));
-      const c = random.int(1, Math.min(25, a + b));
-      const task = contract.profile === "INTEGER" ? "SIGNED_CONTEXT" : level === 1 ? "ONE_STEP" : level === 2 ? "TWO_STEP" : "SELECT_RELEVANT_THEN_TWO_STEP";
-      return model(contract, input, random, { task, operation: contract.profile === "INTEGER" ? "+-SIGNED" : level === 1 ? "+" : "+-", values: [a, b, c, random.int(2, 19)], labels: ["ban đầu", "thay đổi", "thay đổi 2", "dữ kiện phụ"], meta: { context: CONTEXTS[random.int(0, CONTEXTS.length - 1)]!, unknownPosition: "result", relevantInformation: level === 3 ? 3 : level + 1, reasoningSteps: level }, structuralFingerprint: `applied:${task}:relevant-${level + 1}:steps-${level}` });
+      const signedContext = contract.profile === "INTEGER";
+      const a = signedContext
+        ? random.int(-10, 40)
+        : random.int(contract.grade <= 2 ? 5 : 20, Math.min(contract.grade <= 2 ? 80 : 500, max));
+      const b = signedContext ? random.int(2, 15) : random.int(2, Math.min(40, a));
+      const c = signedContext ? random.int(1, 12) : random.int(1, Math.min(25, a + b));
+      const task = signedContext ? "SIGNED_CONTEXT" : level === 1 ? "ONE_STEP" : level === 2 ? "TWO_STEP" : "SELECT_RELEVANT_THEN_TWO_STEP";
+      return model(contract, input, random, { task, operation: signedContext ? "+-SIGNED" : level === 1 ? "+" : "+-", values: [a, b, c, random.int(2, 19)], labels: ["ban đầu", "thay đổi", "thay đổi 2", "dữ kiện phụ"], meta: { context: CONTEXTS[random.int(0, CONTEXTS.length - 1)]!, unknownPosition: "result", relevantInformation: level === 3 ? 3 : level + 1, reasoningSteps: level }, structuralFingerprint: `applied:${task}:relevant-${level + 1}:steps-${level}` });
     }
     case "ROMAN": {
       const value = random.int(1, 30);
@@ -654,7 +661,11 @@ function promptFor(model: WaveANormalizedProblemModel) {
     case "POWER_ROOT": return model.operation === "SQRT" ? `${lead}: Tính căn bậc hai số học của ${v[0]}.` : model.operation === "CBRT" ? `${lead}: Tính căn bậc ba của ${v[0]}.` : model.task === "EVALUATE_POWER" ? `${lead}: Tính ${v[0]}^${v[1]}.` : model.task === "MULTIPLY_SAME_BASE" ? `${lead}: Tính ${v[0]}^${v[1]} × ${v[0]}^${v[2]}.` : `${lead}: Tính ${v[0]}^${v[1]} : ${v[0]}^${v[2]}.`;
     case "MULTI_SELECT": return `${lead}: Chọn tất cả các số trong danh sách thỏa điều kiện ${model.task === "SELECT_DIVISIBLE" ? `chia hết cho ${v[0]}` : `là ước của ${v[0]}`}.`;
     case "CLASSIFY": return model.task === "PRIME_OR_COMPOSITE" ? `${lead}: Số ${v[0]} là số nguyên tố hay hợp số?` : model.task === "PRIME_FACTORIZATION" ? `${lead}: Chọn phân tích ${v[0]} thành tích các thừa số nguyên tố.` : model.task === "ADDITION_ASSOCIATIVE" ? `${lead}: Chọn đẳng thức áp dụng đúng tính chất kết hợp của phép cộng.` : model.task === "MULTIPLICATION_ASSOCIATIVE" ? `${lead}: Chọn đẳng thức áp dụng đúng tính chất kết hợp của phép nhân.` : `${lead}: Chọn đẳng thức áp dụng đúng tính chất phân phối.`;
-    case "PATTERN": return `${lead}: Dãy số ở ${context} bắt đầu ${v[0]} và mỗi bước thay đổi ${v[1]}. Tìm số còn thiếu theo yêu cầu.`;
+    case "PATTERN": return model.task === "NEXT"
+      ? `${lead}: Dãy số ở ${context} là ${v[0]}, ${v[2]}, ${v[3]}. Số tiếp theo là số nào?`
+      : model.task === "PREVIOUS"
+        ? `${lead}: Dãy số tăng mỗi lần ${v[1]} đơn vị và có các số ${v[0]}, ${v[2]}, ${v[3]}. Số liền trước ${v[0]} là số nào?`
+        : `${lead}: Điền số vào ô trống của dãy ${v[0]}, ${v[2]}, □, ${v[4]}; mỗi bước tăng ${v[1]} đơn vị.`;
     case "APPLIED": {
       if (model.task === "SIGNED_CONTEXT") return `${lead}: Nhiệt độ ban đầu là ${v[0]}°C, sau đó giảm ${v[1]}°C rồi tăng ${v[2]}°C. Nhiệt độ cuối cùng là bao nhiêu?`;
       if (model.task === "ONE_STEP") return `${lead}: Có ${v[0]} đồ vật, sau đó nhận thêm ${v[1]} đồ vật. Hỏi có tất cả bao nhiêu đồ vật?`;
@@ -664,8 +675,11 @@ function promptFor(model: WaveANormalizedProblemModel) {
     case "ROMAN": return model.task === "ROMAN_TO_NATURAL" ? `${lead}: Chữ số La Mã ${roman(v[0]!)} biểu diễn số tự nhiên nào?` : `${lead}: Chọn cách viết số ${v[0]} bằng chữ số La Mã.`;
     case "SET": return `${lead}: Chọn tất cả phần tử thuộc tập hợp ${model.operation === "MULTIPLES_OF_3" ? "các bội của 3" : "các số chẵn"} trong danh sách.`;
     case "SHAPE": return `${lead}: Quan sát mô hình khối ở ${context} và chọn tên đúng.`;
-    case "DATA": return model.task.includes("ORDER") ? `${lead}: Sắp xếp bốn bản ghi trong bảng theo giá trị tăng dần.` : model.task === "SELECT_ABOVE_THRESHOLD" ? `${lead}: Chọn các bản ghi lớn hơn giá trị trung bình của bốn số liệu.` : model.task === "MISSING_FROM_TOTAL" ? `${lead}: Tính tổng giá trị của ba bản ghi A, B và C trong bảng.` : `${lead}: Độ chênh lệch giữa giá trị của bản ghi A và bản ghi B là bao nhiêu?`;
-    case "ALGEBRA": return model.operation === "RATIONAL" ? `${lead}: Tại x = ${v[2]}, tính giá trị phép toán giữa ${v[0]}/(x+${v[1]}) và ${v[1]}/(x+${v[0]}), biết các mẫu khác 0.` : `${lead}: Chọn biểu thức đại số phù hợp.`;
+    case "DATA": {
+      const dataLead = DATA_LEADS[model.templateIndex % DATA_LEADS.length]!;
+      return model.task.includes("ORDER") ? `${dataLead}: Sắp xếp bốn bản ghi trong bảng theo giá trị tăng dần.` : model.task === "SELECT_ABOVE_THRESHOLD" ? `${dataLead}: Chọn các bản ghi lớn hơn giá trị trung bình của bốn số liệu.` : model.task === "MISSING_FROM_TOTAL" ? `${dataLead}: Tính tổng giá trị của ba bản ghi A, B và C trong bảng.` : `${dataLead}: Độ chênh lệch giữa giá trị của bản ghi A và bản ghi B là bao nhiêu?`;
+    }
+    case "ALGEBRA": return model.operation === "RATIONAL" ? `${lead}: Tại x = ${v[2]}, tính ${model.task === "EVALUATE_RATIONAL_PRODUCT" ? "tích" : "tổng"} của ${v[0]}/(x+${v[1]}) và ${v[1]}/(x+${v[0]}), biết các mẫu khác 0.` : `${lead}: Chọn biểu thức đại số phù hợp.`;
     case "POLYNOMIAL": return model.task === "EVALUATE" ? `${lead}: Tính giá trị đa thức ${polynomialLabel(v.slice(0, 3))} tại x = ${v[6]}.` : `${lead}: Chọn kết quả đúng khi ${model.task === "ADD" ? "cộng" : model.task === "SUBTRACT" ? "trừ" : "nhân"} hai đa thức ${polynomialLabel(v.slice(0, 3))} và ${polynomialLabel(v.slice(3, 6))}.`;
     case "RADICAL": return model.task === "RECOGNIZE_DOMAIN" ? `${lead}: Chọn căn thức có điều kiện xác định đúng.` : `${lead}: Rút gọn √${v[2]} bằng cách đưa thừa số chính phương ra ngoài dấu căn.`;
     case "INEQUALITY": return `${lead}: Biết ${v[0]} < ${v[1]}. Chọn kết luận đúng sau phép biến đổi đã nêu.`;
@@ -689,7 +703,7 @@ function visualFor(model: WaveANormalizedProblemModel): ProductVisual {
 }
 
 function interactionFor(model: WaveANormalizedProblemModel, solution: WaveASolution): ProductInteractionContract {
-  if ((model.modelKind === "ORDER" || model.modelKind === "DATA") && Array.isArray(solution.correct) && model.task !== "SELECT_ABOVE_THRESHOLD") return { type: "ORDERING", options: model.values.map((value, index) => ({ id: model.modelKind === "DATA" ? `record-${index}` : `value-${String(value)}`, label: model.modelKind === "DATA" ? `${model.labels[index]}: ${value}` : String(value) })), orderedItemIds: solution.correct as readonly string[] };
+  if ((model.modelKind === "ORDER" || model.modelKind === "DATA") && Array.isArray(solution.correct) && model.task !== "SELECT_ABOVE_THRESHOLD") return { type: "ORDERING", options: model.values.map((value, index) => ({ id: model.modelKind === "DATA" ? `record-${index}` : `value-${String(value)}`, label: model.modelKind === "DATA" ? `${model.labels[index]}: ${value}` : String(value) })) };
   if (solution.options) {
     const multi = Array.isArray(solution.correct) && solution.correct.every((item) => typeof item === "string") && (model.modelKind === "MULTI_SELECT" || model.modelKind === "SET" || model.task === "SELECT_ABOVE_THRESHOLD");
     return { type: multi ? "MULTI_SELECT" : model.modelKind === "SHAPE" ? "CONSTRUCTION_OR_VISUAL_SELECTION" : "SINGLE_CHOICE", options: solution.options, choiceCount: multi ? solution.correct.length : 1 };
@@ -798,7 +812,12 @@ function independentValidateWaveA(contract: WaveAOutcomeContract, model: WaveANo
   checks.push("EXPLICIT_OUTCOME_VARIANT_CONTRACT_BINDING");
   if (model.structureLevel !== STRUCTURE[model.difficulty] || !model.structuralFingerprint.includes(`steps-${model.structureLevel}`) && !model.structuralFingerprint.includes(`task-${model.structureLevel}`) && !model.structuralFingerprint.includes(`representation-${model.structureLevel}`)) throw new GenerationV2Error("VALIDATION_FAILED");
   checks.push("STRUCTURAL_DIFFICULTY_FINGERPRINT");
-  if (!prompt.trim() || !prompt.includes(LEADS[model.templateIndex]!) || !prompt.includes(CONTEXTS[model.contextIndex]!) || /undefined|null|seed|private|solverReceipt/iu.test(prompt)) throw new GenerationV2Error("VALIDATION_FAILED");
+  const expectedLead = model.modelKind === "DATA"
+    ? DATA_LEADS[model.templateIndex % DATA_LEADS.length]!
+    : LEADS[model.templateIndex]!;
+  const expectedContextIsPresent = model.modelKind === "DATA"
+    || prompt.includes(CONTEXTS[model.contextIndex]!);
+  if (!prompt.trim() || !prompt.includes(expectedLead) || !expectedContextIsPresent || /undefined|null|seed|private|solverReceipt/iu.test(prompt)) throw new GenerationV2Error("VALIDATION_FAILED");
   if (/\b(?:one_step|two_step|select_relevant|left_to_right|precedence|parenthesized|missing_from_total|difference_relation|add|subtract|multiply_linear)\b/iu.test(prompt)) throw new GenerationV2Error("VALIDATION_FAILED");
   if (contract.grade <= 2 && contract.canonicalVariantId === "MIXED_ARITHMETIC_EXPRESSION" && /[×÷^]/u.test(prompt)) throw new GenerationV2Error("VALIDATION_FAILED");
   if (model.modelKind === "DATA" && model.task === "DIFFERENCE_RELATION" && !/A.+B|B.+A/u.test(prompt)) throw new GenerationV2Error("VALIDATION_FAILED");

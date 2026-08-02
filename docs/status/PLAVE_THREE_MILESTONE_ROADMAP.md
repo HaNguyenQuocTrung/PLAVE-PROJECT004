@@ -2,10 +2,10 @@
 
 Ngày cập nhật: 2026-08-02  
 Phạm vi sản phẩm: Toán lớp 1–9  
-Active remediation: Sprint 10A — critical secret containment, reproducibility and baseline recovery
+Active remediation: Sprint 10C complete; Sprint 10D independent Generator re-audit required
 
 `MILESTONE_1=COMPLETE_OWNER_APPROVED`  
-`MILESTONE_2=REOPENED_CRITICAL_REMEDIATION`  
+`MILESTONE_2=REOPENED_AWAITING_SPRINT_10D_REAUDIT`
 `MILESTONE_3=REOPENED_SECURITY_AND_REPRODUCIBILITY_REMEDIATION`
 
 Các quyết định Owner trước re-audit vẫn được giữ nguyên như historical decisions.
@@ -19,7 +19,7 @@ PLAVE chỉ có đúng ba primary milestones, theo thứ tự bắt buộc:
 | Thứ tự | Milestone | Trạng thái hiện tại | Gate để được bắt đầu/hoàn tất |
 |---|---|---|---|
 | 1 | Complete the Grades 1–9 UI/UX overhaul across the entire website | `COMPLETE_OWNER_APPROVED` | Technical browser evidence, sitewide propagation và Owner visual acceptance đều hoàn tất |
-| 2 | Repair and complete Grades 1–9 question generation for genuinely useful real Student practice | `REOPENED_CRITICAL_REMEDIATION` | Historical Owner approval được giữ; active gate mở lại sau findings reproducibility và audit evidence |
+| 2 | Repair and complete Grades 1–9 question generation for genuinely useful real Student practice | `REOPENED_AWAITING_SPRINT_10D_REAUDIT` | Sprint 10C reports 546/546 independent-oracle and real Student runtime eligibility; Sprint 10D must independently re-audit before closure |
 | 3 | Add a safe, grounded and grade-appropriate AI Tutor for Grades 1–9 | `REOPENED_SECURITY_AND_REPRODUCIBILITY_REMEDIATION` | Historical local-MVP approval được giữ; active gate mở lại cho secret boundary và baseline recovery |
 
 Unit tests, proof counts và generator coverage metrics không thể tự hoàn tất bất
@@ -29,7 +29,7 @@ correctness, product usefulness và Owner acceptance.
 
 ## Milestone 1 — Grades 1–9 UI/UX overhaul
 
-Current state: `REOPENED_CRITICAL_REMEDIATION`.
+Current state: `COMPLETE_OWNER_APPROVED`.
 
 Historical Owner status trước complete re-audit: `COMPLETE_OWNER_APPROVED`.
 Sprint 10A không sửa Generator correctness hoặc Student runtime integration;
@@ -91,7 +91,12 @@ None. Owner granted full Milestone 1 visual acceptance on 2026-08-01.
 
 ## Milestone 2 — Grades 1–9 question generation
 
-Current state: `COMPLETE_OWNER_APPROVED`.
+Current state: `REOPENED_AWAITING_SPRINT_10D_REAUDIT`.
+
+Historical Owner status trước complete re-audit: `COMPLETE_OWNER_APPROVED`.
+Quyết định usefulness lịch sử được giữ nguyên; active status không coi quyết định
+đó là bằng chứng tự động cho Sprint 10C hoặc thay thế Sprint 10D independent
+re-audit.
 
 Sprint 8A đã chứng minh generator cũ không usable ở mức sản phẩm. Sprint 8B đã
 thay phần lõi của vertical slice bằng một canonical typed pipeline và kiểm chứng
@@ -158,9 +163,10 @@ lớp hoặc không dùng được trong Student practice thì Milestone 2 vẫn
 - Reconciliation có 546 unique IDs; missing/duplicate/conflicting/synthetic
   assignments đều rỗng; fallback và keyword routing = 0; unknown outcome vẫn
   fail closed bằng `GENERATOR_V2_OUTCOME_NOT_IMPLEMENTED`.
-- Full audit đã thực thi lại 32.760/32.760 deterministic samples; independent
-  solver/validator, duplicate, diversity, difficulty, grade, visual, ambiguity,
-  private-boundary và provenance 8/8 gates đều PASS.
+- Historical Sprint 8C audit đã thực thi 32.760/32.760 deterministic samples và
+  khi đó báo solver/validator independence PASS. Complete project re-audit sau
+  đó disproved phần independence của claim này (F-005); Sprint 10C evidence bên
+  dưới là active replacement, không dùng claim cũ làm bằng chứng.
 - Wave F hoàn tất đúng mười final outcomes (600/600 samples) cộng hai baseline đã
   có trong taxonomy Wave F; không có remaining technical outcome blocker.
 - Full authenticated local schema 0001–0042 và browser matrix đại diện 198/198
@@ -190,6 +196,60 @@ lớp hoặc không dùng được trong Student practice thì Milestone 2 vẫn
   `docs/status/SPRINT_8C_GENERATOR_V2_FULL_COVERAGE.md`,
   `artifacts/generator-v2-full-coverage/report.json` và
   `artifacts/generator-v2-owner-review/manifest.json`.
+
+### Sprint 10B — real Student runtime integration
+
+- F-002 runtime-disconnection được xử lý tại đúng `/api/curriculum-runtime/*`
+  và `/curriculum-practice/[attemptId]`, không dùng internal proof/Owner-review
+  route làm evidence.
+- Repository default và release mặc định vẫn OFF. Local verification chỉ mở sáu
+  exact outcome/capability pairs; 540/546 outcomes còn lại fail closed chờ
+  correctness remediation.
+- Authenticated local schema 0001–0042 chứng minh immutable start/resume,
+  concurrent start, CAS, duplicate replay, rollback, exactly-once
+  progress/history, provenance 8/8, role isolation và cleanup.
+- Browser matrix dùng 320×568, 390×844 và 1280×800 qua Student lessons/practice,
+  feedback, completion, progress/history. Không request `/internal` hoặc
+  `/api/internal`.
+- Sprint này không claim full 546 Student eligibility, production readiness,
+  remote activation hoặc Milestone 2 completion. Active gate tiếp theo là Sprint
+  10C correctness review/remediation.
+- Evidence: `docs/status/SPRINT_10B_GENERATOR_STUDENT_RUNTIME_INTEGRATION.md` và
+  `artifacts/remediation/sprint-10b-report.json`.
+
+### Sprint 10C — independent correctness remediation
+
+- Oracle package riêng tại `lib/generation-v2-oracle/` không import Generator
+  implementation/solver/validator hoặc runtime submit validator. Dependency
+  audit không có violation; 7/7 mutation controls bị phát hiện đúng typed reason.
+- Full coordinate set 546 outcomes × 3 difficulties × 20 seeds chạy đúng một
+  lần: 32.760/32.760 independently validated; invalid/insufficient/ambiguous,
+  prompt-visual/interaction/distractor mismatch, private leak, fallback và
+  keyword routing đều 0. Exact duplicates 0; maximum near-duplicate 0,10 ≤ 0,12.
+- F-003 nine exact public-contract failures được sửa ở canonical contract và giữ
+  làm regression, không special-case hoặc bỏ seed.
+- Visual product review còn phát hiện và sửa bốn lỗi canonical: hạng tử hệ số 0,
+  lời dẫn DATA mâu thuẫn interaction, ID nội bộ hiển thị trong ORDERING và biểu
+  đồ thiếu đơn vị. Browser cuối xác nhận nhãn/đơn vị Student-facing đúng.
+- 198/198 public-only representative capability samples đã developer-review;
+  Owner approval mới không được tạo.
+- Authenticated `/api/curriculum-runtime/*` proof bao phủ 198/198 capabilities,
+  Grades 1–9, difficulties và interactions trên schema disposable 0001–0042.
+  Internal proof/review routes không dùng; provenance 8/8, resume, CAS,
+  idempotency, rollback, exactly-once, RLS/role isolation, no-orphan và cleanup
+  đều PASS.
+- Local Playwright tại năm viewports; 22/22 screenshots đã mở và review; final
+  critical/high, console, hydration, page, overflow, private leak và
+  prompt-visual mismatch đều 0.
+- 198/198 capabilities và 546/546 outcomes có status
+  `STUDENT_RUNTIME_ELIGIBLE` trong local eligibility artifact. Repository default
+  vẫn OFF; không remote activation, deploy hoặc production-readiness claim.
+- F-003/F-005 active remediation được ghi
+  `RESOLVED_PENDING_INDEPENDENT_REAUDIT`. Milestone 2 chưa đóng và chờ Sprint
+  10D independently reproduce/review evidence.
+- Evidence: `docs/status/SPRINT_10C_GENERATOR_CORRECTNESS_REMEDIATION.md`,
+  `docs/architecture/GENERATOR_V2_INDEPENDENT_ORACLE.md` và
+  `artifacts/remediation/sprint-10c-report.json`.
 
 ## Milestone 3 — Grades 1–9 AI Tutor
 
@@ -275,12 +335,13 @@ ba milestone ở trên.
 | Milestone | Final status | Approved scope |
 |---|---|---|
 | Milestone 1 — Grades 1–9 UI/UX | `COMPLETE_OWNER_APPROVED` | Sitewide UI/UX product scope |
-| Milestone 2 — Generator V2 | `REOPENED_CRITICAL_REMEDIATION` | Historical approval retained; active remediation open |
+| Milestone 2 — Generator V2 | `REOPENED_AWAITING_SPRINT_10D_REAUDIT` | Historical approval retained; Sprint 10C reports full independent-oracle and local Student-runtime eligibility; independent re-audit remains mandatory |
 | Milestone 3 — AI Tutor | `REOPENED_SECURITY_AND_REPRODUCIBILITY_REMEDIATION` | Historical local-MVP approval retained; active remediation open |
 
-Các product milestones đã hoàn tất trong phạm vi được duyệt. Điều này không đồng
-nghĩa deployed, remotely activated hoặc production certified. `npm audit` hiện
-vẫn `UNVERIFIED_ENVIRONMENT_BLOCKED`; last verified 0 vulnerabilities ngày
+Các Owner approvals lịch sử vẫn được giữ trong phạm vi đã duyệt, nhưng active
+remediation status ở trên là authoritative. Điều này không đồng nghĩa deployed,
+remotely activated hoặc production certified. `npm audit` hiện vẫn
+`UNVERIFIED_ENVIRONMENT_BLOCKED`; last verified 0 vulnerabilities ngày
 2026-08-01.
 
 MILESTONE 1 — PLAVE GRADES 1–9 UI/UX COMPLETE — OWNER APPROVED

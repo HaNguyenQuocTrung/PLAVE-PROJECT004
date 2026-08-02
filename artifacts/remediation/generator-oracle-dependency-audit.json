@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "sprint": "10C",
+  "result": "PASS",
+  "oracleRoot": "lib/generation-v2-oracle",
+  "inspectedFiles": [
+    "lib/generation-v2-oracle/exact.ts",
+    "lib/generation-v2-oracle/index.ts",
+    "lib/generation-v2-oracle/oracle.ts",
+    "lib/generation-v2-oracle/types.ts"
+  ],
+  "forbiddenDependencies": [
+    "lib/generation-v2 generator implementation",
+    "generator solver and validator modules",
+    "runtime submit validator"
+  ],
+  "violations": [],
+  "runnerBoundary": "Generator is imported only by the external audit runner to construct and compare sanitized candidates after oracle evaluation."
+}

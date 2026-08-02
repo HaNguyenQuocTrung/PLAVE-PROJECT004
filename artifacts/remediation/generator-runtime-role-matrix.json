@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "matrix": {
+    "anonymous": 401,
+    "wrongStudent": {
+      "directUrlHttpStatus": 200,
+      "directUrlFinalPath": "/curriculum-practice/[DISPOSABLE_ATTEMPT_ID]",
+      "directUrlSafeDenied": true,
+      "api": 404
+    },
+    "parent": {
+      "directUrlHttpStatus": 200,
+      "directUrlFinalPath": "/curriculum-practice/[DISPOSABLE_ATTEMPT_ID]",
+      "directUrlSafeDenied": true,
+      "api": 403
+    },
+    "teacher": {
+      "directUrlHttpStatus": 200,
+      "directUrlFinalPath": "/curriculum-practice/[DISPOSABLE_ATTEMPT_ID]",
+      "directUrlSafeDenied": true,
+      "api": 403
+    },
+    "forgedRoutingFields": 400,
+    "crossGrade": 403,
+    "correctnessReviewRequired": 503,
+    "releaseOff": 503,
+    "globalOff": 503
+  }
+}

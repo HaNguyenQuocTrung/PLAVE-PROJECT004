@@ -16,6 +16,8 @@
 /.next-generator-v2-owner-review
 /.next-secret-boundary-dev
 /.next-secret-boundary-build
+/.sprint-10b-runtime-*
+/.sprint-10b-secret-*
 /coverage
 /playwright-report
 /test-results

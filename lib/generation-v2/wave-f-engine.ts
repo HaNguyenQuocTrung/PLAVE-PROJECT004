@@ -54,7 +54,7 @@ const LEADS = [
 const CONTEXTS = ["phiếu học tập", "hoạt động trên lớp", "bài tập của nhóm", "góc tự học", "buổi thực hành", "câu lạc bộ Toán", "dự án liên môn", "bảng theo dõi", "bài kiểm tra nhanh", "phần trình bày", "sổ thực hành", "ngày hội khoa học", "nhiệm vụ vận dụng", "bảng con", "bản nháp", "buổi ôn tập"] as const;
 const FRAMES = ["trên thẻ nhiệm vụ", "trong bảng dữ kiện", "từ ghi chép của nhóm", "trên phiếu kiểm tra", "trong báo cáo ngắn", "từ mô hình đã cho", "trên bảng lớp", "trong sổ tay", "từ bộ thẻ học", "trong phần tự kiểm tra", "trên phiếu khảo sát", "từ bản trình bày", "trong hồ sơ dự án", "trên bảng con", "từ ví dụ minh hoạ", "trong bài luyện tập"] as const;
 const OBJECT_SETS = [
-  ["cặp sách", "hộp bút", "quyển sách", "chai nước"], ["quả bí", "quả cam", "quả táo", "quả chanh"], ["thùng đồ", "túi gạo", "hộp bánh", "gói kẹo"], ["mô hình A", "mô hình B", "mô hình C", "mô hình D"],
+  ["thùng sách", "thùng đồ chơi", "thùng giấy", "thùng nước"], ["quả bí", "túi cam", "giỏ táo", "sọt chanh"], ["kiện hàng A", "kiện hàng B", "kiện hàng C", "kiện hàng D"], ["mô hình A", "mô hình B", "mô hình C", "mô hình D"],
 ] as const;
 const DATA_LABEL_SETS = [
   ["Tháng Một", "Tháng Hai", "Tháng Ba", "Tháng Tư"], ["Khu A", "Khu B", "Khu C", "Khu D"], ["Mẫu 1", "Mẫu 2", "Mẫu 3", "Mẫu 4"], ["Năm thứ nhất", "Năm thứ hai", "Năm thứ ba", "Năm thứ tư"],
@@ -78,7 +78,7 @@ function buildModel(contract: WaveFOutcomeContract, input: GenerateQuestionInput
     case "MASS_COMPARISON_REASONING": {
       const count = level === 1 ? 3 : 4; const base = random.int(2, 9); const step = random.int(2, 5); const values = Array.from({ length: count }, (_, index) => base + index * step + (index === count - 1 ? level : 0));
       const labels = random.pick(OBJECT_SETS).slice(0, count);
-      return makeModel(contract, input, random, { operation: "ORDER_HEAVIEST_TO_LIGHTEST", values, labels, fingerprint: `mass-${count}-${step}-${random.int(0, 31)}`, meta: { unit: random.pick(["kg", "g"]) } });
+      return makeModel(contract, input, random, { operation: "ORDER_HEAVIEST_TO_LIGHTEST", values, labels, fingerprint: `mass-${count}-${step}-${random.int(0, 31)}`, meta: { unit: "kg" } });
     }
     case "UNIFORM_MOTION_REASONING": {
       const speed = random.int(3 + level, 12 + level * 5) * 5; const time = random.int(2, 4 + level); const distance = speed * time;
@@ -88,7 +88,9 @@ function buildModel(contract: WaveFOutcomeContract, input: GenerateQuestionInput
       return makeModel(contract, input, random, { operation, values, labels, fingerprint: `motion-${operation}-${speed}-${time}-${random.int(0, 15)}` });
     }
     case "CROSS_CURRICULAR_STATISTICS_REASONING": {
-      const labels = random.pick(DATA_LABEL_SETS); const base = random.int(8, 30 + level * 5); const increments = [0, random.int(2, 7), random.int(8, 13), random.int(3, 9)]; const values = increments.map((increment) => base + increment);
+      const labels = random.pick(DATA_LABEL_SETS); const base = random.int(8, 30 + level * 5); const sampled = [0, random.int(2, 7), random.int(8, 13), random.int(3, 9)]; const increments: number[] = [];
+      for (const candidate of sampled) { let value = candidate; while (increments.includes(value)) value += 1; increments.push(value); }
+      const values = increments.map((increment) => base + increment);
       const operation = level === 1 ? "SUPPORTED_MAXIMUM" : level === 2 ? random.pick(["SUPPORTED_MINIMUM", "SUPPORTED_DIFFERENCE"]) : random.pick(["SUPPORTED_RANGE", "SUPPORTED_MAXIMUM", "SUPPORTED_DIFFERENCE"]);
       const subject = contract.grade === 6 ? "nhiệt độ trung bình trong thí nghiệm Khoa học tự nhiên" : contract.grade === 7 ? "lượng mưa trong báo cáo Địa lí" : "số mẫu đạt chuẩn trong dự án Khoa học tự nhiên";
       return makeModel(contract, input, random, { operation, values, labels, fingerprint: `cross-data-${operation}-${random.int(0, 63)}`, meta: { subject, unit: contract.grade === 6 ? "°C" : contract.grade === 7 ? "mm" : "mẫu" } });
@@ -148,7 +150,7 @@ function solveModel(model: WaveFNormalizedProblemModel): SemanticSolution {
 }
 
 function promptFor(model: WaveFNormalizedProblemModel): string {
-  const lead = `${LEADS[model.templateIndex]} ${FRAMES[model.representationIndex]} trong ${CONTEXTS[model.contextIndex]}`; const v = model.values;
+  const lead = `Chủ đề: ${CONTEXTS[model.contextIndex]}. Hãy đọc kĩ dữ kiện ${FRAMES[model.representationIndex]}`; const v = model.values;
   switch (model.operation) {
     case "ROUND_TEN_STRUCTURE": case "TENS_ONES_STRUCTURE": return `${lead}. Số ${v[0]} có bao nhiêu chục, bao nhiêu đơn vị và có phải là số tròn chục không? Ghép từng mục với kết quả đúng.`;
     case "ORDER_HEAVIEST_TO_LIGHTEST": return `${lead}. Các vật có khối lượng lần lượt: ${model.labels.map((label, index) => `${label} ${v[index]} ${String(model.meta.unit)}`).join("; ")}. Sắp xếp từ nặng nhất đến nhẹ nhất.`;
@@ -189,7 +191,7 @@ function visualFor(model: WaveFNormalizedProblemModel): ProductVisual {
 
 function interactionFor(model: WaveFNormalizedProblemModel, solution: WaveFSolution, random: Random): ProductInteractionContract {
   if (model.interactionType === "SINGLE_CHOICE") return { type: "SINGLE_CHOICE", options: solution.options, choiceCount: 1 };
-  if (model.interactionType === "ORDERING") return { type: "ORDERING", options: random.shuffle(solution.options ?? []), orderedItemIds: solution.correct as readonly string[] };
+  if (model.interactionType === "ORDERING") return { type: "ORDERING", options: random.shuffle(solution.options ?? []) };
   if (model.interactionType === "MATCHING") return { type: "MATCHING", leftItems: solution.leftItems, rightItems: random.shuffle(solution.rightItems ?? []) };
   return { type: "INTEGER_INPUT", inputLabel: model.operation.startsWith("FIND_") ? "Giá trị cần tìm" : "Kết quả", inputMode: "numeric", unitLabel: model.operation.includes("TAX") || model.operation === "FIND_TOTAL_AFTER_TAX" || model.operation === "FIND_PRE_TAX_PRICE" ? "đồng" : undefined };
 }

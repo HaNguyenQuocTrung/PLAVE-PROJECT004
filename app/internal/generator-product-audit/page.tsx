@@ -71,11 +71,13 @@ export default async function GeneratorProductAuditPage({
             "Đối chứng renderer nhập số; semantic generator hiện không sinh answer type này.",
         },
         cognitiveLevel: "UNDERSTAND",
+        generatorV2: null,
       }
     : sample.publicQuestion;
   const completed = query.state === "completed";
   const empty = query.state === "empty";
   const initialState: CurriculumAttemptState = {
+    runtimeMode: "STATIC",
     attemptId: "00000000-0000-4000-8000-000000000008",
     releaseId: "generator-product-audit-local",
     contentVersion: "sprint-8a",

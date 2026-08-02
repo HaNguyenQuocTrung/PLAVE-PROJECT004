@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 
 import type {
   CanonicalResponse,
@@ -11,6 +18,16 @@ import type {
 } from "@/lib/generation-v2/types";
 
 import styles from "./generator-v2.module.css";
+
+export type GeneratorV2QuestionSurface = Pick<
+  PublicQuestionSnapshot,
+  | "questionId"
+  | "publicPrompt"
+  | "publicData"
+  | "interaction"
+  | "visual"
+  | "accessibility"
+>;
 
 type State = Readonly<{
   variantId: ProductVariantId;
@@ -197,7 +214,7 @@ export function GeneratorV2LocalRunner({ entries }: { entries: readonly Entry[] 
   );
 }
 
-export function AnswerControl({ question, value, onChange, disabled }: { question: PublicQuestionSnapshot; value: CanonicalResponse; onChange: (value: CanonicalResponse) => void; disabled: boolean }) {
+export function AnswerControl({ question, value, onChange, disabled }: { question: GeneratorV2QuestionSurface; value: CanonicalResponse; onChange: Dispatch<SetStateAction<CanonicalResponse>>; disabled: boolean }) {
   const interaction = question.interaction;
   if (["SINGLE_CHOICE", "CONSTRUCTION_OR_VISUAL_SELECTION"].includes(interaction.type)) return (
     <fieldset className={styles.choices}><legend className="sr-only">Chọn một đáp án</legend>{interaction.options?.map((option) => (
@@ -206,24 +223,26 @@ export function AnswerControl({ question, value, onChange, disabled }: { questio
   );
   if (interaction.type === "MULTI_SELECT") {
     const selected = Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
-    return <fieldset className={styles.choices}><legend className="sr-only">Chọn các đáp án đúng</legend>{interaction.options?.map((option) => <label className={selected.includes(option.id) ? styles.selected : ""} key={option.id}><input type="checkbox" checked={selected.includes(option.id)} onChange={() => onChange(selected.includes(option.id) ? selected.filter((id) => id !== option.id) : [...selected, option.id])} disabled={disabled} /><span>{option.label}</span></label>)}</fieldset>;
+    return <fieldset className={styles.choices}><legend className="sr-only">Chọn các đáp án đúng</legend>{interaction.options?.map((option) => <label className={selected.includes(option.id) ? styles.selected : ""} key={option.id}><input type="checkbox" checked={selected.includes(option.id)} onChange={() => onChange((current) => { const currentSelected = Array.isArray(current) ? current.filter((item): item is string => typeof item === "string") : []; return currentSelected.includes(option.id) ? currentSelected.filter((id) => id !== option.id) : [...currentSelected, option.id]; })} disabled={disabled} /><span>{option.label}</span></label>)}</fieldset>;
   }
   if (interaction.type === "FRACTION_INPUT") {
     const fraction = typeof value === "object" && !Array.isArray(value) && "numerator" in value ? value : { numerator: 0, denominator: 0 };
-    return <div className={styles.fractionInput}><label>Tử số<input aria-label="Tử số" inputMode="numeric" value={fraction.numerator || ""} onChange={(event) => onChange({ ...fraction, numerator: Number(event.target.value) })} disabled={disabled} /></label><span aria-hidden="true" /><label>Mẫu số<input aria-label="Mẫu số" inputMode="numeric" value={fraction.denominator || ""} onChange={(event) => onChange({ ...fraction, denominator: Number(event.target.value) })} disabled={disabled} /></label></div>;
+    return <div className={styles.fractionInput}><label>Tử số<input aria-label="Tử số" inputMode="numeric" value={fraction.numerator || ""} onChange={(event) => { const numerator = Number(event.target.value); onChange((current) => { const currentFraction = typeof current === "object" && !Array.isArray(current) && "numerator" in current ? current : { numerator: 0, denominator: 0 }; return { ...currentFraction, numerator }; }); }} disabled={disabled} /></label><span aria-hidden="true" /><label>Mẫu số<input aria-label="Mẫu số" inputMode="numeric" value={fraction.denominator || ""} onChange={(event) => { const denominator = Number(event.target.value); onChange((current) => { const currentFraction = typeof current === "object" && !Array.isArray(current) && "numerator" in current ? current : { numerator: 0, denominator: 0 }; return { ...currentFraction, denominator }; }); }} disabled={disabled} /></label></div>;
   }
   if (interaction.type === "ORDERING") {
     const ordered = Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
-    return <div className={styles.ordering}><p>Thứ tự đã chọn: {ordered.length ? ordered.join(" → ") : "Chưa có"}</p><div>{interaction.options?.map((option) => <button type="button" key={option.id} disabled={disabled || ordered.includes(option.id)} onClick={() => onChange([...ordered, option.id])}>{option.label}</button>)}</div><button type="button" className={styles.reset} disabled={disabled || !ordered.length} onClick={() => onChange([])}>Xếp lại</button></div>;
+    const optionLabels = new Map(interaction.options?.map((option) => [option.id, option.label]));
+    const orderedLabels = ordered.map((id, index) => optionLabels.get(id) ?? `Mục ${index + 1}`);
+    return <div className={styles.ordering}><p>Thứ tự đã chọn: {orderedLabels.length ? orderedLabels.join(" → ") : "Chưa có"}</p><div>{interaction.options?.map((option) => <button type="button" key={option.id} disabled={disabled || ordered.includes(option.id)} onClick={() => onChange((current) => { const currentOrdered = Array.isArray(current) ? current.filter((item): item is string => typeof item === "string") : []; return currentOrdered.includes(option.id) ? currentOrdered : [...currentOrdered, option.id]; })}>{option.label}</button>)}</div><button type="button" className={styles.reset} disabled={disabled || !ordered.length} onClick={() => onChange([])}>Xếp lại</button></div>;
   }
   if (interaction.type === "MATCHING") {
     const pairs = Array.isArray(value) ? value.filter((item): item is { leftId: string; rightId: string } => typeof item === "object") : [];
-    return <div className={styles.matching}>{interaction.leftItems?.map((left) => <label key={left.id}><span>{left.label} =</span><select aria-label={`Giá trị của ${left.label}`} disabled={disabled} value={pairs.find((pair) => pair.leftId === left.id)?.rightId ?? ""} onChange={(event) => onChange([...pairs.filter((pair) => pair.leftId !== left.id), { leftId: left.id, rightId: event.target.value }])}><option value="">Chọn</option>{interaction.rightItems?.map((right) => <option key={right.id} value={right.id}>{right.label}</option>)}</select></label>)}</div>;
+    return <div className={styles.matching}>{interaction.leftItems?.map((left) => <label key={left.id}><span>{left.label} =</span><select aria-label={`Giá trị của ${left.label}`} disabled={disabled} value={pairs.find((pair) => pair.leftId === left.id)?.rightId ?? ""} onChange={(event) => { const rightId = event.target.value; onChange((current) => { const currentPairs = Array.isArray(current) ? current.filter((item): item is { leftId: string; rightId: string } => typeof item === "object" && item !== null && "leftId" in item && "rightId" in item) : []; return [...currentPairs.filter((pair) => pair.leftId !== left.id), { leftId: left.id, rightId }]; }); }}><option value="">Chọn</option>{interaction.rightItems?.map((right) => <option key={right.id} value={right.id}>{right.label}</option>)}</select></label>)}</div>;
   }
   return <label className={styles.textInput}>{interaction.inputLabel ?? "Câu trả lời"}<input type="text" inputMode={interaction.inputMode ?? "numeric"} value={typeof value === "string" || typeof value === "number" ? value : ""} onChange={(event) => onChange(event.target.value)} disabled={disabled} />{interaction.unitLabel ? <span>{interaction.unitLabel}</span> : null}</label>;
 }
 
-export function QuestionVisual({ question }: { question: PublicQuestionSnapshot }) {
+export function QuestionVisual({ question }: { question: GeneratorV2QuestionSurface }) {
   const { visual } = question;
   const data = visual.data;
   if (visual.type === "NONE") return null;
@@ -395,7 +414,7 @@ function visualRows(data: Readonly<Record<string, unknown>>) {
   return stringList(data.labels).map((label, index) => ({ name: label, value: values[index] ?? 0 }));
 }
 
-export function isAnswerReady(question: PublicQuestionSnapshot, value: CanonicalResponse) {
+export function isAnswerReady(question: GeneratorV2QuestionSurface, value: CanonicalResponse) {
   if (typeof value === "string") return value.trim().length > 0;
   if (typeof value === "number") return Number.isFinite(value);
   if (Array.isArray(value)) return question.interaction.type === "MATCHING" ? value.length === question.interaction.leftItems?.length : question.interaction.type === "ORDERING" ? value.length === question.interaction.options?.length : value.length === question.interaction.choiceCount;

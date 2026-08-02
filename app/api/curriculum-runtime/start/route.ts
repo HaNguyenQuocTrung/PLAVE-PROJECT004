@@ -16,15 +16,17 @@ import {
   createRuntimeTrace,
   safeUpstreamCode,
 } from "@/lib/runtime-diagnostics/server";
+import {
+  startStudentGeneratorV2Practice,
+  toStudentStaticRuntimeState,
+} from "@/lib/generation-v2/student-runtime";
+import {
+  readGeneratorV2StudentRuntimePolicy,
+} from "@/lib/generation-v2/student-runtime-policy";
+import { curriculumRuntimeHttpStatus } from "@/lib/curriculum-runtime/api-response";
 
 function status(code: CurriculumRuntimeErrorCode) {
-  if (code === "AUTH_REQUIRED") return 401;
-  if (code === "ACCESS_DENIED") return 403;
-  if (code === "UNIT_UNAVAILABLE" || code === "RELEASE_UNAVAILABLE") return 404;
-  if (code === "RUNTIME_DISABLED") return 503;
-  if (code === "REQUEST_TIMEOUT") return 504;
-  if (code === "REQUEST_FAILED") return 502;
-  return 400;
+  return curriculumRuntimeHttpStatus(code);
 }
 
 function json(
@@ -73,7 +75,8 @@ export async function POST(request: Request) {
           : "ACCESS_DENIED";
     return error(code, status(code), `ACCESS_${access.reason}`);
   }
-  if (access.grade === 1) {
+  const generatorPolicy = readGeneratorV2StudentRuntimePolicy();
+  if (access.grade === 1 && !generatorPolicy.globalEnabled) {
     return error("ACCESS_DENIED", 403, "LEGACY_GRADE1_REQUIRED");
   }
   let body: unknown;
@@ -85,6 +88,32 @@ export async function POST(request: Request) {
   const input = parseStartCurriculumRequest(body);
   if (!input) {
     return error("INVALID_REQUEST", 400, "INVALID_INPUT");
+  }
+  if (generatorPolicy.globalEnabled) {
+    const generated = await trace.measure("generation", () =>
+      startStudentGeneratorV2Practice({
+        request,
+        access,
+        unitSlug: input.unitSlug,
+        idempotencyKey: input.idempotencyKey,
+      }),
+    );
+    if (!generated.ok) {
+      return error(
+        generated.code,
+        status(generated.code),
+        generated.code,
+        safeUpstreamCode(generated.upstreamCode),
+      );
+    }
+    return json(
+      trace,
+      { ok: true, data: generated.state },
+      200,
+      generated.resumedWithoutGeneration
+        ? "GENERATOR_V2_RESUMED"
+        : "GENERATOR_V2_STARTED",
+    );
   }
   const { data, error: rpcError } = await trace.measure(
     "rpc",
@@ -109,5 +138,10 @@ export async function POST(request: Request) {
   if (!state || state.grade !== access.grade || state.feedback !== null) {
     return error("REQUEST_FAILED", 502, "RESPONSE_MAPPING_FAILED");
   }
-  return json(trace, { ok: true, data: state }, 200, "OK");
+  return json(
+    trace,
+    { ok: true, data: toStudentStaticRuntimeState(state) },
+    200,
+    "STATIC_STARTED",
+  );
 }

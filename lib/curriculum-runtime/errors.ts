@@ -17,6 +17,22 @@ const messages: Record<CurriculumRuntimeErrorCode, string> = {
   REQUEST_TIMEOUT:
     "Yêu cầu mất quá nhiều thời gian. Em có thể thử lại an toàn.",
   REQUEST_FAILED: "Chưa thể xử lý yêu cầu. Em hãy thử lại.",
+  GENERATOR_V2_RUNTIME_DISABLED:
+    "Bài luyện tập tạo tự động đang tắt trong phiên này.",
+  GENERATOR_V2_LOOPBACK_REQUIRED:
+    "Bài luyện tập tạo tự động chỉ mở trong phiên kiểm chứng cục bộ.",
+  GENERATOR_V2_RELEASE_DISABLED:
+    "Bài luyện tập tạo tự động chưa được mở cho phiên này.",
+  GENERATOR_V2_SCHEMA_INCOMPATIBLE:
+    "Dữ liệu luyện tập chưa tương thích với phiên này.",
+  GENERATOR_V2_SIGNING_KEY_UNAVAILABLE:
+    "Bài luyện tập tạo tự động chưa thể khởi tạo an toàn.",
+  GENERATOR_V2_OUTCOME_NOT_IMPLEMENTED:
+    "Chủ đề này chưa có bài luyện tập tạo tự động.",
+  GENERATOR_V2_CORRECTNESS_REVIEW_REQUIRED:
+    "Chủ đề này đang chờ kiểm tra chất lượng trước khi mở cho học sinh.",
+  GENERATOR_V2_GENERATION_FAILED:
+    "Chưa thể tạo trọn vẹn bài luyện tập. Không có lượt học dở dang được lưu.",
 };
 
 export function curriculumRuntimeApiError(

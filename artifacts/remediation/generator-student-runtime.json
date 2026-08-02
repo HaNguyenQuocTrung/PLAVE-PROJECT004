@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "sprint": "10B",
+  "status": "PASS",
+  "finding": {
+    "id": "F-002",
+    "title": "Generator V2 registry was disconnected from real Student practice",
+    "status": "RESOLVED_BOUNDED_FAIL_CLOSED_INTEGRATION"
+  },
+  "runtimeContract": {
+    "publicStartEndpoint": "/api/curriculum-runtime/start",
+    "publicStateEndpoint": "/api/curriculum-runtime/state",
+    "publicAnswerEndpoint": "/api/curriculum-runtime/answer",
+    "publicPage": "/curriculum-practice/[attemptId]",
+    "modes": ["STATIC", "GENERATED_V2"],
+    "modeDecisionOwner": "SERVER",
+    "repositoryDefault": "OFF",
+    "globalFlag": "GENERATOR_V2_STUDENT_RUNTIME_ENABLED",
+    "release": "LOCAL_VERIFICATION",
+    "schema": "0042",
+    "loopbackOnly": true,
+    "genericFallback": false,
+    "keywordRouting": false,
+    "clientSelectableFields": ["unitSlug", "idempotencyKey"],
+    "clientRejectedFields": [
+      "mode",
+      "outcomeId",
+      "capabilityId",
+      "seed",
+      "isCorrect"
+    ]
+  },
+  "eligibilityStates": [
+    "INTERNAL_ONLY",
+    "CORRECTNESS_REVIEW_REQUIRED",
+    "STUDENT_RUNTIME_ELIGIBLE"
+  ],
+  "boundedSubset": {
+    "eligibleCount": 6,
+    "registryCount": 546,
+    "remainingFailClosed": 540,
+    "entries": [
+      {
+        "outcomeId": "MOET2018-G2-NUM-P025-018",
+        "capabilityId": "MULTIPLY_DIVIDE_FACTS",
+        "grade": 2,
+        "unitId": "grade-2-multiplication-division"
+      },
+      {
+        "outcomeId": "MOET2018-G3-NUM-P029-004",
+        "capabilityId": "PLACE_VALUE_COMPARE",
+        "grade": 3,
+        "unitId": "grade-3-number-sense-to-100000-p1"
+      },
+      {
+        "outcomeId": "MOET2018-G4-NUM-P036-018",
+        "capabilityId": "FRACTION_PART_WHOLE",
+        "grade": 4,
+        "unitId": "grade-4-fraction-foundations"
+      },
+      {
+        "outcomeId": "MOET2018-G6-GEO-P051-003",
+        "capabilityId": "PERIMETER_AREA",
+        "grade": 6,
+        "unitId": "grade-6-area-measurement"
+      },
+      {
+        "outcomeId": "MOET2018-G7-STA-P061-001",
+        "capabilityId": "CHART_DATA_INTERPRETATION",
+        "grade": 7,
+        "unitId": "grade-7-data-and-probability"
+      },
+      {
+        "outcomeId": "MOET2018-G9-NAA-P072-010",
+        "capabilityId": "LINEAR_SYSTEM",
+        "grade": 9,
+        "unitId": "grade-9-linear-systems"
+      }
+    ]
+  },
+  "databaseContract": {
+    "migrations": "0001-0042",
+    "staticStartRpc": "start_or_resume_curriculum_unit",
+    "generatedStartRpc": "start_or_resume_semantic_generated_curriculum",
+    "generatedStateRpc": "get_generated_curriculum_attempt_state",
+    "generatedSubmitRpc": "submit_generated_curriculum_answer",
+    "immutableSnapshot": true,
+    "serverControlledSeed": true,
+    "provenanceFields": "8/8",
+    "resumeRegenerates": false,
+    "cas": true,
+    "idempotency": true,
+    "exactlyOnceProgressHistory": true,
+    "rollback": true
+  },
+  "publicBoundary": {
+    "privateAnswerBeforeSubmit": false,
+    "solverReceipt": false,
+    "seed": false,
+    "privateHashes": false,
+    "outcomeOrCapabilityInternals": false,
+    "structuredFeedbackTransportJson": false
+  },
+  "evidenceSurface": "AUTHENTICATED_PUBLIC_STUDENT_RUNTIME",
+  "internalProofOrReviewRoutesUsed": false,
+  "remoteMutation": 0,
+  "migrationChanges": 0,
+  "paidProviderRequests": 0
+}

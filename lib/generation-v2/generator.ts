@@ -104,7 +104,7 @@ function buildModel(
   random: Random,
 ): CanonicalProblemModel {
   const structureLevel = STRUCTURE_LEVEL[input.difficulty];
-  const templateIndex = random.int(0, 11);
+  const templateIndex = random.int(0, 19);
   const interactionType = chooseInteraction(entry, input.difficulty, input.interactionType);
   switch (entry.variantId) {
     case "ADD_SUB_MEANING": {
@@ -134,7 +134,7 @@ function buildModel(
     case "FRACTION_PART_WHOLE": {
       const denominator = random.pick([4, 5, 6, 8, 10, 12]);
       const numerator = random.int(1, denominator - 1);
-      const representation = random.pick(["thanh giấy", "dải màu", "băng giấy", "tấm bìa", "hình chữ nhật"]);
+      const representation = random.pick(["thanh giấy", "dải giấy", "băng giấy", "tấm bìa", "hình chữ nhật"]);
       const color = random.pick(["xanh", "lam", "lục", "vàng", "tím", "cam"]);
       return { variantId: entry.variantId, difficulty: input.difficulty, structureLevel, templateIndex, interactionType, values: [numerator, denominator], labels: ["phần được tô", "tổng số phần bằng nhau"], operation: input.difficulty === "HARD" ? "SELECT_EQUIVALENT_MODEL" : "WRITE_FRACTION", context: `${representation} màu ${color}`, highlighted: Array.from({ length: numerator }, (_, index) => index) };
     }
@@ -183,7 +183,14 @@ function buildModel(
       const scale = input.difficulty === "HARD" ? random.pick([5, 10]) : 1;
       const values = labels.map(() => random.int(2, 12) * scale);
       const operation = input.difficulty === "EASY" ? "READ_VALUE" : input.difficulty === "MEDIUM" ? "COMPARE_DIFFERENCE" : "TOTAL_AND_TREND";
-      return { variantId: entry.variantId, difficulty: input.difficulty, structureLevel, templateIndex, interactionType, values, labels, operation, context: random.pick(["số trang sách đã đọc", "số cây trồng được", "lượng nước sử dụng", "quãng đường đạp xe", "số lượt tham gia"]), scale };
+      const measure = random.pick([
+        { context: "số trang sách đã đọc", unit: "trang" },
+        { context: "số cây trồng được", unit: "cây" },
+        { context: "lượng nước sử dụng", unit: "lít" },
+        { context: "quãng đường đạp xe", unit: "km" },
+        { context: "số lượt tham gia", unit: "lượt" },
+      ]);
+      return { variantId: entry.variantId, difficulty: input.difficulty, structureLevel, templateIndex, interactionType, values, labels, operation, context: measure.context, unit: measure.unit, scale };
     }
     case "EXPERIMENTAL_PROBABILITY": {
       const totalA = random.int(20, 120);
@@ -264,7 +271,7 @@ function solveModel(model: CanonicalProblemModel): SolvedModel {
     }
     case "CHART_DATA_INTERPRETATION": {
       const answer = model.operation === "READ_VALUE" ? v[0]! : model.operation === "COMPARE_DIFFERENCE" ? Math.abs(v[3]! - v[0]!) : v.reduce((sum, value) => sum + value, 0);
-      return { correct: answer, accepted: [answer, String(answer)], steps: model.operation === "READ_VALUE" ? [`Tìm đúng nhãn ${model.labels[0]}.`, `Đọc giá trị ${answer} theo trục.`] : model.operation === "COMPARE_DIFFERENCE" ? [`Đọc hai giá trị ${v[0]} và ${v[3]}.`, `Độ chênh lệch là |${v[3]} − ${v[0]}| = ${answer}.`] : [`Đọc lần lượt các giá trị ${v.join(", ")}.`, `Cộng bốn mốc được ${answer}.`], nextStep: "Luôn kiểm tra nhãn và khoảng cách giữa hai vạch chia." };
+      return { correct: answer, accepted: [answer, String(answer)], steps: model.operation === "READ_VALUE" ? [`Tìm đúng nhãn ${model.labels[0]}.`, `Đọc giá trị ${answer} ${model.unit} theo trục.`] : model.operation === "COMPARE_DIFFERENCE" ? [`Đọc hai giá trị ${v[0]} ${model.unit} và ${v[3]} ${model.unit}.`, `Độ chênh lệch là |${v[3]} − ${v[0]}| = ${answer} ${model.unit}.`] : [`Đọc lần lượt các giá trị ${v.join(", ")} ${model.unit}.`, `Cộng bốn mốc được ${answer} ${model.unit}.`], nextStep: "Luôn kiểm tra nhãn, đơn vị và khoảng cách giữa hai vạch chia." };
     }
     case "EXPERIMENTAL_PROBABILITY": {
       const numerator = model.operation === "COMBINE_EXPERIMENTS" ? v[0]! + v[2]! : v[0]!;
@@ -324,7 +331,9 @@ function publicPresentation(model: CanonicalProblemModel, solved: SolvedModel, r
   let interaction: ProductInteractionContract = { type: model.interactionType, inputLabel: "Câu trả lời" };
   let optionMisconceptions: Record<string, MisconceptionCode> = {};
   const t = model.templateIndex;
-  const contextLead = ["Quan sát và trả lời", "Em hãy tính", "Tìm kết quả", "Hãy giúp bạn An", "Dựa vào dữ kiện", "Chọn cách làm đúng", "Đọc kĩ rồi trả lời", "Hoàn thành bài toán", "Suy nghĩ từng bước", "Kiểm tra dữ kiện", "Tìm giá trị cần biết", "Giải bài toán sau"][t]!;
+  const contextLead = [
+    "Quan sát và trả lời", "Em hãy tính", "Tìm kết quả", "Hãy giúp bạn An", "Dựa vào dữ kiện", "Chọn cách làm đúng", "Đọc kĩ rồi trả lời", "Hoàn thành bài toán", "Suy nghĩ từng bước", "Kiểm tra dữ kiện", "Tìm giá trị cần biết", "Giải bài toán sau", "Đối chiếu mô hình", "Nêu kết quả chính xác", "Chọn dữ kiện cần dùng", "Kiểm tra bằng định nghĩa", "Trình bày phép tính", "Xác định đại lượng cần tìm", "Hoàn thành phiếu học tập", "Tự kiểm tra kết quả",
+  ][t]!;
   const v = model.values;
   switch (model.variantId) {
     case "ADD_SUB_MEANING":
@@ -389,10 +398,10 @@ function publicPresentation(model: CanonicalProblemModel, solved: SolvedModel, r
       visual = { type: "AREA_MODEL", description: model.operation === "L_SHAPE_AREA" ? `Hình chữ L tạo bởi hình ${v[0]} m × ${v[1]} m bỏ góc ${v[2]} m × ${v[3]} m.` : `Hình chữ nhật dài ${v[0]} m, rộng ${v[1]} m.`, data: { width: v[0], height: v[1], cut: model.operation === "L_SHAPE_AREA" ? [v[2], v[3]] : null, unit: "m" } };
       break;
     case "CHART_DATA_INTERPRETATION":
-      publicPrompt = model.operation === "READ_VALUE" ? `${contextLead}: Biểu đồ cho biết ${model.context}. ${model.labels[0]} có giá trị bao nhiêu?` : model.operation === "COMPARE_DIFFERENCE" ? `${contextLead}: Với dữ liệu ${model.context}, giá trị ở ${model.labels[3]} nhiều hơn ${model.labels[0]} bao nhiêu?` : `${contextLead}: Biểu đồ ${model.context} gồm các mốc ${model.labels.join(", ")}. Tính tổng giá trị của cả bốn mốc.`;
-      publicData = { labels: model.labels, values: v, scale: model.scale, query: model.operation, measure: model.context };
-      visual = { type: "BAR_CHART", description: `${model.context}: ${model.labels.map((label, index) => `${label} ${v[index]}`).join(", ")}.`, data: { labels: model.labels, values: v, scale: model.scale, measure: model.context } };
-      interaction = { type: "TABLE_OR_CHART_RESPONSE", inputLabel: "Giá trị đọc từ biểu đồ", inputMode: "numeric" };
+      publicPrompt = model.operation === "READ_VALUE" ? `${contextLead}: Biểu đồ cho biết ${model.context}, đơn vị ${model.unit}. ${model.labels[0]} có giá trị bao nhiêu ${model.unit}?` : model.operation === "COMPARE_DIFFERENCE" ? `${contextLead}: Với dữ liệu ${model.context} (đơn vị ${model.unit}), giá trị ở ${model.labels[3]} nhiều hơn ${model.labels[0]} bao nhiêu ${model.unit}?` : `${contextLead}: Biểu đồ ${model.context} (đơn vị ${model.unit}) gồm các mốc ${model.labels.join(", ")}. Tính tổng giá trị của cả bốn mốc theo ${model.unit}.`;
+      publicData = { labels: model.labels, values: v, scale: model.scale, query: model.operation, measure: model.context, unit: model.unit };
+      visual = { type: "BAR_CHART", description: `${model.context}, đơn vị ${model.unit}: ${model.labels.map((label, index) => `${label} ${v[index]} ${model.unit}`).join(", ")}.`, data: { labels: model.labels, values: v, scale: model.scale, measure: model.context, unit: model.unit } };
+      interaction = { type: "TABLE_OR_CHART_RESPONSE", inputLabel: `Giá trị đọc từ biểu đồ (${model.unit})`, inputMode: "numeric", unitLabel: model.unit };
       break;
     case "EXPERIMENTAL_PROBABILITY":
       publicPrompt = model.operation === "COMBINE_EXPERIMENTS" ? `${contextLead}: Hai nhóm cùng ${model.context}. Nhóm A có ${v[0]}/${v[1]} lần thuận lợi, nhóm B có ${v[2]}/${v[3]}. Gộp kết quả, xác suất thực nghiệm của biến cố là bao nhiêu?` : `${contextLead}: Khi ${model.context} ${v[1]} lần, biến cố cần xét xảy ra ${v[0]} lần. Viết xác suất thực nghiệm ở dạng phân số tối giản.`;
@@ -453,12 +462,17 @@ function publicPresentation(model: CanonicalProblemModel, solved: SolvedModel, r
 
   if (model.interactionType === "SINGLE_CHOICE" || model.variantId === "DATA_ERROR_REASONING") {
     const choices = optionSet(model, solved, random);
-    interaction = { type: "SINGLE_CHOICE", options: choices.options, choiceCount: 1 };
+    interaction = {
+      type: "SINGLE_CHOICE",
+      options: choices.options,
+      choiceCount: 1,
+      ...(model.variantId === "CHART_DATA_INTERPRETATION" ? { unitLabel: model.unit } : {}),
+    };
     solved = { ...solved, correct: choices.correct, accepted: [choices.correct] };
     optionMisconceptions = choices.misconceptions;
   }
   if (model.interactionType === "ORDERING") {
-    interaction = { type: "ORDERING", options: model.values.map((value, index) => ({ id: String(value), label: String(value), index } as PublicOption)), orderedItemIds: model.values.map(String) };
+    interaction = { type: "ORDERING", options: random.shuffle(model.values.map((value, index) => ({ id: String(value), label: String(value), index } as PublicOption))) };
   }
   return { publicPrompt, publicData, visual, interaction, optionMisconceptions, solved };
 }
@@ -779,6 +793,9 @@ export function verifyQuestionIntegrity(question: GeneratedProductQuestion) {
   if (entry.variantId === "CHART_DATA_INTERPRETATION") {
     if (JSON.stringify(data.labels) !== JSON.stringify(question.publicSnapshot.visual.data.labels) || JSON.stringify(data.values) !== JSON.stringify(question.publicSnapshot.visual.data.values)) {
       throw new Error("GENERATION_V2:INTEGRITY_CHART_VISUAL");
+    }
+    if (!data.unit || data.unit !== question.publicSnapshot.visual.data.unit || data.unit !== question.publicSnapshot.interaction.unitLabel) {
+      throw new Error("GENERATION_V2:INTEGRITY_CHART_UNIT");
     }
   }
   if (entry.variantId === "GEOMETRY_PROPERTIES" && data.shape !== question.publicSnapshot.visual.data.shape) {

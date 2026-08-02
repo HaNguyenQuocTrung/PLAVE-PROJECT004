@@ -28,7 +28,21 @@ export function curriculumRuntimeHttpStatus(code: CurriculumRuntimeErrorCode) {
   ) {
     return 409;
   }
-  if (code === "RUNTIME_DISABLED") return 503;
+  if (
+    code === "RUNTIME_DISABLED" ||
+    code === "GENERATOR_V2_RUNTIME_DISABLED"
+  ) return 503;
+  if (
+    code === "GENERATOR_V2_LOOPBACK_REQUIRED" ||
+    code === "GENERATOR_V2_RELEASE_DISABLED" ||
+    code === "GENERATOR_V2_SCHEMA_INCOMPATIBLE" ||
+    code === "GENERATOR_V2_SIGNING_KEY_UNAVAILABLE" ||
+    code === "GENERATOR_V2_CORRECTNESS_REVIEW_REQUIRED"
+  ) {
+    return 503;
+  }
+  if (code === "GENERATOR_V2_OUTCOME_NOT_IMPLEMENTED") return 404;
+  if (code === "GENERATOR_V2_GENERATION_FAILED") return 502;
   if (code === "REQUEST_TIMEOUT") return 504;
   if (code === "REQUEST_FAILED") return 502;
   return 400;

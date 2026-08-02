@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "sprint": "10C",
+  "result": "PASS",
+  "mutationScore": 1,
+  "killed": 7,
+  "total": 7,
+  "privateAnswersPersisted": false,
+  "mutations": [
+    {
+      "id": "MUTATE_GENERATOR_EXPECTED_ANSWER",
+      "expectedDiagnostic": "ORACLE_GENERATOR_ANSWER_MISMATCH",
+      "detected": true,
+      "observedDiagnostics": [
+        "ORACLE_GENERATOR_ANSWER_MISMATCH"
+      ]
+    },
+    {
+      "id": "MUTATE_VISIBLE_PROMPT_VALUE",
+      "expectedDiagnostic": "ORACLE_PROMPT_DATA_MISMATCH",
+      "detected": true,
+      "observedDiagnostics": [
+        "ORACLE_PROMPT_DATA_MISMATCH"
+      ]
+    },
+    {
+      "id": "MUTATE_VISUAL_DATA",
+      "expectedDiagnostic": "ORACLE_VISUAL_DATA_MISMATCH",
+      "detected": true,
+      "observedDiagnostics": [
+        "ORACLE_VISUAL_DATA_MISMATCH"
+      ]
+    },
+    {
+      "id": "MUTATE_INTERACTION_TYPE",
+      "expectedDiagnostic": "ORACLE_INTERACTION_MISMATCH",
+      "detected": true,
+      "observedDiagnostics": [
+        "ORACLE_INTERACTION_MISMATCH",
+        "ORACLE_UNSUPPORTED_CAPABILITY"
+      ]
+    },
+    {
+      "id": "ADD_AMBIGUOUS_OPTION",
+      "expectedDiagnostic": "ORACLE_DISTRACTOR_DUPLICATE",
+      "detected": true,
+      "observedDiagnostics": [
+        "ORACLE_DISTRACTOR_DUPLICATE",
+        "ORACLE_AMBIGUOUS_ANSWER",
+        "ORACLE_UNSUPPORTED_CAPABILITY"
+      ]
+    },
+    {
+      "id": "REMOVE_REQUIRED_PUBLIC_EVIDENCE",
+      "expectedDiagnostic": "ORACLE_INSUFFICIENT_PUBLIC_EVIDENCE",
+      "detected": true,
+      "observedDiagnostics": [
+        "ORACLE_INSUFFICIENT_PUBLIC_EVIDENCE",
+        "ORACLE_UNSUPPORTED_CAPABILITY"
+      ]
+    },
+    {
+      "id": "MUTATE_UNIT_CONTRACT",
+      "expectedDiagnostic": "ORACLE_INTERACTION_MISMATCH",
+      "detected": true,
+      "observedDiagnostics": [
+        "ORACLE_INTERACTION_MISMATCH"
+      ]
+    }
+  ]
+}
