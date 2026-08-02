@@ -1,0 +1,653 @@
+{
+  "schemaVersion": "PLAVE_SPRINT_10C1_STAGED_CLASSIFICATION_V1",
+  "generatedAt": "2026-08-02T22:28:20.433Z",
+  "baseline": "c5c46f69227f0b68091dd5eab00fd811a5e875c5",
+  "functionalCheckpoint": "be68da308b99ffd68136370853b52a85657fba71",
+  "intendedCommitMessage": "checkpoint: integrate Generator V2 student runtime and independent oracle",
+  "functionalCheckpointFiles": 111,
+  "evidenceFiles": 4,
+  "totalReproducibilityContractFiles": 115,
+  "classifications": {
+    "REQUIRED_DOCUMENTATION": 7,
+    "REQUIRED_SOURCE": 32,
+    "GENERATED_EVIDENCE": 68,
+    "REQUIRED_TEST": 8
+  },
+  "entries": [
+    {
+      "path": ".env.example",
+      "category": "REQUIRED_DOCUMENTATION",
+      "included": true
+    },
+    {
+      "path": ".gitignore",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "app/api/curriculum-runtime/answer/route.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "app/api/curriculum-runtime/start/route.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "app/api/curriculum-runtime/state/route.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "app/curriculum-practice/[attemptId]/UniversalCurriculumRunner.tsx",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "app/curriculum-practice/[attemptId]/page.tsx",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "app/globals.css",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "app/internal/generator-product-audit/page.tsx",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "app/internal/generator-v2/GeneratorV2LocalRunner.tsx",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/clean-checkout-reproducibility.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-browser-acceptance.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-eligibility.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-failure-cases/repaired-re-audit-f003.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-failure-cases/repaired-sprint-10c-product-review.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-failure-cases/sanitized-failures.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-product-review.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshot-review.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1280x800-experimental_probability-start.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1280x800-linear_system-start.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1280x800-polynomial_simplification-complete.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1280x800-polynomial_simplification-incorrect.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1440x900-data_error_reasoning-start.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1440x900-function_graph_recognition-start.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1440x900-geometry_properties-start.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/320x568-add_sub_meaning-start.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/320x568-data_classification-complete.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/320x568-data_classification-incorrect.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/320x568-practical_data_representation-complete.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/320x568-practical_data_representation-incorrect.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/320x568-unit_conversion-start.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/390x844-perimeter_area-start.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/390x844-place_value_compare-start.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/390x844-power_and_root-complete.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/390x844-power_and_root-incorrect.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/768x1024-chart_data_interpretation-start.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/768x1024-fraction_part_whole-complete.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/768x1024-fraction_part_whole-incorrect.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/768x1024-fraction_part_whole-start.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/768x1024-integer_number_line-start.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-full-correctness.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-oracle-dependency-audit.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-oracle-mutation-tests.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-browser-acceptance.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-database-proof.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-full-proof.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-role-matrix.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshot-review.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/1280x800-fraction_part_whole-complete.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/1280x800-fraction_part_whole-incorrect.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/1280x800-fraction_part_whole-interaction.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/1280x800-fraction_part_whole-start.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/1280x800-linear_system-complete.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/1280x800-linear_system-incorrect.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/1280x800-linear_system-interaction.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/1280x800-linear_system-start.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/320x568-multiply_divide_facts-complete.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/320x568-multiply_divide_facts-incorrect.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/320x568-multiply_divide_facts-interaction.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/320x568-multiply_divide_facts-start.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/320x568-perimeter_area-complete.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/320x568-perimeter_area-incorrect.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/320x568-perimeter_area-interaction.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/320x568-perimeter_area-start.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/390x844-chart_data_interpretation-complete.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/390x844-chart_data_interpretation-incorrect.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/390x844-chart_data_interpretation-interaction.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/390x844-chart_data_interpretation-start.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/390x844-place_value_compare-complete.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/390x844-place_value_compare-incorrect.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/390x844-place_value_compare-interaction.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-screenshots/390x844-place_value_compare-start.png",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/generator-student-runtime.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/sprint-10b-report.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/sprint-10c-report.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/sprint-10c1-checkpoint.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/sprint-10c1-clean-checkout.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "artifacts/remediation/sprint-10c1-staged-classification.json",
+      "category": "GENERATED_EVIDENCE",
+      "included": true
+    },
+    {
+      "path": "components/StudentCurriculumProgressView.tsx",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "docs/architecture/GENERATOR_V2_INDEPENDENT_ORACLE.md",
+      "category": "REQUIRED_DOCUMENTATION",
+      "included": true
+    },
+    {
+      "path": "docs/architecture/GENERATOR_V2_STUDENT_RUNTIME_INTEGRATION.md",
+      "category": "REQUIRED_DOCUMENTATION",
+      "included": true
+    },
+    {
+      "path": "docs/status/PLAVE_THREE_MILESTONE_ROADMAP.md",
+      "category": "REQUIRED_DOCUMENTATION",
+      "included": true
+    },
+    {
+      "path": "docs/status/SPRINT_10B_GENERATOR_STUDENT_RUNTIME_INTEGRATION.md",
+      "category": "REQUIRED_DOCUMENTATION",
+      "included": true
+    },
+    {
+      "path": "docs/status/SPRINT_10C1_REPRODUCIBLE_CHECKPOINT.md",
+      "category": "REQUIRED_DOCUMENTATION",
+      "included": true
+    },
+    {
+      "path": "docs/status/SPRINT_10C_GENERATOR_CORRECTNESS_REMEDIATION.md",
+      "category": "REQUIRED_DOCUMENTATION",
+      "included": true
+    },
+    {
+      "path": "eslint.config.mjs",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/curriculum-runtime/api-response.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/curriculum-runtime/contracts.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/curriculum-runtime/errors.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/generation-v2-oracle/exact.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/generation-v2-oracle/index.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/generation-v2-oracle/oracle.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/generation-v2-oracle/types.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/generation-v2/generator.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/generation-v2/student-answer-display.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/generation-v2/student-runtime-policy.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/generation-v2/student-runtime.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/generation-v2/wave-a-engine.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/generation-v2/wave-b-engine.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/generation-v2/wave-c-contracts.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/generation-v2/wave-c-engine.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/generation-v2/wave-d-capability-metadata.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/generation-v2/wave-d-contracts.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/generation-v2/wave-d-engine.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/generation-v2/wave-e-engine.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "lib/generation-v2/wave-f-engine.ts",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "package.json",
+      "category": "REQUIRED_SOURCE",
+      "included": true
+    },
+    {
+      "path": "scripts/audit-generator-v2-independent-oracle.ts",
+      "category": "REQUIRED_TEST",
+      "included": true
+    },
+    {
+      "path": "scripts/audit-generator-v2-oracle-independence.ts",
+      "category": "REQUIRED_TEST",
+      "included": true
+    },
+    {
+      "path": "scripts/build-generator-v2-correctness-product-review.ts",
+      "category": "REQUIRED_TEST",
+      "included": true
+    },
+    {
+      "path": "scripts/finalize-generator-v2-correctness-eligibility.ts",
+      "category": "REQUIRED_TEST",
+      "included": true
+    },
+    {
+      "path": "scripts/run-generator-v2-student-runtime.ts",
+      "category": "REQUIRED_TEST",
+      "included": true
+    },
+    {
+      "path": "tests/generation-v2-database-proof-contract.test.ts",
+      "category": "REQUIRED_TEST",
+      "included": true
+    },
+    {
+      "path": "tests/generation-v2-oracle-known-failures.test.ts",
+      "category": "REQUIRED_TEST",
+      "included": true
+    },
+    {
+      "path": "tests/generator-v2-student-runtime.test.ts",
+      "category": "REQUIRED_TEST",
+      "included": true
+    }
+  ],
+  "excluded": [
+    {
+      "path": "artifacts/ai-tutor-acceptance/google-real-smoke.json",
+      "category": "UNRELATED_USER_CHANGE",
+      "included": false,
+      "reason": "Pre-existing Owner Tutor evidence unrelated to Sprint 10B/10C checkpoint"
+    },
+    {
+      "path": ".env.local",
+      "category": "LOCAL_SECRET",
+      "included": false
+    },
+    {
+      "path": ".env.remote-dev.local",
+      "category": "LOCAL_SECRET",
+      "included": false
+    },
+    {
+      "path": ".env.generated-pilot.local",
+      "category": "LOCAL_SECRET",
+      "included": false
+    },
+    {
+      "path": ".next/",
+      "category": "LOCAL_CACHE",
+      "included": false
+    },
+    {
+      "path": ".next-owner-local-project004/",
+      "category": "LOCAL_CACHE",
+      "included": false
+    },
+    {
+      "path": ".next-remote-dev-project004/",
+      "category": "LOCAL_CACHE",
+      "included": false
+    },
+    {
+      "path": "node_modules/",
+      "category": "LOCAL_CACHE",
+      "included": false
+    },
+    {
+      "path": "supabase/.branches/",
+      "category": "LOCAL_CACHE",
+      "included": false
+    },
+    {
+      "path": "supabase/.temp/",
+      "category": "LOCAL_CACHE",
+      "included": false
+    }
+  ],
+  "validation": {
+    "unknown": 0,
+    "localSecretsIncluded": 0,
+    "localCachesIncluded": 0,
+    "temporaryFixturesIncluded": 0,
+    "unrelatedUserChangesIncluded": 0
+  }
+}
