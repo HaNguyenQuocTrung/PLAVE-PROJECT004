@@ -2,11 +2,11 @@
 
 Ngày cập nhật: 2026-08-03
 Phạm vi sản phẩm: Toán lớp 1–9  
-Active remediation: Sprint 10D.3 final Oracle gap remediation complete; Sprint 10D.4 independent re-audit required
+Active academic work: Sprint 11A Score, XP and Mastery foundation
 
 `MILESTONE_1=COMPLETE_OWNER_APPROVED`  
-`MILESTONE_2=REOPENED_AWAITING_SPRINT_10D4_REAUDIT`
-`MILESTONE_3=REOPENED_SECURITY_AND_REPRODUCIBILITY_REMEDIATION`
+`MILESTONE_2=REMEDIATION_VERIFIED_AWAITING_FINAL_ACADEMIC_ACCEPTANCE`
+`MILESTONE_3=REMEDIATION_VERIFIED_COMPLETE_OWNER_APPROVED_LOCAL_MVP`
 
 Các quyết định Owner trước re-audit vẫn được giữ nguyên như historical decisions.
 Active status phản ánh findings của complete project re-audit, không xóa hoặc
@@ -19,8 +19,8 @@ PLAVE chỉ có đúng ba primary milestones, theo thứ tự bắt buộc:
 | Thứ tự | Milestone | Trạng thái hiện tại | Gate để được bắt đầu/hoàn tất |
 |---|---|---|---|
 | 1 | Complete the Grades 1–9 UI/UX overhaul across the entire website | `COMPLETE_OWNER_APPROVED` | Technical browser evidence, sitewide propagation và Owner visual acceptance đều hoàn tất |
-| 2 | Repair and complete Grades 1–9 question generation for genuinely useful real Student practice | `REOPENED_AWAITING_SPRINT_10D4_REAUDIT` | F-003 is independently resolved; Sprint 10D.3 remediates the final F-005 interaction/canonicalization gaps, but Sprint 10D.4 must independently verify before closure |
-| 3 | Add a safe, grounded and grade-appropriate AI Tutor for Grades 1–9 | `REOPENED_SECURITY_AND_REPRODUCIBILITY_REMEDIATION` | Historical local-MVP approval được giữ; active gate mở lại cho secret boundary và baseline recovery |
+| 2 | Repair and complete Grades 1–9 question generation for genuinely useful real Student practice | `REMEDIATION_VERIFIED_AWAITING_FINAL_ACADEMIC_ACCEPTANCE` | Sprint 10D.4R xác minh lại F-003/F-005 với Critical 0, High 0; final academic acceptance vẫn chưa được tự suy ra |
+| 3 | Add a safe, grounded and grade-appropriate AI Tutor for Grades 1–9 | `REMEDIATION_VERIFIED_COMPLETE_OWNER_APPROVED_LOCAL_MVP` | Security/reproducibility remediation đã được verify; phạm vi vẫn là local MVP, không phải deployment |
 
 Unit tests, proof counts và generator coverage metrics không thể tự hoàn tất bất
 kỳ milestone nào. Definition of done của mỗi milestone phải có rendered browser
@@ -91,7 +91,7 @@ None. Owner granted full Milestone 1 visual acceptance on 2026-08-01.
 
 ## Milestone 2 — Grades 1–9 question generation
 
-Current state: `REOPENED_AWAITING_SPRINT_10D4_REAUDIT`.
+Current state: `REMEDIATION_VERIFIED_AWAITING_FINAL_ACADEMIC_ACCEPTANCE`.
 
 Historical Owner status trước complete re-audit: `COMPLETE_OWNER_APPROVED`.
 Quyết định usefulness lịch sử được giữ nguyên; active status không coi quyết định
@@ -312,9 +312,36 @@ lớp hoặc không dùng được trong Student practice thì Milestone 2 vẫn
 - Evidence: `docs/status/SPRINT_10D3_FINAL_ORACLE_REMEDIATION.md` and
   `artifacts/remediation/sprint-10d3-report.json`.
 
+### Sprint 10D.4R — final independent acceptance
+
+- Canonical isolated rerun recorded `Critical=0`, `High=0` and resolved F-003
+  plus F-005 without reopening already resolved findings.
+- Generator remains 546/546 outcomes and 198/198 capabilities with the full
+  32,760 coordinate audit and authenticated Student runtime verification.
+- Active status therefore moves to
+  `REMEDIATION_VERIFIED_AWAITING_FINAL_ACADEMIC_ACCEPTANCE`; this is not a new
+  Owner decision and does not enable the repository default.
+- Evidence: `docs/status/SPRINT_10D4R_FINAL_GENERATOR_ACCEPTANCE.md` and
+  `artifacts/remediation/sprint-10d4r-report.json`.
+
+### Sprint 11A — Score, XP and Mastery foundation
+
+- `PLAVE_SCORING_POLICY_V1` adds server-authoritative weighted Score,
+  append-only exactly-once XP and latest-10 official-outcome mastery for static
+  and GENERATED_V2 curriculum practice.
+- Local-only additive migration 0043 passes fresh/upgrade/rollback, RLS and
+  privilege checks. It was not applied remotely.
+- Authenticated public runtime proves Grades 1–9 fixtures, static/generated
+  parity, CAS/replay/rollback, mastery transitions and bounded Parent/Teacher
+  read contracts. Generator repository default remains OFF.
+- Level, Streak, badges, achievements, leaderboard and adaptive recommendation
+  remain explicitly out of scope.
+- Evidence: `docs/status/SPRINT_11A_SCORE_XP_MASTERY.md` and
+  `artifacts/academic-mvp/sprint-11a-report.json`.
+
 ## Milestone 3 — Grades 1–9 AI Tutor
 
-Current state: `REOPENED_SECURITY_AND_REPRODUCIBILITY_REMEDIATION`.
+Current state: `REMEDIATION_VERIFIED_COMPLETE_OWNER_APPROVED_LOCAL_MVP`.
 
 Historical Owner status trước complete re-audit:
 `COMPLETE_OWNER_APPROVED_LOCAL_MVP`. Phạm vi local MVP không được diễn giải là
@@ -396,16 +423,15 @@ ba milestone ở trên.
 | Milestone | Final status | Approved scope |
 |---|---|---|
 | Milestone 1 — Grades 1–9 UI/UX | `COMPLETE_OWNER_APPROVED` | Sitewide UI/UX product scope |
-| Milestone 2 — Generator V2 | `REOPENED_AWAITING_SPRINT_10D4_REAUDIT` | Historical approval retained; F-003 is independently resolved, Sprint 10D.3 remediates the final F-005 gaps, and independent Sprint 10D.4 remains mandatory |
-| Milestone 3 — AI Tutor | `REOPENED_SECURITY_AND_REPRODUCIBILITY_REMEDIATION` | Historical local-MVP approval retained; active remediation open |
+| Milestone 2 — Generator V2 | `REMEDIATION_VERIFIED_AWAITING_FINAL_ACADEMIC_ACCEPTANCE` | F-003/F-005 independently verified; Generator default remains OFF and no new Owner academic acceptance is inferred |
+| Milestone 3 — AI Tutor | `REMEDIATION_VERIFIED_COMPLETE_OWNER_APPROVED_LOCAL_MVP` | Owner-approved local MVP; not deployed or production-certified |
 
 Các Owner approvals lịch sử vẫn được giữ trong phạm vi đã duyệt, nhưng active
 remediation status ở trên là authoritative. Điều này không đồng nghĩa deployed,
 remotely activated hoặc production certified. `npm audit` được xác minh lại từ
 registry ngày 2026-08-03: 0 vulnerabilities.
 
-MILESTONE 1 — PLAVE GRADES 1–9 UI/UX COMPLETE — OWNER APPROVED
-
-MILESTONE 2 — PLAVE GENERATOR V2 COMPLETE — OWNER APPROVED
-
-MILESTONE 3 — PLAVE AI TUTOR MVP COMPLETE — OWNER APPROVED
+Historical Owner approval markers remain preserved in their original decision
+artifacts. The authoritative active statuses are the table above; specifically,
+Milestone 2 still awaits final academic acceptance and Milestone 3 remains an
+Owner-approved local MVP rather than a deployment claim.

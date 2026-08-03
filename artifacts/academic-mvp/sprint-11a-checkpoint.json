@@ -1,0 +1,16 @@
+{
+  "schema": "PLAVE_SPRINT_11A_CHECKPOINT_V1",
+  "sprint": "11A.C",
+  "sourceParent": "33f239e630a74b627f1b1a233493c4aef8870aea",
+  "checkpointSha": "SELF_COMMIT_SHA_RECORDED_IN_FINAL_HANDOFF",
+  "commitMessage": "checkpoint: add score xp and mastery foundation",
+  "scope": "SCORE_XP_MASTERY_FOUNDATION_ONLY",
+  "repositoryDefaultGeneratorRuntime": "OFF",
+  "remoteMutations": 0,
+  "paidProviderRequests": 0,
+  "secretHitsInIntendedContent": 0,
+  "includedEvidenceDirectory": "artifacts/academic-mvp",
+  "excluded": [".env.local", "provider keys", "caches", "node_modules", "build output", "Owner Tutor state", "Google real-smoke artifact", "historical remediation artifacts", "private solutions"],
+  "postCommitVerification": "RECORDED_IN_FINAL_HANDOFF_FROM_CLEAN_CHECKOUT",
+  "status": "PENDING_POST_COMMIT_VERIFICATION"
+}

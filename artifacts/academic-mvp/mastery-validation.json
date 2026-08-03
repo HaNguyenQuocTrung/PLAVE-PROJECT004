@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "policyVersion": "PLAVE_SCORING_POLICY_V1",
+  "activeWindowSize": 10,
+  "evidenceIdentity": "DISTINCT_PERSISTED_QUESTION_AND_OFFICIAL_OUTCOME",
+  "difficultyWeightsHundredths": {
+    "EASY": 100,
+    "MEDIUM": 125,
+    "HARD": 150
+  },
+  "unitTests": {
+    "latestTen": "PASS",
+    "roundHalfUp": "PASS",
+    "duplicateEvidenceRejected": "PASS",
+    "easyOnlyCannotMaster": "PASS",
+    "notStartedDerivedFromNoProjection": "PASS",
+    "inProgress": "PASS",
+    "developing": "PASS",
+    "proficient": "PASS",
+    "mastered": "PASS",
+    "needsReview": "PASS"
+  },
+  "database": {
+    "evidenceAppendOnly": true,
+    "projectionServerMaintained": true,
+    "latestWindowTraceabilityPrivate": true,
+    "unknownSyntheticOutcomeCounted": false,
+    "staticGeneratedParity": "PASS",
+    "duplicateSubmitAdditionalEvidence": 0,
+    "rollback": "PASS"
+  },
+  "publicBoundary": {
+    "activeEvidenceIdsExposed": false,
+    "answersExposed": false,
+    "solverMetadataExposed": false,
+    "statusHasText": true,
+    "lessonCompletionDistinguished": true
+  }
+}

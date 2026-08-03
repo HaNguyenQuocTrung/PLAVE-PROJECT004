@@ -7,6 +7,7 @@ import {
   parseStudentCurriculumHistory,
   parseStudentCurriculumProgress,
   parseStudentGeneratedCurriculumEvidence,
+  parseStudentScoringSummary,
 } from "./contracts.ts";
 import { getStudentLearningContext } from "../practice/server.ts";
 
@@ -20,6 +21,7 @@ export async function loadStudentCurriculumProgress(
   const generatedResult = access.grade === 1
     ? await access.supabase.rpc("get_my_generated_curriculum_evidence")
     : { data: null, error: null };
+  const scoringResult = await access.supabase.rpc("get_my_score_xp_mastery");
   const { data, error } = availability;
   const baseProgress = error ? null : parseStudentCurriculumProgress(data);
   const generated =
@@ -32,10 +34,17 @@ export async function loadStudentCurriculumProgress(
         ? mergeStudentGeneratedCurriculumProgress(baseProgress, generated)
         : null
       : baseProgress;
-  if (!progress || progress.grade !== access.grade) {
+  const scoring = scoringResult.error
+    ? null
+    : parseStudentScoringSummary(scoringResult.data);
+  if (!progress || progress.grade !== access.grade || !scoring) {
     return { ok: false as const, reason: "DATA_UNAVAILABLE" as const };
   }
-  return { ok: true as const, progress, access };
+  return {
+    ok: true as const,
+    progress: { ...progress, scoring },
+    access,
+  };
 }
 
 export async function resolveUniversalCurriculumAvailability(
@@ -65,13 +74,14 @@ export async function loadStudentCurriculumHistory(
   if (!flag.enabled) return { ok: false as const, reason: "DISABLED" as const };
   const access = existingAccess ?? (await getStudentLearningContext());
   if (!access.ok) return access;
-  const [{ data, error }, generatedResult] = await Promise.all([
+  const [{ data, error }, generatedResult, scoringResult] = await Promise.all([
     access.supabase.rpc(
     "get_student_curriculum_history",
     ),
     access.grade === 1
       ? access.supabase.rpc("get_my_generated_curriculum_evidence")
       : Promise.resolve({ data: null, error: null }),
+    access.supabase.rpc("get_my_score_xp_mastery"),
   ]);
   const baseHistory = error ? null : parseStudentCurriculumHistory(data);
   const generated =
@@ -84,8 +94,35 @@ export async function loadStudentCurriculumHistory(
         ? mergeStudentGeneratedCurriculumHistory(baseHistory, generated)
         : null
       : baseHistory;
-  if (!history || history.grade !== access.grade) {
+  const scoring = scoringResult.error
+    ? null
+    : parseStudentScoringSummary(scoringResult.data);
+  if (!history || history.grade !== access.grade || !scoring) {
     return { ok: false as const, reason: "DATA_UNAVAILABLE" as const };
   }
-  return { ok: true as const, history, access };
+  const attemptScoring = new Map(
+    scoring.attempts.map((attempt) => [attempt.attemptId, attempt]),
+  );
+  return {
+    ok: true as const,
+    history: {
+      ...history,
+      attempts: history.attempts.map((attempt) => {
+        const score = attemptScoring.get(attempt.attemptId);
+        return score
+          ? {
+              ...attempt,
+              scorePercent: score.scorePercent,
+              earnedWeight: score.earnedWeight,
+              possibleWeight: score.possibleWeight,
+              xpEarned: score.xpEarned,
+              scoringPolicyVersion: score.policyVersion,
+              legacyScoring: score.legacy,
+            }
+          : attempt;
+      }),
+    },
+    scoring,
+    access,
+  };
 }

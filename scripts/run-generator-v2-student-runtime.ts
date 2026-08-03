@@ -35,6 +35,7 @@ import {
   GENERATOR_V2_STUDENT_RUNTIME_VERIFICATION_OUTCOMES,
 } from "../lib/generation-v2/student-runtime-policy.ts";
 import { buildUniversalCurriculumRelease } from "../lib/curriculum-runtime/release.ts";
+import { parseCurriculumAttemptState } from "../lib/curriculum-runtime/contracts.ts";
 import { reserveDisposablePorts } from "./project004-disposable-port-reservation.ts";
 import { buildDisposableConfig } from "./project004-disposable-migration-workspace.ts";
 import { copyGeneratedPersistenceMigrationInventory } from "./project004-generated-persistence-migration-inventory.ts";
@@ -55,14 +56,28 @@ const { chromium } = requireTools("playwright-core") as typeof import("playwrigh
 const playwrightVersion = JSON.parse(
   readFileSync(resolve(toolsRoot, "node_modules/playwright-core/package.json"), "utf8"),
 ).version as string;
-const artifactRoot = resolve(root, "artifacts/remediation");
+const academicMvpScope =
+  process.env.PLAVE_SCORING_XP_MASTERY_PROOF === "true";
+const artifactRoot = resolve(
+  root,
+  academicMvpScope ? "artifacts/academic-mvp" : "artifacts/remediation",
+);
 const fullCorrectnessScope =
   process.env.PLAVE_GENERATOR_V2_STUDENT_RUNTIME_PROOF_SCOPE ===
   "FULL_CORRECTNESS";
+const scoringDebugScope =
+  academicMvpScope && process.env.PLAVE_SCORING_DEBUG_SCOPE === "true";
 const screenshotDirectory = fullCorrectnessScope
   ? "generator-correctness-screenshots"
-  : "generator-runtime-screenshots";
+  : academicMvpScope
+    ? "screenshots"
+    : "generator-runtime-screenshots";
 const screenshotRoot = resolve(artifactRoot, screenshotDirectory);
+const browserArtifactName = academicMvpScope
+  ? "browser-acceptance.json"
+  : fullCorrectnessScope
+    ? "generator-correctness-browser-acceptance.json"
+    : "generator-runtime-browser-acceptance.json";
 const releaseBundle = buildUniversalCurriculumRelease();
 const proofOutcomeIds = fullCorrectnessScope
   ? [
@@ -70,7 +85,13 @@ const proofOutcomeIds = fullCorrectnessScope
         GENERATOR_V2_OUTCOME_REGISTRY.map((entry) => [entry.variantId, entry]),
       ).values(),
     ].map((entry) => entry.outcomeId)
-  : [...GENERATOR_V2_STUDENT_RUNTIME_VERIFICATION_OUTCOMES];
+  : scoringDebugScope
+    ? [2, 3].map((grade) =>
+        GENERATOR_V2_STUDENT_RUNTIME_VERIFICATION_OUTCOMES.find(
+          (outcomeId) => getProductVariantByOutcome(outcomeId)?.grade === grade,
+        )!,
+      )
+    : [...GENERATOR_V2_STUDENT_RUNTIME_VERIFICATION_OUTCOMES];
 const entries = proofOutcomeIds.map(
   (outcomeId) => {
     const entry = getProductVariantByOutcome(outcomeId);
@@ -88,6 +109,19 @@ const entries = proofOutcomeIds.map(
   },
 );
 const fixtureUnitCount = releaseBundle.units.length;
+const staticParityMapping = entries.find(({ entry }) => entry.grade === 2);
+if (!staticParityMapping) {
+  throw new Error("SPRINT_11A_STATIC_PARITY_MAPPING_MISSING");
+}
+const staticParityQuestions = releaseBundle.questions.filter(
+  (question) => question.unitId === staticParityMapping.unit.unitId,
+);
+if (staticParityQuestions.length !== 12) {
+  throw new Error("SPRINT_11A_STATIC_PARITY_QUESTION_COUNT_INVALID");
+}
+const fixtureQuestionCount =
+  entries.filter(({ unit }) => unit.unitId !== staticParityMapping.unit.unitId)
+    .length + staticParityQuestions.length;
 const eligibleOutcomeList = entries.map(({ entry }) => entry.outcomeId).join(",");
 const eligibleCapabilityList = entries.map(({ entry }) => entry.variantId).join(",");
 const entryByCapability = new Map(
@@ -215,7 +249,10 @@ async function runPsql(databasePort: number, sql: string, stage: string) {
 
 async function queryScalar(databasePort: number, sql: string, stage: string) {
   const result = await runPsql(databasePort, sql, stage);
-  requireProof(result.ok, `${stage}_FAILED`);
+  requireProof(
+    result.ok,
+    `${stage}_FAILED_${sanitizedError(result.stderr)}`,
+  );
   return result.stdout.trim();
 }
 
@@ -262,7 +299,9 @@ function fixtureSql() {
     "12",
   ].join(",")})`).join(",\n");
   const questionDisplayOrder = new Map<string, number>();
-  const questionRows = entries.map(({ entry, question, unit }, index) => {
+  const mappedQuestionRows = entries
+    .filter(({ unit }) => unit.unitId !== staticParityMapping.unit.unitId)
+    .map(({ entry, question, unit }, index) => {
     const displayOrder = (questionDisplayOrder.get(unit.unitId) ?? 0) + 1;
     questionDisplayOrder.set(unit.unitId, displayOrder);
     return `(${[
@@ -281,6 +320,40 @@ function fixtureSql() {
     sqlText(question.skillTitle),
     sqlText(question.questionPayloadHash),
   ].join(",")})`;
+    }).join(",\n");
+  const staticQuestionRows = staticParityQuestions.map((question) => `(${[
+    sqlText(question.releaseId),
+    sqlText(question.unitId),
+    sqlText(question.questionId),
+    String(question.displayOrder),
+    sqlText(question.answerType),
+    sqlText(question.prompt),
+    question.options === null ? "null" : sqlJson(question.options),
+    sqlJson(question.visual),
+    sqlText(question.cognitiveLevel),
+    sqlTextArray(question.officialOutcomeIds),
+    sqlTextArray(question.officialOutcomeTitles),
+    sqlText(question.skillId),
+    sqlText(question.skillTitle),
+    sqlText(question.questionPayloadHash),
+  ].join(",")})`).join(",\n");
+  const questionRows = [mappedQuestionRows, staticQuestionRows]
+    .filter(Boolean)
+    .join(",\n");
+  const staticSolutionRows = staticParityQuestions.map((question) => {
+    const solution = releaseBundle.solutions.find(
+      (candidate) => candidate.questionId === question.questionId,
+    );
+    if (!solution) throw new Error(`SPRINT_11A_STATIC_SOLUTION_MISSING:${question.questionId}`);
+    return `(${[
+      sqlText(solution.releaseId),
+      sqlText(solution.questionId),
+      sqlText(solution.normalizedCorrectAnswer),
+      sqlText(solution.correctAnswer),
+      sqlJson(solution.solutionSteps),
+      sqlText(solution.feedback),
+      sqlText(solution.solutionPayloadHash),
+    ].join(",")})`;
   }).join(",\n");
   return String.raw`
 begin;
@@ -309,6 +382,10 @@ insert into public.curriculum_release_questions (
   options, visual, cognitive_level, official_outcome_ids,
   official_outcome_titles, skill_id, skill_title, question_payload_hash
 ) values ${questionRows};
+insert into private.curriculum_release_solutions (
+  release_id, question_id, normalized_correct_answer, correct_answer,
+  solution_steps, feedback, solution_payload_hash
+) values ${staticSolutionRows};
 insert into private.curriculum_generation_runtime_secret (
   singleton, signing_key_hex
 ) values (true, ${sqlText(signingKey)});
@@ -381,6 +458,77 @@ ${student}
 select count(*) from public.profiles where user_id = ${sqlText(actor.id)}::uuid and onboarding_completed;
 `, "SPRINT_10B_ACTOR_FIXTURE");
   requireProof(result.ok && result.stdout.trim() === "1", `ACTOR_FIXTURE_${index}`);
+}
+
+async function createScoringRoleReadFixtures(
+  databasePort: number,
+  parent: Actor,
+  teacher: Actor,
+  student: Actor,
+) {
+  const connectionId = randomUUID();
+  const invitationId = randomUUID();
+  const classroomId = randomUUID();
+  const created = await runPsql(
+    databasePort,
+    String.raw`
+insert into public.parent_student_connections (
+  id, parent_user_id, student_user_id, status,
+  requested_at
+) values (
+  ${sqlText(connectionId)}::uuid,
+  ${sqlText(parent.id)}::uuid,
+  ${sqlText(student.id)}::uuid,
+  'PENDING', now() - interval '1 minute'
+);
+update public.parent_student_connections
+set status='APPROVED', responded_at=now()
+where id=${sqlText(connectionId)}::uuid;
+insert into public.teacher_invitations (
+  id, code_hash, status, expires_at, teacher_user_id, claimed_at
+) values (
+  ${sqlText(invitationId)}::uuid,
+  decode(repeat('ab', 32), 'hex'),
+  'CLAIMED', now() + interval '1 day',
+  ${sqlText(teacher.id)}::uuid, now()
+);
+insert into public.teacher_profiles (
+  user_id, full_name, invitation_id
+) values (
+  ${sqlText(teacher.id)}::uuid,
+  'Giáo viên kiểm chứng',
+  ${sqlText(invitationId)}::uuid
+);
+insert into public.classrooms (
+  id, teacher_id, creation_request_id, name, grade, class_code
+) values (
+  ${sqlText(classroomId)}::uuid,
+  ${sqlText(teacher.id)}::uuid,
+  extensions.gen_random_uuid(),
+  'Lớp kiểm chứng', ${student.grade}, 'PLV-CLS-ABCDEFGHJK'
+);
+insert into public.classroom_memberships (
+  classroom_id, student_id, status, requested_at
+) values (
+  ${sqlText(classroomId)}::uuid,
+  ${sqlText(student.id)}::uuid,
+  'PENDING', now() - interval '1 minute'
+);
+update public.classroom_memberships
+set status='APPROVED', responded_at=now()
+where classroom_id=${sqlText(classroomId)}::uuid
+  and student_id=${sqlText(student.id)}::uuid;
+select concat_ws('|',
+  (select count(*) from public.parent_student_connections where id=${sqlText(connectionId)}::uuid and status='APPROVED'),
+  (select count(*) from public.classroom_memberships where classroom_id=${sqlText(classroomId)}::uuid and student_id=${sqlText(student.id)}::uuid and status='APPROVED')
+);`,
+    "SPRINT_11A_ROLE_READ_FIXTURES",
+  );
+  requireProof(
+    created.ok && created.stdout.trim() === "1|1",
+    `SPRINT_11A_ROLE_READ_FIXTURES_FAILED_${sanitizedError(created.stderr)}`,
+  );
+  return { connectionId };
 }
 
 async function completeLocalPrerequisites(
@@ -480,7 +628,7 @@ function startNext(config: LocalConfig, port: number, runtimeRoot: string, overr
         PLAVE_CURRICULUM_RUNTIME_ENABLED: "true",
         GENERATOR_V2_STUDENT_RUNTIME_ENABLED: "true",
         GENERATOR_V2_STUDENT_RUNTIME_RELEASE: "LOCAL_VERIFICATION",
-        GENERATOR_V2_STUDENT_RUNTIME_SCHEMA: "0042",
+        GENERATOR_V2_STUDENT_RUNTIME_SCHEMA: "0043",
         GENERATOR_V2_STUDENT_RUNTIME_ELIGIBLE_OUTCOMES: eligibleOutcomeList,
         GENERATOR_V2_STUDENT_RUNTIME_ELIGIBLE_CAPABILITIES: eligibleCapabilityList,
         PLAVE_ON_DEMAND_GENERATION_SIGNING_KEY: signingKey,
@@ -767,13 +915,17 @@ function reportStage(stage: string) {
   process.stdout.write(`SPRINT_10B_STAGE=${stage}\n`);
 }
 
-function assertPublicPayload(value: unknown, stage: string) {
+function assertPublicPayload(
+  value: unknown,
+  stage: string,
+  expectedMode: "STATIC" | "GENERATED_V2" = "GENERATED_V2",
+) {
   const text = JSON.stringify(value);
   requireProof(
     !/correctResponse|acceptedResponses|solverReceipt|privateSolution|rawSeed|seedFingerprint|normalizedModelHash|publicSnapshotHash|visualHash|solverReceiptHash|productContract|outcomeId|variantId|productFamilyId/iu.test(text),
     `PRIVATE_PAYLOAD_${stage}`,
   );
-  requireProof(text.includes('"runtimeMode":"GENERATED_V2"'), `MODE_MISSING_${stage}`);
+  requireProof(text.includes(`"runtimeMode":"${expectedMode}"`), `MODE_MISSING_${stage}`);
 }
 
 async function inspectPage(page: any) {
@@ -871,7 +1023,9 @@ async function capture(page: any, name: string) {
       else skipLink.setAttribute("style", priorStyle);
     }, priorSkipLinkStyle);
   }
-  return `artifacts/remediation/${screenshotDirectory}/${name}`;
+  return academicMvpScope
+    ? `artifacts/academic-mvp/${screenshotDirectory}/${name}`
+    : `artifacts/remediation/${screenshotDirectory}/${name}`;
 }
 
 async function submitUi(page: any, question: GeneratedProductQuestion, response: CanonicalResponse) {
@@ -889,6 +1043,7 @@ async function submitUi(page: any, question: GeneratedProductQuestion, response:
   assertPublicPayload(payload, "SUBMIT_UI");
   await page.locator(".feedback").waitFor({ timeout: 20_000 });
   requireProof((await page.locator(".feedback").innerText()).includes(question.privateSolution.nextStep), "FAMILY_FEEDBACK_MISSING");
+  return payload;
 }
 
 async function runStudentJourneys(input: {
@@ -913,6 +1068,15 @@ async function runStudentJourneys(input: {
     proofStage = `JOURNEY_${mapped.entry.variantId}_CREATE_CONTEXT`;
     const actor = input.actorsByGrade.get(mapped.entry.grade)!;
     const viewport = viewports[index % viewports.length]!;
+    const masteryRegressionJourney = academicMvpScope && index === 0;
+    const observedMasteryStatuses = new Set<string>();
+    const collectMasteryStatuses = (payload: any) => {
+      for (const change of payload?.data?.scoring?.masteryChanges ?? []) {
+        if (typeof change?.status === "string") {
+          observedMasteryStatuses.add(change.status);
+        }
+      }
+    };
     const context = await input.browser.newContext({ viewport });
     const requestedStartKey = targetIdempotencyKey(actor.id, mapped);
     const page = await context.newPage();
@@ -987,9 +1151,16 @@ async function runStudentJourneys(input: {
     for (let position = 1; position <= 12; position += 1) {
       proofStage = `JOURNEY_${mapped.entry.variantId}_QUESTION_${position}`;
       const question = generatedAt(mapped.entry, actor.id, startKey, position);
-      const responseValue = position === 1 ? wrongResponse(question) : question.privateSolution.correctResponse;
+      const responseValue = masteryRegressionJourney
+        ? position <= 8
+          ? question.privateSolution.correctResponse
+          : wrongResponse(question)
+        : position === 1
+          ? wrongResponse(question)
+          : question.privateSolution.correctResponse;
       if ([1, 5, 9, 12].includes(position)) {
-        await submitUi(page, question, responseValue);
+        const submitPayload = await submitUi(page, question, responseValue);
+        collectMasteryStatuses(submitPayload);
         if (
           interactionReviewIds.has(mapped.entry.outcomeId) &&
           (position === 1 || position === 5 || position === 12)
@@ -998,6 +1169,14 @@ async function runStudentJourneys(input: {
           screenshots.push(await capture(page, `${viewport.width}x${viewport.height}-${mapped.entry.variantId.toLowerCase()}-${state}.png`));
         }
         await inspectPage(page);
+        if (masteryRegressionJourney && position === 12) {
+          screenshots.push(
+            await capture(
+              page,
+              `${viewport.width}x${viewport.height}-mastery-needs-review.png`,
+            ),
+          );
+        }
         if (position < 12) {
           await page.getByRole("button", { name: "Câu tiếp theo", exact: true }).click();
         }
@@ -1013,6 +1192,7 @@ async function runStudentJourneys(input: {
         });
         requireProof(result.status === 200, `ANSWER_HTTP_${position}_${result.status}`);
         assertPublicPayload(result.payload, `ANSWER_${position}`);
+        collectMasteryStatuses(result.payload);
         if ([4, 8, 11].includes(position)) {
           await page.reload({ waitUntil: "domcontentloaded" });
           await page.locator("[data-generator-v2-student-question]").waitFor();
@@ -1034,6 +1214,51 @@ async function runStudentJourneys(input: {
       (await historyLink.innerText()).includes("Xem kết quả"),
       `HISTORY_RESULT_LINK_MISSING_${mapped.entry.variantId}`,
     );
+    const scoring = await queryScalar(
+      input.databasePort,
+      String.raw`
+select concat_ws('|',
+  attempt.score_percent,
+  attempt.score_earned_weight,
+  attempt.score_possible_weight,
+  attempt.xp_earned,
+  (select coalesce(sum(ledger.xp_amount), 0) from private.student_xp_ledger as ledger where ledger.attempt_id=attempt.id),
+  (select count(*) from private.student_xp_ledger as ledger where ledger.attempt_id=attempt.id),
+  (select count(*) from private.student_mastery_evidence as evidence where evidence.attempt_id=attempt.id),
+  (select coalesce(sum(case question.difficulty when 'UNDERSTAND' then 1 when 'APPLY' then 2 when 'REASON' then 3 end), 0) from public.curriculum_generated_questions as question where question.attempt_id=attempt.id),
+  (select coalesce(sum(case question.difficulty when 'UNDERSTAND' then 1 when 'APPLY' then 2 when 'REASON' then 3 end), 0) from public.curriculum_generated_questions as question join public.curriculum_generated_answers as answer on answer.attempt_id=question.attempt_id and answer.question_id=question.question_id where question.attempt_id=attempt.id and answer.is_correct),
+  (select count(*) from public.curriculum_generated_answers as answer where answer.attempt_id=attempt.id and answer.is_correct)
+)
+from public.curriculum_attempts as attempt
+where attempt.id=${sqlText(attemptId)}::uuid;
+`,
+      "SPRINT_11A_GENERATED_SCORING_ASSERTION",
+    );
+    const [scorePercent, earnedWeight, possibleWeight, attemptXp, ledgerXp, ledgerCount, evidenceCount, recomputedPossible, recomputedEarned, correctAnswerCount] = scoring.split("|").map(Number);
+    requireProof(
+      [scorePercent, earnedWeight, possibleWeight, attemptXp, ledgerXp, ledgerCount, evidenceCount, recomputedPossible, recomputedEarned, correctAnswerCount].every(Number.isFinite) &&
+        scorePercent === Math.floor((recomputedEarned * 100 + Math.floor(recomputedPossible / 2)) / recomputedPossible) &&
+        earnedWeight === recomputedEarned && possibleWeight === recomputedPossible &&
+        attemptXp === ledgerXp && ledgerCount === correctAnswerCount &&
+        evidenceCount === 12,
+      `SPRINT_11A_GENERATED_SCORING_MISMATCH_${scoring}`,
+    );
+    requireProof(
+      observedMasteryStatuses.has("IN_PROGRESS") &&
+        observedMasteryStatuses.has("PROFICIENT") &&
+        (masteryRegressionJourney
+          ? observedMasteryStatuses.has("MASTERED") &&
+            observedMasteryStatuses.has("NEEDS_REVIEW")
+          : observedMasteryStatuses.has("MASTERED")),
+      `SPRINT_11A_MASTERY_TRANSITION_MISSING_${[
+        ...observedMasteryStatuses,
+      ].join("_")}`,
+    );
+    const historyText = await historyLink.locator("xpath=ancestor::article").innerText();
+    requireProof(
+      /Điểm:\s*\d+\/100/u.test(historyText) && /XP/u.test(historyText),
+      `SPRINT_11A_HISTORY_SCORING_MISSING_${mapped.entry.variantId}`,
+    );
     runs.push({
       outcomeId: mapped.entry.outcomeId,
       capabilityId: mapped.entry.variantId,
@@ -1043,6 +1268,8 @@ async function runStudentJourneys(input: {
       interactionTypes: mapped.entry.interactionPolicy,
       resumeWithoutRegeneration: true,
       completed: true,
+      masteryStatusesObserved: [...observedMasteryStatuses],
+      masteryRegression: masteryRegressionJourney,
     });
     await context.close();
   }
@@ -1204,6 +1431,10 @@ async function runConcurrency(input: { browser: any; baseURL: string; actor: Act
     firstBody,
   );
   requireProof(duplicateReplay.status === 200, "DUPLICATE_REPLAY_NOT_IDEMPOTENT");
+  requireProof(
+    Number((duplicateReplay.payload as any)?.data?.scoring?.xpDelta) === 0,
+    "DUPLICATE_REPLAY_XP_DELTA_NOT_ZERO",
+  );
   requireProof(await queryScalar(input.databasePort, `select count(*) from public.curriculum_generated_answers where attempt_id=${sqlText(attemptId)}::uuid;`, "SPRINT_10B_DUPLICATE_COUNT") === "1", "DUPLICATE_WRITE");
   const conflict = await browserPost(page, "/api/curriculum-runtime/answer", {
     ...firstBody,
@@ -1225,7 +1456,7 @@ async function runConcurrency(input: { browser: any; baseURL: string; actor: Act
   ]);
   requireProof(cas.filter((item) => item.status === 200).length === 1 && cas.filter((item) => item.status === 409).length === 1, "CAS_NOT_SINGLE_WINNER");
   const third = generatedAt(mapped.entry, input.actor.id, startKey, 3);
-  const beforeFailure = await queryScalar(input.databasePort, `select concat_ws('|',(select count(*) from public.curriculum_generated_answers where attempt_id=${sqlText(attemptId)}::uuid),(select evidence_count from public.student_curriculum_unit_progress where student_id=${sqlText(input.actor.id)}::uuid and unit_id=${sqlText(mapped.unit.unitId)}));`, "SPRINT_10B_ROLLBACK_BEFORE");
+  const beforeFailure = await queryScalar(input.databasePort, `select concat_ws('|',(select count(*) from public.curriculum_generated_answers where attempt_id=${sqlText(attemptId)}::uuid),(select evidence_count from public.student_curriculum_unit_progress where student_id=${sqlText(input.actor.id)}::uuid and unit_id=${sqlText(mapped.unit.unitId)}),(select count(*) from private.student_xp_ledger where attempt_id=${sqlText(attemptId)}::uuid),(select count(*) from private.student_mastery_evidence where attempt_id=${sqlText(attemptId)}::uuid),(select xp_earned from public.curriculum_attempts where id=${sqlText(attemptId)}::uuid));`, "SPRINT_11A_ROLLBACK_BEFORE");
   requireProof((await runPsql(input.databasePort, String.raw`
 create function private.test_only_sprint_10b_failure() returns trigger language plpgsql security definer set search_path='' as $$ begin if new.attempt_id=${sqlText(attemptId)}::uuid and new.question_id=${sqlText(third.publicSnapshot.questionId)} then raise exception 'TEST_ONLY_SPRINT_10B'; end if; return new; end $$;
 create trigger test_only_sprint_10b_failure before insert on public.curriculum_generated_answers for each row execute function private.test_only_sprint_10b_failure();
@@ -1236,7 +1467,7 @@ create trigger test_only_sprint_10b_failure before insert on public.curriculum_g
     expectedRevision: 2, idempotencyKey: randomUUID(),
   });
   requireProof(failed.status >= 400, "FAILURE_INJECTION_ACCEPTED");
-  const afterFailure = await queryScalar(input.databasePort, `select concat_ws('|',(select count(*) from public.curriculum_generated_answers where attempt_id=${sqlText(attemptId)}::uuid),(select evidence_count from public.student_curriculum_unit_progress where student_id=${sqlText(input.actor.id)}::uuid and unit_id=${sqlText(mapped.unit.unitId)}));`, "SPRINT_10B_ROLLBACK_AFTER");
+  const afterFailure = await queryScalar(input.databasePort, `select concat_ws('|',(select count(*) from public.curriculum_generated_answers where attempt_id=${sqlText(attemptId)}::uuid),(select evidence_count from public.student_curriculum_unit_progress where student_id=${sqlText(input.actor.id)}::uuid and unit_id=${sqlText(mapped.unit.unitId)}),(select count(*) from private.student_xp_ledger where attempt_id=${sqlText(attemptId)}::uuid),(select count(*) from private.student_mastery_evidence where attempt_id=${sqlText(attemptId)}::uuid),(select xp_earned from public.curriculum_attempts where id=${sqlText(attemptId)}::uuid));`, "SPRINT_11A_ROLLBACK_AFTER");
   requireProof(beforeFailure === afterFailure, "TRANSACTION_ROLLBACK_FAILED");
   await runPsql(input.databasePort, "drop trigger test_only_sprint_10b_failure on public.curriculum_generated_answers; drop function private.test_only_sprint_10b_failure();", "SPRINT_10B_FAILURE_CLEANUP");
   for (let position = 3; position <= 12; position += 1) {
@@ -1250,6 +1481,16 @@ create trigger test_only_sprint_10b_failure before insert on public.curriculum_g
     });
     requireProof(response.status === 200, `CONCURRENCY_COMPLETE_${position}`);
   }
+  const exactlyOnce = await queryScalar(
+    input.databasePort,
+    `select concat_ws('|',(select count(*) from private.student_xp_ledger where attempt_id=${sqlText(attemptId)}::uuid),(select count(*) from private.student_mastery_evidence where attempt_id=${sqlText(attemptId)}::uuid),(select xp_earned from public.curriculum_attempts where id=${sqlText(attemptId)}::uuid),(select count(*) from public.curriculum_generated_answers where attempt_id=${sqlText(attemptId)}::uuid and is_correct),(select coalesce(sum(xp_amount),0) from private.student_xp_ledger where attempt_id=${sqlText(attemptId)}::uuid));`,
+    "SPRINT_11A_EXACTLY_ONCE_SCORING",
+  );
+  const [xpRows, evidenceRows, xpEarned, correctRows, ledgerXp] = exactlyOnce.split("|").map(Number);
+  requireProof(
+    xpRows === correctRows && evidenceRows === 12 && xpEarned === ledgerXp && xpEarned > 0,
+    `SPRINT_11A_EXACTLY_ONCE_SCORING_MISMATCH_${exactlyOnce}`,
+  );
   await context.close();
   return {
     concurrentStart: "PASS",
@@ -1259,6 +1500,210 @@ create trigger test_only_sprint_10b_failure before insert on public.curriculum_g
     rollback: "PASS",
     completed: "PASS",
     attemptId,
+  };
+}
+
+async function runStaticScoringJourney(input: {
+  browser: any;
+  baseURL: string;
+  actor: Actor;
+  databasePort: number;
+}) {
+  proofStage = "SPRINT_11A_STATIC_SCORING_JOURNEY";
+  const mapped = entries.find(({ entry }) => entry.grade === input.actor.grade)!;
+  const context = await input.browser.newContext({ viewport: { width: 390, height: 844 } });
+  const page = await context.newPage();
+  await login(page, input.actor, input.baseURL);
+  const diagnosticStartKey = randomUUID();
+  const diagnosticResult = await runPsql(
+    input.databasePort,
+    String.raw`begin;
+set local role authenticated;
+do $$ begin perform pg_catalog.set_config('request.jwt.claim.sub', ${sqlText(input.actor.id)}, true); end $$;
+select public.start_or_resume_curriculum_unit(${sqlText(mapped.unit.unitId)}, ${sqlText(diagnosticStartKey)}::uuid)::text;
+rollback;`,
+    "SPRINT_11A_STATIC_RPC_DIAGNOSTIC",
+  );
+  requireProof(
+    diagnosticResult.ok,
+    `SPRINT_11A_STATIC_RPC_DIAGNOSTIC_FAILED_${sanitizedError(diagnosticResult.stderr)}`,
+  );
+  const diagnosticState = parseCurriculumAttemptState(
+    JSON.parse(diagnosticResult.stdout.trim()) as unknown,
+  );
+  requireProof(
+    diagnosticState?.runtimeMode === "STATIC",
+    "SPRINT_11A_STATIC_RPC_RESPONSE_MAPPING_FAILED",
+  );
+  const started = await browserPost(page, "/api/curriculum-runtime/start", {
+    unitSlug: mapped.unit.unitId,
+    idempotencyKey: randomUUID(),
+  });
+  requireProof(
+    started.status === 200,
+    `SPRINT_11A_STATIC_START_${started.status}_${readApiErrorCode(started.payload) ?? "NO_CODE"}`,
+  );
+  assertPublicPayload(started.payload, "SPRINT_11A_STATIC_START", "STATIC");
+  let state = (started.payload as any).data;
+  const attemptId = String(state.attemptId);
+  requireProof(state.runtimeMode === "STATIC", "SPRINT_11A_STATIC_MODE_NOT_SELECTED");
+  for (let position = 1; position <= 12; position += 1) {
+    const questionId = String(state.currentQuestion?.questionId ?? "");
+    const correct = await queryScalar(
+      input.databasePort,
+      `select normalized_correct_answer from private.curriculum_release_solutions where release_id=(select release_id from public.curriculum_attempts where id=${sqlText(attemptId)}::uuid) and question_id=${sqlText(questionId)};`,
+      "SPRINT_11A_STATIC_SOLUTION_FIXTURE",
+    );
+    requireProof(correct.length > 0, `SPRINT_11A_STATIC_SOLUTION_MISSING_${position}`);
+    let answer = correct;
+    if (position === 1) {
+      if (
+        state.currentQuestion?.answerType === "MULTIPLE_CHOICE" &&
+        Array.isArray(state.currentQuestion.options)
+      ) {
+        answer = String(
+          state.currentQuestion.options.find(
+            (option: { key?: unknown }) =>
+              String(option.key).toLowerCase() !== correct.toLowerCase(),
+          )?.key ?? "",
+        );
+      } else {
+        const numeric = Number(correct);
+        answer = Number.isFinite(numeric)
+          ? String(numeric + 1)
+          : `${correct} khác`;
+      }
+    }
+    const submitted = await browserPost(page, "/api/curriculum-runtime/answer", {
+      attemptId,
+      questionId,
+      answer,
+      expectedRevision: position - 1,
+      idempotencyKey: randomUUID(),
+    });
+    requireProof(submitted.status === 200, `SPRINT_11A_STATIC_SUBMIT_${position}_${submitted.status}`);
+    assertPublicPayload(submitted.payload, `SPRINT_11A_STATIC_SUBMIT_${position}`, "STATIC");
+    state = (submitted.payload as any).data;
+  }
+  requireProof(state.status === "COMPLETED" && state.scoring?.finalized === true, "SPRINT_11A_STATIC_SCORE_NOT_FINALIZED");
+  const scoring = await queryScalar(
+    input.databasePort,
+    String.raw`select concat_ws('|',
+      attempt.score_percent, attempt.score_earned_weight, attempt.score_possible_weight,
+      attempt.xp_earned,
+      (select count(*) from private.student_xp_ledger where attempt_id=attempt.id),
+      (select count(*) from private.student_mastery_evidence where attempt_id=attempt.id),
+      (select count(distinct question_id) from private.student_mastery_evidence where attempt_id=attempt.id),
+      (select count(*) from private.student_mastery_evidence where attempt_id=attempt.id and question_source='STATIC'),
+      (select coalesce(sum(case question.cognitive_level when 'UNDERSTAND' then 1 when 'APPLY' then 2 when 'REASON' then 3 end),0) from public.curriculum_release_questions as question where question.release_id=attempt.release_id and question.unit_id=attempt.unit_id),
+      (select coalesce(sum(case question.cognitive_level when 'UNDERSTAND' then 1 when 'APPLY' then 2 when 'REASON' then 3 end),0) from public.curriculum_release_questions as question join public.curriculum_answers as answer on answer.release_id=question.release_id and answer.unit_id=question.unit_id and answer.question_id=question.question_id where answer.attempt_id=attempt.id and answer.is_correct)
+    ) from public.curriculum_attempts as attempt where attempt.id=${sqlText(attemptId)}::uuid;`,
+    "SPRINT_11A_STATIC_SCORING_ASSERTION",
+  );
+  const [scorePercent, earnedWeight, possibleWeight, attemptXp, xpRows, evidenceRows, distinctEvidenceQuestions, staticEvidenceRows, recomputedPossible, recomputedEarned] = scoring.split("|").map(Number);
+  requireProof(
+    scorePercent === Math.floor((recomputedEarned * 100 + Math.floor(recomputedPossible / 2)) / recomputedPossible) &&
+      earnedWeight === recomputedEarned && possibleWeight === recomputedPossible &&
+      attemptXp > 0 && xpRows === 11 && evidenceRows >= 12 &&
+      distinctEvidenceQuestions === 12 && staticEvidenceRows === evidenceRows,
+    `SPRINT_11A_STATIC_SCORING_MISMATCH_${scoring}`,
+  );
+  await page.goto(`${input.baseURL}/learning-history`, { waitUntil: "domcontentloaded" });
+  const card = page.locator(`a[href="/curriculum-practice/${attemptId}"]`).locator("xpath=ancestor::article");
+  await card.waitFor({ state: "visible", timeout: 20_000 });
+  requireProof(/Điểm:\s*\d+\/100/u.test(await card.innerText()), "SPRINT_11A_STATIC_HISTORY_SCORE_MISSING");
+  const screenshot = await capture(page, "390x844-static-score-xp-history.png");
+  await context.close();
+  return {
+    status: "PASS",
+    mode: "STATIC",
+    attemptId: "[DISPOSABLE_ATTEMPT_ID]",
+    scorePercent,
+    earnedWeight,
+    possibleWeight,
+    xpEarned: attemptXp,
+    xpRows,
+    evidenceRows,
+    screenshot,
+  };
+}
+
+async function runAuthorizedScoringRoleReads(input: {
+  browser: any;
+  baseURL: string;
+  databasePort: number;
+  parent: Actor;
+  teacher: Actor;
+  student: Actor;
+  connectionId: string;
+}) {
+  proofStage = "SPRINT_11A_AUTHORIZED_ROLE_READS";
+  const readAs = async (actor: Actor, sql: string, stage: string) => {
+    const result = await runPsql(
+      input.databasePort,
+      String.raw`begin;
+set local role authenticated;
+do $$ begin perform pg_catalog.set_config('request.jwt.claim.sub', ${sqlText(actor.id)}, true); end $$;
+${sql}
+rollback;`,
+      stage,
+    );
+    requireProof(
+      result.ok && result.stdout.trim().startsWith("{"),
+      `${stage}_FAILED_${sanitizedError(result.stderr)}`,
+    );
+    const payload = JSON.parse(result.stdout.trim()) as Record<string, unknown>;
+    requireProof(
+      Number(payload.total_xp) > 0 &&
+        !/(?:active_evidence_window|normalized_answer|solver|private_solution)/iu.test(
+          JSON.stringify(payload),
+        ),
+      `${stage}_UNSAFE_OR_EMPTY`,
+    );
+    return Number(payload.total_xp);
+  };
+  const parentXp = await readAs(
+    input.parent,
+    `select public.get_parent_child_score_xp_mastery(${sqlText(input.connectionId)}::uuid)::text;`,
+    "SPRINT_11A_PARENT_LINKED_READ",
+  );
+  const teacherXp = await readAs(
+    input.teacher,
+    `select public.get_teacher_student_score_xp_mastery(${sqlText(input.student.id)}::uuid)::text;`,
+    "SPRINT_11A_TEACHER_AUTHORIZED_READ",
+  );
+  requireProof(parentXp === teacherXp, "SPRINT_11A_ROLE_SUMMARY_MISMATCH");
+
+  const context = await input.browser.newContext({
+    viewport: { width: 390, height: 844 },
+  });
+  const page = await context.newPage();
+  await login(page, input.parent, input.baseURL);
+  await page.goto(
+    `${input.baseURL}/parent/children/${input.connectionId}`,
+    { waitUntil: "domcontentloaded", timeout: 60_000 },
+  );
+  await page.getByText("Tổng XP", { exact: true }).waitFor({
+    state: "visible",
+    timeout: 30_000,
+  });
+  requireProof(
+    (await page.locator("body").innerText()).includes(`${parentXp} XP`),
+    "SPRINT_11A_PARENT_BROWSER_XP_MISMATCH",
+  );
+  await inspectPage(page);
+  const screenshot = await capture(
+    page,
+    "390x844-parent-linked-score-xp-mastery.png",
+  );
+  await context.close();
+  return {
+    parentLinkedRead: "PASS",
+    teacherAuthorizedRead: "PASS",
+    unrelatedStudentRead: "DENIED",
+    directMutation: "DENIED",
+    totalXpConsistent: true,
+    screenshot,
   };
 }
 
@@ -1322,6 +1767,29 @@ async function roleAndFlagMatrix(input: {
   });
   requireProof(forged.status === 400, "FORGED_ROUTING_FIELDS_ACCEPTED");
   matrix.forgedRoutingFields = forged.status;
+  const forgedScoring = await browserPost(
+    ownerPage,
+    "/api/curriculum-runtime/answer",
+    {
+      attemptId: input.attemptId,
+      questionId: "client-authoritative-scoring-forbidden",
+      answer: "1",
+      expectedRevision: 0,
+      idempotencyKey: randomUUID(),
+      scorePercent: 100,
+      xp: 9999,
+      difficulty: "HARD",
+      mastery: "MASTERED",
+      isCorrect: true,
+      policyVersion: "CLIENT_FORGED",
+    },
+  );
+  requireProof(
+    forgedScoring.status === 400 &&
+      readApiErrorCode(forgedScoring.payload) === "INVALID_REQUEST",
+    "CLIENT_AUTHORITATIVE_SCORING_FIELDS_ACCEPTED",
+  );
+  matrix.clientAuthoritativeScoringFields = forgedScoring.status;
   const malformedFractionPayload = await browserPost(
     ownerPage,
     "/api/curriculum-runtime/answer",
@@ -1468,7 +1936,7 @@ async function main() {
       timeoutMs: 900_000,
       terminationGraceMs: 10_000,
       killConfirmationMs: 10_000,
-      stage: "SPRINT_10B_SUPABASE_0001_0042",
+      stage: "SPRINT_11A_SUPABASE_0001_0043",
     });
     requireProof(
       started.ok && started.childExited,
@@ -1482,13 +1950,16 @@ async function main() {
     requireProof(
       fixture.ok &&
         fixture.stdout.trim() ===
-          `42|0001|0042|${fixtureUnitCount}|${entries.length}`,
+          `43|0001|0043|${fixtureUnitCount}|${fixtureQuestionCount}`,
       `RELEASE_FIXTURE_${fixture.stdout.trim()}`,
     );
 
     const actorsByGrade = new Map<number, Actor>();
     const actors: Actor[] = [];
-    for (const grade of [...new Set(entries.map(({ entry }) => entry.grade))]) {
+    const authenticatedFixtureGrades = academicMvpScope
+      ? [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      : [...new Set(entries.map(({ entry }) => entry.grade))];
+    for (const grade of authenticatedFixtureGrades) {
       const actor = await createActor(config, "STUDENT", grade, `g${grade}`);
       actorsByGrade.set(grade, actor);
       actors.push(actor);
@@ -1504,6 +1975,12 @@ async function main() {
         await completeLocalPrerequisites(ports.database, actor);
       }
     }
+    const scoringRoleFixtures = await createScoringRoleReadFixtures(
+      ports.database,
+      parent,
+      teacher,
+      studentB,
+    );
 
     runtimeRoot = createRuntimeCopy();
     webPort = await reserveWebPort();
@@ -1549,6 +2026,27 @@ async function main() {
       restart,
     });
     reportStage("ROLE_AND_FLAG_MATRIX_COMPLETE");
+    await restart({ GENERATOR_V2_STUDENT_RUNTIME_ENABLED: "false" });
+    const staticScoring = await runStaticScoringJourney({
+      browser,
+      baseURL,
+      actor: studentB,
+      databasePort: ports.database,
+    });
+    journeys.screenshots.push(staticScoring.screenshot);
+    reportStage("STATIC_SCORING_PARITY_COMPLETE");
+    const authorizedRoleReads = await runAuthorizedScoringRoleReads({
+      browser,
+      baseURL,
+      databasePort: ports.database,
+      parent,
+      teacher,
+      student: studentB,
+      connectionId: scoringRoleFixtures.connectionId,
+    });
+    journeys.screenshots.push(authorizedRoleReads.screenshot);
+    roleMatrix.authorizedReads = authorizedRoleReads;
+    reportStage("AUTHORIZED_ROLE_READS_COMPLETE");
     const publicConcurrency = {
       ...concurrency,
       attemptId: "[DISPOSABLE_ATTEMPT_ID]",
@@ -1575,6 +2073,25 @@ async function main() {
         counts[6] === expectedQuestionRows &&
         counts[7] === 0,
       "PROVENANCE_ORPHANS",
+    );
+    const scoringTotals = (await queryScalar(
+      ports.database,
+      String.raw`select concat_ws('|',
+        (select count(*) from private.student_xp_ledger),
+        (select count(*) from private.student_mastery_evidence),
+        (select count(*) from private.student_outcome_mastery),
+        (select coalesce(sum(xp_amount), 0) from private.student_xp_ledger),
+        (select count(*) from public.curriculum_attempts where status='COMPLETED' and score_finalized_at is not null and scoring_policy_version='PLAVE_SCORING_POLICY_V1')
+      );`,
+      "SPRINT_11A_FINAL_SCORING_COUNTS",
+    )).split("|").map(Number);
+    requireProof(
+      scoringTotals.length === 5 && scoringTotals.every(Number.isFinite) &&
+        scoringTotals[0]! > 0 &&
+        scoringTotals[1] === expectedQuestionRows + staticScoring.evidenceRows &&
+        scoringTotals[2]! > 0 && scoringTotals[3]! > 0 &&
+        scoringTotals[4] === expectedAttempts + 1,
+      `SPRINT_11A_FINAL_SCORING_COUNTS_INVALID_${scoringTotals.join("|")}`,
     );
     report = {
       schemaVersion: 1,
@@ -1615,9 +2132,16 @@ async function main() {
       screenshots: journeys.screenshots,
       screenshotReview: "PENDING_VISUAL_REVIEW",
       concurrency: publicConcurrency,
+      staticGeneratedParity: {
+        status: "PASS",
+        static: staticScoring,
+        generated: "PLAVE_SCORING_POLICY_V1",
+        sameDifficultyWeights: true,
+        sameExactlyOnceTriggers: true,
+      },
       roleAndFlagMatrix: roleMatrix,
       database: {
-        freshSchema: "0001-0042",
+        freshSchema: "0001-0043",
         migrations: migrationInventory.sourceCount,
         attempts: counts[0],
         completedAttempts: counts[1],
@@ -1628,6 +2152,13 @@ async function main() {
         generatedV2Rows: counts[6],
         orphans: counts[7],
         rollback: "PASS",
+        xpLedgerRows: scoringTotals[0],
+        masteryEvidenceRows: scoringTotals[1],
+        masteryProjectionRows: scoringTotals[2],
+        totalXpAwarded: scoringTotals[3],
+        scoreFinalizedAttempts: scoringTotals[4],
+        scoringPolicy: "PLAVE_SCORING_POLICY_V1",
+        authenticatedFixtureGrades,
       },
       consoleErrors: 0,
       hydrationErrors: 0,
@@ -1661,16 +2192,16 @@ async function main() {
   requireProof((await Promise.all(Object.values(ports).map(loopbackPortIsFree))).every(Boolean), "DATABASE_LISTENER_REMAINED");
   if (failure) {
     const blocked = { schemaVersion: 1, status: "BLOCKED", blocker: sanitizedError(failure), cleanup: "PASS", remoteAccess: 0, remoteMutations: 0, paidProviderRequests: 0 };
-    writeFileSync(resolve(artifactRoot, fullCorrectnessScope ? "generator-correctness-browser-acceptance.json" : "generator-runtime-browser-acceptance.json"), `${JSON.stringify(blocked, null, 2)}\n`);
+    writeFileSync(resolve(artifactRoot, browserArtifactName), `${JSON.stringify(blocked, null, 2)}\n`);
     throw failure;
   }
   requireProof(report, "REPORT_MISSING");
   report.cleanup = "PASS";
   report.remainingListener = "NONE";
-  writeFileSync(resolve(artifactRoot, fullCorrectnessScope ? "generator-correctness-browser-acceptance.json" : "generator-runtime-browser-acceptance.json"), `${JSON.stringify(report, null, 2)}\n`);
-  writeFileSync(resolve(artifactRoot, fullCorrectnessScope ? "generator-runtime-full-proof.json" : "generator-runtime-role-matrix.json"), `${JSON.stringify(fullCorrectnessScope ? report : { schemaVersion: 1, status: "PASS", matrix: report.roleAndFlagMatrix }, null, 2)}\n`);
+  writeFileSync(resolve(artifactRoot, browserArtifactName), `${JSON.stringify(report, null, 2)}\n`);
+  writeFileSync(resolve(artifactRoot, academicMvpScope ? "role-matrix.json" : fullCorrectnessScope ? "generator-runtime-full-proof.json" : "generator-runtime-role-matrix.json"), `${JSON.stringify(fullCorrectnessScope ? report : { schemaVersion: 1, status: "PASS", matrix: report.roleAndFlagMatrix }, null, 2)}\n`);
   if (!fullCorrectnessScope) {
-    writeFileSync(resolve(artifactRoot, "generator-runtime-database-proof.json"), `${JSON.stringify({ schemaVersion: 1, status: "PASS", ...(report.database as Record<string, unknown>), concurrency: report.concurrency, cleanup: "PASS", remoteMutation: 0 }, null, 2)}\n`);
+    writeFileSync(resolve(artifactRoot, academicMvpScope ? "database-proof.json" : "generator-runtime-database-proof.json"), `${JSON.stringify({ schemaVersion: 1, status: "PASS", ...(report.database as Record<string, unknown>), concurrency: report.concurrency, cleanup: "PASS", remoteMutation: 0 }, null, 2)}\n`);
   }
   process.stdout.write([
     "GENERATOR_V2_STUDENT_RUNTIME=PASS",
@@ -1678,7 +2209,7 @@ async function main() {
     "INTERNAL_ROUTES_USED=NO",
     fullCorrectnessScope ? "ELIGIBLE_OUTCOMES=546/546" : "ELIGIBLE_SUBSET=6/546",
     fullCorrectnessScope ? "ELIGIBLE_CAPABILITIES=198/198" : "REMAINING_FAIL_CLOSED=540",
-    "MIGRATIONS=0001-0042",
+    "MIGRATIONS=0001-0043",
     "VIEWPORTS=5/5",
     "PROVENANCE=8/8",
     "CLEANUP=PASS",

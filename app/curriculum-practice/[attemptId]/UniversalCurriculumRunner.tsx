@@ -227,6 +227,28 @@ export function UniversalCurriculumRunner({
           Em trả lời đúng {state.correctCount}/{state.totalQuestions} câu.
           Tiến trình đã được lưu.
         </p>
+        {state.scoring?.finalized ? (
+          <div className="scoring-result" aria-label="Kết quả lượt luyện tập">
+            <div>
+              <span>Điểm lượt học</span>
+              <strong>{state.scoring.scorePercent}/100</strong>
+            </div>
+            <div>
+              <span>Điểm có trọng số</span>
+              <strong>
+                {state.scoring.earnedWeight}/{state.scoring.possibleWeight}
+              </strong>
+            </div>
+            <div>
+              <span>XP nhận được</span>
+              <strong>{state.scoring.attemptXpEarned} XP</strong>
+            </div>
+          </div>
+        ) : null}
+        <p className="scoring-explanation">
+          Hoàn thành bài học và thành thạo kỹ năng là hai điều khác nhau. Em
+          có thể tiếp tục luyện để nâng mức thành thạo.
+        </p>
         <div className="question-card__actions">
           <Button href="/learning-progress">Xem tiến trình</Button>
           <Button href="/learning-history" variant="secondary">
@@ -397,6 +419,31 @@ export function UniversalCurriculumRunner({
                 <li key={step}>{step}</li>
               ))}
             </ol>
+            {state.feedback.isCorrect && (state.scoring?.xpDelta ?? 0) > 0 ? (
+              <p
+                className="xp-award"
+                role="status"
+                aria-label={`Nhận thêm ${state.scoring?.xpDelta ?? 0} điểm kinh nghiệm`}
+              >
+                <span aria-hidden="true">+</span>
+                {state.scoring?.xpDelta} XP
+              </p>
+            ) : null}
+            {state.scoring?.masteryChanges.map((change) => (
+              <p className="mastery-change" key={change.outcomeTitle}>
+                <strong>{change.outcomeTitle}:</strong>{" "}
+                {change.masteryPercent}% ·{" "}
+                {change.status === "NEEDS_REVIEW"
+                  ? "Nên ôn lại"
+                  : change.status === "MASTERED"
+                    ? "Thành thạo"
+                    : change.status === "PROFICIENT"
+                      ? "Đã vững"
+                      : change.status === "DEVELOPING"
+                        ? "Đang phát triển"
+                        : "Đang học"}
+              </p>
+            ))}
           </div>
         ) : null}
 

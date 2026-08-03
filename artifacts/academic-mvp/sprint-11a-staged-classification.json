@@ -1,0 +1,20 @@
+{
+  "schema": "PLAVE_SPRINT_11A_STAGED_CLASSIFICATION_V1",
+  "sourceParent": "33f239e630a74b627f1b1a233493c4aef8870aea",
+  "commitMessage": "checkpoint: add score xp and mastery foundation",
+  "includedClasses": {
+    "REQUIRED_SPRINT_11A": ["source", "migration-0043", "tests", "documentation", "academic-mvp-evidence", "direct-package-scripts"],
+    "REQUIRED_DOCUMENTATION": ["docs/architecture/PLAVE_SCORING_XP_MASTERY.md", "docs/status/SPRINT_11A_SCORE_XP_MASTERY.md", "docs/status/PLAVE_ACADEMIC_MVP_ROADMAP.md", "docs/status/PLAVE_THREE_MILESTONE_ROADMAP.md", "docs/status/SPRINT_11A_CHECKPOINT.md"],
+    "REQUIRED_ARTIFACT_SCHEMA": ["artifacts/academic-mvp/*.json", "artifacts/academic-mvp/screenshots/*.png"]
+  },
+  "excludedClasses": {
+    "LOCAL_SECRET": [".env.local", ".env*"],
+    "LOCAL_CACHE": [".next", "node_modules", "Turbopack/Next caches"],
+    "TEMPORARY_FIXTURE": ["temporary databases", "browser profiles", "runtime fixtures"],
+    "HISTORICAL_EVIDENCE": ["artifacts/remediation/**", "Sprint 10D screenshots"],
+    "UNRELATED_OWNER_ARTIFACT": ["artifacts/ai-tutor-acceptance/google-real-smoke.json", "Owner Tutor process state"]
+  },
+  "stagingPolicy": "EXPLICIT_VALIDATED_PATHS_ONLY",
+  "secretScan": "REQUIRED_ZERO_HITS",
+  "sourceCodeFilesCommitted": "SPRINT_11A_SCOPE_ONLY"
+}

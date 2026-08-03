@@ -7,6 +7,80 @@ import type {
 
 export type CurriculumRuntimeMode = "STATIC" | "GENERATED_V2";
 
+export const scoringMasteryStatuses = [
+  "NOT_STARTED",
+  "IN_PROGRESS",
+  "DEVELOPING",
+  "PROFICIENT",
+  "MASTERED",
+  "NEEDS_REVIEW",
+] as const;
+
+export type ScoringMasteryStatus =
+  (typeof scoringMasteryStatuses)[number];
+
+export type ScoringMasteryChange = Readonly<{
+  outcomeTitle: string;
+  evidenceCount: number;
+  correctCount: number;
+  masteryPercent: number;
+  status: Exclude<ScoringMasteryStatus, "NOT_STARTED">;
+  lastEvidenceAt: string;
+}>;
+
+export type AttemptScoringState = Readonly<{
+  policyVersion: "PLAVE_SCORING_POLICY_V1" | null;
+  legacy: boolean;
+  finalized: boolean;
+  earnedWeight: number | null;
+  possibleWeight: number | null;
+  scorePercent: number | null;
+  attemptXpEarned: number;
+  xpDelta: number;
+  lessonCompleted: boolean;
+  masteryChanges: readonly ScoringMasteryChange[];
+}>;
+
+export type StudentXpEvent = Readonly<{
+  amount: number;
+  difficulty: "EASY" | "MEDIUM" | "HARD";
+  unitTitle: string;
+  awardedAt: string;
+}>;
+
+export type StudentMasteryOutcome = Readonly<{
+  title: string;
+  evidenceCount: number;
+  correctCount: number;
+  masteryPercent: number;
+  status: Exclude<ScoringMasteryStatus, "NOT_STARTED">;
+  lastEvidenceAt: string;
+}>;
+
+export type StudentAttemptScoringSummary = Readonly<{
+  attemptId: string;
+  policyVersion: "PLAVE_SCORING_POLICY_V1" | null;
+  legacy: boolean;
+  scorePercent: number | null;
+  earnedWeight: number | null;
+  possibleWeight: number | null;
+  xpEarned: number;
+  lessonCompleted: boolean;
+}>;
+
+export type StudentScoringSummary = Readonly<{
+  policyVersion: "PLAVE_SCORING_POLICY_V1";
+  totalXp: number;
+  recentXp: readonly StudentXpEvent[];
+  masterySummary: Readonly<{
+    started: number;
+    mastered: number;
+    needsReview: number;
+  }>;
+  outcomes: readonly StudentMasteryOutcome[];
+  attempts: readonly StudentAttemptScoringSummary[];
+}>;
+
 export type StudentGeneratorV2Question = Readonly<{
   schemaVersion: 2;
   questionId: string;
@@ -83,6 +157,7 @@ export type CurriculumAttemptState = Readonly<{
   completedAt: string | null;
   currentQuestion: CurriculumAttemptQuestion | null;
   feedback: CurriculumAttemptFeedback | null;
+  scoring?: AttemptScoringState | null;
 }>;
 
 export type CurriculumProgressUnit = Readonly<{
@@ -122,6 +197,7 @@ export type StudentCurriculumProgress = Readonly<{
   units: readonly CurriculumProgressUnit[];
   outcomes: readonly CurriculumProgressEvidence[];
   skills: readonly CurriculumProgressEvidence[];
+  scoring?: StudentScoringSummary | null;
 }>;
 
 export type CurriculumHistoryItem = Readonly<{
@@ -135,6 +211,12 @@ export type CurriculumHistoryItem = Readonly<{
   startedAt: string;
   completedAt: string | null;
   source: "LEGACY_GRADE1" | "UNIVERSAL_CURRICULUM";
+  scorePercent: number | null;
+  earnedWeight: number | null;
+  possibleWeight: number | null;
+  xpEarned: number;
+  scoringPolicyVersion: "PLAVE_SCORING_POLICY_V1" | null;
+  legacyScoring: boolean;
 }>;
 
 export type StudentCurriculumHistory = Readonly<{
@@ -352,6 +434,85 @@ function parseFeedback(value: unknown): CurriculumAttemptFeedback | null {
   };
 }
 
+function nullableBoundedInteger(
+  value: unknown,
+  minimum = 0,
+  maximum = Number.MAX_SAFE_INTEGER,
+) {
+  return value === null
+    ? null
+    : isInteger(value, minimum, maximum)
+      ? (value as number)
+      : undefined;
+}
+
+function parseScoringMasteryChange(
+  value: unknown,
+): ScoringMasteryChange | null {
+  if (!isRecord(value)) return null;
+  const status = String(value.status) as ScoringMasteryChange["status"];
+  if (
+    !isText(value.outcome_title, 1000) ||
+    !isInteger(value.evidence_count, 1, 10) ||
+    !isInteger(value.correct_count, 0, 10) ||
+    !isInteger(value.mastery_percent, 0, 100) ||
+    !scoringMasteryStatuses.includes(status) ||
+    !isText(value.last_evidence_at, 80)
+  ) {
+    return null;
+  }
+  return {
+    outcomeTitle: value.outcome_title,
+    evidenceCount: value.evidence_count as number,
+    correctCount: value.correct_count as number,
+    masteryPercent: value.mastery_percent as number,
+    status,
+    lastEvidenceAt: value.last_evidence_at,
+  };
+}
+
+function parseAttemptScoring(value: unknown): AttemptScoringState | null {
+  if (!isRecord(value) || !Array.isArray(value.mastery_changes)) return null;
+  const earnedWeight = nullableBoundedInteger(value.earned_weight);
+  const possibleWeight = nullableBoundedInteger(value.possible_weight, 1);
+  const scorePercent = nullableBoundedInteger(value.score_percent, 0, 100);
+  const masteryChanges = value.mastery_changes.map(parseScoringMasteryChange);
+  if (
+    ![null, "PLAVE_SCORING_POLICY_V1"].includes(
+      value.policy_version as null | string,
+    ) ||
+    typeof value.legacy !== "boolean" ||
+    typeof value.finalized !== "boolean" ||
+    earnedWeight === undefined ||
+    possibleWeight === undefined ||
+    scorePercent === undefined ||
+    !isInteger(value.attempt_xp_earned, 0, Number.MAX_SAFE_INTEGER) ||
+    !isInteger(value.xp_delta, 0, 20) ||
+    typeof value.lesson_completed !== "boolean" ||
+    masteryChanges.some((item) => item === null)
+  ) {
+    return null;
+  }
+  if (
+    value.finalized &&
+    (earnedWeight === null || possibleWeight === null || scorePercent === null)
+  ) {
+    return null;
+  }
+  return {
+    policyVersion: value.policy_version as AttemptScoringState["policyVersion"],
+    legacy: value.legacy,
+    finalized: value.finalized,
+    earnedWeight,
+    possibleWeight,
+    scorePercent,
+    attemptXpEarned: value.attempt_xp_earned as number,
+    xpDelta: value.xp_delta as number,
+    lessonCompleted: value.lesson_completed,
+    masteryChanges: masteryChanges as ScoringMasteryChange[],
+  };
+}
+
 export function parseCurriculumAttemptState(
   value: unknown,
 ): CurriculumAttemptState | null {
@@ -361,6 +522,10 @@ export function parseCurriculumAttemptState(
       ? null
       : parseQuestion(value.current_question);
   const feedback = parseFeedback(value.feedback);
+  const scoring =
+    value.scoring === null || value.scoring === undefined
+      ? null
+      : parseAttemptScoring(value.scoring);
   if (
     !isUuid(value.attempt_id) ||
     !isSlug(value.release_id) ||
@@ -378,7 +543,10 @@ export function parseCurriculumAttemptState(
     !isText(value.started_at, 80) ||
     (value.completed_at !== null && !isText(value.completed_at, 80)) ||
     (value.current_question !== null && question === null) ||
-    (value.feedback !== null && feedback === null)
+    (value.feedback !== null && feedback === null) ||
+    (value.scoring !== null &&
+      value.scoring !== undefined &&
+      scoring === null)
   ) {
     return null;
   }
@@ -400,6 +568,7 @@ export function parseCurriculumAttemptState(
     completedAt: value.completed_at as string | null,
     currentQuestion: question,
     feedback,
+    scoring,
   };
 }
 
@@ -445,6 +614,33 @@ export function parseCurriculumAttemptApiState(
     completed_at: value.completedAt,
     current_question: currentQuestion,
     feedback,
+    scoring: isRecord(value.scoring)
+      ? {
+          policy_version: value.scoring.policyVersion,
+          legacy: value.scoring.legacy,
+          finalized: value.scoring.finalized,
+          earned_weight: value.scoring.earnedWeight,
+          possible_weight: value.scoring.possibleWeight,
+          score_percent: value.scoring.scorePercent,
+          attempt_xp_earned: value.scoring.attemptXpEarned,
+          xp_delta: value.scoring.xpDelta,
+          lesson_completed: value.scoring.lessonCompleted,
+          mastery_changes: Array.isArray(value.scoring.masteryChanges)
+            ? value.scoring.masteryChanges.map((item) =>
+                isRecord(item)
+                  ? {
+                      outcome_title: item.outcomeTitle,
+                      evidence_count: item.evidenceCount,
+                      correct_count: item.correctCount,
+                      mastery_percent: item.masteryPercent,
+                      status: item.status,
+                      last_evidence_at: item.lastEvidenceAt,
+                    }
+                  : item,
+              )
+            : value.scoring.masteryChanges,
+        }
+      : value.scoring,
   });
 }
 
@@ -491,6 +687,108 @@ function parseMasteryLabel(value: unknown): CurriculumMasteryLabel | null {
   return curriculumMasteryLabels.includes(value as CurriculumMasteryLabel)
     ? (value as CurriculumMasteryLabel)
     : null;
+}
+
+export function parseStudentScoringSummary(
+  value: unknown,
+): StudentScoringSummary | null {
+  if (
+    !isRecord(value) ||
+    value.policy_version !== "PLAVE_SCORING_POLICY_V1" ||
+    !isInteger(value.total_xp, 0, Number.MAX_SAFE_INTEGER) ||
+    !Array.isArray(value.recent_xp) ||
+    !isRecord(value.mastery_summary) ||
+    !isInteger(value.mastery_summary.started, 0, Number.MAX_SAFE_INTEGER) ||
+    !isInteger(value.mastery_summary.mastered, 0, Number.MAX_SAFE_INTEGER) ||
+    !isInteger(value.mastery_summary.needs_review, 0, Number.MAX_SAFE_INTEGER) ||
+    !Array.isArray(value.outcomes) ||
+    !Array.isArray(value.attempts)
+  ) {
+    return null;
+  }
+  const recentXp: StudentXpEvent[] = [];
+  for (const item of value.recent_xp) {
+    if (
+      !isRecord(item) ||
+      !isInteger(item.amount, 10, 20) ||
+      !["EASY", "MEDIUM", "HARD"].includes(String(item.difficulty)) ||
+      !isText(item.unit_title, 300) ||
+      !isText(item.awarded_at, 80)
+    ) {
+      return null;
+    }
+    recentXp.push({
+      amount: item.amount as number,
+      difficulty: item.difficulty as StudentXpEvent["difficulty"],
+      unitTitle: item.unit_title,
+      awardedAt: item.awarded_at,
+    });
+  }
+  const outcomes: StudentMasteryOutcome[] = [];
+  for (const item of value.outcomes) {
+    if (!isRecord(item)) return null;
+    const parsed = parseScoringMasteryChange({
+      outcome_title: item.title,
+      evidence_count: item.evidence_count,
+      correct_count: item.correct_count,
+      mastery_percent: item.mastery_percent,
+      status: item.status,
+      last_evidence_at: item.last_evidence_at,
+    });
+    if (!parsed) return null;
+    outcomes.push({
+      title: parsed.outcomeTitle,
+      evidenceCount: parsed.evidenceCount,
+      correctCount: parsed.correctCount,
+      masteryPercent: parsed.masteryPercent,
+      status: parsed.status,
+      lastEvidenceAt: parsed.lastEvidenceAt,
+    });
+  }
+  const attempts: StudentAttemptScoringSummary[] = [];
+  for (const item of value.attempts) {
+    if (!isRecord(item)) return null;
+    const scorePercent = nullableBoundedInteger(item.score_percent, 0, 100);
+    const earnedWeight = nullableBoundedInteger(item.earned_weight);
+    const possibleWeight = nullableBoundedInteger(item.possible_weight, 1);
+    if (
+      !isUuid(item.attempt_id) ||
+      ![null, "PLAVE_SCORING_POLICY_V1"].includes(
+        item.policy_version as null | string,
+      ) ||
+      typeof item.legacy !== "boolean" ||
+      scorePercent === undefined ||
+      earnedWeight === undefined ||
+      possibleWeight === undefined ||
+      !isInteger(item.xp_earned, 0, Number.MAX_SAFE_INTEGER) ||
+      typeof item.lesson_completed !== "boolean"
+    ) {
+      return null;
+    }
+    attempts.push({
+      attemptId: item.attempt_id,
+      policyVersion:
+        item.policy_version as StudentAttemptScoringSummary["policyVersion"],
+      legacy: item.legacy,
+      scorePercent,
+      earnedWeight,
+      possibleWeight,
+      xpEarned: item.xp_earned as number,
+      lessonCompleted: item.lesson_completed,
+    });
+  }
+  return {
+    policyVersion: "PLAVE_SCORING_POLICY_V1",
+    totalXp: value.total_xp as number,
+    recentXp,
+    masterySummary: {
+      started: value.mastery_summary.started as number,
+      mastered: value.mastery_summary.mastered as number,
+      needsReview: value.mastery_summary.needs_review as number,
+    },
+    outcomes,
+    attempts,
+  };
 }
 
 function parseProgressUnit(value: unknown): CurriculumProgressUnit | null {
@@ -599,6 +897,7 @@ export function parseStudentCurriculumProgress(
     units: units as CurriculumProgressUnit[],
     outcomes: outcomes as CurriculumProgressEvidence[],
     skills: skills as CurriculumProgressEvidence[],
+    scoring: null,
   };
 }
 
@@ -645,6 +944,18 @@ export function parseStudentCurriculumHistory(
       startedAt: item.started_at,
       completedAt: item.completed_at as string | null,
       source: item.source as CurriculumHistoryItem["source"],
+      scorePercent:
+        item.status === "COMPLETED"
+          ? Math.round(
+              ((item.correct_count as number) * 100) /
+                (item.total_questions as number),
+            )
+          : null,
+      earnedWeight: null,
+      possibleWeight: null,
+      xpEarned: 0,
+      scoringPolicyVersion: null,
+      legacyScoring: true,
     });
   }
   return { grade: value.grade as number, attempts };

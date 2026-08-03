@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "freshSchema": "0001-0043",
+  "migrations": 43,
+  "migrationValidation": {
+    "freshInstall43Of43": "PASS",
+    "upgrade42To43": "PASS",
+    "oldChecksumsUnchanged": "PASS",
+    "failureInjectionRollback": "PASS",
+    "rlsAndPrivileges": "PASS",
+    "securityDefinerSearchPath": "PASS"
+  },
+  "attempts": 7,
+  "completedAttempts": 7,
+  "generatedQuestions": 84,
+  "privateSolutions": 84,
+  "answers": 84,
+  "provenance8of8Rows": 84,
+  "generatedV2Rows": 84,
+  "orphans": 0,
+  "rollback": "PASS",
+  "xpLedgerRows": 85,
+  "masteryEvidenceRows": 120,
+  "masteryProjectionRows": 9,
+  "totalXpAwarded": 1290,
+  "scoreFinalizedAttempts": 8,
+  "scoringPolicy": "PLAVE_SCORING_POLICY_V1",
+  "authenticatedFixtureGrades": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "concurrency": {
+    "concurrentStart": "PASS",
+    "duplicateSubmit": "IDEMPOTENT_ONE_WRITE",
+    "idempotencyConflict": "PASS",
+    "cas": "SINGLE_WINNER",
+    "rollback": "PASS",
+    "completed": "PASS",
+    "attemptId": "[DISPOSABLE_ATTEMPT_ID]"
+  },
+  "cleanup": "PASS",
+  "remoteMutation": 0
+}

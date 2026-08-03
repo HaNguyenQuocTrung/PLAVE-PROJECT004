@@ -320,6 +320,38 @@ export default async function DashboardPage() {
         </section>
       )}
 
+      {universalProgress?.scoring ? (
+        <section className="scoring-overview dashboard-section" aria-labelledby="dashboard-scoring-title">
+          <div className="section-heading section-heading--compact">
+            <p className="eyebrow">Tiến bộ của em</p>
+            <h2 id="dashboard-scoring-title">XP và mức thành thạo</h2>
+            <p>
+              Điểm thuộc từng lượt học; XP và mức thành thạo ghi nhận quá
+              trình luyện tập lâu dài.
+            </p>
+          </div>
+          <div className="scoring-result">
+            <div>
+              <span>Tổng XP</span>
+              <strong aria-label={`${universalProgress.scoring.totalXp} điểm kinh nghiệm`}>
+                {universalProgress.scoring.totalXp} XP
+              </strong>
+            </div>
+            <div>
+              <span>Đã thành thạo</span>
+              <strong>{universalProgress.scoring.masterySummary.mastered}</strong>
+            </div>
+            <div>
+              <span>Nên ôn lại</span>
+              <strong>{universalProgress.scoring.masterySummary.needsReview}</strong>
+            </div>
+          </div>
+          <Button href="/learning-progress" variant="secondary">
+            Xem chi tiết tiến trình
+          </Button>
+        </section>
+      ) : null}
+
       {competencyDashboard ? (
         <CompetencyLearningPathPanel model={competencyDashboard} />
       ) : null}

@@ -3,9 +3,11 @@ import {
   type ParentUniversalEvidence,
   type ParentUniversalProgress as ParentUniversalProgressData,
 } from "@/lib/parent-dashboard/universal-contracts";
+import type { StudentScoringSummary } from "@/lib/curriculum-runtime/contracts";
 
 type Props = {
   progress: ParentUniversalProgressData;
+  scoring: StudentScoringSummary;
 };
 
 function percent(value: number | null) {
@@ -48,12 +50,41 @@ function EvidenceList({
   );
 }
 
-export function ParentUniversalProgress({ progress }: Props) {
+export function ParentUniversalProgress({ progress, scoring }: Props) {
   const startedUnits = progress.units.filter(
     (unit) => unit.status !== "NOT_STARTED",
   );
   return (
     <div className="parent-universal-progress">
+      <section
+        className="parent-learning-section"
+        aria-labelledby="parent-score-xp-mastery-title"
+      >
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">Điểm, XP và thành thạo</p>
+            <h2 id="parent-score-xp-mastery-title">Tổng quan học tập mới</h2>
+          </div>
+        </div>
+        <div className="scoring-result">
+          <div>
+            <span>Tổng XP</span>
+            <strong>{scoring.totalXp} XP</strong>
+          </div>
+          <div>
+            <span>Mục tiêu thành thạo</span>
+            <strong>{scoring.masterySummary.mastered}</strong>
+          </div>
+          <div>
+            <span>Nên ôn lại</span>
+            <strong>{scoring.masterySummary.needsReview}</strong>
+          </div>
+        </div>
+        <p className="parent-section-note">
+          Hoàn thành bài học không đồng nghĩa kỹ năng đã thành thạo. Mức thành
+          thạo dựa trên các câu trả lời gần nhất của từng mục tiêu.
+        </p>
+      </section>
       <section
         className="parent-learning-section"
         aria-labelledby="parent-unit-progress-title"

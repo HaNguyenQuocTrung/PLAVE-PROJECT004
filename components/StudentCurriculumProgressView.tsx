@@ -109,6 +109,42 @@ export function StudentCurriculumProgressView({
         </div>
       </section>
 
+      {progress.scoring ? (
+        <section className="scoring-overview" aria-labelledby="scoring-overview-title">
+          <div className="section-heading section-heading--compact">
+            <p className="eyebrow">Kết quả và tiến bộ</p>
+            <h2 id="scoring-overview-title">Điểm, XP và mức thành thạo</h2>
+            <p>
+              Điểm cho biết kết quả của từng lượt học. XP ghi nhận những câu
+              em làm đúng. Mức thành thạo dựa trên 10 bằng chứng gần nhất của
+              từng mục tiêu.
+            </p>
+          </div>
+          <div className="scoring-result">
+            <div>
+              <span>Tổng XP</span>
+              <strong aria-label={`${progress.scoring.totalXp} điểm kinh nghiệm`}>
+                {progress.scoring.totalXp} XP
+              </strong>
+            </div>
+            <div>
+              <span>Mục tiêu đã thành thạo</span>
+              <strong>{progress.scoring.masterySummary.mastered}</strong>
+            </div>
+            <div>
+              <span>Nên ôn lại</span>
+              <strong>{progress.scoring.masterySummary.needsReview}</strong>
+            </div>
+          </div>
+          {progress.scoring.masterySummary.needsReview > 0 ? (
+            <p className="mastery-review-note">
+              Một vài kỹ năng cần được nhắc lại. Mỗi lần luyện là một cơ hội
+              để em hiểu chắc hơn, không phải là hình phạt.
+            </p>
+          ) : null}
+        </section>
+      ) : null}
+
       <section className="lesson-section" aria-labelledby="unit-progress-title">
         <h2 id="unit-progress-title">Tiến trình theo chủ đề</h2>
         <div className="unit-catalog__grid">

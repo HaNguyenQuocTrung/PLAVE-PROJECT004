@@ -76,6 +76,21 @@ export default async function LearningHistoryPage() {
                     Đúng {attempt.correctCount}/{attempt.answeredCount} câu đã
                     làm · Tổng {attempt.totalQuestions} câu
                   </p>
+                  {attempt.status === "COMPLETED" && attempt.scorePercent !== null ? (
+                    <p className="history-score">
+                      <strong>Điểm: {attempt.scorePercent}/100</strong>
+                      {attempt.earnedWeight !== null &&
+                      attempt.possibleWeight !== null
+                        ? ` · ${attempt.earnedWeight}/${attempt.possibleWeight} điểm có trọng số`
+                        : ""}
+                      {attempt.xpEarned > 0 ? ` · +${attempt.xpEarned} XP` : ""}
+                    </p>
+                  ) : null}
+                  {attempt.legacyScoring ? (
+                    <p className="legacy-score-label">
+                      Kết quả cũ · chưa áp dụng XP và thành thạo V1
+                    </p>
+                  ) : null}
                   <time dateTime={attempt.startedAt}>
                     Bắt đầu:{" "}
                     {new Intl.DateTimeFormat("vi-VN", {

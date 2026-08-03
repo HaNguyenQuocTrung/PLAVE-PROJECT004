@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "PLAVE_SCORING_POLICY_V1",
+  "status": "PASS",
+  "attemptScore": {
+    "difficultyWeights": {
+      "EASY": 1,
+      "MEDIUM": 2,
+      "HARD": 3
+    },
+    "rounding": "ROUND_HALF_UP",
+    "range": [0, 100],
+    "finalization": "COMPLETED_ATTEMPT_ONLY",
+    "unansweredEarnedWeight": 0,
+    "clientAuthoritative": false
+  },
+  "xp": {
+    "awards": {
+      "EASY": 10,
+      "MEDIUM": 15,
+      "HARD": 20
+    },
+    "awardEvent": "FIRST_TERMINAL_CORRECT_PER_PERSISTED_QUESTION",
+    "incorrectXp": 0,
+    "duplicateXp": 0,
+    "replayXp": 0,
+    "negativeXp": false,
+    "antiFarmingV1": "UNIQUE_PERSISTED_QUESTION_ID",
+    "learningCycleIdentity": "FUTURE_WORK_NO_WEAK_HEURISTIC"
+  },
+  "mastery": {
+    "window": 10,
+    "difficultyWeights": {
+      "EASY": "1.00",
+      "MEDIUM": "1.25",
+      "HARD": "1.50"
+    },
+    "rounding": "ROUND_HALF_UP",
+    "statuses": {
+      "NOT_STARTED": "evidenceCount=0",
+      "IN_PROGRESS": "evidenceCount=1..4",
+      "DEVELOPING": "evidenceCount>=5 and masteryPercent<60",
+      "PROFICIENT": "evidenceCount>=5 and not DEVELOPING or MASTERED",
+      "MASTERED": "evidenceCount>=8 and masteryPercent>=80 and mediumHardCorrect>=2",
+      "NEEDS_REVIEW": "everMastered and latest5MasteryPercent<60"
+    },
+    "easyOnlyCanMaster": false,
+    "unknownOutcomeCounted": false
+  },
+  "lessonCompletion": {
+    "rule": "REQUIRED_PRACTICE_ATTEMPT_COMPLETED",
+    "requiresPerfectScore": false,
+    "equivalentToMastery": false
+  },
+  "excluded": [
+    "LEVEL",
+    "STREAK",
+    "BADGE",
+    "ACHIEVEMENT",
+    "LEADERBOARD",
+    "ADAPTIVE_RECOMMENDATION",
+    "SPEED_BONUS",
+    "MULTIPLIER"
+  ]
+}

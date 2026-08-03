@@ -12,7 +12,7 @@ export const generatorV2StudentEligibilityStates = [
 export type GeneratorV2StudentEligibilityState =
   (typeof generatorV2StudentEligibilityStates)[number];
 
-export const GENERATOR_V2_STUDENT_RUNTIME_SCHEMA = "0042" as const;
+export const GENERATOR_V2_STUDENT_RUNTIME_SCHEMA = "0043" as const;
 export const GENERATOR_V2_STUDENT_RUNTIME_RELEASE =
   "LOCAL_VERIFICATION" as const;
 
