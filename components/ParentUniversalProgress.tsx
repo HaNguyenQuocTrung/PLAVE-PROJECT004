@@ -4,10 +4,13 @@ import {
   type ParentUniversalProgress as ParentUniversalProgressData,
 } from "@/lib/parent-dashboard/universal-contracts";
 import type { StudentScoringSummary } from "@/lib/curriculum-runtime/contracts";
+import type { MotivationSummary } from "@/lib/motivation/contracts";
+import { MotivationOverview } from "@/components/MotivationOverview";
 
 type Props = {
   progress: ParentUniversalProgressData;
   scoring: StudentScoringSummary;
+  motivation: MotivationSummary;
 };
 
 function percent(value: number | null) {
@@ -50,7 +53,7 @@ function EvidenceList({
   );
 }
 
-export function ParentUniversalProgress({ progress, scoring }: Props) {
+export function ParentUniversalProgress({ progress, scoring, motivation }: Props) {
   const startedUnits = progress.units.filter(
     (unit) => unit.status !== "NOT_STARTED",
   );
@@ -85,6 +88,7 @@ export function ParentUniversalProgress({ progress, scoring }: Props) {
           thạo dựa trên các câu trả lời gần nhất của từng mục tiêu.
         </p>
       </section>
+      <MotivationOverview motivation={motivation} audience="ADULT" />
       <section
         className="parent-learning-section"
         aria-labelledby="parent-unit-progress-title"

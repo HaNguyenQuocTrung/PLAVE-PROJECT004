@@ -6,6 +6,12 @@ import {
   type TeacherActivationRequest,
 } from "@/lib/teacher/contracts";
 import { createClient } from "@/lib/supabase/server";
+import { parseStudentScoringSummary } from "@/lib/curriculum-runtime/contracts";
+import { parseMotivationSummary } from "@/lib/motivation/contracts";
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
 
 export type TeacherAccessFailure =
   | "UNAUTHENTICATED"
@@ -158,5 +164,38 @@ export async function activateTeacherAccount(
     ok: true as const,
     status: 200,
     fullName: result.fullName,
+  };
+}
+
+export async function loadTeacherStudentLearningMotivation(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  membershipId: string,
+) {
+  const { data, error } = await supabase.rpc(
+    "get_teacher_membership_learning_motivation_v1",
+    { p_membership_id: membershipId },
+  );
+  if (error || !isRecord(data) || !isRecord(data.student)) {
+    return { ok: false as const, reason: "FORBIDDEN" as const };
+  }
+  const displayName = data.student.display_name;
+  const grade = data.student.grade;
+  const scoring = parseStudentScoringSummary(data.scoring);
+  const motivation = parseMotivationSummary(data.motivation);
+  if (
+    typeof displayName !== "string" ||
+    !Number.isInteger(grade) ||
+    Number(grade) < 1 ||
+    Number(grade) > 9 ||
+    !scoring ||
+    !motivation
+  ) {
+    return { ok: false as const, reason: "UNAVAILABLE" as const };
+  }
+  return {
+    ok: true as const,
+    student: { displayName, grade: Number(grade) },
+    scoring,
+    motivation,
   };
 }

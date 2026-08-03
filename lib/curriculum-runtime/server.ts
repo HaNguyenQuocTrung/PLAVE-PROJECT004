@@ -9,6 +9,7 @@ import {
   parseStudentGeneratedCurriculumEvidence,
   parseStudentScoringSummary,
 } from "./contracts.ts";
+import { parseMotivationSummary } from "../motivation/contracts.ts";
 import { getStudentLearningContext } from "../practice/server.ts";
 
 export async function loadStudentCurriculumProgress(
@@ -22,6 +23,7 @@ export async function loadStudentCurriculumProgress(
     ? await access.supabase.rpc("get_my_generated_curriculum_evidence")
     : { data: null, error: null };
   const scoringResult = await access.supabase.rpc("get_my_score_xp_mastery");
+  const motivationResult = await access.supabase.rpc("get_my_motivation_v1");
   const { data, error } = availability;
   const baseProgress = error ? null : parseStudentCurriculumProgress(data);
   const generated =
@@ -37,12 +39,15 @@ export async function loadStudentCurriculumProgress(
   const scoring = scoringResult.error
     ? null
     : parseStudentScoringSummary(scoringResult.data);
+  const motivation = motivationResult.error
+    ? null
+    : parseMotivationSummary(motivationResult.data);
   if (!progress || progress.grade !== access.grade || !scoring) {
     return { ok: false as const, reason: "DATA_UNAVAILABLE" as const };
   }
   return {
     ok: true as const,
-    progress: { ...progress, scoring },
+    progress: { ...progress, scoring, motivation },
     access,
   };
 }

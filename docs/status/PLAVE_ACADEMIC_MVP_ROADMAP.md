@@ -17,7 +17,7 @@ Ngày cập nhật: 2026-08-03
 | Sprint | Scope | Active status |
 |---|---|---|
 | 11A | Server-authoritative Attempt Score, exactly-once XP and outcome mastery | `COMPLETE_LOCAL_FOUNDATION` |
-| 11B | Level, Streak and Achievements on top of the V1 ledger | `NOT_STARTED` |
+| 11B | Level, Streak, Goals and Achievements on top of the V1 ledger | `IN_PROGRESS_LOCAL_FOUNDATION` |
 | 12A | Expanded Parent/Teacher analytics | `NOT_STARTED` |
 | Future | Adaptive recommendations, learning-cycle anti-farming, notifications | `NOT_STARTED` |
 
@@ -49,3 +49,11 @@ by default, apply migration 0043 remotely or declare production readiness.
 - Learning-cycle anti-farming requires an explicit durable cycle/identity contract;
   V1 deliberately uses unique persisted question identity instead of a weak
   heuristic.
+
+## Sprint 11B decision record
+
+Sprint 11B defines `PLAVE_MOTIVATION_POLICY_V1` and additive local migration
+0044. It consumes the 11A XP ledger, completed attempts and mastery projection;
+it does not create a second XP or mastery source of truth. Sprint 11C is
+`NOT_STARTED`. Browser/database acceptance remains evidence-driven and does
+not imply remote activation.

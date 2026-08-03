@@ -7803,6 +7803,43 @@ main {
   margin-block: 1rem;
 }
 
+.motivation-overview__stats,
+.motivation-goals {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.motivation-overview__stats > div,
+.motivation-goals > div {
+  border: 1px solid var(--border-subtle, #d9e4ec);
+  border-radius: 1rem;
+  padding: 0.85rem 1rem;
+  background: var(--surface-raised, #fff);
+}
+.motivation-overview__stats span,
+.motivation-goals span { display: block; color: var(--text-muted, #5d6b75); font-size: 0.9rem; }
+.motivation-overview__stats strong { display: block; margin-top: 0.25rem; font-size: 1.35rem; }
+.motivation-progress { height: 0.7rem; overflow: hidden; border-radius: 999px; background: #e7eef2; margin: 1rem 0; }
+.motivation-progress span { display: block; height: 100%; border-radius: inherit; background: #277c74; }
+.motivation-goals { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.motivation-goals strong { display: block; margin-bottom: 0.25rem; }
+.motivation-achievements ul { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; padding: 0; }
+.motivation-achievements li { border-radius: 999px; background: #eef7f4; padding: 0.5rem 0.8rem; }
+.motivation-empty { color: var(--text-muted, #5d6b75); }
+.motivation-streak-note { color: var(--text-muted, #5d6b75); }
+.achievement-unlock {
+  margin-block: 1rem;
+  border: 2px solid #8fcdb8;
+  border-radius: var(--radius-md);
+  background: #eefaf5;
+  padding: 1rem;
+  color: #145c3b;
+}
+.achievement-unlock p { margin-block: 0.25rem; }
+@media (max-width: 640px) {
+  .motivation-overview__stats, .motivation-goals { grid-template-columns: 1fr; }
+}
+
 .scoring-result > div {
   display: grid;
   gap: 0.35rem;
@@ -7852,7 +7889,8 @@ main {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .xp-award {
+  .xp-award,
+  .achievement-unlock {
     animation: xp-award-in 240ms ease-out both;
   }
 }
@@ -8561,7 +8599,9 @@ body.plave-v2 {
 }
 
 .register-workspace {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   gap: 1.25rem;
 }
 
@@ -8573,7 +8613,12 @@ body.plave-v2 {
 .auth-card--v2 .privacy-note { color: #6b7c93; font-size: 0.75rem; }
 
 .register-page--v2 .auth-brand-panel { min-height: 44rem; }
-.register-workspace .step-indicator { margin: 0 0 1rem; }
+.register-workspace .step-indicator { grid-column: auto; margin: 0 0 1rem; }
+.register-workspace .auth-card__footer a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+}
 .step-indicator > span { border-bottom: 2px solid var(--border); color: var(--text-secondary); }
 .step-indicator > .step-indicator__active { border-color: var(--primary); color: var(--brand-navy); }
 .role-selector legend { margin-bottom: 1rem; color: var(--brand-navy); font-size: 1.15rem; font-weight: 760; }

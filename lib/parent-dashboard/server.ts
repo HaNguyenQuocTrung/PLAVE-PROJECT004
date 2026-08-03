@@ -25,6 +25,10 @@ import {
   parseStudentScoringSummary,
   type StudentScoringSummary,
 } from "@/lib/curriculum-runtime/contracts";
+import {
+  parseMotivationSummary,
+  type MotivationSummary,
+} from "@/lib/motivation/contracts";
 
 type ServerSupabaseClient = Awaited<ReturnType<typeof createClient>>;
 
@@ -40,6 +44,7 @@ export type ParentDashboardLoadResult =
       gradeOneCompletionSummary: ParentGradeOneCompletionSummary | null;
       universalProgress: ParentUniversalProgress;
       scoring: StudentScoringSummary;
+      motivation: MotivationSummary;
     }
   | {
       ok: false;
@@ -119,6 +124,7 @@ export async function loadParentChildLearningDashboard(
     universalProgressResult,
     generatedProgressResult,
     scoringResult,
+    motivationResult,
   ] = await Promise.all([
     supabase.rpc("get_parent_child_learning_dashboard", {
       p_connection_id: connectionId,
@@ -136,13 +142,17 @@ export async function loadParentChildLearningDashboard(
     supabase.rpc("get_parent_child_score_xp_mastery", {
       p_connection_id: connectionId,
     }),
+    supabase.rpc("get_parent_child_motivation_v1", {
+      p_connection_id: connectionId,
+    }),
   ]);
 
   if (
     error ||
     universalProgressResult.error ||
     generatedProgressResult.error ||
-    scoringResult.error
+    scoringResult.error ||
+    motivationResult.error
   ) {
     return { ok: false, reason: "UNAVAILABLE" };
   }
@@ -169,6 +179,8 @@ export async function loadParentChildLearningDashboard(
   }
   const scoring = parseStudentScoringSummary(scoringResult.data);
   if (!scoring) return { ok: false, reason: "UNAVAILABLE" };
+  const motivation = parseMotivationSummary(motivationResult.data);
+  if (!motivation) return { ok: false, reason: "UNAVAILABLE" };
 
   return {
     ok: true,
@@ -179,5 +191,6 @@ export async function loadParentChildLearningDashboard(
     gradeOneCompletionSummary,
     universalProgress,
     scoring,
+    motivation,
   };
 }

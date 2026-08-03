@@ -106,6 +106,7 @@ export default async function ParentChildLearningPage({
     gradeOneCompletionSummary,
     universalProgress,
     scoring,
+    motivation,
   } = result;
   const activeGoals = dashboard.goals.filter(
     (goal) => goal.status === "ACTIVE",
@@ -162,7 +163,11 @@ export default async function ParentChildLearningPage({
         </article>
       </section>
 
-      <ParentUniversalProgress progress={universalProgress} scoring={scoring} />
+      <ParentUniversalProgress
+        progress={universalProgress}
+        scoring={scoring}
+        motivation={motivation}
+      />
 
       {universalProgress.student.grade === 1 ? (
         <section

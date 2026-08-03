@@ -214,6 +214,12 @@ export function ClassroomRosterManager({
                   <p>Lớp {membership.grade}</p>
                 </div>
                 <Button
+                  href={`/teacher/students/${membership.membershipId}/progress`}
+                  variant="secondary"
+                >
+                  Xem tiến trình
+                </Button>
+                <Button
                   variant="quiet"
                   disabled={busy}
                   onClick={() => openRemoveDialog(membership)}

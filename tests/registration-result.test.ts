@@ -5,6 +5,7 @@ import test from "node:test";
 import {
   buildRegistrationMetadata,
   classifySignUpResult,
+  registrationServiceUnavailable,
   uncertainTransportResult,
   validationFailure,
 } from "../lib/auth/registration-result.ts";
@@ -59,6 +60,14 @@ test("registration distinguishes delivery uncertainty and rate limiting", () => 
   );
 });
 
+test("registration distinguishes pre-request provider unavailability from uncertain delivery", () => {
+  const unavailable = registrationServiceUnavailable();
+  assert.equal(unavailable.ok, false);
+  assert.equal(unavailable.outcome, "SERVICE_UNAVAILABLE");
+  assert.match(unavailable.message, /Tài khoản chưa được tạo/u);
+  assert.doesNotMatch(unavailable.message, /có thể đã được tạo/u);
+});
+
 test("registration distinguishes trigger failure, existing user and validation", () => {
   assert.equal(
     classifySignUpResult(
@@ -98,6 +107,7 @@ test("registration action is single-shot, has no resend and does not log secrets
     source,
     /Promise[.]all\(\[\s*createClient\(\),\s*getRequestOrigin\(\),\s*\]\)/,
   );
+  assert.match(source, /catch \{\s*return registrationServiceUnavailable\(\);\s*\}/);
   assert.match(
     source,
     /if \(result[.]outcome === "CREATED_SESSION" && data[.]session\) \{[\s\S]*try \{[\s\S]*auth[.]signOut\(\);[\s\S]*catch \{[\s\S]*return result;/,

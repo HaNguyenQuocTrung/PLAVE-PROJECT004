@@ -35,6 +35,7 @@ import { loadParentWeeklySummary } from "@/lib/parent-dashboard/server";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentGeneratedPracticePilotEligibility } from "@/lib/curriculum/generated-practice-pilot";
 import { getLessonPath } from "@/lib/practice/catalog";
+import { MotivationOverview } from "@/components/MotivationOverview";
 
 export const metadata = {
   title: "Tổng quan",
@@ -350,6 +351,10 @@ export default async function DashboardPage() {
             Xem chi tiết tiến trình
           </Button>
         </section>
+      ) : null}
+
+      {universalProgress?.motivation ? (
+        <MotivationOverview motivation={universalProgress.motivation} />
       ) : null}
 
       {competencyDashboard ? (

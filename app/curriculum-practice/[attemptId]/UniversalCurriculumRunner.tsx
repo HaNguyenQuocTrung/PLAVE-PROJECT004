@@ -444,6 +444,21 @@ export function UniversalCurriculumRunner({
                         : "Đang học"}
               </p>
             ))}
+            {state.achievementUnlocks?.length ? (
+              <div
+                className="achievement-unlock"
+                data-achievement-unlock
+                role="status"
+                aria-live="polite"
+              >
+                <p className="eyebrow">Thành tích vừa mở</p>
+                {state.achievementUnlocks.map((achievement) => (
+                  <p key={achievement.id}>
+                    <strong>{achievement.title}</strong> · {achievement.description}
+                  </p>
+                ))}
+              </div>
+            ) : null}
           </div>
         ) : null}
 

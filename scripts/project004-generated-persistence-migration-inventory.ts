@@ -10,9 +10,9 @@ import { basename, resolve } from "node:path";
 import { assertProject004Workspace } from "./project004-identity.ts";
 
 export const generatedPersistenceMigrationBoundary = {
-  count: 43,
+  count: 44,
   first: "0001",
-  last: "0043",
+  last: "0044",
   migration0041:
     "0041_generated_practice_semantic_provenance.sql",
   migration0041Sha256:
@@ -25,6 +25,10 @@ export const generatedPersistenceMigrationBoundary = {
     "0043_score_xp_mastery_foundation.sql",
   migration0043Sha256:
     "ae9bcc1f168672fbc7af4be820d744dc8a2fa10d94a71d79def59264d546bfc0",
+  migration0044:
+    "0044_motivation_level_streak_goals_achievements.sql",
+  migration0044Sha256:
+    "f6e7333b59477da94a0d55cd8a167f03a7a0dc3874360f2c3da0176c97fdf4a1",
 } as const;
 
 export type GeneratedPersistenceMigrationEntry = Readonly<{
@@ -107,7 +111,7 @@ export function loadGeneratedPersistenceMigrationInventory(
       "GENERATED_PERSISTENCE_MIGRATION_0042_CHECKSUM_MISMATCH",
     );
   }
-  const migration0043 = entries.at(-1);
+  const migration0043 = entries.find((entry) => entry.version === "0043");
   if (
     migration0043?.filename !==
       generatedPersistenceMigrationBoundary.migration0043 ||
@@ -117,6 +121,13 @@ export function loadGeneratedPersistenceMigrationInventory(
     throw new Error(
       "GENERATED_PERSISTENCE_MIGRATION_0043_CHECKSUM_MISMATCH",
     );
+  }
+  const migration0044 = entries.at(-1);
+  if (
+    migration0044?.filename !== generatedPersistenceMigrationBoundary.migration0044 ||
+    migration0044.sha256 !== generatedPersistenceMigrationBoundary.migration0044Sha256
+  ) {
+    throw new Error("GENERATED_PERSISTENCE_MIGRATION_0044_CHECKSUM_MISMATCH");
   }
   return { root, migrationsDirectory, entries };
 }

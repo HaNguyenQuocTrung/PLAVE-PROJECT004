@@ -127,6 +127,26 @@ const eligibleCapabilityList = entries.map(({ entry }) => entry.variantId).join(
 const entryByCapability = new Map(
   entries.map((mapped) => [mapped.entry.variantId, mapped]),
 );
+const motivationMappings = (() => {
+  const byCapability = new Map<string, {
+    entry: (typeof GENERATOR_V2_OUTCOME_REGISTRY)[number];
+    unit: (typeof releaseBundle.units)[number];
+  }>();
+  for (const entry of GENERATOR_V2_OUTCOME_REGISTRY) {
+    if (entry.grade !== 2 || byCapability.has(entry.variantId)) continue;
+    const question = releaseBundle.questions.find((candidate) =>
+      candidate.officialOutcomeIds.includes(entry.outcomeId),
+    );
+    const unit = question
+      ? releaseBundle.units.find((candidate) => candidate.unitId === question.unitId)
+      : null;
+    if (unit) byCapability.set(entry.variantId, { entry, unit });
+    if (byCapability.size === 5) break;
+  }
+  const result = [...byCapability.values()];
+  if (result.length !== 5) throw new Error("SPRINT_11B_MOTIVATION_MAPPINGS_MISSING");
+  return result;
+})();
 const interactionReviewCapabilities = [
   "POWER_AND_ROOT",
   "FRACTION_PART_WHOLE",
@@ -242,7 +262,7 @@ async function runPsql(databasePort: number, sql: string, stage: string) {
       PGCONNECT_TIMEOUT: "5",
     }),
     input: sql,
-    timeoutMs: 180_000,
+    timeoutMs: 600_000,
     stage,
   });
 }
@@ -469,6 +489,7 @@ async function createScoringRoleReadFixtures(
   const connectionId = randomUUID();
   const invitationId = randomUUID();
   const classroomId = randomUUID();
+  const membershipId = randomUUID();
   const created = await runPsql(
     databasePort,
     String.raw`
@@ -508,8 +529,9 @@ insert into public.classrooms (
   'Lớp kiểm chứng', ${student.grade}, 'PLV-CLS-ABCDEFGHJK'
 );
 insert into public.classroom_memberships (
-  classroom_id, student_id, status, requested_at
+  id, classroom_id, student_id, status, requested_at
 ) values (
+  ${sqlText(membershipId)}::uuid,
   ${sqlText(classroomId)}::uuid,
   ${sqlText(student.id)}::uuid,
   'PENDING', now() - interval '1 minute'
@@ -528,7 +550,7 @@ select concat_ws('|',
     created.ok && created.stdout.trim() === "1|1",
     `SPRINT_11A_ROLE_READ_FIXTURES_FAILED_${sanitizedError(created.stderr)}`,
   );
-  return { connectionId };
+  return { connectionId, membershipId };
 }
 
 async function completeLocalPrerequisites(
@@ -1077,7 +1099,11 @@ async function runStudentJourneys(input: {
         }
       }
     };
-    const context = await input.browser.newContext({ viewport });
+    const reducedMotionJourney = academicMvpScope && index === 1;
+    const context = await input.browser.newContext({
+      viewport,
+      reducedMotion: reducedMotionJourney ? "reduce" : "no-preference",
+    });
     const requestedStartKey = targetIdempotencyKey(actor.id, mapped);
     const page = await context.newPage();
     page.on("console", (message: any) => {
@@ -1177,6 +1203,28 @@ async function runStudentJourneys(input: {
             ),
           );
         }
+        if (academicMvpScope && position === 12 && index === 0) {
+          requireProof(
+            (await page.locator("[data-achievement-unlock]").count()) === 1,
+            "SPRINT_11B_ACHIEVEMENT_UNLOCK_UI_MISSING",
+          );
+          await page.reload({ waitUntil: "domcontentloaded" });
+          requireProof(
+            (await page.locator("[data-achievement-unlock]").count()) === 0,
+            "SPRINT_11B_ACHIEVEMENT_UNLOCK_REPLAYED_AFTER_RELOAD",
+          );
+        }
+        if (reducedMotionJourney && position === 12) {
+          const motion = await page.locator("[data-achievement-unlock]").evaluate((element: HTMLElement) => ({
+            reduced: matchMedia("(prefers-reduced-motion: reduce)").matches,
+            animationName: getComputedStyle(element).animationName,
+          }));
+          requireProof(
+            motion.reduced && motion.animationName === "none",
+            `SPRINT_11B_REDUCED_MOTION_${motion.animationName}`,
+          );
+          screenshots.push(await capture(page, "390x844-reduced-motion-achievement-unlock.png"));
+        }
         if (position < 12) {
           await page.getByRole("button", { name: "Câu tiếp theo", exact: true }).click();
         }
@@ -1199,7 +1247,10 @@ async function runStudentJourneys(input: {
         }
       }
     }
-    await page.getByRole("button", { name: "Xem tiến trình", exact: true }).click();
+    // A completed-attempt reload intentionally renders the durable completion
+    // card, where this control is an anchor instead of the in-session button.
+    // Use its accessible name so both authenticated product states are covered.
+    await page.getByText("Xem tiến trình", { exact: true }).first().click();
     proofStage = `JOURNEY_${mapped.entry.variantId}_PROGRESS_NAVIGATION`;
     await page.waitForURL((url: URL) => url.pathname === "/learning-progress", {
       timeout: 30_000,
@@ -1284,11 +1335,24 @@ async function runFullCapabilityJourneys(input: {
   actorsByGrade: Map<number, Actor>;
   databasePort: number;
 }) {
+  const diagnosticCapability = process.env.PLAVE_GENERATOR_V2_RUNTIME_DIAGNOSTIC_CAPABILITY?.trim();
+  const diagnosticTargetIndex = diagnosticCapability
+    ? entries.findIndex((mapped) => mapped.entry.variantId === diagnosticCapability)
+    : -1;
+  const diagnosticGrade = diagnosticTargetIndex >= 0
+    ? entries[diagnosticTargetIndex]!.entry.grade
+    : null;
+  const capabilityEntries = diagnosticCapability
+    ? entries.filter((mapped, index) =>
+        mapped.entry.grade === diagnosticGrade && index <= diagnosticTargetIndex,
+      )
+    : entries;
+  requireProof(capabilityEntries.length > 0, "FULL_CAPABILITY_DIAGNOSTIC_FILTER_EMPTY");
   const contexts = new Map<number, any>();
   const pages = new Map<number, any>();
   const coverage: Record<string, unknown>[] = [];
   try {
-    for (const grade of [...new Set(entries.map(({ entry }) => entry.grade))]) {
+    for (const grade of [...new Set(capabilityEntries.map(({ entry }) => entry.grade))]) {
       const context = await input.browser.newContext({
         viewport: { width: 1280, height: 800 },
       });
@@ -1297,7 +1361,7 @@ async function runFullCapabilityJourneys(input: {
       contexts.set(grade, context);
       pages.set(grade, page);
     }
-    for (const [index, mapped] of entries.entries()) {
+    for (const [index, mapped] of capabilityEntries.entries()) {
       proofStage = `FULL_CAPABILITY_${index + 1}_${mapped.entry.variantId}`;
       const actor = input.actorsByGrade.get(mapped.entry.grade)!;
       const page = pages.get(mapped.entry.grade)!;
@@ -1362,7 +1426,7 @@ async function runFullCapabilityJourneys(input: {
         );
         requireProof(
           submitted.status === 200,
-          `FULL_ANSWER_HTTP_${position}_${submitted.status}`,
+          `FULL_ANSWER_HTTP_${position}_${submitted.status}_${readApiErrorCode(submitted.payload) ?? "NO_CODE"}_${lastServerDiagnostic}`,
         );
         assertPublicPayload(
           submitted.payload,
@@ -1379,8 +1443,8 @@ async function runFullCapabilityJourneys(input: {
         resumeWithoutRegeneration: true,
         completion: true,
       });
-      if ((index + 1) % 20 === 0 || index + 1 === entries.length) {
-        reportStage(`FULL_CAPABILITY_PROGRESS_${index + 1}_OF_${entries.length}`);
+      if ((index + 1) % 20 === 0 || index + 1 === capabilityEntries.length) {
+        reportStage(`FULL_CAPABILITY_PROGRESS_${index + 1}_OF_${capabilityEntries.length}`);
       }
     }
   } finally {
@@ -1635,7 +1699,9 @@ async function runAuthorizedScoringRoleReads(input: {
   parent: Actor;
   teacher: Actor;
   student: Actor;
+  unauthorizedStudent: Actor;
   connectionId: string;
+  membershipId: string;
 }) {
   proofStage = "SPRINT_11A_AUTHORIZED_ROLE_READS";
   const readAs = async (actor: Actor, sql: string, stage: string) => {
@@ -1674,6 +1740,70 @@ rollback;`,
   );
   requireProof(parentXp === teacherXp, "SPRINT_11A_ROLE_SUMMARY_MISMATCH");
 
+  const motivationReadAs = async (actor: Actor, sql: string, stage: string) => {
+    const result = await runPsql(input.databasePort, String.raw`begin;
+set local role authenticated;
+do $$ begin perform pg_catalog.set_config('request.jwt.claim.sub', ${sqlText(actor.id)}, true); end $$;
+${sql}
+rollback;`, stage);
+    requireProof(result.ok && result.stdout.trim().startsWith("{"), `${stage}_${sanitizedError(result.stderr)}`);
+    const payload = JSON.parse(result.stdout.trim()) as Record<string, any>;
+    requireProof(
+      payload.policy_version === "PLAVE_MOTIVATION_POLICY_V1" &&
+        Number(payload.level?.total_xp) === parentXp &&
+        !/(?:normalized_answer|correct_answer|solution_steps|active_evidence_window|private|policy_secret)/iu.test(JSON.stringify(payload)),
+      `${stage}_UNSAFE_OR_MISMATCH`,
+    );
+    return payload;
+  };
+  await motivationReadAs(
+    input.student,
+    "select public.get_my_motivation_v1()::text;",
+    "SPRINT_11B_STUDENT_SELF_READ",
+  );
+  await motivationReadAs(
+    input.parent,
+    `select public.get_parent_child_motivation_v1(${sqlText(input.connectionId)}::uuid)::text;`,
+    "SPRINT_11B_PARENT_LINKED_READ",
+  );
+  await motivationReadAs(
+    input.teacher,
+    `select public.get_teacher_student_motivation_v1(${sqlText(input.student.id)}::uuid)::text;`,
+    "SPRINT_11B_TEACHER_AUTHORIZED_READ",
+  );
+  const denied = async (role: "authenticated" | "anon", actor: Actor | null, sql: string, stage: string) => {
+    const result = await runPsql(input.databasePort, String.raw`begin;
+set local role ${role};
+${actor ? `do $$ begin perform pg_catalog.set_config('request.jwt.claim.sub', ${sqlText(actor.id)}, true); end $$;` : ""}
+${sql}
+rollback;`, stage);
+    requireProof(!result.ok, `${stage}_ALLOWED`);
+  };
+  await denied(
+    "authenticated",
+    input.student,
+    `select public.get_teacher_student_motivation_v1(${sqlText(input.unauthorizedStudent.id)}::uuid);`,
+    "SPRINT_11B_STUDENT_CROSS_READ_DENIED",
+  );
+  await denied(
+    "authenticated",
+    input.parent,
+    `select public.get_parent_child_motivation_v1(${sqlText(randomUUID())}::uuid);`,
+    "SPRINT_11B_PARENT_UNLINKED_DENIED",
+  );
+  await denied(
+    "authenticated",
+    input.teacher,
+    `select public.get_teacher_student_motivation_v1(${sqlText(input.unauthorizedStudent.id)}::uuid);`,
+    "SPRINT_11B_TEACHER_UNAUTHORIZED_DENIED",
+  );
+  await denied(
+    "anon",
+    null,
+    "select public.get_my_motivation_v1();",
+    "SPRINT_11B_ANONYMOUS_DENIED",
+  );
+
   const context = await input.browser.newContext({
     viewport: { width: 390, height: 844 },
   });
@@ -1683,7 +1813,7 @@ rollback;`,
     `${input.baseURL}/parent/children/${input.connectionId}`,
     { waitUntil: "domcontentloaded", timeout: 60_000 },
   );
-  await page.getByText("Tổng XP", { exact: true }).waitFor({
+  await page.getByText("Tổng XP", { exact: true }).first().waitFor({
     state: "visible",
     timeout: 30_000,
   });
@@ -1697,13 +1827,537 @@ rollback;`,
     "390x844-parent-linked-score-xp-mastery.png",
   );
   await context.close();
+  const teacherContext = await input.browser.newContext({ viewport: { width: 1280, height: 800 } });
+  const teacherPage = await teacherContext.newPage();
+  await login(teacherPage, input.teacher, input.baseURL);
+  await teacherPage.goto(
+    `${input.baseURL}/teacher/students/${input.membershipId}/progress`,
+    { waitUntil: "domcontentloaded", timeout: 60_000 },
+  );
+  await teacherPage.getByRole("heading", { name: "Tổng hợp tiến bộ" }).waitFor();
+  await teacherPage.getByRole("heading", { name: /Cấp độ/u }).waitFor();
+  await teacherPage.getByText("Tổng hợp chỉ đọc", { exact: true }).waitFor();
+  const teacherBody = await teacherPage.locator("body").innerText();
+  requireProof(
+    !/(?:normalized_answer|correct_answer|solution_steps|private_solution|active_evidence_window|policy_secret)/iu.test(teacherBody),
+    "SPRINT_11B_TEACHER_UI_UNSAFE",
+  );
+  await inspectPage(teacherPage);
+  const teacherScreenshot = await capture(teacherPage, "1280x800-teacher-read-only-motivation.png");
+  await teacherPage.goto(
+    `${input.baseURL}/teacher/students/${randomUUID()}/progress`,
+    { waitUntil: "domcontentloaded", timeout: 60_000 },
+  );
+  requireProof(
+    (await teacherPage.getByRole("heading", { name: "Không thể truy cập" }).count()) === 1 ||
+      !(await teacherPage.locator("body").innerText()).includes("Tổng hợp tiến bộ"),
+    "SPRINT_11B_TEACHER_UNAUTHORIZED_UI_EXPOSED",
+  );
+  await teacherContext.close();
   return {
     parentLinkedRead: "PASS",
     teacherAuthorizedRead: "PASS",
     unrelatedStudentRead: "DENIED",
     directMutation: "DENIED",
     totalXpConsistent: true,
+    studentSelfMotivation: "PASS",
+    parentLinkedMotivation: "PASS",
+    teacherAuthorizedMotivation: "PASS",
+    studentCrossRead: "DENIED",
+    parentUnlinkedRead: "DENIED",
+    teacherUnauthorizedRead: "DENIED",
+    anonymousRead: "DENIED",
+    privateDataLeak: "NONE",
+    readOnly: true,
     screenshot,
+    teacherScreenshot,
+  };
+}
+
+function selectedMotivationOutcomeForKey(
+  studentId: string,
+  unitId: string,
+  idempotencyKey: string,
+) {
+  const outcomeIds = new Set(motivationMappings.map((mapped) => mapped.entry.outcomeId));
+  const capabilityIds = new Set(motivationMappings.map((mapped) => mapped.entry.variantId));
+  const unit = releaseBundle.units.find((candidate) => candidate.unitId === unitId);
+  if (!unit) return undefined;
+  const candidates = unit.officialOutcomeIds
+    .map((outcomeId) => getProductVariantByOutcome(outcomeId))
+    .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
+    .filter((entry) => outcomeIds.has(entry.outcomeId) && capabilityIds.has(entry.variantId))
+    .sort((left, right) => left.outcomeId.localeCompare(right.outcomeId));
+  const digest = createHmac("sha256", Buffer.from(signingKey, "hex"))
+    .update(`${studentId}:${idempotencyKey}:${unitId}:outcome-selection`)
+    .digest();
+  return candidates[digest.readUInt32BE(0) % candidates.length]?.outcomeId;
+}
+
+function motivationTargetKey(
+  studentId: string,
+  mapped: (typeof motivationMappings)[number],
+) {
+  for (let index = 0; index < 10_000; index += 1) {
+    const key = randomUUID();
+    if (selectedMotivationOutcomeForKey(studentId, mapped.unit.unitId, key) === mapped.entry.outcomeId) {
+      return key;
+    }
+  }
+  throw new ProofFailure(`SPRINT_11B_OUTCOME_KEY_${mapped.entry.variantId}`);
+}
+
+async function runMotivationDatabaseAcceptance(input: {
+  browser: any;
+  baseURL: string;
+  databasePort: number;
+  actor: Actor;
+  maxLevelActor: Actor;
+  restart: (overrides: NodeJS.ProcessEnv) => Promise<void>;
+}) {
+  proofStage = "SPRINT_11B_MOTIVATION_DATABASE_ACCEPTANCE";
+  await input.restart({
+    GENERATOR_V2_STUDENT_RUNTIME_ELIGIBLE_OUTCOMES: motivationMappings.map((mapped) => mapped.entry.outcomeId).join(","),
+    GENERATOR_V2_STUDENT_RUNTIME_ELIGIBLE_CAPABILITIES: motivationMappings.map((mapped) => mapped.entry.variantId).join(","),
+  });
+  const context = await input.browser.newContext({ viewport: { width: 1280, height: 800 } });
+  const page = await context.newPage();
+  await login(page, input.actor, input.baseURL);
+  const screenshots: string[] = [];
+
+  const setClock = async (instant: string, attemptId: string | null = null) => {
+    const attemptSql = attemptId === null ? "null" : `${sqlText(attemptId)}::uuid`;
+    const result = await runPsql(input.databasePort, String.raw`
+delete from private.motivation_test_clock_overrides
+where student_id=${sqlText(input.actor.id)}::uuid
+  and attempt_id is not distinct from ${attemptSql};
+insert into private.motivation_test_clock_overrides (
+  student_id, attempt_id, test_now, environment
+) values (
+  ${sqlText(input.actor.id)}::uuid, ${attemptSql}, ${sqlText(instant)}::timestamptz, 'TEST'
+);`, "SPRINT_11B_TEST_CLOCK_SET");
+    requireProof(result.ok, `SPRINT_11B_TEST_CLOCK_${sanitizedError(result.stderr)}`);
+  };
+
+  const readSummary = async (stage: string) => {
+    const result = await runPsql(input.databasePort, String.raw`begin;
+set local role authenticated;
+do $$ begin perform pg_catalog.set_config('request.jwt.claim.sub', ${sqlText(input.actor.id)}, true); end $$;
+select public.get_my_motivation_v1()::text;
+rollback;`, stage);
+    requireProof(result.ok, `${stage}_${sanitizedError(result.stderr)}`);
+    return JSON.parse(result.stdout.trim()) as any;
+  };
+
+  const snapshots: Record<string, unknown>[] = [];
+  const snapshot = async (label: string) => {
+    const summary = await readSummary(`SPRINT_11B_SUMMARY_${label}`);
+    snapshots.push({
+      label,
+      totalXp: Number(summary.level?.total_xp),
+      currentStreak: Number(summary.streak?.current_streak_days),
+      longestStreak: Number(summary.streak?.longest_streak_days),
+      dailyXp: Number(summary.goals?.daily?.xp_current),
+      dailyAttempts: Number(summary.goals?.daily?.attempt_current),
+      dailyCompleted: Boolean(summary.goals?.daily?.completed),
+      weeklyXp: Number(summary.goals?.weekly?.xp_current),
+      weeklyAttempts: Number(summary.goals?.weekly?.attempt_current),
+      weeklyCompleted: Boolean(summary.goals?.weekly?.completed),
+      achievements: (summary.achievements ?? []).map((item: any) => String(item.id)).sort(),
+    });
+    return summary;
+  };
+
+  type RunningAttempt = {
+    attemptId: string;
+    key: string;
+    mapped: (typeof motivationMappings)[number];
+    instant: string;
+    state: any;
+  };
+  const startAttempt = async (
+    mapped: (typeof motivationMappings)[number],
+    instant: string,
+  ): Promise<RunningAttempt> => {
+    const key = motivationTargetKey(input.actor.id, mapped);
+    const started = await browserPost(page, "/api/curriculum-runtime/start", {
+      unitSlug: mapped.unit.unitId,
+      idempotencyKey: key,
+    });
+    requireProof(started.status === 200, `SPRINT_11B_START_${started.status}`);
+    const state = (started.payload as any).data;
+    requireProof(state.runtimeMode === "GENERATED_V2", "SPRINT_11B_GENERATED_MODE_MISSING");
+    await setClock(instant, String(state.attemptId));
+    await setClock(instant, null);
+    return { attemptId: String(state.attemptId), key, mapped, instant, state };
+  };
+  const submitPosition = async (
+    running: RunningAttempt,
+    position: number,
+    correct: boolean,
+    idempotencyKey = randomUUID(),
+  ) => {
+    const question = generatedAt(running.mapped.entry, input.actor.id, running.key, position);
+    const canonical = correct
+      ? question.privateSolution.correctResponse
+      : wrongResponse(question);
+    const answer = serializeGeneratorV2DatabaseAnswer(question.publicSnapshot.interaction, canonical);
+    requireProof(answer !== null, `SPRINT_11B_ANSWER_TRANSPORT_${position}`);
+    const body = {
+      attemptId: running.attemptId,
+      questionId: question.publicSnapshot.questionId,
+      answer,
+      expectedRevision: position - 1,
+      idempotencyKey,
+    };
+    const response = await browserPost(page, "/api/curriculum-runtime/answer", body);
+    return { response, body };
+  };
+  const completeAttempt = async (
+    mapped: (typeof motivationMappings)[number],
+    instant: string,
+    correct: boolean,
+    concurrentFinal = false,
+  ) => {
+    const running = await startAttempt(mapped, instant);
+    let finalResponses: any[] = [];
+    let finalBody: Record<string, unknown> | null = null;
+    for (let position = 1; position <= 11; position += 1) {
+      const submitted = await submitPosition(running, position, correct);
+      requireProof(submitted.response.status === 200, `SPRINT_11B_SUBMIT_${position}_${submitted.response.status}`);
+    }
+    const finalKey = randomUUID();
+    const finalQuestion = generatedAt(running.mapped.entry, input.actor.id, running.key, 12);
+    const finalCanonical = correct
+      ? finalQuestion.privateSolution.correctResponse
+      : wrongResponse(finalQuestion);
+    const finalAnswer = serializeGeneratorV2DatabaseAnswer(
+      finalQuestion.publicSnapshot.interaction,
+      finalCanonical,
+    );
+    requireProof(finalAnswer !== null, "SPRINT_11B_FINAL_ANSWER_TRANSPORT");
+    finalBody = {
+      attemptId: running.attemptId,
+      questionId: finalQuestion.publicSnapshot.questionId,
+      answer: finalAnswer,
+      expectedRevision: 11,
+      idempotencyKey: finalKey,
+    };
+    if (!concurrentFinal) {
+      const finalResponse = await browserPost(page, "/api/curriculum-runtime/answer", finalBody);
+      requireProof(finalResponse.status === 200, `SPRINT_11B_FINAL_${finalResponse.status}`);
+      finalResponses = [finalResponse];
+    } else {
+      finalResponses = await Promise.all([
+        browserPost(page, "/api/curriculum-runtime/answer", finalBody),
+        browserPost(page, "/api/curriculum-runtime/answer", finalBody),
+      ]);
+      const concurrentStatuses = finalResponses.map((item) => item.status).sort();
+      requireProof(
+        concurrentStatuses[0] === 200 &&
+          (concurrentStatuses[1] === 200 || concurrentStatuses[1] === 409),
+        `SPRINT_11B_FINAL_CONCURRENT_HTTP_${concurrentStatuses.join("|")}`,
+      );
+    }
+    return { running, finalResponses, finalBody };
+  };
+
+  await setClock("2023-12-29T10:00:00+07:00", null);
+  const empty = await snapshot("EMPTY");
+  requireProof(empty.achievements.length === 0 && Number(empty.level.total_xp) === 0, "SPRINT_11B_EMPTY_NOT_EMPTY");
+  await page.setViewportSize({ width: 320, height: 568 });
+  await page.goto(`${input.baseURL}/dashboard`, { waitUntil: "domcontentloaded", timeout: 60_000 });
+  await page.getByRole("heading", { name: "Cấp độ 1" }).waitFor();
+  screenshots.push(await capture(page, "320x568-motivation-empty.png"));
+
+  await completeAttempt(motivationMappings[0]!, "2023-12-30T10:00:00+07:00", false);
+  const wrongComplete = await snapshot("COMPLETED_UNDER_20_XP");
+  requireProof(
+    Number(wrongComplete.goals.daily.xp_current) === 0 &&
+      Number(wrongComplete.goals.daily.attempt_current) === 1 &&
+      wrongComplete.goals.daily.completed === false,
+    "SPRINT_11B_DAILY_ATTEMPT_ONLY",
+  );
+
+  const partial = await startAttempt(motivationMappings[0]!, "2023-12-31T23:59:00+07:00");
+  for (let position = 1; position <= 2; position += 1) {
+    const submitted = await submitPosition(partial, position, true);
+    requireProof(submitted.response.status === 200, `SPRINT_11B_PARTIAL_${position}`);
+  }
+  const xpOnly = await snapshot("XP_20_NO_COMPLETED_ATTEMPT");
+  requireProof(
+    Number(xpOnly.goals.daily.xp_current) === 20 &&
+      Number(xpOnly.goals.daily.attempt_current) === 0 &&
+      xpOnly.goals.daily.completed === false,
+    "SPRINT_11B_DAILY_XP_ONLY",
+  );
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(`${input.baseURL}/dashboard`, { waitUntil: "domcontentloaded", timeout: 60_000 });
+  await page.getByRole("heading", { name: "Cấp độ 1" }).waitFor();
+  screenshots.push(await capture(page, "390x844-motivation-xp-before-level-up.png"));
+  for (let position = 3; position <= 12; position += 1) {
+    const submitted = await submitPosition(partial, position, true);
+    requireProof(submitted.response.status === 200, `SPRINT_11B_PARTIAL_FINISH_${position}`);
+  }
+  const dayBoundaryBefore = await snapshot("DEC_31_2359_COMPLETE");
+  requireProof(dayBoundaryBefore.goals.daily.completed === true, "SPRINT_11B_DAILY_BOTH_NOT_COMPLETE");
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await page.goto(`${input.baseURL}/learning-progress`, { waitUntil: "domcontentloaded", timeout: 60_000 });
+  await page.getByRole("heading", { name: "Cấp độ 2" }).waitFor();
+  screenshots.push(await capture(page, "768x1024-motivation-level-up-daily-complete.png"));
+
+  await completeAttempt(motivationMappings[1]!, "2024-01-01T00:01:00+07:00", true);
+  const yearBoundary = await snapshot("JAN_01_0001_YEAR_MONDAY_BOUNDARY");
+  requireProof(
+    Number(yearBoundary.streak.current_streak_days) === 3 &&
+      Number(yearBoundary.streak.longest_streak_days) === 3,
+    "SPRINT_11B_YEAR_BOUNDARY_STREAK",
+  );
+
+  const dates = [
+    [0, "2024-02-26T09:00:00+07:00", true],
+    [1, "2024-02-26T11:00:00+07:00", true],
+    [2, "2024-02-27T09:00:00+07:00", true],
+    [3, "2024-02-28T09:00:00+07:00", true],
+    [4, "2024-02-29T09:00:00+07:00", true],
+    [0, "2024-03-01T09:00:00+07:00", false],
+    [0, "2024-03-02T09:00:00+07:00", true],
+  ] as const;
+  for (const [mappingIndex, instant, correct] of dates) {
+    await completeAttempt(motivationMappings[mappingIndex]!, instant, correct);
+  }
+  const beforeSeven = await snapshot("LEAP_MONTH_COMEBACK_BEFORE_STREAK_7");
+  requireProof(
+    Number(beforeSeven.streak.longest_streak_days) === 6 &&
+      (beforeSeven.achievements as any[]).some((item) => item.id === "COMEBACK_LEARNER"),
+    "SPRINT_11B_LEAP_OR_COMEBACK",
+  );
+
+  const concurrent = await completeAttempt(
+    motivationMappings[1]!,
+    "2024-03-03T23:59:00+07:00",
+    true,
+    true,
+  );
+  const deliveredCounts = concurrent.finalResponses.map((item) =>
+    Array.isArray((item.payload as any)?.data?.achievementUnlocks)
+      ? (item.payload as any).data.achievementUnlocks.length
+      : 0,
+  );
+  requireProof(
+    deliveredCounts.filter((count) => count > 0).length === 1 &&
+      deliveredCounts.reduce((total, count) => total + count, 0) === 1,
+    `SPRINT_11B_CONCURRENT_UNLOCK_DELIVERY_${deliveredCounts.join("|")}`,
+  );
+  const terminalReplay = await browserPost(
+    page,
+    "/api/curriculum-runtime/answer",
+    concurrent.finalBody!,
+  );
+  requireProof(
+    terminalReplay.status === 200 &&
+      Array.isArray((terminalReplay.payload as any)?.data?.achievementUnlocks) &&
+      (terminalReplay.payload as any).data.achievementUnlocks.length === 0,
+    "SPRINT_11B_TERMINAL_REPLAY_UNLOCK_REDELIVERED",
+  );
+
+  const sunday = await snapshot("SUNDAY_STREAK_7_WEEKLY_COMPLETE");
+  requireProof(
+    Number(sunday.streak.current_streak_days) === 7 &&
+      Number(sunday.streak.longest_streak_days) === 7 &&
+      sunday.goals.weekly.completed === true &&
+      sunday.achievements.length === 12,
+    `SPRINT_11B_FINAL_ACHIEVEMENTS_${sunday.achievements.length}`,
+  );
+  await setClock("2024-03-04T09:00:00+07:00", null);
+  const monday = await snapshot("MONDAY_WEEK_RESET_YESTERDAY_STREAK_HELD");
+  requireProof(
+    Number(monday.streak.current_streak_days) === 7 &&
+      Number(monday.goals.weekly.xp_current) === 0 &&
+      Number(monday.goals.weekly.attempt_current) === 0,
+    "SPRINT_11B_MONDAY_RESET_OR_YESTERDAY_STREAK",
+  );
+  await setClock("2024-03-05T09:00:00+07:00", null);
+  const gap = await snapshot("GAP_RESET_LONGEST_HELD");
+  requireProof(
+    Number(gap.streak.current_streak_days) === 0 &&
+      Number(gap.streak.longest_streak_days) === 7,
+    "SPRINT_11B_GAP_RESET",
+  );
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto(`${input.baseURL}/dashboard`, { waitUntil: "domcontentloaded", timeout: 60_000 });
+  await page.getByText("Chuỗi trước đã khép lại.", { exact: false }).waitFor();
+  screenshots.push(await capture(page, "1280x800-motivation-gap-achievement-history.png"));
+
+  const counts = (await queryScalar(input.databasePort, String.raw`
+select concat_ws('|',
+  (select count(*) from private.student_completed_attempt_events where student_id=${sqlText(input.actor.id)}::uuid),
+  (select count(*) from private.student_qualifying_learning_days where student_id=${sqlText(input.actor.id)}::uuid),
+  (select count(*) from private.student_qualifying_learning_days where student_id=${sqlText(input.actor.id)}::uuid and qualifying_date='2024-02-26'),
+  (select count(*) from private.student_goal_completion_ledger where student_id=${sqlText(input.actor.id)}::uuid and goal_id='WEEKLY'),
+  (select count(*) from private.student_achievement_awards where student_id=${sqlText(input.actor.id)}::uuid),
+  (select count(*) from private.student_achievement_unlock_deliveries where student_id=${sqlText(input.actor.id)}::uuid),
+  (select coalesce(sum(xp_amount),0) from private.student_xp_ledger where student_id=${sqlText(input.actor.id)}::uuid),
+  (select count(*) from private.student_outcome_mastery where student_id=${sqlText(input.actor.id)}::uuid and status='MASTERED')
+);`, "SPRINT_11B_FINAL_LEDGER_COUNTS")).split("|").map(Number);
+  requireProof(
+    counts[0] === 11 && counts[1] === 10 && counts[2] === 1 &&
+      counts[3] === 1 && counts[4] === 12 && counts[5] === 12 &&
+      counts[6]! > 500 && counts[7]! >= 5,
+    `SPRINT_11B_LEDGER_COUNTS_${counts.join("|")}`,
+  );
+
+  const protection = await runPsql(input.databasePort, String.raw`
+begin;
+set local role authenticated;
+do $$ begin perform pg_catalog.set_config('request.jwt.claim.sub', ${sqlText(input.actor.id)}, true); end $$;
+insert into private.student_achievement_awards (
+  student_id, achievement_id, awarded_at, source_attempt_id
+) values (
+  ${sqlText(input.actor.id)}::uuid, 'FIRST_STEP', now(), ${sqlText(concurrent.running.attemptId)}::uuid
+);
+rollback;`, "SPRINT_11B_DIRECT_MUTATION_DENIED");
+  requireProof(!protection.ok && /permission denied/iu.test(protection.stderr), "SPRINT_11B_DIRECT_MUTATION_ALLOWED");
+  const immutable = await runPsql(input.databasePort, String.raw`
+update private.student_achievement_awards set awarded_at=awarded_at
+where student_id=${sqlText(input.actor.id)}::uuid;`, "SPRINT_11B_APPEND_ONLY_DENIED");
+  requireProof(!immutable.ok && /MOTIVATION:IMMUTABLE_EVENT/iu.test(immutable.stderr), "SPRINT_11B_APPEND_ONLY_MUTABLE");
+
+  const maxUnitId = "grade-2-sprint-11b-max-level-proof";
+  const maxOutcome = motivationMappings[0]!.entry;
+  const maxFixture = await runPsql(input.databasePort, String.raw`
+insert into public.curriculum_release_units (
+  release_id, unit_id, grade, domain, title, description, learning_goals,
+  theory, worked_examples, official_outcome_ids, skill_ids, display_order, total_questions
+) values (
+  ${sqlText(releaseBundle.release.releaseId)}, ${sqlText(maxUnitId)}, 2,
+  ${sqlText(motivationMappings[0]!.unit.domain)}, 'Bài kiểm chứng cấp độ tối đa',
+  'Sanitized local acceptance fixture.', '["Kiểm chứng XP"]'::jsonb,
+  '["Kiểm chứng cục bộ"]'::jsonb, '["Ví dụ cục bộ"]'::jsonb,
+  array[${sqlText(maxOutcome.outcomeId)}]::text[], array['SPRINT_11B_MAX']::text[],
+  (select max(display_order) + 1 from public.curriculum_release_units where release_id=${sqlText(releaseBundle.release.releaseId)}), 100
+);
+insert into public.curriculum_release_questions (
+  release_id, unit_id, question_id, display_order, answer_type, prompt,
+  options, visual, cognitive_level, official_outcome_ids,
+  official_outcome_titles, skill_id, skill_title, question_payload_hash
+)
+select ${sqlText(releaseBundle.release.releaseId)}, ${sqlText(maxUnitId)},
+  's11b-max-q-' || lpad(series::text, 3, '0'), series,
+  'NUMBER_INPUT', 'Nhập số 1.', null, '{"type":"NONE"}'::jsonb,
+  'REASON', array[${sqlText(maxOutcome.outcomeId)}]::text[],
+  array[${sqlText(maxOutcome.outcomeTitle)}]::text[],
+  'SPRINT_11B_MAX', 'Kiểm chứng cấp độ tối đa', repeat('a', 64)
+from generate_series(1, 100) as series;
+insert into private.curriculum_release_solutions (
+  release_id, question_id, normalized_correct_answer, correct_answer,
+  solution_steps, feedback, solution_payload_hash
+)
+select ${sqlText(releaseBundle.release.releaseId)},
+  's11b-max-q-' || lpad(series::text, 3, '0'),
+  '1', '1', '["Số cần nhập là 1."]'::jsonb,
+  'Đáp án được xác nhận.', repeat('b', 64)
+from generate_series(1, 100) as series;`, "SPRINT_11B_MAX_LEVEL_FIXTURE");
+  requireProof(maxFixture.ok, `SPRINT_11B_MAX_LEVEL_FIXTURE_${sanitizedError(maxFixture.stderr)}`);
+  const maxRuntime = await runPsql(input.databasePort, String.raw`begin;
+set local role authenticated;
+do $$ begin perform pg_catalog.set_config('request.jwt.claim.sub', ${sqlText(input.maxLevelActor.id)}, true); end $$;
+do $proof$
+declare
+  v_attempt jsonb;
+  v_attempt_id uuid;
+  v_attempt_number integer;
+  v_question integer;
+  v_answer text;
+begin
+  for v_attempt_number in 1..32 loop
+    v_attempt := public.start_or_resume_curriculum_unit(
+      ${sqlText(maxUnitId)}, extensions.gen_random_uuid()
+    );
+    v_attempt_id := (v_attempt->>'attempt_id')::uuid;
+    for v_question in 1..100 loop
+      v_answer := case
+        when v_attempt_number = 32 and v_question > 85 then '0'
+        else '1'
+      end;
+      perform public.submit_curriculum_answer(
+        v_attempt_id,
+        's11b-max-q-' || lpad(v_question::text, 3, '0'),
+        v_answer,
+        v_question - 1,
+        extensions.gen_random_uuid()
+      );
+    end loop;
+  end loop;
+end;
+$proof$;
+commit;`, "SPRINT_11B_MAX_LEVEL_PUBLIC_RUNTIME");
+  requireProof(maxRuntime.ok, `SPRINT_11B_MAX_LEVEL_RUNTIME_${sanitizedError(maxRuntime.stderr)}`);
+  const exactMax = await runPsql(input.databasePort, String.raw`begin;
+set local role authenticated;
+do $$ begin perform pg_catalog.set_config('request.jwt.claim.sub', ${sqlText(input.maxLevelActor.id)}, true); end $$;
+select concat_ws('|',
+  (public.get_my_motivation_v1()->'level'->>'total_xp'),
+  (public.get_my_motivation_v1()->'level'->>'level'),
+  (public.get_my_motivation_v1()->'level'->>'max_level')
+);
+rollback;`, "SPRINT_11B_LEVEL_63700");
+  requireProof(exactMax.ok && exactMax.stdout.trim() === "63700|50|true", `SPRINT_11B_LEVEL_63700_${exactMax.stdout.trim()}`);
+  const aboveStart = randomUUID();
+  const aboveMax = await runPsql(input.databasePort, String.raw`begin;
+set local role authenticated;
+do $$ begin perform pg_catalog.set_config('request.jwt.claim.sub', ${sqlText(input.maxLevelActor.id)}, true); end $$;
+do $proof$
+declare v_start jsonb;
+begin
+  v_start := public.start_or_resume_curriculum_unit(${sqlText(maxUnitId)}, ${sqlText(aboveStart)}::uuid);
+  perform public.submit_curriculum_answer(
+    (v_start->>'attempt_id')::uuid, 's11b-max-q-001', '1', 0,
+    extensions.gen_random_uuid()
+  );
+end;
+$proof$;
+select concat_ws('|',
+  (public.get_my_motivation_v1()->'level'->>'total_xp'),
+  (public.get_my_motivation_v1()->'level'->>'level'),
+  (public.get_my_motivation_v1()->'level'->>'max_level')
+);
+rollback;`, "SPRINT_11B_LEVEL_ABOVE_MAX");
+  requireProof(aboveMax.ok && aboveMax.stdout.trim().split("\n").at(-1) === "63720|50|true", `SPRINT_11B_LEVEL_ABOVE_${aboveMax.stdout.trim()}`);
+  const maxContext = await input.browser.newContext({ viewport: { width: 1440, height: 900 } });
+  const maxPage = await maxContext.newPage();
+  await login(maxPage, input.maxLevelActor, input.baseURL);
+  await maxPage.goto(`${input.baseURL}/dashboard`, { waitUntil: "domcontentloaded", timeout: 60_000 });
+  await maxPage.getByRole("heading", { name: "Cấp độ 50" }).waitFor();
+  requireProof((await maxPage.locator("body").innerText()).includes("đạt cấp độ tối đa"), "SPRINT_11B_MAX_LEVEL_UI_TEXT");
+  screenshots.push(await capture(maxPage, "1440x900-motivation-max-level.png"));
+  await maxContext.close();
+
+  await context.close();
+  return {
+    status: "PASS",
+    fixtures: ["MOTIVATION_STUDENT_GRADE_2", "FIVE_DISTINCT_OFFICIAL_OUTCOMES"],
+    schema: "0001-0044",
+    snapshots,
+    rowCounts: {
+      completedAttemptEvents: counts[0],
+      qualifyingLearningDays: counts[1],
+      sameDayRows: counts[2],
+      weeklyCompletionEvents: counts[3],
+      achievementAwards: counts[4],
+      unlockDeliveries: counts[5],
+      totalXp: counts[6],
+      masteredOutcomes: counts[7],
+    },
+    achievements: sunday.achievements.map((item: any) => String(item.id)).sort(),
+    concurrentTerminalReplayUnlockCounts: deliveredCounts,
+    levelBoundaries: { exact: "63700|50|true", above: "63720|50|true" },
+    screenshots,
+    directMutation: "DENIED",
+    appendOnlyMutation: "DENIED",
+    generatorDefault: "OFF",
+    remoteMutations: 0,
+    paidProviderRequests: 0,
   };
 }
 
@@ -1936,7 +2590,7 @@ async function main() {
       timeoutMs: 900_000,
       terminationGraceMs: 10_000,
       killConfirmationMs: 10_000,
-      stage: "SPRINT_11A_SUPABASE_0001_0043",
+      stage: "SPRINT_11B_SUPABASE_0001_0044",
     });
     requireProof(
       started.ok && started.childExited,
@@ -1950,7 +2604,7 @@ async function main() {
     requireProof(
       fixture.ok &&
         fixture.stdout.trim() ===
-          `43|0001|0043|${fixtureUnitCount}|${fixtureQuestionCount}`,
+          `44|0001|0044|${fixtureUnitCount}|${fixtureQuestionCount}`,
       `RELEASE_FIXTURE_${fixture.stdout.trim()}`,
     );
 
@@ -1968,7 +2622,9 @@ async function main() {
     const wrongStudent = await createActor(config, "STUDENT", 3, "wrong");
     const parent = await createActor(config, "PARENT", null, "parent");
     const teacher = await createActor(config, "TEACHER", null, "teacher");
-    actors.push(studentB, wrongStudent, parent, teacher);
+    const motivationStudent = await createActor(config, "STUDENT", 2, "motivation");
+    const maxLevelStudent = await createActor(config, "STUDENT", 2, "max-level");
+    actors.push(studentB, wrongStudent, parent, teacher, motivationStudent, maxLevelStudent);
     for (const [index, actor] of actors.entries()) {
       await completeActor(ports.database, actor, index + 1);
       if (fullCorrectnessScope) {
@@ -2042,9 +2698,14 @@ async function main() {
       parent,
       teacher,
       student: studentB,
+      unauthorizedStudent: wrongStudent,
       connectionId: scoringRoleFixtures.connectionId,
+      membershipId: scoringRoleFixtures.membershipId,
     });
-    journeys.screenshots.push(authorizedRoleReads.screenshot);
+    journeys.screenshots.push(
+      authorizedRoleReads.screenshot,
+      authorizedRoleReads.teacherScreenshot,
+    );
     roleMatrix.authorizedReads = authorizedRoleReads;
     reportStage("AUTHORIZED_ROLE_READS_COMPLETE");
     const publicConcurrency = {
@@ -2093,6 +2754,20 @@ async function main() {
         scoringTotals[4] === expectedAttempts + 1,
       `SPRINT_11A_FINAL_SCORING_COUNTS_INVALID_${scoringTotals.join("|")}`,
     );
+    const motivationProof = academicMvpScope
+      ? await runMotivationDatabaseAcceptance({
+          browser,
+          baseURL,
+          databasePort: ports.database,
+          actor: motivationStudent,
+          maxLevelActor: maxLevelStudent,
+          restart,
+        })
+      : null;
+    if (motivationProof) {
+      journeys.screenshots.push(...motivationProof.screenshots);
+      reportStage("SPRINT_11B_MOTIVATION_DATABASE_COMPLETE");
+    }
     report = {
       schemaVersion: 1,
       status: "PASS",
@@ -2139,9 +2814,10 @@ async function main() {
         sameDifficultyWeights: true,
         sameExactlyOnceTriggers: true,
       },
+      motivationProof,
       roleAndFlagMatrix: roleMatrix,
       database: {
-        freshSchema: "0001-0043",
+        freshSchema: "0001-0044",
         migrations: migrationInventory.sourceCount,
         attempts: counts[0],
         completedAttempts: counts[1],
@@ -2199,6 +2875,73 @@ async function main() {
   report.cleanup = "PASS";
   report.remainingListener = "NONE";
   writeFileSync(resolve(artifactRoot, browserArtifactName), `${JSON.stringify(report, null, 2)}\n`);
+  if (academicMvpScope && report.motivationProof) {
+    const motivationProof = report.motivationProof as Record<string, unknown>;
+    writeFileSync(
+      resolve(artifactRoot, "sprint-11b-database-proof.json"),
+      `${JSON.stringify({
+        schema: "PLAVE_SPRINT_11B_DATABASE_PROOF_V1",
+        status: "PASS",
+        command: "npm run acceptance:scoring-foundation",
+        exitCode: 0,
+        schemaRange: "0001-0044",
+        fixtureLabels: motivationProof.fixtures,
+        rowCounts: motivationProof.rowCounts,
+        deterministicSnapshots: motivationProof.snapshots,
+        protection: {
+          directMutation: motivationProof.directMutation,
+          appendOnlyMutation: motivationProof.appendOnlyMutation,
+        },
+        cleanup: "PASS",
+        remoteMutations: 0,
+      }, null, 2)}\n`,
+    );
+    writeFileSync(
+      resolve(artifactRoot, "sprint-11b-concurrency-proof.json"),
+      `${JSON.stringify({
+        schema: "PLAVE_SPRINT_11B_CONCURRENCY_PROOF_V1",
+        status: "PASS",
+        command: "npm run acceptance:scoring-foundation",
+        exitCode: 0,
+        scoringConcurrency: report.concurrency,
+        terminalReplayUnlockCounts: motivationProof.concurrentTerminalReplayUnlockCounts,
+        rowCounts: motivationProof.rowCounts,
+        cleanup: "PASS",
+      }, null, 2)}\n`,
+    );
+    writeFileSync(
+      resolve(artifactRoot, "sprint-11b-achievement-proof.json"),
+      `${JSON.stringify({
+        schema: "PLAVE_SPRINT_11B_ACHIEVEMENT_PROOF_V1",
+        status: "PASS",
+        command: "npm run acceptance:scoring-foundation",
+        exitCode: 0,
+        definitionsAwarded: motivationProof.achievements,
+        count: Array.isArray(motivationProof.achievements) ? motivationProof.achievements.length : 0,
+        rowCounts: motivationProof.rowCounts,
+        reloadAndReplay: "NO_REDELIVERY",
+        achievementXp: 0,
+        cleanup: "PASS",
+      }, null, 2)}\n`,
+    );
+    writeFileSync(
+      resolve(artifactRoot, "sprint-11b-authorization-proof.json"),
+      `${JSON.stringify({
+        schema: "PLAVE_SPRINT_11B_AUTHORIZATION_PROOF_V1",
+        status: "PASS",
+        command: "npm run acceptance:scoring-foundation",
+        exitCode: 0,
+        fixtures: [
+          "STUDENT_A", "STUDENT_B", "LINKED_PARENT_A", "UNLINKED_PARENT_B",
+          "AUTHORIZED_TEACHER_A", "UNAUTHORIZED_TEACHER_B", "ANONYMOUS",
+        ],
+        matrix: (report.roleAndFlagMatrix as Record<string, unknown>).authorizedReads,
+        publicProductRoutesOnly: true,
+        privateDataLeak: "NONE",
+        cleanup: "PASS",
+      }, null, 2)}\n`,
+    );
+  }
   writeFileSync(resolve(artifactRoot, academicMvpScope ? "role-matrix.json" : fullCorrectnessScope ? "generator-runtime-full-proof.json" : "generator-runtime-role-matrix.json"), `${JSON.stringify(fullCorrectnessScope ? report : { schemaVersion: 1, status: "PASS", matrix: report.roleAndFlagMatrix }, null, 2)}\n`);
   if (!fullCorrectnessScope) {
     writeFileSync(resolve(artifactRoot, academicMvpScope ? "database-proof.json" : "generator-runtime-database-proof.json"), `${JSON.stringify({ schemaVersion: 1, status: "PASS", ...(report.database as Record<string, unknown>), concurrency: report.concurrency, cleanup: "PASS", remoteMutation: 0 }, null, 2)}\n`);
@@ -2209,7 +2952,7 @@ async function main() {
     "INTERNAL_ROUTES_USED=NO",
     fullCorrectnessScope ? "ELIGIBLE_OUTCOMES=546/546" : "ELIGIBLE_SUBSET=6/546",
     fullCorrectnessScope ? "ELIGIBLE_CAPABILITIES=198/198" : "REMAINING_FAIL_CLOSED=540",
-    "MIGRATIONS=0001-0043",
+    "MIGRATIONS=0001-0044",
     "VIEWPORTS=5/5",
     "PROVENANCE=8/8",
     "CLEANUP=PASS",

@@ -9,6 +9,7 @@ import {
   getSkillLabel,
 } from "@/lib/practice/catalog";
 import { skillCodes } from "@/lib/practice/contracts";
+import { MotivationOverview } from "./MotivationOverview";
 
 type StudentCurriculumProgressViewProps = {
   progress: StudentCurriculumProgress;
@@ -144,6 +145,7 @@ export function StudentCurriculumProgressView({
           ) : null}
         </section>
       ) : null}
+      {progress.motivation ? <MotivationOverview motivation={progress.motivation} /> : null}
 
       <section className="lesson-section" aria-labelledby="unit-progress-title">
         <h2 id="unit-progress-title">Tiến trình theo chủ đề</h2>

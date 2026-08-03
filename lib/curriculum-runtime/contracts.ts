@@ -4,6 +4,12 @@ import type {
   ProductInteractionContract,
   ProductVisual,
 } from "../generation-v2/types.ts";
+import {
+  parseMotivationAchievements,
+  parseMotivationSummary,
+  type MotivationAchievement,
+  type MotivationSummary,
+} from "../motivation/contracts.ts";
 
 export type CurriculumRuntimeMode = "STATIC" | "GENERATED_V2";
 
@@ -158,6 +164,8 @@ export type CurriculumAttemptState = Readonly<{
   currentQuestion: CurriculumAttemptQuestion | null;
   feedback: CurriculumAttemptFeedback | null;
   scoring?: AttemptScoringState | null;
+  motivation?: MotivationSummary | null;
+  achievementUnlocks?: readonly MotivationAchievement[];
 }>;
 
 export type CurriculumProgressUnit = Readonly<{
@@ -198,6 +206,7 @@ export type StudentCurriculumProgress = Readonly<{
   outcomes: readonly CurriculumProgressEvidence[];
   skills: readonly CurriculumProgressEvidence[];
   scoring?: StudentScoringSummary | null;
+  motivation?: MotivationSummary | null;
 }>;
 
 export type CurriculumHistoryItem = Readonly<{
@@ -526,6 +535,13 @@ export function parseCurriculumAttemptState(
     value.scoring === null || value.scoring === undefined
       ? null
       : parseAttemptScoring(value.scoring);
+  const motivation =
+    value.motivation === null || value.motivation === undefined
+      ? null
+      : parseMotivationSummary(value.motivation);
+  const achievementUnlocks = parseMotivationAchievements(
+    value.achievement_unlocks ?? [],
+  );
   if (
     !isUuid(value.attempt_id) ||
     !isSlug(value.release_id) ||
@@ -546,7 +562,11 @@ export function parseCurriculumAttemptState(
     (value.feedback !== null && feedback === null) ||
     (value.scoring !== null &&
       value.scoring !== undefined &&
-      scoring === null)
+      scoring === null) ||
+    (value.motivation !== null &&
+      value.motivation !== undefined &&
+      motivation === null) ||
+    achievementUnlocks === null
   ) {
     return null;
   }
@@ -569,6 +589,8 @@ export function parseCurriculumAttemptState(
     currentQuestion: question,
     feedback,
     scoring,
+    motivation,
+    achievementUnlocks,
   };
 }
 
@@ -614,6 +636,8 @@ export function parseCurriculumAttemptApiState(
     completed_at: value.completedAt,
     current_question: currentQuestion,
     feedback,
+    motivation: value.motivation,
+    achievement_unlocks: value.achievementUnlocks,
     scoring: isRecord(value.scoring)
       ? {
           policy_version: value.scoring.policyVersion,

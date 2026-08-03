@@ -14,12 +14,12 @@ import {
   loadGeneratedPersistenceMigrationInventory,
 } from "../scripts/project004-generated-persistence-migration-inventory.ts";
 
-test("generated persistence inventory pins 0001–0043 without changing the 0001–0042 baseline", () => {
+test("generated persistence inventory pins 0001–0044 without changing the 0001–0042 baseline", () => {
   const inventory =
     loadGeneratedPersistenceMigrationInventory();
-  assert.equal(inventory.entries.length, 43);
+  assert.equal(inventory.entries.length, 44);
   assert.equal(inventory.entries[0]?.version, "0001");
-  assert.equal(inventory.entries.at(-1)?.version, "0043");
+  assert.equal(inventory.entries.at(-1)?.version, "0044");
   assert.equal(
     inventory.entries.find((entry) => entry.version === "0041")?.filename,
     generatedPersistenceMigrationBoundary.migration0041,
@@ -30,8 +30,10 @@ test("generated persistence inventory pins 0001–0043 without changing the 0001
   );
   assert.equal(inventory.entries.find((entry) => entry.version === "0042")?.filename, generatedPersistenceMigrationBoundary.migration0042);
   assert.equal(inventory.entries.find((entry) => entry.version === "0042")?.sha256, generatedPersistenceMigrationBoundary.migration0042Sha256);
-  assert.equal(inventory.entries.at(-1)?.filename, generatedPersistenceMigrationBoundary.migration0043);
-  assert.equal(inventory.entries.at(-1)?.sha256, generatedPersistenceMigrationBoundary.migration0043Sha256);
+  assert.equal(inventory.entries.find((entry) => entry.version === "0043")?.filename, generatedPersistenceMigrationBoundary.migration0043);
+  assert.equal(inventory.entries.find((entry) => entry.version === "0043")?.sha256, generatedPersistenceMigrationBoundary.migration0043Sha256);
+  assert.equal(inventory.entries.at(-1)?.filename, generatedPersistenceMigrationBoundary.migration0044);
+  assert.equal(inventory.entries.at(-1)?.sha256, generatedPersistenceMigrationBoundary.migration0044Sha256);
   const remotePlan = JSON.parse(
     readFileSync(
       "docs/operations/PROJECT004_REMOTE_DEV_MIGRATION_PLAN.json",
@@ -42,7 +44,7 @@ test("generated persistence inventory pins 0001–0043 without changing the 0001
   assert.equal(remotePlan.migrations.length, 40);
 });
 
-test("all 43 migration copies are byte-identical", () => {
+test("all 44 migration copies are byte-identical", () => {
   const root = mkdtempSync(
     join(tmpdir(), "plave-project004-0041-inventory-"),
   );
@@ -50,11 +52,11 @@ test("all 43 migration copies are byte-identical", () => {
     const audit =
       copyGeneratedPersistenceMigrationInventory(root);
     assert.deepEqual(audit, {
-      sourceCount: 43,
-      copyCount: 43,
+      sourceCount: 44,
+      copyCount: 44,
       mismatchCount: 0,
       first: "0001",
-      last: "0043",
+      last: "0044",
     });
   } finally {
     rmSync(root, { recursive: true, force: true });

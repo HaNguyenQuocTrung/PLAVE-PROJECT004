@@ -4,6 +4,7 @@ import { getRequestOrigin } from "@/lib/auth/request-origin";
 import {
   buildRegistrationMetadata,
   classifySignUpResult,
+  registrationServiceUnavailable,
   uncertainTransportResult,
   validationFailure,
 } from "@/lib/auth/registration-result";
@@ -69,11 +70,18 @@ export async function registerAccount(input: RegisterInput) {
     return validationFailure("Thông tin đăng ký không hợp lệ.");
   }
 
+  let supabase: Awaited<ReturnType<typeof createClient>>;
+  let origin: string;
   try {
-    const [supabase, origin] = await Promise.all([
+    [supabase, origin] = await Promise.all([
       createClient(),
       getRequestOrigin(),
     ]);
+  } catch {
+    return registrationServiceUnavailable();
+  }
+
+  try {
     const { data, error } = await supabase.auth.signUp({
       email,
       password: input.password,

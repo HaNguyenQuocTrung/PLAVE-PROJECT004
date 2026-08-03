@@ -240,7 +240,7 @@ export default function RegisterPage() {
             error={errors.role}
             groupRef={roleGroupRef}
           />
-          <Button onClick={continueToDetails} fullWidth>
+          <Button onClick={continueToDetails} fullWidth disabled={!role}>
             Tiếp tục
           </Button>
           <p className="auth-card__footer">
@@ -361,7 +361,7 @@ export default function RegisterPage() {
             }}
             autoComplete="email"
             inputMode="email"
-            placeholder="ban@example.com"
+            placeholder="Enter your email address"
             required
             error={errors.email}
             inputRef={emailRef}

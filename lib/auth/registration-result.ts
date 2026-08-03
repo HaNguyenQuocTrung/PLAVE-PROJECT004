@@ -7,6 +7,7 @@ export type RegistrationOutcome =
   | "EMAIL_RATE_LIMITED"
   | "DATABASE_TRIGGER_FAILED"
   | "USER_ALREADY_EXISTS"
+  | "SERVICE_UNAVAILABLE"
   | "VALIDATION_FAILED";
 
 type AuthErrorLike = Readonly<{
@@ -35,6 +36,15 @@ export function buildRegistrationMetadata(
 
 export function validationFailure(message: string): RegistrationResult {
   return { ok: false, outcome: "VALIDATION_FAILED", message };
+}
+
+export function registrationServiceUnavailable(): RegistrationResult {
+  return {
+    ok: false,
+    outcome: "SERVICE_UNAVAILABLE",
+    message:
+      "Chưa thể kết nối dịch vụ đăng ký. Tài khoản chưa được tạo; vui lòng thử lại sau.",
+  };
 }
 
 export function classifySignUpResult(
