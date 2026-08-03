@@ -1,4 +1,5 @@
-import { canonicalNumber, rational, roundDecimal } from "./exact.ts";
+import { canonicalNumber, parseExactNumeric, rational, roundDecimal } from "./exact.ts";
+import { denominatorOneFractionExceptionReason } from "./interaction-policy.ts";
 import {
   GeneratorOracleError,
   type OracleAnswer,
@@ -120,22 +121,7 @@ function normalizedText(value: string) {
 }
 
 function exactNumericLabelKey(value: string) {
-  const compact = normalizedText(value).replace(/\s/gu, "");
-  const fractionMatch = compact.match(/^(-?\d+)\/(-?\d+)$/u);
-  if (fractionMatch) {
-    const denominator = Number(fractionMatch[2]);
-    if (denominator === 0) return null;
-    const reduced = rational(Number(fractionMatch[1]), denominator).toFraction();
-    return `${reduced.numerator}/${reduced.denominator}`;
-  }
-  const decimalMatch = compact.match(/^(-?\d+)(?:\.(\d+))?$/u);
-  if (!decimalMatch) return null;
-  const decimalPlaces = decimalMatch[2]?.length ?? 0;
-  const denominator = 10 ** decimalPlaces;
-  const numerator = Number(`${decimalMatch[1]}${decimalMatch[2] ?? ""}`);
-  if (!Number.isSafeInteger(numerator) || !Number.isSafeInteger(denominator)) return null;
-  const reduced = rational(numerator, denominator).toFraction();
-  return `${reduced.numerator}/${reduced.denominator}`;
+  return parseExactNumeric(normalizedText(value), { allowFraction: true })?.key ?? null;
 }
 
 function isOracleFraction(value: OracleAnswer): value is Readonly<{
@@ -165,8 +151,14 @@ function normalizeAnswer(value: OracleAnswer): string {
 function optionByLabel(options: readonly OracleOption[] | undefined, label: string) {
   const normalized = normalizedText(label);
   const matches = (options ?? []).filter((option) => normalizedText(option.label) === normalized);
-  if (matches.length !== 1) throw new GeneratorOracleError("ORACLE_AMBIGUOUS_ANSWER");
-  return matches[0]!.id;
+  if (matches.length === 1) return matches[0]!.id;
+  if (matches.length > 1) throw new GeneratorOracleError("ORACLE_AMBIGUOUS_ANSWER");
+  const numericKey = exactNumericLabelKey(label);
+  if (numericKey) {
+    const numericMatches = (options ?? []).filter((option) => exactNumericLabelKey(option.label) === numericKey);
+    if (numericMatches.length === 1) return numericMatches[0]!.id;
+  }
+  throw new GeneratorOracleError("ORACLE_AMBIGUOUS_ANSWER");
 }
 
 function optionById(options: readonly OracleOption[] | undefined, id: string) {
@@ -821,12 +813,15 @@ function semanticToAnswer(candidate: OracleCandidate, semantic: OracleAnswer): O
     return [{ leftId: "result", rightId: asLabel(semantic) }];
   }
   if (type === "FRACTION_INPUT") {
-    if (typeof semantic === "number") return rational(semantic, 1).toFraction();
-    if (typeof semantic === "string" && /^-?\d+$/u.test(semantic)) return rational(Number(semantic), 1).toFraction();
+    if (typeof semantic === "number" && Number.isSafeInteger(semantic)) return rational(semantic, 1).toFraction();
+    if (typeof semantic === "string") {
+      const exact = parseExactNumeric(semantic, { allowFraction: true });
+      if (exact) return exact.value.toFraction();
+    }
   }
   if ((type === "INTEGER_INPUT" || type === "DECIMAL_INPUT") && typeof semantic === "string") {
-    const numeric = Number(semantic.replace(",", "."));
-    if (Number.isFinite(numeric)) return numeric;
+    const exact = parseExactNumeric(semantic, { allowFraction: false });
+    if (exact) return exact.value.toNumber();
   }
   if ((type === "INTEGER_INPUT" || type === "DECIMAL_INPUT") && isOracleFraction(semantic)) {
     return semantic.numerator / semantic.denominator;
@@ -1096,9 +1091,18 @@ function validatePublicSurface(candidate: OracleCandidate, model: PublicModel) {
 function interactionDiagnostics(candidate: OracleCandidate, answer: OracleAnswer) {
   const diagnostics: OracleDiagnosticCode[] = [];
   const type = candidate.interaction.type;
-  if (type === "INTEGER_INPUT" && (typeof answer !== "number" || !Number.isInteger(answer))) diagnostics.push("ORACLE_INTERACTION_MISMATCH");
-  if (type === "DECIMAL_INPUT" && typeof answer !== "number") diagnostics.push("ORACLE_INTERACTION_MISMATCH");
-  if (type === "FRACTION_INPUT" && (typeof answer !== "object" || Array.isArray(answer))) diagnostics.push("ORACLE_INTERACTION_MISMATCH");
+  if (type === "INTEGER_INPUT" && (typeof answer !== "number" || !Number.isInteger(answer))) diagnostics.push("ORACLE_INTERACTION_ANSWER_TYPE_MISMATCH");
+  if (type === "DECIMAL_INPUT" && typeof answer !== "number") diagnostics.push("ORACLE_INTERACTION_ANSWER_TYPE_MISMATCH");
+  if (type === "FRACTION_INPUT") {
+    if (!isOracleFraction(answer)) diagnostics.push("ORACLE_INTERACTION_ANSWER_TYPE_MISMATCH");
+    else {
+      const reduced = rational(answer.numerator, answer.denominator).toFraction();
+      if (
+        reduced.denominator === 1 &&
+        denominatorOneFractionExceptionReason(candidate.outcomeId) === null
+      ) diagnostics.push("ORACLE_INTERACTION_ANSWER_TYPE_MISMATCH");
+    }
+  }
   if ((type === "SINGLE_CHOICE" || type === "CONSTRUCTION_OR_VISUAL_SELECTION") && (typeof answer !== "string" || !(candidate.interaction.options ?? []).some((option) => option.id === answer))) diagnostics.push("ORACLE_INTERACTION_MISMATCH");
   if (
     (type === "SINGLE_CHOICE" || type === "CONSTRUCTION_OR_VISUAL_SELECTION") &&

@@ -741,6 +741,27 @@ async function browserPost(page: any, path: string, body: Record<string, unknown
   }, { path, body });
 }
 
+function readApiErrorCode(payload: unknown): unknown {
+  if (
+    !payload ||
+    typeof payload !== "object" ||
+    Array.isArray(payload) ||
+    !("error" in payload)
+  ) {
+    return null;
+  }
+  const error = payload.error;
+  if (
+    !error ||
+    typeof error !== "object" ||
+    Array.isArray(error) ||
+    !("code" in error)
+  ) {
+    return null;
+  }
+  return error.code;
+}
+
 function reportStage(stage: string) {
   proofStage = stage;
   process.stdout.write(`SPRINT_10B_STAGE=${stage}\n`);
@@ -1301,6 +1322,23 @@ async function roleAndFlagMatrix(input: {
   });
   requireProof(forged.status === 400, "FORGED_ROUTING_FIELDS_ACCEPTED");
   matrix.forgedRoutingFields = forged.status;
+  const malformedFractionPayload = await browserPost(
+    ownerPage,
+    "/api/curriculum-runtime/answer",
+    {
+      attemptId: input.attemptId,
+      questionId: "malformed-fraction-contract",
+      answer: { numerator: 18, denominator: 1 },
+      expectedRevision: 0,
+      idempotencyKey: randomUUID(),
+    },
+  );
+  requireProof(
+    malformedFractionPayload.status === 400 &&
+      readApiErrorCode(malformedFractionPayload.payload) === "INVALID_REQUEST",
+    "MALFORMED_FRACTION_PAYLOAD_ACCEPTED",
+  );
+  matrix.malformedFractionPayload = malformedFractionPayload.status;
   const crossGrade = entries.find(({ entry }) => entry.grade !== input.actors.owner.grade)!;
   const cross = await browserPost(ownerPage, "/api/curriculum-runtime/start", {
     unitSlug: crossGrade.unit.unitId,

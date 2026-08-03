@@ -69,6 +69,75 @@ export class ExactRational {
   toNumber() {
     return Number(this.numerator) / Number(this.denominator);
   }
+
+  toKey() {
+    return `${this.numerator}/${this.denominator}`;
+  }
+}
+
+export type ExactNumericParseOptions = Readonly<{
+  allowFraction?: boolean;
+  allowCommaDecimal?: boolean;
+  allowScientific?: boolean;
+}>;
+
+export type ParsedExactNumeric = Readonly<{
+  value: ExactRational;
+  key: string;
+  representation: "INTEGER" | "DECIMAL" | "FRACTION" | "SCIENTIFIC";
+}>;
+
+function decimalRational(sign: string, whole: string, decimal: string) {
+  const digits = `${whole}${decimal}`.replace(/^0+(?=\d)/u, "") || "0";
+  const numerator = BigInt(digits) * (sign === "-" ? -1n : 1n);
+  return new ExactRational(numerator, 10n ** BigInt(decimal.length));
+}
+
+/** Parses the complete input into an exact rational; no floating-point equality is used. */
+export function parseExactNumeric(
+  input: string,
+  options: ExactNumericParseOptions = {},
+): ParsedExactNumeric | null {
+  const trimmed = input.normalize("NFKC").replaceAll("−", "-").trim();
+  if (!trimmed) return null;
+  const normalized = options.allowCommaDecimal === false ? trimmed : trimmed.replaceAll(",", ".");
+
+  if (options.allowFraction) {
+    const match = normalized.match(/^([+-]?\d+)\/([+-]?\d+)$/u);
+    if (match) {
+      const denominator = BigInt(match[2]!);
+      if (denominator === 0n) return null;
+      const value = new ExactRational(BigInt(match[1]!), denominator);
+      return { value, key: value.toKey(), representation: "FRACTION" };
+    }
+  }
+
+  const decimal = normalized.match(/^([+-]?)(\d+)(?:\.(\d+))?$/u);
+  if (decimal) {
+    const value = decimalRational(decimal[1]!, decimal[2]!, decimal[3] ?? "");
+    return {
+      value,
+      key: value.toKey(),
+      representation: decimal[3] === undefined ? "INTEGER" : "DECIMAL",
+    };
+  }
+
+  if (options.allowScientific) {
+    const scientific = normalized.match(/^([+-]?)(\d+)(?:\.(\d+))?[eE]([+-]?\d+)$/u);
+    if (scientific) {
+      const decimalPart = scientific[3] ?? "";
+      const exponent = Number(scientific[4]);
+      if (!Number.isSafeInteger(exponent) || Math.abs(exponent) > 1_000) return null;
+      const base = decimalRational(scientific[1]!, scientific[2]!, decimalPart);
+      const shift = exponent;
+      const value = shift >= 0
+        ? new ExactRational(base.numerator * 10n ** BigInt(shift), base.denominator)
+        : new ExactRational(base.numerator, base.denominator * 10n ** BigInt(-shift));
+      return { value, key: value.toKey(), representation: "SCIENTIFIC" };
+    }
+  }
+
+  return null;
 }
 
 export function rational(numerator: number, denominator = 1) {

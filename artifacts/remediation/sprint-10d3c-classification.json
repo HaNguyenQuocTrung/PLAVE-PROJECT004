@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "sprint": "10D.3C",
+  "sourceCheckpoint": "b5eeabab22f0183ceef1bd64cc1d94d34e882cfd",
+  "status": "PASS",
+  "generatedAt": "2026-08-03T03:17:13Z",
+  "changedPathsAfterCheckpointEvidence": 159,
+  "classifiedPaths": 159,
+  "unmatchedPaths": [],
+  "unknownPaths": [],
+  "counts": {
+    "REQUIRED_SOURCE": 6,
+    "REQUIRED_TEST": 3,
+    "REQUIRED_DOCUMENTATION": 3,
+    "REQUIRED_EVIDENCE_CONTRACT": 14,
+    "GENERATED_EVIDENCE_INCLUDED": 49,
+    "UNRELATED_EXCLUDED": 84,
+    "LOCAL_SECRET_TRACKED_OR_UNTRACKED": 0,
+    "LOCAL_CACHE_TRACKED_OR_UNTRACKED": 0,
+    "PRIVATE_SOLUTION": 0,
+    "TEMP_FIXTURE": 0,
+    "UNKNOWN": 0
+  },
+  "intendedStageCount": 75,
+  "excludedChangedPathCount": 84,
+  "groups": [
+    {
+      "classification": "REQUIRED_SOURCE",
+      "disposition": "INCLUDE",
+      "paths": [
+        "package.json",
+        "lib/generation-v2-oracle/exact.ts",
+        "lib/generation-v2-oracle/index.ts",
+        "lib/generation-v2-oracle/interaction-policy.ts",
+        "lib/generation-v2-oracle/oracle.ts",
+        "lib/generation-v2-oracle/types.ts"
+      ]
+    },
+    {
+      "classification": "REQUIRED_TEST",
+      "disposition": "INCLUDE",
+      "paths": [
+        "scripts/audit-generator-v2-oracle-final-remediation.ts",
+        "scripts/run-generator-v2-student-runtime.ts",
+        "tests/generation-v2-oracle-exact-regressions.test.ts"
+      ]
+    },
+    {
+      "classification": "REQUIRED_DOCUMENTATION",
+      "disposition": "INCLUDE",
+      "paths": [
+        "docs/status/PLAVE_THREE_MILESTONE_ROADMAP.md",
+        "docs/status/SPRINT_10D3_FINAL_ORACLE_REMEDIATION.md",
+        "docs/status/SPRINT_10D3C_REPRODUCIBLE_CHECKPOINT.md"
+      ]
+    },
+    {
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE",
+      "paths": [
+        "artifacts/remediation/generator-correctness-browser-acceptance.json",
+        "artifacts/remediation/generator-oracle-dependency-audit.json",
+        "artifacts/remediation/generator-runtime-full-proof.json",
+        "artifacts/remediation/sprint-10d3-browser-acceptance.json",
+        "artifacts/remediation/sprint-10d3-exact-regressions.json",
+        "artifacts/remediation/sprint-10d3-falsification.json",
+        "artifacts/remediation/sprint-10d3-full-correctness.json",
+        "artifacts/remediation/sprint-10d3-interaction-matrix.json",
+        "artifacts/remediation/sprint-10d3-numeric-canonicalization.json",
+        "artifacts/remediation/sprint-10d3-report.json",
+        "artifacts/remediation/sprint-10d3-runtime-proof.json",
+        "artifacts/remediation/sprint-10d3-screenshot-review.json",
+        "artifacts/remediation/sprint-10d3c-checkpoint.json",
+        "artifacts/remediation/sprint-10d3c-classification.json"
+      ]
+    },
+    {
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE",
+      "pathRules": [
+        {
+          "prefix": "artifacts/remediation/generator-correctness-screenshots/",
+          "changedPaths": 38
+        },
+        {
+          "prefix": "artifacts/remediation/sprint-10d3-screenshots/",
+          "changedPaths": 11
+        }
+      ]
+    },
+    {
+      "classification": "UNRELATED",
+      "disposition": "EXCLUDE",
+      "pathRules": [
+        {
+          "path": "artifacts/ai-tutor-acceptance/google-real-smoke.json",
+          "changedPaths": 1,
+          "contentRead": false
+        },
+        {
+          "prefix": "artifacts/remediation/sprint-10d-screenshots/",
+          "changedPaths": 32
+        },
+        {
+          "prefix": "artifacts/remediation/sprint-10d2-",
+          "changedPaths": 49
+        },
+        {
+          "path": "docs/status/SPRINT_10D2_INDEPENDENT_REAUDIT.md",
+          "changedPaths": 1
+        },
+        {
+          "path": "artifacts/remediation/sprint-10d1c-clean-checkout.json",
+          "changedPaths": 1
+        }
+      ]
+    }
+  ],
+  "ignoredEnvironment": [
+    {
+      "path": ".env.local",
+      "classification": "LOCAL_SECRET",
+      "disposition": "EXCLUDE",
+      "ignored": true,
+      "mode": "0600",
+      "contentRead": false
+    },
+    {
+      "path": ".next",
+      "classification": "LOCAL_CACHE",
+      "disposition": "EXCLUDE",
+      "ignored": true
+    },
+    {
+      "path": "node_modules",
+      "classification": "LOCAL_CACHE",
+      "disposition": "EXCLUDE",
+      "ignored": true
+    }
+  ],
+  "postCommitExternalEvidence": [
+    "artifacts/remediation/sprint-10d3c-clean-checkout.json"
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "evidenceSurface": "AUTHENTICATED_PUBLIC_STUDENT_RUNTIME",
+  "paths": [
+    "/api/curriculum-runtime/start",
+    "/api/curriculum-runtime/state",
+    "/api/curriculum-runtime/answer",
+    "/api/curriculum-runtime/progress",
+    "/api/curriculum-runtime/history",
+    "/curriculum-practice/[attemptId]"
+  ],
+  "internalProofOrReviewRoutesUsed": false,
+  "repositoryDefaultGeneratorFlag": "OFF",
+  "localDisposableEligibilityOnly": true,
+  "capabilityTraceability": {
+    "attempted": 198,
+    "passed": 198,
+    "failed": 0,
+    "eligibleOutcomes": 546,
+    "eligibleCapabilities": 198
+  },
+  "targetedFlows": {
+    "grade7IntegerAlgebra": {
+      "status": "PASS",
+      "interactionObserved": "INTEGER_INPUT",
+      "correctSubmission": "PASS",
+      "incorrectSubmission": "PASS",
+      "resumeWithoutRegeneration": "PASS",
+      "completion": "PASS"
+    },
+    "quadraticSolutionSet": {
+      "status": "PASS",
+      "interactionsObserved": [
+        "INTEGER_INPUT",
+        "ORDERING"
+      ],
+      "exactRepresentationContract": "VERIFIED_BY_INDEPENDENT_ORACLE_MATRIX",
+      "publicRuntimeSubmission": "TYPED_OPTION_IDS_ONLY",
+      "rawMissingExtraneousAndDuplicateRootCases": "NOT_ACCEPTED_BY_PUBLIC_UI; VERIFIED_BY_INDEPENDENT_ORACLE_MATRIX"
+    },
+    "malformedFractionPayload": {
+      "publicAnswerApiStatus": 400,
+      "errorCode": "INVALID_REQUEST",
+      "status": "PASS"
+    }
+  },
+  "concurrencyAndPersistence": {
+    "concurrentStart": "PASS",
+    "duplicateSubmit": "IDEMPOTENT_ONE_WRITE",
+    "idempotencyConflict": "PASS",
+    "cas": "SINGLE_WINNER",
+    "rollback": "PASS",
+    "resumeWithoutRegeneration": "PASS",
+    "progressHistoryExactlyOnce": "PASS"
+  },
+  "database": {
+    "schema": "0001-0042",
+    "migrations": 42,
+    "attempts": 217,
+    "completedAttempts": 217,
+    "generatedQuestions": 2604,
+    "answers": 2604,
+    "provenance8Of8Rows": 2604,
+    "orphans": 0
+  },
+  "authorization": {
+    "anonymousStatus": 401,
+    "wrongStudentApiStatus": 404,
+    "parentApiStatus": 403,
+    "teacherApiStatus": 403,
+    "crossGradeStatus": 403,
+    "releaseOffStatus": 503,
+    "globalOffStatus": 503
+  },
+  "privateLeaks": 0,
+  "remoteMutations": 0,
+  "paidProviderRequests": 0,
+  "cleanup": "PASS",
+  "remainingListener": "NONE",
+  "detailedEvidence": "artifacts/remediation/generator-runtime-full-proof.json"
+}

@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "exactParserRecords": [
+    {
+      "id": "INTEGER",
+      "value": "5",
+      "allowFraction": true,
+      "allowScientific": false,
+      "expected": "5/1",
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "INTEGER_DOT_ZERO",
+      "value": "5.0",
+      "allowFraction": true,
+      "allowScientific": false,
+      "expected": "5/1",
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "INTEGER_TWO_ZEROS",
+      "value": "5.00",
+      "allowFraction": true,
+      "allowScientific": false,
+      "expected": "5/1",
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "INTEGER_OVER_ONE",
+      "value": "5/1",
+      "allowFraction": true,
+      "allowScientific": false,
+      "expected": "5/1",
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "EQUIVALENT_UNREDUCED_RATIONAL",
+      "value": "10/2",
+      "allowFraction": true,
+      "allowScientific": false,
+      "expected": "5/1",
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "FRACTION_SYNTAX_NOT_AUTHORIZED",
+      "value": "10/2",
+      "allowFraction": false,
+      "allowScientific": false,
+      "expected": null,
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "REDUCED_RATIONAL",
+      "value": "1/2",
+      "allowFraction": true,
+      "allowScientific": false,
+      "expected": "1/2",
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "UNREDUCED_RATIONAL",
+      "value": "2/4",
+      "allowFraction": true,
+      "allowScientific": false,
+      "expected": "1/2",
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "NEGATIVE_INTEGER_DECIMAL",
+      "value": "-3.0",
+      "allowFraction": true,
+      "allowScientific": false,
+      "expected": "-3/1",
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "ZERO",
+      "value": "0",
+      "allowFraction": true,
+      "allowScientific": false,
+      "expected": "0/1",
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "NEGATIVE_ZERO_INTEGER",
+      "value": "-0",
+      "allowFraction": true,
+      "allowScientific": false,
+      "expected": "0/1",
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "NEGATIVE_ZERO",
+      "value": "-0.0",
+      "allowFraction": true,
+      "allowScientific": false,
+      "expected": "0/1",
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "WHITESPACE",
+      "value": "  5.00  ",
+      "allowFraction": true,
+      "allowScientific": false,
+      "expected": "5/1",
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "TRAILING_GARBAGE",
+      "value": "5tail",
+      "allowFraction": true,
+      "allowScientific": false,
+      "expected": null,
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "NAN",
+      "value": "NaN",
+      "allowFraction": true,
+      "allowScientific": false,
+      "expected": null,
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "INFINITY",
+      "value": "Infinity",
+      "allowFraction": true,
+      "allowScientific": false,
+      "expected": null,
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "ZERO_DENOMINATOR",
+      "value": "1/0",
+      "allowFraction": true,
+      "allowScientific": false,
+      "expected": null,
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "SCIENTIFIC_NOT_AUTHORIZED",
+      "value": "1e3",
+      "allowFraction": true,
+      "allowScientific": false,
+      "expected": null,
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "SCIENTIFIC_EXPLICITLY_AUTHORIZED",
+      "value": "1.25e2",
+      "allowFraction": false,
+      "allowScientific": true,
+      "expected": "125/1",
+      "result": "EXPECTED_ACCEPTED"
+    }
+  ],
+  "solutionSetRecords": [
+    {
+      "id": "ROOTS_EXACT_INTEGER",
+      "category": "SOLUTION_SET",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "ROOTS_INTEGER_DOT_ZERO",
+      "category": "SOLUTION_SET",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "ROOTS_INTEGER_DOT_ZERO_ZERO",
+      "category": "SOLUTION_SET",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "ROOTS_INTEGER_OVER_ONE",
+      "category": "SOLUTION_SET",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "ROOTS_WITH_WHITESPACE",
+      "category": "SOLUTION_SET",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "ROOTS_MISSING",
+      "category": "SOLUTION_SET",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_MISSING_SOLUTION",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_MISSING_SOLUTION",
+        "ORACLE_AMBIGUOUS_ANSWER",
+        "ORACLE_UNSUPPORTED_CAPABILITY"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "ROOTS_EXTRANEOUS",
+      "category": "SOLUTION_SET",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_EXTRANEOUS_SOLUTION",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_EXTRANEOUS_SOLUTION"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "ROOTS_DUPLICATE_EQUIVALENT",
+      "category": "SOLUTION_SET",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_DUPLICATE_SOLUTION",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_DUPLICATE_SOLUTION"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "ROOTS_DECIMAL_OUTSIDE_EXACT_CONTRACT",
+      "category": "SOLUTION_SET",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_EXTRANEOUS_SOLUTION",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_MISSING_SOLUTION",
+        "ORACLE_EXTRANEOUS_SOLUTION",
+        "ORACLE_AMBIGUOUS_ANSWER",
+        "ORACLE_UNSUPPORTED_CAPABILITY"
+      ],
+      "result": "EXPECTED_REJECTED"
+    }
+  ],
+  "floatingPointEqualityUsed": false,
+  "scientificNotationDefault": "REJECT",
+  "privateAnswersIncluded": false
+}

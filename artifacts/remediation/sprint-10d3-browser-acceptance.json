@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "source": "AUTHENTICATED_PUBLIC_STUDENT_RUNTIME",
+  "browser": {
+    "engine": "Chromium",
+    "playwrightCore": "1.51.1",
+    "chromeVersion": "150.0.7871.187"
+  },
+  "requiredViewports": [
+    "320x568",
+    "390x844",
+    "1280x800"
+  ],
+  "fullRuntimeViewports": [
+    "320x568",
+    "390x844",
+    "768x1024",
+    "1280x800",
+    "1440x900"
+  ],
+  "targetedCoverage": {
+    "grade7IntegerInput": "PASS",
+    "correctIntegerSubmission": "PASS",
+    "incorrectFeedback": "PASS",
+    "malformedFractionPayloadPublicApi": "PASS_400_INVALID_REQUEST",
+    "multiRootInteraction": "PASS_ORDERING",
+    "resumeWithoutRegeneration": "PASS",
+    "completion": "PASS",
+    "progressAndHistory": "PASS"
+  },
+  "metrics": {
+    "consoleErrors": 0,
+    "hydrationErrors": 0,
+    "pageErrors": 0,
+    "overflowErrors": 0,
+    "deadRequiredControls": 0,
+    "touchTargetFailures": 0,
+    "promptVisualMismatches": 0,
+    "privateLeaks": 0,
+    "criticalIssues": 0,
+    "highIssues": 0
+  },
+  "fullRuntimeScreenshots": 38,
+  "targetedScreenshots": 11,
+  "targetedScreenshotsDirectory": "artifacts/remediation/sprint-10d3-screenshots",
+  "manualReview": "PASS_11_OF_11_OPENED",
+  "cleanup": "PASS",
+  "remainingListener": "NONE",
+  "detailedEvidence": "artifacts/remediation/generator-correctness-browser-acceptance.json"
+}

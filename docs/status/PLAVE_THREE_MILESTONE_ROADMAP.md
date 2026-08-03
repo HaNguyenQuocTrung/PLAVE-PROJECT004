@@ -2,10 +2,10 @@
 
 Ngày cập nhật: 2026-08-03
 Phạm vi sản phẩm: Toán lớp 1–9  
-Active remediation: Sprint 10D.1 targeted remediation complete; Sprint 10D.2 independent re-audit required
+Active remediation: Sprint 10D.3 final Oracle gap remediation complete; Sprint 10D.4 independent re-audit required
 
 `MILESTONE_1=COMPLETE_OWNER_APPROVED`  
-`MILESTONE_2=REOPENED_AWAITING_SPRINT_10D2_REAUDIT`
+`MILESTONE_2=REOPENED_AWAITING_SPRINT_10D4_REAUDIT`
 `MILESTONE_3=REOPENED_SECURITY_AND_REPRODUCIBILITY_REMEDIATION`
 
 Các quyết định Owner trước re-audit vẫn được giữ nguyên như historical decisions.
@@ -19,7 +19,7 @@ PLAVE chỉ có đúng ba primary milestones, theo thứ tự bắt buộc:
 | Thứ tự | Milestone | Trạng thái hiện tại | Gate để được bắt đầu/hoàn tất |
 |---|---|---|---|
 | 1 | Complete the Grades 1–9 UI/UX overhaul across the entire website | `COMPLETE_OWNER_APPROVED` | Technical browser evidence, sitewide propagation và Owner visual acceptance đều hoàn tất |
-| 2 | Repair and complete Grades 1–9 question generation for genuinely useful real Student practice | `REOPENED_AWAITING_SPRINT_10D2_REAUDIT` | Sprint 10D found two High findings; Sprint 10D.1 remediates them, but Sprint 10D.2 must independently verify before closure |
+| 2 | Repair and complete Grades 1–9 question generation for genuinely useful real Student practice | `REOPENED_AWAITING_SPRINT_10D4_REAUDIT` | F-003 is independently resolved; Sprint 10D.3 remediates the final F-005 interaction/canonicalization gaps, but Sprint 10D.4 must independently verify before closure |
 | 3 | Add a safe, grounded and grade-appropriate AI Tutor for Grades 1–9 | `REOPENED_SECURITY_AND_REPRODUCIBILITY_REMEDIATION` | Historical local-MVP approval được giữ; active gate mở lại cho secret boundary và baseline recovery |
 
 Unit tests, proof counts và generator coverage metrics không thể tự hoàn tất bất
@@ -91,7 +91,7 @@ None. Owner granted full Milestone 1 visual acceptance on 2026-08-01.
 
 ## Milestone 2 — Grades 1–9 question generation
 
-Current state: `REOPENED_AWAITING_SPRINT_10D2_REAUDIT`.
+Current state: `REOPENED_AWAITING_SPRINT_10D4_REAUDIT`.
 
 Historical Owner status trước complete re-audit: `COMPLETE_OWNER_APPROVED`.
 Quyết định usefulness lịch sử được giữ nguyên; active status không coi quyết định
@@ -285,6 +285,33 @@ lớp hoặc không dùng được trong Student practice thì Milestone 2 vẫn
 - Evidence: `docs/status/SPRINT_10D1_GENERATOR_TARGETED_REMEDIATION.md` and
   `artifacts/remediation/sprint-10d1-report.json`.
 
+### Sprint 10D.2 / 10D.3 — final F-005 Oracle coverage gap
+
+- Sprint 10D.2 independently resolved F-003 but retained one High F-005 finding:
+  a forced denominator-one `FRACTION_INPUT` mutation survived, and exact integer
+  roots written as `n.0` were not canonicalized.
+- Sprint 10D.3 adds exact BigInt rational parsing and answer-driven interaction
+  diagnostics without importing Generator answer computation. The historical
+  Grade 7 algebra mutation now returns
+  `ORACLE_INTERACTION_ANSWER_TYPE_MISMATCH`.
+- Full inventory audits 12,222 denominator-one answers. Invalid denominator-one
+  `FRACTION_INPUT` = 0; 126 fraction inputs are limited to 11 exact outcome IDs
+  with documented fraction-representation reasons.
+- Falsification is record-derived: 34 attempted, 16 invalid mutations killed,
+  18 valid exact equivalences accepted, unexpected survivors/rejections 0.
+  Existing mutation coverage remains 12/12.
+- Fresh canonical run remains 32,760/32,760 across 546 outcomes and 198
+  capabilities. Authenticated public Student runtime again covers 198/198
+  capabilities, and malformed fraction-object input is rejected by the public
+  answer API with `400 INVALID_REQUEST`.
+- Final local browser proof uses five viewports; 11 targeted screenshots at
+  320×568, 390×844 and 1280×800 were reopened. Console, hydration, page,
+  overflow, touch-target, private-leak and critical/high issue counts are 0.
+- `F-005=RESOLVED_PENDING_INDEPENDENT_REAUDIT`; this sprint does not restore
+  Owner completion status. Milestone 2 remains open for Sprint 10D.4.
+- Evidence: `docs/status/SPRINT_10D3_FINAL_ORACLE_REMEDIATION.md` and
+  `artifacts/remediation/sprint-10d3-report.json`.
+
 ## Milestone 3 — Grades 1–9 AI Tutor
 
 Current state: `REOPENED_SECURITY_AND_REPRODUCIBILITY_REMEDIATION`.
@@ -369,14 +396,13 @@ ba milestone ở trên.
 | Milestone | Final status | Approved scope |
 |---|---|---|
 | Milestone 1 — Grades 1–9 UI/UX | `COMPLETE_OWNER_APPROVED` | Sitewide UI/UX product scope |
-| Milestone 2 — Generator V2 | `REOPENED_AWAITING_SPRINT_10D2_REAUDIT` | Historical approval retained; Sprint 10D.1 remediates F-003/F-005, and independent Sprint 10D.2 re-audit remains mandatory |
+| Milestone 2 — Generator V2 | `REOPENED_AWAITING_SPRINT_10D4_REAUDIT` | Historical approval retained; F-003 is independently resolved, Sprint 10D.3 remediates the final F-005 gaps, and independent Sprint 10D.4 remains mandatory |
 | Milestone 3 — AI Tutor | `REOPENED_SECURITY_AND_REPRODUCIBILITY_REMEDIATION` | Historical local-MVP approval retained; active remediation open |
 
 Các Owner approvals lịch sử vẫn được giữ trong phạm vi đã duyệt, nhưng active
 remediation status ở trên là authoritative. Điều này không đồng nghĩa deployed,
-remotely activated hoặc production certified. `npm audit` hiện vẫn
-`UNVERIFIED_ENVIRONMENT_BLOCKED`; last verified 0 vulnerabilities ngày
-2026-08-01.
+remotely activated hoặc production certified. `npm audit` được xác minh lại từ
+registry ngày 2026-08-03: 0 vulnerabilities.
 
 MILESTONE 1 — PLAVE GRADES 1–9 UI/UX COMPLETE — OWNER APPROVED
 

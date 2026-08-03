@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "preFixEvidence": {
+    "forcedIntegerFractionInteractionAccepted": true,
+    "exactIntegerRootDotZeroRejected": true,
+    "source": "SPRINT_10D2_INDEPENDENT_REAUDIT"
+  },
+  "postFix": {
+    "forcedInteraction": {
+      "id": "INTEGER_TO_FRACTION_INPUT",
+      "category": "INTERACTION",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_INTERACTION_ANSWER_TYPE_MISMATCH",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_INTERACTION_ANSWER_TYPE_MISMATCH"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    "exactIntegerRoots": [
+      {
+        "id": "ROOTS_EXACT_INTEGER",
+        "category": "SOLUTION_SET",
+        "expected": "ACCEPT",
+        "accepted": true,
+        "diagnostics": [],
+        "result": "EXPECTED_ACCEPTED"
+      },
+      {
+        "id": "ROOTS_INTEGER_DOT_ZERO",
+        "category": "SOLUTION_SET",
+        "expected": "ACCEPT",
+        "accepted": true,
+        "diagnostics": [],
+        "result": "EXPECTED_ACCEPTED"
+      },
+      {
+        "id": "ROOTS_INTEGER_DOT_ZERO_ZERO",
+        "category": "SOLUTION_SET",
+        "expected": "ACCEPT",
+        "accepted": true,
+        "diagnostics": [],
+        "result": "EXPECTED_ACCEPTED"
+      },
+      {
+        "id": "ROOTS_INTEGER_OVER_ONE",
+        "category": "SOLUTION_SET",
+        "expected": "ACCEPT",
+        "accepted": true,
+        "diagnostics": [],
+        "result": "EXPECTED_ACCEPTED"
+      },
+      {
+        "id": "ROOTS_WITH_WHITESPACE",
+        "category": "SOLUTION_SET",
+        "expected": "ACCEPT",
+        "accepted": true,
+        "diagnostics": [],
+        "result": "EXPECTED_ACCEPTED"
+      }
+    ]
+  },
+  "privateAnswersIncluded": false
+}

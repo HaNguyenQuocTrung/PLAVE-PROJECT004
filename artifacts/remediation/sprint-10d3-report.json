@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "sprint": "10D.3",
+  "status": "COMPLETE",
+  "completedAt": "2026-08-03T02:58:34Z",
+  "baselineCheckpoint": "b5eeabab22f0183ceef1bd64cc1d94d34e882cfd",
+  "finding": {
+    "id": "F-005",
+    "priorStatus": "UNRESOLVED",
+    "currentStatus": "RESOLVED_PENDING_INDEPENDENT_REAUDIT",
+    "resolvedBehaviors": [
+      "DENOMINATOR_ONE_FRACTION_INPUT_MUTATION_REJECTED",
+      "EXACT_INTEGER_ROOT_DECIMAL_SPELLINGS_CANONICALIZED"
+    ],
+    "typedDiagnostic": "ORACLE_INTERACTION_ANSWER_TYPE_MISMATCH"
+  },
+  "implementation": {
+    "exactNumericRepresentation": "BIGINT_REDUCED_RATIONAL",
+    "floatingPointEqualityUsed": false,
+    "completeStringParsing": true,
+    "scientificNotationDefault": "REJECT",
+    "interactionPolicy": "ANSWER_KIND_AND_EXACT_OUTCOME_CONTRACT",
+    "broadCapabilityExceptions": 0,
+    "explicitFractionRepresentationOutcomeExceptions": 11,
+    "generatorSolverImportedByOracle": false,
+    "runtimeSubmitValidatorUsedAsOracle": false
+  },
+  "falsification": {
+    "status": "PASS",
+    "attemptedDerivedFromRecords": 34,
+    "invalidMutationsKilled": 16,
+    "validEquivalencesAccepted": 18,
+    "unexpectedSurvivorsOrRejections": 0,
+    "existingMutations": "12/12"
+  },
+  "fullCorrectness": {
+    "status": "PASS",
+    "outcomes": "546/546",
+    "capabilities": "198/198",
+    "attempted": "32760/32760",
+    "oracleValidated": "32760/32760",
+    "interactionMismatch": 0,
+    "invalidAnswerRepresentation": 0,
+    "ambiguity": 0,
+    "promptVisualMismatch": 0,
+    "fallback": 0,
+    "keywordRouting": 0,
+    "privateLeaks": 0
+  },
+  "denominatorOneInventory": {
+    "samples": 12222,
+    "invalidFractionInput": 0,
+    "explicitExceptionSamples": 126,
+    "explicitExceptionOutcomeIds": 11
+  },
+  "runtime": {
+    "status": "PASS",
+    "surface": "AUTHENTICATED_PUBLIC_STUDENT_RUNTIME",
+    "internalRoutesUsed": false,
+    "capabilities": "198/198",
+    "malformedFractionPayload": "PASS_400_INVALID_REQUEST",
+    "provenance": "8/8",
+    "orphans": 0,
+    "privateLeaks": 0,
+    "repositoryDefault": "OFF",
+    "cleanup": "PASS",
+    "remainingListener": "NONE"
+  },
+  "browser": {
+    "status": "PASS",
+    "requiredViewports": "3/3",
+    "fullRuntimeViewports": "5/5",
+    "targetedScreenshotsReviewed": "11/11",
+    "consoleErrors": 0,
+    "hydrationErrors": 0,
+    "pageErrors": 0,
+    "overflowErrors": 0,
+    "touchTargetFailures": 0,
+    "privateLeaks": 0,
+    "criticalHighIssues": 0
+  },
+  "gates": [
+    { "name": "exact Oracle regressions", "result": "PASS", "count": "3/3" },
+    { "name": "Oracle dependency boundary", "result": "PASS" },
+    { "name": "Oracle mutation suite", "result": "PASS", "count": "12/12" },
+    { "name": "full falsification matrix", "result": "PASS", "count": "34/34 expected behavior" },
+    { "name": "full independent correctness", "result": "PASS", "count": "32760/32760" },
+    { "name": "authenticated Student runtime", "result": "PASS", "count": "198/198 capabilities" },
+    { "name": "persistence/security contracts", "result": "PASS", "count": "7/7" },
+    { "name": "Practice", "result": "PASS", "count": "550/550" },
+    { "name": "curriculum", "result": "PASS", "count": "9/9 and 21/21" },
+    { "name": "competency", "result": "PASS", "count": "10/10" },
+    { "name": "role/API isolation", "result": "PASS" },
+    { "name": "UI/UX", "result": "PASS", "count": "13/13" },
+    { "name": "AI Tutor key-unset", "result": "PASS", "count": "40/40" },
+    { "name": "typecheck", "result": "PASS" },
+    { "name": "lint", "result": "PASS" },
+    { "name": "production build", "result": "PASS", "count": "77/77 pages" },
+    { "name": "isolated secret-boundary canary", "result": "PASS" },
+    { "name": "JSON validation", "result": "PASS" },
+    { "name": "npm audit", "result": "PASS", "count": "0 vulnerabilities" }
+  ],
+  "nonTargetObservations": [
+    {
+      "id": "LEGACY_SPRINT8C_DIVERSITY_COMMAND_DRIFT",
+      "scope": "OUTSIDE_10D3_TARGET",
+      "observation": "The superseded audit:generator-v2-full-coverage command exited 0 but printed FULL_COVERAGE=FAIL for one exact duplicate in its alternate sprint8c seed namespace (MOET2018-G6-STA-P054-009 HARD). The current canonical sprint10c 32760-coordinate Oracle run remains PASS. No semantic-diversity or Generator-content change was made because Sprint 10D.3 explicitly excludes that work.",
+      "followUp": "Reconcile the legacy audit command during Sprint 10D.4 evidence review; do not use its status marker as Sprint 10D.3 Oracle evidence."
+    }
+  ],
+  "milestone2": "REOPENED_AWAITING_SPRINT_10D4_REAUDIT",
+  "ownerApprovalCreated": false,
+  "remoteMutations": 0,
+  "migrations": 0,
+  "deployments": 0,
+  "gitStages": 0,
+  "gitCommits": 0,
+  "gitPushes": 0,
+  "paidProviderRequests": 0,
+  "cleanup": "PASS",
+  "evidence": [
+    "artifacts/remediation/sprint-10d3-exact-regressions.json",
+    "artifacts/remediation/sprint-10d3-interaction-matrix.json",
+    "artifacts/remediation/sprint-10d3-numeric-canonicalization.json",
+    "artifacts/remediation/sprint-10d3-falsification.json",
+    "artifacts/remediation/sprint-10d3-full-correctness.json",
+    "artifacts/remediation/sprint-10d3-runtime-proof.json",
+    "artifacts/remediation/sprint-10d3-browser-acceptance.json",
+    "artifacts/remediation/sprint-10d3-screenshot-review.json"
+  ]
+}

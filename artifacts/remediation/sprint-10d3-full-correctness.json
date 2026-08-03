@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "executedAt": "2026-08-03T02:51:44Z",
+  "command": "npm run --silent audit:generator-v2-independent-oracle",
+  "scope": {
+    "outcomes": 546,
+    "capabilities": 198,
+    "difficulties": 3,
+    "seedsPerDifficulty": 20,
+    "expected": 32760,
+    "attempted": 32760,
+    "uniqueCoordinates": 32760,
+    "missingCoordinates": 0,
+    "duplicateCoordinates": 0
+  },
+  "metrics": {
+    "oracleValidated": 32760,
+    "mathematicallyInvalid": 0,
+    "insufficientData": 0,
+    "unintendedAmbiguity": 0,
+    "promptVisualMismatch": 0,
+    "interactionMismatch": 0,
+    "invalidAnswerRepresentation": 0,
+    "invalidDistractorSet": 0,
+    "answerMismatch": 0,
+    "privateLeak": 0,
+    "genericFallback": 0,
+    "keywordRouting": 0,
+    "exactDuplicates": 0,
+    "provenance8Of8": 32760
+  },
+  "targetedInventory": {
+    "denominatorOneSamples": 12222,
+    "invalidDenominatorOneFractionInput": 0,
+    "explicitFractionRepresentationExceptions": 11,
+    "observedExceptionSamples": 126,
+    "interactionNumericAndSolutionSetFalsificationRecords": 34,
+    "unexpectedFalsificationSurvivors": 0
+  },
+  "canonicalDetailedEvidence": "artifacts/remediation/generator-full-correctness.json",
+  "interactionEvidence": "artifacts/remediation/sprint-10d3-interaction-matrix.json",
+  "falsificationEvidence": "artifacts/remediation/sprint-10d3-falsification.json",
+  "privateAnswersIncluded": false
+}

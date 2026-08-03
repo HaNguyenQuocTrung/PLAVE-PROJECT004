@@ -1,0 +1,337 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "attempted": 34,
+  "killed": 16,
+  "validEquivalenceAccepted": 18,
+  "unexpectedSurvivors": 0,
+  "records": [
+    {
+      "id": "INTEGER_TO_FRACTION_INPUT",
+      "category": "INTERACTION",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_INTERACTION_ANSWER_TYPE_MISMATCH",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_INTERACTION_ANSWER_TYPE_MISMATCH"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "NONINTEGER_FRACTION_TO_INTEGER_INPUT",
+      "category": "INTERACTION",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_INTERACTION_ANSWER_TYPE_MISMATCH",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_INTERACTION_ANSWER_TYPE_MISMATCH"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "EXPRESSION_TO_NUMERIC_INPUT",
+      "category": "INTERACTION",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_INTERACTION_ANSWER_TYPE_MISMATCH",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_INTERACTION_ANSWER_TYPE_MISMATCH"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "MULTI_ROOT_SET_TO_SINGLE_NUMERIC_INPUT",
+      "category": "INTERACTION",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_INTERACTION_ANSWER_TYPE_MISMATCH",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_INTERACTION_ANSWER_TYPE_MISMATCH"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "DECIMAL_REQUIRED_TO_FRACTION_INPUT",
+      "category": "INTERACTION",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_INTERACTION_ANSWER_TYPE_MISMATCH",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_INTERACTION_ANSWER_TYPE_MISMATCH"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "CHOICE_WITH_EQUIVALENT_CORRECT_OPTION",
+      "category": "INTERACTION",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_DISTRACTOR_EQUIVALENT_TO_ANSWER",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_DISTRACTOR_EQUIVALENT_TO_ANSWER"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "INTEGER",
+      "category": "NUMERIC",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "INTEGER_DOT_ZERO",
+      "category": "NUMERIC",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "INTEGER_TWO_ZEROS",
+      "category": "NUMERIC",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "INTEGER_OVER_ONE",
+      "category": "NUMERIC",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "EQUIVALENT_UNREDUCED_RATIONAL",
+      "category": "NUMERIC",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "FRACTION_SYNTAX_NOT_AUTHORIZED",
+      "category": "NUMERIC",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_INVALID_SOLUTION_FORMAT",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_INVALID_SOLUTION_FORMAT"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "REDUCED_RATIONAL",
+      "category": "NUMERIC",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "UNREDUCED_RATIONAL",
+      "category": "NUMERIC",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "NEGATIVE_INTEGER_DECIMAL",
+      "category": "NUMERIC",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "ZERO",
+      "category": "NUMERIC",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "NEGATIVE_ZERO_INTEGER",
+      "category": "NUMERIC",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "NEGATIVE_ZERO",
+      "category": "NUMERIC",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "WHITESPACE",
+      "category": "NUMERIC",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "TRAILING_GARBAGE",
+      "category": "NUMERIC",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_INVALID_SOLUTION_FORMAT",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_INVALID_SOLUTION_FORMAT"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "NAN",
+      "category": "NUMERIC",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_INVALID_SOLUTION_FORMAT",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_INVALID_SOLUTION_FORMAT"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "INFINITY",
+      "category": "NUMERIC",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_INVALID_SOLUTION_FORMAT",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_INVALID_SOLUTION_FORMAT"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "ZERO_DENOMINATOR",
+      "category": "NUMERIC",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_INVALID_SOLUTION_FORMAT",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_INVALID_SOLUTION_FORMAT"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "SCIENTIFIC_NOT_AUTHORIZED",
+      "category": "NUMERIC",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_INVALID_SOLUTION_FORMAT",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_INVALID_SOLUTION_FORMAT"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "SCIENTIFIC_EXPLICITLY_AUTHORIZED",
+      "category": "NUMERIC",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "ROOTS_EXACT_INTEGER",
+      "category": "SOLUTION_SET",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "ROOTS_INTEGER_DOT_ZERO",
+      "category": "SOLUTION_SET",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "ROOTS_INTEGER_DOT_ZERO_ZERO",
+      "category": "SOLUTION_SET",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "ROOTS_INTEGER_OVER_ONE",
+      "category": "SOLUTION_SET",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "ROOTS_WITH_WHITESPACE",
+      "category": "SOLUTION_SET",
+      "expected": "ACCEPT",
+      "accepted": true,
+      "diagnostics": [],
+      "result": "EXPECTED_ACCEPTED"
+    },
+    {
+      "id": "ROOTS_MISSING",
+      "category": "SOLUTION_SET",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_MISSING_SOLUTION",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_MISSING_SOLUTION",
+        "ORACLE_AMBIGUOUS_ANSWER",
+        "ORACLE_UNSUPPORTED_CAPABILITY"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "ROOTS_EXTRANEOUS",
+      "category": "SOLUTION_SET",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_EXTRANEOUS_SOLUTION",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_EXTRANEOUS_SOLUTION"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "ROOTS_DUPLICATE_EQUIVALENT",
+      "category": "SOLUTION_SET",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_DUPLICATE_SOLUTION",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_DUPLICATE_SOLUTION"
+      ],
+      "result": "EXPECTED_REJECTED"
+    },
+    {
+      "id": "ROOTS_DECIMAL_OUTSIDE_EXACT_CONTRACT",
+      "category": "SOLUTION_SET",
+      "expected": "REJECT",
+      "expectedDiagnostic": "ORACLE_EXTRANEOUS_SOLUTION",
+      "accepted": false,
+      "diagnostics": [
+        "ORACLE_MISSING_SOLUTION",
+        "ORACLE_EXTRANEOUS_SOLUTION",
+        "ORACLE_AMBIGUOUS_ANSWER",
+        "ORACLE_UNSUPPORTED_CAPABILITY"
+      ],
+      "result": "EXPECTED_REJECTED"
+    }
+  ],
+  "totalsDerivedFromRecords": true,
+  "privateAnswersIncluded": false
+}
