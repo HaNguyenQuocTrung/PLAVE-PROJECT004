@@ -1,0 +1,1075 @@
+{
+  "schemaVersion": 1,
+  "sprint": "10D.1C",
+  "sourceCheckpoint": "3e16a3634bee4b815d683f59cfc9209c28031e24",
+  "status": "PASS",
+  "generatedAt": "2026-08-03T00:23:04.463Z",
+  "counts": {
+    "REQUIRED_SOURCE": 15,
+    "UNRELATED": 1,
+    "REQUIRED_EVIDENCE_CONTRACT": 36,
+    "GENERATED_EVIDENCE": 113,
+    "REQUIRED_DOCUMENTATION": 5,
+    "REQUIRED_TEST": 1,
+    "LOCAL_SECRET": 1,
+    "LOCAL_CACHE": 3
+  },
+  "intendedStageCount": 138,
+  "excludedChangeCount": 33,
+  "files": [
+    {
+      "path": "app/internal/generator-v2/generator-v2.module.css",
+      "status": " M",
+      "classification": "REQUIRED_SOURCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "app/internal/generator-v2/GeneratorV2LocalRunner.tsx",
+      "status": " M",
+      "classification": "REQUIRED_SOURCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/ai-tutor-acceptance/google-real-smoke.json",
+      "status": " M",
+      "classification": "UNRELATED",
+      "disposition": "EXCLUDE"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/diversity.json",
+      "status": " M",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/outcome-matrix.json",
+      "status": " M",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/report.json",
+      "status": " M",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/review-manifest.json",
+      "status": " M",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/generator-v2-wave-c/variant-registry.json",
+      "status": " M",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-browser-acceptance.json",
+      "status": " M",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-eligibility.json",
+      "status": " M",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshot-review.json",
+      "status": " M",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1280x800-algebraic_substitution-complete.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1280x800-algebraic_substitution-incorrect.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1280x800-algebraic_substitution-interaction.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1280x800-algebraic_substitution-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1280x800-experimental_probability-start.png",
+      "status": " M",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1280x800-linear_system-start.png",
+      "status": " M",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1280x800-polynomial_simplification-complete.png",
+      "status": " D",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1280x800-polynomial_simplification-incorrect.png",
+      "status": " D",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1440x900-data_error_reasoning-start.png",
+      "status": " M",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1440x900-function_graph_recognition-start.png",
+      "status": " D",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1440x900-geometry_properties-start.png",
+      "status": " M",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1440x900-polynomial_simplification-complete.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1440x900-polynomial_simplification-incorrect.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/1440x900-polynomial_simplification-interaction.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/320x568-add_sub_meaning-start.png",
+      "status": " M",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/320x568-data_classification-complete.png",
+      "status": " M",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/320x568-data_classification-incorrect.png",
+      "status": " M",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/320x568-data_classification-interaction.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/320x568-function_graph_recognition-complete.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/320x568-function_graph_recognition-incorrect.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/320x568-function_graph_recognition-negative-intercept.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/320x568-function_graph_recognition-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/320x568-practical_data_representation-complete.png",
+      "status": " D",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/320x568-practical_data_representation-incorrect.png",
+      "status": " D",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/320x568-unit_conversion-start.png",
+      "status": " M",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/390x844-perimeter_area-start.png",
+      "status": " M",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/390x844-place_value_compare-start.png",
+      "status": " M",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/390x844-power_and_root-complete.png",
+      "status": " M",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/390x844-power_and_root-incorrect.png",
+      "status": " M",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/390x844-power_and_root-interaction.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/390x844-quadratic_equation_solving-answer-set.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/390x844-quadratic_equation_solving-complete.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/390x844-quadratic_equation_solving-incorrect.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/390x844-quadratic_equation_solving-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/768x1024-chart_data_interpretation-start.png",
+      "status": " M",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/768x1024-fraction_part_whole-complete.png",
+      "status": " M",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/768x1024-fraction_part_whole-incorrect.png",
+      "status": " M",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/768x1024-fraction_part_whole-interaction.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/768x1024-fraction_part_whole-start.png",
+      "status": " M",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/768x1024-integer_number_line-start.png",
+      "status": " M",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/768x1024-practical_data_representation-complete.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/768x1024-practical_data_representation-incorrect.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-correctness-screenshots/768x1024-practical_data_representation-interaction.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-full-correctness.json",
+      "status": " M",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-oracle-dependency-audit.json",
+      "status": " M",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-oracle-mutation-tests.json",
+      "status": " M",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/generator-runtime-full-proof.json",
+      "status": " M",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-browser-acceptance.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-clean-checkout.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-finding-reconciliation.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-generator-correctness.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-oracle-independence.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-report.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-role-matrix.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-runtime-proof.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshot-review.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/ai-tutor/tutor-dialog-mobile.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/ai-tutor/tutor-error-desktop.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/ai-tutor/tutor-long-response-desktop.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/ai-tutor/tutor-response-desktop.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/ai-tutor/tutor-response-narrow-320.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/ai-tutor/tutor-stopped-mobile.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/ai-tutor/tutor-streaming-desktop.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/ai-tutor/tutor-streaming-mobile.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/ai-tutor/tutor-welcome-desktop.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/ai-tutor/tutor-welcome-mobile.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/1280x800-experimental_probability-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/1280x800-linear_system-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/1280x800-polynomial_simplification-complete.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/1280x800-polynomial_simplification-incorrect.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/1440x900-data_error_reasoning-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/1440x900-function_graph_recognition-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/1440x900-geometry_properties-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/320x568-add_sub_meaning-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/320x568-data_classification-complete.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/320x568-data_classification-incorrect.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/320x568-practical_data_representation-complete.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/320x568-practical_data_representation-incorrect.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/320x568-unit_conversion-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/390x844-perimeter_area-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/390x844-place_value_compare-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/390x844-power_and_root-complete.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/390x844-power_and_root-incorrect.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/768x1024-chart_data_interpretation-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/768x1024-fraction_part_whole-complete.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/768x1024-fraction_part_whole-incorrect.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/768x1024-fraction_part_whole-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-screenshots/generator/768x1024-integer_number_line-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "EXCLUDE_PREEXISTING_SPRINT10D_BINARY"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-secret-boundary.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d-test-evidence.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-browser-acceptance.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-failure-regressions.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-fraction-visual-validation.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-full-correctness.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-graph-validation.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-interaction-validation.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-quadratic-oracle.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-report.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-runtime-proof.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshot-review.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/1280x800-algebraic_substitution-complete.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/1280x800-algebraic_substitution-incorrect.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/1280x800-algebraic_substitution-interaction.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/1280x800-algebraic_substitution-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/1280x800-experimental_probability-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/1280x800-linear_system-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/1440x900-data_error_reasoning-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/1440x900-geometry_properties-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/1440x900-polynomial_simplification-complete.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/1440x900-polynomial_simplification-incorrect.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/1440x900-polynomial_simplification-interaction.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/320x568-add_sub_meaning-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/320x568-data_classification-complete.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/320x568-data_classification-incorrect.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/320x568-data_classification-interaction.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/320x568-function_graph_recognition-complete.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/320x568-function_graph_recognition-incorrect.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/320x568-function_graph_recognition-negative-intercept.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/320x568-function_graph_recognition-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/320x568-unit_conversion-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/390x844-perimeter_area-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/390x844-place_value_compare-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/390x844-power_and_root-complete.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/390x844-power_and_root-incorrect.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/390x844-power_and_root-interaction.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/390x844-quadratic_equation_solving-answer-set.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/390x844-quadratic_equation_solving-complete.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/390x844-quadratic_equation_solving-incorrect.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/390x844-quadratic_equation_solving-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/768x1024-chart_data_interpretation-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/768x1024-fraction_part_whole-complete.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/768x1024-fraction_part_whole-incorrect.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/768x1024-fraction_part_whole-interaction.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/768x1024-fraction_part_whole-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/768x1024-integer_number_line-start.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/768x1024-practical_data_representation-complete.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/768x1024-practical_data_representation-incorrect.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-screenshots/768x1024-practical_data_representation-interaction.png",
+      "status": "??",
+      "classification": "GENERATED_EVIDENCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1-semantic-diversity.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1c-checkpoint.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "artifacts/remediation/sprint-10d1c-classification.json",
+      "status": "??",
+      "classification": "REQUIRED_EVIDENCE_CONTRACT",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "docs/architecture/GENERATOR_V2_INDEPENDENT_ORACLE.md",
+      "status": " M",
+      "classification": "REQUIRED_DOCUMENTATION",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "docs/status/PLAVE_THREE_MILESTONE_ROADMAP.md",
+      "status": " M",
+      "classification": "REQUIRED_DOCUMENTATION",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "docs/status/SPRINT_10D_INDEPENDENT_REAUDIT.md",
+      "status": "??",
+      "classification": "REQUIRED_DOCUMENTATION",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "docs/status/SPRINT_10D1_GENERATOR_TARGETED_REMEDIATION.md",
+      "status": "??",
+      "classification": "REQUIRED_DOCUMENTATION",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "docs/status/SPRINT_10D1C_REPRODUCIBLE_CHECKPOINT.md",
+      "status": "??",
+      "classification": "REQUIRED_DOCUMENTATION",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "lib/generation-v2-oracle/index.ts",
+      "status": " M",
+      "classification": "REQUIRED_SOURCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "lib/generation-v2-oracle/oracle.ts",
+      "status": " M",
+      "classification": "REQUIRED_SOURCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "lib/generation-v2-oracle/semantic-diversity.ts",
+      "status": "??",
+      "classification": "REQUIRED_SOURCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "lib/generation-v2-oracle/types.ts",
+      "status": " M",
+      "classification": "REQUIRED_SOURCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "lib/generation-v2/answer-transport.ts",
+      "status": " M",
+      "classification": "REQUIRED_SOURCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "lib/generation-v2/fraction-visual.ts",
+      "status": "??",
+      "classification": "REQUIRED_SOURCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "lib/generation-v2/generator.ts",
+      "status": " M",
+      "classification": "REQUIRED_SOURCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "lib/generation-v2/linear-graph.ts",
+      "status": "??",
+      "classification": "REQUIRED_SOURCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "lib/generation-v2/student-runtime.ts",
+      "status": " M",
+      "classification": "REQUIRED_SOURCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "lib/generation-v2/wave-c-engine.ts",
+      "status": " M",
+      "classification": "REQUIRED_SOURCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "scripts/audit-generator-v2-independent-oracle.ts",
+      "status": " M",
+      "classification": "REQUIRED_SOURCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "scripts/audit-generator-v2-oracle-independence.ts",
+      "status": " M",
+      "classification": "REQUIRED_SOURCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "scripts/run-generator-v2-student-runtime.ts",
+      "status": " M",
+      "classification": "REQUIRED_SOURCE",
+      "disposition": "INCLUDE"
+    },
+    {
+      "path": "tests/generation-v2-sprint10d1-regressions.test.ts",
+      "status": "??",
+      "classification": "REQUIRED_TEST",
+      "disposition": "INCLUDE"
+    }
+  ],
+  "localOnly": [
+    {
+      "path": ".env.local",
+      "classification": "LOCAL_SECRET",
+      "disposition": "EXCLUDE",
+      "ignored": true,
+      "mode": "0600"
+    },
+    {
+      "path": ".next/",
+      "classification": "LOCAL_CACHE",
+      "disposition": "EXCLUDE",
+      "ignored": true
+    },
+    {
+      "path": ".next-owner-local-project004/",
+      "classification": "LOCAL_CACHE",
+      "disposition": "EXCLUDE",
+      "ignored": true
+    },
+    {
+      "path": "node_modules/",
+      "classification": "LOCAL_CACHE",
+      "disposition": "EXCLUDE",
+      "ignored": true
+    }
+  ],
+  "unknown": []
+}

@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "findingId": "F-003",
+  "result": "FAIL",
+  "fullDeterministicRun": {
+    "outcomes": 546,
+    "difficulties": 3,
+    "seedsPerDifficulty": 20,
+    "expected": 32760,
+    "attempted": 32760,
+    "unique": 32760,
+    "missing": 0,
+    "duplicate": 0,
+    "oracleReportedValidated": 32760,
+    "rawProcessExitCode": 0,
+    "injectedSingleShardFailureExitCode": 1,
+    "injectedRunValidated": 32759,
+    "injectedRunFailuresRecorded": 1
+  },
+  "knownFailureRegressions": {
+    "testsPassed": 8,
+    "testsTotal": 8,
+    "preservedOriginalEvidence": true,
+    "oldImplementationExecuted": false
+  },
+  "independentProductReview": {
+    "capabilitiesRead": 198,
+    "screenshotsVisuallyReviewed": 22,
+    "criticalDefects": 0,
+    "highDefects": 2,
+    "mediumDefects": 2
+  },
+  "defects": [
+    {
+      "id": "10D-GEN-001",
+      "severity": "HIGH",
+      "capabilityId": "FUNCTION_GRAPH_RECOGNITION",
+      "outcomeId": "MOET2018-G8-NAA-P064-012",
+      "evidence": "The Student screenshot labels the candidate y=2x+3 while the renderer draws the line through the origin. Deterministic resampling found nonzero intercepts in 58/60 samples, while the renderer uses one fixed LINE path.",
+      "impact": "Public mathematical visual contradicts its label.",
+      "recommendedFix": "Render line candidates from public slope/intercept and make the oracle compare rendered geometry with public data."
+    },
+    {
+      "id": "10D-GEN-002",
+      "severity": "HIGH",
+      "capabilityId": "ALGEBRAIC_SUBSTITUTION",
+      "outcomeId": "MOET2018-G7-NAA-P057-030",
+      "evidence": "All 40 FRACTION_INPUT samples across EASY and MEDIUM have denominator 1, while prompts ask for an integer value.",
+      "impact": "The Student interaction is needlessly and consistently mismatched to the answer form.",
+      "recommendedFix": "Select INTEGER_INPUT for integer answer domains or generate genuine rational substitutions when FRACTION_INPUT is required."
+    },
+    {
+      "id": "10D-GEN-003",
+      "severity": "MEDIUM",
+      "capabilityId": "FRACTION_PART_WHOLE",
+      "outcomeId": "MOET2018-G4-NUM-P036-018",
+      "evidence": "Prompts include a requested object color in 60/60 samples, but visual public data has no color field and the renderer uses a fixed fill; 29/60 samples explicitly request orange, purple, or yellow.",
+      "impact": "The visual can contradict descriptive prompt details.",
+      "recommendedFix": "Remove non-semantic color claims or encode and render the same canonical color."
+    },
+    {
+      "id": "10D-GEN-004",
+      "severity": "MEDIUM",
+      "capabilityId": "POLYNOMIAL_SIMPLIFICATION",
+      "outcomeId": "MOET2018-G8-NAA-P063-007",
+      "evidence": "Feedback recommends testing x=1 as verification of polynomial equivalence, which is not a sufficient symbolic-equivalence proof.",
+      "impact": "Pedagogical feedback can teach an unsafe validation rule.",
+      "recommendedFix": "Explain coefficient collection or use multiple/formal symbolic checks."
+    }
+  ],
+  "machineMetricDisproved": {
+    "reportedPromptVisualMismatches": 0,
+    "observedSemanticPromptVisualMismatches": 2,
+    "reason": "The automated gate checks structure/data consistency, not rendered semantic geometry or unencoded prompt attributes."
+  },
+  "eligibilityConclusion": "546/546 STUDENT_RUNTIME_ELIGIBLE is not independently accepted; affected capabilities must fail closed until remediated and re-audited.",
+  "privateAnswersPersistedInThisArtifact": false
+}

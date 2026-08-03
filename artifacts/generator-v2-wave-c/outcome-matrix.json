@@ -638,7 +638,6 @@
       "contractVersion": "wave-c-v2.1",
       "productFamily": "DECIMALS",
       "interactionPolicy": [
-        "INTEGER_INPUT",
         "DECIMAL_INPUT"
       ],
       "parameterBounds": {
@@ -1587,8 +1586,7 @@
       "contractVersion": "wave-c-v2.1",
       "productFamily": "FUNCTIONS",
       "interactionPolicy": [
-        "INTEGER_INPUT",
-        "FRACTION_INPUT"
+        "INTEGER_INPUT"
       ],
       "parameterBounds": {
         "minimum": -100,

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "sprint": "10D.1",
+  "sourceCheckpoint": "3e16a3634bee4b815d683f59cfc9209c28031e24",
+  "status": "PASS",
+  "beforeRepair": {
+    "command": "node --test --no-warnings --experimental-strip-types tests/generation-v2-sprint10d1-regressions.test.ts",
+    "passed": 0,
+    "failed": 5,
+    "total": 5,
+    "phase": "EXECUTED_BEFORE_SOURCE_REPAIR"
+  },
+  "afterRepair": {
+    "command": "node --test --no-warnings --experimental-strip-types tests/generation-v2-sprint10d1-regressions.test.ts",
+    "passed": 9,
+    "failed": 0,
+    "total": 9
+  },
+  "originalFailures": [
+    { "id": "10D-GEN-001", "family": "FUNCTION_GRAPH_RECOGNITION", "before": "FAIL", "after": "PASS" },
+    { "id": "10D-GEN-002", "family": "ALGEBRAIC_SUBSTITUTION", "before": "FAIL", "after": "PASS" },
+    { "id": "10D-GEN-003", "family": "FRACTION_PART_WHOLE", "before": "FAIL", "after": "PASS" },
+    { "id": "10D-ORACLE-EXTRANEOUS-ROOT", "family": "QUADRATIC_EQUATION_SOLVING", "before": "FAIL", "after": "PASS" },
+    { "id": "10D-DIVERSITY-WEAK-EVIDENCE", "family": "FULL_COVERAGE", "before": "FAIL", "after": "PASS" }
+  ],
+  "seedSpecificExceptions": 0
+}

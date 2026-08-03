@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "sprint": "10D.1",
+  "status": "PASS",
+  "capabilityId": "FRACTION_PART_WHOLE",
+  "outcomeId": "MOET2018-G4-NUM-P036-018",
+  "samples": 60,
+  "promptColorReferences": 60,
+  "matchingSemanticRegions": 60,
+  "matchingRenderedStyles": 60,
+  "promptVisualMismatch": 0,
+  "regionId": "fraction-shaded",
+  "accessibility": {
+    "colorAloneRequired": false,
+    "pattern": "DIAGONAL_STRIPES",
+    "textAlternative": true,
+    "stablePaletteMapping": true
+  },
+  "historicalUnambiguousMismatches": 29,
+  "historicalUnambiguousMismatchesRemaining": 0,
+  "browserExamples": [
+    "sprint-10d1-screenshots/768x1024-fraction_part_whole-start.png",
+    "sprint-10d1-screenshots/768x1024-fraction_part_whole-interaction.png"
+  ]
+}

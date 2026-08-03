@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "sourceCommit": "3e16a3634bee4b815d683f59cfc9209c28031e24",
+  "parentCommit": "be68da308b99ffd68136370853b52a85657fba71",
+  "trackedFiles": 1662,
+  "lockfileSha256": "a41d24905ed18a101ca38eed176c033a074ce7488c8e0bc3c5685943a90dedca",
+  "nodeVersion": "v22.16.0",
+  "npmVersion": "10.9.2",
+  "setup": {
+    "command": "npm ci --no-audit --no-fund",
+    "status": "PASS",
+    "packagesAdded": 457,
+    "mainNodeModulesCopied": false
+  },
+  "environment": {
+    "canonicalNamesInventoried": 24,
+    "configuredNames": 0,
+    "valuesRead": false,
+    "mainEnvFileRead": false
+  },
+  "verification": {
+    "typecheck": "PASS",
+    "ownerLocalTypecheck": "PASS",
+    "lint": "PASS",
+    "productionBuild": "PASS_77_OF_77",
+    "ownerLocalProductionBuild": "PASS_77_OF_77",
+    "jsonFilesParsed": 231,
+    "jsonInvalid": 0,
+    "migrations": 42,
+    "migrationRange": "0001-0042",
+    "missingRequiredFiles": []
+  },
+  "reproducible": true,
+  "remoteStateUsed": false,
+  "localOnlyStateUsed": false
+}

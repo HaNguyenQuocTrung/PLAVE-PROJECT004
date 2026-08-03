@@ -2229,13 +2229,29 @@
       "completed": true
     },
     {
+      "outcomeId": "MOET2018-G7-NAA-P057-030",
+      "capabilityId": "ALGEBRAIC_SUBSTITUTION",
+      "grade": 7,
+      "unitId": "grade-7-secondary-naa-p1-5",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "interactionTypes": [
+        "FRACTION_INPUT",
+        "INTEGER_INPUT"
+      ],
+      "resumeWithoutRegeneration": true,
+      "completed": true
+    },
+    {
       "outcomeId": "MOET2018-G8-NAA-P063-007",
       "capabilityId": "POLYNOMIAL_SIMPLIFICATION",
       "grade": 8,
       "unitId": "grade-8-secondary-naa-p1-2",
       "viewport": {
-        "width": 1280,
-        "height": 800
+        "width": 1440,
+        "height": 900
       },
       "interactionTypes": [
         "SHORT_STRUCTURED_RESPONSE"
@@ -2249,11 +2265,27 @@
       "grade": 8,
       "unitId": "grade-8-secondary-naa-p1-3",
       "viewport": {
-        "width": 1440,
-        "height": 900
+        "width": 320,
+        "height": 568
       },
       "interactionTypes": [
         "CONSTRUCTION_OR_VISUAL_SELECTION"
+      ],
+      "resumeWithoutRegeneration": true,
+      "completed": true
+    },
+    {
+      "outcomeId": "MOET2018-G9-NAA-P072-021",
+      "capabilityId": "QUADRATIC_EQUATION_SOLVING",
+      "grade": 9,
+      "unitId": "grade-9-secondary-naa-p1-5",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "interactionTypes": [
+        "INTEGER_INPUT",
+        "ORDERING"
       ],
       "resumeWithoutRegeneration": true,
       "completed": true
@@ -2264,8 +2296,8 @@
       "grade": 7,
       "unitId": "grade-7-secondary-context-p1-14",
       "viewport": {
-        "width": 320,
-        "height": 568
+        "width": 768,
+        "height": 1024
       },
       "interactionTypes": [
         "TABLE_OR_CHART_RESPONSE",
@@ -2281,36 +2313,38 @@
     "/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1mojsay._.js",
     "/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xch-cm._.js",
     "/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1xx01vv._.js",
-    "/_next/static/chunks/0e94_PLAVE-PROJECT004_app_curriculum-practice_%5BattemptId%5D_page_tsx_1w_3kue._.js",
-    "/_next/static/chunks/0e94_PLAVE-PROJECT004_app_internal_generator-v2_generator-v2_module_1o9vu5k.css",
-    "/_next/static/chunks/0e94_PLAVE-PROJECT004_app_learn_%5BgradeSlug%5D_%5BlessonSlug%5D_page_tsx_1w_3kue._.js",
-    "/_next/static/chunks/0e94_PLAVE-PROJECT004_app_learn_grade-1_numbers-to-10_page_tsx_1w_3kue._.js",
-    "/_next/static/chunks/_sprint-10b-runtime-b6f4a0a20ba3_PLAVE-PROJECT004_02kig0c._.js",
-    "/_next/static/chunks/_sprint-10b-runtime-b6f4a0a20ba3_PLAVE-PROJECT004_0o_6kjc._.js",
-    "/_next/static/chunks/_sprint-10b-runtime-b6f4a0a20ba3_PLAVE-PROJECT004_0t3fe0f._.js",
-    "/_next/static/chunks/_sprint-10b-runtime-b6f4a0a20ba3_PLAVE-PROJECT004_0z2my1n._.js",
-    "/_next/static/chunks/_sprint-10b-runtime-b6f4a0a20ba3_PLAVE-PROJECT004_1-8v0l_._.js",
-    "/_next/static/chunks/_sprint-10b-runtime-b6f4a0a20ba3_PLAVE-PROJECT004_1anvha4._.js",
-    "/_next/static/chunks/_sprint-10b-runtime-b6f4a0a20ba3_PLAVE-PROJECT004_1yj9hd_._.js",
-    "/_next/static/chunks/_sprint-10b-runtime-b6f4a0a20ba3_PLAVE-PROJECT004_app_16dkr8s._.css",
-    "/_next/static/chunks/_sprint-10b-runtime-b6f4a0a20ba3_PLAVE-PROJECT004_app_dashboard_page_tsx_1w_3kue._.js",
-    "/_next/static/chunks/_sprint-10b-runtime-b6f4a0a20ba3_PLAVE-PROJECT004_app_error_tsx_05983z8._.js",
-    "/_next/static/chunks/_sprint-10b-runtime-b6f4a0a20ba3_PLAVE-PROJECT004_app_error_tsx_1w_3kue._.js",
-    "/_next/static/chunks/_sprint-10b-runtime-b6f4a0a20ba3_PLAVE-PROJECT004_app_layout_tsx_007e4b2._.js",
-    "/_next/static/chunks/_sprint-10b-runtime-b6f4a0a20ba3_PLAVE-PROJECT004_app_lessons_page_tsx_1w_3kue._.js",
-    "/_next/static/chunks/_sprint-10b-runtime-b6f4a0a20ba3_PLAVE-PROJECT004_app_login_page_tsx_1w_3kue._.js",
+    "/_next/static/chunks/0j25_PLAVE-PROJECT004_app_curriculum-practice_%5BattemptId%5D_page_tsx_0620kk_._.js",
+    "/_next/static/chunks/0j25_PLAVE-PROJECT004_app_internal_generator-v2_generator-v2_module_16ro4_y.css",
+    "/_next/static/chunks/0j25_PLAVE-PROJECT004_app_learn_%5BgradeSlug%5D_%5BlessonSlug%5D_page_tsx_0620kk_._.js",
+    "/_next/static/chunks/0j25_PLAVE-PROJECT004_app_learn_grade-1_numbers-to-10_page_tsx_0620kk_._.js",
+    "/_next/static/chunks/_sprint-10b-runtime-2a2fdbb98f6c_PLAVE-PROJECT004_03ivsqf._.js",
+    "/_next/static/chunks/_sprint-10b-runtime-2a2fdbb98f6c_PLAVE-PROJECT004_0ujyl0j._.js",
+    "/_next/static/chunks/_sprint-10b-runtime-2a2fdbb98f6c_PLAVE-PROJECT004_1anvha4._.js",
+    "/_next/static/chunks/_sprint-10b-runtime-2a2fdbb98f6c_PLAVE-PROJECT004_1e5_t8z._.js",
+    "/_next/static/chunks/_sprint-10b-runtime-2a2fdbb98f6c_PLAVE-PROJECT004_1l64oav._.js",
+    "/_next/static/chunks/_sprint-10b-runtime-2a2fdbb98f6c_PLAVE-PROJECT004_1uh-ohn._.js",
+    "/_next/static/chunks/_sprint-10b-runtime-2a2fdbb98f6c_PLAVE-PROJECT004_20jc3hn._.js",
+    "/_next/static/chunks/_sprint-10b-runtime-2a2fdbb98f6c_PLAVE-PROJECT004_app_1lrjr8r._.css",
+    "/_next/static/chunks/_sprint-10b-runtime-2a2fdbb98f6c_PLAVE-PROJECT004_app_dashboard_page_tsx_0620kk_._.js",
+    "/_next/static/chunks/_sprint-10b-runtime-2a2fdbb98f6c_PLAVE-PROJECT004_app_error_tsx_0620kk_._.js",
+    "/_next/static/chunks/_sprint-10b-runtime-2a2fdbb98f6c_PLAVE-PROJECT004_app_error_tsx_1pw9zwf._.js",
+    "/_next/static/chunks/_sprint-10b-runtime-2a2fdbb98f6c_PLAVE-PROJECT004_app_layout_tsx_007e4b2._.js",
+    "/_next/static/chunks/_sprint-10b-runtime-2a2fdbb98f6c_PLAVE-PROJECT004_app_lessons_page_tsx_0620kk_._.js",
+    "/_next/static/chunks/_sprint-10b-runtime-2a2fdbb98f6c_PLAVE-PROJECT004_app_login_page_tsx_0620kk_._.js",
     "/_next/static/chunks/node_modules_%40swc_helpers_cjs_1r9vbqw._.js",
     "/_next/static/chunks/node_modules_next_1ka3-eu._.js",
     "/_next/static/chunks/node_modules_next_dist_1ybzpk2._.js",
     "/_next/static/chunks/node_modules_next_dist_client_0r5nbpw._.js",
-    "/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_1w_3kue.js",
+    "/_next/static/chunks/node_modules_next_dist_client_components_builtin_global-error_0620kk_.js",
     "/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js",
     "/_next/static/chunks/node_modules_next_dist_compiled_next-devtools_index_090k2jm.js",
     "/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js",
     "/_next/static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_164kp-6._.js",
-    "/_next/static/chunks/turbopack-_sprint-10b-runtime-b6f4a0a20ba3_PLAVE-PROJECT004_01_ro95._.js",
+    "/_next/static/chunks/turbopack-_sprint-10b-runtime-2a2fdbb98f6c_PLAVE-PROJECT004_01_ro95._.js",
     "/api/curriculum-runtime/answer",
     "/api/curriculum-runtime/start",
+    "/curriculum-practice/[DISPOSABLE_ATTEMPT_ID]",
+    "/curriculum-practice/[DISPOSABLE_ATTEMPT_ID]",
     "/curriculum-practice/[DISPOSABLE_ATTEMPT_ID]",
     "/curriculum-practice/[DISPOSABLE_ATTEMPT_ID]",
     "/curriculum-practice/[DISPOSABLE_ATTEMPT_ID]",
@@ -2339,11 +2373,13 @@
     "/learn/grade-6/integer-foundations-p1",
     "/learn/grade-7/data-and-probability",
     "/learn/grade-7/secondary-context-p1-14",
+    "/learn/grade-7/secondary-naa-p1-5",
     "/learn/grade-8/data-and-probability",
     "/learn/grade-8/secondary-naa-p1-2",
     "/learn/grade-8/secondary-naa-p1-3",
     "/learn/grade-9/secondary-naa-p1-2",
     "/learn/grade-9/secondary-naa-p1-4",
+    "/learn/grade-9/secondary-naa-p1-5",
     "/learn/grade-9/secondary-sta-p1-14",
     "/learning-history",
     "/learning-progress",
@@ -2355,6 +2391,7 @@
     "artifacts/remediation/generator-correctness-screenshots/390x844-place_value_compare-start.png",
     "artifacts/remediation/generator-correctness-screenshots/768x1024-fraction_part_whole-start.png",
     "artifacts/remediation/generator-correctness-screenshots/768x1024-fraction_part_whole-incorrect.png",
+    "artifacts/remediation/generator-correctness-screenshots/768x1024-fraction_part_whole-interaction.png",
     "artifacts/remediation/generator-correctness-screenshots/768x1024-fraction_part_whole-complete.png",
     "artifacts/remediation/generator-correctness-screenshots/1280x800-linear_system-start.png",
     "artifacts/remediation/generator-correctness-screenshots/1440x900-geometry_properties-start.png",
@@ -2364,15 +2401,30 @@
     "artifacts/remediation/generator-correctness-screenshots/1280x800-experimental_probability-start.png",
     "artifacts/remediation/generator-correctness-screenshots/1440x900-data_error_reasoning-start.png",
     "artifacts/remediation/generator-correctness-screenshots/320x568-data_classification-incorrect.png",
+    "artifacts/remediation/generator-correctness-screenshots/320x568-data_classification-interaction.png",
     "artifacts/remediation/generator-correctness-screenshots/320x568-data_classification-complete.png",
     "artifacts/remediation/generator-correctness-screenshots/390x844-power_and_root-incorrect.png",
+    "artifacts/remediation/generator-correctness-screenshots/390x844-power_and_root-interaction.png",
     "artifacts/remediation/generator-correctness-screenshots/390x844-power_and_root-complete.png",
     "artifacts/remediation/generator-correctness-screenshots/768x1024-integer_number_line-start.png",
-    "artifacts/remediation/generator-correctness-screenshots/1280x800-polynomial_simplification-incorrect.png",
-    "artifacts/remediation/generator-correctness-screenshots/1280x800-polynomial_simplification-complete.png",
-    "artifacts/remediation/generator-correctness-screenshots/1440x900-function_graph_recognition-start.png",
-    "artifacts/remediation/generator-correctness-screenshots/320x568-practical_data_representation-incorrect.png",
-    "artifacts/remediation/generator-correctness-screenshots/320x568-practical_data_representation-complete.png"
+    "artifacts/remediation/generator-correctness-screenshots/1280x800-algebraic_substitution-start.png",
+    "artifacts/remediation/generator-correctness-screenshots/1280x800-algebraic_substitution-incorrect.png",
+    "artifacts/remediation/generator-correctness-screenshots/1280x800-algebraic_substitution-interaction.png",
+    "artifacts/remediation/generator-correctness-screenshots/1280x800-algebraic_substitution-complete.png",
+    "artifacts/remediation/generator-correctness-screenshots/1440x900-polynomial_simplification-incorrect.png",
+    "artifacts/remediation/generator-correctness-screenshots/1440x900-polynomial_simplification-interaction.png",
+    "artifacts/remediation/generator-correctness-screenshots/1440x900-polynomial_simplification-complete.png",
+    "artifacts/remediation/generator-correctness-screenshots/320x568-function_graph_recognition-start.png",
+    "artifacts/remediation/generator-correctness-screenshots/320x568-function_graph_recognition-incorrect.png",
+    "artifacts/remediation/generator-correctness-screenshots/320x568-function_graph_recognition-negative-intercept.png",
+    "artifacts/remediation/generator-correctness-screenshots/320x568-function_graph_recognition-complete.png",
+    "artifacts/remediation/generator-correctness-screenshots/390x844-quadratic_equation_solving-start.png",
+    "artifacts/remediation/generator-correctness-screenshots/390x844-quadratic_equation_solving-incorrect.png",
+    "artifacts/remediation/generator-correctness-screenshots/390x844-quadratic_equation_solving-answer-set.png",
+    "artifacts/remediation/generator-correctness-screenshots/390x844-quadratic_equation_solving-complete.png",
+    "artifacts/remediation/generator-correctness-screenshots/768x1024-practical_data_representation-incorrect.png",
+    "artifacts/remediation/generator-correctness-screenshots/768x1024-practical_data_representation-interaction.png",
+    "artifacts/remediation/generator-correctness-screenshots/768x1024-practical_data_representation-complete.png"
   ],
   "screenshotReview": "PASS",
   "concurrency": {
@@ -2413,13 +2465,13 @@
   "database": {
     "freshSchema": "0001-0042",
     "migrations": 42,
-    "attempts": 215,
-    "completedAttempts": 215,
-    "generatedQuestions": 2580,
-    "privateSolutions": 2580,
-    "answers": 2580,
-    "provenance8of8Rows": 2580,
-    "generatedV2Rows": 2580,
+    "attempts": 217,
+    "completedAttempts": 217,
+    "generatedQuestions": 2604,
+    "privateSolutions": 2604,
+    "answers": 2604,
+    "provenance8of8Rows": 2604,
+    "generatedV2Rows": 2604,
     "orphans": 0,
     "rollback": "PASS"
   },

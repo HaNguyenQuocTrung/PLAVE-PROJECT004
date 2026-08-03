@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "sprint": "10D.1",
+  "status": "PASS",
+  "evidenceBoundary": "SANITIZED_PUBLIC_PROBLEM_MODEL_ONLY",
+  "batches": 1638,
+  "samplesPerBatch": 20,
+  "threshold": 0.12,
+  "maximumNearDuplicatePairRate": 0.03684210526315789,
+  "failedBatches": 0,
+  "exactDuplicates": 0,
+  "topologyExpectations": { "constrainedTopology": 1220, "multipleStructuralForms": 418 },
+  "dimensions": {
+    "lexicalDiversity": { "minimum": 11, "maximum": 20, "sumAcrossBatches": 32586 },
+    "parameterDiversity": { "minimum": 1, "maximum": 20, "sumAcrossBatches": 31193 },
+    "structuralDiversity": { "minimum": 1, "maximum": 8, "sumAcrossBatches": 2552 },
+    "contextualDiversity": { "minimum": 1, "maximum": 20, "sumAcrossBatches": 25812 },
+    "visualInteractionDiversity": { "minimum": 1, "maximum": 9, "sumAcrossBatches": 2012 }
+  },
+  "pairClassification": {
+    "EXACT_DUPLICATE": 0,
+    "SURFACE_VARIATION_ONLY": 115,
+    "PARAMETER_VARIATION": 24321,
+    "STRUCTURAL_MATHEMATICAL_VARIATION": 50517,
+    "CONTEXTUAL_VARIATION": 235809,
+    "INTERACTION_VISUAL_VARIATION": 458
+  },
+  "signatureDimensions": [
+    "outcome/capability family",
+    "mathematical AST/topology",
+    "operator and unknown position",
+    "constraint structure",
+    "parameter and answer-form buckets",
+    "context/scenario family",
+    "interaction and visual topology",
+    "misconception/distractor family",
+    "difficulty dimensions"
+  ],
+  "numericPromptNormalizationIsSoleEvidence": false
+}

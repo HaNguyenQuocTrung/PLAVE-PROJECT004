@@ -116,7 +116,7 @@
     "publicBoundary": "PASS",
     "deterministicReplay": "PASS",
     "exactDuplicates": 0,
-    "maximumNearDuplicatePairRate": 0.09473684210526316,
+    "maximumNearDuplicatePairRate": 0.06315789473684211,
     "difficultyStructuralGates": "PASS",
     "multidimensionalDiversity": "PASS",
     "persistenceAdapterProofs": 171,

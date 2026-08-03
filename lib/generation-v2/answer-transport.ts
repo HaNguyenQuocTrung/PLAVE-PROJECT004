@@ -38,6 +38,46 @@ export function serializeGeneratorV2DatabaseAnswer(
   return JSON.stringify(response);
 }
 
+export function isGeneratorV2DatabaseAnswerCompatible(
+  interaction: ProductInteractionContract,
+  stored: string,
+) {
+  const scalarInteger = /^[+-]?\d+$/u;
+  const scalarDecimal = /^[+-]?(?:\d+(?:[.,]\d+)?|[.,]\d+)$/u;
+  if (interaction.type === "INTEGER_INPUT") return scalarInteger.test(stored.trim());
+  if (interaction.type === "DECIMAL_INPUT") return scalarDecimal.test(stored.trim());
+  if (interaction.type === "TABLE_OR_CHART_RESPONSE" || interaction.type === "SHORT_STRUCTURED_RESPONSE") return stored.trim().length > 0;
+  if (interaction.type === "SINGLE_CHOICE" || interaction.type === "CONSTRUCTION_OR_VISUAL_SELECTION") {
+    return interaction.options?.length === 4
+      ? legacyChoiceKeys.includes(stored as (typeof legacyChoiceKeys)[number])
+      : Boolean(interaction.options?.some((option) => option.id === stored));
+  }
+  try {
+    const parsed = JSON.parse(stored) as unknown;
+    if (interaction.type === "FRACTION_INPUT") {
+      const fraction = parsed && typeof parsed === "object" && !Array.isArray(parsed)
+        ? parsed as Readonly<Record<string, unknown>>
+        : null;
+      return Boolean(
+        fraction &&
+        Object.keys(fraction).sort().join(",") === "denominator,numerator" &&
+        Number.isSafeInteger(Number(fraction.numerator)) &&
+        Number.isSafeInteger(Number(fraction.denominator)) &&
+        Number(fraction.denominator) !== 0,
+      );
+    }
+    if (interaction.type === "ORDERING" || interaction.type === "MULTI_SELECT") {
+      return Array.isArray(parsed) && parsed.every((item) => typeof item === "string");
+    }
+    if (interaction.type === "MATCHING") {
+      return Array.isArray(parsed) && parsed.every((item) => item && typeof item === "object" && !Array.isArray(item) && typeof item.leftId === "string" && typeof item.rightId === "string");
+    }
+  } catch {
+    return false;
+  }
+  return true;
+}
+
 export function displayGeneratorV2DatabaseAnswer(
   interaction: ProductInteractionContract,
   stored: string,

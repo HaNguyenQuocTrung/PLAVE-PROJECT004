@@ -3,8 +3,8 @@
   "sprint": "10C",
   "result": "PASS",
   "mutationScore": 1,
-  "killed": 7,
-  "total": 7,
+  "killed": 12,
+  "total": 12,
   "privateAnswersPersisted": false,
   "mutations": [
     {
@@ -65,6 +65,56 @@
       "detected": true,
       "observedDiagnostics": [
         "ORACLE_INTERACTION_MISMATCH"
+      ]
+    },
+    {
+      "id": "ADD_EXTRANEOUS_QUADRATIC_SOLUTION",
+      "expectedDiagnostic": "ORACLE_EXTRANEOUS_SOLUTION",
+      "detected": true,
+      "observedDiagnostics": [
+        "ORACLE_EXTRANEOUS_SOLUTION"
+      ]
+    },
+    {
+      "id": "REMOVE_REQUIRED_QUADRATIC_SOLUTION",
+      "expectedDiagnostic": "ORACLE_MISSING_SOLUTION",
+      "detected": true,
+      "observedDiagnostics": [
+        "ORACLE_MISSING_SOLUTION",
+        "ORACLE_AMBIGUOUS_ANSWER",
+        "ORACLE_UNSUPPORTED_CAPABILITY"
+      ]
+    },
+    {
+      "id": "DUPLICATE_QUADRATIC_SOLUTION",
+      "expectedDiagnostic": "ORACLE_DUPLICATE_SOLUTION",
+      "detected": true,
+      "observedDiagnostics": [
+        "ORACLE_DISTRACTOR_DUPLICATE",
+        "ORACLE_DUPLICATE_SOLUTION",
+        "ORACLE_AMBIGUOUS_ANSWER",
+        "ORACLE_UNSUPPORTED_CAPABILITY"
+      ]
+    },
+    {
+      "id": "INVALID_QUADRATIC_SOLUTION_FORMAT",
+      "expectedDiagnostic": "ORACLE_INVALID_SOLUTION_FORMAT",
+      "detected": true,
+      "observedDiagnostics": [
+        "ORACLE_INVALID_SOLUTION_FORMAT",
+        "ORACLE_MISSING_SOLUTION",
+        "ORACLE_AMBIGUOUS_ANSWER",
+        "ORACLE_UNSUPPORTED_CAPABILITY"
+      ]
+    },
+    {
+      "id": "INVALID_QUADRATIC_DOMAIN",
+      "expectedDiagnostic": "ORACLE_DOMAIN_VIOLATION",
+      "detected": true,
+      "observedDiagnostics": [
+        "ORACLE_DOMAIN_VIOLATION",
+        "ORACLE_AMBIGUOUS_ANSWER",
+        "ORACLE_UNSUPPORTED_CAPABILITY"
       ]
     }
   ]

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "summary": {
+    "passed": 24,
+    "failed": 2,
+    "blocked": 2
+  },
+  "gates": [
+    {"name": "fresh lockfile install", "command": "npm ci --no-audit --no-fund", "status": "PASS", "classification": "STRUCTURAL_EVIDENCE"},
+    {"name": "secret boundary canary", "command": "npm run --silent security:secret-boundary", "status": "PASS", "classification": "RUNTIME_EVIDENCE"},
+    {"name": "canonical typecheck", "command": "npm run --silent typecheck", "status": "PASS", "classification": "STRUCTURAL_EVIDENCE"},
+    {"name": "owner-local typecheck", "command": "tsc --noEmit --project tsconfig.owner-local.json", "status": "PASS", "classification": "STRUCTURAL_EVIDENCE"},
+    {"name": "lint", "command": "npm run --silent lint", "status": "PASS", "classification": "REGRESSION_ONLY"},
+    {"name": "production build", "command": "npm run --silent build", "status": "PASS_77_OF_77", "classification": "STRUCTURAL_EVIDENCE"},
+    {"name": "owner-local production build", "command": "PLAVE_OWNER_LOCAL_DEMO=true npm run build", "status": "PASS_77_OF_77", "classification": "STRUCTURAL_EVIDENCE"},
+    {"name": "Practice", "command": "npm run --silent test:practice", "status": "PASS_550_OF_550", "classification": "REGRESSION_ONLY"},
+    {"name": "Generator core", "command": "npm run --silent test:generation-v2", "status": "PASS_10_OF_10", "classification": "REGRESSION_ONLY"},
+    {"name": "generated persistence", "command": "npm run --silent test:generation-v2-persistence", "status": "PASS_7_OF_7", "classification": "RUNTIME_EVIDENCE"},
+    {"name": "curriculum", "command": "npm run --silent test:curriculum", "status": "PASS_9_OF_9", "classification": "REGRESSION_ONLY"},
+    {"name": "universal curriculum", "command": "npm run --silent test:universal-curriculum", "status": "PASS_21_OF_21", "classification": "REGRESSION_ONLY"},
+    {"name": "competency", "command": "canonical competency path and UI suites", "status": "PASS_10_OF_10", "classification": "REGRESSION_ONLY"},
+    {"name": "UI/UX", "command": "npm run --silent test:uiux", "status": "PASS_13_OF_13", "classification": "REGRESSION_ONLY"},
+    {"name": "parent/teacher client runtime", "command": "npm run --silent test:parent-teacher-client-runtime", "status": "PASS_2_OF_2", "classification": "REGRESSION_ONLY"},
+    {"name": "AI Tutor", "command": "canonical, quality and local-runtime suites", "status": "PASS_40_OF_40", "classification": "REGRESSION_ONLY"},
+    {"name": "owner-local contract", "command": "npm run --silent test:owner-local-demo", "status": "PASS_14_OF_14", "classification": "REGRESSION_ONLY"},
+    {"name": "curriculum generation inventory", "command": "npm run --silent test:curriculum-generation", "status": "PASS_1_OF_1", "classification": "STRUCTURAL_EVIDENCE"},
+    {"name": "Generator database proof contract", "command": "npm run --silent test:generation-v2-database-proof", "status": "PASS_3_OF_3", "classification": "STRUCTURAL_EVIDENCE"},
+    {"name": "existing oracle suite", "command": "npm run --silent test:generation-v2-oracle", "status": "PASS_DEPENDENCY_7_MUTATIONS_8_KNOWN_FAILURE_TESTS", "classification": "STRUCTURAL_EVIDENCE"},
+    {"name": "full correctness raw command", "command": "npm run --silent audit:generator-v2-independent-oracle", "status": "PASS_32760_OF_32760_RAW", "classification": "WEAK_OR_MISLEADING_EVIDENCE", "note": "Independent falsification found an oracle false negative."},
+    {"name": "audit-time oracle falsification", "command": "temporary public-candidate mutation harness", "status": "FAIL_10_OF_11_KILLED", "classification": "PRODUCT_EVIDENCE"},
+    {"name": "authenticated full capability runtime", "command": "npm run --silent acceptance:generator-v2-correctness-runtime", "status": "PASS_198_OF_198", "classification": "RUNTIME_EVIDENCE"},
+    {"name": "Generator screenshot semantic review", "command": "fresh Playwright screenshots plus manual review", "status": "FAIL_PROMPT_VISUAL_AND_INTERACTION_DEFECTS", "classification": "PRODUCT_EVIDENCE"},
+    {"name": "AI Tutor browser acceptance", "command": "npm run --silent acceptance:ai-tutor-local", "status": "PASS_3_OF_3_VIEWPORTS", "classification": "RUNTIME_EVIDENCE"},
+    {"name": "JSON validation", "command": "parse canonical artifacts and config JSON", "status": "PASS_231_OF_231", "classification": "STRUCTURAL_EVIDENCE"},
+    {"name": "npm audit", "command": "npm audit --audit-level=moderate --omit=dev", "status": "BLOCKED_ENOTFOUND_REGISTRY_NPMJS_ORG", "classification": "BLOCKED", "lastVerified": "0 vulnerabilities on 2026-08-01"},
+    {"name": "sitewide static/Parent/Teacher browser", "command": "acceptance:v2-sitewide", "status": "BLOCKED_ISOLATED_OWNER_PROFILE_UNCONFIGURED", "classification": "BLOCKED", "note": "The checkpoint override prohibited using the main .env.local or Owner runtime."}
+  ],
+  "evidenceQualityConclusion": "Runtime integration is strong evidence; the full correctness and screenshot self-attestation claims are not sufficient product evidence.",
+  "warningsObserved": [
+    "ExperimentalWarning: Type Stripping",
+    "MODULE_TYPELESS_PACKAGE_JSON"
+  ]
+}

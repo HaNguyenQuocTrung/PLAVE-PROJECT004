@@ -96,6 +96,9 @@ const entryByCapability = new Map(
 const interactionReviewCapabilities = [
   "POWER_AND_ROOT",
   "FRACTION_PART_WHOLE",
+  "FUNCTION_GRAPH_RECOGNITION",
+  "ALGEBRAIC_SUBSTITUTION",
+  "QUADRATIC_EQUATION_SOLVING",
   "DATA_CLASSIFICATION",
   "PRACTICAL_DATA_REPRESENTATION",
   "POLYNOMIAL_SIMPLIFICATION",
@@ -129,6 +132,10 @@ if (fullCorrectnessScope) {
     ) {
       visualReviewIds.add(mapped.entry.outcomeId);
     }
+  }
+  for (const capabilityId of ["FRACTION_PART_WHOLE", "FUNCTION_GRAPH_RECOGNITION", "ALGEBRAIC_SUBSTITUTION", "QUADRATIC_EQUATION_SOLVING"]) {
+    const outcomeId = entryByCapability.get(capabilityId)?.entry.outcomeId;
+    if (outcomeId) visualReviewIds.add(outcomeId);
   }
 }
 const browserReviewIds = new Set([
@@ -611,16 +618,39 @@ function targetIdempotencyKey(
 ) {
   for (let attempt = 0; attempt < 10_000; attempt += 1) {
     const key = randomUUID();
-    if (
-      selectedOutcomeForKey(studentId, mapped.unit.unitId, key) ===
-      mapped.entry.outcomeId
-    ) {
+    if (selectedOutcomeForKey(studentId, mapped.unit.unitId, key) === mapped.entry.outcomeId) {
+      if (mapped.entry.variantId === "FUNCTION_GRAPH_RECOGNITION") {
+        const first = generatedAt(mapped.entry, studentId, key, 1).publicSnapshot.visual.data.candidateGraphs;
+        const medium = generatedAt(mapped.entry, studentId, key, 5).publicSnapshot.visual.data.candidateGraphs;
+        const firstLine = publicLineCandidate(first);
+        const mediumLine = publicLineCandidate(medium);
+        if (Number(firstLine?.slope) !== 2 || Number(firstLine?.intercept) !== 3 || Number(mediumLine?.intercept) >= 0) continue;
+      }
       return key;
     }
   }
   throw new ProofFailure(
     `OUTCOME_SELECTION_KEY_UNRESOLVED_${mapped.entry.variantId}`,
   );
+}
+
+function publicLineCandidate(value: unknown) {
+  if (!Array.isArray(value)) return null;
+  for (const candidate of value as unknown[]) {
+    if (typeof candidate !== "object" || candidate === null || Array.isArray(candidate)) continue;
+    const record = candidate as Readonly<Record<string, unknown>>;
+    if (
+      record.kind === "LINE" &&
+      Number.isFinite(Number(record.slope)) &&
+      Number.isFinite(Number(record.intercept))
+    ) {
+      return {
+        slope: Number(record.slope),
+        intercept: Number(record.intercept),
+      };
+    }
+  }
+  return null;
 }
 
 function generatedAt(entry: (typeof entries)[number]["entry"], studentId: string, key: string, position: number) {
@@ -941,9 +971,10 @@ async function runStudentJourneys(input: {
         await submitUi(page, question, responseValue);
         if (
           interactionReviewIds.has(mapped.entry.outcomeId) &&
-          (position === 1 || position === 12)
+          (position === 1 || position === 5 || position === 12)
         ) {
-          screenshots.push(await capture(page, `${viewport.width}x${viewport.height}-${mapped.entry.variantId.toLowerCase()}-${position === 1 ? "incorrect" : position === 12 ? "complete" : "interaction"}.png`));
+          const state = position === 1 ? "incorrect" : position === 12 ? "complete" : mapped.entry.variantId === "FUNCTION_GRAPH_RECOGNITION" ? "negative-intercept" : mapped.entry.variantId === "QUADRATIC_EQUATION_SOLVING" ? "answer-set" : "interaction";
+          screenshots.push(await capture(page, `${viewport.width}x${viewport.height}-${mapped.entry.variantId.toLowerCase()}-${state}.png`));
         }
         await inspectPage(page);
         if (position < 12) {

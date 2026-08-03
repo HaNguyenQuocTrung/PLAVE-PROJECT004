@@ -17,6 +17,7 @@ import {
   SOLVER_VERSION,
   VARIANT_VERSION,
 } from "./types.ts";
+import { DEFAULT_LINEAR_GRAPH_WINDOW, plotLinearEquation } from "./linear-graph.ts";
 import {
   WAVE_C_ENGINE_VERSION,
   type WaveCOutcomeContract,
@@ -672,7 +673,34 @@ function visualFor(m: WaveCNormalizedProblemModel): ProductVisual {
     const values = v.length ? v : r.map((value) => value.numerator / value.denominator); const minimum = Math.min(...values, -1); const maximum = Math.max(...values, 1);
     return { type: "NUMBER_LINE", description: "Trục số dùng cùng mốc và chiều với bài toán.", data: { values, minimum, maximum, marked: values[0] ?? 0, relation: m.meta.relation ?? null } };
   }
-  if (m.variantId === "FUNCTION_GRAPH_RECOGNITION") return { type: "COORDINATE_GRAPH", description: "Bốn hình ứng viên để kiểm tra bằng đường thẳng đứng.", data: { graphKind: m.variantId, candidateGraphs: [{ id: "graph-function", label: `y=${v[0]}x${v[1]! >= 0 ? "+" : ""}${v[1]}`, kind: "LINE", slope: v[0], intercept: v[1] }, { id: "graph-circle", label: "Đường tròn", kind: "CIRCLE" }, { id: "graph-sideways", label: "Parabol nằm ngang", kind: "SIDEWAYS_PARABOLA" }, { id: "graph-vertical", label: "x=2", kind: "VERTICAL_LINE" }] } };
+  if (m.variantId === "FUNCTION_GRAPH_RECOGNITION") {
+    const slope = v[0]!;
+    const intercept = v[1]!;
+    const window = DEFAULT_LINEAR_GRAPH_WINDOW;
+    return {
+      type: "COORDINATE_GRAPH",
+      description: `Bốn hình ứng viên; đường thẳng hàm số có phương trình y=${slope}x${intercept >= 0 ? "+" : ""}${intercept}, với giao điểm trục tung ${intercept}.`,
+      data: {
+        graphKind: m.variantId,
+        axes: { x: 0, y: 0 },
+        candidateGraphs: [
+          {
+            id: "graph-function",
+            label: `y=${slope}x${intercept >= 0 ? "+" : ""}${intercept}`,
+            kind: "LINE",
+            equation: { slope, intercept },
+            slope,
+            intercept,
+            window,
+            plottedPoints: plotLinearEquation(slope, intercept, window),
+          },
+          { id: "graph-circle", label: "Đường tròn", kind: "CIRCLE" },
+          { id: "graph-sideways", label: "Parabol nằm ngang", kind: "SIDEWAYS_PARABOLA" },
+          { id: "graph-vertical", label: "x=2", kind: "VERTICAL_LINE" },
+        ],
+      },
+    };
+  }
   if (["QUADRATIC_MODELING", "QUADRATIC_GRAPH_SYMMETRY", "LINEAR_SYSTEM_SOLUTION_CHECK"].includes(m.variantId)) {
     const coefficients = m.variantId === "QUADRATIC_MODELING" ? [v[0]!, -v[0]! * (v[1]! + v[2]!), v[0]! * v[1]! * v[2]!] : v.slice(0, 3);
     return { type: "COORDINATE_GRAPH", description: "Hệ trục tọa độ dùng cùng hệ số và dữ kiện với đề bài.", data: { graphKind: m.variantId, coefficients, roots: m.variantId === "QUADRATIC_MODELING" ? [v[1], v[2]] : null, system: m.variantId === "LINEAR_SYSTEM_SOLUTION_CHECK" ? v.slice(0, 6) : null, solution: m.variantId === "LINEAR_SYSTEM_SOLUTION_CHECK" ? [v[6], v[7]] : null, axis: m.variantId === "QUADRATIC_GRAPH_SYMMETRY" ? v[3] : null } };
@@ -691,6 +719,47 @@ function interactionFor(m: WaveCNormalizedProblemModel, solution: WaveCSolution,
   return { type: "INTEGER_INPUT", inputLabel: "Kết quả", inputMode: "numeric" };
 }
 
+function reducedAnswerDenominator(answer: CanonicalResponse): number | null {
+  if (typeof answer === "number") return Number.isInteger(answer) ? 1 : null;
+  if (
+    typeof answer === "object" &&
+    answer !== null &&
+    !Array.isArray(answer) &&
+    "numerator" in answer &&
+    "denominator" in answer
+  ) {
+    const numerator = Number(answer.numerator);
+    const denominator = Number(answer.denominator);
+    if (!Number.isInteger(numerator) || !Number.isInteger(denominator) || denominator === 0) return null;
+    return reduce(numerator, denominator).denominator;
+  }
+  return null;
+}
+
+function answerDrivenModel(
+  contract: WaveCOutcomeContract,
+  modelValue: WaveCNormalizedProblemModel,
+  draftSolution: WaveCSolution,
+): WaveCNormalizedProblemModel {
+  const denominator = reducedAnswerDenominator(draftSolution.correct);
+  if (
+    denominator === 1 &&
+    modelValue.interactionType === "FRACTION_INPUT" &&
+    contract.interactionPolicy.includes("INTEGER_INPUT")
+  ) {
+    return { ...modelValue, interactionType: "INTEGER_INPUT" };
+  }
+  if (
+    denominator !== null &&
+    denominator > 1 &&
+    modelValue.interactionType === "INTEGER_INPUT" &&
+    contract.interactionPolicy.includes("FRACTION_INPUT")
+  ) {
+    return { ...modelValue, interactionType: "FRACTION_INPUT" };
+  }
+  return modelValue;
+}
+
 function validateModel(contract: WaveCOutcomeContract, m: WaveCNormalizedProblemModel, solution: WaveCSolution, prompt: string, interaction: ProductInteractionContract, visual: ProductVisual) {
   if (m.outcomeId !== contract.outcomeId || m.grade !== contract.grade || m.variantId !== contract.canonicalVariantId || m.engineVersion !== WAVE_C_ENGINE_VERSION) throw new GenerationV2Error("VALIDATION_FAILED");
   if (prompt !== promptFor(m)) throw new GenerationV2Error("VALIDATION_FAILED");
@@ -701,6 +770,10 @@ function validateModel(contract: WaveCOutcomeContract, m: WaveCNormalizedProblem
   const recomputed = solveModel(m);
   if (normalize(recomputed.correct) !== normalize(solution.correct)) throw new GenerationV2Error("VALIDATION_FAILED");
   if (interaction.type !== m.interactionType) throw new GenerationV2Error("VALIDATION_FAILED");
+  if (!contract.interactionPolicy.includes(interaction.type)) throw new GenerationV2Error("VALIDATION_FAILED");
+  const denominator = reducedAnswerDenominator(solution.correct);
+  if (denominator === 1 && interaction.type === "FRACTION_INPUT" && contract.interactionPolicy.includes("INTEGER_INPUT")) throw new GenerationV2Error("VALIDATION_FAILED");
+  if (denominator !== null && denominator > 1 && interaction.type === "INTEGER_INPUT") throw new GenerationV2Error("VALIDATION_FAILED");
   if (interaction.options) {
     const ids = interaction.options.map((option) => option.id); const labels = interaction.options.map((option) => option.label);
     if (new Set(ids).size !== ids.length || new Set(labels).size !== labels.length) throw new GenerationV2Error("VALIDATION_FAILED");
@@ -733,7 +806,8 @@ function publicValuesFor(model: WaveCNormalizedProblemModel): readonly number[] 
 export function generateWaveCQuestion(contract: WaveCOutcomeContract, input: GenerateQuestionInput): GeneratedProductQuestion {
   if (contract.grade !== input.grade) throw new GenerationV2Error("GRADE_MISMATCH");
   const random = new Random(`${contract.outcomeId}:${input.difficulty}:${input.seed}`);
-  const normalizedModel = buildModel(contract, input, random);
+  const builtModel = buildModel(contract, input, random);
+  const normalizedModel = answerDrivenModel(contract, builtModel, solveModel(builtModel));
   const solution = solveModel(normalizedModel);
   const prompt = promptFor(normalizedModel);
   const visual = visualFor(normalizedModel);
@@ -769,7 +843,8 @@ export function generateWaveCQuestion(contract: WaveCOutcomeContract, input: Gen
 export const __waveCNegativeControl = {
   inspect(contract: WaveCOutcomeContract, input: GenerateQuestionInput) {
     const random = new Random(`${contract.outcomeId}:${input.difficulty}:${input.seed}`);
-    const normalizedModel = buildModel(contract, input, random);
+    const builtModel = buildModel(contract, input, random);
+    const normalizedModel = answerDrivenModel(contract, builtModel, solveModel(builtModel));
     const solution = solveModel(normalizedModel);
     const prompt = promptFor(normalizedModel);
     const visual = visualFor(normalizedModel);

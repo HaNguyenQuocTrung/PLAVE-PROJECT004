@@ -26,6 +26,7 @@ import {
   validateGeneratorV2StudentRuntimePolicy,
 } from "./student-runtime-policy.ts";
 import { formatGeneratorV2StudentCorrectAnswer } from "./student-answer-display.ts";
+import { isGeneratorV2DatabaseAnswerCompatible } from "./answer-transport.ts";
 import type { ProductDifficulty } from "./types.ts";
 
 type StudentAccess = Extract<
@@ -416,6 +417,19 @@ export async function submitStudentGeneratorV2Answer(input: {
 }): Promise<StudentGeneratorRuntimeResult> {
   const before = await loadStudentGeneratedPracticeState(input);
   if (!before.ok) return before;
+  const submittedQuestion =
+    before.state.currentQuestion?.questionId === input.questionId
+      ? before.state.currentQuestion
+      : null;
+  if (
+    submittedQuestion?.generatorV2 &&
+    !isGeneratorV2DatabaseAnswerCompatible(
+      submittedQuestion.generatorV2.interaction,
+      input.answer,
+    )
+  ) {
+    return { ok: false, code: "INVALID_REQUEST" };
+  }
   const { data, error } = await input.access.supabase.rpc(
     "submit_generated_curriculum_answer",
     {
@@ -445,10 +459,6 @@ export async function submitStudentGeneratorV2Answer(input: {
   const publicState = state && state.grade === input.access.grade
     ? toStudentGeneratedRuntimeState(state)
     : null;
-  const submittedQuestion =
-    before.state.currentQuestion?.questionId === input.questionId
-      ? before.state.currentQuestion
-      : null;
   const responseState =
     publicState?.feedback && submittedQuestion?.generatorV2
       ? {

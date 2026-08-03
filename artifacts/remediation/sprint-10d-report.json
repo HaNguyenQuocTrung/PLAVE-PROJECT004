@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-02T23:06:39Z",
+  "sprint": "10D",
+  "verdict": "SPRINT_10D_REAUDIT_FAIL — EXACT CRITICAL/HIGH FINDINGS REQUIRE REMEDIATION",
+  "auditMode": "READ_ONLY_ACCEPTANCE",
+  "source": {
+    "commit": "3e16a3634bee4b815d683f59cfc9209c28031e24",
+    "parent": "be68da308b99ffd68136370853b52a85657fba71",
+    "commitMessage": "checkpoint: integrate Generator V2 student runtime and independent oracle",
+    "cleanWorktree": "/private/tmp/plave-sprint10d.JN8Fx6/PLAVE-PROJECT004",
+    "checkpointOverrideHonored": true,
+    "mainWorkingTreeUsedAsEvidence": false,
+    "ownerTutorProcessUsed": false,
+    "localEnvironmentFileRead": false,
+    "unstagedGoogleSmokeRead": false
+  },
+  "findingCounts": {
+    "original": {
+      "critical": 1,
+      "high": 5,
+      "medium": 6,
+      "low": 3,
+      "total": 15
+    },
+    "currentRequiringRemediation": {
+      "critical": 0,
+      "high": 2,
+      "medium": 4,
+      "low": 2
+    },
+    "currentResults": {
+      "resolved": 7,
+      "partiallyResolved": 3,
+      "unresolved": 4,
+      "blocked": 1
+    }
+  },
+  "unresolvedCriticalHigh": [
+    {
+      "findingId": "F-003",
+      "result": "UNRESOLVED",
+      "reason": "Fresh Student-runtime screenshots and deterministic sampling disprove interaction and prompt/visual consistency claims."
+    },
+    {
+      "findingId": "F-005",
+      "result": "PARTIALLY_RESOLVED",
+      "reason": "Dependency separation exists, but audit-time falsification added an extraneous algebra solution and the oracle returned ok=true with no diagnostic; semantic diversity remains prompt-number normalization."
+    }
+  ],
+  "confirmedResolutions": [
+    "F-001",
+    "F-002",
+    "F-004",
+    "F-006",
+    "F-007",
+    "F-008",
+    "F-014"
+  ],
+  "generator": {
+    "rawFullCommand": {
+      "attempted": 32760,
+      "unique": 32760,
+      "oracleReportedValidated": 32760,
+      "reportedFailures": 0,
+      "processExit": 0
+    },
+    "studentRuntime": {
+      "capabilitiesAttempted": 198,
+      "capabilitiesPassed": 198,
+      "internalRoutesUsed": 0,
+      "authenticatedPublicSurface": true,
+      "databaseCleanup": "PASS"
+    },
+    "independentReviewVerdict": "FAIL",
+    "productDefects": 3,
+    "oracleFalsificationKilled": 10,
+    "oracleFalsificationTotal": 11
+  },
+  "aiTutor": {
+    "findingF007": "RESOLVED",
+    "providerMode": "DETERMINISTIC_LOCAL",
+    "paidRequests": 0,
+    "viewportsPassed": 3,
+    "touchTargetMinimumCssPx": 44,
+    "consoleHydrationPageOverflowPrivateLeakFailures": 0,
+    "documentedPersistenceLimitation": "NO_CONVERSATION_SCHEMA"
+  },
+  "gates": {
+    "passed": 24,
+    "failed": 2,
+    "blocked": 2,
+    "npmAudit": "UNVERIFIED_ENVIRONMENT_BLOCKED_ENOTFOUND",
+    "npmAuditLastVerified": "0 vulnerabilities on 2026-08-01"
+  },
+  "screenshots": {
+    "createdOrRegenerated": 32,
+    "visuallyReviewed": 32,
+    "consoleErrors": 0,
+    "hydrationErrors": 0,
+    "pageErrors": 0,
+    "automatedOverflowErrors": 0,
+    "semanticPromptVisualDefects": 2,
+    "criticalIssues": 0,
+    "highIssues": 1
+  },
+  "milestones": {
+    "milestone1": "COMPLETE_OWNER_APPROVED",
+    "milestone2": "REOPENED_CORRECTNESS_REMEDIATION",
+    "milestone3": "REOPENED_SECURITY_AND_REPRODUCIBILITY_REMEDIATION",
+    "ownerApprovalsChanged": false,
+    "note": "The read-only audit does not restore a milestone. Tutor/security remediation gates passed, but the overall 10D verdict is FAIL."
+  },
+  "mutations": {
+    "source": 0,
+    "git": 0,
+    "remote": 0,
+    "databaseRemote": 0,
+    "paidProviderRequests": 0
+  },
+  "cleanup": {
+    "auditServers": "STOPPED",
+    "disposableDatabase": "CLEANED",
+    "injectionWorkspace": "REMOVED",
+    "mainWorkingTreePreserved": true,
+    "ownerTutorPreservedWithoutInspection": true
+  }
+}

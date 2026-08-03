@@ -14,3 +14,4 @@
 .numberLine span::after{left:var(--marker-position,50%)}
 .ordering button{min-width:44px}
 .banknote{display:grid;place-items:center;gap:8px;width:min(100%,430px);min-height:170px;margin:auto;padding:24px;border:4px double #1769e0;border-radius:18px;background:linear-gradient(135deg,#e8f8f2,#eaf3ff);color:#0b4c8c;text-align:center}.banknote span{font-size:.78rem;font-weight:800;letter-spacing:.06em}.banknote strong{font-size:clamp(2rem,8vw,3.5rem);line-height:1}.banknote b{letter-spacing:.12em}
+.fractionModel .filled{background-color:var(--fraction-fill,#47c2b1);background-image:var(--fraction-pattern,none)}

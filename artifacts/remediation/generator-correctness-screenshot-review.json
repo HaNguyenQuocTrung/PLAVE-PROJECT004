@@ -1,12 +1,12 @@
 {
   "schemaVersion": "PLAVE_GENERATOR_V2_CORRECTNESS_SCREENSHOT_REVIEW_V1",
-  "reviewedAt": "2026-08-02T21:12:19Z",
+  "reviewedAt": "2026-08-03T00:05:22Z",
   "reviewer": "DEVELOPER_VISUAL_INSPECTION",
   "status": "PASS",
   "source": "AUTHENTICATED_STUDENT_RUNTIME",
   "internalProofRoutesUsed": false,
-  "screenshotsExpected": 22,
-  "screenshotsReviewed": 22,
+  "screenshotsExpected": 38,
+  "screenshotsReviewed": 38,
   "viewports": [
     "320x568",
     "390x844",
@@ -24,7 +24,12 @@
     "symbolic": true,
     "diagram": true,
     "tableOrChart": true,
-    "numberLine": true
+    "numberLine": true,
+    "nonzeroInterceptGraph": true,
+    "negativeInterceptGraph": true,
+    "integerAnswerInput": true,
+    "semanticFractionColorAndPattern": true,
+    "quadraticAnswerSet": true
   },
   "criticalIssues": 0,
   "highIssues": 0,
@@ -35,7 +40,11 @@
   "privateLeaks": 0,
   "unreviewedFiles": [],
   "notes": [
-    "All 22 final screenshots were opened at original detail and inspected.",
+    "All 38 final screenshots were opened at original detail and inspected.",
+    "The line y=2x+3 visibly crosses the y-axis above the origin, and a separate negative-intercept example crosses below it.",
+    "Grade 7 denominator-one algebra answers render an integer input rather than a fraction control.",
+    "Fraction prompt colors match stable visual colors and diagonal-pattern accessibility fallbacks.",
+    "The quadratic answer-set interaction shows both exact roots in ascending order.",
     "The final ORDERING screenshots show Student-facing labels instead of internal record identifiers.",
     "The final chart screenshot shows one consistent public unit in prompt, visual, input label, and input suffix.",
     "Long mobile pages remain scrollable; required controls and feedback are readable without horizontal overflow.",

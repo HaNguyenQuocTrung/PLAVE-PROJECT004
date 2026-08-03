@@ -60,6 +60,11 @@ const unitQuestion = makeQuestion(
   5,
   "sprint10c-oracle-mutation-unit",
 );
+const quadraticQuestion = makeQuestion(
+  "MOET2018-G9-NAA-P072-011",
+  9,
+  "sprint10d1-oracle-mutation-quadratic",
+);
 
 const cloneCandidate = (question: GeneratedProductQuestion) =>
   structuredClone(publicQuestionOnly(question)) as unknown as OracleCandidate;
@@ -141,6 +146,41 @@ const unitMutation = cloneCandidate(unitQuestion) as {
 };
 unitMutation.interaction.unitLabel = "kg";
 
+const quadraticBaseline = cloneCandidate(quadraticQuestion);
+if (quadraticBaseline.interaction.type !== "ORDERING" || (quadraticBaseline.interaction.options?.length ?? 0) !== 2) {
+  throw new Error("ORACLE_QUADRATIC_MUTATION_BASELINE_INVALID");
+}
+const extraneousQuadraticMutation = structuredClone(quadraticBaseline) as {
+  interaction: { options: Array<{ id: string; label: string }> };
+};
+extraneousQuadraticMutation.interaction.options.push({ id: "root-extraneous", label: "999" });
+
+const missingQuadraticMutation = structuredClone(quadraticBaseline) as {
+  interaction: { options: Array<{ id: string; label: string }> };
+};
+missingQuadraticMutation.interaction.options.pop();
+
+const duplicateQuadraticMutation = structuredClone(quadraticBaseline) as {
+  interaction: { options: Array<{ id: string; label: string }> };
+};
+duplicateQuadraticMutation.interaction.options.push({
+  id: "root-duplicate-representation",
+  label: duplicateQuadraticMutation.interaction.options[0]!.label,
+});
+
+const invalidFormatQuadraticMutation = structuredClone(quadraticBaseline) as {
+  interaction: { options: Array<{ id: string; label: string }> };
+};
+invalidFormatQuadraticMutation.interaction.options[0] = {
+  ...invalidFormatQuadraticMutation.interaction.options[0]!,
+  label: "không-phải-nghiệm",
+};
+
+const invalidDomainQuadraticMutation = structuredClone(quadraticBaseline) as {
+  publicData: { values: number[] };
+};
+invalidDomainQuadraticMutation.publicData.values[0] = 0;
+
 const mutations: readonly MutationResult[] = [
   expectedAnswerMutation,
   evaluatedMutation(
@@ -172,6 +212,31 @@ const mutations: readonly MutationResult[] = [
     "MUTATE_UNIT_CONTRACT",
     "ORACLE_INTERACTION_MISMATCH",
     unitMutation as OracleCandidate,
+  ),
+  evaluatedMutation(
+    "ADD_EXTRANEOUS_QUADRATIC_SOLUTION",
+    "ORACLE_EXTRANEOUS_SOLUTION",
+    extraneousQuadraticMutation as OracleCandidate,
+  ),
+  evaluatedMutation(
+    "REMOVE_REQUIRED_QUADRATIC_SOLUTION",
+    "ORACLE_MISSING_SOLUTION",
+    missingQuadraticMutation as OracleCandidate,
+  ),
+  evaluatedMutation(
+    "DUPLICATE_QUADRATIC_SOLUTION",
+    "ORACLE_DUPLICATE_SOLUTION",
+    duplicateQuadraticMutation as OracleCandidate,
+  ),
+  evaluatedMutation(
+    "INVALID_QUADRATIC_SOLUTION_FORMAT",
+    "ORACLE_INVALID_SOLUTION_FORMAT",
+    invalidFormatQuadraticMutation as OracleCandidate,
+  ),
+  evaluatedMutation(
+    "INVALID_QUADRATIC_DOMAIN",
+    "ORACLE_DOMAIN_VIOLATION",
+    invalidDomainQuadraticMutation as OracleCandidate,
   ),
 ];
 

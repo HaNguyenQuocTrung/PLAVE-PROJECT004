@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "sprint": "10D.1",
+  "status": "PASS",
+  "engine": { "playwrightCore": "1.51.1", "browser": "Chrome", "version": "150.0.7871.186" },
+  "viewports": ["320x568", "390x844", "768x1024", "1280x800", "1440x900"],
+  "journeys": 18,
+  "screenshots": 38,
+  "requiredExamples": {
+    "yEquals2xPlus3": "sprint-10d1-screenshots/320x568-function_graph_recognition-start.png",
+    "negativeIntercept": "sprint-10d1-screenshots/320x568-function_graph_recognition-negative-intercept.png",
+    "grade7IntegerInput": "sprint-10d1-screenshots/1280x800-algebraic_substitution-start.png",
+    "fractionColorAccessibleVisual": "sprint-10d1-screenshots/768x1024-fraction_part_whole-start.png",
+    "quadraticAnswerSet": "sprint-10d1-screenshots/390x844-quadratic_equation_solving-answer-set.png"
+  },
+  "assertions": {
+    "criticalHighVisualIssues": 0,
+    "consoleErrors": 0,
+    "hydrationErrors": 0,
+    "pageErrors": 0,
+    "overflowErrors": 0,
+    "deadControls": 0,
+    "privateLeaks": 0,
+    "promptVisualMismatch": 0
+  },
+  "correctIncorrectFeedback": "PASS",
+  "refreshResume": "PASS",
+  "completionResults": "PASS",
+  "cleanup": "PASS"
+}

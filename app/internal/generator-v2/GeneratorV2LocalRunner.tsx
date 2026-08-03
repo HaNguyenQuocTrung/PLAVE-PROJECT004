@@ -16,6 +16,7 @@ import type {
   ProductVariantId,
   PublicQuestionSnapshot,
 } from "@/lib/generation-v2/types";
+import { fractionSemanticColorById } from "@/lib/generation-v2/fraction-visual";
 
 import styles from "./generator-v2.module.css";
 
@@ -254,7 +255,16 @@ export function QuestionVisual({ question }: { question: GeneratorV2QuestionSurf
   }
   if (visual.type === "FRACTION_MODEL") {
     const totalParts = Math.max(1, Number(data.totalParts));
-    return <div className={styles.fractionModel} role="img" aria-label={visual.description} style={{ gridTemplateColumns: `repeat(${totalParts}, minmax(6px, 1fr))` }}>{Array.from({ length: totalParts }, (_, index) => <span className={numberList(data.highlightedParts).includes(index) ? styles.filled : ""} key={index} />)}</div>;
+    const shadedRegion = semanticRegions(data.semanticRegions).find((region) => region.id === "fraction-shaded");
+    const semanticColor = shadedRegion ? fractionSemanticColorById(shadedRegion.colorId) : null;
+    const highlighted = numberList(data.highlightedParts);
+    const shadedStyle = semanticColor
+      ? ({
+          "--fraction-fill": semanticColor.fill,
+          "--fraction-pattern": "repeating-linear-gradient(135deg, rgba(255,255,255,.72) 0 3px, transparent 3px 8px)",
+        } as CSSProperties)
+      : undefined;
+    return <div className={styles.fractionModel} role="img" aria-label={visual.description} data-color-region={shadedRegion?.id} data-color-label={shadedRegion?.colorLabel} style={{ gridTemplateColumns: `repeat(${totalParts}, minmax(6px, 1fr))` }}>{Array.from({ length: totalParts }, (_, index) => <span className={highlighted.includes(index) ? styles.filled : ""} style={highlighted.includes(index) ? shadedStyle : undefined} key={index} />)}</div>;
   }
   if (visual.type === "PLACE_VALUE_CHART") {
     const columns = stringList(data.columns);
@@ -374,7 +384,16 @@ export function QuestionVisual({ question }: { question: GeneratorV2QuestionSurf
       const candidates = Array.isArray(data.candidateGraphs)
         ? data.candidateGraphs.filter(isGraphCandidate)
         : [];
-      return <div className={styles.graphCandidates} role="img" aria-label={visual.description}>{candidates.map((candidate) => <figure key={candidate.id}><svg viewBox="0 0 240 140" aria-hidden="true"><line x1="16" y1="70" x2="224" y2="70" /><line x1="120" y1="12" x2="120" y2="128" />{candidate.kind === "LINE" ? <line x1="28" y1="112" x2="212" y2="28" className={styles.graphStroke} /> : candidate.kind === "CIRCLE" ? <circle cx="120" cy="70" r="42" className={styles.graphStroke} /> : candidate.kind === "SIDEWAYS_PARABOLA" ? <path d="M42 25 Q190 70 42 115" className={styles.graphStroke} /> : <line x1="160" y1="18" x2="160" y2="122" className={styles.graphStroke} />}</svg><figcaption>{candidate.label}</figcaption></figure>)}</div>;
+      return <div className={styles.graphCandidates} role="img" aria-label={visual.description}>{candidates.map((candidate) => {
+        const window = graphWindow(candidate.window);
+        const toSvg = (point: Readonly<{ x: number; y: number }>) => ({
+          x: 16 + (point.x - window.xMin) / (window.xMax - window.xMin) * 208,
+          y: 128 - (point.y - window.yMin) / (window.yMax - window.yMin) * 116,
+        });
+        const linePoints = graphPoints(candidate.plottedPoints).map(toSvg);
+        const origin = toSvg({ x: 0, y: 0 });
+        return <figure key={candidate.id} data-graph-id={candidate.id} data-slope={candidate.slope} data-intercept={candidate.intercept}><svg viewBox="0 0 240 140" aria-hidden="true"><line x1="16" y1={origin.y} x2="224" y2={origin.y} /><line x1={origin.x} y1="12" x2={origin.x} y2="128" />{candidate.kind === "LINE" ? <polyline points={linePoints.map((point) => `${point.x},${point.y}`).join(" ")} className={styles.graphStroke} data-linear-equation={candidate.label} /> : candidate.kind === "CIRCLE" ? <circle cx="120" cy="70" r="42" className={styles.graphStroke} /> : candidate.kind === "SIDEWAYS_PARABOLA" ? <path d="M42 25 Q190 70 42 115" className={styles.graphStroke} /> : <line x1="160" y1="18" x2="160" y2="122" className={styles.graphStroke} />}</svg><figcaption>{candidate.label}</figcaption></figure>;
+      })}</div>;
     }
     if (graphKind === "LINEAR_SYSTEM_SOLUTION_CHECK") {
       const system = numberList(data.system);
@@ -406,8 +425,20 @@ const stringList = (value: unknown) => Array.isArray(value) ? value.map(String) 
 const numberList = (value: unknown) => Array.isArray(value) ? value.map(Number) : [];
 const isVisualRow = (value: unknown): value is Record<string, string | number> =>
   typeof value === "object" && value !== null && !Array.isArray(value) && Object.values(value).every((cell) => typeof cell === "string" || typeof cell === "number");
-const isGraphCandidate = (value: unknown): value is { id: string; label: string; kind: "LINE" | "CIRCLE" | "SIDEWAYS_PARABOLA" | "VERTICAL_LINE" } =>
+const isGraphCandidate = (value: unknown): value is { id: string; label: string; kind: "LINE" | "CIRCLE" | "SIDEWAYS_PARABOLA" | "VERTICAL_LINE"; slope?: number; intercept?: number; window?: unknown; plottedPoints?: unknown } =>
   typeof value === "object" && value !== null && !Array.isArray(value) && "id" in value && typeof value.id === "string" && "label" in value && typeof value.label === "string" && "kind" in value && ["LINE", "CIRCLE", "SIDEWAYS_PARABOLA", "VERTICAL_LINE"].includes(String(value.kind));
+const graphWindow = (value: unknown) => {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) return { xMin: -6, xMax: 6, yMin: -10, yMax: 10 };
+  const window = value as Readonly<Record<string, unknown>>;
+  const parsed = { xMin: Number(window.xMin), xMax: Number(window.xMax), yMin: Number(window.yMin), yMax: Number(window.yMax) };
+  return Object.values(parsed).every(Number.isFinite) && parsed.xMin < parsed.xMax && parsed.yMin < parsed.yMax ? parsed : { xMin: -6, xMax: 6, yMin: -10, yMax: 10 };
+};
+const graphPoints = (value: unknown): ReadonlyArray<Readonly<{ x: number; y: number }>> => Array.isArray(value)
+  ? value.flatMap((point) => typeof point === "object" && point !== null && !Array.isArray(point) && Number.isFinite(Number(point.x)) && Number.isFinite(Number(point.y)) ? [{ x: Number(point.x), y: Number(point.y) }] : [])
+  : [];
+const semanticRegions = (value: unknown): ReadonlyArray<Readonly<{ id: string; colorId: string; colorLabel: string; pattern: string }>> => Array.isArray(value)
+  ? value.flatMap((region) => typeof region === "object" && region !== null && !Array.isArray(region) && typeof region.id === "string" && typeof region.colorId === "string" && typeof region.colorLabel === "string" && typeof region.pattern === "string" ? [{ id: region.id, colorId: region.colorId, colorLabel: region.colorLabel, pattern: region.pattern }] : [])
+  : [];
 function visualRows(data: Readonly<Record<string, unknown>>) {
   if (Array.isArray(data.rows)) return data.rows.filter(isVisualRow);
   const values = numberList(data.values);

@@ -8,11 +8,11 @@
   "gates": {
     "independentOracle": "32760/32760",
     "oracleDependencyBoundary": "PASS",
-    "mutationControls": "7/7",
+    "mutationControls": "12/12",
     "developerProductReview": "198/198",
     "authenticatedStudentRuntime": "198/198",
     "browserViewports": "5/5",
-    "screenshotReview": "22/22"
+    "screenshotReview": "38/38"
   },
   "eligibleCapabilities": [
     "ADD_SUB_CALCULATION",

@@ -923,6 +923,120 @@ function solveWaveF(candidate: OracleCandidate, model: PublicModel): OracleAnswe
   return semantic === null ? null : semanticToAnswer(candidate, semantic);
 }
 
+function linearGraphDiagnostics(candidate: OracleCandidate, model: PublicModel): readonly OracleDiagnosticCode[] {
+  if (candidate.variantId !== "FUNCTION_GRAPH_RECOGNITION") return [];
+  const diagnostics: OracleDiagnosticCode[] = [];
+  try {
+    const candidates = candidate.visual.data.candidateGraphs;
+    if (!Array.isArray(candidates)) return ["ORACLE_VISUAL_DATA_MISMATCH"];
+    const lineValue = candidates.find((value) => record(value).kind === "LINE");
+    if (!lineValue) return ["ORACLE_VISUAL_DATA_MISMATCH"];
+    const line = record(lineValue);
+    const slope = Number(line.slope);
+    const intercept = Number(line.intercept);
+    const equation = record(line.equation);
+    const window = record(line.window);
+    const xMin = Number(window.xMin);
+    const xMax = Number(window.xMax);
+    const yMin = Number(window.yMin);
+    const yMax = Number(window.yMax);
+    if (
+      ![slope, intercept, xMin, xMax, yMin, yMax].every(Number.isFinite) ||
+      xMin >= xMax || yMin >= yMax ||
+      Number(equation.slope) !== slope || Number(equation.intercept) !== intercept ||
+      slope !== model.values[0] || intercept !== model.values[1]
+    ) return ["ORACLE_VISUAL_DATA_MISMATCH"];
+    if (!Array.isArray(line.plottedPoints) || line.plottedPoints.length < 2) return ["ORACLE_VISUAL_DATA_MISMATCH"];
+    const points = line.plottedPoints.map((value) => {
+      const point = record(value);
+      return { x: Number(point.x), y: Number(point.y) };
+    });
+    if (points.some((point) => !Number.isFinite(point.x) || !Number.isFinite(point.y) || Math.abs(point.y - (slope * point.x + intercept)) > 1e-7)) {
+      diagnostics.push("ORACLE_VISUAL_DATA_MISMATCH");
+    }
+    const visibleIntercept = xMin <= 0 && xMax >= 0 && yMin <= intercept && yMax >= intercept;
+    if (visibleIntercept && !points.some((point) => Math.abs(point.x) < 1e-8 && Math.abs(point.y - intercept) < 1e-8)) {
+      diagnostics.push("ORACLE_VISUAL_DATA_MISMATCH");
+    }
+    if (intercept !== 0 && points.every((point) => Math.abs(point.y - slope * point.x) < 1e-8)) {
+      diagnostics.push("ORACLE_VISUAL_DATA_MISMATCH");
+    }
+    const boundaryPoints: Array<{ x: number; y: number }> = [];
+    const add = (x: number, y: number) => {
+      if (x < xMin - 1e-8 || x > xMax + 1e-8 || y < yMin - 1e-8 || y > yMax + 1e-8) return;
+      if (!boundaryPoints.some((point) => Math.abs(point.x - x) < 1e-8 && Math.abs(point.y - y) < 1e-8)) boundaryPoints.push({ x, y });
+    };
+    add(xMin, slope * xMin + intercept);
+    add(xMax, slope * xMax + intercept);
+    if (slope !== 0) {
+      add((yMin - intercept) / slope, yMin);
+      add((yMax - intercept) / slope, yMax);
+    }
+    const boundary = boundaryPoints.filter((point) => Math.abs(point.x - xMin) < 1e-7 || Math.abs(point.x - xMax) < 1e-7 || Math.abs(point.y - yMin) < 1e-7 || Math.abs(point.y - yMax) < 1e-7);
+    if (boundary.length < 2 || boundary.some((expected) => !points.some((point) => Math.abs(point.x - expected.x) < 1e-7 && Math.abs(point.y - expected.y) < 1e-7))) {
+      diagnostics.push("ORACLE_VISUAL_DATA_MISMATCH");
+    }
+    const axes = record(candidate.visual.data.axes);
+    if (Number(axes.x) !== 0 || Number(axes.y) !== 0) diagnostics.push("ORACLE_VISUAL_DATA_MISMATCH");
+  } catch {
+    diagnostics.push("ORACLE_VISUAL_DATA_MISMATCH");
+  }
+  return [...new Set(diagnostics)];
+}
+
+function fractionColorDiagnostics(candidate: OracleCandidate): readonly OracleDiagnosticCode[] {
+  if (candidate.variantId !== "FRACTION_PART_WHOLE") return [];
+  const color = candidate.publicPrompt.match(/màu\s+(xanh|lam|lục|vàng|tím|cam)/iu)?.[1]?.toLocaleLowerCase("vi");
+  if (!color) return ["ORACLE_PROMPT_DATA_MISMATCH"] as const;
+  try {
+    const reference = record(candidate.publicData.colorReference);
+    const regions = candidate.visual.data.semanticRegions;
+    if (!Array.isArray(regions)) return ["ORACLE_VISUAL_DATA_MISMATCH"] as const;
+    const matches = regions.map(record).filter((region) => region.id === reference.regionId);
+    if (
+      matches.length !== 1 ||
+      matches[0]!.id !== "fraction-shaded" ||
+      matches[0]!.colorLabel !== color ||
+      matches[0]!.colorId !== reference.colorId ||
+      matches[0]!.pattern !== "DIAGONAL_STRIPES" ||
+      !normalizedText(candidate.visual.description).includes(`màu ${color}`) ||
+      !/vạch chéo/iu.test(candidate.accessibility.visualAlternative)
+    ) return ["ORACLE_VISUAL_DATA_MISMATCH"] as const;
+    const highlighted = candidate.visual.data.highlightedParts;
+    if (!Array.isArray(highlighted) || highlighted.length !== Number(candidate.publicData.selectedParts)) return ["ORACLE_VISUAL_DATA_MISMATCH"] as const;
+    return [];
+  } catch {
+    return ["ORACLE_VISUAL_DATA_MISMATCH"] as const;
+  }
+}
+
+function quadraticSolutionSetDiagnostics(candidate: OracleCandidate, model: PublicModel): readonly OracleDiagnosticCode[] {
+  if (candidate.variantId !== "QUADRATIC_EQUATION_SOLVING" || candidate.interaction.type !== "ORDERING") return [];
+  const diagnostics: OracleDiagnosticCode[] = [];
+  const [a, b, c] = model.values;
+  if (![a, b, c].every((value) => Number.isSafeInteger(value)) || a === 0) return ["ORACLE_DOMAIN_VIOLATION"];
+  const discriminant = b! * b! - 4 * a! * c!;
+  if (discriminant < 0) return ["ORACLE_DOMAIN_VIOLATION"];
+  const squareRoot = Math.sqrt(discriminant);
+  if (!Number.isSafeInteger(squareRoot)) return ["ORACLE_DOMAIN_VIOLATION"];
+  const roots = [rational(-b! - squareRoot, 2 * a!), rational(-b! + squareRoot, 2 * a!)];
+  const expected = new Set(roots.map((root) => {
+    const value = root.toFraction();
+    return `${value.numerator}/${value.denominator}`;
+  }));
+  const observed: string[] = [];
+  for (const option of candidate.interaction.options ?? []) {
+    const key = exactNumericLabelKey(option.label);
+    if (!key) diagnostics.push("ORACLE_INVALID_SOLUTION_FORMAT");
+    else observed.push(key);
+  }
+  if (new Set(observed).size !== observed.length) diagnostics.push("ORACLE_DUPLICATE_SOLUTION");
+  const observedSet = new Set(observed);
+  if ([...expected].some((root) => !observedSet.has(root))) diagnostics.push("ORACLE_MISSING_SOLUTION");
+  if ([...observedSet].some((root) => !expected.has(root))) diagnostics.push("ORACLE_EXTRANEOUS_SOLUTION");
+  return [...new Set(diagnostics)];
+}
+
 function validatePublicSurface(candidate: OracleCandidate, model: PublicModel) {
   const diagnostics: OracleDiagnosticCode[] = [];
   const serialized = JSON.stringify({ publicData: candidate.publicData, interaction: candidate.interaction, visual: candidate.visual });
@@ -973,6 +1087,9 @@ function validatePublicSurface(candidate: OracleCandidate, model: PublicModel) {
   // decimal storage as a prompt mismatch.
   if (promptNumbers.some((value) => !evidenceNumbers.has(canonicalNumber(value)) && Math.abs(value) > 10_000_000)) diagnostics.push("ORACLE_PROMPT_DATA_MISMATCH");
   if (candidate.grade < 1 || candidate.grade > 9) diagnostics.push("ORACLE_GRADE_BOUND_INVALID");
+  diagnostics.push(...linearGraphDiagnostics(candidate, model));
+  diagnostics.push(...fractionColorDiagnostics(candidate));
+  diagnostics.push(...quadraticSolutionSetDiagnostics(candidate, model));
   return [...new Set(diagnostics)];
 }
 

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "source": "FRESH_DISPOSABLE_AUTHENTICATED_RUNTIME",
+  "matrix": [
+    {
+      "actor": "ANONYMOUS",
+      "startApi": 401,
+      "expected": "DENY",
+      "result": "PASS"
+    },
+    {
+      "actor": "STUDENT_OWNER",
+      "startApi": 200,
+      "stateApi": 200,
+      "answerApi": 200,
+      "expected": "ALLOW",
+      "result": "PASS"
+    },
+    {
+      "actor": "WRONG_STUDENT",
+      "stateApi": 404,
+      "directUrlSafeDenied": true,
+      "expected": "DENY",
+      "result": "PASS"
+    },
+    {
+      "actor": "PARENT",
+      "stateApi": 403,
+      "directUrlSafeDenied": true,
+      "expected": "DENY",
+      "result": "PASS"
+    },
+    {
+      "actor": "TEACHER",
+      "stateApi": 403,
+      "directUrlSafeDenied": true,
+      "expected": "DENY",
+      "result": "PASS"
+    }
+  ],
+  "negativeContracts": {
+    "forgedRoutingFields": 400,
+    "crossGrade": 403,
+    "correctnessReviewRequired": 503,
+    "releaseOff": 503,
+    "globalOff": 503,
+    "unknownOutcome": "FAIL_CLOSED"
+  },
+  "roleIsolation": "PASS",
+  "sitewideParentTeacherDashboardBrowser": "BLOCKED_ISOLATED_PROFILE_UNCONFIGURED",
+  "impactOfBlockedDashboardCheck": "Does not invalidate API/direct-route Generator isolation; it limits the wider sitewide browser claim."
+}

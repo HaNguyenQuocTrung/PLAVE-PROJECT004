@@ -1,7 +1,7 @@
 # Generator V2 Independent Oracle
 
-Updated: 2026-08-02
-Status: implemented for Sprint 10C; independent re-audit still required
+Updated: 2026-08-03
+Status: Sprint 10D.1 targeted completeness remediation; independent Sprint 10D.2 re-audit still required
 
 ## Purpose
 
@@ -56,8 +56,8 @@ The package owns its parsing and mathematical representation:
 - visual validators compare rendered public data with prompt evidence;
 - interaction validators recompute answer cardinality and option equivalence.
 
-The implementation is organized in `exact.ts`, `types.ts`, `oracle.ts` and
-`index.ts`. Diagnostic errors are typed so insufficiency, ambiguity, prompt-data
+The implementation is organized in `exact.ts`, `types.ts`, `oracle.ts`,
+`semantic-diversity.ts` and `index.ts`. Diagnostic errors are typed so insufficiency, ambiguity, prompt-data
 mismatch, visual mismatch, interaction mismatch, invalid distractors and answer
 mismatch are distinguishable.
 
@@ -67,10 +67,11 @@ mismatch are distinguishable.
 
 1. a dependency scan rejects imports from Generator implementations, Generator
    solvers/validators and runtime submit validation;
-2. seven mutation controls must be killed with their expected diagnostic:
+2. twelve mutation controls must be killed with their expected diagnostic:
    generated expected-answer mutation, visible prompt mutation, visual mutation,
    interaction mutation, ambiguous option insertion, required-evidence removal,
-   and unit-contract mutation.
+   unit-contract mutation, and the five quadratic-set mutations for extraneous,
+   missing, duplicate, malformed, and domain-invalid solutions.
 
 The result is recorded in:
 
@@ -89,6 +90,31 @@ non-zero.
 Each stored sample result is sanitized and contains only traceability, pass/fail,
 diagnostic codes, answer cardinality, and interaction/visual/curriculum/product
 flags. Private answers are not written to the public remediation artifact.
+
+## Sprint 10D.1 product-semantic additions
+
+Sprint 10D showed that package separation alone was insufficient. The oracle
+therefore adds three public-contract checks without importing Generator code:
+
+- linear graph verification independently recomputes clipped coordinates from
+  the public slope, intercept and window, checks every point against `y=mx+b`,
+  and requires the visible `x=0` intercept when the window contains it;
+- fraction visual verification follows a public color reference through a stable
+  semantic region ID, palette ID, diagonal-pattern fallback and accessible text;
+- quadratic verification independently parses the equation, canonicalizes exact
+  rational roots and compares candidate and expected root sets by equality. It
+  distinguishes missing, extraneous, duplicate, malformed and domain-invalid
+  submissions.
+
+The external audit also replaces numeric-literal prompt normalization as the
+sole diversity evidence. `semantic-diversity.ts` builds sanitized public-model
+signatures for mathematical topology, operator/unknown position, constraint and
+parameter buckets, answer form, context family, interaction/visual topology,
+misconception family and difficulty dimensions. Reports distinguish exact
+duplicates, surface-only changes, parameter changes, structural mathematical
+changes, contextual changes and interaction/visual changes. Capabilities with a
+single legitimate topology are reported as constrained rather than being
+misrepresented as structurally diverse or failed arbitrarily.
 
 ## Eligibility promotion
 
@@ -120,6 +146,7 @@ until every gate passes.
 ## Scope limits
 
 The automated oracle cannot by itself establish natural language usefulness.
-Sprint 10C therefore includes a 198-capability developer product review, but it
-does not create a new Owner approval. Sprint 10D must independently re-audit the
-implementation and evidence before Milestone 2 can be reconsidered.
+Sprint 10C and 10D.1 therefore include bounded developer product/browser review,
+but neither creates a new Owner approval. Sprint 10D.2 must independently
+re-audit the remediated implementation and evidence before Milestone 2 can be
+reconsidered.

@@ -506,7 +506,6 @@
       "contractVersion": "wave-c-v2.1",
       "taskMode": "DECIMAL_PLACE_VALUE",
       "interactions": [
-        "INTEGER_INPUT",
         "DECIMAL_INPUT"
       ],
       "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
@@ -1269,8 +1268,7 @@
       "contractVersion": "wave-c-v2.1",
       "taskMode": "FUNCTION_VALUE",
       "interactions": [
-        "INTEGER_INPUT",
-        "FRACTION_INPUT"
+        "INTEGER_INPUT"
       ],
       "deterministicSeedContract": "sha256(outcomeId:difficulty:seed)",
       "promptModel": {

@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "sprint": "10D.1",
+  "generatedAt": "2026-08-03T00:05:22Z",
+  "sourceCheckpoint": "3e16a3634bee4b815d683f59cfc9209c28031e24",
+  "status": "COMPLETE_PENDING_INDEPENDENT_REAUDIT",
+  "findings": {
+    "F-003": "RESOLVED_PENDING_REAUDIT",
+    "F-005": "RESOLVED_PENDING_REAUDIT"
+  },
+  "milestone2": "REOPENED_AWAITING_SPRINT_10D2_REAUDIT",
+  "repositoryDefaultGenerator": "OFF",
+  "metrics": {
+    "outcomes": 546,
+    "capabilities": 198,
+    "samplesAttempted": 32760,
+    "samplesOracleValidated": 32760,
+    "mutationKilled": 12,
+    "mutationTotal": 12,
+    "runtimeCapabilitiesPassed": 198,
+    "browserViewportsPassed": 5,
+    "screenshotsReviewed": 38,
+    "criticalHighVisualIssues": 0
+  },
+  "targetedDefects": {
+    "linearGraphIntercept": "PASS",
+    "grade7IntegerInteraction": "PASS",
+    "fractionColorVisual": "PASS",
+    "quadraticExactSolutionSet": "PASS",
+    "structuralSemanticDiversity": "PASS"
+  },
+  "regressions": {
+    "targetedFixtures": "9/9 PASS",
+    "generatorCore": "10/10 PASS",
+    "oracleMutation": "12/12 PASS",
+    "practice": "550/550 PASS",
+    "curriculum": "9/9 + 21/21 PASS",
+    "competency": "10/10 PASS",
+    "uiux": "13/13 PASS",
+    "aiTutor": "40/40 PASS",
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "productionBuild": "77/77 PASS",
+    "secretBoundaryCanary": "PASS",
+    "npmAudit": "0 vulnerabilities",
+    "jsonValidation": "PASS"
+  },
+  "remainingOutOfScopeFinding": "10D-GEN-004 polynomial feedback remains unchanged",
+  "remoteMutations": 0,
+  "migrations": 0,
+  "deployments": 0,
+  "gitMutations": 0,
+  "paidProviderRequests": 0,
+  "cleanup": "PASS",
+  "ownerApprovalCreated": false
+}

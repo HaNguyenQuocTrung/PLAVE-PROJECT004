@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "findingId": "F-005",
+  "result": "PARTIALLY_RESOLVED",
+  "dependencyBoundary": {
+    "oracleFilesInspected": 4,
+    "forbiddenDirectImports": 0,
+    "forbiddenTransitiveImports": 0,
+    "sharedAnswerProducingHelpers": 0,
+    "readsExpectedAnswer": false,
+    "readsRuntimeSubmitValidator": false,
+    "inputContainsPrivateAnswer": false,
+    "status": "PASS"
+  },
+  "existingMutationSuite": {
+    "killed": 7,
+    "total": 7,
+    "status": "PASS"
+  },
+  "auditTimeFalsification": {
+    "killed": 10,
+    "total": 11,
+    "score": 0.9090909091,
+    "status": "FAIL",
+    "failedMutation": {
+      "id": "EXTRANEOUS_ALGEBRA_SOLUTION",
+      "interaction": "ORDERING",
+      "optionsBefore": 2,
+      "optionsAfter": 3,
+      "mutatedOracleOk": true,
+      "diagnostics": [],
+      "expected": "Typed rejection for an extraneous equation solution option"
+    },
+    "detectedMutations": [
+      "WRONG_EXPECTED_ANSWER",
+      "MISSING_PROMPT_DATUM",
+      "ALTERED_PROMPT_VALUE",
+      "ALTERED_VISUAL_VALUE",
+      "AMBIGUOUS_CHOICE",
+      "DUPLICATE_EQUIVALENT_CHOICE",
+      "WRONG_INTERACTION_TYPE",
+      "WRONG_UNIT",
+      "INVALID_ROUNDING",
+      "OUT_OF_GRADE"
+    ]
+  },
+  "diversityAudit": {
+    "reportedMaximumNearDuplicatePairRate": 0.1,
+    "threshold": 0.12,
+    "implementationDefinition": "same Vietnamese prompt after numeric literals are normalized",
+    "semanticMathVisualComparison": false,
+    "status": "WEAK_OR_MISLEADING_EVIDENCE"
+  },
+  "conclusion": "The oracle is separately packaged but not complete enough to support the full independence/correctness claim."
+}

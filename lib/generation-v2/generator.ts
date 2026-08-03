@@ -35,6 +35,7 @@ import {
   type SolverReceipt,
   type ValidationResult,
 } from "./types.ts";
+import { fractionSemanticColor } from "./fraction-visual.ts";
 
 type CanonicalProblemModel = Readonly<{
   variantId: ProductVariantId;
@@ -354,9 +355,24 @@ function publicPresentation(model: CanonicalProblemModel, solved: SolvedModel, r
       visual = { type: "PLACE_VALUE_CHART", description: "Bảng hàng chục nghìn, nghìn, trăm, chục và đơn vị.", data: { values: v, columns: ["Chục nghìn", "Nghìn", "Trăm", "Chục", "Đơn vị"] } };
       break;
     case "FRACTION_PART_WHOLE":
-      publicPrompt = `${contextLead}: ${model.context} được chia thành ${v[1]} phần bằng nhau và tô ${v[0]} phần. Viết phân số chỉ phần đã tô ở dạng tối giản.`;
-      publicData = { totalParts: v[1], selectedParts: v[0], representation: model.context, visualModel: "SEGMENTED_BAR" };
-      visual = { type: "FRACTION_MODEL", description: `Thanh phân số có ${v[1]} phần bằng nhau, ${v[0]} phần được tô.`, data: { modelType: "SEGMENTED_BAR", totalParts: v[1], selectedParts: v[0], highlightedParts: model.highlighted } };
+      {
+        const colorLabel = model.context.match(/màu\s+(xanh|lam|lục|vàng|tím|cam)/iu)?.[1]?.toLocaleLowerCase("vi");
+        if (!colorLabel) throw new GenerationV2Error("VALIDATION_FAILED");
+        const color = fractionSemanticColor(colorLabel);
+        publicPrompt = `${contextLead}: ${model.context} được chia thành ${v[1]} phần bằng nhau và tô ${v[0]} phần. Viết phân số chỉ phần đã tô ở dạng tối giản.`;
+        publicData = { totalParts: v[1], selectedParts: v[0], representation: model.context, visualModel: "SEGMENTED_BAR", colorReference: { regionId: "fraction-shaded", colorId: color.id, colorLabel: color.label } };
+        visual = {
+          type: "FRACTION_MODEL",
+          description: `Thanh phân số có ${v[1]} phần bằng nhau; ${v[0]} phần được tô màu ${color.label} và đánh dấu bằng vạch chéo.`,
+          data: {
+            modelType: "SEGMENTED_BAR",
+            totalParts: v[1],
+            selectedParts: v[0],
+            highlightedParts: model.highlighted,
+            semanticRegions: [{ id: "fraction-shaded", colorId: color.id, colorLabel: color.label, pattern: "DIAGONAL_STRIPES" }],
+          },
+        };
+      }
       interaction = { type: model.interactionType, inputLabel: "Phân số", inputMode: "text" };
       break;
     case "LINEAR_SYSTEM": {
@@ -774,6 +790,24 @@ export function verifyQuestionIntegrity(question: GeneratedProductQuestion) {
       /(?:hình|vòng) tròn|ô vuông/iu.test(String(data.representation))
     ) {
       throw new Error("GENERATION_V2:INTEGRITY_FRACTION_VISUAL");
+    }
+    const reference = data.colorReference;
+    const regions = question.publicSnapshot.visual.data.semanticRegions;
+    const referenceRecord = typeof reference === "object" && reference !== null && !Array.isArray(reference)
+      ? reference as Readonly<Record<string, unknown>>
+      : null;
+    const regionRecord = Array.isArray(regions) && regions.length === 1 && typeof regions[0] === "object" && regions[0] !== null && !Array.isArray(regions[0])
+      ? regions[0] as Readonly<Record<string, unknown>>
+      : null;
+    if (
+      !referenceRecord || !regionRecord ||
+      regionRecord.id !== referenceRecord.regionId ||
+      regionRecord.colorId !== referenceRecord.colorId ||
+      regionRecord.colorLabel !== referenceRecord.colorLabel ||
+      regionRecord.pattern !== "DIAGONAL_STRIPES" ||
+      !String(question.publicSnapshot.visual.description).includes(`màu ${String(referenceRecord.colorLabel)}`)
+    ) {
+      throw new Error("GENERATION_V2:INTEGRITY_FRACTION_COLOR_VISUAL");
     }
   }
   if (entry.variantId === "UNIT_CONVERSION") {

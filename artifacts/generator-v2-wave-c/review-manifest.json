@@ -851,10 +851,6 @@
               "id": "f1",
               "label": "5/6"
             }
-          ],
-          "orderedItemIds": [
-            "f1",
-            "f2"
           ]
         },
         "visual": {
@@ -966,12 +962,6 @@
               "id": "f1",
               "label": "1/3"
             }
-          ],
-          "orderedItemIds": [
-            "f1",
-            "f2",
-            "f3",
-            "f4"
           ]
         },
         "visual": {
@@ -1083,12 +1073,6 @@
               "id": "f2",
               "label": "1/6"
             }
-          ],
-          "orderedItemIds": [
-            "f1",
-            "f2",
-            "f3",
-            "f4"
           ]
         },
         "visual": {
@@ -2317,7 +2301,7 @@
         "variantId": "FRACTION_APPLICATION",
         "variantVersion": "product-v2-1",
         "difficulty": "EASY",
-        "publicPrompt": "Dùng biểu diễn chính xác trong bàn trưng bày: bàn trưng bày có 60 phần bằng nhau về đơn vị đo; sử dụng 2/3 số đó. Tìm lượng đã sử dụng.",
+        "publicPrompt": "Dùng biểu diễn chính xác trong bàn trưng bày: bàn trưng bày có 60 đơn vị; sử dụng 2/3 số đó. Tìm lượng đã sử dụng.",
         "publicData": {
           "taskMode": "FRACTION_MULTI_STEP_APPLICATION",
           "operation": "FRACTION_OF_QUANTITY",
@@ -2359,7 +2343,7 @@
           }
         },
         "accessibility": {
-          "prompt": "Dùng biểu diễn chính xác trong bàn trưng bày: bàn trưng bày có 60 phần bằng nhau về đơn vị đo; sử dụng 2/3 số đó. Tìm lượng đã sử dụng.",
+          "prompt": "Dùng biểu diễn chính xác trong bàn trưng bày: bàn trưng bày có 60 đơn vị; sử dụng 2/3 số đó. Tìm lượng đã sử dụng.",
           "visualAlternative": "Mô hình phân số tương đương 2/3.",
           "responseInstruction": "Nhập tử số và mẫu số; phân số tương đương được chuẩn hóa toán học."
         }
@@ -2409,7 +2393,7 @@
         "variantId": "FRACTION_APPLICATION",
         "variantVersion": "product-v2-1",
         "difficulty": "MEDIUM",
-        "publicPrompt": "Hoàn thành phiếu học tập trong góc tái chế: Trong góc tái chế, một nhiệm vụ dùng 1/2 toàn bộ. Tìm phần còn lại hoặc kết quả sau các bước đã nêu.",
+        "publicPrompt": "Hoàn thành phiếu học tập trong góc tái chế: Trong góc tái chế, một nhiệm vụ đã dùng 1/2 toàn bộ. Phần chưa dùng chiếm bao nhiêu của toàn bộ? Viết phân số tối giản.",
         "publicData": {
           "taskMode": "FRACTION_MULTI_STEP_APPLICATION",
           "operation": "FRACTION_REMAINING",
@@ -2450,7 +2434,7 @@
           }
         },
         "accessibility": {
-          "prompt": "Hoàn thành phiếu học tập trong góc tái chế: Trong góc tái chế, một nhiệm vụ dùng 1/2 toàn bộ. Tìm phần còn lại hoặc kết quả sau các bước đã nêu.",
+          "prompt": "Hoàn thành phiếu học tập trong góc tái chế: Trong góc tái chế, một nhiệm vụ đã dùng 1/2 toàn bộ. Phần chưa dùng chiếm bao nhiêu của toàn bộ? Viết phân số tối giản.",
           "visualAlternative": "Mô hình phân số tương đương 1/2.",
           "responseInstruction": "Nhập tử số và mẫu số; phân số tương đương được chuẩn hóa toán học."
         }
@@ -2500,7 +2484,7 @@
         "variantId": "FRACTION_APPLICATION",
         "variantVersion": "product-v2-1",
         "difficulty": "HARD",
-        "publicPrompt": "Giúp nhóm học tập trong thư viện lớp: Trong thư viện lớp, một nhiệm vụ dùng 1/2 toàn bộ. Tìm phần còn lại hoặc kết quả sau các bước đã nêu.",
+        "publicPrompt": "Kiểm tra điều kiện trước trong dự án của lớp: Trong dự án của lớp, nhóm hoàn thành 1/2 công việc ở bước đầu và 1/10 ở bước sau, nhưng phải loại 1/10 phần bị tính trùng. Thực tế nhóm đã hoàn thành bao nhiêu phần công việc?",
         "publicData": {
           "taskMode": "FRACTION_MULTI_STEP_APPLICATION",
           "operation": "TWO_FRACTION_STEPS",
@@ -2514,13 +2498,13 @@
             },
             {
               "numerator": 1,
-              "denominator": 12
+              "denominator": 10
             }
           ],
           "labels": [],
           "scale": 1,
           "meta": {},
-          "structuralFingerprint": "FRACTION_APPLICATION:steps-3:denominator-10:context-3:structure-3",
+          "structuralFingerprint": "FRACTION_APPLICATION:steps-3:denominator-10:context-1:structure-3",
           "difficultyStructure": 3
         },
         "interaction": {
@@ -2541,7 +2525,7 @@
           }
         },
         "accessibility": {
-          "prompt": "Giúp nhóm học tập trong thư viện lớp: Trong thư viện lớp, một nhiệm vụ dùng 1/2 toàn bộ. Tìm phần còn lại hoặc kết quả sau các bước đã nêu.",
+          "prompt": "Kiểm tra điều kiện trước trong dự án của lớp: Trong dự án của lớp, nhóm hoàn thành 1/2 công việc ở bước đầu và 1/10 ở bước sau, nhưng phải loại 1/10 phần bị tính trùng. Thực tế nhóm đã hoàn thành bao nhiêu phần công việc?",
           "visualAlternative": "Mô hình phân số tương đương 1/2.",
           "responseInstruction": "Nhập tử số và mẫu số; phân số tương đương được chuẩn hóa toán học."
         }
@@ -2553,7 +2537,7 @@
           "explanation": "Cách trả lời của em phù hợp với dữ kiện của bài toán.",
           "steps": [
             "Viết đại lượng cần tìm bằng phép tính với 1/2.",
-            "Thực hiện từng bước và rút gọn được 29/60."
+            "Thực hiện từng bước và rút gọn được 1/2."
           ],
           "nextStep": "Đối chiếu kết quả với toàn thể để kiểm tra độ lớn hợp lí."
         },
@@ -2563,7 +2547,7 @@
           "explanation": "Em hãy đối chiếu từng dữ kiện với yêu cầu và kiểm tra lại bằng một cách độc lập.",
           "steps": [
             "Viết đại lượng cần tìm bằng phép tính với 1/2.",
-            "Thực hiện từng bước và rút gọn được 29/60."
+            "Thực hiện từng bước và rút gọn được 1/2."
           ],
           "nextStep": "Đối chiếu kết quả với toàn thể để kiểm tra độ lớn hợp lí."
         }
@@ -2878,12 +2862,6 @@
               "id": "d2",
               "label": "12"
             }
-          ],
-          "orderedItemIds": [
-            "d1",
-            "d2",
-            "d3",
-            "d4"
           ]
         },
         "visual": {
@@ -3015,14 +2993,6 @@
               "id": "d3",
               "label": "12"
             }
-          ],
-          "orderedItemIds": [
-            "d1",
-            "d2",
-            "d3",
-            "d4",
-            "d5",
-            "d6"
           ]
         },
         "visual": {
@@ -3162,14 +3132,6 @@
               "id": "d6",
               "label": "13"
             }
-          ],
-          "orderedItemIds": [
-            "d1",
-            "d2",
-            "d3",
-            "d4",
-            "d5",
-            "d6"
           ]
         },
         "visual": {
@@ -3829,7 +3791,7 @@
         "variantId": "FRACTION_APPLICATION",
         "variantVersion": "product-v2-1",
         "difficulty": "EASY",
-        "publicPrompt": "Đối chiếu hai cách biểu diễn trong bảng thi đua: bảng thi đua có 100 phần bằng nhau về đơn vị đo; sử dụng 1/5 số đó. Tìm lượng đã sử dụng.",
+        "publicPrompt": "Đối chiếu hai cách biểu diễn trong bảng thi đua: bảng thi đua có 100 đơn vị; sử dụng 1/5 số đó. Tìm lượng đã sử dụng.",
         "publicData": {
           "taskMode": "FRACTION_MULTI_STEP_APPLICATION",
           "operation": "FRACTION_OF_QUANTITY",
@@ -3870,7 +3832,7 @@
           }
         },
         "accessibility": {
-          "prompt": "Đối chiếu hai cách biểu diễn trong bảng thi đua: bảng thi đua có 100 phần bằng nhau về đơn vị đo; sử dụng 1/5 số đó. Tìm lượng đã sử dụng.",
+          "prompt": "Đối chiếu hai cách biểu diễn trong bảng thi đua: bảng thi đua có 100 đơn vị; sử dụng 1/5 số đó. Tìm lượng đã sử dụng.",
           "visualAlternative": "Mô hình phân số tương đương 1/5.",
           "responseInstruction": "Nhập tử số và mẫu số; phân số tương đương được chuẩn hóa toán học."
         }
@@ -3920,7 +3882,7 @@
         "variantId": "FRACTION_APPLICATION",
         "variantVersion": "product-v2-1",
         "difficulty": "MEDIUM",
-        "publicPrompt": "Giúp bạn Minh kiểm tra trong gian hàng nhỏ: Trong gian hàng nhỏ, một nhiệm vụ dùng 1/4 toàn bộ. Tìm phần còn lại hoặc kết quả sau các bước đã nêu.",
+        "publicPrompt": "Giúp bạn Minh kiểm tra trong gian hàng nhỏ: Trong gian hàng nhỏ, một nhiệm vụ đã dùng 1/4 toàn bộ. Phần chưa dùng chiếm bao nhiêu của toàn bộ? Viết phân số tối giản.",
         "publicData": {
           "taskMode": "FRACTION_MULTI_STEP_APPLICATION",
           "operation": "FRACTION_REMAINING",
@@ -3961,7 +3923,7 @@
           }
         },
         "accessibility": {
-          "prompt": "Giúp bạn Minh kiểm tra trong gian hàng nhỏ: Trong gian hàng nhỏ, một nhiệm vụ dùng 1/4 toàn bộ. Tìm phần còn lại hoặc kết quả sau các bước đã nêu.",
+          "prompt": "Giúp bạn Minh kiểm tra trong gian hàng nhỏ: Trong gian hàng nhỏ, một nhiệm vụ đã dùng 1/4 toàn bộ. Phần chưa dùng chiếm bao nhiêu của toàn bộ? Viết phân số tối giản.",
           "visualAlternative": "Mô hình phân số tương đương 1/4.",
           "responseInstruction": "Nhập tử số và mẫu số; phân số tương đương được chuẩn hóa toán học."
         }
@@ -4011,7 +3973,7 @@
         "variantId": "FRACTION_APPLICATION",
         "variantVersion": "product-v2-1",
         "difficulty": "HARD",
-        "publicPrompt": "Kiểm tra điều kiện trước trong nhóm trực nhật: Trong nhóm trực nhật, một nhiệm vụ dùng 4/5 toàn bộ. Tìm phần còn lại hoặc kết quả sau các bước đã nêu.",
+        "publicPrompt": "Phân tích dữ kiện trong hộp thẻ số: Trong hộp thẻ số, nhóm hoàn thành 4/5 công việc ở bước đầu và 1/5 ở bước sau, nhưng phải loại 1/10 phần bị tính trùng. Thực tế nhóm đã hoàn thành bao nhiêu phần công việc?",
         "publicData": {
           "taskMode": "FRACTION_MULTI_STEP_APPLICATION",
           "operation": "TWO_FRACTION_STEPS",
@@ -4025,13 +3987,13 @@
             },
             {
               "numerator": 1,
-              "denominator": 2
+              "denominator": 5
             }
           ],
           "labels": [],
           "scale": 1,
           "meta": {},
-          "structuralFingerprint": "FRACTION_APPLICATION:steps-3:denominator-5:context-1:structure-3",
+          "structuralFingerprint": "FRACTION_APPLICATION:steps-3:denominator-5:context-2:structure-3",
           "difficultyStructure": 3
         },
         "interaction": {
@@ -4055,7 +4017,7 @@
           }
         },
         "accessibility": {
-          "prompt": "Kiểm tra điều kiện trước trong nhóm trực nhật: Trong nhóm trực nhật, một nhiệm vụ dùng 4/5 toàn bộ. Tìm phần còn lại hoặc kết quả sau các bước đã nêu.",
+          "prompt": "Phân tích dữ kiện trong hộp thẻ số: Trong hộp thẻ số, nhóm hoàn thành 4/5 công việc ở bước đầu và 1/5 ở bước sau, nhưng phải loại 1/10 phần bị tính trùng. Thực tế nhóm đã hoàn thành bao nhiêu phần công việc?",
           "visualAlternative": "Mô hình phân số tương đương 4/5.",
           "responseInstruction": "Nhập tử số và mẫu số; phân số tương đương được chuẩn hóa toán học."
         }
@@ -4067,7 +4029,7 @@
           "explanation": "Cách trả lời của em phù hợp với dữ kiện của bài toán.",
           "steps": [
             "Viết đại lượng cần tìm bằng phép tính với 4/5.",
-            "Thực hiện từng bước và rút gọn được 6/5."
+            "Thực hiện từng bước và rút gọn được 9/10."
           ],
           "nextStep": "Đối chiếu kết quả với toàn thể để kiểm tra độ lớn hợp lí."
         },
@@ -4077,7 +4039,7 @@
           "explanation": "Bạn hãy đối chiếu từng dữ kiện với yêu cầu và kiểm tra lại bằng một cách độc lập.",
           "steps": [
             "Viết đại lượng cần tìm bằng phép tính với 4/5.",
-            "Thực hiện từng bước và rút gọn được 6/5."
+            "Thực hiện từng bước và rút gọn được 9/10."
           ],
           "nextStep": "Đối chiếu kết quả với toàn thể để kiểm tra độ lớn hợp lí."
         }
@@ -4376,7 +4338,7 @@
       "canonicalCapability": "DECIMAL_REPRESENTATION",
       "taskMode": "DECIMAL_PLACE_VALUE",
       "difficulty": "EASY",
-      "interactionType": "INTEGER_INPUT",
+      "interactionType": "DECIMAL_INPUT",
       "visualType": "PLACE_VALUE_CHART",
       "publicSnapshot": {
         "schemaVersion": 2,
@@ -4403,9 +4365,9 @@
           "difficultyStructure": 1
         },
         "interaction": {
-          "type": "INTEGER_INPUT",
+          "type": "DECIMAL_INPUT",
           "inputLabel": "Kết quả",
-          "inputMode": "numeric"
+          "inputMode": "decimal"
         },
         "visual": {
           "type": "PLACE_VALUE_CHART",
@@ -4464,7 +4426,7 @@
       "canonicalCapability": "DECIMAL_REPRESENTATION",
       "taskMode": "DECIMAL_PLACE_VALUE",
       "difficulty": "MEDIUM",
-      "interactionType": "INTEGER_INPUT",
+      "interactionType": "DECIMAL_INPUT",
       "visualType": "PLACE_VALUE_CHART",
       "publicSnapshot": {
         "schemaVersion": 2,
@@ -4491,9 +4453,9 @@
           "difficultyStructure": 2
         },
         "interaction": {
-          "type": "INTEGER_INPUT",
+          "type": "DECIMAL_INPUT",
           "inputLabel": "Kết quả",
-          "inputMode": "numeric"
+          "inputMode": "decimal"
         },
         "visual": {
           "type": "PLACE_VALUE_CHART",
@@ -7463,12 +7425,6 @@
               "id": "d1",
               "label": "10,6"
             }
-          ],
-          "orderedItemIds": [
-            "d1",
-            "d2",
-            "d3",
-            "d4"
           ]
         },
         "visual": {
@@ -7579,12 +7535,6 @@
               "id": "d1",
               "label": "13,85"
             }
-          ],
-          "orderedItemIds": [
-            "d1",
-            "d2",
-            "d3",
-            "d4"
           ]
         },
         "visual": {
@@ -7695,12 +7645,6 @@
               "id": "d1",
               "label": "4,534"
             }
-          ],
-          "orderedItemIds": [
-            "d1",
-            "d2",
-            "d3",
-            "d4"
           ]
         },
         "visual": {
@@ -8896,7 +8840,7 @@
       "canonicalCapability": "ALGEBRAIC_SUBSTITUTION",
       "taskMode": "ALGEBRAIC_EXPRESSION_VALUE",
       "difficulty": "EASY",
-      "interactionType": "FRACTION_INPUT",
+      "interactionType": "INTEGER_INPUT",
       "visualType": "DATA_TABLE",
       "publicSnapshot": {
         "schemaVersion": 2,
@@ -8926,9 +8870,9 @@
           "difficultyStructure": 1
         },
         "interaction": {
-          "type": "FRACTION_INPUT",
-          "inputLabel": "Phân số tối giản",
-          "inputMode": "text"
+          "type": "INTEGER_INPUT",
+          "inputLabel": "Kết quả",
+          "inputMode": "numeric"
         },
         "visual": {
           "type": "DATA_TABLE",
@@ -8946,7 +8890,7 @@
         "accessibility": {
           "prompt": "Tìm giá trị còn thiếu trong thư viện lớp: Cho a=0. Tính 6a − 2.",
           "visualAlternative": "Bảng dữ liệu của bài toán.",
-          "responseInstruction": "Nhập tử số và mẫu số; phân số tương đương được chuẩn hóa toán học."
+          "responseInstruction": "Nhập giá trị chính xác."
         }
       },
       "postSubmitFeedback": {
@@ -8985,7 +8929,7 @@
       "canonicalCapability": "ALGEBRAIC_SUBSTITUTION",
       "taskMode": "ALGEBRAIC_EXPRESSION_VALUE",
       "difficulty": "MEDIUM",
-      "interactionType": "FRACTION_INPUT",
+      "interactionType": "INTEGER_INPUT",
       "visualType": "DATA_TABLE",
       "publicSnapshot": {
         "schemaVersion": 2,
@@ -9018,9 +8962,9 @@
           "difficultyStructure": 2
         },
         "interaction": {
-          "type": "FRACTION_INPUT",
-          "inputLabel": "Phân số tối giản",
-          "inputMode": "text"
+          "type": "INTEGER_INPUT",
+          "inputLabel": "Kết quả",
+          "inputMode": "numeric"
         },
         "visual": {
           "type": "DATA_TABLE",
@@ -9042,7 +8986,7 @@
         "accessibility": {
           "prompt": "Kết nối công thức và dữ kiện trong khu đọc mở: Cho a=-4, b=2. Tính 2a + 5b + 3.",
           "visualAlternative": "Bảng dữ liệu của bài toán.",
-          "responseInstruction": "Nhập tử số và mẫu số; phân số tương đương được chuẩn hóa toán học."
+          "responseInstruction": "Nhập giá trị chính xác."
         }
       },
       "postSubmitFeedback": {
@@ -10085,7 +10029,7 @@
         "variantId": "POLYNOMIAL_SIMPLIFICATION",
         "variantVersion": "product-v2-1",
         "difficulty": "EASY",
-        "publicPrompt": "Chuẩn hóa kết quả trong trạm thực hành: Thu gọn 6x + 6 + 4x + 9. Nhập dạng ax+b hoặc ax^2+b.",
+        "publicPrompt": "Chuẩn hóa kết quả trong trạm thực hành: Thu gọn 6x + 6 + 4x + 9. Nhập đa thức đã thu gọn; bỏ hạng tử có hệ số 0.",
         "publicData": {
           "taskMode": "COMBINE_LIKE_TERMS",
           "operation": "LINEAR",
@@ -10113,7 +10057,7 @@
           "data": {}
         },
         "accessibility": {
-          "prompt": "Chuẩn hóa kết quả trong trạm thực hành: Thu gọn 6x + 6 + 4x + 9. Nhập dạng ax+b hoặc ax^2+b.",
+          "prompt": "Chuẩn hóa kết quả trong trạm thực hành: Thu gọn 6x + 6 + 4x + 9. Nhập đa thức đã thu gọn; bỏ hạng tử có hệ số 0.",
           "visualAlternative": "Câu hỏi không cần hình làm bằng chứng toán học.",
           "responseInstruction": "Nhập đúng dạng cấu trúc được nêu trong đề."
         }
@@ -10165,7 +10109,7 @@
         "variantId": "POLYNOMIAL_SIMPLIFICATION",
         "variantVersion": "product-v2-1",
         "difficulty": "MEDIUM",
-        "publicPrompt": "Dùng cấu trúc đại số trong bảng theo dõi: Thu gọn 8x² + 2 − 7x² + 5. Nhập dạng ax+b hoặc ax^2+b.",
+        "publicPrompt": "Dùng cấu trúc đại số trong bảng theo dõi: Thu gọn 8x² + 2 − 7x² + 5. Nhập đa thức đã thu gọn; bỏ hạng tử có hệ số 0.",
         "publicData": {
           "taskMode": "COMBINE_LIKE_TERMS",
           "operation": "QUADRATIC",
@@ -10193,7 +10137,7 @@
           "data": {}
         },
         "accessibility": {
-          "prompt": "Dùng cấu trúc đại số trong bảng theo dõi: Thu gọn 8x² + 2 − 7x² + 5. Nhập dạng ax+b hoặc ax^2+b.",
+          "prompt": "Dùng cấu trúc đại số trong bảng theo dõi: Thu gọn 8x² + 2 − 7x² + 5. Nhập đa thức đã thu gọn; bỏ hạng tử có hệ số 0.",
           "visualAlternative": "Câu hỏi không cần hình làm bằng chứng toán học.",
           "responseInstruction": "Nhập đúng dạng cấu trúc được nêu trong đề."
         }
@@ -10206,7 +10150,7 @@
           "steps": [
             "Nhóm các hạng tử bậc hai với nhau.",
             "Cộng hệ số 8 và -7; cộng hằng số 2 và 5.",
-            "Dạng thu gọn là 1x^2+7."
+            "Dạng thu gọn là x^2+7."
           ],
           "nextStep": "Thay x=1 vào hai biểu thức để kiểm tra."
         },
@@ -10217,7 +10161,7 @@
           "steps": [
             "Nhóm các hạng tử bậc hai với nhau.",
             "Cộng hệ số 8 và -7; cộng hằng số 2 và 5.",
-            "Dạng thu gọn là 1x^2+7."
+            "Dạng thu gọn là x^2+7."
           ],
           "nextStep": "Thay x=1 vào hai biểu thức để kiểm tra."
         }
@@ -10245,7 +10189,7 @@
         "variantId": "POLYNOMIAL_SIMPLIFICATION",
         "variantVersion": "product-v2-1",
         "difficulty": "HARD",
-        "publicPrompt": "Viết quan hệ toán học trong góc sáng tạo: Thu gọn -2x² + 3 − 6x² + 1. Nhập dạng ax+b hoặc ax^2+b.",
+        "publicPrompt": "Viết quan hệ toán học trong góc sáng tạo: Thu gọn -2x² + 3 − 6x² + 1. Nhập đa thức đã thu gọn; bỏ hạng tử có hệ số 0.",
         "publicData": {
           "taskMode": "COMBINE_LIKE_TERMS",
           "operation": "QUADRATIC",
@@ -10273,7 +10217,7 @@
           "data": {}
         },
         "accessibility": {
-          "prompt": "Viết quan hệ toán học trong góc sáng tạo: Thu gọn -2x² + 3 − 6x² + 1. Nhập dạng ax+b hoặc ax^2+b.",
+          "prompt": "Viết quan hệ toán học trong góc sáng tạo: Thu gọn -2x² + 3 − 6x² + 1. Nhập đa thức đã thu gọn; bỏ hạng tử có hệ số 0.",
           "visualAlternative": "Câu hỏi không cần hình làm bằng chứng toán học.",
           "responseInstruction": "Nhập đúng dạng cấu trúc được nêu trong đề."
         }
@@ -10369,16 +10313,44 @@
         },
         "visual": {
           "type": "COORDINATE_GRAPH",
-          "description": "Bốn hình ứng viên để kiểm tra bằng đường thẳng đứng.",
+          "description": "Bốn hình ứng viên; đường thẳng hàm số có phương trình y=-3x+5, với giao điểm trục tung 5.",
           "data": {
             "graphKind": "FUNCTION_GRAPH_RECOGNITION",
+            "axes": {
+              "x": 0,
+              "y": 0
+            },
             "candidateGraphs": [
               {
                 "id": "graph-function",
                 "label": "y=-3x+5",
                 "kind": "LINE",
+                "equation": {
+                  "slope": -3,
+                  "intercept": 5
+                },
                 "slope": -3,
-                "intercept": 5
+                "intercept": 5,
+                "window": {
+                  "xMin": -6,
+                  "xMax": 6,
+                  "yMin": -10,
+                  "yMax": 10
+                },
+                "plottedPoints": [
+                  {
+                    "x": -1.666666667,
+                    "y": 10
+                  },
+                  {
+                    "x": 0,
+                    "y": 5
+                  },
+                  {
+                    "x": 5,
+                    "y": -10
+                  }
+                ]
               },
               {
                 "id": "graph-circle",
@@ -10400,7 +10372,7 @@
         },
         "accessibility": {
           "prompt": "Tách bài toán thành bước trong buổi thực hành: Chọn hình biểu diễn đồ thị của một hàm số theo quy tắc đường thẳng đứng.",
-          "visualAlternative": "Bốn hình ứng viên để kiểm tra bằng đường thẳng đứng.",
+          "visualAlternative": "Bốn hình ứng viên; đường thẳng hàm số có phương trình y=-3x+5, với giao điểm trục tung 5.",
           "responseInstruction": "Chọn một đáp án."
         }
       },
@@ -10494,16 +10466,44 @@
         },
         "visual": {
           "type": "COORDINATE_GRAPH",
-          "description": "Bốn hình ứng viên để kiểm tra bằng đường thẳng đứng.",
+          "description": "Bốn hình ứng viên; đường thẳng hàm số có phương trình y=2x-3, với giao điểm trục tung -3.",
           "data": {
             "graphKind": "FUNCTION_GRAPH_RECOGNITION",
+            "axes": {
+              "x": 0,
+              "y": 0
+            },
             "candidateGraphs": [
               {
                 "id": "graph-function",
                 "label": "y=2x-3",
                 "kind": "LINE",
+                "equation": {
+                  "slope": 2,
+                  "intercept": -3
+                },
                 "slope": 2,
-                "intercept": -3
+                "intercept": -3,
+                "window": {
+                  "xMin": -6,
+                  "xMax": 6,
+                  "yMin": -10,
+                  "yMax": 10
+                },
+                "plottedPoints": [
+                  {
+                    "x": -3.5,
+                    "y": -10
+                  },
+                  {
+                    "x": 0,
+                    "y": -3
+                  },
+                  {
+                    "x": 6,
+                    "y": 9
+                  }
+                ]
               },
               {
                 "id": "graph-circle",
@@ -10525,7 +10525,7 @@
         },
         "accessibility": {
           "prompt": "Tính chính xác trong trạm thực hành: Chọn hình biểu diễn đồ thị của một hàm số theo quy tắc đường thẳng đứng.",
-          "visualAlternative": "Bốn hình ứng viên để kiểm tra bằng đường thẳng đứng.",
+          "visualAlternative": "Bốn hình ứng viên; đường thẳng hàm số có phương trình y=2x-3, với giao điểm trục tung -3.",
           "responseInstruction": "Chọn một đáp án."
         }
       },
@@ -10619,16 +10619,44 @@
         },
         "visual": {
           "type": "COORDINATE_GRAPH",
-          "description": "Bốn hình ứng viên để kiểm tra bằng đường thẳng đứng.",
+          "description": "Bốn hình ứng viên; đường thẳng hàm số có phương trình y=1x-1, với giao điểm trục tung -1.",
           "data": {
             "graphKind": "FUNCTION_GRAPH_RECOGNITION",
+            "axes": {
+              "x": 0,
+              "y": 0
+            },
             "candidateGraphs": [
               {
                 "id": "graph-function",
                 "label": "y=1x-1",
                 "kind": "LINE",
+                "equation": {
+                  "slope": 1,
+                  "intercept": -1
+                },
                 "slope": 1,
-                "intercept": -1
+                "intercept": -1,
+                "window": {
+                  "xMin": -6,
+                  "xMax": 6,
+                  "yMin": -10,
+                  "yMax": 10
+                },
+                "plottedPoints": [
+                  {
+                    "x": -6,
+                    "y": -7
+                  },
+                  {
+                    "x": 0,
+                    "y": -1
+                  },
+                  {
+                    "x": 6,
+                    "y": 5
+                  }
+                ]
               },
               {
                 "id": "graph-circle",
@@ -10650,7 +10678,7 @@
         },
         "accessibility": {
           "prompt": "Dùng phép tính thích hợp trong xưởng mô hình: Chọn hình biểu diễn đồ thị của một hàm số theo quy tắc đường thẳng đứng.",
-          "visualAlternative": "Bốn hình ứng viên để kiểm tra bằng đường thẳng đứng.",
+          "visualAlternative": "Bốn hình ứng viên; đường thẳng hàm số có phương trình y=1x-1, với giao điểm trục tung -1.",
           "responseInstruction": "Chọn một đáp án."
         }
       },
@@ -10875,7 +10903,7 @@
       "canonicalCapability": "FUNCTION_EVALUATION",
       "taskMode": "FUNCTION_VALUE",
       "difficulty": "HARD",
-      "interactionType": "FRACTION_INPUT",
+      "interactionType": "INTEGER_INPUT",
       "visualType": "DATA_TABLE",
       "publicSnapshot": {
         "schemaVersion": 2,
@@ -10903,9 +10931,9 @@
           "difficultyStructure": 3
         },
         "interaction": {
-          "type": "FRACTION_INPUT",
-          "inputLabel": "Phân số tối giản",
-          "inputMode": "text"
+          "type": "INTEGER_INPUT",
+          "inputLabel": "Kết quả",
+          "inputMode": "numeric"
         },
         "visual": {
           "type": "DATA_TABLE",
@@ -10931,7 +10959,7 @@
         "accessibility": {
           "prompt": "Giải thích bằng mô hình trong gian hàng nhỏ: Cho f(x)=-5x² − 2. Tính f(-1).",
           "visualAlternative": "Bảng dữ liệu của bài toán.",
-          "responseInstruction": "Nhập tử số và mẫu số; phân số tương đương được chuẩn hóa toán học."
+          "responseInstruction": "Nhập giá trị chính xác."
         }
       },
       "postSubmitFeedback": {
@@ -12145,7 +12173,7 @@
         "variantId": "LINEAR_SYSTEM",
         "variantVersion": "product-v2-1",
         "difficulty": "MEDIUM",
-        "publicPrompt": "Tìm kết quả: Giải hệ 2x + 1y = 9; 1x − 1y = 9.",
+        "publicPrompt": "Tìm giá trị cần biết: Giải hệ 2x + 1y = 9; 1x − 1y = 9.",
         "publicData": {
           "equations": [
             {
@@ -12198,7 +12226,7 @@
           "data": {}
         },
         "accessibility": {
-          "prompt": "Tìm kết quả: Giải hệ 2x + 1y = 9; 1x − 1y = 9.",
+          "prompt": "Tìm giá trị cần biết: Giải hệ 2x + 1y = 9; 1x − 1y = 9.",
           "visualAlternative": "Câu hỏi không cần hình minh họa.",
           "responseInstruction": "Ghép từng mục ở hai cột."
         }
@@ -12252,7 +12280,7 @@
         "variantId": "LINEAR_SYSTEM",
         "variantVersion": "product-v2-1",
         "difficulty": "HARD",
-        "publicPrompt": "Đọc kĩ rồi trả lời: Giải hệ 2x + 1y = -8; 1x − 2y = -24.",
+        "publicPrompt": "Tìm kết quả: Giải hệ 2x + 1y = -8; 1x − 2y = -24.",
         "publicData": {
           "equations": [
             {
@@ -12305,7 +12333,7 @@
           "data": {}
         },
         "accessibility": {
-          "prompt": "Đọc kĩ rồi trả lời: Giải hệ 2x + 1y = -8; 1x − 2y = -24.",
+          "prompt": "Tìm kết quả: Giải hệ 2x + 1y = -8; 1x − 2y = -24.",
           "visualAlternative": "Câu hỏi không cần hình minh họa.",
           "responseInstruction": "Ghép từng mục ở hai cột."
         }
@@ -12467,10 +12495,6 @@
               "id": "root--10",
               "label": "-10"
             }
-          ],
-          "orderedItemIds": [
-            "root--10",
-            "root--3"
           ]
         },
         "visual": {
@@ -12558,10 +12582,6 @@
               "id": "root-9",
               "label": "9"
             }
-          ],
-          "orderedItemIds": [
-            "root-3",
-            "root-9"
           ]
         },
         "visual": {
@@ -12609,7 +12629,7 @@
       "canonicalCapability": "RATIONAL_EQUATION_SOLVING",
       "taskMode": "RATIONAL_EQUATION",
       "difficulty": "EASY",
-      "interactionType": "FRACTION_INPUT",
+      "interactionType": "INTEGER_INPUT",
       "visualType": "NONE",
       "publicSnapshot": {
         "schemaVersion": 2,
@@ -12620,7 +12640,7 @@
         "variantId": "RATIONAL_EQUATION_SOLVING",
         "variantVersion": "product-v2-1",
         "difficulty": "EASY",
-        "publicPrompt": "Chọn bằng chứng trực tiếp trong gian hàng nhỏ: Giải phương trình (x−9)/(x−2)=0 và kiểm tra điều kiện xác định.",
+        "publicPrompt": "Chọn bằng chứng trực tiếp trong gian hàng nhỏ: Giải phương trình (x − 9)/(x − 2)=0 và kiểm tra điều kiện xác định.",
         "publicData": {
           "taskMode": "RATIONAL_EQUATION",
           "operation": "LINEAR_RATIONAL",
@@ -12637,9 +12657,9 @@
           "difficultyStructure": 1
         },
         "interaction": {
-          "type": "FRACTION_INPUT",
-          "inputLabel": "Phân số tối giản",
-          "inputMode": "text"
+          "type": "INTEGER_INPUT",
+          "inputLabel": "Kết quả",
+          "inputMode": "numeric"
         },
         "visual": {
           "type": "NONE",
@@ -12647,9 +12667,9 @@
           "data": {}
         },
         "accessibility": {
-          "prompt": "Chọn bằng chứng trực tiếp trong gian hàng nhỏ: Giải phương trình (x−9)/(x−2)=0 và kiểm tra điều kiện xác định.",
+          "prompt": "Chọn bằng chứng trực tiếp trong gian hàng nhỏ: Giải phương trình (x − 9)/(x − 2)=0 và kiểm tra điều kiện xác định.",
           "visualAlternative": "Câu hỏi không cần hình làm bằng chứng toán học.",
-          "responseInstruction": "Nhập tử số và mẫu số; phân số tương đương được chuẩn hóa toán học."
+          "responseInstruction": "Nhập giá trị chính xác."
         }
       },
       "postSubmitFeedback": {
@@ -12688,7 +12708,7 @@
       "canonicalCapability": "RATIONAL_EQUATION_SOLVING",
       "taskMode": "RATIONAL_EQUATION",
       "difficulty": "MEDIUM",
-      "interactionType": "FRACTION_INPUT",
+      "interactionType": "INTEGER_INPUT",
       "visualType": "NONE",
       "publicSnapshot": {
         "schemaVersion": 2,
@@ -12699,7 +12719,7 @@
         "variantId": "RATIONAL_EQUATION_SOLVING",
         "variantVersion": "product-v2-1",
         "difficulty": "MEDIUM",
-        "publicPrompt": "Nêu kết quả tối giản trong bảng theo dõi: Giải phương trình (x−9)/(x−5)=0 và kiểm tra điều kiện xác định.",
+        "publicPrompt": "Nêu kết quả tối giản trong bảng theo dõi: Giải phương trình (x − 9)/(x − 5)=0 và kiểm tra điều kiện xác định.",
         "publicData": {
           "taskMode": "RATIONAL_EQUATION",
           "operation": "LINEAR_RATIONAL",
@@ -12716,9 +12736,9 @@
           "difficultyStructure": 2
         },
         "interaction": {
-          "type": "FRACTION_INPUT",
-          "inputLabel": "Phân số tối giản",
-          "inputMode": "text"
+          "type": "INTEGER_INPUT",
+          "inputLabel": "Kết quả",
+          "inputMode": "numeric"
         },
         "visual": {
           "type": "NONE",
@@ -12726,9 +12746,9 @@
           "data": {}
         },
         "accessibility": {
-          "prompt": "Nêu kết quả tối giản trong bảng theo dõi: Giải phương trình (x−9)/(x−5)=0 và kiểm tra điều kiện xác định.",
+          "prompt": "Nêu kết quả tối giản trong bảng theo dõi: Giải phương trình (x − 9)/(x − 5)=0 và kiểm tra điều kiện xác định.",
           "visualAlternative": "Câu hỏi không cần hình làm bằng chứng toán học.",
-          "responseInstruction": "Nhập tử số và mẫu số; phân số tương đương được chuẩn hóa toán học."
+          "responseInstruction": "Nhập giá trị chính xác."
         }
       },
       "postSubmitFeedback": {
@@ -12778,7 +12798,7 @@
         "variantId": "RATIONAL_EQUATION_SOLVING",
         "variantVersion": "product-v2-1",
         "difficulty": "HARD",
-        "publicPrompt": "Hoàn thiện bảng con trong góc sáng tạo: Giải phương trình (x−10)/(x−2)=0 và kiểm tra điều kiện xác định.",
+        "publicPrompt": "Hoàn thiện bảng con trong góc sáng tạo: Giải phương trình (x − 10)/(x − 2)=0 và kiểm tra điều kiện xác định.",
         "publicData": {
           "taskMode": "RATIONAL_EQUATION",
           "operation": "LINEAR_RATIONAL",
@@ -12805,7 +12825,7 @@
           "data": {}
         },
         "accessibility": {
-          "prompt": "Hoàn thiện bảng con trong góc sáng tạo: Giải phương trình (x−10)/(x−2)=0 và kiểm tra điều kiện xác định.",
+          "prompt": "Hoàn thiện bảng con trong góc sáng tạo: Giải phương trình (x − 10)/(x − 2)=0 và kiểm tra điều kiện xác định.",
           "visualAlternative": "Câu hỏi không cần hình làm bằng chứng toán học.",
           "responseInstruction": "Nhập giá trị chính xác."
         }
@@ -12887,10 +12907,6 @@
               "id": "root--1",
               "label": "-1"
             }
-          ],
-          "orderedItemIds": [
-            "root--3",
-            "root--1"
           ]
         },
         "visual": {
@@ -12979,10 +12995,6 @@
               "id": "root--5",
               "label": "-5"
             }
-          ],
-          "orderedItemIds": [
-            "root--5",
-            "root-1"
           ]
         },
         "visual": {
@@ -13071,10 +13083,6 @@
               "id": "root-2",
               "label": "2"
             }
-          ],
-          "orderedItemIds": [
-            "root--5",
-            "root-2"
           ]
         },
         "visual": {
@@ -13143,9 +13151,7 @@
             5,
             3,
             -3,
-            6,
-            3,
-            1
+            6
           ],
           "rationals": [],
           "labels": [],
@@ -13265,9 +13271,7 @@
             19,
             3,
             -4,
-            -39,
-            -5,
-            6
+            -39
           ],
           "rationals": [],
           "labels": [],
@@ -13391,9 +13395,7 @@
             86,
             2,
             -3,
-            -22,
-            10,
-            14
+            -22
           ],
           "rationals": [],
           "labels": [],
@@ -14765,9 +14767,7 @@
             28,
             1,
             -2,
-            3,
-            13,
-            5
+            3
           ],
           "rationals": [],
           "labels": [],
@@ -14879,9 +14879,7 @@
             44,
             2,
             -3,
-            -28,
-            4,
-            12
+            -28
           ],
           "rationals": [],
           "labels": [],
@@ -14993,9 +14991,7 @@
             -36,
             2,
             -1,
-            -3,
-            -4,
-            -5
+            -3
           ],
           "rationals": [],
           "labels": [],
@@ -15201,10 +15197,6 @@
               "id": "root-2",
               "label": "2"
             }
-          ],
-          "orderedItemIds": [
-            "root--6",
-            "root-2"
           ]
         },
         "visual": {
@@ -15292,10 +15284,6 @@
               "id": "root--5",
               "label": "-5"
             }
-          ],
-          "orderedItemIds": [
-            "root--9",
-            "root--5"
           ]
         },
         "visual": {
@@ -15819,7 +15807,7 @@
         "variantId": "LINEAR_INEQUALITY_SOLVING",
         "variantVersion": "product-v2-1",
         "difficulty": "HARD",
-        "publicPrompt": "Giải thích bằng mô hình trong chuyến tham quan: Giải bất phương trình -2x + 6 > -10. Nhập dạng x<k, x<=k, x>k hoặc x>=k.",
+        "publicPrompt": "Giải thích bằng mô hình trong chuyến tham quan: Giải bất phương trình -2x + 6 > -10. Chọn tập nghiệm đúng.",
         "publicData": {
           "taskMode": "LINEAR_INEQUALITY",
           "operation": "SOLVE_LINEAR_INEQUALITY",
@@ -15877,7 +15865,7 @@
           }
         },
         "accessibility": {
-          "prompt": "Giải thích bằng mô hình trong chuyến tham quan: Giải bất phương trình -2x + 6 > -10. Nhập dạng x<k, x<=k, x>k hoặc x>=k.",
+          "prompt": "Giải thích bằng mô hình trong chuyến tham quan: Giải bất phương trình -2x + 6 > -10. Chọn tập nghiệm đúng.",
           "visualAlternative": "Trục số dùng cùng mốc và chiều với bài toán.",
           "responseInstruction": "Chọn một đáp án."
         }

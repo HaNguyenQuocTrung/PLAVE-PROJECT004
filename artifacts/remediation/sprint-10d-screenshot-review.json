@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "status": "FAIL",
+  "screenshotsReviewed": 32,
+  "generatorScreenshotsReviewed": 22,
+  "aiTutorScreenshotsReviewed": 10,
+  "unreviewedScreenshotsCounted": 0,
+  "viewportsRepresented": [
+    "320x568",
+    "390x844",
+    "768x1024",
+    "1280x800",
+    "1440x900"
+  ],
+  "issues": [
+    {
+      "id": "10D-SCREEN-001",
+      "severity": "HIGH",
+      "file": "generator/1440x900-function_graph_recognition-start.png",
+      "findingId": "F-003",
+      "evidence": "Candidate is labeled y=2x+3, but the blue line is drawn through the displayed origin."
+    },
+    {
+      "id": "10D-SCREEN-002",
+      "severity": "MEDIUM",
+      "file": "generator/768x1024-fraction_part_whole-start.png",
+      "findingId": "F-003",
+      "evidence": "Prompt names an orange model while the rendered fraction fill is teal/green."
+    },
+    {
+      "id": "10D-SCREEN-003",
+      "severity": "MEDIUM",
+      "file": "generator/1280x800-polynomial_simplification-complete.png",
+      "findingId": "F-003",
+      "evidence": "Feedback suggests x=1 as a check of polynomial equivalence, which is not sufficient."
+    }
+  ],
+  "criticalIssues": 0,
+  "highIssues": 1,
+  "mediumIssues": 2,
+  "aiTutorCriticalHighIssues": 0,
+  "automatedMetrics": {
+    "consoleErrors": 0,
+    "hydrationErrors": 0,
+    "pageErrors": 0,
+    "overflowErrors": 0,
+    "privateLeaks": 0
+  },
+  "evidenceDirectory": "artifacts/remediation/sprint-10d-screenshots"
+}

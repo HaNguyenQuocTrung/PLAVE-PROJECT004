@@ -2,10 +2,14 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import {
+  buildSemanticDiversitySignature,
+  classifySemanticVariation,
   evaluatePublicQuestion,
   oracleAnswerKey,
   type OracleAnswer,
   type OracleCandidate,
+  type SemanticDiversitySignature,
+  type SemanticVariationClass,
 } from "../lib/generation-v2-oracle/index.ts";
 import {
   GENERATOR_V2_OUTCOME_REGISTRY,
@@ -31,7 +35,7 @@ const difficulties: readonly ProductDifficulty[] = ["EASY", "MEDIUM", "HARD"];
 const expected = 546 * 3 * 20;
 const observedKeys = new Set<string>();
 const capabilityStats = new Map<string, { attempted: number; passed: number; outcomes: Set<string>; diagnostics: Map<string, number> }>();
-const diversityBatches = new Map<string, { exact: Set<string>; templates: Map<string, number> }>();
+const diversityBatches = new Map<string, SemanticDiversitySignature[]>();
 const sampleResults: Array<{
   outcomeId: string;
   capabilityId: string;
@@ -95,10 +99,8 @@ for (const entry of GENERATOR_V2_OUTCOME_REGISTRY) {
       provenanceComplete += Number(completeProvenance);
       const snapshot = publicQuestionOnly(generated) as unknown as OracleCandidate;
       const diversityKey = `${entry.outcomeId}:${difficulty}`;
-      const diversity = diversityBatches.get(diversityKey) ?? { exact: new Set<string>(), templates: new Map<string, number>() };
-      diversity.exact.add(JSON.stringify({ prompt: snapshot.publicPrompt, data: snapshot.publicData, interaction: snapshot.interaction, visual: snapshot.visual }));
-      const template = snapshot.publicPrompt.toLocaleLowerCase("vi").replace(/-?\d+(?:[.,]\d+)?/gu, "#").replace(/\s+/gu, " ").trim();
-      diversity.templates.set(template, (diversity.templates.get(template) ?? 0) + 1);
+      const diversity = diversityBatches.get(diversityKey) ?? [];
+      diversity.push(buildSemanticDiversitySignature(snapshot));
       diversityBatches.set(diversityKey, diversity);
       const oracle = evaluatePublicQuestion(snapshot);
       const expectedKey = oracleAnswerKey(generated.privateSolution.correctResponse as OracleAnswer);
@@ -154,14 +156,36 @@ for (const entry of GENERATOR_V2_OUTCOME_REGISTRY) {
 
 if (attempted !== expected || observedKeys.size !== expected) throw new Error("ORACLE_SHARD_RECONCILIATION_FAILED");
 
-const diversitySummary = [...diversityBatches.entries()].map(([batch, values]) => {
+const diversitySummary = [...diversityBatches.entries()].map(([batch, signatures]) => {
   const pairCount = 20 * 19 / 2;
-  const nearPairs = [...values.templates.values()].reduce((sum, count) => sum + count * (count - 1) / 2, 0);
+  const pairClassification: Record<SemanticVariationClass, number> = {
+    EXACT_DUPLICATE: 0,
+    SURFACE_VARIATION_ONLY: 0,
+    PARAMETER_VARIATION: 0,
+    STRUCTURAL_MATHEMATICAL_VARIATION: 0,
+    CONTEXTUAL_VARIATION: 0,
+    INTERACTION_VISUAL_VARIATION: 0,
+  };
+  for (let left = 0; left < signatures.length; left += 1) {
+    for (let right = left + 1; right < signatures.length; right += 1) {
+      pairClassification[classifySemanticVariation(signatures[left]!, signatures[right]!)] += 1;
+    }
+  }
+  const structuralForms = new Set(signatures.map((value) => value.structural)).size;
   return {
     batch,
     samples: 20,
-    exactDuplicates: 20 - values.exact.size,
-    nearDuplicatePairRate: nearPairs / pairCount,
+    exactDuplicates: 20 - new Set(signatures.map((value) => value.exact)).size,
+    nearDuplicatePairRate: pairClassification.SURFACE_VARIATION_ONLY / pairCount,
+    pairClassification,
+    lexicalDiversity: new Set(signatures.map((value) => value.lexical)).size,
+    lexicalTemplateDiversity: new Set(signatures.map((value) => value.lexicalTemplate)).size,
+    parameterDiversity: new Set(signatures.map((value) => value.parameterExact)).size,
+    parameterBucketDiversity: new Set(signatures.map((value) => value.parameterBucket)).size,
+    structuralDiversity: structuralForms,
+    contextualDiversity: new Set(signatures.map((value) => value.context)).size,
+    visualInteractionDiversity: new Set(signatures.map((value) => value.interactionVisual)).size,
+    topologyExpectation: structuralForms === 1 ? "CONSTRAINED_TOPOLOGY" : "MULTIPLE_STRUCTURAL_FORMS_OBSERVED",
   };
 });
 const exactDuplicates = diversitySummary.reduce((sum, batch) => sum + batch.exactDuplicates, 0);
@@ -213,12 +237,15 @@ const fullCorrectness = {
   },
   capabilitySummary: { total: capabilities.length, eligible: eligibleCapabilities.length, blocked: blockedCapabilities.length },
   diversity: {
-    definition: "same Vietnamese prompt after numeric literals are normalized",
+    definition: "Public-model structural signatures distinguish exact, surface-only, parameter, mathematical-structural, contextual, and interaction/visual variation. Near duplicates are surface-only pairs with identical mathematical parameters and topology.",
+    evidenceBoundary: "Sanitized public prompt, public model, interaction, and visual data only; no private answer or Generator solver metadata.",
     batchesAudited: diversitySummary.length,
     threshold: 0.12,
     maximumNearDuplicatePairRate,
     exactDuplicates,
     failedBatches: nearDuplicateFailures,
+    dimensions: ["lexicalDiversity", "parameterDiversity", "structuralDiversity", "contextualDiversity", "visualInteractionDiversity"],
+    batches: diversitySummary,
   },
   failuresRecorded: failures.length,
   sampleResults,

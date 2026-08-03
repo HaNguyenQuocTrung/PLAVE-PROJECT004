@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "sprint": "10D.1",
+  "status": "PASS",
+  "coordinates": {
+    "outcomes": 546,
+    "capabilities": 198,
+    "difficulties": 3,
+    "seedsPerDifficulty": 20,
+    "expected": 32760,
+    "attempted": 32760,
+    "unique": 32760,
+    "missing": 0,
+    "duplicate": 0
+  },
+  "metrics": {
+    "oracleValidated": 32760,
+    "mathematicallyInvalid": 0,
+    "insufficientData": 0,
+    "unintendedAmbiguity": 0,
+    "promptVisualMismatch": 0,
+    "interactionMismatch": 0,
+    "invalidAnswerSets": 0,
+    "invalidDistractorSets": 0,
+    "privateLeaks": 0,
+    "genericFallback": 0,
+    "keywordRouting": 0,
+    "exactDuplicates": 0,
+    "maximumNearDuplicatePairRate": 0.03684210526315789,
+    "nearDuplicateThreshold": 0.12,
+    "provenance8of8": 32760,
+    "deterministicReplay": 32760
+  },
+  "targeted": {
+    "historicalGraphSamples": 60,
+    "nonzeroInterceptGraphSamples": 58,
+    "grade7DenominatorOneIntegerInteractions": 60,
+    "fractionColorVisualMatches": 60,
+    "quadraticMutationKilled": 12,
+    "quadraticMutationTotal": 12,
+    "structuralDiversityBatches": 1638
+  },
+  "sourceArtifact": "generator-full-correctness.json"
+}

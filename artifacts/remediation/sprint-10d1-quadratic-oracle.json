@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "sprint": "10D.1",
+  "status": "PASS",
+  "capabilityId": "QUADRATIC_EQUATION_SOLVING",
+  "solutionComparison": "EXACT_CANONICAL_SET_EQUALITY",
+  "generatorSolverImported": false,
+  "typedDiagnostics": [
+    "ORACLE_MISSING_SOLUTION",
+    "ORACLE_EXTRANEOUS_SOLUTION",
+    "ORACLE_DUPLICATE_SOLUTION",
+    "ORACLE_DOMAIN_VIOLATION",
+    "ORACLE_INVALID_SOLUTION_FORMAT"
+  ],
+  "previousAuditMutation": { "killed": 10, "total": 11, "extraneousRootAccepted": true },
+  "currentMutationSuite": { "killed": 12, "total": 12, "score": 1 },
+  "extraneousRootMutation": {
+    "value": "SANITIZED_ARBITRARY_EXTRA_VALUE",
+    "oracleOk": false,
+    "diagnostics": ["ORACLE_EXTRANEOUS_SOLUTION"]
+  },
+  "privateAnswersPersisted": false
+}
