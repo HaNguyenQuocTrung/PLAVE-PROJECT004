@@ -1,9 +1,0 @@
-{
-  "concurrentStart": "PASS",
-  "concurrentSameSubmit": "ONE_DATABASE_WRITE_WITH_IDEMPOTENT_REPLAYS",
-  "duplicateDifferentPayload": "IDEMPOTENCY_CONFLICT",
-  "staleCas": "REVISION_CONFLICT",
-  "transactionFailureRollback": "PASS",
-  "submitAfterCompletion": "REJECTED",
-  "cleanup": "PASS"
-}

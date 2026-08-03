@@ -11,6 +11,7 @@
 /artifacts/official-contract-review
 /artifacts/generated-pilot-acceptance/*.png
 /.local-artifacts
+/artifacts/
 /.env.generated-pilot.local
 /.next-generated-pilot-project004
 /.next-generator-v2-owner-review
