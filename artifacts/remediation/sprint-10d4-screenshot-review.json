@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "status": "NOT_RUN_DUE_SOURCE_ISOLATION_BLOCKER",
+  "sourceCommit": "83b604bcefc112116737142f3572bec068b73ea5",
+  "screenshotsGenerated": 0,
+  "screenshotsOpened": 0,
+  "screenshotsReviewed": 0,
+  "criticalIssues": "NOT_MEASURED",
+  "highIssues": "NOT_MEASURED",
+  "screenshotsDirectoryCreated": false,
+  "reason": "No browser acceptance was run after the source-isolation failure."
+}

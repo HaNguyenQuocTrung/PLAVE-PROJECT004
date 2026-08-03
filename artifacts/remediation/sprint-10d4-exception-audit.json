@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "status": "STRUCTURALLY_BOUNDED_PEDAGOGICAL_ACCEPTANCE_BLOCKED",
+  "sourceCommit": "83b604bcefc112116737142f3572bec068b73ea5",
+  "exceptionCount": 11,
+  "mappingType": "EXACT_OUTCOME_ID_OBJECT",
+  "wildcards": 0,
+  "regexRoutes": 0,
+  "capabilityWideBypasses": 0,
+  "gradeWideBypasses": 0,
+  "canonicalInventoryMissingIds": [],
+  "grade7FailingOutcome": "MOET2018-G7-NAA-P057-030",
+  "grade7FailingOutcomeIsException": false,
+  "observedExceptionSamples": 126,
+  "unauthorizedDenominatorOneFractionSamples": 0,
+  "records": [
+    {"outcomeId":"MOET2018-G4-NUM-P037-025","grade":4,"reason":"Multi-step fraction-of-a-quantity result is reported as a reduced fraction.","structurallyBounded":true,"pedagogicalAcceptance":"NOT_CONCLUDED_DUE_BLOCKER"},
+    {"outcomeId":"MOET2018-G4-NUM-P037-026","grade":4,"reason":"Fraction multiplication/division result is reported as a reduced fraction.","structurallyBounded":true,"pedagogicalAcceptance":"NOT_CONCLUDED_DUE_BLOCKER"},
+    {"outcomeId":"MOET2018-G5-NUM-P041-006","grade":5,"reason":"Contextual fraction-operation result is reported as a reduced fraction.","structurallyBounded":true,"pedagogicalAcceptance":"NOT_CONCLUDED_DUE_BLOCKER"},
+    {"outcomeId":"MOET2018-G5-NUM-P041-012","grade":5,"reason":"Four fraction operations preserve exact rational representation.","structurallyBounded":true,"pedagogicalAcceptance":"NOT_CONCLUDED_DUE_BLOCKER"},
+    {"outcomeId":"MOET2018-G5-NUM-P041-013","grade":5,"reason":"Fraction addition/subtraction result is reported as a reduced fraction.","structurallyBounded":true,"pedagogicalAcceptance":"NOT_CONCLUDED_DUE_BLOCKER"},
+    {"outcomeId":"MOET2018-G6-NAA-P049-031","grade":6,"reason":"Practical fraction calculation reports an exact reduced fraction.","structurallyBounded":true,"pedagogicalAcceptance":"NOT_CONCLUDED_DUE_BLOCKER"},
+    {"outcomeId":"MOET2018-G6-NAA-P049-040","grade":6,"reason":"Fraction operations report exact reduced fractional form.","structurallyBounded":true,"pedagogicalAcceptance":"NOT_CONCLUDED_DUE_BLOCKER"},
+    {"outcomeId":"MOET2018-G7-NAA-P056-005","grade":7,"reason":"Signed rational change is represented explicitly as a reduced fraction.","structurallyBounded":true,"pedagogicalAcceptance":"NOT_CONCLUDED_DUE_BLOCKER"},
+    {"outcomeId":"MOET2018-G7-NAA-P056-007","grade":7,"reason":"Ordered rational operations preserve exact fractional form.","structurallyBounded":true,"pedagogicalAcceptance":"NOT_CONCLUDED_DUE_BLOCKER"},
+    {"outcomeId":"MOET2018-G7-NAA-P056-014","grade":7,"reason":"Rational coordinate is reported as a reduced fraction.","structurallyBounded":true,"pedagogicalAcceptance":"NOT_CONCLUDED_DUE_BLOCKER"},
+    {"outcomeId":"MOET2018-G7-NAA-P056-016","grade":7,"reason":"Rational-number operations preserve exact reduced fractional form.","structurallyBounded":true,"pedagogicalAcceptance":"NOT_CONCLUDED_DUE_BLOCKER"}
+  ],
+  "adjacentOutcomeMutationExecuted": false,
+  "unrelatedCapabilityMutationExecuted": false,
+  "acceptanceConclusion": "NOT_ESTABLISHED"
+}

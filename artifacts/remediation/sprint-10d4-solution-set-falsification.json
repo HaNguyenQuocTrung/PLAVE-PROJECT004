@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "status": "PARTIAL_SOURCE_CHECK_PASS_AUDIT_BLOCKED",
+  "sourceCommit": "83b604bcefc112116737142f3572bec068b73ea5",
+  "checkpointCases": {
+    "validAccepted": ["exact-integer", "integer-dot-zero", "integer-dot-zero-zero", "integer-over-one", "surrounding-whitespace"],
+    "invalidRejected": ["missing-root", "extraneous-root", "duplicate-equivalent-root", "decimal-outside-exact-contract"],
+    "typedDiagnosticsObserved": ["ORACLE_MISSING_SOLUTION", "ORACLE_EXTRANEOUS_SOLUTION", "ORACLE_DUPLICATE_SOLUTION"],
+    "unexpectedResults": 0
+  },
+  "independentAuditTimeCasesExecuted": 0,
+  "reason": "Stopped at mandatory source-isolation blocker.",
+  "acceptanceConclusion": "NOT_ESTABLISHED"
+}

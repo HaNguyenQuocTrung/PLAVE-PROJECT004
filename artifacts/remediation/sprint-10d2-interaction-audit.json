@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "status": "FAIL",
+  "coordinatesScanned": 32760,
+  "grade7OutcomeId": "MOET2018-G7-NAA-P057-030",
+  "grade7Samples": 60,
+  "grade7HistoricalEasyMediumSamples": 40,
+  "grade7DenominatorOne": 60,
+  "grade7IntegerInput": 60,
+  "grade7FractionInput": 0,
+  "numericIntegerFractionInputAcrossCorpus": 0,
+  "explicitRationalFormExceptions": {
+    "count": 126,
+    "justification": "Explicit fraction/rational curriculum contracts require a reduced fractional representation even when a generated value reduces to denominator one",
+    "byCapability": { "APPLIED_RATIONAL_REASONING": 17, "FRACTION_APPLICATION": 84, "RATIONAL_NUMBER_LINE": 8, "RATIONAL_OPERATIONS": 15, "RATIONAL_OPERATION_ORDER": 2 }
+  },
+  "serverPublicSchema": "PASS",
+  "resumeInteractionStable": "PASS",
+  "publicLeaks": 0,
+  "auditMutation": { "description": "Force the Grade 7 denominator-one candidate to FRACTION_INPUT", "expected": "ORACLE_INTERACTION_MISMATCH", "actualOk": true, "actualDiagnostics": [], "result": "NOT_KILLED" },
+  "privateAnswersIncluded": false
+}

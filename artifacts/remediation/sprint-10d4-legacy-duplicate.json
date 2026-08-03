@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "status": "CLASSIFIED",
+  "classification": "MAINTENANCE_DEBT",
+  "sourceCommit": "83b604bcefc112116737142f3572bec068b73ea5",
+  "legacy": {
+    "packageScript": "audit:generator-v2-full-coverage",
+    "command": "node --no-warnings --experimental-strip-types scripts/audit-generator-v2-full-coverage.ts",
+    "testAlias": "test:generation-v2-full-coverage",
+    "reachableFromPackageJson": true,
+    "activeCiReferences": 0,
+    "activeDocumentationRecommendsAsCanonical": false,
+    "seedNamespace": "sprint8c",
+    "exitCode": 0,
+    "printedMarker": "GENERATOR_V2_FULL_COVERAGE=FAIL",
+    "duplicateDefinition": "Identical public prompt, public data, interaction and visual fingerprint within one outcome/difficulty batch.",
+    "exactDuplicate": {
+      "outcomeId": "MOET2018-G6-STA-P054-009",
+      "difficulty": "HARD",
+      "firstSeed": "sprint8c-moet2018-g6-sta-p054-009-hard-01",
+      "duplicateSeed": "sprint8c-moet2018-g6-sta-p054-009-hard-04",
+      "sanitizedPublicFingerprint": "7b7cb003d1453c78"
+    }
+  },
+  "canonical": {
+    "packageScript": "audit:generator-v2-independent-oracle",
+    "seedNamespace": "sprint10c",
+    "records": 32760,
+    "exactDuplicates": 0,
+    "affectedByLegacyPair": false
+  },
+  "studentRuntimeImpactObserved": false,
+  "historicalSupersededMarking": "Present in Sprint 10D.3 documentation, but the legacy package script remains reachable.",
+  "reason": "The alternate namespace is not canonical or active CI/runtime evidence, so this is not ACTIVE_CORRECTNESS_FAILURE; the reachable misleading script prevents HISTORICAL_EVIDENCE_ONLY classification."
+}

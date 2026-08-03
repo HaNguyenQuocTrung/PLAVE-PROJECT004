@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "status": "REVIEWED_WITH_NON_BLOCKING_FINDINGS",
+  "directory": "artifacts/remediation/sprint-10d2-screenshots",
+  "screenshots": 38,
+  "reviewed": 38,
+  "viewports": 5,
+  "criticalIssues": 0,
+  "highIssues": 0,
+  "mediumIssues": 1,
+  "lowIssues": 1,
+  "findings": [
+    { "id": "10D2-M-002", "severity": "MEDIUM", "evidence": "No dedicated results/history screenshot in the final capture set", "runtimePathEvidence": ["/learning-history", "/learning-progress"] },
+    { "id": "10D2-L-001", "severity": "LOW", "evidence": "Some long catalog titles are visually ellipsized at mobile and desktop breakpoints" }
+  ],
+  "targetedReview": { "positiveInterceptGraph": "PASS", "negativeInterceptGraph": "PASS", "grade7IntegerControl": "PASS", "fractionColorPatternAndLabel": "PASS", "quadraticAnswerSet": "PASS", "incorrectFeedback": "PASS", "completion": "PASS" },
+  "privateLeaks": 0,
+  "privateAnswersIncluded": false
+}

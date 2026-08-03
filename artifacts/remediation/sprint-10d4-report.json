@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "sprint": "SPRINT_10D4_FINAL_ORACLE_REAUDIT",
+  "generatedAt": "2026-08-03T03:55:16Z",
+  "auditMode": "READ_ONLY_CHECKPOINT_ONLY",
+  "verdict": "SPRINT_10D4_REAUDIT_BLOCKED — EXACT ENVIRONMENT OR EVIDENCE GAPS REPORTED",
+  "counts": {
+    "criticalConfirmed": 0,
+    "highConfirmed": 0,
+    "criticalHighAssessment": "INCOMPLETE",
+    "blockers": 1,
+    "missingRequiredFiles": 3,
+    "screenshotsGenerated": 0,
+    "screenshotsReviewed": 0,
+    "paidProviderRequests": 0,
+    "remoteMutations": 0,
+    "gitContentMutations": 0,
+    "gitStages": 0,
+    "gitCommits": 0,
+    "gitPushes": 0,
+    "temporaryWorktreesCreated": 1,
+    "temporaryWorktreesRemoved": 1
+  },
+  "source": {
+    "commit": "83b604bcefc112116737142f3572bec068b73ea5",
+    "parent": "b5eeabab22f0183ceef1bd64cc1d94d34e882cfd",
+    "headExact": true,
+    "cleanAtCreation": true,
+    "mainWorkingTreeUsedAsEvidence": false,
+    "localEnvironmentRead": false,
+    "ownerTutorUsedAsEvidence": false,
+    "googleSmokeArtifactRead": false,
+    "nodeVersion": "v22.16.0",
+    "npmVersion": "10.9.2",
+    "lockfileSha256": "a41d24905ed18a101ca38eed176c033a074ce7488c8e0bc3c5685943a90dedca"
+  },
+  "blocker": {
+    "id": "10D4-B001",
+    "class": "CHECKPOINT_REQUIRED_EVIDENCE_MISSING",
+    "requiredFiles": [
+      "docs/status/SPRINT_10D2_INDEPENDENT_REAUDIT.md",
+      "artifacts/remediation/sprint-10d2-report.json",
+      "artifacts/remediation/sprint-10d3c-clean-checkout.json"
+    ],
+    "substitutionFromMainWorkingTree": false,
+    "impact": "F-005 cannot be reconciled against the exact 10D.2 finding and the checkpoint cannot satisfy the mandated self-contained clean-checkout evidence contract."
+  },
+  "partialChecks": {
+    "dependencyInstall": "PASS",
+    "oracleTests": "PASS_11_OF_11",
+    "existingMutationTests": "PASS_12_OF_12",
+    "checkpointFalsification": {
+      "status": "PASS_PARTIAL_EVIDENCE",
+      "attempted": 34,
+      "invalidKilled": 16,
+      "validEquivalencesAccepted": 18,
+      "unexpectedSurvivors": 0
+    },
+    "canonicalOracleRun": {
+      "status": "PASS_PARTIAL_EVIDENCE",
+      "records": 32760,
+      "outcomes": 546,
+      "capabilities": 198,
+      "missingCoordinates": 0,
+      "duplicateCoordinates": 0
+    }
+  },
+  "notRun": {
+    "reason": "SOURCE_ISOLATION_BLOCKER",
+    "gates": [
+      "independent-audit-time-falsification-matrix",
+      "authenticated-student-runtime",
+      "persistence-security",
+      "browser-acceptance",
+      "screenshot-review",
+      "practice-550",
+      "curriculum-competency",
+      "role-isolation",
+      "ui-ux",
+      "ai-tutor-key-unset",
+      "typecheck",
+      "lint",
+      "production-build",
+      "secret-boundary-canary",
+      "json-corpus-validation",
+      "npm-audit"
+    ]
+  },
+  "findings": {
+    "F-003": "NOT_REEVALUATED_DUE_SOURCE_ISOLATION_BLOCKER",
+    "F-005": "BLOCKED"
+  },
+  "legacyDuplicateClassification": "MAINTENANCE_DEBT",
+  "milestones": {
+    "milestone1": "COMPLETE_OWNER_APPROVED",
+    "milestone2": "REOPENED_AWAITING_SPRINT_10D4_REAUDIT",
+    "milestone3": "REOPENED_SECURITY_AND_REPRODUCIBILITY_REMEDIATION",
+    "changedByAudit": false
+  },
+  "cleanup": {
+    "auditServersStarted": 0,
+    "auditContainersStarted": 0,
+    "temporaryWorktreeRemoved": true,
+    "ownerTutorTerminated": false,
+    "mainWorkingTreePreserved": true
+  }
+}

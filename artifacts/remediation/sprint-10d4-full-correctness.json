@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_PARTIAL_EVIDENCE_AUDIT_BLOCKED",
+  "sourceCommit": "83b604bcefc112116737142f3572bec068b73ea5",
+  "command": "npm run --silent audit:generator-v2-independent-oracle",
+  "scope": {
+    "outcomes": 546,
+    "capabilities": 198,
+    "difficulties": 3,
+    "seedsPerDifficulty": 20,
+    "attempted": 32760,
+    "oracleValidated": 32760,
+    "missingCoordinates": 0,
+    "duplicateCoordinates": 0
+  },
+  "metrics": {
+    "answerMismatch": 0,
+    "interactionMismatch": 0,
+    "promptVisualMismatch": 0,
+    "ambiguity": 0,
+    "fallback": 0,
+    "keywordRouting": 0,
+    "privateLeak": 0,
+    "exactDuplicates": 0
+  },
+  "acceptanceLimitation": "Canonical PASS cannot replace missing required finding evidence, independent audit-time falsification, runtime and browser acceptance.",
+  "overallAuditConclusion": "BLOCKED"
+}

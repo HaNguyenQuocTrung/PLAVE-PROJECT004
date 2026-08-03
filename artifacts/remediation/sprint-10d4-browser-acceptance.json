@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "status": "NOT_RUN_DUE_SOURCE_ISOLATION_BLOCKER",
+  "sourceCommit": "83b604bcefc112116737142f3572bec068b73ea5",
+  "providerKeyConfigured": false,
+  "providerRequests": 0,
+  "viewportsAttempted": [],
+  "journeysAttempted": 0,
+  "screenshotsCreated": 0,
+  "consoleErrors": "NOT_MEASURED",
+  "hydrationErrors": "NOT_MEASURED",
+  "pageErrors": "NOT_MEASURED",
+  "overflowErrors": "NOT_MEASURED",
+  "privateLeaks": "NOT_MEASURED",
+  "reason": "Mandatory checkpoint evidence missing; no browser server was started."
+}

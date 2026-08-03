@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "status": "FAIL",
+  "casesAttempted": 9,
+  "cases": [
+    { "case": "EXACT_ROOT_SET", "result": "PASS" },
+    { "case": "MISSING_ROOT", "result": "REJECTED", "diagnostic": "ORACLE_MISSING_SOLUTION" },
+    { "case": "CORRECT_PLUS_EXTRANEOUS", "result": "REJECTED", "diagnostic": "ORACLE_EXTRANEOUS_SOLUTION" },
+    { "case": "DUPLICATE_ROOT", "result": "REJECTED", "diagnostic": "ORACLE_DUPLICATE_SOLUTION" },
+    { "case": "INVALID_COMPLEX_FORMAT", "result": "REJECTED", "diagnostic": "ORACLE_INVALID_SOLUTION_FORMAT" },
+    { "case": "INVALID_EQUATION_DOMAIN", "result": "REJECTED", "diagnostic": "ORACLE_DOMAIN_VIOLATION" },
+    { "case": "EXACT_EQUIVALENT_INTEGER_AS_DECIMAL", "result": "REJECTED_INCORRECTLY", "diagnostics": ["ORACLE_AMBIGUOUS_ANSWER", "ORACLE_UNSUPPORTED_CAPABILITY"] },
+    { "case": "DECIMAL_OUTSIDE_TOLERANCE", "result": "REJECTED", "diagnostics": ["ORACLE_MISSING_SOLUTION", "ORACLE_EXTRANEOUS_SOLUTION"] },
+    { "case": "REPEATED_ROOT", "result": "PASS" }
+  ],
+  "domainRestrictedQuadraticVariantSupported": false,
+  "originalExtraneousSolutionDefectResolved": true,
+  "representationCanonicalizationResidual": true,
+  "privateAnswersIncluded": false
+}
