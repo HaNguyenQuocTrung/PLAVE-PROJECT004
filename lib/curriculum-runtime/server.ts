@@ -42,9 +42,19 @@ export async function loadStudentCurriculumProgress(
   const motivation = motivationResult.error
     ? null
     : parseMotivationSummary(motivationResult.data);
-  if (!progress || progress.grade !== access.grade || !scoring) {
-    return { ok: false as const, reason: "DATA_UNAVAILABLE" as const };
-  }
+
+    console.log("[CURRICULUM_DEBUG]", {
+  accessGrade: access.grade,
+  progressExists: Boolean(progress),
+  progressGrade: progress?.grade ?? null,
+  scoringExists: Boolean(scoring),
+  scoringError: scoringResult.error,
+  motivationExists: Boolean(motivation),
+});
+    
+  if (!progress || progress.grade !== access.grade) {
+  return { ok: false as const, reason: "DATA_UNAVAILABLE" as const };
+}
   return {
     ok: true as const,
     progress: { ...progress, scoring, motivation },
