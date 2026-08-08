@@ -22,8 +22,9 @@ synthetic HTTP evidence cannot change any item below to PASS.
 - If a check fails, keep the correlation ID outside the repository and send it
   directly with: check ID, route pattern, visible error code, and a short
   symptom. Do not include account or learner details.
-- Use only `http://127.0.0.1:3000`. Do not operate another project or remote
-  environment.
+- Use only the isolated Owner-local URL printed by START
+  (`http://127.0.0.1:3100`). Do not use the separate remote-backed port-3000
+  runtime or operate another project.
 
 ## Precondition
 
@@ -53,14 +54,13 @@ codes outside the repository.
 Create one single-use invitation with:
 
 ```sh
-npm run owner-local-demo:teacher-invite
+npm run owner-local-demo:teacher-invite -- --expires-hours 24
 ```
 
-The helper writes the value to a local temporary file with mode `0600` and
-prints only its path and expiry. Open that file locally without printing or
-copying its contents into the terminal or repository. Keep it available until
-Teacher activation is complete because `/register` and `/teacher/onboarding`
-both request the same invitation.
+The helper prints the new value once in the Owner's local Terminal and never
+persists plaintext. Do not copy it into the repository, screenshots, logs, or
+chat. Keep it available until Teacher activation is complete because
+`/register` and `/teacher/onboarding` both request the same invitation.
 
 | ID | Owner action and expected result | Result |
 | --- | --- | --- |

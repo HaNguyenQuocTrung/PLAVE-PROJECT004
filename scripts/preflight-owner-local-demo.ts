@@ -1,3 +1,11 @@
-import { assertOwnerLocalDemoPreflight } from "./owner-local-demo-support.ts";
+import {
+  assertOwnerLocalDemoPreflight,
+  assertOwnerLocalSetupPreflight,
+  readOwnerLocalManagedState,
+} from "./owner-local-demo-support.ts";
 
-await assertOwnerLocalDemoPreflight();
+if (readOwnerLocalManagedState().present) {
+  await assertOwnerLocalDemoPreflight();
+} else {
+  assertOwnerLocalSetupPreflight();
+}

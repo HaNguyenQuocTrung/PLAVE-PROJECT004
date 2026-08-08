@@ -295,10 +295,20 @@ const temporaryDirectory = mkdtempSync(
 const sqlPath = join(temporaryDirectory, "materialize.sql");
 try {
   writeFileSync(sqlPath, sql, { encoding: "utf8", mode: 0o600 });
+  const postgresEnvironment = { ...process.env };
+  delete postgresEnvironment.PLAVE_LOCAL_DATABASE_URL;
+  postgresEnvironment.PGHOST = parsedUrl.hostname;
+  postgresEnvironment.PGPORT = parsedUrl.port;
+  postgresEnvironment.PGDATABASE = parsedUrl.pathname.slice(1);
+  postgresEnvironment.PGUSER = decodeURIComponent(parsedUrl.username);
+  postgresEnvironment.PGPASSWORD = decodeURIComponent(parsedUrl.password);
   const result = spawnSync(
     "psql",
-    ["--no-psqlrc", "--set", "ON_ERROR_STOP=1", "--file", sqlPath, databaseUrl],
-    { stdio: ["ignore", "inherit", "inherit"] },
+    ["--no-psqlrc", "--set", "ON_ERROR_STOP=1", "--file", sqlPath],
+    {
+      env: postgresEnvironment,
+      stdio: ["ignore", "inherit", "inherit"],
+    },
   );
   if (result.status !== 0) {
     throw new Error("Local curriculum materialization failed.");

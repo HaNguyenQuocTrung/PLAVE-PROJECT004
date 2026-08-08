@@ -28,6 +28,10 @@ const stopRunner = readFileSync(
   "scripts/stop-owner-local-demo.ts",
   "utf8",
 );
+const startRunner = readFileSync(
+  "scripts/start-owner-local-demo.ts",
+  "utf8",
+);
 
 test("Sprint 6K checklist covers the required manual routes and gates", () => {
   for (const id of [
@@ -136,28 +140,33 @@ test("checklist carries no concrete identity or secret fixture", () => {
   assert.match(checklist, /keep the correlation ID outside the repository/i);
 });
 
-test("invitation helper writes only a private temp file and never prints the code", () => {
+test("invitation helper prints one local code once and never persists plaintext", () => {
   assert.match(invitationHelper, /tmpdir\(\)/);
-  assert.match(invitationHelper, /mode: 0o600/);
+  assert.match(invitationHelper, /rmSync\(legacyInvitationPath/);
   assert.match(
     invitationHelper,
     /OWNER_LOCAL_TEACHER_INVITATION=CREATED/,
   );
-  assert.match(invitationHelper, /INVITATION_FILE=/);
-
-  const stdoutCalls =
-    invitationHelper.match(/process\.stdout\.write\([^;]+;/g) ?? [];
-  assert.ok(stdoutCalls.length >= 3);
-  for (const call of stdoutCalls) {
-    assert.doesNotMatch(call, /\$\{invitationCode\}/);
-  }
+  assert.match(invitationHelper, /INVITATION_CODE=\$\{invitationCode\}/);
+  assert.match(invitationHelper, /PLAINTEXT_PERSISTED=NO/);
+  assert.match(invitationHelper, /--expires-hours/);
+  assert.match(invitationHelper, /expiresHours > 168/);
+  assert.match(invitationHelper, /--status/);
+  assert.match(invitationHelper, /PLAINTEXT_CODES_PRINTED=NO/);
+  assert.match(invitationHelper, /--revoke/);
+  assert.doesNotMatch(invitationHelper, /writeFileSync|INVITATION_FILE=/);
+  assert.equal(
+    invitationHelper.match(/INVITATION_CODE=\$\{invitationCode\}/g)?.length,
+    1,
+  );
 });
 
-test("STOP contract preserves Owner learning and collaboration history", () => {
-  assert.match(stopRunner, /deactivate_0038_universal_curriculum_local\.sql/);
-  assert.match(stopRunner, /OWNER_HISTORY=PRESERVED/);
+test("STOP contract removes only disposable Owner-local acceptance state", () => {
+  assert.match(startRunner, /deactivate_0038_universal_curriculum_local\.sql/);
+  assert.match(startRunner, /stopOwnerLocalSupabase\(\)/);
+  assert.match(stopRunner, /OWNER_LOCAL_ACCEPTANCE_DATA=REMOVED/);
   assert.doesNotMatch(
-    stopRunner,
+    `${startRunner}\n${stopRunner}`,
     /\b(?:delete|truncate)\b[\s\S]*\b(?:profiles|connections|attempts|answers|assignments|submissions|history|progress)\b/i,
   );
   assert.match(
