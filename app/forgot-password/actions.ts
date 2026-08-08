@@ -1,6 +1,7 @@
 "use server";
 
 import { getRequestOrigin } from "@/lib/auth/request-origin";
+import { classifyAuthThrottle } from "@/lib/auth/error-classification";
 import { createClient } from "@/lib/supabase/server";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -17,10 +18,16 @@ export async function requestPasswordReset(input: { email: string }) {
   try {
     const supabase = await createClient();
     const origin = await getRequestOrigin();
-    await supabase.auth.resetPasswordForEmail(email, {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${origin}/auth/confirm?next=/update-password`,
     });
-  } catch {
+    if (error) {
+      // Classify at the server boundary, but preserve one public response for
+      // every address so reset requests cannot disclose account existence.
+      classifyAuthThrottle("PASSWORD_RESET_EMAIL", error);
+    }
+  } catch (error) {
+    classifyAuthThrottle("PASSWORD_RESET_EMAIL", error);
     // The response intentionally stays identical to prevent account discovery.
   }
 

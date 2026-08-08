@@ -11,6 +11,7 @@ import {
 } from "react";
 
 import { loginWithPassword } from "@/app/login/actions";
+import { createAuthSubmissionGate } from "@/lib/auth/client-flow";
 import { Button } from "@/components/Button";
 import { FormField } from "@/components/FormField";
 import { PasswordField } from "@/components/PasswordField";
@@ -34,6 +35,7 @@ export default function LoginPage() {
   const [notice, setNotice] = useState("");
   const [successNotice, setSuccessNotice] = useState("");
   const [isPending, startTransition] = useTransition();
+  const submissionGateRef = useRef(createAuthSubmissionGate());
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const hasEditedEmail = useRef(false);
@@ -93,26 +95,32 @@ export default function LoginPage() {
       return;
     }
 
+    if (!submissionGateRef.current.tryStart()) return;
+
     startTransition(async () => {
-      const result = await loginWithPassword({
-        email: normalizedEmail,
-        password,
-      });
+      try {
+        const result = await loginWithPassword({
+          email: normalizedEmail,
+          password,
+        });
 
-      if (!result.ok || !result.destination) {
-        setNotice(result.message);
-        return;
+        if (!result.ok || !result.destination) {
+          setNotice(result.message);
+          return;
+        }
+
+        if (rememberEmail) {
+          window.localStorage.setItem(rememberedEmailKey, normalizedEmail);
+        } else {
+          window.localStorage.removeItem(rememberedEmailKey);
+        }
+
+        setPassword("");
+        router.replace(result.destination);
+        router.refresh();
+      } finally {
+        submissionGateRef.current.reset();
       }
-
-      if (rememberEmail) {
-        window.localStorage.setItem(rememberedEmailKey, normalizedEmail);
-      } else {
-        window.localStorage.removeItem(rememberedEmailKey);
-      }
-
-      setPassword("");
-      router.replace(result.destination);
-      router.refresh();
     });
   };
 
