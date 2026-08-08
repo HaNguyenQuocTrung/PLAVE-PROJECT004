@@ -1,7 +1,14 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import {
+  copyFileSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+} from "node:fs";
+import { tmpdir } from "node:os";
+import { dirname, join, resolve } from "node:path";
 import test from "node:test";
 
 import {
@@ -29,6 +36,54 @@ const samplePassword = "remote-password-never-render";
 
 function source(relativePath: string) {
   return readFileSync(resolve(root, relativePath), "utf8");
+}
+
+function createFrozenActivationWorkspace() {
+  const temporaryRoot = mkdtempSync(
+    join(tmpdir(), "project004-frozen-activation-"),
+  );
+  const candidateRoot = resolve(
+    temporaryRoot,
+    "PLAVE-PROJECT004",
+  );
+  try {
+    const planPath =
+      "docs/operations/PROJECT004_REMOTE_DEV_MIGRATION_PLAN.json";
+    const receiptPath =
+      "docs/operations/PROJECT004_CLEAN_REMOTE_DISPOSABLE_PROOF_RECEIPT.json";
+    const plan = JSON.parse(source(planPath)) as {
+      migrationCount: number;
+      migrations: Array<{ version: string; file: string }>;
+    };
+    assert.equal(plan.migrationCount, 40);
+    assert.equal(plan.migrations.at(-1)?.version, "0040");
+
+    const copy = (relativePath: string) => {
+      const destination = resolve(candidateRoot, relativePath);
+      mkdirSync(dirname(destination), { recursive: true });
+      copyFileSync(resolve(root, relativePath), destination);
+    };
+    for (const relativePath of [
+      "package.json",
+      "next.config.ts",
+      "supabase/config.toml",
+      planPath,
+      receiptPath,
+    ]) {
+      copy(relativePath);
+    }
+    for (const migration of plan.migrations) {
+      copy(`supabase/migrations/${migration.file}`);
+    }
+  } catch (error) {
+    rmSync(temporaryRoot, { recursive: true, force: true });
+    throw error;
+  }
+  return {
+    candidateRoot,
+    cleanup: () =>
+      rmSync(temporaryRoot, { recursive: true, force: true }),
+  };
 }
 
 function preflightPayload(
@@ -277,6 +332,9 @@ test("remote runtime enables fixed universal curriculum but hides every on-deman
   );
   const learn = source("app/learn/page.tsx");
   const dashboard = source("app/dashboard/page.tsx");
+  const curriculumServer = source(
+    "lib/curriculum-runtime/server.ts",
+  );
   const catalog = source(
     "components/UniversalCurriculumCatalog.tsx",
   );
@@ -302,7 +360,11 @@ test("remote runtime enables fixed universal curriculum but hides every on-deman
   );
   assert.match(
     dashboard,
-    /universalRuntimeEnabled\s*\?\s*loadStudentCurriculumProgress/u,
+    /loadStudentCurriculumProgress\(existingLearningAccess\)/u,
+  );
+  assert.match(
+    curriculumServer,
+    /if \(!getUniversalCurriculumRuntimeFlag\(\)[.]enabled\)\s*\{\s*return \{ ok: false as const, reason: "DISABLED" as const \};/u,
   );
   assert.match(
     catalog,
@@ -318,18 +380,40 @@ test("remote runtime enables fixed universal curriculum but hides every on-deman
   );
 });
 
-test("preflight prompt keeps credentials out of safe output and performs no mutation", () => {
-  const values = [sampleRef, samplePassword];
-  const report = passingReport();
-  const result =
+test("frozen-0040 preflight prompt keeps credentials out of safe output and performs no mutation", () => {
+  let currentPromptCount = 0;
+  const currentRootResult =
     runProject004UniversalActivationPreflightCommand({
       candidateRoot: root,
-      prompt: () => ({
-        ok: true,
-        value: values.shift() ?? "",
-      }),
-      execute: () => report,
+      prompt: () => {
+        currentPromptCount += 1;
+        return { ok: true, value: "must-not-be-requested" };
+      },
     });
+  assert.equal(currentRootResult.exitCode, 1);
+  assert.equal(
+    currentRootResult.report.rootFailureCode,
+    "LOCAL_CHECKSUM_MISMATCH",
+  );
+  assert.equal(currentPromptCount, 0);
+
+  const values = [sampleRef, samplePassword];
+  const report = passingReport();
+  const frozen = createFrozenActivationWorkspace();
+  const result = (() => {
+    try {
+      return runProject004UniversalActivationPreflightCommand({
+        candidateRoot: frozen.candidateRoot,
+        prompt: () => ({
+          ok: true,
+          value: values.shift() ?? "",
+        }),
+        execute: () => report,
+      });
+    } finally {
+      frozen.cleanup();
+    }
+  })();
   assert.equal(result.exitCode, 0);
   assert.match(
     result.output,
