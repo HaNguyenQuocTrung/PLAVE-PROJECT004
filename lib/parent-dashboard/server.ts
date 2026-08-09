@@ -43,8 +43,8 @@ export type ParentDashboardLoadResult =
       diagnosticSummary: ParentDiagnosticSummary | null;
       gradeOneCompletionSummary: ParentGradeOneCompletionSummary | null;
       universalProgress: ParentUniversalProgress;
-      scoring: StudentScoringSummary;
-      motivation: MotivationSummary;
+      scoring: StudentScoringSummary | null;
+      motivation: MotivationSummary | null;
     }
   | {
       ok: false;
@@ -150,9 +150,7 @@ export async function loadParentChildLearningDashboard(
   if (
     error ||
     universalProgressResult.error ||
-    generatedProgressResult.error ||
-    scoringResult.error ||
-    motivationResult.error
+    generatedProgressResult.error
   ) {
     return { ok: false, reason: "UNAVAILABLE" };
   }
@@ -177,10 +175,12 @@ export async function loadParentChildLearningDashboard(
   if (!universalProgress) {
     return { ok: false, reason: "UNAVAILABLE" };
   }
-  const scoring = parseStudentScoringSummary(scoringResult.data);
-  if (!scoring) return { ok: false, reason: "UNAVAILABLE" };
-  const motivation = parseMotivationSummary(motivationResult.data);
-  if (!motivation) return { ok: false, reason: "UNAVAILABLE" };
+  const scoring = scoringResult.error
+    ? null
+    : parseStudentScoringSummary(scoringResult.data);
+  const motivation = motivationResult.error
+    ? null
+    : parseMotivationSummary(motivationResult.data);
 
   return {
     ok: true,

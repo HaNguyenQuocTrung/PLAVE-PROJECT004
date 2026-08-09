@@ -19,15 +19,15 @@ export type LearningPersistenceCompatibility = Readonly<{
     | "BASE_PERSISTENCE_UNAVAILABLE";
   studentHistory:
     | "AVAILABLE"
-    | "UNAVAILABLE_SCHEMA_SKEW"
+    | "AVAILABLE_BASE_ONLY"
     | "UNAVAILABLE_BASE_SCHEMA";
   parentProgress:
     | "AVAILABLE"
-    | "UNAVAILABLE_SCHEMA_SKEW"
+    | "AVAILABLE_BASE_ONLY"
     | "UNAVAILABLE_BASE_SCHEMA";
   safeCode:
     | "SCHEMA_COMPATIBLE"
-    | "SCHEMA_REQUIRES_0043_0044"
+    | "SCHEMA_ENRICHMENT_UNAVAILABLE"
     | "SCHEMA_REQUIRES_0038";
   safeMessage: string;
 }>;
@@ -60,11 +60,11 @@ export function classifyLearningPersistenceSchema(
     return {
       version: learningPersistenceSchemaCompatibilityVersion,
       classification: "BASE_PERSISTENCE_WITHOUT_ENRICHMENT",
-      studentHistory: "UNAVAILABLE_SCHEMA_SKEW",
-      parentProgress: "UNAVAILABLE_SCHEMA_SKEW",
-      safeCode: "SCHEMA_REQUIRES_0043_0044",
+      studentHistory: "AVAILABLE_BASE_ONLY",
+      parentProgress: "AVAILABLE_BASE_ONLY",
+      safeCode: "SCHEMA_ENRICHMENT_UNAVAILABLE",
       safeMessage:
-        "Learning evidence exists, but the scoring and motivation schema is incomplete.",
+        "Base learning evidence is available without optional scoring and motivation enrichment.",
     };
   }
 

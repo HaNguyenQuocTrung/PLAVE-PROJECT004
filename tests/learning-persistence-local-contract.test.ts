@@ -37,9 +37,9 @@ test("schema compatibility distinguishes complete, enrichment-skew and missing-b
     parentMotivationRead: false,
   });
   assert.equal(skew.classification, "BASE_PERSISTENCE_WITHOUT_ENRICHMENT");
-  assert.equal(skew.studentHistory, "UNAVAILABLE_SCHEMA_SKEW");
-  assert.equal(skew.parentProgress, "UNAVAILABLE_SCHEMA_SKEW");
-  assert.equal(skew.safeCode, "SCHEMA_REQUIRES_0043_0044");
+  assert.equal(skew.studentHistory, "AVAILABLE_BASE_ONLY");
+  assert.equal(skew.parentProgress, "AVAILABLE_BASE_ONLY");
+  assert.equal(skew.safeCode, "SCHEMA_ENRICHMENT_UNAVAILABLE");
   assert.doesNotMatch(
     JSON.stringify(skew),
     /(?:postgres|sql|supabase|https?:|uuid|provider|password|token|secret|PGRST|42883)/iu,
@@ -144,19 +144,21 @@ test("dynamic runner covers all requested persistence and authorization contract
   assert.match(runner, /DRAFT.*HIDDEN|HIDDEN.*DRAFT/su);
 });
 
-test("current application fails schema-skew History closed instead of returning an empty list", () => {
+test("current application preserves authorized base evidence under enrichment schema skew", () => {
   const server = read("lib/curriculum-runtime/server.ts");
   const historyRoute = read("app/api/curriculum-runtime/history/route.ts");
   const parentServer = read("lib/parent-dashboard/server.ts");
-  assert.match(
-    server,
-    /get_student_curriculum_history[\s\S]*get_my_score_xp_mastery[\s\S]*!scoring[\s\S]*DATA_UNAVAILABLE/u,
-  );
+  assert.match(server, /get_student_curriculum_history/u);
+  assert.match(server, /get_my_score_xp_mastery/u);
+  assert.match(server, /scoring[?][.]attempts \?\? \[\]/u);
+  assert.doesNotMatch(server, /history[\s\S]{0,120}!scoring/u);
   assert.match(historyRoute, /HISTORY_\$\{result[.]reason\}/u);
   assert.match(historyRoute, /REQUEST_FAILED/u);
   assert.doesNotMatch(historyRoute, /attempts:\s*\[\]/u);
   assert.match(parentServer, /get_parent_child_score_xp_mastery/u);
   assert.match(parentServer, /get_parent_child_motivation_v1/u);
+  assert.match(parentServer, /scoringResult[.]error\s*\?\s*null/u);
+  assert.match(parentServer, /motivationResult[.]error\s*\?\s*null/u);
   assert.doesNotMatch(parentServer, /service[_-]?role/iu);
 });
 

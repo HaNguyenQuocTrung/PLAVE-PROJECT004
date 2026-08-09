@@ -13,6 +13,7 @@ import {
 } from "@/lib/practice/errors";
 import { resolvePracticeRuntimeAccess } from "@/lib/practice/runtime-flags";
 import { getStudentLearningContext } from "@/lib/practice/server";
+import { revalidateStudentLearningProjections } from "@/lib/curriculum-runtime/revalidation";
 
 const noStoreHeaders = { "Cache-Control": "no-store" };
 
@@ -73,6 +74,8 @@ export async function POST(request: Request) {
   if (!result) {
     return jsonNoStore(practiceApiError("REQUEST_FAILED"), 502);
   }
+
+  revalidateStudentLearningProjections();
 
   const response: PracticeApiSuccess<StartPracticeResult> = {
     ok: true,

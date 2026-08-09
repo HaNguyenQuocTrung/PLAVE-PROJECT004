@@ -9,8 +9,8 @@ import { MotivationOverview } from "@/components/MotivationOverview";
 
 type Props = {
   progress: ParentUniversalProgressData;
-  scoring: StudentScoringSummary;
-  motivation: MotivationSummary;
+  scoring: StudentScoringSummary | null;
+  motivation: MotivationSummary | null;
 };
 
 function percent(value: number | null) {
@@ -59,36 +59,48 @@ export function ParentUniversalProgress({ progress, scoring, motivation }: Props
   );
   return (
     <div className="parent-universal-progress">
-      <section
-        className="parent-learning-section"
-        aria-labelledby="parent-score-xp-mastery-title"
-      >
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Điểm, XP và thành thạo</p>
-            <h2 id="parent-score-xp-mastery-title">Tổng quan học tập mới</h2>
+      {scoring ? (
+        <section
+          className="parent-learning-section"
+          aria-labelledby="parent-score-xp-mastery-title"
+        >
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Điểm, XP và thành thạo</p>
+              <h2 id="parent-score-xp-mastery-title">Tổng quan học tập mới</h2>
+            </div>
           </div>
-        </div>
-        <div className="scoring-result">
-          <div>
-            <span>Tổng XP</span>
-            <strong>{scoring.totalXp} XP</strong>
+          <div className="scoring-result">
+            <div>
+              <span>Tổng XP</span>
+              <strong>{scoring.totalXp} XP</strong>
+            </div>
+            <div>
+              <span>Mục tiêu thành thạo</span>
+              <strong>{scoring.masterySummary.mastered}</strong>
+            </div>
+            <div>
+              <span>Nên ôn lại</span>
+              <strong>{scoring.masterySummary.needsReview}</strong>
+            </div>
           </div>
-          <div>
-            <span>Mục tiêu thành thạo</span>
-            <strong>{scoring.masterySummary.mastered}</strong>
-          </div>
-          <div>
-            <span>Nên ôn lại</span>
-            <strong>{scoring.masterySummary.needsReview}</strong>
-          </div>
-        </div>
-        <p className="parent-section-note">
-          Hoàn thành bài học không đồng nghĩa kỹ năng đã thành thạo. Mức thành
-          thạo dựa trên các câu trả lời gần nhất của từng mục tiêu.
-        </p>
-      </section>
-      <MotivationOverview motivation={motivation} audience="ADULT" />
+          <p className="parent-section-note">
+            Hoàn thành bài học không đồng nghĩa kỹ năng đã thành thạo. Mức thành
+            thạo dựa trên các câu trả lời gần nhất của từng mục tiêu.
+          </p>
+        </section>
+      ) : (
+        <section className="parent-learning-section" role="status">
+          <h2>Tiến độ cơ bản vẫn được giữ nguyên</h2>
+          <p className="parent-section-note">
+            Điểm, XP và mức thành thạo tạm thời chưa sẵn sàng. Các lượt học
+            và tiến độ đã lưu vẫn được hiển thị.
+          </p>
+        </section>
+      )}
+      {motivation ? (
+        <MotivationOverview motivation={motivation} audience="ADULT" />
+      ) : null}
       <section
         className="parent-learning-section"
         aria-labelledby="parent-unit-progress-title"

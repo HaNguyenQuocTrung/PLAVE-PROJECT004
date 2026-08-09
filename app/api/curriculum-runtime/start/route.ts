@@ -24,6 +24,7 @@ import {
   readGeneratorV2StudentRuntimePolicy,
 } from "@/lib/generation-v2/student-runtime-policy";
 import { curriculumRuntimeHttpStatus } from "@/lib/curriculum-runtime/api-response";
+import { revalidateStudentLearningProjections } from "@/lib/curriculum-runtime/revalidation";
 
 function status(code: CurriculumRuntimeErrorCode) {
   return curriculumRuntimeHttpStatus(code);
@@ -106,6 +107,7 @@ export async function POST(request: Request) {
         safeUpstreamCode(generated.upstreamCode),
       );
     }
+    revalidateStudentLearningProjections();
     return json(
       trace,
       { ok: true, data: generated.state },
@@ -138,6 +140,7 @@ export async function POST(request: Request) {
   if (!state || state.grade !== access.grade || state.feedback !== null) {
     return error("REQUEST_FAILED", 502, "RESPONSE_MAPPING_FAILED");
   }
+  revalidateStudentLearningProjections();
   return json(
     trace,
     { ok: true, data: toStudentStaticRuntimeState(state) },

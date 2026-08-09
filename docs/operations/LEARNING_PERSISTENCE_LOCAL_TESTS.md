@@ -20,9 +20,11 @@ npm run test:learning-persistence-local
 
 The complete command starts two sequential disposable namespaces. The first
 applies migrations 0001–0042 and proves the explicit 0038/0043 schema-skew
-classification. The second applies migrations 0001–0044 and proves ordinary
-Grades 1–9 learning, the Grade 3 application/API journey, Parent aggregates,
-and Teacher-assignment persistence. Typical runtime is several minutes,
+classification, including base History and Parent progress with enrichment
+degraded explicitly. The second applies migrations 0001–0044 and proves
+ordinary Grades 1–9 learning and application projections, the focused Grade 3
+application/API journey, Parent aggregates, and Teacher-assignment persistence.
+Typical runtime is several minutes,
 depending on Docker image and Next.js cache availability.
 
 Focused commands are also available:

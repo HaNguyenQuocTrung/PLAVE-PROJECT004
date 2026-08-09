@@ -35,8 +35,11 @@ directly from the Supabase CLI and do not write them to the repository.
 
 The Owner's separate port-3000 production-local runtime is outside this
 workflow. Its remote-development database currently lacks migrations 0043 and
-0044, so Parent progress can return `UNAVAILABLE` there; this local workflow
-does not alter or deploy that remote schema.
+0044. A runtime built before the compatibility repair can return `UNAVAILABLE`;
+after rebuilding, base History and approved Parent progress remain available,
+while scoring, XP and motivation enrichment stay unavailable until those
+migrations receive separate review and authorization. This local workflow does
+not alter or deploy that remote schema.
 
 ## Start
 

@@ -223,7 +223,39 @@ async function appRequest(
   return record(body);
 }
 
-async function proveGrade1(stack: LearningPersistenceStack, student: Account) {
+async function appPage(
+  stack: LearningPersistenceStack,
+  account: Account,
+  path: string,
+) {
+  const body = await appRequest(stack, account.session, path, {
+    expectJson: false,
+  });
+  check(typeof body === "string", `Application page ${path} did not return HTML.`);
+  return body;
+}
+
+function requirePageMatch(page: string, pattern: RegExp, message: string) {
+  check(pattern.test(page), message);
+}
+
+function requireProfileMenuClosed(page: string, label: string) {
+  requirePageMatch(
+    page,
+    /aria-controls="profile-menu"[\s\S]{0,240}aria-expanded="false"/u,
+    `${label} profile menu was not initially closed.`,
+  );
+  check(
+    !/class="profile-menu"/u.test(page),
+    `${label} profile menu content was rendered while closed.`,
+  );
+}
+
+async function proveGrade1(
+  stack: LearningPersistenceStack,
+  student: Account,
+  verifyApplication: boolean,
+) {
   const { data: units, count, error } = await student.client
     .from("learning_units")
     .select("slug", { count: "exact" })
@@ -232,10 +264,28 @@ async function proveGrade1(stack: LearningPersistenceStack, student: Account) {
     .order("display_order");
   check(!error && units && count === 13, "Grade 1 ordinary inventory failed.");
   const unitId = units[0].slug;
-  const started = record(await rpc(student, "start_or_resume_practice", { p_unit_slug: unitId }));
+  if (verifyApplication) {
+    for (const path of [
+      "/dashboard",
+      "/lessons",
+      "/learning-progress",
+      "/learning-history",
+      "/results",
+    ]) {
+      await appPage(stack, student, path);
+    }
+  }
+  const started = verifyApplication
+    ? record(
+        (await appRequest(stack, student.session, "/api/practice/start", {
+          method: "POST",
+          body: { unitSlug: unitId },
+        })).data,
+      )
+    : record(await rpc(student, "start_or_resume_practice", { p_unit_slug: unitId }));
   noPreSubmitLeak(started, "Grade 1 start");
-  const attemptId = started.attempt_id;
-  const order = started.question_order;
+  const attemptId = started.id ?? started.attempt_id;
+  const order = started.questionOrder ?? started.question_order;
   check(typeof attemptId === "string" && Array.isArray(order) && order.length === 24, "Grade 1 start state failed.");
   const repeated = record(await rpc(student, "start_or_resume_practice", { p_unit_slug: unitId }));
   check(repeated.attempt_id === attemptId, "Grade 1 repeat start created another attempt.");
@@ -246,11 +296,19 @@ async function proveGrade1(stack: LearningPersistenceStack, student: Account) {
   check(!questionError && questions?.length === 24, "Grade 1 canonical questions failed.");
   const byCode = new Map(questions.map((question) => [question.code, question as JsonRecord]));
   for (const questionId of (order as string[]).slice(0, 2)) {
-    await rpc(student, "submit_practice_answer", {
-      p_attempt_id: attemptId,
-      p_question_id: questionId,
-      p_answer: answerFor(byCode.get(questionId) ?? {}),
-    });
+    const answer = answerFor(byCode.get(questionId) ?? {});
+    if (verifyApplication) {
+      await appRequest(stack, student.session, "/api/practice/answer", {
+        method: "POST",
+        body: { attemptId, questionId, answer },
+      });
+    } else {
+      await rpc(student, "submit_practice_answer", {
+        p_attempt_id: attemptId,
+        p_question_id: questionId,
+        p_answer: answer,
+      });
+    }
   }
   const partialHistory = record(await rpc(student, "get_student_curriculum_history"));
   check(
@@ -259,6 +317,21 @@ async function proveGrade1(stack: LearningPersistenceStack, student: Account) {
     ),
     "Grade 1 partial History failed.",
   );
+  if (verifyApplication) {
+    const [lessonsPage, historyPage, resultsPage] = await Promise.all([
+      appPage(stack, student, "/lessons"),
+      appPage(stack, student, "/learning-history"),
+      appPage(stack, student, "/results"),
+    ]);
+    requirePageMatch(lessonsPage, /Tiếp tục/u, "Grade 1 Lessons did not expose resume.");
+    for (const page of [historyPage, resultsPage]) {
+      requirePageMatch(
+        page,
+        /data-attempt-status="IN_PROGRESS"/u,
+        "Grade 1 partial History projection failed.",
+      );
+    }
+  }
   await student.client.auth.signOut();
   const fresh = await freshLogin(stack, student);
   const resumed = record(await rpc(fresh, "start_or_resume_practice", { p_unit_slug: unitId }));
@@ -270,11 +343,19 @@ async function proveGrade1(stack: LearningPersistenceStack, student: Account) {
     p_answer: answerFor(byCode.get(replayQuestion) ?? {}),
   });
   for (const questionId of (order as string[]).slice(2)) {
-    await rpc(fresh, "submit_practice_answer", {
-      p_attempt_id: attemptId,
-      p_question_id: questionId,
-      p_answer: answerFor(byCode.get(questionId) ?? {}),
-    });
+    const answer = answerFor(byCode.get(questionId) ?? {});
+    if (verifyApplication) {
+      await appRequest(stack, fresh.session, "/api/practice/answer", {
+        method: "POST",
+        body: { attemptId, questionId, answer },
+      });
+    } else {
+      await rpc(fresh, "submit_practice_answer", {
+        p_attempt_id: attemptId,
+        p_question_id: questionId,
+        p_answer: answer,
+      });
+    }
   }
   const history = record(await rpc(fresh, "get_student_curriculum_history"));
   const historyItems = records(history.attempts).filter((item) => item.attempt_id === attemptId);
@@ -287,6 +368,29 @@ async function proveGrade1(stack: LearningPersistenceStack, student: Account) {
   check(unit?.status === "COMPLETED" && Number(unit.evidence_count) === 24, "Grade 1 completed Progress failed.");
   const review = record(await rpc(fresh, "get_practice_review", { p_attempt_id: attemptId }));
   check(review.status === "COMPLETED" && records(review.answers).length === 24, "Grade 1 result failed.");
+  if (verifyApplication) {
+    const [dashboardPage, progressPage, historyPage, resultsPage] =
+      await Promise.all([
+        appPage(stack, fresh, "/dashboard"),
+        appPage(stack, fresh, "/learning-progress"),
+        appPage(stack, fresh, "/learning-history"),
+        appPage(stack, fresh, "/results"),
+      ]);
+    for (const page of [dashboardPage, progressPage]) {
+      requirePageMatch(
+        page,
+        /data-completed-count="1"/u,
+        "Grade 1 completed projection count disagreed.",
+      );
+    }
+    for (const page of [historyPage, resultsPage]) {
+      requirePageMatch(
+        page,
+        /data-attempt-status="COMPLETED"/u,
+        "Grade 1 completed History projection failed.",
+      );
+    }
+  }
   return { grade: 1, unitId, attemptId, answerCount: 24 } satisfies GradeEvidence;
 }
 
@@ -301,6 +405,18 @@ async function proveUniversalGrade(
   check(units.length > 0 && initialProgress.grade === student.grade, "Universal ordinary inventory failed.");
   const unitId = units[0].unit_id;
   check(typeof unitId === "string", "Universal unit identifier failed.");
+  if (useApplication) {
+    for (const path of [
+      "/dashboard",
+      "/lessons",
+      "/learning-progress",
+      "/learning-history",
+      "/results",
+    ]) {
+      const page = await appPage(stack, student, path);
+      requireProfileMenuClosed(page, `Grade ${String(student.grade)} Student`);
+    }
+  }
   let state: JsonRecord;
   if (useApplication) {
     const response = await appRequest(stack, student.session, "/api/curriculum-runtime/start", {
@@ -386,46 +502,139 @@ async function proveUniversalGrade(
       ),
       "Grade 3 application partial History failed.",
     );
-    check(record(appProgress.data).grade === 3, "Grade 3 application Progress failed.");
+    check(
+      record(appProgress.data).grade === student.grade,
+      `Grade ${String(student.grade)} application Progress failed.`,
+    );
+    const [dashboardPage, lessonsPage, progressPage, historyPage, resultsPage] =
+      await Promise.all([
+        appPage(stack, fresh, "/dashboard"),
+        appPage(stack, fresh, "/lessons"),
+        appPage(stack, fresh, "/learning-progress"),
+        appPage(stack, fresh, "/learning-history"),
+        appPage(stack, fresh, "/results"),
+      ]);
+    requirePageMatch(
+      dashboardPage,
+      /Tiếp tục bài này/u,
+      `Grade ${String(student.grade)} Dashboard did not expose resume.`,
+    );
+    requirePageMatch(
+      lessonsPage,
+      /Tiếp tục học/u,
+      `Grade ${String(student.grade)} Lessons did not expose resume.`,
+    );
+    for (const page of [historyPage, resultsPage]) {
+      requirePageMatch(
+        page,
+        /data-attempt-status="IN_PROGRESS"/u,
+        `Grade ${String(student.grade)} partial History projection failed.`,
+      );
+      check(
+        !/đang được chuẩn bị|Em chưa có lượt học nào/iu.test(page),
+        `Grade ${String(student.grade)} partial History became false empty content.`,
+      );
+    }
+    requirePageMatch(
+      progressPage,
+      /data-completed-count="0"/u,
+      `Grade ${String(student.grade)} partial Progress completion count failed.`,
+    );
   }
 
   state = resumed;
   let finalReplay: { questionId: string; answer: string; revision: number; key: string } | null = null;
   while (state.status === "IN_PROGRESS") {
-    const question = record(state.current_question);
+    const question = record(state.currentQuestion ?? state.current_question);
     const key = randomUUID();
     const revision = Number(state.revision);
     const answer = answerFor(question);
-    const result = record(await rpc(fresh, "submit_curriculum_answer", {
-      p_attempt_id: attemptId,
-      p_question_id: question.question_id,
-      p_answer: answer,
-      p_expected_revision: revision,
-      p_idempotency_key: key,
-    }));
-    const replay = record(await rpc(fresh, "submit_curriculum_answer", {
-      p_attempt_id: attemptId,
-      p_question_id: question.question_id,
-      p_answer: answer,
-      p_expected_revision: revision,
-      p_idempotency_key: key,
-    }));
+    const questionId = String(question.questionId ?? question.question_id);
+    const submission = {
+      attemptId,
+      questionId,
+      answer,
+      expectedRevision: revision,
+      idempotencyKey: key,
+    };
+    const result = useApplication
+      ? record(
+          (await appRequest(
+            stack,
+            fresh.session,
+            "/api/curriculum-runtime/answer",
+            { method: "POST", body: submission },
+          )).data,
+        )
+      : record(await rpc(fresh, "submit_curriculum_answer", {
+          p_attempt_id: attemptId,
+          p_question_id: questionId,
+          p_answer: answer,
+          p_expected_revision: revision,
+          p_idempotency_key: key,
+        }));
+    const replay = useApplication
+      ? record(
+          (await appRequest(
+            stack,
+            fresh.session,
+            "/api/curriculum-runtime/answer",
+            { method: "POST", body: submission },
+          )).data,
+        )
+      : record(await rpc(fresh, "submit_curriculum_answer", {
+          p_attempt_id: attemptId,
+          p_question_id: questionId,
+          p_answer: answer,
+          p_expected_revision: revision,
+          p_idempotency_key: key,
+        }));
     check(
-      replay.attempt_id === result.attempt_id && replay.revision === result.revision,
+      (replay.attemptId ?? replay.attempt_id) ===
+        (result.attemptId ?? result.attempt_id) &&
+        replay.revision === result.revision,
       "Universal answer replay changed state.",
     );
-    finalReplay = { questionId: String(question.question_id), answer, revision, key };
+    finalReplay = { questionId, answer, revision, key };
     state = result;
   }
-  check(state.status === "COMPLETED" && state.answered_count === state.total_questions, "Universal completion failed.");
+  const completedAnsweredCount = Number(
+    state.answeredCount ?? state.answered_count,
+  );
+  const completedTotalQuestions = Number(
+    state.totalQuestions ?? state.total_questions,
+  );
+  check(
+    state.status === "COMPLETED" &&
+      completedAnsweredCount === completedTotalQuestions,
+    "Universal completion failed.",
+  );
   check(finalReplay, "Universal completion replay evidence was unavailable.");
-  const replayCompletion = record(await rpc(fresh, "submit_curriculum_answer", {
-    p_attempt_id: attemptId,
-    p_question_id: finalReplay.questionId,
-    p_answer: finalReplay.answer,
-    p_expected_revision: finalReplay.revision,
-    p_idempotency_key: finalReplay.key,
-  }));
+  const replayCompletion = useApplication
+    ? record(
+        (await appRequest(
+          stack,
+          fresh.session,
+          "/api/curriculum-runtime/answer",
+          {
+            method: "POST",
+            body: {
+              attemptId,
+              questionId: finalReplay.questionId,
+              answer: finalReplay.answer,
+              expectedRevision: finalReplay.revision,
+              idempotencyKey: finalReplay.key,
+            },
+          },
+        )).data,
+      )
+    : record(await rpc(fresh, "submit_curriculum_answer", {
+        p_attempt_id: attemptId,
+        p_question_id: finalReplay.questionId,
+        p_answer: finalReplay.answer,
+        p_expected_revision: finalReplay.revision,
+        p_idempotency_key: finalReplay.key,
+      }));
   check(replayCompletion.status === "COMPLETED", "Universal completion replay failed.");
   const history = record(await rpc(fresh, "get_student_curriculum_history"));
   const items = records(history.attempts).filter((item) => item.attempt_id === attemptId);
@@ -433,7 +642,8 @@ async function proveUniversalGrade(
   const progress = record(await rpc(fresh, "get_student_curriculum_progress"));
   const unitProgress = records(progress.units).find((item) => item.unit_id === unitId);
   check(
-    unitProgress?.status === "COMPLETED" && Number(unitProgress.evidence_count) === Number(state.total_questions),
+    unitProgress?.status === "COMPLETED" &&
+      Number(unitProgress.evidence_count) === completedTotalQuestions,
     "Universal completed Progress failed.",
   );
   const scoring = record(await rpc(fresh, "get_my_score_xp_mastery"));
@@ -451,12 +661,38 @@ async function proveUniversalGrade(
       ),
       "Grade 3 application completed History failed.",
     );
+    const [dashboardPage, lessonsPage, progressPage, historyPage, resultsPage] =
+      await Promise.all([
+        appPage(stack, fresh, "/dashboard"),
+        appPage(stack, fresh, "/lessons"),
+        appPage(stack, fresh, "/learning-progress"),
+        appPage(stack, fresh, "/learning-history"),
+        appPage(stack, fresh, "/results"),
+      ]);
+    for (const page of [dashboardPage, lessonsPage, progressPage]) {
+      requirePageMatch(
+        page,
+        /data-completed-count="1"/u,
+        `Grade ${String(student.grade)} completed projection count disagreed.`,
+      );
+    }
+    for (const page of [historyPage, resultsPage]) {
+      requirePageMatch(
+        page,
+        /data-attempt-status="COMPLETED"/u,
+        `Grade ${String(student.grade)} completed History projection failed.`,
+      );
+      check(
+        !/đang được chuẩn bị|Em chưa có lượt học nào/iu.test(page),
+        `Grade ${String(student.grade)} completed History became false empty content.`,
+      );
+    }
   }
   return {
     grade: student.grade,
     unitId,
     attemptId,
-    answerCount: Number(state.total_questions),
+    answerCount: completedTotalQuestions,
   } satisfies GradeEvidence;
 }
 
@@ -517,8 +753,8 @@ async function proveLearningLifecycle(
     evidence.set(
       grade,
       grade === 1
-        ? await proveGrade1(stack, student)
-        : await proveUniversalGrade(stack, student, applicationGrade3 && grade === 3),
+        ? await proveGrade1(stack, student, applicationGrade3)
+        : await proveUniversalGrade(stack, student, applicationGrade3),
     );
   }
   const parent = await register(stack, "PARENT", "parent");
@@ -544,6 +780,7 @@ async function proveLearningLifecycle(
           !/Dữ liệu học tập chưa sẵn sàng|PARENT_PROGRESS_UNAVAILABLE/iu.test(page),
         "Grade 3 application Parent progress was unavailable.",
       );
+      requireProfileMenuClosed(page, "Parent");
     }
   }
   const foreignGrade = grades.find((grade) => grade >= 2);
@@ -637,6 +874,12 @@ async function proveTeacherAssignment(
   }
   const teacher = await activateSyntheticTeacher(stack, "assignment-teacher");
   const unrelatedTeacher = await activateSyntheticTeacher(stack, "assignment-unrelated-teacher");
+  if (stack.appOrigin) {
+    requireProfileMenuClosed(
+      await appPage(stack, teacher, "/teacher"),
+      "Teacher",
+    );
+  }
   const classroom = record(await rpc(teacher, "create_teacher_classroom", {
     p_name: "Round 2I Grade 3",
     p_grade: 3,
@@ -831,6 +1074,58 @@ async function proveSchemaSkew(stack: LearningPersistenceStack) {
     p_connection_id: connectionId,
   });
   check(Boolean(denied.error), "Schema-skew unrelated Parent was allowed.");
+  const [historyApi, progressApi] = await Promise.all([
+    appRequest(stack, student.session, "/api/curriculum-runtime/history"),
+    appRequest(stack, student.session, "/api/curriculum-runtime/progress"),
+  ]);
+  check(
+    records(record(historyApi.data).attempts).some(
+      (item) => item.status === "IN_PROGRESS" && item.answeredCount === 2,
+    ),
+    "Schema-skew application History erased base evidence.",
+  );
+  check(
+    record(progressApi.data).grade === 3,
+    "Schema-skew application Progress erased base evidence.",
+  );
+  const [lessonsPage, historyPage, resultsPage, parentPage] = await Promise.all([
+    appPage(stack, student, "/lessons"),
+    appPage(stack, student, "/learning-history"),
+    appPage(stack, student, "/results"),
+    appPage(stack, parent, `/parent/children/${connectionId}`),
+  ]);
+  requirePageMatch(
+    lessonsPage,
+    /Tiếp tục học/u,
+    "Schema-skew Lessons did not expose the active attempt.",
+  );
+  for (const page of [historyPage, resultsPage]) {
+    requirePageMatch(
+      page,
+      /data-attempt-status="IN_PROGRESS"/u,
+      "Schema-skew History page erased the active attempt.",
+    );
+    requirePageMatch(
+      page,
+      /Lịch sử cơ bản vẫn được giữ nguyên/u,
+      "Schema-skew History did not disclose missing enrichment safely.",
+    );
+    check(
+      !/đang được chuẩn bị|Em chưa có lượt học nào/iu.test(page),
+      "Schema-skew History reported false empty content.",
+    );
+  }
+  requirePageMatch(
+    parentPage,
+    /Tiến độ cơ bản vẫn được giữ nguyên/u,
+    "Schema-skew Parent progress did not degrade to base evidence.",
+  );
+  check(
+    !/Dữ liệu học tập chưa sẵn sàng|PARENT_PROGRESS_UNAVAILABLE/iu.test(parentPage),
+    "Schema-skew Parent progress remained unavailable.",
+  );
+  requireProfileMenuClosed(lessonsPage, "Schema-skew Student");
+  requireProfileMenuClosed(parentPage, "Schema-skew Parent");
   const capabilityRow = stack.query(`
     select concat_ws('|',
       (to_regprocedure('public.start_or_resume_curriculum_unit(text,uuid)') is not null)::int,
@@ -853,9 +1148,9 @@ async function proveSchemaSkew(stack: LearningPersistenceStack) {
   });
   check(
     compatibility.classification === "BASE_PERSISTENCE_WITHOUT_ENRICHMENT" &&
-      compatibility.studentHistory === "UNAVAILABLE_SCHEMA_SKEW" &&
-      compatibility.parentProgress === "UNAVAILABLE_SCHEMA_SKEW" &&
-      compatibility.safeCode === "SCHEMA_REQUIRES_0043_0044",
+      compatibility.studentHistory === "AVAILABLE_BASE_ONLY" &&
+      compatibility.parentProgress === "AVAILABLE_BASE_ONLY" &&
+      compatibility.safeCode === "SCHEMA_ENRICHMENT_UNAVAILABLE",
     "Schema-skew diagnostic classification failed.",
   );
   check(
@@ -882,7 +1177,7 @@ const scope = parseScope();
 if (scope === "all" || scope === "schema-skew") {
   await withLearningPersistenceStack({
     boundary: 42,
-    startApp: false,
+    startApp: true,
     operation: proveSchemaSkew,
   });
 }

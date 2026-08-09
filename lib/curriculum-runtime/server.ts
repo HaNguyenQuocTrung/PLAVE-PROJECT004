@@ -102,11 +102,11 @@ export async function loadStudentCurriculumHistory(
   const scoring = scoringResult.error
     ? null
     : parseStudentScoringSummary(scoringResult.data);
-  if (!history || history.grade !== access.grade || !scoring) {
+  if (!history || history.grade !== access.grade) {
     return { ok: false as const, reason: "DATA_UNAVAILABLE" as const };
   }
   const attemptScoring = new Map(
-    scoring.attempts.map((attempt) => [attempt.attemptId, attempt]),
+    (scoring?.attempts ?? []).map((attempt) => [attempt.attemptId, attempt]),
   );
   return {
     ok: true as const,

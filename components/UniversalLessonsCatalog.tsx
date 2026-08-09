@@ -7,6 +7,7 @@ import { curriculumUnits } from "@/lib/curriculum/registry";
 import type { CurriculumDomain, CurriculumUnit } from "@/lib/curriculum/types";
 import { getLessonPath } from "@/lib/practice/catalog";
 import { GeneratedPracticePilotCard } from "@/components/GeneratedPracticePilotCard";
+import { UniversalCurriculumStartButton } from "@/components/UniversalCurriculumStartButton";
 
 export function UniversalLessonsCatalog({
   grade,
@@ -40,7 +41,12 @@ export function UniversalLessonsCatalog({
           Chọn theo nhóm kiến thức. Bài đang học và bài được gợi ý luôn hiện
           trước để em dễ tiếp tục.
         </p>
-        <div className="catalog-hero__progress" aria-label="Tiến độ chương trình">
+        <div
+          className="catalog-hero__progress"
+          aria-label="Tiến độ chương trình"
+          data-completed-count={completedCount}
+          data-total-count={units.length}
+        >
           <strong><span>{completedCount}</span>/{units.length} bài đã hoàn thành</strong>
           <span>{progress.masteryExplanation}</span>
         </div>
@@ -99,13 +105,18 @@ export function UniversalLessonsCatalog({
                   <span>{curriculumDomainLabels[unit.domain]}</span>
                 </div>
                 <div className="unit-card__actions">
-                  <Button href={getLessonPath(unit.slug)}>
-                    {item?.status === "IN_PROGRESS"
-                      ? "Tiếp tục học"
-                      : item?.status === "COMPLETED"
+                  {item?.status === "IN_PROGRESS" ? (
+                    <UniversalCurriculumStartButton
+                      unitSlug={unit.slug}
+                      label="Tiếp tục học"
+                    />
+                  ) : (
+                    <Button href={getLessonPath(unit.slug)}>
+                      {item?.status === "COMPLETED"
                         ? "Xem lại bài học"
                         : "Bắt đầu bài học"}
-                  </Button>
+                    </Button>
+                  )}
                 </div>
               </article>
             );

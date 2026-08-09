@@ -105,6 +105,7 @@
     "test:universal-collaboration": "node --test --test-concurrency=1 --experimental-strip-types tests/parent-teacher-universal-runtime.test.ts",
     "test:parent-teacher-client-runtime": "node --test --test-concurrency=1 --experimental-strip-types tests/parent-teacher-client-runtime.test.ts",
     "test:learning-persistence-contract": "node --test --test-concurrency=1 --experimental-strip-types tests/learning-persistence-local-contract.test.ts",
+    "test:owner-learning-defects": "node --test --test-concurrency=1 --experimental-strip-types tests/owner-learning-defects.test.ts",
     "test:learning-persistence-local": "node --no-warnings --experimental-strip-types scripts/run-learning-persistence-local.ts --scope=all",
     "test:grade3-history-local": "node --no-warnings --experimental-strip-types scripts/run-learning-persistence-local.ts --scope=grade3",
     "test:teacher-assignment-persistence-local": "node --no-warnings --experimental-strip-types scripts/run-learning-persistence-local.ts --scope=teacher",

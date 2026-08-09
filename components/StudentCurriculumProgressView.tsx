@@ -97,7 +97,12 @@ export function StudentCurriculumProgressView({
         </div>
       </header>
 
-      <section className="student-summary" aria-labelledby="completion-title">
+      <section
+        className="student-summary"
+        aria-labelledby="completion-title"
+        data-completed-count={completed}
+        data-total-count={progress.units.length}
+      >
         <div>
           <p className="eyebrow">Chủ đề</p>
           <h2 id="completion-title">
