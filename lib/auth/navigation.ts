@@ -9,6 +9,47 @@ export type HeaderNavigationItem = {
 
 export type HeaderRole = "STUDENT" | "PARENT" | "TEACHER" | null;
 
+export type ProfileMenuAction = Readonly<{
+  href: string;
+  label: string;
+}>;
+
+const privacyAction = {
+  href: "/privacy",
+  label: "Quyền riêng tư",
+} as const;
+
+export function getProfileMenuActions(
+  role: HeaderRole,
+): readonly ProfileMenuAction[] {
+  if (role === "STUDENT") {
+    return [
+      { href: "/profile", label: "Xem hồ sơ" },
+      { href: "/profile/edit", label: "Chỉnh sửa hồ sơ" },
+      { href: "/settings", label: "Cài đặt" },
+      { href: "/connections", label: "Kết nối phụ huynh" },
+      privacyAction,
+    ];
+  }
+
+  if (role === "PARENT") {
+    return [
+      { href: "/dashboard", label: "Tổng quan phụ huynh" },
+      { href: "/connections", label: "Kết nối học sinh" },
+      privacyAction,
+    ];
+  }
+
+  if (role === "TEACHER") {
+    return [
+      { href: "/teacher/profile", label: "Xem hồ sơ" },
+      privacyAction,
+    ];
+  }
+
+  return [privacyAction];
+}
+
 const protectedPaths = [
   "/dashboard",
   "/onboarding",

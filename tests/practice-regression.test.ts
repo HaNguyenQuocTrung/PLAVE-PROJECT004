@@ -7,6 +7,7 @@ import {
   getAuthNavigationDecision,
   getHeaderLogoHref,
   getHeaderNavigation,
+  getProfileMenuActions,
   isHeaderItemActive,
 } from "../lib/auth/navigation.ts";
 import { createAssignmentRequestGate } from "../lib/assignments/client-flow.ts";
@@ -1310,13 +1311,11 @@ test("Student navigation 2. Profile actions expose real routes only", () => {
     "utf8",
   );
 
-  for (const label of ["Chỉnh sửa hồ sơ", "Cài đặt"]) {
-    assert.match(source, new RegExp(label));
-  }
-  assert.match(source, /href="\/profile"/);
-  assert.match(source, /href="\/profile\/edit"/);
-  assert.match(source, /href="\/settings"/);
-  assert.match(source, /href="\/privacy"/);
+  assert.deepEqual(
+    getProfileMenuActions("STUDENT").map(({ href }) => href),
+    ["/profile", "/profile/edit", "/settings", "/connections", "/privacy"],
+  );
+  assert.match(source, /getProfileMenuActions\(role\)/);
   assert.match(source, /<LogoutForm/);
   assert.match(source, /profile-menu__logout/);
   assert.doesNotMatch(source, /Thông báo|Sắp có|href="\/notifications"/);
@@ -2040,21 +2039,13 @@ test("Student profile 7. Double submit acquires only one update slot", () => {
 });
 
 test("Student profile 8. Profile dropdown exposes only functional routes", () => {
-  const source = readFileSync(
-    join(process.cwd(), "components/HeaderNavigation.tsx"),
-    "utf8",
-  );
-
-  for (const href of [
-    "/profile",
-    "/profile/edit",
-    "/settings",
-    "/privacy",
-  ]) {
-    assert.match(source, new RegExp(`href="${href.replace("/", "\\/")}"`));
-  }
-  assert.doesNotMatch(source, /Thông báo|Sắp có|href="\/notifications"/);
-  assert.match(source, /<LogoutForm/);
+  assert.deepEqual(getProfileMenuActions("STUDENT"), [
+    { href: "/profile", label: "Xem hồ sơ" },
+    { href: "/profile/edit", label: "Chỉnh sửa hồ sơ" },
+    { href: "/settings", label: "Cài đặt" },
+    { href: "/connections", label: "Kết nối phụ huynh" },
+    { href: "/privacy", label: "Quyền riêng tư" },
+  ]);
 });
 
 test("Student profile 9. Settings masks email and uses existing real account actions", () => {

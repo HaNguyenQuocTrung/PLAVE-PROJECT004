@@ -211,8 +211,9 @@ export default function DemoPage() {
               <Button href="/register">Tạo tài khoản PLAVE</Button>
             </div>
             <p className="form-notice">
-              Kết quả bài demo không được lưu. Tài khoản chỉ lưu hồ sơ và mục
-              tiêu cơ bản trong sprint này.
+              Kết quả Học thử không được lưu. Khi đăng nhập, các lượt học, câu
+              trả lời, trạng thái tiếp tục, kết quả hoàn thành, Lịch sử và
+              Tiến bộ được lưu trong tài khoản.
             </p>
           </div>
         ) : (

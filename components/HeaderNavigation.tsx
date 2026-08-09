@@ -14,6 +14,7 @@ import {
 import { LogoutForm } from "@/components/LogoutForm";
 import { getNavigationIcon, PlaveIcon } from "@/components/PlaveIcon";
 import {
+  getProfileMenuActions,
   isHeaderItemActive,
   type HeaderNavigationItem,
   type HeaderRole,
@@ -141,6 +142,7 @@ export function HeaderNavigation({
   const lastInitial =
     nameParts.length > 1 ? (nameParts.at(-1)?.charAt(0) ?? "") : "";
   const userInitials = `${firstInitial}${lastInitial}`.toLocaleUpperCase("vi");
+  const profileMenuActions = getProfileMenuActions(role);
 
   const focusProfileMenuItem = (position: "first" | "last") => {
     window.requestAnimationFrame(() => {
@@ -342,55 +344,16 @@ export function HeaderNavigation({
                 aria-labelledby="profile-menu-trigger"
                 onKeyDown={handleProfileMenuKeyDown}
               >
-                {role === "TEACHER" ? (
+                {profileMenuActions.map((action) => (
                   <Link
-                    href="/teacher/profile"
+                    href={action.href}
+                    key={action.href}
                     role="menuitem"
                     onClick={closeAllMenus}
                   >
-                    Xem hồ sơ
+                    {action.label}
                   </Link>
-                ) : (
-                  <>
-                    <Link
-                      href="/profile"
-                      role="menuitem"
-                      onClick={closeAllMenus}
-                    >
-                      Xem hồ sơ
-                    </Link>
-                    <Link
-                      href="/profile/edit"
-                      role="menuitem"
-                      onClick={closeAllMenus}
-                    >
-                      Chỉnh sửa hồ sơ
-                    </Link>
-                    <Link
-                      href="/settings"
-                      role="menuitem"
-                      onClick={closeAllMenus}
-                    >
-                      Cài đặt
-                    </Link>
-                  </>
-                )}
-                {role === "STUDENT" ? (
-                  <Link
-                    href="/connections"
-                    role="menuitem"
-                    onClick={closeAllMenus}
-                  >
-                    Kết nối phụ huynh
-                  </Link>
-                ) : null}
-                <Link
-                  href="/privacy"
-                  role="menuitem"
-                  onClick={closeAllMenus}
-                >
-                  Quyền riêng tư
-                </Link>
+                ))}
                 <LogoutForm
                   buttonClassName="profile-menu__logout"
                   menuItem
