@@ -12,6 +12,7 @@ import {
   practiceApiError,
 } from "@/lib/practice/errors";
 import { getStudentLearningContext } from "@/lib/practice/server";
+import { revalidateStudentLearningProjections } from "@/lib/curriculum-runtime/revalidation";
 
 type AnswerInput = {
   attemptId: string;
@@ -97,6 +98,8 @@ export async function POST(request: Request) {
       status: 502,
     });
   }
+
+  revalidateStudentLearningProjections();
 
   const response: PracticeApiSuccess<SubmitPracticeResult> = {
     ok: true,

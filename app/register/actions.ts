@@ -5,6 +5,7 @@ import {
   buildRegistrationMetadata,
   classifySignUpResult,
   registrationServiceUnavailable,
+  registrationThrottleResult,
   uncertainTransportResult,
   validationFailure,
 } from "@/lib/auth/registration-result";
@@ -106,7 +107,7 @@ export async function registerAccount(input: RegisterInput) {
       }
     }
     return result;
-  } catch {
-    return uncertainTransportResult();
+  } catch (error) {
+    return registrationThrottleResult(error) ?? uncertainTransportResult();
   }
 }

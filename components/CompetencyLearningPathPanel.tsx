@@ -1,4 +1,5 @@
 import { Button } from "@/components/Button";
+import { UniversalCurriculumStartButton } from "@/components/UniversalCurriculumStartButton";
 import { StatusBadge } from "@/components/UiStates";
 import type { StudentCompetencyDashboard } from "@/lib/competency/student-adapter";
 import { getLessonPath } from "@/lib/practice/catalog";
@@ -33,6 +34,8 @@ export function CompetencyLearningPathPanel({
   const recommendationReasons = recommendation
     ? recommendation.reasonCodes.slice(0, 2).map((code) => reasonText[code])
     : [];
+  const resumesActiveAttempt =
+    recommendation?.reasonCodes.includes("CONTINUE_IN_PROGRESS") ?? false;
   return (
     <>
       <section
@@ -60,9 +63,16 @@ export function CompetencyLearningPathPanel({
                 <p>{recommendation.explanation}</p>
               )}
             </div>
-            <Button href={getLessonPath(recommendation.candidateId)}>
-              Học bài này
-            </Button>
+            {resumesActiveAttempt ? (
+              <UniversalCurriculumStartButton
+                unitSlug={recommendation.candidateId}
+                label="Tiếp tục học"
+              />
+            ) : (
+              <Button href={getLessonPath(recommendation.candidateId)}>
+                Học bài này
+              </Button>
+            )}
           </div>
         ) : (
           <div className="empty-state">

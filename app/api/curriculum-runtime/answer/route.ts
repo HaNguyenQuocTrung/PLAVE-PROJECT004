@@ -17,6 +17,7 @@ import {
   submitStudentGeneratorV2Answer,
   toStudentStaticRuntimeState,
 } from "@/lib/generation-v2/student-runtime";
+import { revalidateStudentLearningProjections } from "@/lib/curriculum-runtime/revalidation";
 
 export async function POST(request: Request) {
   const api = createCurriculumApiResponder(request);
@@ -64,6 +65,7 @@ export async function POST(request: Request) {
         serverErrorCode: "GENERATOR_V2_RESPONSE_MAPPING_FAILED",
       });
     }
+    revalidateStudentLearningProjections();
     return api.success({ ok: true, data: generated.state });
   }
   if (generated.code !== "PRACTICE_UNAVAILABLE") {
@@ -103,6 +105,7 @@ export async function POST(request: Request) {
       serverErrorCode: "RESPONSE_MAPPING_FAILED",
     });
   }
+  revalidateStudentLearningProjections();
   return api.success({
     ok: true,
     data: toStudentStaticRuntimeState(state),

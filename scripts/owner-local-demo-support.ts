@@ -53,6 +53,10 @@ export class OwnerLocalPreflightError extends Error {
 }
 
 const loopbackHosts = new Set(["127.0.0.1", "localhost", "::1"]);
+export const ownerLocalAppPort = 3100;
+export const ownerLocalAppOrigin = `http://127.0.0.1:${ownerLocalAppPort}`;
+const ownerLocalMigrationCount = 44;
+const ownerLocalSupabasePorts = [54320, 54321, 54322, 54323, 54324, 54327, 8083] as const;
 export const ownerLocalManagedStatePath = join(
   tmpdir(),
   "plave-project004-owner-local-demo.state.json",
@@ -189,13 +193,28 @@ export function buildOwnerLocalChildEnvironment(
   if (!/^[0-9a-f]{64}$/.test(generationSigningKey)) {
     throw new Error("Owner local generation signing key is invalid.");
   }
+  const safeEnvironment = { ...baseEnvironment };
+  for (const name of [
+    "GOOGLE_API_KEY",
+    "GEMINI_API_KEY",
+    "OPENAI_API_KEY",
+    "SUPABASE_ACCESS_TOKEN",
+    "SUPABASE_DB_PASSWORD",
+    "SUPABASE_SERVICE_ROLE_KEY",
+    "PLAVE_LOCAL_DATABASE_URL",
+  ]) {
+    safeEnvironment[name] = "";
+  }
   return {
-    ...baseEnvironment,
+    ...safeEnvironment,
     NEXT_PUBLIC_SUPABASE_URL: config.apiUrl,
     NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: config.publishableKey,
     PLAVE_CURRICULUM_RUNTIME_ENABLED: "true",
     PLAVE_ON_DEMAND_GENERATION_ENABLED: "true",
     PLAVE_ON_DEMAND_GENERATION_SIGNING_KEY: generationSigningKey,
+    PLAVE_GENERATED_PRACTICE_RUNTIME_ENABLED: "true",
+    PLAVE_GENERATED_PRACTICE_MODE: "SHADOW",
+    PLAVE_GENERATED_PRACTICE_PILOT_USER_IDS: "",
     PLAVE_OWNER_LOCAL_DEMO: "true",
     PLAVE_GRADE2_NUMBERS_TO_1000_ENABLED: "false",
     PLAVE_ADAPTIVE_PRACTICE_RUNTIME_ENABLED: "false",
@@ -257,7 +276,7 @@ export function loadOwnerLocalSupabase(): OwnerLocalSupabase {
   const apiUrl = local.get("API_URL") ?? "";
   const publishableKey = local.get("ANON_KEY") ?? "";
   const databaseUrlText =
-    process.env.PLAVE_LOCAL_DATABASE_URL ?? local.get("DB_URL") ?? "";
+    local.get("DB_URL") ?? "";
   const parsedApi = assertLoopbackUrl(
     apiUrl,
     ["http:", "https:"],
@@ -277,6 +296,86 @@ export function loadOwnerLocalSupabase(): OwnerLocalSupabase {
     publishableKey,
     databaseUrl,
   };
+}
+
+export function startOwnerLocalSupabase() {
+  assertProject004Workspace();
+  const existing = spawnSync("supabase", ["status"], {
+    encoding: "utf8",
+    maxBuffer: 1024 * 1024,
+  });
+  if (existing.status === 0) {
+    throw new Error(
+      "PROJECT004 local Supabase is already running; ownership is ambiguous.",
+    );
+  }
+  const started = spawnSync("supabase", ["start"], {
+    encoding: "utf8",
+    maxBuffer: 20 * 1024 * 1024,
+  });
+  if (started.status !== 0) {
+    spawnSync("supabase", ["stop", "--no-backup"], {
+      encoding: "utf8",
+      maxBuffer: 1024 * 1024,
+    });
+    const safeDiagnostic = `${started.stdout}\n${started.stderr}`
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .filter(
+        (line) =>
+          !/(?:key|password|token|secret|jwt|db_url|api_url|anon|service_role)/i.test(
+            line,
+          ) &&
+          !line.includes("://") &&
+          !line.includes("eyJ"),
+      )
+      .slice(-12);
+    for (const line of safeDiagnostic) {
+      process.stderr.write(`SUPABASE_START_DIAGNOSTIC=${line}\n`);
+    }
+    throw new Error("PROJECT004 local Supabase failed to start safely.");
+  }
+}
+
+export function stopOwnerLocalSupabase() {
+  assertProject004Workspace();
+  const stopped = spawnSync("supabase", ["stop", "--no-backup"], {
+    encoding: "utf8",
+    maxBuffer: 10 * 1024 * 1024,
+  });
+  if (stopped.status !== 0) {
+    throw new Error("PROJECT004 local Supabase failed to stop safely.");
+  }
+}
+
+export function materializeOwnerLocalCurriculum(
+  config: OwnerLocalSupabase,
+) {
+  assertProject004Workspace();
+  const environment = { ...process.env };
+  delete environment.GOOGLE_API_KEY;
+  delete environment.GEMINI_API_KEY;
+  delete environment.OPENAI_API_KEY;
+  environment.PLAVE_LOCAL_DATABASE_URL = config.databaseUrl.toString();
+  environment.PLAVE_LOCAL_CURRICULUM_ACTIVATE = "false";
+  const materialized = spawnSync(
+    process.execPath,
+    [
+      "--no-warnings",
+      "--experimental-strip-types",
+      "scripts/materialize-universal-curriculum-local.ts",
+    ],
+    {
+      cwd: process.cwd(),
+      encoding: "utf8",
+      env: environment,
+      maxBuffer: 20 * 1024 * 1024,
+    },
+  );
+  if (materialized.status !== 0) {
+    throw new Error("Owner local curriculum materialization failed.");
+  }
 }
 
 function postgresEnvironment(config: OwnerLocalSupabase) {
@@ -474,7 +573,7 @@ export function evaluateOwnerLocalPreflight(
   };
 }
 
-function migrationFilesComplete() {
+export function migrationFilesComplete() {
   try {
     const migrationVersions = readdirSync(
       resolve(process.cwd(), "supabase/migrations"),
@@ -483,7 +582,7 @@ function migrationFilesComplete() {
       .filter((value): value is string => Boolean(value))
       .sort();
     const expected = Array.from(
-      { length: 40 },
+      { length: ownerLocalMigrationCount },
       (_, index) => String(index + 1).padStart(4, "0"),
     );
     return (
@@ -579,6 +678,12 @@ function observeOwnerLocalDatabase(
             and pg_catalog.to_regprocedure(
               'public.get_parent_child_generated_curriculum_progress(uuid)'
             ) is not null
+            and pg_catalog.to_regprocedure(
+              'public.get_parent_child_score_xp_mastery(uuid)'
+            ) is not null
+            and pg_catalog.to_regprocedure(
+              'public.get_parent_child_motivation_v1(uuid)'
+            ) is not null
           )::integer,
           (
             select count(*)
@@ -668,7 +773,7 @@ function parentPid(pid: number) {
 function listenerPids() {
   const result = spawnSync(
     "lsof",
-    ["-nP", "-t", "-iTCP:3000", "-sTCP:LISTEN"],
+    ["-nP", "-t", `-iTCP:${ownerLocalAppPort}`, "-sTCP:LISTEN"],
     { encoding: "utf8" },
   );
   if (result.status !== 0) return [];
@@ -703,7 +808,7 @@ async function probeOwnerLocalHealth(
 ): Promise<OwnerLocalHealthProbeResult> {
   try {
     const response = await fetch(
-      "http://127.0.0.1:3000/api/internal/owner-local-health",
+      `${ownerLocalAppOrigin}/api/internal/owner-local-health`,
       {
         cache: "no-store",
         redirect: "error",
@@ -726,6 +831,121 @@ async function probeOwnerLocalHealth(
   } catch {
     return { status: "ENDPOINT_NOT_READY" };
   }
+}
+
+function configSection(source: string, name: string) {
+  const lines = source.split(/\r?\n/);
+  const selected: string[] = [];
+  let active = false;
+  for (const line of lines) {
+    const header = /^\s*\[([^\]]+)\]\s*$/.exec(line)?.[1];
+    if (header) {
+      active = header === name;
+      continue;
+    }
+    if (active) selected.push(line);
+  }
+  return selected.join("\n");
+}
+
+function configValue(section: string, name: string) {
+  return new RegExp(`^\\s*${name}\\s*=\\s*(.+?)\\s*$`, "m")
+    .exec(section)?.[1];
+}
+
+function portIsFree(port: number) {
+  const result = spawnSync(
+    "lsof",
+    ["-nP", "-t", `-iTCP:${port}`, "-sTCP:LISTEN"],
+    { encoding: "utf8" },
+  );
+  return result.status !== 0 && result.stdout.trim() === "";
+}
+
+function ownerLocalDockerNamespaceIsAvailable() {
+  const info = spawnSync("docker", ["info", "--format", "{{.ServerVersion}}"], {
+    encoding: "utf8",
+  });
+  if (info.status !== 0) return false;
+  const inventories = [
+    ["ps", "--all", "--format", "{{.Names}}"],
+    ["volume", "ls", "--format", "{{.Name}}"],
+    ["network", "ls", "--format", "{{.Name}}"],
+  ] as const;
+  return inventories.every((args) => {
+    const result = spawnSync("docker", args, { encoding: "utf8" });
+    return (
+      result.status === 0 &&
+      !result.stdout.toLowerCase().includes("plave-project004")
+    );
+  });
+}
+
+export function assertOwnerLocalSetupPreflight() {
+  assertProject004Workspace();
+  const config = readFileSync(
+    resolve(process.cwd(), "supabase/config.toml"),
+    "utf8",
+  );
+  const packageSource = readFileSync(
+    resolve(process.cwd(), "package.json"),
+    "utf8",
+  );
+  const packageScripts = (
+    JSON.parse(packageSource) as { scripts?: Record<string, string> }
+  ).scripts ?? {};
+  const api = configSection(config, "api");
+  const database = configSection(config, "db");
+  const studio = configSection(config, "studio");
+  const smtp = configSection(config, "local_smtp");
+  const auth = configSection(config, "auth");
+  const authEmail = configSection(config, "auth.email");
+  const analytics = configSection(config, "analytics");
+  const edgeRuntime = configSection(config, "edge_runtime");
+  const externalSections = [
+    ...config.matchAll(/^\s*\[auth\.external\.([^\]]+)\]\s*$/gm),
+  ].map((match) =>
+    configSection(config, `auth.external.${match[1]}`),
+  );
+  const checks = {
+    PROJECT_NAMESPACE:
+      /^\s*project_id\s*=\s*"PLAVE-PROJECT004"\s*$/m.test(config) &&
+      ownerLocalDockerNamespaceIsAvailable(),
+    API_LOOPBACK: configValue(api, "port") === "54321",
+    DATABASE_LOOPBACK:
+      configValue(database, "port") === "54322" &&
+      configValue(database, "shadow_port") === "54320",
+    APP_PORT:
+      configValue(auth, "site_url") === `"${ownerLocalAppOrigin}"` &&
+      portIsFree(ownerLocalAppPort),
+    SUPABASE_PORTS: ownerLocalSupabasePorts.every(portIsFree),
+    LOCAL_MAIL_ONLY:
+      configValue(smtp, "enabled") === "true" &&
+      configValue(smtp, "port") === "54324" &&
+      configValue(authEmail, "enable_confirmations") === "false" &&
+      !/^\s*\[auth\.email\.smtp\]\s*$/m.test(config) &&
+      externalSections.length > 0 &&
+      externalSections.every(
+        (section) => configValue(section, "enabled") === "false",
+      ),
+    AUXILIARY_PORTS:
+      configValue(studio, "port") === "54323" &&
+      configValue(studio, "api_url") === '"http://127.0.0.1"' &&
+      configValue(analytics, "port") === "54327" &&
+      configValue(edgeRuntime, "inspector_port") === "8083",
+    MIGRATIONS_0001_0044: migrationFilesComplete(),
+    SAFE_DEMO_ENV: [
+      "owner-local-demo:preflight",
+      "owner-local-demo:start",
+      "owner-local-demo:stop",
+      "owner-local-demo:teacher-invite",
+    ].every((name) => !(packageScripts[name] ?? "").includes("--env-file")),
+  };
+  printPreflightChecks(checks);
+  throwIfPreflightFailed(checks);
+  process.stdout.write("OWNER_LOCAL_SETUP_PREFLIGHT=PASS\n");
+  process.stdout.write("REMOTE_TARGET=NONE_LOOPBACK_ONLY\n");
+  process.stdout.write(`APP_URL=${ownerLocalAppOrigin}\n`);
 }
 
 export async function waitForOwnerLocalHealth(

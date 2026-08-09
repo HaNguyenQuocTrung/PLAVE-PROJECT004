@@ -1,3 +1,8 @@
+import {
+  authThrottleMessage,
+  classifyAuthThrottle,
+} from "./error-classification.ts";
+
 export type RegistrationRole = "STUDENT" | "PARENT" | "TEACHER";
 
 export type RegistrationOutcome =
@@ -5,6 +10,7 @@ export type RegistrationOutcome =
   | "CREATED_REQUIRES_CONFIRMATION"
   | "CREATED_EMAIL_DELIVERY_UNCERTAIN"
   | "EMAIL_RATE_LIMITED"
+  | "THROTTLED"
   | "DATABASE_TRIGGER_FAILED"
   | "USER_ALREADY_EXISTS"
   | "SERVICE_UNAVAILABLE"
@@ -47,12 +53,28 @@ export function registrationServiceUnavailable(): RegistrationResult {
   };
 }
 
+export function registrationThrottleResult(
+  error: unknown,
+): RegistrationResult | null {
+  const throttle = classifyAuthThrottle("SIGN_UP", error);
+  if (!throttle) return null;
+
+  return {
+    ok: false,
+    outcome: throttle.kind,
+    message: authThrottleMessage(throttle),
+  };
+}
+
 export function classifySignUpResult(
   data: SignUpDataLike,
   error: AuthErrorLike | null,
 ): RegistrationResult {
   const code = error?.code?.toLowerCase() ?? "";
   const message = error?.message?.toLowerCase() ?? "";
+
+  const throttleResult = registrationThrottleResult(error);
+  if (throttleResult) return throttleResult;
 
   if (
     code === "user_already_exists" ||
@@ -64,20 +86,6 @@ export function classifySignUpResult(
       outcome: "USER_ALREADY_EXISTS",
       message:
         "Nếu thông tin hợp lệ, PLAVE sẽ gửi hướng dẫn xác nhận đến email này. Hãy kiểm tra cả thư rác trước khi thử đăng nhập.",
-    };
-  }
-
-  if (
-    error?.status === 429 ||
-    code.includes("rate_limit") ||
-    message.includes("rate limit") ||
-    message.includes("email rate")
-  ) {
-    return {
-      ok: false,
-      outcome: "EMAIL_RATE_LIMITED",
-      message:
-        "Dịch vụ email đang giới hạn tần suất. Không cần đăng ký lại; hãy chờ rồi kiểm tra hộp thư.",
     };
   }
 

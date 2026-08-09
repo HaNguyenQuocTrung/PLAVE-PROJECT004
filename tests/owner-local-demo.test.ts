@@ -76,14 +76,31 @@ test("Owner local demo commands are loopback-only and never print local keys", (
     `${support}\n${start}\n${stop}\n${invitation}`,
     /(?:console\.log|process\.stdout\.write)\([^)]*(?:publishableKey|ANON_KEY|PGPASSWORD|databaseUrl)/,
   );
+  assert.match(invitation, /loadOwnerLocalSupabase\(\)/);
+  assert.match(invitation, /private\.issue_teacher_invitation/);
+  assert.match(invitation, /private\.revoke_teacher_invitation/);
+  assert.match(invitation, /INVITATION_COUNT=/);
+  assert.match(invitation, /PLAINTEXT_PERSISTED=NO/);
+  assert.doesNotMatch(invitation, /writeFileSync|INVITATION_FILE=/);
   assert.doesNotMatch(
     `${start}\n${stop}`,
     /\b(?:db push|supabase link|--linked|deploy|publication)\b/i,
   );
   assert.match(
     start,
-    /\["run", "dev", "--", "--hostname", "127\.0\.0\.1"\]/,
+    /"--hostname",\s*"127\.0\.0\.1",\s*"--port",\s*String\(ownerLocalAppPort\)/,
   );
+  assert.match(start, /startOwnerLocalSupabase\(\)/);
+  assert.match(start, /stopOwnerLocalSupabase\(\)/);
+  assert.match(stop, /OWNER_LOCAL_ACCEPTANCE_DATA=REMOVED/);
+  assert.match(support, /const ownerLocalMigrationCount = 44/);
+  assert.match(support, /get_parent_child_score_xp_mastery\(uuid\)/);
+  assert.match(support, /get_parent_child_motivation_v1\(uuid\)/);
+  for (const command of Object.values(packageJson.scripts).filter((value) =>
+    value.includes("owner-local-demo"),
+  )) {
+    assert.doesNotMatch(command, /--env-file/);
+  }
 
   const parsed = parseSupabaseStatusEnvironment(
     [
@@ -218,6 +235,16 @@ test("child environment carries exact runtime and disabled adaptive flags", () =
   assert.equal(environment.PLAVE_CONTROLLED_PILOT_ENABLED, "false");
   assert.equal(environment.PLAVE_RETENTION_RUNTIME_ENABLED, "false");
   assert.equal(environment.PLAVE_ADAPTIVE_PILOT_USER_IDS, "");
+  assert.equal((environment as NodeJS.ProcessEnv).GOOGLE_API_KEY, "");
+  assert.equal(
+    (environment as NodeJS.ProcessEnv).SUPABASE_SERVICE_ROLE_KEY,
+    "",
+  );
+  assert.equal(
+    environment.PLAVE_GENERATED_PRACTICE_RUNTIME_ENABLED,
+    "true",
+  );
+  assert.equal(environment.PLAVE_GENERATED_PRACTICE_MODE, "SHADOW");
 });
 
 test("health readiness tolerates Next Ready before route compilation", async () => {

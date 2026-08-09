@@ -4,6 +4,7 @@ import Link from "next/link";
 import { type FormEvent, useRef, useState, useTransition } from "react";
 
 import { registerAccount } from "@/app/register/actions";
+import { createAuthSubmissionGate } from "@/lib/auth/client-flow";
 import type { RegistrationOutcome } from "@/lib/auth/registration-result";
 import { Button } from "@/components/Button";
 import { FormField } from "@/components/FormField";
@@ -48,6 +49,7 @@ export default function RegisterPage() {
   const [registrationOutcome, setRegistrationOutcome] =
     useState<RegistrationOutcome | null>(null);
   const [isPending, startTransition] = useTransition();
+  const submissionGateRef = useRef(createAuthSubmissionGate());
 
   const roleGroupRef = useRef<HTMLFieldSetElement>(null);
   const gradeRef = useRef<HTMLSelectElement>(null);
@@ -129,36 +131,42 @@ export default function RegisterPage() {
       return;
     }
 
+    if (!submissionGateRef.current.tryStart()) return;
+
     startTransition(async () => {
-      const result = await registerAccount({
-        role:
-          role === "student"
-            ? "STUDENT"
-            : role === "parent"
-              ? "PARENT"
-              : "TEACHER",
-        grade: role === "student" ? Number(grade) : null,
-        invitationCode:
-          role === "teacher"
-            ? invitationCode.trim().toUpperCase()
-            : null,
-        email: normalizedEmail,
-        password,
-        confirmPassword,
-        acceptedTerms,
-      });
+      try {
+        const result = await registerAccount({
+          role:
+            role === "student"
+              ? "STUDENT"
+              : role === "parent"
+                ? "PARENT"
+                : "TEACHER",
+          grade: role === "student" ? Number(grade) : null,
+          invitationCode:
+            role === "teacher"
+              ? invitationCode.trim().toUpperCase()
+              : null,
+          email: normalizedEmail,
+          password,
+          confirmPassword,
+          acceptedTerms,
+        });
 
-      if (!result.ok) {
+        if (!result.ok) {
+          setNotice(result.message);
+          return;
+        }
+
+        setPassword("");
+        setConfirmPassword("");
+        setInvitationCode("");
         setNotice(result.message);
-        return;
+        setRegistrationOutcome(result.outcome);
+        setRegistrationComplete(true);
+      } finally {
+        submissionGateRef.current.reset();
       }
-
-      setPassword("");
-      setConfirmPassword("");
-      setInvitationCode("");
-      setNotice(result.message);
-      setRegistrationOutcome(result.outcome);
-      setRegistrationComplete(true);
     });
   };
 

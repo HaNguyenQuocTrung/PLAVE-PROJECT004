@@ -1,6 +1,10 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import {
+  authThrottleMessage,
+  classifyAuthThrottle,
+} from "@/lib/auth/error-classification";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -23,10 +27,12 @@ export async function loginWithPassword(input: {
       });
 
     if (signInError) {
+      const throttle = classifyAuthThrottle("PASSWORD_LOGIN", signInError);
       return {
         ok: false,
-        message:
-          "Chưa thể đăng nhập bằng thông tin này. Hãy kiểm tra email, mật khẩu và email xác nhận nếu bạn vừa đăng ký.",
+        message: throttle
+          ? authThrottleMessage(throttle)
+          : "Chưa thể đăng nhập bằng thông tin này. Hãy kiểm tra email, mật khẩu và email xác nhận nếu bạn vừa đăng ký.",
       };
     }
 
@@ -72,11 +78,13 @@ export async function loginWithPassword(input: {
             ? "/dashboard"
             : "/onboarding",
     };
-  } catch {
+  } catch (error) {
+    const throttle = classifyAuthThrottle("PASSWORD_LOGIN", error);
     return {
       ok: false,
-      message:
-        "Chưa thể kết nối dịch vụ xác thực. Bạn vẫn có thể dùng phần học thử.",
+      message: throttle
+        ? authThrottleMessage(throttle)
+        : "Chưa thể kết nối dịch vụ xác thực. Bạn vẫn có thể dùng phần học thử.",
     };
   }
 }

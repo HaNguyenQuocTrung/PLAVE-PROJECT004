@@ -1111,21 +1111,20 @@ test("Sprint 2E 4. Theory, lessons, and results are real protected data routes",
     join(process.cwd(), "lib/personalized-path/server.ts"),
     "utf8",
   );
-  for (const source of [learnSource, resultsSource]) {
-    assert.match(source, /getStudentLearningContext\(\)/);
-    assert.match(source, /\.from\("learning_units"\)/);
-    assert.doesNotMatch(source, /question_solutions/);
-  }
+  assert.match(learnSource, /getStudentLearningContext\(\)/);
+  assert.match(learnSource, /\.from\("learning_units"\)/);
+  assert.match(resultsSource, /loadStudentCurriculumHistory\(\)/);
+  assert.match(resultsSource, /StudentCurriculumHistoryView/);
+  assert.doesNotMatch(`${learnSource}\n${resultsSource}`, /question_solutions/);
   assert.match(
     lessonsSource,
     /loadStudentPersonalizedPath(?:WithClient)?\(/,
   );
   assert.match(personalizedServerSource, /getStudentLearningContext\(\)/);
   assert.match(personalizedServerSource, /\.from\("learning_units"\)/);
-  for (const source of [learnSource, resultsSource]) {
-    assert.match(source, /\.from\("practice_attempts"\)/);
-    assert.match(source, /\.eq\("student_id", access\.user\.id\)/);
-  }
+  assert.match(learnSource, /\.from\("practice_attempts"\)/);
+  assert.match(learnSource, /\.eq\("student_id", access\.user\.id\)/);
+  assert.doesNotMatch(resultsSource, /practice_attempts|learning_units/);
   assert.match(personalizedServerSource, /\.from\("practice_attempts"\)/);
   assert.match(
     personalizedServerSource,
@@ -6781,11 +6780,18 @@ test("Sprint 5A 9. Parent, Teacher and guest cannot bypass Student practice", ()
 });
 
 test("Sprint 5A 10. Student catalogs use ordered multi-unit database content", () => {
-  for (const file of ["app/learn/page.tsx", "app/results/page.tsx"]) {
-    const source = readFileSync(join(process.cwd(), file), "utf8");
-    assert.match(source, /\.from\("learning_units"\)/);
-    assert.match(source, /prerequisite_unit_slug/);
-  }
+  const learnSource = readFileSync(
+    join(process.cwd(), "app/learn/page.tsx"),
+    "utf8",
+  );
+  assert.match(learnSource, /\.from\("learning_units"\)/);
+  assert.match(learnSource, /prerequisite_unit_slug/);
+  const resultsSource = readFileSync(
+    join(process.cwd(), "app/results/page.tsx"),
+    "utf8",
+  );
+  assert.match(resultsSource, /loadStudentCurriculumHistory/);
+  assert.doesNotMatch(resultsSource, /\.from\("learning_units"\)/);
   const personalizedServer = readFileSync(
     join(process.cwd(), "lib/personalized-path/server.ts"),
     "utf8",
@@ -8002,7 +8008,8 @@ test("Sprint 5D 12. Results group the fifth unit independently", () => {
   );
   assert.match(history, /group\.unitSlug/);
   assert.match(history, /unitTitles\[group\.unitSlug\]/);
-  assert.match(results, /buildPracticeHistory/);
+  assert.match(results, /loadStudentCurriculumHistory/);
+  assert.match(results, /StudentCurriculumHistoryView/);
 });
 
 test("Sprint 5D 13. Dashboard recommends the first unfinished unit", () => {
@@ -8114,11 +8121,23 @@ test("Sprint 5D 17. Demo stays independent from the fifth learning unit", () => 
 });
 
 test("Sprint 5D 18. Protected Student routes retain the server auth gate", () => {
-  for (const file of ["app/learn/page.tsx", "app/results/page.tsx"]) {
-    const source = readFileSync(join(process.cwd(), file), "utf8");
-    assert.match(source, /getStudentLearningContext/);
-    assert.match(source, /redirect\("\/login"\)/);
-  }
+  const learnSource = readFileSync(
+    join(process.cwd(), "app/learn/page.tsx"),
+    "utf8",
+  );
+  const resultsSource = readFileSync(
+    join(process.cwd(), "app/results/page.tsx"),
+    "utf8",
+  );
+  const curriculumServer = readFileSync(
+    join(process.cwd(), "lib/curriculum-runtime/server.ts"),
+    "utf8",
+  );
+  assert.match(learnSource, /getStudentLearningContext/);
+  assert.match(learnSource, /redirect\("\/login"\)/);
+  assert.match(resultsSource, /loadStudentCurriculumHistory/);
+  assert.match(resultsSource, /redirect\("\/login"\)/);
+  assert.match(curriculumServer, /getStudentLearningContext/);
   const lessons = readFileSync(
     join(process.cwd(), "app/lessons/page.tsx"),
     "utf8",
@@ -8574,7 +8593,8 @@ test("Sprint 5E 12. Results and retakes remain independent for the sixth unit", 
     join(process.cwd(), "app/results/page.tsx"),
     "utf8",
   );
-  assert.match(results, /buildPracticeHistory/);
+  assert.match(results, /loadStudentCurriculumHistory/);
+  assert.match(results, /StudentCurriculumHistoryView/);
 });
 
 test("Sprint 5E 13. Parent dashboard and weekly report accept the new skill", () => {
@@ -9046,7 +9066,8 @@ test("Sprint 5F 12. Results and retakes remain independent for the seventh unit"
     join(process.cwd(), "app/results/page.tsx"),
     "utf8",
   );
-  assert.match(results, /buildPracticeHistory/);
+  assert.match(results, /loadStudentCurriculumHistory/);
+  assert.match(results, /StudentCurriculumHistoryView/);
 });
 
 test("Sprint 5F 13. Parent dashboard and weekly report accept the new skill", () => {

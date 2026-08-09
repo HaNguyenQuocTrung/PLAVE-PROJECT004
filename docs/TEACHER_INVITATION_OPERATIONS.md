@@ -1,7 +1,10 @@
-# Vận hành mã mời giáo viên
+# Vận hành mã mời giáo viên trên hosted Supabase
 
-Tài liệu này chỉ dành cho chủ PLAVE thao tác trong Supabase SQL Editor sau khi
-migration `0012_teacher_invitation_foundation.sql` đã được áp dụng.
+Đây là quy trình quản trị hosted riêng biệt, chỉ dành cho chủ PLAVE sau một phê
+duyệt hosted rõ ràng và sau khi migration
+`0012_teacher_invitation_foundation.sql` đã được áp dụng. Quy trình local mặc
+định nằm tại `docs/operations/OWNER_LOCAL_TEACHER_INVITATION.md`; lệnh local
+phải từ chối mọi target không phải loopback.
 
 ## Phát hành một mã
 
@@ -46,3 +49,7 @@ select private.revoke_teacher_invitation(
 
 Function chỉ thu hồi mã còn khả dụng. Mã đã được claim không thể dùng lại hoặc
 thu hồi bằng thao tác này.
+
+Không chỉnh trực tiếp `profiles.role` để thay thế quy trình trên. Việc đó không
+claim invitation, không tạo `teacher_profiles`, không hoàn tất onboarding và
+không tạo một Teacher `ACTIVE` hợp lệ.

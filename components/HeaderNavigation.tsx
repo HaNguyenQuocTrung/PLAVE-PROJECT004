@@ -4,7 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   type KeyboardEvent as ReactKeyboardEvent,
+  useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -16,6 +18,11 @@ import {
   type HeaderNavigationItem,
   type HeaderRole,
 } from "@/lib/auth/navigation";
+import {
+  createMenuDisclosureContext,
+  createMenuDisclosureState,
+  isMenuDisclosureOpen,
+} from "@/lib/auth/menu-disclosure";
 
 type HeaderNavigationProps = {
   authenticated: boolean;
@@ -35,28 +42,34 @@ export function HeaderNavigation({
   navigation,
 }: HeaderNavigationProps) {
   const pathname = usePathname();
-  const [menuState, setMenuState] = useState({
-    open: false,
-    pathname,
-  });
-  const menuOpen = menuState.open && menuState.pathname === pathname;
-  const [profileMenuState, setProfileMenuState] = useState({
-    open: false,
-    pathname,
-  });
-  const profileMenuOpen =
-    profileMenuState.open && profileMenuState.pathname === pathname;
+  const disclosureContext = useMemo(
+    () => createMenuDisclosureContext(authenticated, pathname),
+    [authenticated, pathname],
+  );
+  const [menuState, setMenuState] = useState(() =>
+    createMenuDisclosureState(disclosureContext),
+  );
+  const menuOpen = isMenuDisclosureOpen(menuState, disclosureContext);
+  const [profileMenuState, setProfileMenuState] = useState(() =>
+    createMenuDisclosureState(disclosureContext),
+  );
+  const profileMenuOpen = isMenuDisclosureOpen(
+    profileMenuState,
+    disclosureContext,
+  );
   const profileAreaRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const navigationPanelRef = useRef<HTMLDivElement>(null);
   const profileButtonRef = useRef<HTMLButtonElement>(null);
   const profileMenuRef = useRef<HTMLDivElement>(null);
-  const setMenuOpen = (open: boolean) => {
-    setMenuState({ open, pathname });
-  };
-  const setProfileMenuOpen = (open: boolean) => {
-    setProfileMenuState({ open, pathname });
-  };
+  const setMenuOpen = useCallback((open: boolean) => {
+    setMenuState(createMenuDisclosureState(disclosureContext, open));
+  }, [disclosureContext]);
+  const setProfileMenuOpen = useCallback((open: boolean) => {
+    setProfileMenuState(
+      createMenuDisclosureState(disclosureContext, open),
+    );
+  }, [disclosureContext]);
 
   useEffect(() => {
     if (!menuOpen && !profileMenuOpen) return;
@@ -64,17 +77,17 @@ export function HeaderNavigation({
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         if (profileMenuOpen) {
-          setProfileMenuState({ open: false, pathname });
+          setProfileMenuOpen(false);
           profileButtonRef.current?.focus();
         } else {
-          setMenuState({ open: false, pathname });
+          setMenuOpen(false);
           menuButtonRef.current?.focus();
         }
       }
     };
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
-  }, [menuOpen, pathname, profileMenuOpen]);
+  }, [menuOpen, profileMenuOpen, setMenuOpen, setProfileMenuOpen]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -90,12 +103,12 @@ export function HeaderNavigation({
         !navigationPanelRef.current?.contains(event.target) &&
         !menuButtonRef.current?.contains(event.target)
       ) {
-        setMenuState({ open: false, pathname });
+        setMenuOpen(false);
       }
     };
     document.addEventListener("pointerdown", closeOnOutsideClick);
     return () => document.removeEventListener("pointerdown", closeOnOutsideClick);
-  }, [menuOpen, pathname]);
+  }, [menuOpen, setMenuOpen]);
 
   useEffect(() => {
     if (!profileMenuOpen) return;
@@ -105,14 +118,14 @@ export function HeaderNavigation({
         event.target instanceof Node &&
         !profileAreaRef.current?.contains(event.target)
       ) {
-        setProfileMenuState({ open: false, pathname });
+        setProfileMenuOpen(false);
       }
     };
 
     document.addEventListener("pointerdown", closeOnOutsideClick);
     return () =>
       document.removeEventListener("pointerdown", closeOnOutsideClick);
-  }, [pathname, profileMenuOpen]);
+  }, [profileMenuOpen, setProfileMenuOpen]);
 
   const userLabel =
     fullName?.trim() ||

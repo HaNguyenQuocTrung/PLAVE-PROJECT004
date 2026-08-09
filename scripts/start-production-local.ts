@@ -7,6 +7,7 @@ import {
   loadProject004RemoteRuntimeConfigFile,
   Project004RemoteRuntimeFailure,
 } from "./project004-remote-runtime-connection.ts";
+import { productionLocalBuildContract } from "./production-local-build-contract.ts";
 
 type PublicRuntime = Readonly<{
   url: string;
@@ -72,6 +73,22 @@ try {
   process.exit(1);
 }
 
+if (!buildMode) {
+  const buildId = resolve(
+    root,
+    productionLocalBuildContract.distDirectory,
+    "BUILD_ID",
+  );
+  if (!existsSync(buildId)) {
+    process.stderr.write(
+      "PRODUCTION_LOCAL_START=FAIL\n" +
+        "ROOT_FAILURE_CODE=PRODUCTION_LOCAL_BUILD_MISSING\n" +
+        "REQUIRED_COMMAND=npm run build:production-local\n",
+    );
+    process.exit(1);
+  }
+}
+
 const child = spawn(
   process.execPath,
   [nextBin, buildMode ? "build" : "start", ...process.argv.slice(buildMode ? 3 : 2)],
@@ -80,6 +97,7 @@ const child = spawn(
     env: {
       ...process.env,
       ...runtime.flags,
+      [productionLocalBuildContract.environmentFlag]: "true",
       NODE_ENV: "production",
       NEXT_TELEMETRY_DISABLED: "1",
       NEXT_PUBLIC_SUPABASE_URL: runtime.url,

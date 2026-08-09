@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 
 import { buildStudentCompetencyDashboard } from "../lib/competency/student-adapter.ts";
+import { curriculumUnits } from "../lib/curriculum/registry.ts";
 import type {
   StudentCurriculumProgress,
 } from "../lib/curriculum-runtime/contracts.ts";
@@ -66,6 +67,31 @@ test("availability is resolved once through server progress and requires the dat
   assert.match(server, /get_student_curriculum_progress/u);
   assert.match(server, /DB_RELEASE_UNAVAILABLE/u);
   assert.match(server, /getUniversalCurriculumRuntimeFlag/u);
+});
+
+test("lesson catalogs remain available when optional scoring is unavailable", () => {
+  const server = readFileSync("lib/curriculum-runtime/server.ts", "utf8");
+  const lessons = readFileSync("app/lessons/page.tsx", "utf8");
+  const catalog = readFileSync(
+    "components/UniversalLessonsCatalog.tsx",
+    "utf8",
+  );
+
+  for (let grade = 1; grade <= 9; grade += 1) {
+    assert.ok(
+      curriculumUnits.some((unit) => unit.grade === grade),
+      `Grade ${grade} must retain at least one curriculum lesson.`,
+    );
+  }
+
+  assert.match(
+    server,
+    /if \(!progress \|\| progress\.grade !== access\.grade\)/u,
+  );
+  assert.doesNotMatch(server, /progress\.grade !== access\.grade \|\| !scoring/u);
+  assert.match(lessons, /access\.grade >= 2 && universal\.ok/u);
+  assert.match(lessons, /path\.units\.length === 0/u);
+  assert.match(catalog, /curriculumUnits\.filter\(\(unit\) => unit\.grade === grade\)/u);
 });
 
 

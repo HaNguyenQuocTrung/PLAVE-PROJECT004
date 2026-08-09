@@ -2,8 +2,11 @@ import type { NextConfig } from "next";
 import {
   assertProject004Workspace,
 } from "./scripts/project004-identity.ts";
+import { productionLocalBuildContract } from "./scripts/production-local-build-contract.ts";
 
 const projectRoot = assertProject004Workspace();
+const isProductionLocal =
+  process.env[productionLocalBuildContract.environmentFlag] === "true";
 const isOwnerLocalDemo = process.env.PLAVE_OWNER_LOCAL_DEMO === "true";
 const isProject004RemoteDevelopment =
   process.env.PLAVE_PROJECT004_REMOTE_RUNTIME_MODE ===
@@ -21,6 +24,8 @@ const nextConfig: NextConfig = {
     ? ".next-secret-boundary-dev"
     : secretBoundaryAuditMode === "BUILD"
       ? ".next-secret-boundary-build"
+    : isProductionLocal
+      ? productionLocalBuildContract.distDirectory
     : isOwnerLocalDemo
     ? ".next-owner-local-project004"
     : isGeneratorV2OwnerReview
@@ -35,6 +40,8 @@ const nextConfig: NextConfig = {
   typescript: {
     tsconfigPath: secretBoundaryAuditMode
       ? "tsconfig.secret-boundary.json"
+      : isProductionLocal
+      ? productionLocalBuildContract.tsconfigPath
       : isOwnerLocalDemo
       ? "tsconfig.owner-local.json"
       : "tsconfig.next.json",

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { type FormEvent, useRef, useState, useTransition } from "react";
 
 import { requestPasswordReset } from "@/app/forgot-password/actions";
+import { createAuthSubmissionGate } from "@/lib/auth/client-flow";
 import { AuthBrandPanel } from "@/components/AuthBrandPanel";
 import { Button } from "@/components/Button";
 import { FormField } from "@/components/FormField";
@@ -15,6 +16,7 @@ export default function ForgotPasswordPage() {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [isPending, startTransition] = useTransition();
+  const submissionGateRef = useRef(createAuthSubmissionGate());
   const emailRef = useRef<HTMLInputElement>(null);
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
@@ -36,9 +38,15 @@ export default function ForgotPasswordPage() {
     }
 
     setError("");
+    if (!submissionGateRef.current.tryStart()) return;
+
     startTransition(async () => {
-      const result = await requestPasswordReset({ email: normalizedEmail });
-      setNotice(result.message);
+      try {
+        const result = await requestPasswordReset({ email: normalizedEmail });
+        setNotice(result.message);
+      } finally {
+        submissionGateRef.current.reset();
+      }
     });
   };
 

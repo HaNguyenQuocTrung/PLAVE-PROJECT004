@@ -26,20 +26,34 @@ The demo commands:
 - keep the frozen Grade 2 adaptive release `DRAFT/HIDDEN` with every adaptive
   and controlled-pilot flag false;
 - do not create synthetic fixture users;
-- preserve Owner-created accounts, attempts, answers, assignments, history
-  and progress when the demo stops.
+- keep Owner-created acceptance accounts, attempts, answers, assignments,
+  history and progress only while the isolated demo is running.
 
 `.env.local` is not required and must not be committed. It is already excluded
 by the repository environment-file rule. The scripts capture local values
 directly from the Supabase CLI and do not write them to the repository.
+
+The Owner's separate port-3000 production-local runtime is outside this
+workflow. Its remote-development database currently lacks migrations 0043 and
+0044. A runtime built before the compatibility repair can return `UNAVAILABLE`;
+after rebuilding, base History and approved Parent progress remain available,
+while scoring, XP and motivation enrichment stay unavailable until those
+migrations receive separate review and authorization. This local workflow does
+not alter or deploy that remote schema.
 
 ## Start
 
 Prerequisites:
 
 1. Work from `/Users/hatrung/Desktop/PLAVE-PROJECT004`.
-2. Keep the existing PROJECT004 local Supabase stack running.
-3. Ensure port 3000 is free.
+2. Keep Docker running. Do not start a separate PROJECT004 Supabase stack.
+3. Ensure port 3100 and the configured local Supabase ports are free.
+
+Run the static, mutation-free setup preflight first:
+
+```bash
+npm run owner-local-demo:preflight
+```
 
 Run:
 
@@ -47,8 +61,10 @@ Run:
 npm run owner-local-demo:start
 ```
 
-START performs one guarded local activation, validates the database state,
-starts Next.js and records a mode-0600 managed-state file. From Terminal 2,
+START creates the isolated PROJECT004 Supabase stack, applies migrations
+0001–0044, performs one guarded local activation, validates the database
+state, starts Next.js on port 3100 and records a mode-0600 managed-state file.
+From Terminal 2,
 run the one standalone acceptance command while START remains active:
 
 ```bash
@@ -60,13 +76,13 @@ the Next child. It observes the child through the loopback-only internal
 health contract and checks:
 
 - local Supabase Auth and PostgreSQL health;
-- the sequential migration files 0001–0039 and required database schema
+- the sequential migration files 0001–0044 and required database schema
   fingerprint;
 - release counts 171 / 2,052 / 2,052 / 546;
 - database release `ACTIVE/ACTIVE`;
 - runtime true as observed inside the Next process;
 - all Grade 2 adaptive/pilot application and database flags disabled;
-- port 3000 belongs to the managed START process;
+- port 3100 belongs to the managed START process;
 - managed PID and PROJECT004 cache identity are current;
 - database release and observed runtime agree.
 
@@ -81,15 +97,15 @@ Expected diagnostic markers include:
 OWNER_LOCAL_DEMO_PREFLIGHT=PASS
 NOT_READY_FOR_OWNER_BROWSER_DEMO
 OWNER_LOCAL_DEMO_RUNTIME_DIAGNOSTIC_MODE
-APP_URL=http://127.0.0.1:3000
+APP_URL=http://127.0.0.1:3100
 RELEASE=ACTIVE
 RUNTIME_FLAG=true
 ```
 
 Open:
 
-- application: `http://127.0.0.1:3000`;
-- registration: `http://127.0.0.1:3000/register`;
+- application: `http://127.0.0.1:3100`;
+- registration: `http://127.0.0.1:3100/register`;
 - local confirmation mailbox, with the default Supabase ports:
   `http://127.0.0.1:54324`.
 
@@ -182,15 +198,17 @@ Use Owner-created local accounts, not the integration fixture.
 
 ### Teacher
 
-Create a real local one-time invitation without printing it:
+Create exactly one local one-time invitation with a bounded 24-hour lifetime:
 
 ```bash
-npm run owner-local-demo:teacher-invite
+npm run owner-local-demo:teacher-invite -- --expires-hours 24
 ```
 
-The command stores the 24-hour invitation in a mode-0600 file under the local
-temporary directory and prints only that file path. Copy the code locally,
-then:
+The command proves both Supabase endpoints are loopback-only, prints the new
+code once in the Owner's Terminal, reports the invitation record/count, and
+does not persist plaintext. Follow
+`docs/operations/OWNER_LOCAL_TEACHER_INVITATION.md` for status, revocation,
+cleanup, and the complete activation contract. Then:
 
 1. Register and confirm a Teacher account.
 2. Complete Teacher activation using the invitation.
@@ -224,13 +242,16 @@ The command:
 - sets the runtime contract to false for the stop preflight;
 - restores the universal release to `DRAFT/INACTIVE`;
 - confirms the Grade 2 adaptive pilot remains disabled;
-- preserves all Owner-created learning and collaboration history.
+- deletes the disposable Owner-local accounts and learning/collaboration data
+  together with the isolated database after Owner acceptance is complete;
+- stops only the PROJECT004 Supabase resources created by START and never
+  touches hosted data.
 
 Expected final state:
 
 ```text
 OWNER_LOCAL_DEMO_STOPPED
-OWNER_HISTORY=PRESERVED
+OWNER_LOCAL_ACCEPTANCE_DATA=REMOVED
 UNIVERSAL_RELEASE=DRAFT/INACTIVE
 CURRICULUM_RUNTIME=false
 GRADE2_CONTROLLED_ADAPTIVE_PILOT=DISABLED

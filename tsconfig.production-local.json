@@ -1,0 +1,29 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": ".next-remote-dev-project004/cache/tsconfig.production-local.tsbuildinfo"
+  },
+  "include": [
+    "next-env.d.ts",
+    "next.config.ts",
+    "proxy.ts",
+    "app/**/*.ts",
+    "app/**/*.tsx",
+    "components/**/*.ts",
+    "components/**/*.tsx",
+    "data/**/*.ts",
+    "lib/**/*.ts",
+    "types/**/*.ts",
+    ".next-remote-dev-project004/types/**/*.ts",
+    ".next-remote-dev-project004/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next",
+    ".next-owner-local-project004",
+    ".next-generated-pilot-project004",
+    ".next-generator-v2-owner-review",
+    ".next-secret-boundary-dev",
+    ".next-secret-boundary-build"
+  ]
+}

@@ -36,6 +36,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getCurrentGeneratedPracticePilotEligibility } from "@/lib/curriculum/generated-practice-pilot";
 import { getLessonPath } from "@/lib/practice/catalog";
 import { MotivationOverview } from "@/components/MotivationOverview";
+import { UniversalCurriculumStartButton } from "@/components/UniversalCurriculumStartButton";
 
 export const metadata = {
   title: "Tổng quan",
@@ -291,14 +292,22 @@ export default async function DashboardPage() {
             </h2>
             <p>{universalProgress.masteryExplanation}</p>
             <div className="dashboard-diagnostic-card__actions">
-              <Button
-                href={currentUnit ? getLessonPath(currentUnit.unitId) : "/lessons"}
-              >
-                {currentUnit ? "Tiếp tục bài này" : "Chọn bài để học"}
-              </Button>
+              {currentUnit ? (
+                <UniversalCurriculumStartButton
+                  unitSlug={currentUnit.unitId}
+                  label="Tiếp tục bài này"
+                />
+              ) : (
+                <Button href="/lessons">Chọn bài để học</Button>
+              )}
             </div>
           </div>
-          <div className="student-summary__meter" aria-label={`${universalProgress.units.filter((unit) => unit.status === "COMPLETED").length} trên ${universalProgress.units.length} bài đã hoàn thành`}>
+          <div
+            className="student-summary__meter"
+            aria-label={`${universalProgress.units.filter((unit) => unit.status === "COMPLETED").length} trên ${universalProgress.units.length} bài đã hoàn thành`}
+            data-completed-count={universalProgress.units.filter((unit) => unit.status === "COMPLETED").length}
+            data-total-count={universalProgress.units.length}
+          >
             <strong>{universalProgress.units.filter((unit) => unit.status === "COMPLETED").length}</strong>
             <span>/{universalProgress.units.length} bài</span>
           </div>
