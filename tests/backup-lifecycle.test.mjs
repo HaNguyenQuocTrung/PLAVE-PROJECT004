@@ -41,10 +41,23 @@ const createHarness = () => {
   const backupRoot = join(fixtureDirectory, "backups");
   const argvLog = join(fixtureDirectory, "supabase-argv.log");
   const publicEnvFile = join(fixtureDirectory, ".env.test");
+  const bashEnvironmentFile = join(fixtureDirectory, ".bash_env.test");
   mkdirSync(fakeBin, { mode: 0o700 });
   writeFileSync(
     publicEnvFile,
     `NEXT_PUBLIC_SUPABASE_URL=${publicUrl}\n`,
+    { mode: 0o600 },
+  );
+  writeFileSync(
+    bashEnvironmentFile,
+    `printf() {
+  if [[ "\${PLAVE_FAKE_PRINTF_MODE:-success}" == "fail-completion" &&
+        "\${2:-}" == "Backup validation: PASS" ]]; then
+    return 75
+  fi
+  builtin printf "$@"
+}
+`,
     { mode: 0o600 },
   );
 
@@ -106,6 +119,10 @@ case "\${PLAVE_FAKE_DUMP_MODE:-success}:\${stage}" in
     : > "$output_file"
     exit 0
     ;;
+  incomplete-count-snapshot:data)
+    printf '%s\\n' 'COPY "public"."fixture" ("value") FROM stdin;' '1' '\\.' > "$output_file"
+    exit 0
+    ;;
   signal:roles)
     trap 'exit 143' HUP INT TERM
     while :; do /bin/sleep 1; done
@@ -119,7 +136,48 @@ case "$stage" in
     printf '%s\\n' 'CREATE TABLE "public"."fixture" ("value" integer);' > "$output_file"
     ;;
   data)
-    printf '%s\\n' 'COPY "public"."fixture" ("value") FROM stdin;' '1' '\\.' > "$output_file"
+    cat > "$output_file" <<'SQL'
+COPY "auth"."users" ("id") FROM stdin;
+auth-1
+auth-2
+\\.
+COPY "public"."profiles" ("user_id") FROM stdin;
+profile-1
+profile-2
+\\.
+COPY "public"."student_profiles" ("user_id") FROM stdin;
+student-1
+\\.
+COPY "public"."teacher_profiles" ("user_id") FROM stdin;
+\\.
+COPY "public"."parent_student_connections" ("id") FROM stdin;
+connection-1
+\\.
+COPY "public"."practice_attempts" ("id") FROM stdin;
+practice-attempt-1
+\\.
+COPY "public"."practice_answers" ("attempt_id") FROM stdin;
+practice-answer-1
+practice-answer-2
+\\.
+COPY "public"."diagnostic_attempts" ("id") FROM stdin;
+diagnostic-attempt-1
+\\.
+COPY "public"."diagnostic_answers" ("attempt_id") FROM stdin;
+\\.
+COPY "public"."learning_units" ("slug", "grade") FROM stdin;
+grade-1-unit	1
+grade-2-unit	2
+\\.
+COPY "public"."questions" ("code") FROM stdin;
+question-1
+question-2
+\\.
+COPY "public"."question_solutions" ("question_id") FROM stdin;
+solution-1
+solution-2
+\\.
+SQL
     ;;
   *)
     exit 44
@@ -195,6 +253,7 @@ exec /usr/bin/stat "$@"
     env: {
       ...process.env,
       PATH: `${fakeBin}:${process.env.PATH}`,
+      BASH_ENV: bashEnvironmentFile,
       PLAVE_DEV_DB_URL: fakeDatabaseUrl,
       PLAVE_DEV_BACKUP_ROOT: backupRoot,
       PLAVE_FAKE_ARGV_LOG: argvLog,
@@ -286,6 +345,23 @@ test("successful dumps validate and publish atomically before printing the ID", 
       assert.ok(content.length > 0);
       assertNoCredentialLeak(content);
     }
+    const manifest = JSON.parse(
+      readFileSync(join(backupDirectory, "manifest.json"), "utf8"),
+    );
+    assert.deepEqual(manifest.expectedRestoreCounts, {
+      authUsers: 2,
+      profiles: 2,
+      studentProfiles: 1,
+      teacherProfiles: 0,
+      parentStudentConnections: 1,
+      practiceAttempts: 1,
+      practiceAnswers: 2,
+      diagnosticAttempts: 1,
+      diagnosticAnswers: 0,
+      grade1Units: 1,
+      questions: 2,
+      questionSolutions: 2,
+    });
     const argvLog = readFileSync(harness.argvLog, "utf8");
     assertNoSecretValue(argvLog);
     assert.match(
@@ -357,6 +433,12 @@ test("zero-byte schema dump is rejected before publication", () => {
   assertFailedAtomically(runLifecycle({ PLAVE_FAKE_DUMP_MODE: "zero-schema" }));
 });
 
+test("incomplete aggregate snapshot is rejected before publication", () => {
+  assertFailedAtomically(
+    runLifecycle({ PLAVE_FAKE_DUMP_MODE: "incomplete-count-snapshot" }),
+  );
+});
+
 test("checksum generation failure leaves no published backup", () => {
   assertFailedAtomically(runLifecycle({ PLAVE_FAKE_SHASUM_MODE: "fail" }));
 });
@@ -367,6 +449,12 @@ test("manifest metadata failure leaves no published backup", () => {
 
 test("validator failure leaves no published backup", () => {
   assertFailedAtomically(runLifecycle({ PLAVE_FAKE_SHASUM_MODE: "corrupt" }));
+});
+
+test("completion output failure rolls back the renamed backup", () => {
+  assertFailedAtomically(
+    runLifecycle({ PLAVE_FAKE_PRINTF_MODE: "fail-completion" }),
+  );
 });
 
 test("unsupported Supabase CLI version fails before creating a backup directory", () => {
