@@ -54,6 +54,30 @@ test("only an exact named environment failure is classified as an exclusion", ()
   assert.equal(result.totals.fail, 1);
 });
 
+test("two exact loopback bind failures reconcile only when both titles are allowlisted", () => {
+  const output = [
+    "not ok 1 - loopback reservation denied",
+    "not ok 2 - allocator child denied",
+    terminal({ tests: 2, pass: 0, fail: 2 }),
+  ].join("\n");
+  const exact = classifyHarnessChild({
+    output,
+    exitCode: 1,
+    signal: null,
+    exactEnvironmentFailureTitles: ["loopback reservation denied", "allocator child denied"],
+  });
+  assert.equal(exact.actualFailures, 0);
+  assert.equal(exact.environmentExclusions, 2);
+  const incomplete = classifyHarnessChild({
+    output,
+    exitCode: 1,
+    signal: null,
+    exactEnvironmentFailureTitles: ["loopback reservation denied"],
+  });
+  assert.equal(incomplete.actualFailures, 2);
+  assert.equal(incomplete.environmentExclusions, 0);
+});
+
 test("an exact missing disposable artifact is classified without accepting assertion drift", () => {
   const output = `not ok 1 - artifact-backed evidence\nerror: ENOENT: no such file, open 'artifacts/proof.json'\n${terminal({ pass: 0, fail: 1 })}`;
   const result = classifyHarnessChild({

@@ -252,6 +252,7 @@ export async function runOfficialFullHarness(root = resolve(import.meta.dirname,
       files: [loopbackFile],
       exactEnvironmentFailureTitles: [
         "dynamic allocator holds seven distinct loopback ports until explicit release",
+        "Node 22 strip-types allocator smoke starts without Docker or remote access",
       ],
     },
   ];

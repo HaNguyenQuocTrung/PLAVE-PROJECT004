@@ -34,6 +34,16 @@ type Harness = Readonly<{
   completion: Promise<number>;
 }>;
 
+function configureTestEnvironment(root: string): NodeJS.ProcessEnv {
+  return {
+    PATH: process.env.PATH,
+    TMPDIR: process.env.TMPDIR,
+    NODE_ENV: "test",
+    PLAVE_AI_TUTOR_CONFIG_TEST_ROOT: root,
+    PLAVE_AI_TUTOR_CONFIG_TEST_STDIO: "1",
+  };
+}
+
 function processGroupAlive(pgid: number) {
   try {
     process.kill(-pgid, 0);
@@ -81,13 +91,7 @@ function spawnExpect(root: string, body: string): Harness {
   const child = spawn("/usr/bin/expect", ["-c", tcl], {
     cwd: projectRoot,
     detached: true,
-    env: {
-      HOME: process.env.HOME,
-      PATH: process.env.PATH,
-      TMPDIR: process.env.TMPDIR,
-      NODE_ENV: "test",
-      PLAVE_AI_TUTOR_CONFIG_TEST_ROOT: root,
-    },
+    env: configureTestEnvironment(root),
     stdio: ["ignore", "pipe", "pipe"],
   });
   if (!child.pid) throw new Error("AI_TUTOR_TEST_HARNESS_PID_MISSING");
@@ -293,13 +297,7 @@ test("concurrent configure is serialized and harness finally cleans the process 
       "scripts/configure-ai-tutor.ts",
     ], {
       cwd: projectRoot,
-      env: {
-        HOME: process.env.HOME,
-        PATH: process.env.PATH,
-        TMPDIR: process.env.TMPDIR,
-        NODE_ENV: "test",
-        PLAVE_AI_TUTOR_CONFIG_TEST_ROOT: root,
-      },
+      env: configureTestEnvironment(root),
       stdio: ["ignore", "pipe", "pipe"],
     });
     let secondOutput = "";
@@ -331,4 +329,10 @@ test("concurrent configure is serialized and harness finally cleans the process 
     assert.deepEqual(transientFiles(root), []);
     cleanupRoot(root);
   }
+});
+
+test("test stdio channel is explicit and cannot replace the production tty contract", () => {
+  const source = readFileSync(resolve(projectRoot, "scripts/configure-ai-tutor.ts"), "utf8");
+  assert.match(source, /process[.]env[.]NODE_ENV === "test"[\s\S]{0,160}requestedTestRoot[\s\S]{0,160}PLAVE_AI_TUTOR_CONFIG_TEST_STDIO === "1"/u);
+  assert.match(source, /if \(!testStdio && !existsSync\(ttyPath\)\) throw new Error\("AI_TUTOR_TTY_REQUIRED"\)/u);
 });

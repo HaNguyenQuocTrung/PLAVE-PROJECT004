@@ -25,6 +25,10 @@ const root =
   process.env.NODE_ENV === "test" && requestedTestRoot
     ? resolve(requestedTestRoot)
     : canonicalRoot;
+const useTestStdio =
+  process.env.NODE_ENV === "test" &&
+  Boolean(requestedTestRoot) &&
+  process.env.PLAVE_AI_TUTOR_CONFIG_TEST_STDIO === "1";
 if (
   root !== canonicalRoot &&
   !(root === temporaryRoot || root.startsWith(`${temporaryRoot}${sep}`))
@@ -58,10 +62,14 @@ class MaskedTtyOutput extends Writable {
   }
 }
 
-async function openPromptSession() {
-  if (!existsSync(ttyPath)) throw new Error("AI_TUTOR_TTY_REQUIRED");
-  const input = new TtyReadStream(openSync(ttyPath, "r"));
-  const destination = new TtyWriteStream(openSync(ttyPath, "w"));
+async function openPromptSession(testStdio = false) {
+  if (!testStdio && !existsSync(ttyPath)) throw new Error("AI_TUTOR_TTY_REQUIRED");
+  const input = testStdio
+    ? process.stdin
+    : new TtyReadStream(openSync(ttyPath, "r"));
+  const destination = testStdio
+    ? process.stdout
+    : new TtyWriteStream(openSync(ttyPath, "w"));
   const output = new MaskedTtyOutput(destination);
   const reader = createInterface({ input, output, terminal: true });
   const interrupt = new AbortController();
@@ -85,8 +93,10 @@ async function openPromptSession() {
     closed = true;
     reader.close();
     output.end();
-    destination.end();
-    input.destroy();
+    if (!testStdio) {
+      destination.end();
+      input.destroy();
+    }
   };
   return { ask, close };
 }
@@ -115,7 +125,7 @@ try {
     ? (existingProvider as ConfigurableProvider)
     : "GOOGLE";
 
-  promptSession = await openPromptSession();
+  promptSession = await openPromptSession(useTestStdio);
   const enteredProvider = (
     await promptSession.ask(
       `Provider [${defaultProvider}] (OPENAI/GOOGLE/DEEPSEEK): `,
