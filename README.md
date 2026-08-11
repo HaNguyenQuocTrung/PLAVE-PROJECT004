@@ -15,7 +15,7 @@ Students need a coherent path from curriculum concepts to deliberate practice an
 ## Implemented features
 
 - Grade 1 fixed-runtime mathematics learning path.
-- Grades 2–9 verified curriculum packages held as `DRAFT/HIDDEN` and inactive.
+- Grades 2–9 verified curriculum packages materialized for an Owner-activated local release; the default remains `HIDDEN` and inactive.
 - Lessons, practice, results, and learning history.
 - Score, XP, and mastery foundation.
 - AI Tutor local MVP.
@@ -76,6 +76,15 @@ For a fully isolated loopback acceptance environment, use the Owner local-demo
 runbook. That workflow uses <http://127.0.0.1:3100> and is separate from the
 normal production-local server above.
 
+The guarded Grades 1–9 local release profile is documented in
+[`docs/releases/GRADES_2_9_LOCAL_RELEASE.md`](docs/releases/GRADES_2_9_LOCAL_RELEASE.md).
+It requires an explicitly classified loopback database and separate server-only
+application flags. Grades 2–9 are integrated for the typed local `PUBLIC` mode,
+so an authenticated Student can learn their authorized grade when both the
+application mode and exact database release flags are enabled. The default mode
+remains `HIDDEN`; this repository change does not publish, activate, or deploy
+any remote environment.
+
 ## Testing summary
 
 The recorded Project004 checkpoint includes:
@@ -91,7 +100,7 @@ The recorded Project004 checkpoint includes:
 
 - Generator V2 remains **OFF by default**.
 - AI Tutor is a **local MVP**, not a production AI service commitment.
-- Grades 2–9 release integration has not been performed; ordinary users cannot access those hidden candidates.
+- Grades 2–9 remain hidden by default. An Owner must explicitly install and activate the documented local release profile before eligible Students can access their own grade.
 - Remote deployment and remote migration execution are not claimed by this repository README.
 
 ## Repository
