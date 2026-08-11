@@ -1,10 +1,12 @@
 import type { CandidateQuestion, FactoryGrade, GradePack } from "./types.ts";
+import { simulateAppliedReasoningFailures } from "./applied-reasoning.ts";
 import type { WaveBProgressionContract } from "./wave-b.ts";
 import type { WaveCProgressionContract } from "./wave-c.ts";
 import type { WaveDProgressionContract } from "./wave-d.ts";
 import type { WaveEProgressionContract } from "./wave-e.ts";
 import type { WaveFProgressionContract } from "./wave-f.ts";
 import type { WaveGProgressionContract } from "./wave-g.ts";
+import type { WaveHProgressionContract } from "./wave-h.ts";
 
 export type SimulationPolicy = Readonly<{ version: string; minimumQuestions: number; maximumQuestions: number; masteryCorrect: number }>;
 export type SimulationAnswer = Readonly<{ submissionId: string; questionId: string; correct: boolean }>;
@@ -349,4 +351,44 @@ export function simulateCombinedWaveABCDEFGCandidate(
       mixedPractice: contract.actions.mixedPracticeTargetSkillIds, alwaysValid: true,
       schoolGradeMutation: false, entitlementGrant: false },
   };
+}
+
+export type CombinedWaveABCDEFGHSimulationSuite = CombinedWaveABCSimulationSuite & Readonly<{
+  appliedFailures: ReturnType<typeof simulateAppliedReasoningFailures>;
+  intermediateRemediationTargetSkillIds: readonly string[];
+}>;
+
+export function simulateCombinedWaveABCDEFGHCandidate(
+  pack: GradePack,
+  contract: WaveHProgressionContract,
+): CombinedWaveABCDEFGHSimulationSuite {
+  const waveHQuestions = pack.questions.filter((question) => contract.waveHSkillIds.includes(question.skillId));
+  const priorQuestions = pack.questions.filter((question) => question.skillId === contract.priorSkillId);
+  if (priorQuestions.length === 0 || waveHQuestions.length === 0) throw new Error(`COMBINED_WAVE_H_TRANSITION_EMPTY:G${pack.grade}`);
+  const ordered = [...priorQuestions, ...waveHQuestions,
+    ...pack.questions.filter((question) => !priorQuestions.includes(question) && !waveHQuestions.includes(question))];
+  const base = simulateWaveACandidate({ ...pack, questions: ordered });
+  let emptyPoolFailedClosed = false;
+  try {
+    simulateCandidate(pack.grade, [], { version: pack.adaptivePolicy.version, minimumQuestions: 8, maximumQuestions: 24, masteryCorrect: 6 }, []);
+  } catch (error) {
+    emptyPoolFailedClosed = error instanceof Error && error.message === "INVALID_SIMULATION_FIXTURE";
+  }
+  if (!emptyPoolFailedClosed) throw new Error(`WAVE_H_EMPTY_POOL_DID_NOT_FAIL_CLOSED:G${pack.grade}`);
+  const skills = new Set(pack.skills.map((skill) => skill.id));
+  const actionTargets = [contract.actions.continueTargetSkillId, contract.actions.remediateTargetSkillId,
+    contract.actions.advanceTargetSkillId, contract.actions.retentionTargetSkillId, ...contract.actions.mixedPracticeTargetSkillIds,
+    ...contract.intermediateRemediationSkillIds];
+  if (actionTargets.some((skillId) => !skills.has(skillId))) throw new Error(`WAVE_H_NEXT_ACTION_MISSING:G${pack.grade}`);
+  if (pack.release.retentionEnabled) throw new Error(`WAVE_H_RETENTION_FLAG_ENABLED:G${pack.grade}`);
+  const appliedFailures = simulateAppliedReasoningFailures(contract.intermediateRemediationSkillIds[0] ?? contract.priorSkillId);
+  if ([appliedFailures.intermediate, appliedFailures.invalidDerivation, appliedFailures.unitMismatch, appliedFailures.insufficientData]
+    .some((fixture) => fixture.status !== "AUTOMATED_VERIFICATION_INSUFFICIENT")) throw new Error(`WAVE_H_FAILURE_FIXTURE_ACCEPTED:G${pack.grade}`);
+  return { ...base, historyPreserved: true,
+    retention: { projected: true, runtimeFlagRemainsDisabled: true, targetSkillId: contract.actions.retentionTargetSkillId },
+    emptyPool: { failedClosed: true, error: "INVALID_SIMULATION_FIXTURE" }, appliedFailures,
+    intermediateRemediationTargetSkillIds: contract.intermediateRemediationSkillIds,
+    nextActions: { continue: contract.actions.continueTargetSkillId, remediate: contract.actions.remediateTargetSkillId,
+      advance: contract.actions.advanceTargetSkillId, retentionReview: contract.actions.retentionTargetSkillId,
+      mixedPractice: contract.actions.mixedPracticeTargetSkillIds, alwaysValid: true, schoolGradeMutation: false, entitlementGrant: false } };
 }
