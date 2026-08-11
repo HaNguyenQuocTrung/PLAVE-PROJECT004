@@ -1,6 +1,6 @@
 | Grade | Role | Source rows | Domains | Units | Skills | Wave A slice | Generated | Gate passed | Insufficient | Rejected | Duplicates | Remaining skills | Candidate hash | State |
 |---:|---|---:|---:|---:|---:|---|---:|---:|---:|---:|---:|---:|---|---|
-| 1 | IMMUTABLE_REFERENCE | 312 | UNKNOWN | 13 | 51 | NOT_APPLICABLE | NOT_APPLICABLE | NOT_APPLICABLE | NOT_APPLICABLE | NOT_APPLICABLE | NOT_APPLICABLE | NOT_APPLICABLE | NOT_APPLICABLE | PUBLISHED/VISIBLE |
+| 1 | IMMUTABLE_REFERENCE_SHADOW | 312 | 1 | 13 | 51 | grade-1-shadow-candidate | 0 | 0 | 312 | 0 | 0 | NOT_APPLICABLE | 9d6cbdb8410ba2e1ab5907ea69f2e424abe9de278f0b8e4a616db8dbf97ac872 | DRAFT/HIDDEN |
 | 2 | FROZEN_WAVE_A | 45 | 4 | 16 | 45 | grade-2-numbers-to-1000 | 24 | 24 | 0 | 0 | 0 | 42 | 1571a6bdb0ef650ba00d5e217d27264f40d05ddc507475a1069f250bab11f530 | DRAFT/HIDDEN |
 | 3 | NEW_WAVE_A | 54 | 4 | 18 | 53 | grade-3-additive-fluency-p1 | 24 | 24 | 0 | 0 | 0 | 50 | 3962afd424c7fef5f372b0a5fe13ae4c6b82353e05c8cfeee5a206782fb878d7 | DRAFT/HIDDEN |
 | 4 | NEW_WAVE_A | 51 | 4 | 16 | 50 | grade-4-whole-number-operations | 24 | 24 | 0 | 0 | 0 | 47 | dd813a0f7814890de406710ffb89ae2c56199f66a3ac38668db172de26e0bb43 | DRAFT/HIDDEN |

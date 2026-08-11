@@ -32,6 +32,7 @@ test("Grades 2-9 machine source maps remain exact projections of the locked offi
 
 test("merged Wave A evidence report reconciles source coverage, candidates and deny-all state", () => {
   const rows = buildWaveAEvidenceRows(productionGradePacks);
+  assert.equal(rows[0]?.automatedVerificationCapabilityGaps, 312);
   const generated = JSON.parse(readFileSync("content/grade-packs/generated/wave-a-evidence.json", "utf8")) as { rows: typeof rows };
   assert.deepEqual(generated.rows, rows);
   assert.equal(readFileSync("content/grade-packs/generated/wave-a-evidence.md", "utf8"), renderWaveAEvidenceMarkdown(rows));
@@ -126,6 +127,6 @@ test("merged bundle artifact is canonical and replay deterministic", () => {
   const first = buildDeterministicBundle(productionGradePacks);
   const second = buildDeterministicBundle([...productionGradePacks].reverse());
   assert.deepEqual(first, second);
-  assert.equal(first.bundleHash, "06534e3d4aad4fb80db911692a62305656babd42dae4b639b1e3bed423f7c732");
+  assert.equal(first.bundleHash, "eb832f02ab1a3d591ae086597097a474345ffef97d2de455e6a52a1e04ab2ff0");
   assert.equal(readFileSync("content/grade-packs/generated/bundle-grades-1-2-3-4-5-6-7-8-9.json", "utf8"), `${canonicalize(first)}\n`);
 });
