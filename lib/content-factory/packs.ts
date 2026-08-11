@@ -7,7 +7,16 @@ import {
   GRADE_TWO_NUMBERS_TO_1000_RELEASE_CANDIDATE_ID,
   createGradeTwoReleaseArtifacts,
 } from "../content-engine/grade2-numbers-to-1000-release.ts";
+import { normalizedDefinition, sha256 } from "./canonical.ts";
 import { gradeOneReferencePack } from "./grade1-reference.ts";
+import { gradeThreeWaveAPack } from "./grade3-wave-a.ts";
+import { gradeFourWaveAPack } from "./grade4-wave-a.ts";
+import { gradeFiveWaveAPack } from "./grade5-wave-a.ts";
+import { gradeSixWaveAPack } from "./grade6-wave-a.ts";
+import { gradeSevenWaveAPack } from "./grade7-wave-a.ts";
+import { gradeEightWaveAPack } from "./grade8-wave-a.ts";
+import { gradeNineWaveAPack } from "./grade9-wave-a.ts";
+import { buildOfficialGradeSkeleton } from "./official-source-map.ts";
 import { requiredAutomatedEvidenceChecks } from "./review.ts";
 import type {
   CandidateQuestion,
@@ -33,11 +42,12 @@ const gradeTwoEvidenceReceipts = requiredAutomatedEvidenceChecks.map((check) => 
 }));
 
 function gradeTwoPack(): GradePack {
+  const skeleton = buildOfficialGradeSkeleton(2);
   const artifacts = createGradeTwoReleaseArtifacts("g2-review-number-language");
   const questions: CandidateQuestion[] = artifacts.publicQuestions.map((question) => ({
     id: question.questionId.toLowerCase().replaceAll("_", "-"),
     grade: 2,
-    blueprintId: `g2-${question.skillFamilyId.toLowerCase().replaceAll("_", "-")}-blueprint`,
+    blueprintId: `g2-${question.skillFamilyId.toLowerCase().replaceAll("_", "-")}-blueprint-${question.difficulty.toLowerCase()}-${question.answerType.toLowerCase().replaceAll("_", "-")}`,
     skillId: `g2-skill-${question.skillFamilyId.toLowerCase().replaceAll("_", "-")}`,
     prompt: question.prompt,
     options: question.options ? Object.values(question.options) : null,
@@ -52,6 +62,10 @@ function gradeTwoPack(): GradePack {
     published: false,
     pilotEligible: false,
     fixtureOnly: false,
+    duplicateFingerprint: sha256(
+      normalizedDefinition(`${question.prompt}|${question.options ? Object.values(question.options).join("|") : ""}`).toLocaleLowerCase("vi"),
+    ),
+    validationReceiptIds: gradeTwoEvidenceReceipts.map((receipt) => receipt.id),
   }));
   const explanations: ExplanationSpec[] = artifacts.serverSolutions.map((solution) => ({
     id: `${solution.questionId.toLowerCase().replaceAll("_", "-")}-explanation`,
@@ -66,41 +80,43 @@ function gradeTwoPack(): GradePack {
   return {
     schemaVersion: "content-factory-grade-pack-v1", grade: 2, packId: "grade-2-numbers-to-1000", packVersion: GRADE_TWO_NUMBERS_TO_1000_CONTENT_VERSION,
     immutableReference: true, testOnly: false, locale: "vi-VN", unicodeNormalization: "NFC",
-    sources: [{ id: "grade-2-canonical-source-manifest", status: "VERIFIED_REPOSITORY_SOURCE", repositoryEvidence: ["lib/content-engine/grade2-numbers-to-1000-sources.ts", "lib/content-engine/grade2-numbers-to-1000-release.ts"], note: "Existing source-validated hidden release candidate." }],
-    domains: [{ id: "g2-domain-number", grade: 2, displayName: "Số và cấu tạo số", sourceReferenceIds: ["grade-2-canonical-source-manifest"] }],
-    units: [{ id: "grade-2-numbers-to-1000", grade: 2, displayName: "Các số trong phạm vi 1000", domainId: "g2-domain-number", displayOrder: 1, knowledgeNodeIds: ["g2-node-numbers-to-1000"], skillIds: skills.map((skill) => skill.id), objectiveIds: skills.flatMap((skill) => skill.objectiveIds), publicationStatus: "DRAFT", sourceReferenceIds: ["grade-2-canonical-source-manifest"] }],
-    knowledgeNodes: [{ id: "g2-node-numbers-to-1000", grade: 2, displayName: "Số đến 1000", skillIds: skills.map((skill) => skill.id), sourceReferenceIds: ["grade-2-canonical-source-manifest"] }],
-    skills,
-    objectives: skills.map((skill) => ({ id: skill.objectiveIds[0]!, grade: 2, displayName: skill.displayName, description: skill.displayName, sourceReferenceIds: ["grade-2-canonical-source-manifest"] })),
+    sources: [skeleton.source, { id: "grade-2-canonical-source-manifest", status: "VERIFIED_REPOSITORY_SOURCE", repositoryEvidence: ["lib/content-engine/grade2-numbers-to-1000-sources.ts", "lib/content-engine/grade2-numbers-to-1000-release.ts"], note: "Existing source-validated hidden release candidate." }],
+    domains: [...skeleton.domains, { id: "g2-domain-number", grade: 2, displayName: "Số và cấu tạo số", sourceReferenceIds: ["grade-2-canonical-source-manifest"] }],
+    units: [...skeleton.units, { id: "grade-2-numbers-to-1000", grade: 2, displayName: "Các số trong phạm vi 1000", domainId: "g2-domain-number", displayOrder: skeleton.units.length + 1, knowledgeNodeIds: ["g2-node-numbers-to-1000"], skillIds: skills.map((skill) => skill.id), objectiveIds: skills.flatMap((skill) => skill.objectiveIds), publicationStatus: "DRAFT", sourceReferenceIds: ["grade-2-canonical-source-manifest"] }],
+    knowledgeNodes: [...skeleton.knowledgeNodes, { id: "g2-node-numbers-to-1000", grade: 2, displayName: "Số đến 1000", skillIds: skills.map((skill) => skill.id), sourceReferenceIds: ["grade-2-canonical-source-manifest"] }],
+    skills: [...skeleton.skills, ...skills],
+    objectives: [...skeleton.objectives, ...skills.map((skill) => ({ id: skill.objectiveIds[0]!, grade: 2 as const, displayName: skill.displayName, description: skill.displayName, sourceReferenceIds: ["grade-2-canonical-source-manifest"] }))],
     prerequisites: [{ fromSkillId: "g1-skill-compare-order-to-100", toSkillId: "g2-skill-number-recognition-to-1000", evidence: "HYPOTHESIS_REQUIRES_EVIDENCE", sourceReferenceIds: [] }],
-    blueprints: g2SkillIds.map((id) => ({ id: `g2-${id}-blueprint`, grade: 2, skillId: `g2-skill-${id}`, difficulty: "CORE", questionType: "SINGLE_CHOICE", templateId: `g2-template-${id}`, targetCount: 6, sourceReferenceIds: ["grade-2-canonical-source-manifest"] })),
+    blueprints: Array.from(
+      new Map(questions.map((question) => [question.blueprintId, {
+        id: question.blueprintId,
+        grade: 2 as const,
+        skillId: question.skillId,
+        difficulty: question.difficulty,
+        questionType: question.answer.type,
+        templateId: `g2-template-${question.skillId.replace("g2-skill-", "")}`,
+        targetCount: questions.filter((candidate) => candidate.blueprintId === question.blueprintId).length,
+        sourceReferenceIds: ["grade-2-canonical-source-manifest"],
+      }])).values(),
+    ),
     questions, explanations,
     evidenceReceipts: gradeTwoEvidenceReceipts,
     candidate: { candidateId: GRADE_TWO_NUMBERS_TO_1000_RELEASE_CANDIDATE_ID, version: GRADE_TWO_NUMBERS_TO_1000_CONTENT_VERSION, bundleHash: GRADE_TWO_NUMBERS_TO_1000_BUNDLE_SHA256, policyVersion: GRADE_TWO_NUMBERS_TO_1000_POLICY_VERSION },
     adaptivePolicy: { version: GRADE_TWO_NUMBERS_TO_1000_POLICY_VERSION, status: "VALIDATED" },
-    release: { publication: "DRAFT", visibility: "HIDDEN", pilotEnabled: false, runtimeEnabled: false }, legacyAsset: null,
-  };
-}
-
-function scaffold(grade: Exclude<FactoryGrade, 1 | 2>): GradePack {
-  return {
-    schemaVersion: "content-factory-grade-pack-v1", grade, packId: `grade-${grade}-source-required`, packVersion: "0.0.0-source-required", immutableReference: false, testOnly: false,
-    locale: "vi-VN", unicodeNormalization: "NFC",
-    sources: [
-      { id: `grade-${grade}-repository-curriculum-evidence`, status: "VERIFIED_REPOSITORY_SOURCE", repositoryEvidence: ["lib/curriculum/registry.ts", "lib/curriculum/official-outcome-inventory.ts"], note: "Existing repository curriculum mappings are reusable evidence, not proof of a complete candidate pack." },
-      { id: `grade-${grade}-candidate-source-required`, status: "SOURCE_REQUIRED", note: "No candidate unit or skill becomes product truth until its exact source mapping is verified." },
-    ],
-    domains: [], units: [], knowledgeNodes: [], skills: [], objectives: [], prerequisites: [], blueprints: [], questions: [], explanations: [],
-    evidenceReceipts: [{ id: `grade-${grade}-source-gap`, entityId: `grade-${grade}-source-required`, check: "SOURCE_MAPPING", status: "INSUFFICIENT", evidence: "Exact curriculum source mapping is not yet available." }],
-    candidate: null, adaptivePolicy: { version: "not-defined", status: "NOT_DEFINED" },
-    release: { publication: "DRAFT", visibility: "HIDDEN", pilotEnabled: false, runtimeEnabled: false }, legacyAsset: null,
+    release: { publication: "DRAFT", visibility: "HIDDEN", pilotEnabled: false, runtimeEnabled: false, retentionEnabled: false }, legacyAsset: null,
   };
 }
 
 export const productionGradePacks: readonly GradePack[] = [
   gradeOneReferencePack,
   gradeTwoPack(),
-  ...([3, 4, 5, 6, 7, 8, 9] as const).map(scaffold),
+  gradeThreeWaveAPack,
+  gradeFourWaveAPack,
+  gradeFiveWaveAPack,
+  gradeSixWaveAPack,
+  gradeSevenWaveAPack,
+  gradeEightWaveAPack,
+  gradeNineWaveAPack,
 ];
 
 export function getGradePacks(grades: readonly FactoryGrade[]) {

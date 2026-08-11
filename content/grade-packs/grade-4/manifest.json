@@ -10,8 +10,24 @@
     "units": 16,
     "skills": 50
   },
+  "waveA": {
+    "sliceId": "grade-4-whole-number-operations",
+    "generated": 24,
+    "evidenceGatePassed": 24,
+    "verificationInsufficient": 0,
+    "rejected": 0,
+    "duplicate": 0,
+    "candidateEligible": 24
+  },
+  "candidate": {
+    "candidateId": "g4-natural-number-operations-wave-a",
+    "version": "g4-natural-number-operations-1.0.0-wave-a",
+    "bundleHash": "dd813a0f7814890de406710ffb89ae2c56199f66a3ac38668db172de26e0bb43",
+    "policyVersion": "g4-natural-number-operations-policy-1.0.0-wave-a"
+  },
   "publication": "DRAFT",
   "visibility": "HIDDEN",
   "pilotEnabled": false,
-  "runtimeEnabled": false
+  "runtimeEnabled": false,
+  "retentionEnabled": false
 }

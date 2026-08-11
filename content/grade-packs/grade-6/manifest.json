@@ -13,6 +13,12 @@
     "skills": 86,
     "remainingContentOutcomes": 82
   },
+  "candidate": {
+    "candidateId": "g6-integer-operations-wave-a",
+    "version": "g6-integer-operations-1.0.0-wave-a",
+    "bundleHash": "f3c1b317afb19a2c189d69516be4948b70d5e7e7270f9c6543db5e186d9bfea4",
+    "policyVersion": "g6-integer-adaptive-policy-1.0.0-wave-a"
+  },
   "production": {
     "generated": 24,
     "repaired": 0,
@@ -25,5 +31,6 @@
   "publication": "DRAFT",
   "visibility": "HIDDEN",
   "pilotEnabled": false,
-  "runtimeEnabled": false
+  "runtimeEnabled": false,
+  "retentionEnabled": false
 }

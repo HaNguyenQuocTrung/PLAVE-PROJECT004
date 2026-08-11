@@ -58,6 +58,6 @@ export const gradeOneReferencePack: GradePack = {
   evidenceReceipts: [{ id: "grade-1-legacy-release-proof", entityId: "grade-1-legacy-reference", check: "REGRESSION_TESTS", status: "PASSED", evidence: "Canonical validator proves 13/312/312; migration 0031 proves 24 diagnostic rows." }],
   candidate: null,
   adaptivePolicy: { version: "legacy-fixed-practice", status: "NOT_DEFINED" },
-  release: { publication: "PUBLISHED", visibility: "VISIBLE", pilotEnabled: false, runtimeEnabled: true },
+  release: { publication: "PUBLISHED", visibility: "VISIBLE", pilotEnabled: false, runtimeEnabled: true, retentionEnabled: false },
   legacyAsset: gradeOneLegacyAsset,
 };

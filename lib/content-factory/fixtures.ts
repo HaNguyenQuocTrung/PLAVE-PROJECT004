@@ -15,7 +15,7 @@ function fixturePack(grade: 3 | 6): GradePack {
     objectives: [{ id: `g${grade}-objective-synthetic`, grade, displayName: "Mục tiêu kiểm thử", description: "Chỉ kiểm tra hành vi phần mềm.", sourceReferenceIds: [sourceId] }], prerequisites: [],
     blueprints: [{ id: `${template.id}-blueprint`, grade, skillId: template.skillId, difficulty: "CORE", questionType: "INTEGER_INPUT", templateId: template.id, targetCount: generated.length, sourceReferenceIds: [sourceId] }],
     questions: generated.map((item) => item.question), explanations: generated.map((item) => item.explanation), evidenceReceipts: [{ id: `fixture-grade-${grade}-evidence`, entityId: `fixture-grade-${grade}-non-publishable`, check: "MATHEMATICAL_ANSWER", status: "PASSED", evidence: "POC_ONLY deterministic fixture; excluded from production bundles." }],
-    candidate: null, adaptivePolicy: { version: `fixture-policy-g${grade}-1`, status: "DRAFT" }, release: { publication: "DRAFT", visibility: "HIDDEN", pilotEnabled: false, runtimeEnabled: false }, legacyAsset: null,
+    candidate: null, adaptivePolicy: { version: `fixture-policy-g${grade}-1`, status: "DRAFT" }, release: { publication: "DRAFT", visibility: "HIDDEN", pilotEnabled: false, runtimeEnabled: false, retentionEnabled: false }, legacyAsset: null,
   };
 }
 

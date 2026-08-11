@@ -13,6 +13,12 @@
     "skills": 52,
     "remainingContentOutcomes": 48
   },
+  "candidate": {
+    "candidateId": "g5-decimal-operations-wave-a",
+    "version": "g5-decimal-operations-1.0.0-wave-a",
+    "bundleHash": "62173fd4fbf22e919beb48f9cced020538fcb833b44f258b56ce48b861f6fbf8",
+    "policyVersion": "g5-decimal-adaptive-policy-1.0.0-wave-a"
+  },
   "production": {
     "generated": 24,
     "repaired": 0,
@@ -25,5 +31,6 @@
   "publication": "DRAFT",
   "visibility": "HIDDEN",
   "pilotEnabled": false,
-  "runtimeEnabled": false
+  "runtimeEnabled": false,
+  "retentionEnabled": false
 }

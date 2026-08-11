@@ -21,5 +21,6 @@
   "publication": "DRAFT",
   "visibility": "HIDDEN",
   "pilotEnabled": false,
-  "runtimeEnabled": false
+  "runtimeEnabled": false,
+  "retentionEnabled": false
 }
