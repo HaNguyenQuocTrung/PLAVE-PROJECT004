@@ -12,6 +12,8 @@
     "content:report": "node --no-warnings --experimental-strip-types scripts/content-factory.ts report",
     "content:grade1-shadow": "node --no-warnings --experimental-strip-types scripts/build-grade1-shadow-candidate.ts",
     "content:audit-wave-a": "node --no-warnings --experimental-strip-types scripts/audit-content-factory-wave-a.ts",
+    "content:wave-b": "node --no-warnings --experimental-strip-types scripts/build-content-factory-wave-b.ts",
+    "test:wave-b": "node --test --no-warnings --experimental-strip-types tests/content-factory-wave-b*.test.ts tests/content-factory-grade3-wave-b.test.ts tests/content-factory-grade4-wave-b.test.ts",
     "content:ci": "node --no-warnings --experimental-strip-types scripts/content-factory-ci.ts",
     "test:content-factory": "node --test --no-warnings --experimental-strip-types tests/content-factory.test.ts tests/content-factory-pilot.test.ts tests/content-factory-operations.test.ts",
     "test:content-factory-operations-local": "node --no-warnings --experimental-strip-types scripts/test-content-factory-operations-local.ts",
