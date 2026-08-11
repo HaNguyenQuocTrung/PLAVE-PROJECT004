@@ -43,6 +43,14 @@ function createDecisionWorkspace() {
     join(workspaceRoot, "artifacts/generator-v2-owner-review/manifest.json"),
     join(root, "artifacts/generator-v2-owner-review/manifest.json"),
   );
+  // The repository artifact is a finalized immutable Owner record. Decision
+  // workflow tests use an explicit derived, unfinalized fixture instead of
+  // rewriting or pretending the canonical record is editable.
+  const derivedManifestPath = join(root, "artifacts/generator-v2-owner-review/manifest.json");
+  const derivedManifest = JSON.parse(readFileSync(derivedManifestPath, "utf8"));
+  derivedManifest.ownerDecision = null;
+  derivedManifest.ownerNotes = null;
+  writeFileSync(derivedManifestPath, `${JSON.stringify(derivedManifest, null, 2)}\n`);
   copyFileSync(
     join(workspaceRoot, "docs/status/SPRINT_8C_GENERATOR_V2_FULL_COVERAGE.md"),
     join(root, "docs/status/SPRINT_8C_GENERATOR_V2_FULL_COVERAGE.md"),
@@ -54,23 +62,26 @@ function createDecisionWorkspace() {
   return { temporaryRoot, root };
 }
 
-test("Owner review manifest is exactly 198 public-only capability samples", () => {
-  const result = validateGeneratorV2OwnerReviewManifest(workspaceRoot);
-  assert.deepEqual(result, {
-    samples: 198,
-    capabilities: 198,
-    grades: 9,
-    domains: 5,
-    difficulties: 3,
-    interactions: 10,
-  });
+test("finalized Owner fixture remains an immutable 198-sample public-only record", () => {
   const manifest = JSON.parse(readFileSync(
     join(workspaceRoot, "artifacts/generator-v2-owner-review/manifest.json"),
     "utf8",
   ));
-  assert.equal(manifest.ownerDecision, null);
+  assert.equal(manifest.sampleCount, 198);
+  assert.equal(manifest.samples.length, 198);
+  assert.equal(new Set(manifest.samples.map((sample: { capabilityId: string }) => sample.capabilityId)).size, 198);
+  assert.equal(manifest.ownerDecision, "APPROVED");
   assert.equal(manifest.samples.every((sample: { publicSnapshot: { publicData: unknown } }) =>
     Object.keys(sample.publicSnapshot.publicData as object).length === 0), true);
+});
+
+test("derived unfinalized fixture satisfies the optional Owner-review launcher contract", () => {
+  const { temporaryRoot, root } = createDecisionWorkspace();
+  try {
+    assert.deepEqual(validateGeneratorV2OwnerReviewManifest(root), { samples: 198, capabilities: 198, grades: 9, domains: 5, difficulties: 3, interactions: 10 });
+  } finally {
+    rmSync(temporaryRoot, { recursive: true, force: true });
+  }
 });
 
 test("launcher forwards only validated public auth config and the child-only review flag", () => {
@@ -169,8 +180,12 @@ test("an explicit 198/198 decision writes public result, manifest and milestone 
       "utf8",
     );
     assert.doesNotMatch(publicResult, /publicSnapshot|correctResponse|"privateSolution"\s*:|solverReceipt/u);
-    assert.match(readFileSync(join(root, "docs/status/SPRINT_8C_GENERATOR_V2_FULL_COVERAGE.md"), "utf8"), /Milestone 2: `IN_PROGRESS_NEEDS_REVISION`/u);
-    assert.match(readFileSync(join(root, "docs/status/PLAVE_THREE_MILESTONE_ROADMAP.md"), "utf8"), /IN_PROGRESS_NEEDS_REVISION/u);
+    for (const statusFile of ["SPRINT_8C_GENERATOR_V2_FULL_COVERAGE.md", "PLAVE_THREE_MILESTONE_ROADMAP.md"]) {
+      const status = readFileSync(join(root, "docs/status", statusFile), "utf8");
+      assert.equal((status.match(/GENERATOR_V2_OWNER_REVIEW_DECISION_START/gu) ?? []).length, 1);
+      assert.match(status, /- Decision: `NEEDS_REVISION`[.]/u);
+      assert.match(status, /Reviewed: 198\/198; approved: 197; rejected: 0; needs revision: 1; unreviewed: 0[.]/u);
+    }
   } finally {
     rmSync(temporaryRoot, { recursive: true, force: true });
   }

@@ -6,6 +6,7 @@ import {
   mkdirSync,
   mkdtempSync,
   readFileSync,
+  readdirSync,
   rmSync,
   writeFileSync,
 } from "node:fs";
@@ -115,19 +116,9 @@ function createWorkspace() {
 }
 
 function awaitableMigrationFiles() {
-  const plan = JSON.parse(
-    readFileSync(
-      join(
-        repositoryRoot,
-        "docs/operations/PROJECT004_REMOTE_DEV_MIGRATION_PLAN.json",
-      ),
-      "utf8",
-    ),
-  ) as { migrations: Array<{ file: string }> };
-  return [
-    ...plan.migrations.map((entry) => entry.file),
-    project004Migration0041Contract.migrationFilename,
-  ];
+  return readdirSync(join(repositoryRoot, "supabase/migrations"))
+    .filter((filename) => /^[0-9]{4}_.+[.]sql$/u.test(filename))
+    .sort();
 }
 
 function environment() {
@@ -548,7 +539,7 @@ test("prefix checksum drift or an extra local migration fails before remote acce
           join(
             root,
             "supabase/migrations",
-            "0042_unapproved_extra.sql",
+            "0045_unapproved_extra.sql",
           ),
           "begin;\ncommit;\n",
         );

@@ -358,7 +358,9 @@ export function loadMigration0041LocalContract(
   ) {
     throw new Error("LOCAL_MIGRATIONS_0001_0040_DRIFT");
   }
-  const migration = inventory.entries.at(-1);
+  const migration = inventory.entries.find(
+    (entry) => entry.version === "0041",
+  );
   if (
     migration?.version !== "0041" ||
     migration.filename !==

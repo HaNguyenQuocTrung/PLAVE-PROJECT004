@@ -146,7 +146,10 @@ function spawnNext(args: string[], environment: NodeJS.ProcessEnv) {
 
 async function main() {
   if (!existsSync(nextBinary)) throw new Error("SECRET_BOUNDARY_NEXT_BINARY_MISSING");
-  const localEnvironment = readFileSync(resolve(root, ".env.local"), "utf8");
+  const localEnvironmentPath = resolve(root, ".env.local");
+  const localEnvironment = existsSync(localEnvironmentPath)
+    ? readFileSync(localEnvironmentPath, "utf8")
+    : "";
   const configuredKey = localEnvironment.match(/^GOOGLE_API_KEY=(.*)$/mu)?.[1]?.trim() ?? "";
   if (configuredKey) throw new Error("SECRET_BOUNDARY_REAL_KEY_MUST_BE_UNSET");
 

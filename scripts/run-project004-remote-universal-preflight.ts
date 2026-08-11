@@ -1,3 +1,4 @@
+import { readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
@@ -150,6 +151,14 @@ export function runProject004UniversalActivationPreflightCommand(
   },
 ) {
   const candidateRoot = options?.candidateRoot ?? process.cwd();
+  // This archived operation is valid only for its frozen 0001-0040 workspace.
+  // A modern 0001-0044 checkout must fail before prompting or remote access.
+  const localMigrationCount = readdirSync(resolve(candidateRoot, "supabase/migrations"))
+    .filter((filename) => /^[0-9]{4}_.+[.]sql$/u.test(filename)).length;
+  if (localMigrationCount !== project004RemoteDevContract.migrationCount) {
+    const report = safePreflightFailure("LOCAL_CHECKSUM_MISMATCH", candidateRoot);
+    return { exitCode: 1, report, output: renderProject004UniversalActivationPreflight(report) };
+  }
   const local = runLocalRemoteDevPreflight(candidateRoot);
   if (!local.ok) {
     const report = safePreflightFailure(
