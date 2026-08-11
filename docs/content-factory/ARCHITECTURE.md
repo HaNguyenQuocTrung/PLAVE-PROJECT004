@@ -34,6 +34,8 @@ The Grade 1 shadow adapter compares fixed and deterministically proposed selecti
 
 Wave production is additive. Wave B uses the same shared pack schema and creates separate Wave B and derived A+B bindings without overwriting Wave A. The complete Grade 1–9 Wave B contract, source boundaries and reproduction commands are documented in `WAVE_B.md`.
 
+Wave C follows the same additive boundary with separate Wave C and derived A+B+C bindings. Its nine grade shards, independent mathematical oracles, deny-all release state, progression actions and reproduction commands are documented in `WAVE_C.md`. Wave A and Wave B bindings and bundle hashes remain frozen.
+
 ## Next content-production sprint
 
 Parallel workstreams should source-map one domain slice per grade, then author objectives/skills/edges and a deliberately small blueprint set. Each slice must pass source mapping, deterministic mathematics, explanation consistency, reference, grade-range, duplicate, ambiguity, leakage, security, bundle, simulation and regression gates. Any unresolved automated-verification insufficiency excludes the item from a candidate bundle. Grade 2 remains the only pilot candidate until separately authorized; no scaffold gains candidate or release state merely because files exist.
