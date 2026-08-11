@@ -125,9 +125,17 @@ export function validateGradePack(pack: GradePack): readonly ValidationDiagnosti
   }
   if (pack.production) {
     const quarantined = pack.quarantinedQuestions?.length ?? 0;
-    const expectedGenerated = pack.questions.length + quarantined + pack.production.rejected;
-    if (pack.production.generated !== expectedGenerated) result.push(diagnostic("PRODUCTION_COUNT_DRIFT", "ERROR", pack.packId, "Generated count does not reconcile with eligible, quarantined and rejected content."));
-    if (pack.production.evidenceGatePassed !== pack.questions.length || pack.production.candidateEligible !== pack.questions.length) {
+    const eligibleQuestions = pack.immutableReference && pack.legacyAsset
+      ? pack.questions.filter((question) => ["EVIDENCE_GATE_PASSED", "BUNDLED", "PILOT_ELIGIBLE", "PUBLISHED"].includes(question.reviewStatus)).length
+      : pack.questions.length;
+    const expectedGenerated = eligibleQuestions + quarantined + pack.production.rejected;
+    if (
+      (!pack.immutableReference || !pack.legacyAsset) && pack.production.generated !== expectedGenerated
+    ) result.push(diagnostic("PRODUCTION_COUNT_DRIFT", "ERROR", pack.packId, "Generated count does not reconcile with eligible, quarantined and rejected content."));
+    if (
+      pack.immutableReference && pack.legacyAsset && pack.production.generated > expectedGenerated
+    ) result.push(diagnostic("PRODUCTION_COUNT_DRIFT", "ERROR", pack.packId, "Immutable evidence overlays cannot report more generated content than their verified source boundary."));
+    if (pack.production.evidenceGatePassed !== eligibleQuestions || pack.production.candidateEligible !== eligibleQuestions) {
       result.push(diagnostic("CANDIDATE_ELIGIBLE_COUNT_DRIFT", "ERROR", pack.packId, "Candidate-eligible counts must match the bundled question set."));
     }
     if (pack.production.verificationInsufficient !== quarantined) result.push(diagnostic("QUARANTINE_COUNT_DRIFT", "ERROR", pack.packId, "Verification-insufficient count must match retained quarantine records."));

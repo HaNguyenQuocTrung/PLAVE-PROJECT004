@@ -83,6 +83,10 @@ function independentQuestionErrors(question: CandidateQuestion, pack: GradePack)
     const relation = compare(independentlyEvaluate(question.answer.comparison.left), independentlyEvaluate(question.answer.comparison.right));
     if (relation !== question.answer.comparison.relation || exact !== question.answer.comparison.exactAnswer) errors.push("COMPARISON_DERIVATION");
   }
+  if (question.answer.geometry?.kind === "TRIANGLE_SIDES") {
+    const sides = [...question.answer.geometry.sides].sort((left, right) => left - right);
+    if (sides.some((side) => !Number.isFinite(side) || side <= 0) || sides[0]! ** 2 + sides[1]! ** 2 !== sides[2]! ** 2) errors.push("PYTHAGOREAN_INVARIANT");
+  }
   if (question.options) {
     const options = question.options.map(normalizedDefinition);
     if (new Set(options).size !== options.length) errors.push("OPTION_UNIQUENESS");
@@ -149,13 +153,21 @@ function countBy(values: readonly string[]) {
 }
 
 export function auditWaveACandidates(packs: readonly GradePack[]): readonly WaveAAuditRow[] {
-  return packs.filter((pack) => pack.grade >= 2 && pack.candidate).map((pack) => {
-    const errors = pack.grade === 2
+  return packs.filter((pack) => pack.grade >= 2 && pack.candidate).map((pack) => auditIndependentCandidatePack(pack, {
+    frozenGradeTwo: pack.candidate?.candidateId === "g2-numbers-to-1000-rc1",
+  }));
+}
+
+export function auditIndependentCandidatePack(
+  pack: GradePack,
+  options: Readonly<{ frozenGradeTwo?: boolean; expectedQuestions?: number }> = {},
+): WaveAAuditRow {
+    const errors = options.frozenGradeTwo
       ? auditFrozenGradeTwo(pack)
       : pack.questions.flatMap((question) => independentQuestionErrors(question, pack).map((code) => `${question.id}:${code}`));
     const structures = new Set(pack.questions.map((question) => normalizeStructure(question.prompt)));
     const purposes = pack.questions.map((question) => question.instructionalPurpose ?? "LEGACY_FROZEN_NOT_CLASSIFIED");
-    if (pack.questions.length !== 24) errors.push(`${pack.packId}:QUESTION_COUNT`);
+    if (pack.questions.length !== (options.expectedQuestions ?? 24)) errors.push(`${pack.packId}:QUESTION_COUNT`);
     if (new Set(pack.questions.map((question) => question.duplicateFingerprint)).size !== pack.questions.length) errors.push(`${pack.packId}:DUPLICATE_FINGERPRINT`);
     if (structures.size < 4) errors.push(`${pack.packId}:INSUFFICIENT_STRUCTURE_DIVERSITY`);
     if (pack.grade >= 3 && new Set(purposes).size < 5) errors.push(`${pack.packId}:INSTRUCTIONAL_PURPOSE_DIVERSITY`);
@@ -173,5 +185,4 @@ export function auditWaveACandidates(packs: readonly GradePack[]): readonly Wave
       optionPatternCount: new Set(pack.questions.filter((question) => question.options).map((question) => question.options!.map(normalizedDefinition).join("|"))).size,
       errors,
     };
-  });
 }
