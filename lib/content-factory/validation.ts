@@ -1,4 +1,4 @@
-import { assertNfc, assertStableId, normalizedDefinition } from "./canonical.ts";
+import { assertNfc, assertStableId, normalizedDefinition, sha256 } from "./canonical.ts";
 import type { CandidateQuestion, GradePack, ValidationDiagnostic } from "./types.ts";
 import { validateMathContract } from "./math.ts";
 import { hasCompleteAutomatedEvidenceGate } from "./review.ts";
@@ -6,6 +6,9 @@ import { hasCompleteAutomatedEvidenceGate } from "./review.ts";
 const AMBIGUOUS_MARKERS = ["có thể", "xấp xỉ"] as const;
 const UNSAFE_CONTENT = /<\/?(?:script|iframe|object)|javascript:|\bon(?:load|error)\s*=/iu;
 const LEAKAGE = /(?:correct[_ -]?answer|đáp\s*án\s*(?:đúng)?\s*[:=])/iu;
+const MISLEADING_CLAIM = /(?:hoàn\s*thành\s*(?:toàn\s*bộ|chương\s*trình)|đã\s*xuất\s*bản|chuyên\s*gia\s*(?:đã\s*)?phê\s*duyệt)/iu;
+const AMBIGUOUS_REFERENCE = /^(?:nó|họ|cái\s+này)\b/iu;
+const UNSAFE_UNBROKEN_TOKEN = /\S{49,}/u;
 
 function diagnostic(code: string, severity: ValidationDiagnostic["severity"], entityId: string, message: string): ValidationDiagnostic {
   return { code, severity, entityId, message };
@@ -29,9 +32,23 @@ export function validateCandidateQuestion(question: CandidateQuestion, pack: Gra
     if (UNSAFE_CONTENT.test(value)) result.push(diagnostic("UNSAFE_MARKUP", "ERROR", question.id, "Unsafe HTML/Markdown content detected."));
   }
   if (LEAKAGE.test(question.prompt)) result.push(diagnostic("SOLUTION_LEAKAGE", "ERROR", question.id, "Prompt appears to reveal the answer."));
+  if (MISLEADING_CLAIM.test(question.prompt)) result.push(diagnostic("MISLEADING_CURRICULUM_CLAIM", "ERROR", question.id, "Prompt must not claim curriculum completion, publication or expert approval."));
+  if (AMBIGUOUS_REFERENCE.test(question.prompt)) result.push(diagnostic("AMBIGUOUS_REFERENCE", "ERROR", question.id, "Prompt begins with a pronoun that lacks an explicit referent."));
+  if (UNSAFE_UNBROKEN_TOKEN.test(question.prompt)) result.push(diagnostic("UNSAFE_LINE_WRAP", "ERROR", question.id, "Prompt contains an unbroken token that is unsafe on narrow screens."));
+  const wordCount = question.prompt.trim().split(/\s+/u).length;
+  const gradeWordLimit = question.grade <= 5 ? 48 : 64;
+  if (wordCount > gradeWordLimit) result.push(diagnostic("GRADE_RANGE_LANGUAGE", "ERROR", question.id, "Prompt exceeds the bounded wording length for its grade band."));
+  if (/\d+\.\d{1,2}(?!\d)/u.test(question.prompt)) result.push(diagnostic("VIETNAMESE_DECIMAL_NOTATION", "ERROR", question.id, "Vietnamese decimal prompts must use a comma separator."));
   if (question.grade !== pack.grade) result.push(diagnostic("GRADE_MISMATCH", "ERROR", question.id, "Question grade differs from its pack."));
   if (!pack.skills.some((skill) => skill.id === question.skillId)) result.push(diagnostic("MISSING_SKILL", "ERROR", question.id, "Question references a missing skill."));
-  if (!pack.blueprints.some((item) => item.id === question.blueprintId)) result.push(diagnostic("MISSING_BLUEPRINT", "ERROR", question.id, "Question references a missing blueprint."));
+  const blueprint = pack.blueprints.find((item) => item.id === question.blueprintId);
+  if (!blueprint) result.push(diagnostic("MISSING_BLUEPRINT", "ERROR", question.id, "Question references a missing blueprint."));
+  else {
+    if (blueprint.grade !== question.grade) result.push(diagnostic("BLUEPRINT_GRADE_MISMATCH", "ERROR", question.id, "Question and blueprint grades differ."));
+    if (blueprint.skillId !== question.skillId) result.push(diagnostic("BLUEPRINT_SKILL_MISMATCH", "ERROR", question.id, "Question and blueprint skills differ."));
+    if (blueprint.difficulty !== question.difficulty) result.push(diagnostic("BLUEPRINT_DIFFICULTY_MISMATCH", "ERROR", question.id, "Question and blueprint difficulty bands differ."));
+    if (blueprint.questionType !== question.answer.type) result.push(diagnostic("BLUEPRINT_ANSWER_TYPE_MISMATCH", "ERROR", question.id, "Question answer contract differs from its blueprint."));
+  }
   if (question.published || question.pilotEligible) result.push(diagnostic("UNSAFE_CANDIDATE_DEFAULT", "ERROR", question.id, "Generated/candidate content must default hidden and ineligible."));
   if (question.options) {
     const normalized = question.options.map(normalizedDefinition);
@@ -72,6 +89,52 @@ export function validateGradePack(pack: GradePack): readonly ValidationDiagnosti
   for (const explanation of pack.explanations) {
     if (explanation.evidenceReceiptIds.some((id) => !evidenceReceiptIds.has(id))) result.push(diagnostic("MISSING_AUTOMATED_EVIDENCE_RECEIPT", "ERROR", explanation.id, "Explanation references an unknown automated evidence receipt."));
   }
+  const verifiedSourceStatuses = new Set(["SOURCE_VERIFIED", "VERIFIED_REPOSITORY_SOURCE", "OWNER_OFFICIAL_SOURCE"]);
+  const sourcesById = new Map(pack.sources.map((source) => [source.id, source.status]));
+  if (!pack.testOnly && pack.grade >= 3) for (const question of pack.questions) {
+    const expectedFingerprint = sha256(
+      normalizedDefinition(`${question.prompt}|${question.options?.join("|") ?? ""}`).toLocaleLowerCase("vi"),
+    );
+    if (question.duplicateFingerprint !== expectedFingerprint) {
+      result.push(diagnostic("DUPLICATE_FINGERPRINT_DRIFT", "ERROR", question.id, "Question fingerprint must match its canonical public content."));
+    }
+    if (!question.validationReceiptIds?.length || question.validationReceiptIds.some((id) => !evidenceReceiptIds.has(id))) {
+      result.push(diagnostic("QUESTION_EVIDENCE_RECEIPTS_REQUIRED", "ERROR", question.id, "Wave A candidate question lacks valid automated evidence receipts."));
+    }
+    if (!question.instructionalPurpose) {
+      result.push(diagnostic("INSTRUCTIONAL_PURPOSE_REQUIRED", "ERROR", question.id, "Wave A questions require an explicit foundation, application, misconception, remediation or transfer purpose."));
+    }
+    if (
+      question.provenance.sourceReferenceIds.length === 0 ||
+      question.provenance.sourceReferenceIds.some((id) => !verifiedSourceStatuses.has(sourcesById.get(id) ?? "SOURCE_REQUIRED"))
+    ) {
+      result.push(diagnostic("QUESTION_SOURCE_NOT_VERIFIED", "ERROR", question.id, "Production candidate questions require source-verified curriculum mapping."));
+    }
+  }
+  for (const question of pack.quarantinedQuestions ?? []) {
+    if (
+      question.reviewStatus !== "AUTOMATED_VERIFICATION_INSUFFICIENT" &&
+      question.reviewStatus !== "AUTOMATED_VALIDATION_FAILED"
+    ) result.push(diagnostic("INVALID_QUARANTINE_STATUS", "ERROR", question.id, "Quarantined content must retain its failed or insufficient evidence state."));
+    if (question.published || question.pilotEligible) result.push(diagnostic("UNSAFE_QUARANTINE_STATE", "ERROR", question.id, "Quarantined content must remain hidden and ineligible."));
+  }
+  if (pack.production) {
+    const quarantined = pack.quarantinedQuestions?.length ?? 0;
+    const expectedGenerated = pack.questions.length + quarantined + pack.production.rejected;
+    if (pack.production.generated !== expectedGenerated) result.push(diagnostic("PRODUCTION_COUNT_DRIFT", "ERROR", pack.packId, "Generated count does not reconcile with eligible, quarantined and rejected content."));
+    if (pack.production.evidenceGatePassed !== pack.questions.length || pack.production.candidateEligible !== pack.questions.length) {
+      result.push(diagnostic("CANDIDATE_ELIGIBLE_COUNT_DRIFT", "ERROR", pack.packId, "Candidate-eligible counts must match the bundled question set."));
+    }
+    if (pack.production.verificationInsufficient !== quarantined) result.push(diagnostic("QUARANTINE_COUNT_DRIFT", "ERROR", pack.packId, "Verification-insufficient count must match retained quarantine records."));
+    if (pack.production.selectionBasis.length === 0) result.push(diagnostic("WAVE_A_SELECTION_BASIS_REQUIRED", "ERROR", pack.packId, "Wave A slice selection requires an explicit evidence basis."));
+  }
+  if (pack.candidate && pack.grade >= 2 && (
+    pack.release.publication !== "DRAFT" ||
+    pack.release.visibility !== "HIDDEN" ||
+    pack.release.pilotEnabled ||
+    pack.release.runtimeEnabled ||
+    pack.release.retentionEnabled
+  )) result.push(diagnostic("CANDIDATE_RELEASE_NOT_HIDDEN", "ERROR", pack.packId, "Candidate release flags must remain deny-all and hidden."));
   const gatedStatuses = new Set(["EVIDENCE_GATE_PASSED", "BUNDLED", "PILOT_ELIGIBLE", "PUBLISHED"]);
   if (pack.questions.some((question) => gatedStatuses.has(question.reviewStatus)) && !hasCompleteAutomatedEvidenceGate(pack.evidenceReceipts, pack.packId)) {
     result.push(diagnostic("AUTOMATED_EVIDENCE_GATE_INCOMPLETE", "ERROR", pack.packId, "Bundled or eligible questions require every automated evidence check to pass for the pack."));

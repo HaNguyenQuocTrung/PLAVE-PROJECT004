@@ -30,13 +30,13 @@ test("Grade 1 immutable reference preserves canonical 13/312/312/24 release", ()
 test("Grade 2 frozen candidate binding and content remain immutable", () => {
   const pack = productionGradePacks[1]!;
   assert.deepEqual(pack.candidate, { candidateId: "g2-numbers-to-1000-rc1", version: "g2n1000-1.0.0-rc.1", bundleHash: "1571a6bdb0ef650ba00d5e217d27264f40d05ddc507475a1069f250bab11f530", policyVersion: "g2n1000-adaptive-policy-1.0.0-pilot" });
-  assert.equal(pack.questions.length, 24); assert.equal(pack.explanations.length, 24); assert.deepEqual(pack.release, { publication: "DRAFT", visibility: "HIDDEN", pilotEnabled: false, runtimeEnabled: false });
+  assert.equal(pack.questions.length, 24); assert.equal(pack.explanations.length, 24); assert.deepEqual(pack.release, { publication: "DRAFT", visibility: "HIDDEN", pilotEnabled: false, runtimeEnabled: false, retentionEnabled: false });
 });
 
-test("Grades 3-9 are explicit source-required hidden zero-content scaffolds", () => {
+test("Grades 3-9 expose source-verified Wave A packs while remaining hidden and inactive", () => {
   for (const pack of productionGradePacks.slice(2)) {
-    assert.ok(pack.sources.some((source) => source.status === "SOURCE_REQUIRED")); assert.ok(pack.sources.some((source) => source.status === "VERIFIED_REPOSITORY_SOURCE")); assert.equal(pack.units.length, 0); assert.equal(pack.questions.length, 0);
-    assert.deepEqual(pack.release, { publication: "DRAFT", visibility: "HIDDEN", pilotEnabled: false, runtimeEnabled: false });
+    assert.ok(pack.sources.some((source) => source.status === "VERIFIED_REPOSITORY_SOURCE")); assert.equal(pack.sources.some((source) => source.status === "SOURCE_REQUIRED"), false); assert.ok(pack.units.length > 0); assert.equal(pack.questions.length, 24); assert.equal(pack.production?.wave, "A");
+    assert.deepEqual(pack.release, { publication: "DRAFT", visibility: "HIDDEN", pilotEnabled: false, runtimeEnabled: false, retentionEnabled: false });
   }
 });
 
@@ -77,8 +77,8 @@ test("Grades 1-9 prerequisite graph is acyclic and Grade 1 to 2 edge requires ev
 test("coverage distinguishes counts, missing, unknown and not applicable", () => {
   const rows = createCoverageMatrix(productionGradePacks); assert.equal(rows.length, 9);
   assert.deepEqual(rows[0]?.candidateQuestionCount, { state: "NOT_APPLICABLE" }); assert.deepEqual(rows[0]?.prerequisiteCompleteness, { state: "UNKNOWN" }); assert.deepEqual(rows[0]?.evidenceGatePassedCount, { state: "UNKNOWN" }); assert.deepEqual(rows[0]?.verificationInsufficientCount, { state: "UNKNOWN" });
-  assert.deepEqual(rows[1]?.evidenceGatePassedCount, { state: "COUNT", value: 24 }); assert.deepEqual(rows[1]?.candidateEligibleCount, { state: "COUNT", value: 0 });
-  assert.deepEqual(rows[2]?.curriculumSourceCoverage, { state: "UNKNOWN" }); assert.deepEqual(rows[2]?.unitCount, { state: "COUNT", value: 0 });
+  assert.deepEqual(rows[1]?.evidenceGatePassedCount, { state: "COUNT", value: 24 }); assert.deepEqual(rows[1]?.candidateEligibleCount, { state: "COUNT", value: 24 });
+  assert.deepEqual(rows[2]?.curriculumSourceCoverage, { state: "COUNT", value: 1 }); assert.deepEqual(rows[2]?.unitCount, { state: "COUNT", value: 18 }); assert.deepEqual(rows[2]?.candidateEligibleCount, { state: "COUNT", value: 24 });
 });
 
 test("bundle ordering and hashes are deterministic and test fixtures are excluded", () => {

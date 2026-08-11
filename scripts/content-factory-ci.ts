@@ -13,7 +13,13 @@ function run(args: readonly string[]) {
 }
 
 const gradeShards = config.shards.filter((shard) => !shard.checks);
-await Promise.all(gradeShards.map((shard) => run(["validate", `--grades=${shard.grades}`, "--dry-run"])));
+await Promise.all(gradeShards.map(async (shard) => {
+  await run(["validate", `--grades=${shard.grades}`, "--dry-run"]);
+  if (shard.grades !== "1") await run(["source-map", `--grades=${shard.grades}`, "--dry-run"]);
+  await run(["bundle", `--grades=${shard.grades}`, "--dry-run"]);
+  await run(["simulate", `--grades=${shard.grades}`, "--dry-run"]);
+}));
 await run(["validate", "--grades=1-9", "--dry-run"]);
 await run(["coverage", "--grades=1-9"]);
+await run(["report", "--grades=1-9"]);
 console.log(`CONTENT_FACTORY_CI shards=${gradeShards.length}+cross-grade status=PASS remoteCiEnabled=false`);
