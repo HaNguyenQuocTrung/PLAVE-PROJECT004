@@ -89,7 +89,7 @@ test("grade mismatch fails closed and thresholds remain hypotheses", () => {
   });
 });
 
-test("Grades 2–9 catalog explains the evidence-based recommendation", () => {
+test("Grades 2–9 catalog distinguishes supported grades from available content", () => {
   const learnPage = readFileSync(
     new URL("../app/learn/page.tsx", import.meta.url),
     "utf8",
@@ -102,8 +102,27 @@ test("Grades 2–9 catalog explains the evidence-based recommendation", () => {
     "utf8",
   );
   assert.match(learnPage, /selectAdaptiveCurriculumRecommendation/);
+  assert.match(
+    learnPage,
+    /progressResult\.progress\.units\.map\(\(unit\) => unit\.unitId\)/,
+  );
+  assert.match(learnPage, /availableUnitIds\.has\(unit\.slug\)/);
+  assert.match(
+    learnPage,
+    /availableUnitIds\.has\(selectedRecommendation\.unitId\)/,
+  );
   assert.match(catalog, /Gợi ý từ bằng chứng học tập/);
   assert.match(catalog, /recommendation\.explanation/);
-  assert.match(catalog, /Giả thuyết sản phẩm/);
+  assert.match(catalog, /Nội dung đã sẵn sàng cho lớp \{grade\}/);
+  assert.match(catalog, /getGradeContentEmptyTitle\(grade\)/);
+  assert.match(catalog, /getGradeContentEmptyDescription\(\)/);
+  assert.match(
+    catalog,
+    /Gợi ý này dựa trên tiến độ hiện có và có thể thay đổi khi em học/,
+  );
+  assert.doesNotMatch(
+    catalog,
+    /(?:đã hoàn thiện|đã xuất bản|được chuyên gia phê duyệt)/iu,
+  );
   assert.doesNotMatch(catalog, /schoolGrade|update.*grade/i);
 });

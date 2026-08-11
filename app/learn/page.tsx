@@ -71,11 +71,23 @@ export default async function LearnPage() {
     ) {
       return <LearningAccessState kind="UNAVAILABLE" />;
     }
-    const adaptiveRecommendation =
+    const availableUnitIds = new Set(
+      progressResult.progress.units.map((unit) => unit.unitId),
+    );
+    const availableUnits = curriculumUnits.filter(
+      (unit) =>
+        unit.grade === access.grade && availableUnitIds.has(unit.slug),
+    );
+    const selectedRecommendation =
       selectAdaptiveCurriculumRecommendation({
         grade: access.grade as CurriculumGrade,
         progress: progressResult.progress,
       });
+    const adaptiveRecommendation =
+      selectedRecommendation &&
+      availableUnitIds.has(selectedRecommendation.unitId)
+        ? selectedRecommendation
+        : null;
     const competencyDashboard = buildStudentCompetencyDashboard({
       progress: progressResult.progress,
       now: new Date(),
@@ -90,9 +102,7 @@ export default async function LearnPage() {
         ) : null}
         <UniversalCurriculumCatalog
           grade={access.grade}
-          units={curriculumUnits.filter(
-            (unit) => unit.grade === access.grade,
-          )}
+          units={availableUnits}
           progress={progressResult.progress}
           recommendation={adaptiveRecommendation}
           onDemandRuntimeEnabled={onDemandRuntimeEnabled}
