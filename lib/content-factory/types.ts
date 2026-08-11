@@ -3,6 +3,8 @@ export type FactoryGrade = (typeof factoryGrades)[number];
 
 export type SourceTruthStatus =
   | "VERIFIED_REPOSITORY_SOURCE"
+  | "SOURCE_VERIFIED"
+  | "PARTIAL_REPOSITORY_EVIDENCE"
   | "OWNER_OFFICIAL_SOURCE"
   | "SOURCE_REQUIRED"
   | "PRODUCT_HYPOTHESIS"
@@ -77,6 +79,12 @@ export type AnswerContract = Readonly<{
   decimalPlaces?: number;
   unit?: string;
   derivation?: MathExpression;
+  comparison?: Readonly<{
+    left: MathExpression;
+    right: MathExpression;
+    relation: "<" | "=" | ">";
+    exactAnswer: string;
+  }>;
   geometry?: Readonly<{ kind: "TRIANGLE_SIDES"; sides: readonly [number, number, number] }>;
 }>;
 
@@ -116,6 +124,14 @@ export type CandidateQuestion = Readonly<{
   published: boolean;
   pilotEligible: boolean;
   fixtureOnly: boolean;
+  duplicateFingerprint?: string;
+  validationReceiptIds?: readonly string[];
+  instructionalPurpose?:
+    | "FOUNDATION"
+    | "STANDARD_APPLICATION"
+    | "MISCONCEPTION_TARGETING"
+    | "REMEDIATION"
+    | "TRANSFER_APPLICATION";
 }>;
 
 export type ExplanationSpec = Readonly<{
@@ -156,6 +172,20 @@ export type ReleaseState = Readonly<{
   visibility: "HIDDEN" | "VISIBLE";
   pilotEnabled: boolean;
   runtimeEnabled: boolean;
+  retentionEnabled: boolean;
+}>;
+
+export type ProductionSummary = Readonly<{
+  wave: "A";
+  selectedSliceId: string;
+  selectionBasis: readonly string[];
+  generated: number;
+  repaired: number;
+  evidenceGatePassed: number;
+  verificationInsufficient: number;
+  rejected: number;
+  duplicate: number;
+  candidateEligible: number;
 }>;
 
 export type LegacyAssetReference = Readonly<{
@@ -183,11 +213,13 @@ export type GradePack = Readonly<{
   prerequisites: readonly PrerequisiteEdge[];
   blueprints: readonly QuestionBlueprint[];
   questions: readonly CandidateQuestion[];
+  quarantinedQuestions?: readonly CandidateQuestion[];
   explanations: readonly ExplanationSpec[];
   evidenceReceipts: readonly AutomatedEvidenceReceipt[];
   candidate: CandidateBinding | null;
   adaptivePolicy: Readonly<{ version: string; status: "NOT_DEFINED" | "DRAFT" | "VALIDATED" }>;
   release: ReleaseState;
+  production?: ProductionSummary;
   legacyAsset: LegacyAssetReference | null;
 }>;
 

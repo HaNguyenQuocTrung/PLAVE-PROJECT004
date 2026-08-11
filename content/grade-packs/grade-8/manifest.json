@@ -1,1 +1,21 @@
-{"schemaVersion":"content-factory-grade-pack-v1","grade":8,"packId":"grade-8-source-required","packVersion":"0.0.0-source-required","sourceStatus":"PARTIAL_REPOSITORY_EVIDENCE_SOURCE_REQUIRED","publication":"DRAFT","visibility":"HIDDEN","pilotEnabled":false,"runtimeEnabled":false}
+{
+  "schemaVersion": "content-factory-grade-pack-v1",
+  "grade": 8,
+  "packId": "grade-8-linear-equations-wave-a",
+  "packVersion": "g8-linear-equations-1.0.0-wave-a",
+  "sourceStatus": "SOURCE_VERIFIED",
+  "sourceMap": "content/grade-packs/generated/source-map-grade-8.json",
+  "sourceMapRows": 76,
+  "structuralUnits": 23,
+  "structuralSkills": 75,
+  "waveASlice": "g8-first-degree-equations",
+  "candidateId": "g8-linear-equations-wave-a-rc1",
+  "bundleHash": "80d4c7352b50461268c415433eae0bbbc5907479e72cbd391354939d34eedee1",
+  "policyVersion": "g8-linear-equations-policy-1.0.0-wave-a",
+  "evidenceGatePassedQuestions": 24,
+  "quarantinedQuestions": 0,
+  "publication": "DRAFT",
+  "visibility": "HIDDEN",
+  "pilotEnabled": false,
+  "runtimeEnabled": false
+}

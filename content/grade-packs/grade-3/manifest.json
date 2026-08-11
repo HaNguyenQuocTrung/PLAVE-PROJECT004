@@ -1,1 +1,17 @@
-{"schemaVersion":"content-factory-grade-pack-v1","grade":3,"packId":"grade-3-source-required","packVersion":"0.0.0-source-required","sourceStatus":"PARTIAL_REPOSITORY_EVIDENCE_SOURCE_REQUIRED","publication":"DRAFT","visibility":"HIDDEN","pilotEnabled":false,"runtimeEnabled":false}
+{
+  "schemaVersion": "content-factory-grade-pack-v1",
+  "grade": 3,
+  "packId": "grade-3-wave-a-additive-fluency",
+  "packVersion": "g3-additive-fluency-1.0.0-wave-a",
+  "sourceStatus": "SOURCE_VERIFIED",
+  "sourceMap": "content/grade-packs/generated/source-map-grade-3.json",
+  "structuralCoverage": {
+    "domains": 4,
+    "units": 18,
+    "skills": 53
+  },
+  "publication": "DRAFT",
+  "visibility": "HIDDEN",
+  "pilotEnabled": false,
+  "runtimeEnabled": false
+}

@@ -1,1 +1,21 @@
-{"schemaVersion":"content-factory-grade-pack-v1","grade":9,"packId":"grade-9-source-required","packVersion":"0.0.0-source-required","sourceStatus":"PARTIAL_REPOSITORY_EVIDENCE_SOURCE_REQUIRED","publication":"DRAFT","visibility":"HIDDEN","pilotEnabled":false,"runtimeEnabled":false}
+{
+  "schemaVersion": "content-factory-grade-pack-v1",
+  "grade": 9,
+  "packId": "grade-9-linear-systems-wave-a",
+  "packVersion": "g9-linear-systems-1.0.0-wave-a",
+  "sourceStatus": "SOURCE_VERIFIED",
+  "sourceMap": "content/grade-packs/generated/source-map-grade-9.json",
+  "sourceMapRows": 85,
+  "structuralUnits": 25,
+  "structuralSkills": 84,
+  "waveASlice": "g9-two-variable-linear-systems",
+  "candidateId": "g9-linear-systems-wave-a-rc1",
+  "bundleHash": "5c9bb2b629b017884c2c35a05f22c6fba70950f89aca4f23f003cb3166925705",
+  "policyVersion": "g9-linear-systems-policy-1.0.0-wave-a",
+  "evidenceGatePassedQuestions": 24,
+  "quarantinedQuestions": 0,
+  "publication": "DRAFT",
+  "visibility": "HIDDEN",
+  "pilotEnabled": false,
+  "runtimeEnabled": false
+}
