@@ -1,4 +1,5 @@
 import type { CandidateQuestion, FactoryGrade, GradePack } from "./types.ts";
+import type { WaveBProgressionContract } from "./wave-b.ts";
 
 export type SimulationPolicy = Readonly<{ version: string; minimumQuestions: number; maximumQuestions: number; masteryCorrect: number }>;
 export type SimulationAnswer = Readonly<{ submissionId: string; questionId: string; correct: boolean }>;
@@ -74,6 +75,48 @@ export function simulateWaveACandidate(pack: GradePack): CandidateSimulationSuit
       scoringXpMastery: true,
       levelsStreaksGoalsAchievements: true,
       noSolutionLeakage: true,
+    },
+  };
+}
+
+export type CombinedWaveSimulationSuite = CandidateSimulationSuite & Readonly<{
+  waveTransition: Readonly<{
+    fromSkillId: string;
+    toSkillId: string;
+    retentionTargetSkillId: string;
+    nextTargetSkillId: string;
+    alwaysValidNextAction: true;
+    schoolGradeMutation: false;
+    entitlementGrant: false;
+  }>;
+}>;
+
+export function simulateCombinedWaveABCandidate(
+  pack: GradePack,
+  contract: WaveBProgressionContract,
+): CombinedWaveSimulationSuite {
+  const waveBQuestions = pack.questions.filter((question) => contract.waveBSkillIds.includes(question.skillId));
+  const waveAQuestions = pack.questions.filter((question) => question.skillId === contract.waveASkillId);
+  if (waveAQuestions.length === 0 || waveBQuestions.length === 0) throw new Error(`COMBINED_WAVE_TRANSITION_EMPTY:G${pack.grade}`);
+  const simulationPack = {
+    ...pack,
+    questions: [...waveAQuestions, ...waveBQuestions, ...pack.questions.filter((question) => !waveAQuestions.includes(question) && !waveBQuestions.includes(question))],
+  };
+  const base = simulateWaveACandidate(simulationPack);
+  const skills = new Set(pack.skills.map((skill) => skill.id));
+  for (const target of [contract.retentionTargetSkillId, contract.nextTargetSkillId]) {
+    if (!skills.has(target)) throw new Error(`COMBINED_WAVE_NEXT_ACTION_MISSING:${target}`);
+  }
+  return {
+    ...base,
+    waveTransition: {
+      fromSkillId: contract.waveASkillId,
+      toSkillId: contract.waveBSkillIds[0]!,
+      retentionTargetSkillId: contract.retentionTargetSkillId,
+      nextTargetSkillId: contract.nextTargetSkillId,
+      alwaysValidNextAction: true,
+      schoolGradeMutation: false,
+      entitlementGrant: false,
     },
   };
 }
