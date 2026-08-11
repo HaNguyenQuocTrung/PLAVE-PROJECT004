@@ -361,7 +361,13 @@ export function loadAndVerifyMigrationPlan(
   const currentFilenames = readdirSync(migrationDirectory)
     .filter((filename) => /^[0-9]{4}_[a-z0-9]+(?:_[a-z0-9]+)*[.]sql$/u.test(filename))
     .sort((left, right) => left.localeCompare(right));
-  const actualFiles = currentFilenames.length === 44
+  const supportedCurrentInventory =
+    (currentFilenames.length === 44 &&
+      currentFilenames.at(-1)?.startsWith("0044_")) ||
+    (currentFilenames.length === 45 &&
+      currentFilenames.at(-1) ===
+        "0045_grades_2_9_local_public_release.sql");
+  const actualFiles = supportedCurrentInventory
     ? loadGeneratedPersistenceMigrationInventory(root).entries
         .slice(0, project004RemoteDevContract.migrationCount)
         .map((entry) => entry.filename)

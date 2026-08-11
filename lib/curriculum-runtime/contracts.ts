@@ -327,7 +327,8 @@ function parseOptions(value: unknown): readonly PreviewOption[] | null {
   if (value === null) return null;
   if (
     !Array.isArray(value) ||
-    value.length !== 4 ||
+    value.length < 2 ||
+    value.length > 4 ||
     !value.every(
       (option) =>
         isRecord(option) &&
