@@ -56,7 +56,7 @@ export function loadGeneratedPersistenceMigrationInventory(
     .filter((filename) =>
       /^[0-9]{4}_[a-z0-9]+(?:_[a-z0-9]+)*[.]sql$/u.test(
         filename,
-      ),
+      ) && filename.slice(0, 4) <= generatedPersistenceMigrationBoundary.last,
     )
     .sort((left, right) => left.localeCompare(right));
   const entries: GeneratedPersistenceMigrationEntry[] =
