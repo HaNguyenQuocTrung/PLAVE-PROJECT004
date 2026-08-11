@@ -14,7 +14,8 @@ Students need a coherent path from curriculum concepts to deliberate practice an
 
 ## Implemented features
 
-- Grades 1–9 mathematics curriculum.
+- Grade 1 fixed-runtime mathematics learning path.
+- Grades 2–9 verified curriculum packages held as `DRAFT/HIDDEN` and inactive.
 - Lessons, practice, results, and learning history.
 - Score, XP, and mastery foundation.
 - AI Tutor local MVP.
@@ -81,7 +82,7 @@ The recorded Project004 checkpoint includes:
 
 - TypeScript typecheck: passed.
 - ESLint lint: passed.
-- Production build: **77/77 routes** generated successfully.
+- Production build: **76 static pages** generated across **115 application routes**.
 - Practice validation: **550/550**.
 - Generator V2 validation: **32,760/32,760**.
 - `npm audit`: **0 vulnerabilities** at the recorded checkpoint.
@@ -90,7 +91,7 @@ The recorded Project004 checkpoint includes:
 
 - Generator V2 remains **OFF by default**.
 - AI Tutor is a **local MVP**, not a production AI service commitment.
-- Sprint 11B acceptance is incomplete.
+- Grades 2–9 release integration has not been performed; ordinary users cannot access those hidden candidates.
 - Remote deployment and remote migration execution are not claimed by this repository README.
 
 ## Repository

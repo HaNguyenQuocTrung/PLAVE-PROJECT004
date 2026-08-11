@@ -7,3 +7,5 @@ Frozen hashes: A–K `de5cff15605c2fd4d09bf06740db9475a9918d20396e9d06f5ec27200b
 Acceptance: 8 PASS, 1 PARTIAL_ACCEPTED, 0 FAIL. States/transitions: 1852/1568; violations: 0.
 
 Credential reads, real environment files opened, network attempts and port 3000 operations: 0/0/0/0.
+
+Authorized post-freeze correction: secret-boundary scope `plave-post-freeze-secret-boundary-v1`; Wave M scope `plave-wave-m-input-scope-v2` with input digest `b783388bb21ca51f683df79c1ee099dee7ef15059e013b93492b5bed6dc58848`. A–K remains `de5cff15605c2fd4d09bf06740db9475a9918d20396e9d06f5ec27200b362b1e`.

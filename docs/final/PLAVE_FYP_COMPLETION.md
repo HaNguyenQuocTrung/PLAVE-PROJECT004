@@ -8,8 +8,8 @@ PLAVE Grades 1–9 is code-complete for the FYP scope and frozen pending separat
 - Wave L compatibility: `ffbe617c9790a74cad0e0a9093da077e5f18428b3c529610bf482b9a72be5932`
 - Wave M compatibility: `17aefa873d610646fd5b6b8c67741ae8a4f7409206839dd672effa3dca18d02c`
 - Wave M corrective overlay: `17bc6698845b2d103bdf68388a9f7332f826c026ddb73f0478b659de8b75f643`
-- Final source-tree digest: `9f2d2ab8c52137d575801b8bd60154b9a2dba79453660d432cb00569be8df4d5`
-- Final release receipt: `f56358dff89fc3de76c50f01293005eb191121d3ef88168e6c10bf0f72419b67`
+- Final source-tree digest: `9a7555fd4a92c5545ba59ee4f190a040cc0631deff35a088a9afb24546c13855`
+- Final release receipt: `fa4eedfec30f999f6bcb88e6dc4ea972643f60b9c646cab4a7a094fb90edf6a5`
 
 ## Grades 1–9 acceptance
 
@@ -30,6 +30,10 @@ Grade 1 is PARTIAL_ACCEPTED only because its verified public learning path remai
 ## Completion accounting
 
 Inventory remains 2,772 questions, 338 question-bearing skills and 176 units. Readiness remains 274 adaptive-ready, 13 fixed-safe, 51 Grade 1 shadow-only and 0 unavailable. Candidates remain DRAFT/HIDDEN with publication, pilot, runtime and retention disabled and zero default entitlement.
+
+## Authorized post-freeze correction
+
+The final audit findings were corrected without creating Wave O: the official secret-boundary command is tracked-only and credential-safe, Wave M regeneration uses scope `plave-wave-m-input-scope-v2` with input digest `b783388bb21ca51f683df79c1ee099dee7ef15059e013b93492b5bed6dc58848`, and submission-facing documentation now points to the canonical final inventory. Grades 2–9 release integration remains unperformed.
 
 The deterministic proof covers Student start/resume, answer, post-submit feedback, progress, motivation, history, mastery, remediation-return, fixed-safe fallback, retention, mixed practice, maximum termination, grade completion, deactivation, Parent/Teacher authorization, CAS/duplicate safety, solution isolation and continuous next action.
 
