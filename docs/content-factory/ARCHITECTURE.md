@@ -38,6 +38,8 @@ Wave C follows the same additive boundary with separate Wave C and derived A+B+C
 
 Wave D adds separate source-verified Wave D and derived A+B+C+D bindings without rewriting Waves A–C. `WAVE_D.md` records the exact retained rows/pages, Grade 1 immutable overlay, deterministic oracle boundary, hypothesis-labelled progression and nine-shard reproduction commands. All candidates remain deny-all.
 
+Wave E prioritizes source-backed measurement and geometry. It adds separate Wave E and derived A+B+C+D+E bindings while keeping Waves A–D frozen. `WAVE_E.md` records the selected retained rows/pages, the partial immutable Grade 1 overlay, exact mathematical oracle boundaries, explicit quarantines and nine-shard reproduction commands. All candidates remain deny-all.
+
 ## Next content-production sprint
 
 Parallel workstreams should source-map one domain slice per grade, then author objectives/skills/edges and a deliberately small blueprint set. Each slice must pass source mapping, deterministic mathematics, explanation consistency, reference, grade-range, duplicate, ambiguity, leakage, security, bundle, simulation and regression gates. Any unresolved automated-verification insufficiency excludes the item from a candidate bundle. Grade 2 remains the only pilot candidate until separately authorized; no scaffold gains candidate or release state merely because files exist.
