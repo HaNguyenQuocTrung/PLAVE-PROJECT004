@@ -2,7 +2,8 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 import { auditWaveLCredentialSource } from "../lib/content-factory/wave-l-credential-safe.ts";
-import { buildWaveNFinalAudit, waveNScopeInventory } from "../lib/content-factory/wave-n.ts";
+import { buildWaveNFinalAudit, FROZEN_COMBINED_A_K_HASH, FROZEN_WAVE_L_HASH,
+  FROZEN_WAVE_M_HASH, FROZEN_WAVE_M_OVERLAY_HASH, waveNScopeInventory } from "../lib/content-factory/wave-n.ts";
 import { auditWaveNCredentialSafe } from "../lib/content-factory/wave-n-credential-safe.ts";
 import { auditWaveNInvocationBoundary } from "../lib/content-factory/wave-n-invocation.ts";
 import { renderWaveNArtifacts } from "../lib/content-factory/wave-n-report.ts";
@@ -48,7 +49,13 @@ test("WN-UI-DEMO-TRUTH: final docs preserve hidden status and accepted limitatio
   assert.match(demo, /Do not claim Grades 2–9 publication/u); assert.match(demo, /keyboard|component\/route/iu);
 });
 
-test("WN-GENERATED-HANDOFF: tracked artifacts match executable truth", () => {
-  const expected = renderWaveNArtifacts(audit);
-  for (const [path, content] of Object.entries(expected)) assert.equal(readFileSync(path, "utf8"), content, path);
+test("WN-GENERATED-HANDOFF: historical freeze receipts remain exact after authorized additive integration", () => {
+  const receipt = JSON.parse(readFileSync("content/grade-packs/generated/wave-n-final-release-receipt.json", "utf8"));
+  assert.equal(receipt.combinedAKHash, FROZEN_COMBINED_A_K_HASH);
+  assert.equal(receipt.waveLCompatibilityHash, FROZEN_WAVE_L_HASH);
+  assert.equal(receipt.waveMCompatibilityHash, FROZEN_WAVE_M_HASH);
+  assert.equal(receipt.waveMCorrectiveOverlayHash, FROZEN_WAVE_M_OVERLAY_HASH);
+  assert.equal(receipt.sourceTreeDigest, "9a7555fd4a92c5545ba59ee4f190a040cc0631deff35a088a9afb24546c13855");
+  assert.equal(receipt.receiptHash, "fa4eedfec30f999f6bcb88e6dc4ea972643f60b9c646cab4a7a094fb90edf6a5");
+  assert.deepEqual(audit.errors, []);
 });

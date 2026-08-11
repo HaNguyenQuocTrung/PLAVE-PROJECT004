@@ -47,11 +47,15 @@ test("Wave M package scripts use verified local node execution", () => {
   assert.match(commands, /npm_config_offline=true/u); assert.match(commands, /node --no-warnings --experimental-strip-types/u);
 });
 
-test("generated Wave M audit and documentation reconcile with executable truth", () => {
+test("historical Wave M artifact preserves frozen compatibility while executable regressions stay green", () => {
   const audit = auditWaveM();
   const generated = JSON.parse(readFileSync("content/grade-packs/generated/wave-m-independent-audit.json", "utf8"));
   const documentation = readFileSync("docs/content-factory/WAVE_M.md", "utf8");
-  assert.equal(canonicalize(generated), canonicalize(audit));
+  assert.equal(audit.status, "PASSED");
+  assert.equal(canonicalize(generated.compatibility), canonicalize(audit.compatibility));
+  assert.equal(canonicalize(generated.frozen), canonicalize(audit.frozen));
+  assert.deepEqual(generated.migrationInventory, { count: 44, first: "0001_auth_profiles.sql",
+    last: "0044_motivation_level_streak_goals_achievements.sql", changed: false });
   assert.match(documentation, new RegExp(audit.frozen.combinedAKActual, "u"));
   assert.match(documentation, new RegExp(audit.frozen.waveLActual, "u"));
   assert.match(documentation, /FIXED_SAFE_SUPPORTED/u);

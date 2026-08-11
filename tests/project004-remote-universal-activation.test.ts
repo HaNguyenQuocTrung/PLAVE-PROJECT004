@@ -29,6 +29,10 @@ import {
   parseProject004UniversalActivationResponse,
   project004UniversalActivationPsqlArgs,
 } from "../scripts/project004-universal-activation-execution.ts";
+import {
+  authorizeGradesTwoToNineRelease,
+  parseGradesTwoToNineReleaseMode,
+} from "../lib/release-integration/release-mode.ts";
 
 const root = resolve(import.meta.dirname, "..");
 const sampleRef = "abcdefghijklmnopqrst";
@@ -326,7 +330,7 @@ test("migration contract preserves bound-attempt resume and submit while inactiv
   );
 });
 
-test("remote runtime enables fixed universal curriculum but hides every on-demand/adaptive CTA and flag", () => {
+test("historical remote runtime stays fixed while typed local release modes enforce catalog and start authorization", () => {
   const runtime = source(
     "scripts/project004-remote-runtime-connection.ts",
   );
@@ -337,6 +341,18 @@ test("remote runtime enables fixed universal curriculum but hides every on-deman
   );
   const catalog = source(
     "components/UniversalCurriculumCatalog.tsx",
+  );
+  const releasedCatalog = source(
+    "lib/release-integration/catalog.ts",
+  );
+  const serverConfig = source(
+    "lib/release-integration/server-config.ts",
+  );
+  const activation = source(
+    "supabase/operations/grades-2-9-local-release/ACTIVATE_PUBLIC.sql",
+  );
+  const deactivation = source(
+    "supabase/operations/grades-2-9-local-release/DEACTIVATE.sql",
   );
   assert.match(
     runtime,
@@ -370,10 +386,66 @@ test("remote runtime enables fixed universal curriculum but hides every on-deman
     catalog,
     /onDemandRuntimeEnabled \? \(/u,
   );
+  assert.deepEqual(parseGradesTwoToNineReleaseMode(undefined), {
+    mode: "HIDDEN",
+    valid: false,
+    reason: "UNSET",
+  });
+  const allowed = {
+    applicationMode: "PUBLIC" as const,
+    databaseMode: "PUBLIC" as const,
+    authenticated: true,
+    role: "STUDENT" as const,
+    schoolGrade: 6,
+    releaseGrade: 6,
+    exactTupleMatches: true,
+    applicationRuntimeEnabled: true,
+    databaseRuntimeEnabled: true,
+    pilotEntitled: false,
+  };
+  assert.deepEqual(authorizeGradesTwoToNineRelease(allowed), {
+    allowed: true,
+    mode: "PUBLIC",
+  });
+  assert.deepEqual(
+    authorizeGradesTwoToNineRelease({
+      ...allowed,
+      applicationMode: "PILOT",
+      databaseMode: "PILOT",
+    }),
+    { allowed: false, reason: "PILOT_ENTITLEMENT_REQUIRED" },
+  );
+  for (const role of ["PARENT", "TEACHER", "UNKNOWN"] as const) {
+    assert.deepEqual(authorizeGradesTwoToNineRelease({ ...allowed, role }), {
+      allowed: false,
+      reason: "STUDENT_REQUIRED",
+    });
+  }
+  assert.deepEqual(
+    authorizeGradesTwoToNineRelease({ ...allowed, authenticated: false }),
+    { allowed: false, reason: "AUTH_REQUIRED" },
+  );
+  assert.deepEqual(
+    authorizeGradesTwoToNineRelease({ ...allowed, schoolGrade: 5 }),
+    { allowed: false, reason: "GRADE_MISMATCH" },
+  );
+  assert.deepEqual(
+    authorizeGradesTwoToNineRelease({ ...allowed, exactTupleMatches: false }),
+    { allowed: false, reason: "TUPLE_MISMATCH" },
+  );
+  assert.match(serverConfig, /import "server-only"/u);
+  assert.match(serverConfig, /process[.]env[.]PLAVE_GRADES_2_9_RELEASE_MODE/u);
+  assert.match(releasedCatalog, /\['PILOT', 'PUBLIC'\][.]includes/u);
   assert.match(
     learn,
-    /unit[.]grade === access[.]grade/u,
+    /releasedCatalog[.]units/u,
   );
+  assert.match(learn, /progressResult[.]progress[.]grade !== access[.]grade/u);
+  assert.match(activation, /release_mode='PUBLIC'/u);
+  assert.match(activation, /for update/u);
+  assert.doesNotMatch(activation, /insert into public[.]curriculum_release_pilot_entitlements/iu);
+  assert.match(deactivation, /release_mode='HIDDEN'/u);
+  assert.doesNotMatch(deactivation, /delete from|truncate/iu);
   assert.doesNotMatch(
     `${learn}\n${catalog}\n${dashboard}`,
     /update.*schoolGrade|schoolGrade.*=/iu,

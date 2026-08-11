@@ -7,10 +7,14 @@ test("README reports the current build metrics and honest release state", () => 
   assert.match(readme, /76 static pages/u);
   assert.match(readme, /115 application routes/u);
   assert.match(readme, /Grade 1 fixed-runtime/u);
-  assert.match(readme, /Grades 2–9 verified curriculum packages held as `DRAFT\/HIDDEN` and inactive/u);
-  assert.match(readme, /ordinary users cannot access those hidden candidates/u);
+  assert.match(readme, /Grades 2–9 verified curriculum packages materialized for an Owner-activated local release; the default remains `HIDDEN` and inactive/u);
+  assert.match(readme, /Grades 2–9 are integrated for the typed local `PUBLIC` mode/u);
+  assert.match(readme, /authenticated Student can learn their authorized grade when both the\s+application mode and exact database release flags are enabled/u);
+  assert.match(readme, /default mode\s+remains `HIDDEN`/u);
+  assert.match(readme, /does not publish, activate, or deploy\s+any remote environment/u);
   assert.doesNotMatch(readme, /77\/77 routes/u);
   assert.doesNotMatch(readme, /Sprint 11B acceptance is incomplete/u);
+  assert.doesNotMatch(readme, /remote (?:publication|activation|deployment) (?:is|was) complete/iu);
 });
 
 test("historical submission JSON is explicit about supersession and points to canonical final inventory", () => {
