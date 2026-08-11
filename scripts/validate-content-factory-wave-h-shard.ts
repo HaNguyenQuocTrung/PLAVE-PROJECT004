@@ -1,0 +1,20 @@
+import { auditAppliedEquivalentQuestions } from "../lib/content-factory/applied-reasoning.ts";
+import { buildDeterministicBundle } from "../lib/content-factory/bundle.ts";
+import { gradeOneWaveHOracleRows } from "../lib/content-factory/grade1-wave-h.ts";
+import { simulateCombinedWaveABCDEFGHCandidate } from "../lib/content-factory/simulation.ts";
+import { auditIndependentCandidatePack } from "../lib/content-factory/wave-a-independent-audit.ts";
+import { combinedWaveABCDEFGHGradePacks, waveHGradePacks, waveHProgressionContracts } from "../lib/content-factory/wave-h-packs.ts";
+import { validateGradePack } from "../lib/content-factory/validation.ts";
+
+const grade = Number(process.argv.find((argument) => argument.startsWith("--grade="))?.slice(8));
+if (!Number.isInteger(grade) || grade < 1 || grade > 9) throw new Error("WAVE_H_SHARD_GRADE_INVALID");
+const pack = waveHGradePacks.find((entry) => entry.grade === grade)!; const combined = combinedWaveABCDEFGHGradePacks.find((entry) => entry.grade === grade)!;
+const contract = waveHProgressionContracts.find((entry) => entry.grade === grade)!; const expected = grade === 1 ? 6 : 24;
+const diagnostics = [...validateGradePack(pack), ...validateGradePack(combined)].filter((entry) => entry.severity === "ERROR" || entry.severity === "WARNING");
+const independentErrors = grade === 1 ? gradeOneWaveHOracleRows.filter((row) => row.status !== "PASSED").map((row) => row.questionId) : auditIndependentCandidatePack(pack, { expectedQuestions: expected }).errors;
+const equivalents = auditAppliedEquivalentQuestions([pack]);
+if (diagnostics.length || independentErrors.length || equivalents.length || pack.questions.length !== expected || pack.production?.candidateEligible !== expected || expected > 24) throw new Error(`WAVE_H_SHARD_FAILED:G${grade}`);
+if (buildDeterministicBundle([pack]).bundleHash !== buildDeterministicBundle([pack]).bundleHash) throw new Error(`WAVE_H_SHARD_NONDETERMINISTIC:G${grade}`);
+const simulation = simulateCombinedWaveABCDEFGHCandidate(combined, contract);
+if (!simulation.emptyPool.failedClosed || !simulation.historyPreserved || !simulation.nextActions.alwaysValid || Object.values(simulation.appliedFailures).some((entry) => entry.status !== "AUTOMATED_VERIFICATION_INSUFFICIENT")) throw new Error(`WAVE_H_SHARD_SIMULATION_FAILED:G${grade}`);
+console.log(`WAVE_H_SHARD_OK grade=${grade} eligible=${expected} candidate=${pack.candidate?.bundleHash}`);

@@ -1,0 +1,25 @@
+import { mkdirSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+import { canonicalize } from "../lib/content-factory/canonical.ts";
+import { auditWaveM } from "../lib/content-factory/wave-m-audit.ts";
+import { renderWaveMMarkdown } from "../lib/content-factory/wave-m-report.ts";
+
+const audit = auditWaveM();
+if (audit.status !== "PASSED") throw new Error(`WAVE_M_BUILD_FAILED:${audit.errors.join("|")}`);
+const output = join(process.cwd(), "content/grade-packs/generated"); mkdirSync(output, { recursive: true });
+const json = (name: string, value: unknown) => writeFileSync(join(output, name), `${canonicalize(value)}\n`, "utf8");
+json("wave-m-corrective-overlay.json", audit.correctiveOverlay);
+json("wave-m-pool-resolution-report.json", audit.poolResolution);
+json("wave-m-adaptive-fixed-safe-inventory.json", audit.supportInventory);
+json("wave-m-student-journey-report.json", audit.journeys);
+json("wave-m-progress-contract.json", audit.progressContract);
+json("wave-m-history-integrity-report.json", audit.historyIntegrity);
+json("wave-m-stakeholder-authorization-report.json", audit.stakeholderAuthorization);
+json("wave-m-accessibility-route-state-report.json", audit.routeAccessibility);
+json("wave-m-definition-of-done.json", audit.definitionOfDone);
+json("wave-m-credential-safe-invocation.json", audit.credentialSafe);
+json("wave-m-invocation-boundary.json", audit.invocationBoundary);
+json("wave-m-compatibility.json", audit.compatibility);
+json("wave-m-independent-audit.json", audit);
+writeFileSync(join(output, "wave-m-independent-audit.md"), renderWaveMMarkdown(audit), "utf8");
+console.log(`WAVE_M_BUILD_OK grades=${audit.totals.grades} adaptive=${audit.totals.adaptiveReady} fixed_safe=${audit.totals.fixedSafe} shadow=${audit.totals.shadowOnly} unavailable=${audit.totals.unavailable} states=${audit.totals.states} transitions=${audit.totals.transitions} combined_a_k=${audit.frozen.combinedAKActual} wave_l=${audit.frozen.waveLActual} compatibility=${audit.compatibility.compatibilityHash}`);

@@ -86,7 +86,8 @@ if (command === "validate") {
     return simulateCandidate(pack.grade, pack.questions, { version: pack.adaptivePolicy.version, minimumQuestions: minimum, maximumQuestions: maximum, masteryCorrect: minimum }, pack.questions.map((question, index) => ({ submissionId: `submission-${index}`, questionId: question.id, correct: index < minimum })));
   });
   const waveAReports = packs.filter((pack) => pack.grade >= 2 && pack.candidate && pack.questions.length >= 24).map(simulateWaveACandidate);
-  console.log(`CONTENT_FACTORY_SIMULATE grades=${grades.join(",")} fixtures=${reports.length} waveACandidates=${waveAReports.length} scenarios=${waveAReports.length * 3} softwareBehaviorOnly=true`);
+  const gradeOneShadowReports = packs.filter((pack) => pack.grade === 1 && pack.candidate && pack.questions.length >= 24).map(simulateWaveACandidate);
+  console.log(`CONTENT_FACTORY_SIMULATE grades=${grades.join(",")} fixtures=${reports.length} waveACandidates=${waveAReports.length} gradeOneShadowCandidates=${gradeOneShadowReports.length} scenarios=${(waveAReports.length + gradeOneShadowReports.length) * 3} softwareBehaviorOnly=true`);
 } else throw new Error("UNKNOWN_CONTENT_FACTORY_COMMAND");
 
 if (before) {

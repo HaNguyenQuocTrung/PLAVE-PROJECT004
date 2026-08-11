@@ -32,6 +32,16 @@ The Grade 1 shadow adapter compares fixed and deterministically proposed selecti
 
 `content-factory-ci.ts` runs five grade shards concurrently and then runs cross-grade validation and a merged coverage report. `ci/content-factory-shards.json` keeps remote CI disabled for Owner review.
 
+Wave production is additive. Wave B uses the same shared pack schema and creates separate Wave B and derived A+B bindings without overwriting Wave A. The complete Grade 1–9 Wave B contract, source boundaries and reproduction commands are documented in `WAVE_B.md`.
+
+Wave C follows the same additive boundary with separate Wave C and derived A+B+C bindings. Its nine grade shards, independent mathematical oracles, deny-all release state, progression actions and reproduction commands are documented in `WAVE_C.md`. Wave A and Wave B bindings and bundle hashes remain frozen.
+
+Wave D adds separate source-verified Wave D and derived A+B+C+D bindings without rewriting Waves A–C. `WAVE_D.md` records the exact retained rows/pages, Grade 1 immutable overlay, deterministic oracle boundary, hypothesis-labelled progression and nine-shard reproduction commands. All candidates remain deny-all.
+
+Wave E prioritizes source-backed measurement and geometry. It adds separate Wave E and derived A+B+C+D+E bindings while keeping Waves A–D frozen. `WAVE_E.md` records the selected retained rows/pages, the partial immutable Grade 1 overlay, exact mathematical oracle boundaries, explicit quarantines and nine-shard reproduction commands. All candidates remain deny-all.
+
+Wave F prioritizes uncovered source-backed number and algebra outcomes. It adds separate Wave F and derived A+B+C+D+E+F bindings while keeping Waves A–E frozen. `WAVE_F.md` records exact retained rows/pages, the immutable Grade 1 addition overlay, deterministic number/algebra oracles, progression hypotheses and nine-shard reproduction commands. All candidates remain deny-all.
+
 ## Next content-production sprint
 
 Parallel workstreams should source-map one domain slice per grade, then author objectives/skills/edges and a deliberately small blueprint set. Each slice must pass source mapping, deterministic mathematics, explanation consistency, reference, grade-range, duplicate, ambiguity, leakage, security, bundle, simulation and regression gates. Any unresolved automated-verification insufficiency excludes the item from a candidate bundle. Grade 2 remains the only pilot candidate until separately authorized; no scaffold gains candidate or release state merely because files exist.

@@ -3,7 +3,7 @@ import { createOfficialSourceMap } from "./official-source-map.ts";
 
 export type WaveAEvidenceRow = Readonly<{
   grade: number;
-  role: "IMMUTABLE_REFERENCE" | "FROZEN_WAVE_A" | "NEW_WAVE_A";
+  role: "IMMUTABLE_REFERENCE_SHADOW" | "FROZEN_WAVE_A" | "NEW_WAVE_A";
   sourceVerifiedDomains: number | null;
   sourceVerifiedUnits: number;
   sourceVerifiedSkills: number;
@@ -33,24 +33,24 @@ export function buildWaveAEvidenceRows(packs: readonly GradePack[]): readonly Wa
   return [...packs].sort((left, right) => left.grade - right.grade).map((pack) => {
     if (pack.grade === 1) return {
       grade: 1,
-      role: "IMMUTABLE_REFERENCE",
-      sourceVerifiedDomains: null,
+      role: "IMMUTABLE_REFERENCE_SHADOW",
+      sourceVerifiedDomains: pack.domains.length,
       sourceVerifiedUnits: pack.legacyAsset?.expected.units ?? pack.units.length,
       sourceVerifiedSkills: pack.skills.length,
       sourceMapRows: pack.legacyAsset?.expected.questions ?? 0,
       sourceEvidenceGaps: 0,
-      automatedVerificationCapabilityGaps: 0,
-      selectedSliceId: null,
-      generated: null,
+      automatedVerificationCapabilityGaps: pack.questions.length,
+      selectedSliceId: pack.packId,
+      generated: 0,
       repaired: null,
-      evidenceGatePassed: null,
-      verificationInsufficient: null,
-      rejected: null,
-      duplicate: null,
-      candidateEligible: null,
+      evidenceGatePassed: 0,
+      verificationInsufficient: pack.questions.length,
+      rejected: 0,
+      duplicate: 0,
+      candidateEligible: 0,
       remainingSourceVerifiedSkills: null,
-      candidate: null,
-      simulation: "REFERENCE_ONLY",
+      candidate: pack.candidate,
+      simulation: "PASSED",
       publication: pack.release.publication,
       visibility: pack.release.visibility,
       pilotEnabled: pack.release.pilotEnabled,

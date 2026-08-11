@@ -19,6 +19,9 @@ import { validateCrossPackDuplicates, validateGradePack } from "../lib/content-f
 test("Grade 1 immutable reference preserves canonical 13/312/312/24 release", () => {
   const pack = productionGradePacks[0]!;
   assert.equal(pack.grade, 1); assert.equal(pack.immutableReference, true);
+  assert.equal(pack.candidate?.candidateId, "g1-legacy-release-shadow-rc1");
+  assert.equal(pack.questions.length, 312); assert.equal(pack.explanations.length, 312); assert.equal(pack.units.length, 13);
+  assert.deepEqual(pack.release, { publication: "DRAFT", visibility: "HIDDEN", pilotEnabled: false, runtimeEnabled: false, retentionEnabled: false });
   assert.deepEqual(pack.legacyAsset?.expected, { units: 13, questions: 312, solutions: 312, diagnosticRows: 24 });
   const before = gradeOneSourceDigest((path) => readFileSync(path, "utf8"));
   execFileSync(process.execPath, ["scripts/validate-grade1-release.mjs"], { stdio: "pipe" });
@@ -76,7 +79,7 @@ test("Grades 1-9 prerequisite graph is acyclic and Grade 1 to 2 edge requires ev
 
 test("coverage distinguishes counts, missing, unknown and not applicable", () => {
   const rows = createCoverageMatrix(productionGradePacks); assert.equal(rows.length, 9);
-  assert.deepEqual(rows[0]?.candidateQuestionCount, { state: "NOT_APPLICABLE" }); assert.deepEqual(rows[0]?.prerequisiteCompleteness, { state: "UNKNOWN" }); assert.deepEqual(rows[0]?.evidenceGatePassedCount, { state: "UNKNOWN" }); assert.deepEqual(rows[0]?.verificationInsufficientCount, { state: "UNKNOWN" });
+  assert.deepEqual(rows[0]?.candidateQuestionCount, { state: "COUNT", value: 312 }); assert.deepEqual(rows[0]?.prerequisiteCompleteness, { state: "COUNT", value: 12 }); assert.deepEqual(rows[0]?.evidenceGatePassedCount, { state: "COUNT", value: 0 }); assert.deepEqual(rows[0]?.verificationInsufficientCount, { state: "COUNT", value: 312 });
   assert.deepEqual(rows[1]?.evidenceGatePassedCount, { state: "COUNT", value: 24 }); assert.deepEqual(rows[1]?.candidateEligibleCount, { state: "COUNT", value: 24 });
   assert.deepEqual(rows[2]?.curriculumSourceCoverage, { state: "COUNT", value: 1 }); assert.deepEqual(rows[2]?.unitCount, { state: "COUNT", value: 18 }); assert.deepEqual(rows[2]?.candidateEligibleCount, { state: "COUNT", value: 24 });
 });

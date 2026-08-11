@@ -25,13 +25,13 @@ export const gradeOneLegacyAsset: LegacyAssetReference = {
   canonicalValidator: "scripts/validate-grade1-release.mjs",
 };
 
-const gradeOneUnitSlugs = [
+export const gradeOneUnitSlugs = [
   "grade-1-numbers-to-10", "grade-1-addition-within-10", "grade-1-subtraction-within-10",
   "grade-1-numbers-to-20", "grade-1-addition-within-20-no-carry", "grade-1-subtraction-within-20-no-borrow",
   "grade-1-numbers-to-100", "grade-1-addition-within-100-no-carry", "grade-1-subtraction-within-100-no-borrow",
   "grade-1-basic-geometry-and-position", "grade-1-length-measurement", "grade-1-time-clock-calendar", "grade-1-cube-and-cuboid",
 ] as const;
-const gradeOneSkillCodes = [...new Set(gradeOneUnitSlugs.flatMap((slug) => getUnitSkillCodes(slug)))];
+export const gradeOneSkillCodes = [...new Set(gradeOneUnitSlugs.flatMap((slug) => getUnitSkillCodes(slug)))];
 
 // This pack maps the existing SQL-authored release by reference. It intentionally
 // does not deserialize and rewrite legacy questions into a new production format.
