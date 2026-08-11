@@ -65,9 +65,9 @@ export async function POST(request: Request) {
       const result = await access.supabase.rpc(functionName, args);
       return { data: result.data, error: result.error };
     },
+    input.unitSlug,
   );
   if (
-    input.unitSlug !== "grade-2-numbers-to-1000" ||
     pilotAccess.kind !== "ALLOWED"
   ) {
     return jsonNoStore(adaptiveApiError("UNIT_UNAVAILABLE"), 404);

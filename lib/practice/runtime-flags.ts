@@ -1,5 +1,4 @@
 export type AdaptiveRuntimeFeatureFlags = Readonly<{
-  GRADE2_NUMBERS_TO_1000_ENABLED: boolean;
   ADAPTIVE_PRACTICE_RUNTIME_ENABLED: boolean;
   CONTROLLED_PILOT_ENABLED: boolean;
   RETENTION_RUNTIME_ENABLED: boolean;
@@ -8,7 +7,6 @@ export type AdaptiveRuntimeFeatureFlags = Readonly<{
 // These are server-owned release controls. They are intentionally not read
 // from NEXT_PUBLIC_* variables and cannot be enabled by a browser bundle.
 export const adaptiveRuntimeFeatureFlags: AdaptiveRuntimeFeatureFlags = {
-  GRADE2_NUMBERS_TO_1000_ENABLED: false,
   ADAPTIVE_PRACTICE_RUNTIME_ENABLED: false,
   CONTROLLED_PILOT_ENABLED: false,
   RETENTION_RUNTIME_ENABLED: false,
@@ -47,15 +45,24 @@ export const gradeTwoNumbersTo1000PublicationState: CandidatePublicationState =
     studentVisibility: "HIDDEN",
   };
 
+export const adaptiveCandidateRegistry: readonly Readonly<{
+  grade: number;
+  candidate: CandidatePublicationState;
+}>[] = [{ grade: 2, candidate: gradeTwoNumbersTo1000PublicationState }];
+
+export function findAdaptiveCandidate(unitSlug: string) {
+  return adaptiveCandidateRegistry.find((entry) => entry.candidate.unitSlug === unitSlug) ?? null;
+}
+
 export type ControlledPilotEligibility =
   | Readonly<{ status: "NOT_CONFIGURED" }>
   | Readonly<{ status: "MALFORMED_CONFIGURATION" }>
   | Readonly<{ status: "NOT_ELIGIBLE" }>
   | Readonly<{ status: "ELIGIBLE" }>;
 
-// There is intentionally no browser-controlled eligibility input. A future
-// controlled pilot must replace this server-owned resolver with an
-// authorization-backed implementation before any adaptive RPC is called.
+// There is intentionally no browser-controlled eligibility input. Runtime
+// callers replace this deny-all default only with the server-owned exact
+// candidate entitlement resolver before any adaptive RPC is called.
 export const controlledPilotEligibility: ControlledPilotEligibility = {
   status: "NOT_CONFIGURED",
 };
@@ -85,10 +92,9 @@ export type AdaptiveRuntimeGate =
 export function resolvePracticeRuntimeAccess(
   unitSlug: string,
   flags: AdaptiveRuntimeFeatureFlags = adaptiveRuntimeFeatureFlags,
-  candidate: CandidatePublicationState =
-    gradeTwoNumbersTo1000PublicationState,
+  candidate: CandidatePublicationState | null = findAdaptiveCandidate(unitSlug)?.candidate ?? null,
 ): PracticeRuntimeAccess {
-  if (unitSlug !== candidate.unitSlug) {
+  if (!candidate || unitSlug !== candidate.unitSlug) {
     return { kind: "FIXED_RUNTIME" };
   }
   if (
@@ -101,7 +107,6 @@ export function resolvePracticeRuntimeAccess(
     };
   }
   if (
-    !flags.GRADE2_NUMBERS_TO_1000_ENABLED ||
     !flags.ADAPTIVE_PRACTICE_RUNTIME_ENABLED
   ) {
     return {
@@ -122,10 +127,10 @@ export function resolveAdaptiveRuntimeGate(
   unitSlug: string,
   eligibility: ControlledPilotEligibility = controlledPilotEligibility,
   flags: AdaptiveRuntimeFeatureFlags = adaptiveRuntimeFeatureFlags,
-  candidate: CandidatePublicationState =
-    gradeTwoNumbersTo1000PublicationState,
+  candidate: CandidatePublicationState | null =
+    findAdaptiveCandidate(unitSlug)?.candidate ?? null,
 ): AdaptiveRuntimeGate {
-  if (unitSlug !== candidate.unitSlug) {
+  if (!candidate || unitSlug !== candidate.unitSlug) {
     return { kind: "DENIED", reason: "UNIT_NOT_ADAPTIVE" };
   }
   const isPublishedVisible =
@@ -138,7 +143,6 @@ export function resolveAdaptiveRuntimeGate(
     return { kind: "DENIED", reason: "CANDIDATE_NOT_VISIBLE" };
   }
   if (
-    !flags.GRADE2_NUMBERS_TO_1000_ENABLED ||
     !flags.ADAPTIVE_PRACTICE_RUNTIME_ENABLED
   ) {
     return {

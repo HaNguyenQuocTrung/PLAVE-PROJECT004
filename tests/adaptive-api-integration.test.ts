@@ -49,7 +49,6 @@ function databaseState(feedback: unknown = null) {
 }
 
 const enabledFlags: AdaptiveRuntimeFeatureFlags = {
-  GRADE2_NUMBERS_TO_1000_ENABLED: true,
   ADAPTIVE_PRACTICE_RUNTIME_ENABLED: true,
   CONTROLLED_PILOT_ENABLED: true,
   RETENTION_RUNTIME_ENABLED: false,
@@ -63,7 +62,6 @@ const visibleCandidate: CandidatePublicationState = {
 
 test("Sprint 6I 1. All adaptive application flags remain false", () => {
   assert.deepEqual(adaptiveRuntimeFeatureFlags, {
-    GRADE2_NUMBERS_TO_1000_ENABLED: false,
     ADAPTIVE_PRACTICE_RUNTIME_ENABLED: false,
     CONTROLLED_PILOT_ENABLED: false,
     RETENTION_RUNTIME_ENABLED: false,

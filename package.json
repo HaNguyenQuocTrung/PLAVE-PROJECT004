@@ -8,6 +8,7 @@
     "content:coverage": "node --no-warnings --experimental-strip-types scripts/content-factory.ts coverage",
     "content:bundle": "node --no-warnings --experimental-strip-types scripts/content-factory.ts bundle",
     "content:simulate": "node --no-warnings --experimental-strip-types scripts/content-factory.ts simulate",
+    "test:content-factory-operations-local": "node --no-warnings --experimental-strip-types scripts/test-content-factory-operations-local.ts",
     "ai-tutor:configure": "node --no-warnings --experimental-strip-types scripts/configure-ai-tutor.ts",
     "ai-tutor:local-start": "node --no-warnings --experimental-strip-types scripts/start-ai-tutor-local.ts",
     "security:secret-boundary": "node --no-warnings --experimental-strip-types scripts/audit-secret-boundary.ts",

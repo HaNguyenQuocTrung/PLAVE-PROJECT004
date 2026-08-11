@@ -118,6 +118,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
             const result = await access.supabase.rpc(functionName, args);
             return { data: result.data, error: result.error };
           },
+          unitSlug,
         )
       : null;
   if (
