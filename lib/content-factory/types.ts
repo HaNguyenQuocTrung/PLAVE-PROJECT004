@@ -194,7 +194,7 @@ export type AdaptivePolicyContract = Readonly<{
 }>;
 
 export type ProductionSummary = Readonly<{
-  wave: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "A+B" | "A+B+C" | "A+B+C+D" | "A+B+C+D+E" | "A+B+C+D+E+F" | "A+B+C+D+E+F+G" | "A+B+C+D+E+F+G+H";
+  wave: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "A+B" | "A+B+C" | "A+B+C+D" | "A+B+C+D+E" | "A+B+C+D+E+F" | "A+B+C+D+E+F+G" | "A+B+C+D+E+F+G+H" | "A+B+C+D+E+F+G+H+I";
   selectedSliceId: string;
   selectionBasis: readonly string[];
   generated: number;
