@@ -194,7 +194,7 @@ export type AdaptivePolicyContract = Readonly<{
 }>;
 
 export type ProductionSummary = Readonly<{
-  wave: "A" | "B" | "A+B";
+  wave: "A" | "B" | "C" | "A+B" | "A+B+C";
   selectedSliceId: string;
   selectionBasis: readonly string[];
   generated: number;
