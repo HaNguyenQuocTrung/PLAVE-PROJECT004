@@ -1,25 +1,16 @@
-import { execFileSync } from "node:child_process";
-import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
-import { basename, dirname, join, relative, resolve } from "node:path";
+import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { basename, dirname, join, relative } from "node:path";
 import { auditWaveLCredentialSafe, auditWaveLCredentialSource } from "./wave-l-credential-safe.ts";
+import { buildWaveMInputScope, waveMInputFiles, WAVE_M_INPUT_SCOPE_VERSION } from "./wave-m-input-scope.ts";
 import { auditWaveMInvocationBoundary } from "./wave-m-invocation.ts";
 
-function waveMFiles(root: string) {
-  return ["lib/content-factory", "scripts", "tests"].flatMap((folder) => readdirSync(resolve(root, folder), { withFileTypes: true })
-    .filter((entry) => entry.isFile() && entry.name.includes("wave-m")).map((entry) => join(root, folder, entry.name))).sort();
-}
-
-function trackedFiles(root: string) {
-  return execFileSync("/usr/bin/git", ["ls-files", "-z"], { cwd: root, encoding: "utf8",
-    env: { PATH: "/usr/bin:/bin", LC_ALL: "C", NODE_ENV: "test" }, stdio: ["ignore", "pipe", "pipe"] })
-    .split("\0").filter(Boolean).filter((path) => !path.startsWith("content/grade-packs/generated/wave-m-")
-      && path !== "docs/content-factory/WAVE_M.md").sort();
-}
+export const WAVE_M_CREDENTIAL_SCOPE_VERSION = WAVE_M_INPUT_SCOPE_VERSION;
+export const waveMCredentialInputFiles = waveMInputFiles;
+export const buildWaveMCredentialInputScope = buildWaveMInputScope;
 
 export function auditWaveMCredentialSafe(root = process.cwd(), disposableParent = "/tmp") {
   const prior = auditWaveLCredentialSafe(root, disposableParent); const invocation = auditWaveMInvocationBoundary(root);
-  const sources = waveMFiles(root); const tracked = trackedFiles(root);
-  const repositoryMetadataFiles = [...new Set([...tracked, ...sources.map((file) => relative(root, file))])].sort();
+  const scope = buildWaveMInputScope(root); const sources = waveMInputFiles(root);
   const disposable = mkdtempSync(join(disposableParent, "plave-wave-m-credential-audit-")); const copied: string[] = [];
   try {
     for (const file of sources) {
@@ -35,7 +26,9 @@ export function auditWaveMCredentialSafe(root = process.cwd(), disposableParent 
     const diagnostics = copied.flatMap((path) => auditWaveLCredentialSource(path, readFileSync(join(disposable, path), "utf8")));
     const status = prior.status === "PASS" && invocation.status === "PASS" && diagnostics.length === 0 && syntheticDiagnostics.length === 2;
     return { schemaVersion: "plave-wave-m-credential-safe-invocation-v1", status: status ? "PASS" as const : "FAIL" as const,
-      trackedFileCount: repositoryMetadataFiles.length, trackedMetadataOnly: true, copiedFiles: copied,
+      scopeVersion: scope.scopeVersion, inputDigest: scope.inputDigest, scopedInputCount: scope.inputCount,
+      trackedFileCount: scope.inputCount, trackedFileCountSemantics: "DECLARED_WAVE_M_INPUT_SCOPE" as const,
+      trackedMetadataOnly: true, copiedFiles: copied,
       copiedIgnoredSecretFiles: [] as readonly string[], realEnvironmentFilesOpened: 0, credentialValueReads: 0,
       credentialValuesPrintedHashedMeasuredOrCompared: 0, providerEnvironmentVariablesInherited: [] as readonly string[],
       allowlistedChildEnvironmentNames: ["PATH", "LC_ALL", "NODE_ENV"] as const, environmentLogged: false,
