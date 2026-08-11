@@ -4,6 +4,7 @@ import type { WaveCProgressionContract } from "./wave-c.ts";
 import type { WaveDProgressionContract } from "./wave-d.ts";
 import type { WaveEProgressionContract } from "./wave-e.ts";
 import type { WaveFProgressionContract } from "./wave-f.ts";
+import type { WaveGProgressionContract } from "./wave-g.ts";
 
 export type SimulationPolicy = Readonly<{ version: string; minimumQuestions: number; maximumQuestions: number; masteryCorrect: number }>;
 export type SimulationAnswer = Readonly<{ submissionId: string; questionId: string; correct: boolean }>;
@@ -312,5 +313,40 @@ export function simulateCombinedWaveABCDEFCandidate(
       mixedPractice: contract.actions.mixedPracticeTargetSkillIds, alwaysValid: true,
       schoolGradeMutation: false, entitlementGrant: false,
     },
+  };
+}
+
+export type CombinedWaveABCDEFGSimulationSuite = CombinedWaveABCSimulationSuite;
+
+export function simulateCombinedWaveABCDEFGCandidate(
+  pack: GradePack,
+  contract: WaveGProgressionContract,
+): CombinedWaveABCDEFGSimulationSuite {
+  const waveGQuestions = pack.questions.filter((question) => contract.waveGSkillIds.includes(question.skillId));
+  const priorQuestions = pack.questions.filter((question) => question.skillId === contract.priorSkillId);
+  if (priorQuestions.length === 0 || waveGQuestions.length === 0) throw new Error(`COMBINED_WAVE_G_TRANSITION_EMPTY:G${pack.grade}`);
+  const ordered = [...priorQuestions, ...waveGQuestions,
+    ...pack.questions.filter((question) => !priorQuestions.includes(question) && !waveGQuestions.includes(question))];
+  const base = simulateWaveACandidate({ ...pack, questions: ordered });
+  let emptyPoolFailedClosed = false;
+  try {
+    simulateCandidate(pack.grade, [], { version: pack.adaptivePolicy.version, minimumQuestions: 8, maximumQuestions: 24, masteryCorrect: 6 }, []);
+  } catch (error) {
+    emptyPoolFailedClosed = error instanceof Error && error.message === "INVALID_SIMULATION_FIXTURE";
+  }
+  if (!emptyPoolFailedClosed) throw new Error(`WAVE_G_EMPTY_POOL_DID_NOT_FAIL_CLOSED:G${pack.grade}`);
+  const skills = new Set(pack.skills.map((skill) => skill.id));
+  const actionTargets = [contract.actions.continueTargetSkillId, contract.actions.remediateTargetSkillId,
+    contract.actions.advanceTargetSkillId, contract.actions.retentionTargetSkillId, ...contract.actions.mixedPracticeTargetSkillIds];
+  if (actionTargets.some((skillId) => !skills.has(skillId))) throw new Error(`WAVE_G_NEXT_ACTION_MISSING:G${pack.grade}`);
+  if (pack.release.retentionEnabled) throw new Error(`WAVE_G_RETENTION_FLAG_ENABLED:G${pack.grade}`);
+  return {
+    ...base, historyPreserved: true,
+    retention: { projected: true, runtimeFlagRemainsDisabled: true, targetSkillId: contract.actions.retentionTargetSkillId },
+    emptyPool: { failedClosed: true, error: "INVALID_SIMULATION_FIXTURE" },
+    nextActions: { continue: contract.actions.continueTargetSkillId, remediate: contract.actions.remediateTargetSkillId,
+      advance: contract.actions.advanceTargetSkillId, retentionReview: contract.actions.retentionTargetSkillId,
+      mixedPractice: contract.actions.mixedPracticeTargetSkillIds, alwaysValid: true,
+      schoolGradeMutation: false, entitlementGrant: false },
   };
 }

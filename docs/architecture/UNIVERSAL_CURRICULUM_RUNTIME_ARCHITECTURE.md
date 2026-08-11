@@ -166,3 +166,7 @@ evidence.
 The application flag alone is insufficient. New attempts additionally require
 an `ACTIVE/ACTIVE` database release. Adaptive/controlled-pilot flags are not
 reused.
+
+## Wave G offline content-production boundary
+
+Wave G adds only hidden statistics/data/probability candidate artifacts. Its build and test entry points run an offline invocation audit before local execution: bare or programmatic `npx`, network-capable package operations, and missing local executables fail closed. The historical Wave F registry DNS attempt remains recorded as an immutable operational fact; Wave G introduces no new network attempt. These production artifacts do not alter publication, runtime, entitlement, scoring, mastery, migration or catalog-isolation contracts.
