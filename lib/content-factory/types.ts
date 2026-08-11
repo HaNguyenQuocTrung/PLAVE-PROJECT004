@@ -107,6 +107,7 @@ export type QuestionBlueprint = Readonly<{
 export type CandidateQuestion = Readonly<{
   id: string;
   grade: FactoryGrade;
+  unitId?: string;
   blueprintId: string;
   skillId: string;
   prompt: string;
@@ -175,6 +176,23 @@ export type ReleaseState = Readonly<{
   retentionEnabled: boolean;
 }>;
 
+export type AdaptivePolicyEvidenceBasis =
+  | "EXISTING_VERIFIED_PRODUCT_CONTRACT"
+  | "DERIVED_COMPATIBILITY_VALUE"
+  | "PRODUCT_HYPOTHESIS";
+
+export type AdaptivePolicyContract = Readonly<{
+  sessionLength: Readonly<{ minimum: number; maximum: number; basis: AdaptivePolicyEvidenceBasis }>;
+  minimumSkillEvidence: Readonly<{ value: number; basis: AdaptivePolicyEvidenceBasis }>;
+  masteryThreshold: Readonly<{ correct: number; basis: AdaptivePolicyEvidenceBasis }>;
+  remediationIncorrectStreak: Readonly<{ value: number; basis: AdaptivePolicyEvidenceBasis }>;
+  resume: Readonly<{ idempotent: true; basis: AdaptivePolicyEvidenceBasis }>;
+  retentionReview: Readonly<{ enabled: false; contract: "SHADOW_ONLY"; basis: AdaptivePolicyEvidenceBasis }>;
+  deterministicSelection: true;
+  scoringHistoryRewrite: false;
+  pedagogicalEffectivenessClaim: false;
+}>;
+
 export type ProductionSummary = Readonly<{
   wave: "A";
   selectedSliceId: string;
@@ -217,7 +235,11 @@ export type GradePack = Readonly<{
   explanations: readonly ExplanationSpec[];
   evidenceReceipts: readonly AutomatedEvidenceReceipt[];
   candidate: CandidateBinding | null;
-  adaptivePolicy: Readonly<{ version: string; status: "NOT_DEFINED" | "DRAFT" | "VALIDATED" }>;
+  adaptivePolicy: Readonly<{
+    version: string;
+    status: "NOT_DEFINED" | "DRAFT" | "VALIDATED";
+    contract?: AdaptivePolicyContract;
+  }>;
   release: ReleaseState;
   production?: ProductionSummary;
   legacyAsset: LegacyAssetReference | null;

@@ -31,6 +31,7 @@ export type CandidatePublicationState = Readonly<{
   policyVersion: string;
   publicationStatus: "DRAFT" | "PUBLISHED" | "RETIRED";
   studentVisibility: "HIDDEN" | "VISIBLE";
+  executionMode?: "DATABASE_CANDIDATE" | "LOCAL_SHADOW_ONLY";
 }>;
 
 export const gradeTwoNumbersTo1000PublicationState: CandidatePublicationState =
@@ -45,10 +46,27 @@ export const gradeTwoNumbersTo1000PublicationState: CandidatePublicationState =
     studentVisibility: "HIDDEN",
   };
 
+// This is a candidate overlay only. The active Grade 1 fixed-practice runtime
+// continues to use its existing published units and never resolves this slug.
+export const gradeOneShadowPublicationState: CandidatePublicationState = {
+  unitSlug: "grade-1-shadow-candidate",
+  releaseCandidateId: "g1-legacy-release-shadow-rc1",
+  contentVersion: "g1-shadow-1.0.0-rc.1",
+  bundleSha256:
+    "9d6cbdb8410ba2e1ab5907ea69f2e424abe9de278f0b8e4a616db8dbf97ac872",
+  policyVersion: "g1-shadow-adaptive-policy-1.0.0",
+  publicationStatus: "DRAFT",
+  studentVisibility: "HIDDEN",
+  executionMode: "LOCAL_SHADOW_ONLY",
+};
+
 export const adaptiveCandidateRegistry: readonly Readonly<{
   grade: number;
   candidate: CandidatePublicationState;
-}>[] = [{ grade: 2, candidate: gradeTwoNumbersTo1000PublicationState }];
+}>[] = [
+  { grade: 1, candidate: gradeOneShadowPublicationState },
+  { grade: 2, candidate: gradeTwoNumbersTo1000PublicationState },
+];
 
 export function findAdaptiveCandidate(unitSlug: string) {
   return adaptiveCandidateRegistry.find((entry) => entry.candidate.unitSlug === unitSlug) ?? null;
@@ -72,6 +90,7 @@ export type AdaptiveRuntimeGate =
       kind: "DENIED";
       reason:
         | "UNIT_NOT_ADAPTIVE"
+        | "SHADOW_ONLY"
         | "CANDIDATE_NOT_VISIBLE"
         | "APPLICATION_FEATURE_DISABLED"
         | "CONTROLLED_PILOT_DISABLED"
@@ -132,6 +151,9 @@ export function resolveAdaptiveRuntimeGate(
 ): AdaptiveRuntimeGate {
   if (!candidate || unitSlug !== candidate.unitSlug) {
     return { kind: "DENIED", reason: "UNIT_NOT_ADAPTIVE" };
+  }
+  if (candidate.executionMode === "LOCAL_SHADOW_ONLY") {
+    return { kind: "DENIED", reason: "SHADOW_ONLY" };
   }
   const isPublishedVisible =
     candidate.publicationStatus === "PUBLISHED" &&

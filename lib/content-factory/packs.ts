@@ -8,7 +8,7 @@ import {
   createGradeTwoReleaseArtifacts,
 } from "../content-engine/grade2-numbers-to-1000-release.ts";
 import { normalizedDefinition, sha256 } from "./canonical.ts";
-import { gradeOneReferencePack } from "./grade1-reference.ts";
+import { gradeOneShadowCandidatePack } from "./grade1-shadow.ts";
 import { gradeThreeWaveAPack } from "./grade3-wave-a.ts";
 import { gradeFourWaveAPack } from "./grade4-wave-a.ts";
 import { gradeFiveWaveAPack } from "./grade5-wave-a.ts";
@@ -108,7 +108,7 @@ function gradeTwoPack(): GradePack {
 }
 
 export const productionGradePacks: readonly GradePack[] = [
-  gradeOneReferencePack,
+  gradeOneShadowCandidatePack,
   gradeTwoPack(),
   gradeThreeWaveAPack,
   gradeFourWaveAPack,

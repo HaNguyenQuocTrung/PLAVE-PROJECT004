@@ -40,6 +40,11 @@ export function validateCandidateQuestion(question: CandidateQuestion, pack: Gra
   if (wordCount > gradeWordLimit) result.push(diagnostic("GRADE_RANGE_LANGUAGE", "ERROR", question.id, "Prompt exceeds the bounded wording length for its grade band."));
   if (/\d+\.\d{1,2}(?!\d)/u.test(question.prompt)) result.push(diagnostic("VIETNAMESE_DECIMAL_NOTATION", "ERROR", question.id, "Vietnamese decimal prompts must use a comma separator."));
   if (question.grade !== pack.grade) result.push(diagnostic("GRADE_MISMATCH", "ERROR", question.id, "Question grade differs from its pack."));
+  if (question.unitId) {
+    const unit = pack.units.find((item) => item.id === question.unitId);
+    if (!unit) result.push(diagnostic("MISSING_UNIT", "ERROR", question.id, "Question references a missing unit."));
+    else if (!unit.skillIds.includes(question.skillId)) result.push(diagnostic("UNIT_SKILL_MISMATCH", "ERROR", question.id, "Question skill is not bound to its unit."));
+  }
   if (!pack.skills.some((skill) => skill.id === question.skillId)) result.push(diagnostic("MISSING_SKILL", "ERROR", question.id, "Question references a missing skill."));
   const blueprint = pack.blueprints.find((item) => item.id === question.blueprintId);
   if (!blueprint) result.push(diagnostic("MISSING_BLUEPRINT", "ERROR", question.id, "Question references a missing blueprint."));
@@ -128,7 +133,7 @@ export function validateGradePack(pack: GradePack): readonly ValidationDiagnosti
     if (pack.production.verificationInsufficient !== quarantined) result.push(diagnostic("QUARANTINE_COUNT_DRIFT", "ERROR", pack.packId, "Verification-insufficient count must match retained quarantine records."));
     if (pack.production.selectionBasis.length === 0) result.push(diagnostic("WAVE_A_SELECTION_BASIS_REQUIRED", "ERROR", pack.packId, "Wave A slice selection requires an explicit evidence basis."));
   }
-  if (pack.candidate && pack.grade >= 2 && (
+  if (pack.candidate && pack.grade >= 1 && (
     pack.release.publication !== "DRAFT" ||
     pack.release.visibility !== "HIDDEN" ||
     pack.release.pilotEnabled ||

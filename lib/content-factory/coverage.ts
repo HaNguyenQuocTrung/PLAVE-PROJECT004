@@ -53,17 +53,18 @@ function sourceMapped(pack: GradePack, question: CandidateQuestion) {
 
 function questionEvidence(pack: GradePack) {
   const completePackEvidence = hasCompleteAutomatedEvidenceGate(pack.evidenceReceipts, pack.packId);
+  const passedChecks = new Set(pack.evidenceReceipts.filter((receipt) => receipt.entityId === pack.packId && receipt.status === "PASSED").map((receipt) => receipt.check));
   const fingerprints = pack.questions.map((question) => normalizedDefinition(`${question.prompt}|${question.options?.join("|") ?? ""}`).toLocaleLowerCase("vi"));
   const duplicateFingerprints = new Set(fingerprints.filter((value, index) => fingerprints.indexOf(value) !== index));
   return pack.questions.map((question, index) => {
     const diagnostics = validateCandidateQuestion(question, pack);
     const codes = new Set(diagnostics.map((item) => item.code));
     const source = sourceMapped(pack, question);
-    const math = ![...mathFailureCodes].some((code) => codes.has(code));
-    const explanation = ![...explanationFailureCodes].some((code) => codes.has(code));
-    const ambiguity = !codes.has("AMBIGUOUS_WORDING");
-    const duplicate = !duplicateFingerprints.has(fingerprints[index]!);
-    const security = ![...securityFailureCodes].some((code) => codes.has(code));
+    const math = passedChecks.has("MATHEMATICAL_ANSWER") && ![...mathFailureCodes].some((code) => codes.has(code));
+    const explanation = passedChecks.has("EXPLANATION_CONSISTENCY") && ![...explanationFailureCodes].some((code) => codes.has(code));
+    const ambiguity = passedChecks.has("DUPLICATE_AMBIGUITY") && !codes.has("AMBIGUOUS_WORDING");
+    const duplicate = passedChecks.has("DUPLICATE_AMBIGUITY") && !duplicateFingerprints.has(fingerprints[index]!);
+    const security = passedChecks.has("SOLUTION_LEAKAGE_SECURITY") && ![...securityFailureCodes].some((code) => codes.has(code));
     const structural = diagnostics.every((item) => item.severity !== "ERROR");
     const gate = source && math && explanation && ambiguity && duplicate && security && structural && completePackEvidence && evidenceGateStatuses.has(question.reviewStatus);
     return { question, source, math, explanation, ambiguity, duplicate, security, gate };
@@ -72,7 +73,7 @@ function questionEvidence(pack: GradePack) {
 
 export function createCoverageMatrix(packs: readonly GradePack[]): readonly GradeCoverage[] {
   return [...packs].sort((a, b) => a.grade - b.grade).map((pack) => {
-    if (pack.legacyAsset) return {
+    if (pack.legacyAsset && !pack.candidate) return {
       grade: pack.grade, curriculumSourceCoverage: count(1), domainCount: unknown(), unitCount: count(pack.legacyAsset.expected.units),
       skillCount: count(pack.skills.length), prerequisiteCompleteness: unknown(), blueprintCount: count(pack.legacyAsset.expected.diagnosticRows),
       candidateQuestionCount: na(), sourceMappedCount: count(pack.legacyAsset.expected.questions), generatedCount: na(),
