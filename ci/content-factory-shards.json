@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "remoteCiEnabled": false,
+  "shards": [
+    { "id": "grades-1-3", "grades": "1-3" },
+    { "id": "grades-4-5", "grades": "4-5" },
+    { "id": "grade-6", "grades": "6" },
+    { "id": "grades-7-8", "grades": "7-8" },
+    { "id": "grade-9", "grades": "9" },
+    { "id": "cross-grade", "grades": "1-9", "checks": ["prerequisites", "duplicates", "merged-coverage"] }
+  ]
+}
