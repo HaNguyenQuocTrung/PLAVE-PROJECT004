@@ -4,7 +4,7 @@ export type OnboardingSubmission = {
 };
 
 export const missingRegistrationGradeMessage =
-  "PLAVE chưa tìm thấy lớp em đã chọn. Vui lòng đăng xuất và đăng ký lại hoặc liên hệ hỗ trợ.";
+  "PLAVE chưa tìm thấy lớp em đã chọn. Vui lòng đăng xuất, đăng ký lại và chọn lớp từ 1 đến 9.";
 
 export function isValidRegistrationGrade(
   value: unknown,

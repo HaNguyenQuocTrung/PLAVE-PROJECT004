@@ -227,7 +227,7 @@ test("preview CSS keeps visual, touch, focus and action contracts across 360, 76
   assert.match(styles, /\.grade-picker a\s*\{[^}]*min-height:\s*44px/u);
   assert.match(
     styles,
-    /\.preview-page :where\([^)]*\)\s*\{[^}]*overflow-wrap:\s*anywhere[^}]*word-break:\s*normal/u,
+    /\.preview-page :where\([^)]*\)\s*\{[^}]*overflow-wrap:\s*break-word[^}]*word-break:\s*normal/u,
   );
   assert.match(
     styles,

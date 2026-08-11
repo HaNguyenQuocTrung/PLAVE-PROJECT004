@@ -4,7 +4,7 @@ import { WAVE_E_CAPABILITY_METADATA, type WaveEProfile } from "./wave-e-capabili
 import { WAVE_E_OUTCOME_CAPABILITY, type WaveECapabilityId } from "./wave-e-plan.ts";
 
 export const WAVE_E_CONTRACT_VERSION = "PLAVE_PRODUCT_ASSESSMENT_CONTRACT_V2" as const;
-export const WAVE_E_ENGINE_VERSION = "plave-generator-v2-wave-e.1" as const;
+export const WAVE_E_ENGINE_VERSION = "plave-generator-v2-wave-e.2" as const;
 export type WaveEOutcomeContract = Readonly<{
   contractType: typeof WAVE_E_CONTRACT_VERSION;
   contractVersion: "wave-e-v2.1";

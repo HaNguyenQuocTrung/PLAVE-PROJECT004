@@ -125,7 +125,6 @@ test("Sprint 6F 1. Frozen candidate identity and hash remain exact", () => {
 
 test("Sprint 6F 2. All runtime and pilot feature flags default false", () => {
   assert.deepEqual(adaptiveRuntimeFeatureFlags, {
-    GRADE2_NUMBERS_TO_1000_ENABLED: false,
     ADAPTIVE_PRACTICE_RUNTIME_ENABLED: false,
     CONTROLLED_PILOT_ENABLED: false,
     RETENTION_RUNTIME_ENABLED: false,
@@ -141,7 +140,6 @@ test("Sprint 6F 2. All runtime and pilot feature flags default false", () => {
 
 test("Sprint 6F 3. Flags cannot override a DRAFT/HIDDEN publication guard", () => {
   const allEnabled = {
-    GRADE2_NUMBERS_TO_1000_ENABLED: true,
     ADAPTIVE_PRACTICE_RUNTIME_ENABLED: true,
     CONTROLLED_PILOT_ENABLED: true,
     RETENTION_RUNTIME_ENABLED: true,

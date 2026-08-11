@@ -2,7 +2,7 @@ import "server-only";
 
 import {
   parseAdaptivePilotAvailability,
-  resolveConfiguredAdaptivePilotGate,
+  resolveConfiguredAdaptivePilotAccess,
   type AdaptivePilotEnvironment,
   type AdaptivePilotAvailability,
 } from "@/lib/practice/adaptive-pilot";
@@ -33,10 +33,8 @@ export type ServerAdaptivePilotAccess =
 
 function getServerAdaptivePilotEnvironment(): AdaptivePilotEnvironment {
   return {
-    PLAVE_ADAPTIVE_PILOT_USER_IDS:
-      process.env.PLAVE_ADAPTIVE_PILOT_USER_IDS,
-    PLAVE_GRADE2_NUMBERS_TO_1000_ENABLED:
-      process.env.PLAVE_GRADE2_NUMBERS_TO_1000_ENABLED,
+    PLAVE_ADAPTIVE_PILOT_ENTITLEMENTS:
+      process.env.PLAVE_ADAPTIVE_PILOT_ENTITLEMENTS,
     PLAVE_ADAPTIVE_PRACTICE_RUNTIME_ENABLED:
       process.env.PLAVE_ADAPTIVE_PRACTICE_RUNTIME_ENABLED,
     PLAVE_CONTROLLED_PILOT_ENABLED:
@@ -50,22 +48,25 @@ export async function resolveServerAdaptivePilotAccess(
   userId: string,
   grade: number,
   rpc: PilotAvailabilityRpc,
+  unitSlug?: string,
 ): Promise<ServerAdaptivePilotAccess> {
-  const gate = resolveConfiguredAdaptivePilotGate(
+  const configured = resolveConfiguredAdaptivePilotAccess(
     userId,
+    grade,
     getServerAdaptivePilotEnvironment(),
+    unitSlug,
   );
-  if (grade !== 2 || gate.kind !== "RPC_ALLOWED") {
-    return { kind: "DENIED", gate };
+  if (configured.gate.kind !== "RPC_ALLOWED" || !configured.candidate) {
+    return { kind: "DENIED", gate: configured.gate };
   }
 
   const result = await rpc(
     "get_adaptive_controlled_pilot_availability",
-    { p_unit_slug: "grade-2-numbers-to-1000" },
+    { p_unit_slug: configured.candidate.unitSlug },
   );
   const availability =
     result.error === null
-      ? parseAdaptivePilotAvailability(result.data)
+      ? parseAdaptivePilotAvailability(result.data, configured.candidate)
       : null;
   if (!availability) {
     return {
@@ -74,7 +75,7 @@ export async function resolveServerAdaptivePilotAccess(
     };
   }
 
-  return { kind: "ALLOWED", gate, availability };
+  return { kind: "ALLOWED", gate: configured.gate, availability };
 }
 
 export async function loadServerAdaptivePilotUnit(
@@ -98,7 +99,7 @@ export async function loadServerAdaptivePilotUnit(
       "slug, grade, title, description, learning_objectives, lesson_content, total_questions, prerequisite_unit_slug",
     )
     .eq("slug", access.availability.unitSlug)
-    .eq("grade", 2)
+    .eq("grade", grade)
     .eq("published", false)
     .maybeSingle();
   if (error) return null;

@@ -15,6 +15,10 @@ import {
   type StudentCurriculumProgress,
 } from "@/lib/curriculum-runtime/contracts";
 import { getLessonPath } from "@/lib/practice/catalog";
+import {
+  getGradeContentEmptyDescription,
+  getGradeContentEmptyTitle,
+} from "@/lib/practice/grade-content";
 
 type UniversalCurriculumCatalogProps = {
   grade: number;
@@ -98,66 +102,73 @@ export function UniversalCurriculumCatalog({
         </section>
       ) : null}
 
-      <section className="unit-catalog" aria-labelledby="unit-catalog-title">
-        <div className="section-heading section-heading--compact">
-          <p className="eyebrow">Nội dung phù hợp với lớp {grade}</p>
-          <h2 id="unit-catalog-title">Chọn chủ đề để học</h2>
-        </div>
-        <div className="unit-catalog__grid">
-          {units.map((unit) => {
-            const unitProgress = progressByUnit.get(unit.slug);
-            const label = unitProgress
-              ? curriculumMasteryLabelText[unitProgress.masteryLabel]
-              : "Chưa bắt đầu";
-            return (
-              <article
-                className={`unit-card ${
-                  recommendation?.unitId === unit.slug
-                    ? "unit-card--recommended"
-                    : ""
-                }`}
-                key={unit.slug}
-              >
-                <div className="unit-card__heading">
-                  <span
-                    className={`unit-status ${
-                      unitProgress?.status === "COMPLETED"
-                        ? "unit-status--complete"
-                        : unitProgress?.status === "IN_PROGRESS"
-                          ? "unit-status--continue"
-                          : ""
-                    }`}
-                  >
-                    {label}
-                  </span>
-                  <span>{curriculumDomainLabels[unit.domain]}</span>
-                </div>
-                {competencyRecommendation?.candidateId === unit.slug ||
-                recommendation?.unitId === unit.slug ? (
-                  <span className="unit-recommendation-badge">
-                    Được gợi ý từ tiến độ thật
-                  </span>
-                ) : null}
-                <h3>{studentUnitTitle(unit)}</h3>
-                <p>{unit.theory[0]?.explanation[0]}</p>
-                <div className="unit-card__objective">
-                  <strong>Em sẽ hiểu</strong>
-                  <span>{studentLearningGoals(unit)[0]}</span>
-                </div>
-                <p className="unit-card__progress">
-                  {unit.theory.length} phần lý thuyết · {unit.examples.length}{" "}
-                  ví dụ · 12 câu luyện tập
-                </p>
-                <Button href={getLessonPath(unit.slug)}>
-                  {unitProgress?.status === "IN_PROGRESS"
-                    ? "Tiếp tục học"
-                    : "Mở bài học"}
-                </Button>
-              </article>
-            );
-          })}
-        </div>
-      </section>
+      {units.length === 0 ? (
+        <section className="empty-state empty-state--large">
+          <h2>{getGradeContentEmptyTitle(grade)}</h2>
+          <p>{getGradeContentEmptyDescription()}</p>
+        </section>
+      ) : (
+        <section className="unit-catalog" aria-labelledby="unit-catalog-title">
+          <div className="section-heading section-heading--compact">
+            <p className="eyebrow">Nội dung đã sẵn sàng cho lớp {grade}</p>
+            <h2 id="unit-catalog-title">Chọn chủ đề để học</h2>
+          </div>
+          <div className="unit-catalog__grid">
+            {units.map((unit) => {
+              const unitProgress = progressByUnit.get(unit.slug);
+              const label = unitProgress
+                ? curriculumMasteryLabelText[unitProgress.masteryLabel]
+                : "Chưa bắt đầu";
+              return (
+                <article
+                  className={`unit-card ${
+                    recommendation?.unitId === unit.slug
+                      ? "unit-card--recommended"
+                      : ""
+                  }`}
+                  key={unit.slug}
+                >
+                  <div className="unit-card__heading">
+                    <span
+                      className={`unit-status ${
+                        unitProgress?.status === "COMPLETED"
+                          ? "unit-status--complete"
+                          : unitProgress?.status === "IN_PROGRESS"
+                            ? "unit-status--continue"
+                            : ""
+                      }`}
+                    >
+                      {label}
+                    </span>
+                    <span>{curriculumDomainLabels[unit.domain]}</span>
+                  </div>
+                  {competencyRecommendation?.candidateId === unit.slug ||
+                  recommendation?.unitId === unit.slug ? (
+                    <span className="unit-recommendation-badge">
+                      Được gợi ý từ tiến độ thật
+                    </span>
+                  ) : null}
+                  <h3>{studentUnitTitle(unit)}</h3>
+                  <p>{unit.theory[0]?.explanation[0]}</p>
+                  <div className="unit-card__objective">
+                    <strong>Em sẽ hiểu</strong>
+                    <span>{studentLearningGoals(unit)[0]}</span>
+                  </div>
+                  <p className="unit-card__progress">
+                    {unit.theory.length} phần lý thuyết · {unit.examples.length}{" "}
+                    ví dụ · 12 câu luyện tập
+                  </p>
+                  <Button href={getLessonPath(unit.slug)}>
+                    {unitProgress?.status === "IN_PROGRESS"
+                      ? "Tiếp tục học"
+                      : "Mở bài học"}
+                  </Button>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

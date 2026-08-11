@@ -254,6 +254,16 @@ test("backup script has no URL format-string or process-argument path", () => {
   assert.match(source, /trap 'exit 143' TERM/u);
   assert.match(source, /cleanup_generated_directory/u);
   assert.match(source, /clear_credential/u);
+  assert.match(source, /PLAVE_BACKUP_EXPECTED_COUNTS/u);
+  assert.match(source, /Could not derive sanitized aggregate counts from data[.]sql/u);
+  assert.doesNotMatch(source, /authUsers:\s*5/u);
+  assert.doesNotMatch(source, /practiceAnswers:\s*340/u);
+  assert.doesNotMatch(source, /questionSolutions:\s*312/u);
+  assert.doesNotMatch(source, /publication_committed/u);
+  assert.match(
+    source,
+    /cleanup_generated_directory\(\)[\s\S]*?if \[\[ -z "\$\{cleanup_target\}" \]\]/u,
+  );
   assert.doesNotMatch(
     runnerSource,
     /args\s*:\s*\[[^\]]*(databaseUrl|PGPASSWORD|SUPABASE_DB_PASSWORD)/su,

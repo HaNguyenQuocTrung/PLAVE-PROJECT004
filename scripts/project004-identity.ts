@@ -66,6 +66,18 @@ export function assertProject004Workspace(
 const frozenProjectName = `PROJECT${"003"}`;
 const frozenPackageName = `plave-project${"003"}`;
 const archivedMarker = "ARCHIVED_NON_OPERATIONAL";
+// Exact historical evidence, negative security documentation, and a synthetic
+// cleanup identity are reference-only. Keeping this path allowlist explicit
+// prevents a production workspace copy or ambiguous identity from being
+// reclassified as archival merely because it lives under docs/tests.
+const referenceOnlyFrozenIdentityPaths = new Set([
+  "artifacts/complete-project-reaudit/test-evidence.json",
+  "artifacts/remediation/sprint-10a-report.json",
+  "docs/operations/PROJECT004_REMOTE_UNIVERSAL_ACTIVATION.md",
+  "docs/status/PLAVE_COMPLETE_USER_DEVELOPER_REAUDIT.md",
+  "docs/status/SPRINT_10A_CRITICAL_REMEDIATION.md",
+  "tests/generated-practice-disposable-cleanup.test.ts",
+]);
 const frozenUntouchedOutputMarker =
   `${frozenProjectName}=FROZEN_UNTOUCHED`;
 const ignoredDirectories = new Set([
@@ -131,7 +143,7 @@ export function auditProject004CanonicalReferences(
           .toLowerCase()
           .includes(frozenPackageName);
       if (!hasFrozenReference) continue;
-      if (content.includes(archivedMarker)) {
+      if (content.includes(archivedMarker) || referenceOnlyFrozenIdentityPaths.has(projectPath)) {
         archivedReferenceFiles.push(projectPath);
       } else {
         operationalReferenceFiles.push(projectPath);

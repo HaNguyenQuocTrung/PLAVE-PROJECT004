@@ -145,7 +145,7 @@ export async function activateTeacherAccount(
       status: 409,
       code: "ACTIVATION_FAILED",
       message:
-        "Chưa thể xác minh mã mời. Vui lòng kiểm tra lại hoặc liên hệ PLAVE.",
+        "Chưa thể xác minh mã mời lúc này. Vui lòng thử lại sau. Nếu mã đã hết hạn, hãy đề nghị Owner cấp một mã mời mới.",
     };
   }
 
@@ -156,7 +156,7 @@ export async function activateTeacherAccount(
       status: 409,
       code: "INVITATION_UNAVAILABLE",
       message:
-        "Mã mời không hợp lệ hoặc không còn sử dụng được. Vui lòng kiểm tra lại hoặc liên hệ PLAVE.",
+        "Mã mời không hợp lệ, đã hết hạn hoặc không còn sử dụng được. Hãy kiểm tra lại mã hoặc đề nghị Owner cấp một mã mời mới.",
     };
   }
 

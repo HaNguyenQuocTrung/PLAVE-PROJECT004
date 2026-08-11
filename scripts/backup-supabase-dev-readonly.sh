@@ -5,8 +5,9 @@ set -euo pipefail
 umask 077
 
 staging_dir=''
+# A non-empty target is the single rollback authority. It follows the backup
+# across the staging rename and is cleared only after the success receipt.
 cleanup_target=''
-publication_committed='false'
 
 fail() {
   printf '%s\n' "Backup blocked: $1" >&2
@@ -38,7 +39,7 @@ clear_credential() {
 }
 
 cleanup_generated_directory() {
-  if [[ -z "${cleanup_target}" || "${publication_committed}" = 'true' ]]; then
+  if [[ -z "${cleanup_target}" ]]; then
     return
   fi
 
@@ -220,6 +221,107 @@ try {
 }
 NODE
 
+observed_counts_file="${staging_dir}/.observed-restore-counts.json"
+PLAVE_BACKUP_DATA_FILE="${data_file}" \
+PLAVE_BACKUP_COUNTS_FILE="${observed_counts_file}" \
+node <<'NODE' || fail 'Could not derive sanitized aggregate counts from data.sql.'
+const fs = require("node:fs");
+
+try {
+  const dataFile = process.env.PLAVE_BACKUP_DATA_FILE;
+  if (!dataFile) {
+    process.exit(2);
+  }
+
+  const targets = new Map([
+    ["auth.users", { key: "authUsers" }],
+    ["public.profiles", { key: "profiles" }],
+    ["public.student_profiles", { key: "studentProfiles" }],
+    ["public.teacher_profiles", { key: "teacherProfiles" }],
+    [
+      "public.parent_student_connections",
+      { key: "parentStudentConnections" },
+    ],
+    ["public.practice_attempts", { key: "practiceAttempts" }],
+    ["public.practice_answers", { key: "practiceAnswers" }],
+    ["public.diagnostic_attempts", { key: "diagnosticAttempts" }],
+    ["public.diagnostic_answers", { key: "diagnosticAnswers" }],
+    ["public.learning_units", { key: "grade1Units", gradeOneOnly: true }],
+    ["public.questions", { key: "questions" }],
+    ["public.question_solutions", { key: "questionSolutions" }],
+  ]);
+  const counts = new Map();
+  const lines = fs.readFileSync(dataFile, "utf8").split(/\n/u);
+  const copyHeader = /^COPY "([^"]+)"\."([^"]+)" \((.+)\) FROM stdin;$/u;
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index].replace(/\r$/u, "");
+    const match = copyHeader.exec(line);
+    if (!match) continue;
+
+    const identity = `${match[1]}.${match[2]}`;
+    const target = targets.get(identity);
+    let terminator = index + 1;
+    while (
+      terminator < lines.length &&
+      lines[terminator].replace(/\r$/u, "") !== "\\."
+    ) {
+      terminator += 1;
+    }
+    if (terminator >= lines.length) {
+      process.exit(3);
+    }
+    if (target) {
+      if (counts.has(target.key)) {
+        process.exit(4);
+      }
+      const rows = lines.slice(index + 1, terminator);
+      if (target.gradeOneOnly) {
+        const columns = [...match[3].matchAll(/"([^"]+)"/gu)].map(
+          (columnMatch) => columnMatch[1],
+        );
+        const gradeIndex = columns.indexOf("grade");
+        if (gradeIndex < 0) {
+          process.exit(5);
+        }
+        counts.set(
+          target.key,
+          rows.filter((row) => row.split("\t")[gradeIndex] === "1").length,
+        );
+      } else {
+        counts.set(target.key, rows.length);
+      }
+    }
+    index = terminator;
+  }
+
+  if (
+    counts.size !== targets.size ||
+    [...counts.values()].some(
+      (value) => !Number.isSafeInteger(value) || value < 0,
+    )
+  ) {
+    process.exit(6);
+  }
+
+  const countsFile = process.env.PLAVE_BACKUP_COUNTS_FILE;
+  if (!countsFile) {
+    process.exit(7);
+  }
+  fs.writeFileSync(
+    countsFile,
+    JSON.stringify(Object.fromEntries(counts)),
+    { mode: 0o600, flag: "wx" },
+  );
+} catch {
+  process.exit(8);
+}
+NODE
+observed_restore_counts="$(<"${observed_counts_file}")" \
+  || fail 'Could not read sanitized aggregate counts from data.sql.'
+rm -f -- "${observed_counts_file}" \
+  || fail 'Could not clear temporary sanitized aggregate counts.'
+
 roles_sha="$(shasum -a 256 "${roles_file}" 2>/dev/null | awk '{print $1}')" \
   || fail 'roles.sql checksum failed.'
 schema_sha="$(shasum -a 256 "${schema_file}" 2>/dev/null | awk '{print $1}')" \
@@ -243,6 +345,7 @@ PLAVE_BACKUP_SCHEMA_SIZE="${schema_size}" \
 PLAVE_BACKUP_DATA_SIZE="${data_size}" \
 PLAVE_BACKUP_SUPABASE_CLI_VERSION="${supabase_cli_version}" \
 PLAVE_BACKUP_SUPABASE_DUMP_IMAGE="${supabase_dump_image}" \
+PLAVE_BACKUP_EXPECTED_COUNTS="${observed_restore_counts}" \
 PLAVE_BACKUP_DIRECTORY="${staging_dir}" \
 node <<'NODE'
 const fs = require("node:fs");
@@ -252,6 +355,35 @@ try {
   const backupDir = process.env.PLAVE_BACKUP_DIRECTORY;
   if (!backupDir) {
     process.exit(2);
+  }
+
+  const expectedRestoreCounts = JSON.parse(
+    process.env.PLAVE_BACKUP_EXPECTED_COUNTS ?? "",
+  );
+  const expectedCountKeys = [
+    "authUsers",
+    "profiles",
+    "studentProfiles",
+    "teacherProfiles",
+    "parentStudentConnections",
+    "practiceAttempts",
+    "practiceAnswers",
+    "diagnosticAttempts",
+    "diagnosticAnswers",
+    "grade1Units",
+    "questions",
+    "questionSolutions",
+  ];
+  if (
+    Object.keys(expectedRestoreCounts).sort().join("\n") !==
+      [...expectedCountKeys].sort().join("\n") ||
+    expectedCountKeys.some(
+      (key) =>
+        !Number.isSafeInteger(expectedRestoreCounts[key]) ||
+        expectedRestoreCounts[key] < 0,
+    )
+  ) {
+    process.exit(3);
   }
 
   const manifest = {
@@ -287,20 +419,7 @@ try {
         sha256: process.env.PLAVE_BACKUP_DATA_SHA,
       },
     },
-    expectedRestoreCounts: {
-      authUsers: 5,
-      profiles: 5,
-      studentProfiles: 3,
-      teacherProfiles: 1,
-      parentStudentConnections: 3,
-      practiceAttempts: 18,
-      practiceAnswers: 340,
-      diagnosticAttempts: 1,
-      diagnosticAnswers: 24,
-      grade1Units: 13,
-      questions: 312,
-      questionSolutions: 312,
-    },
+    expectedRestoreCounts,
     included: ["database roles dump", "database schema dump", "database data dump"],
     excluded: [
       "Storage objects",
@@ -399,7 +518,6 @@ printf '%s\n%s\n' \
   'Backup validation: PASS' \
   "Backup ID: ${backup_id}"
 
-publication_committed='true'
 cleanup_target=''
 staging_dir=''
 trap 'exit 129' HUP

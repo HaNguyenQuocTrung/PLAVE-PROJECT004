@@ -450,5 +450,5 @@ console.log(
   "Grade 1 release technical validation passed: 13 published units, valid prerequisite graph, 312 questions, 312 solutions, 208 MCQ, 104 NUMBER_INPUT, and 52 skill groups.",
 );
 console.warn(
-  "CONTENT_GOVERNANCE_NOTICE: technical release integrity passed; this does not imply Ministry endorsement or expert review. Official-source validation and Owner publication decisions are tracked independently.",
+  "CONTENT_GOVERNANCE_NOTICE: technical release integrity passed; this does not imply Ministry endorsement or official curriculum-source alignment beyond cited evidence. Owner authorization remains separate for publication and other consequential operations.",
 );

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "content-factory-grade-pack-v1",
+  "grade": 6,
+  "packId": "grade-6-wave-a-integer-operations",
+  "packVersion": "g6-integer-operations-1.0.0-wave-a",
+  "sourceStatus": "SOURCE_VERIFIED",
+  "sourceMap": "content/grade-packs/generated/source-map-grade-6.json",
+  "waveASlice": "g6-integer-operations",
+  "structuralCoverage": {
+    "sourceMapRows": 88,
+    "domains": 4,
+    "units": 26,
+    "skills": 86,
+    "remainingContentOutcomes": 82
+  },
+  "candidate": {
+    "candidateId": "g6-integer-operations-wave-a",
+    "version": "g6-integer-operations-1.0.0-wave-a",
+    "bundleHash": "f3c1b317afb19a2c189d69516be4948b70d5e7e7270f9c6543db5e186d9bfea4",
+    "policyVersion": "g6-integer-adaptive-policy-1.0.0-wave-a"
+  },
+  "production": {
+    "generated": 24,
+    "repaired": 0,
+    "evidenceGatePassed": 24,
+    "verificationInsufficient": 0,
+    "rejected": 0,
+    "duplicate": 0,
+    "candidateEligible": 24
+  },
+  "publication": "DRAFT",
+  "visibility": "HIDDEN",
+  "pilotEnabled": false,
+  "runtimeEnabled": false,
+  "retentionEnabled": false
+}

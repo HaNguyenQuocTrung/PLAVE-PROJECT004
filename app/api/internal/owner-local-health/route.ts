@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { getUniversalCurriculumRuntimeFlag } from "@/lib/curriculum-runtime/feature-flag";
 import {
   adaptivePilotEnvironmentKeys,
-  parseAdaptivePilotAllowlist,
+  parseAdaptivePilotEntitlements,
   parseAdaptiveRuntimeFeatureFlags,
 } from "@/lib/practice/adaptive-pilot";
 import {
@@ -20,8 +20,6 @@ const loopbackHosts = new Set(["127.0.0.1", "localhost", "::1"]);
 
 function isAdaptivePilotDisabled() {
   const flags = parseAdaptiveRuntimeFeatureFlags({
-    PLAVE_GRADE2_NUMBERS_TO_1000_ENABLED:
-      process.env.PLAVE_GRADE2_NUMBERS_TO_1000_ENABLED,
     PLAVE_ADAPTIVE_PRACTICE_RUNTIME_ENABLED:
       process.env.PLAVE_ADAPTIVE_PRACTICE_RUNTIME_ENABLED,
     PLAVE_CONTROLLED_PILOT_ENABLED:
@@ -29,13 +27,13 @@ function isAdaptivePilotDisabled() {
     PLAVE_RETENTION_RUNTIME_ENABLED:
       process.env.PLAVE_RETENTION_RUNTIME_ENABLED,
   });
-  const allowlist = parseAdaptivePilotAllowlist(
-    process.env[adaptivePilotEnvironmentKeys.userIds],
+  const entitlements = parseAdaptivePilotEntitlements(
+    process.env[adaptivePilotEnvironmentKeys.entitlements],
   );
   return (
     flags.status === "VALID" &&
     Object.values(flags.flags).every((enabled) => !enabled) &&
-    allowlist.status === "NOT_CONFIGURED"
+    entitlements.status === "NOT_CONFIGURED"
   );
 }
 

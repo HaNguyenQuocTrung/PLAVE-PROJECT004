@@ -21,7 +21,7 @@ import {
 
 const root = resolve(import.meta.dirname, "..");
 
-test("exact production workspace preparation proves the real repository 40/40 boundary", () => {
+test("historical workspace keeps its exact 0001-0040 prefix after validating canonical 0001-0044", () => {
   const prepared = prepareDisposableMigrationWorkspace({
     candidateRoot: root,
     projectId:
@@ -69,12 +69,12 @@ test("exact production workspace preparation proves the real repository 40/40 bo
     const sourceFilenames = readdirSync(
       resolve(root, "supabase/migrations"),
     ).sort();
-    assert.equal(sourceFilenames.length, 40);
+    assert.equal(sourceFilenames.length, 44);
     assert.match(sourceFilenames[0] ?? "", /^0001_/u);
-    assert.match(sourceFilenames.at(-1) ?? "", /^0040_/u);
+    assert.match(sourceFilenames.at(-1) ?? "", /^0044_/u);
     assert.deepEqual(
       readdirSync(prepared.migrationsDirectory).sort(),
-      sourceFilenames,
+      sourceFilenames.slice(0, 40),
     );
     const config = readFileSync(
       resolve(prepared.supabaseDirectory, "config.toml"),

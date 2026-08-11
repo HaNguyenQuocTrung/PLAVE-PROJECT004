@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "remoteCiEnabled": false,
+  "shards": [
+    { "id": "grade-1-reference", "grades": "1" },
+    { "id": "grade-2", "grades": "2" },
+    { "id": "grade-3", "grades": "3" },
+    { "id": "grade-4", "grades": "4" },
+    { "id": "grade-5", "grades": "5" },
+    { "id": "grade-6", "grades": "6" },
+    { "id": "grade-7", "grades": "7" },
+    { "id": "grade-8", "grades": "8" },
+    { "id": "grade-9", "grades": "9" },
+    { "id": "cross-grade", "grades": "1-9", "checks": ["prerequisites", "duplicates", "merged-coverage"] }
+  ]
+}

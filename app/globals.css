@@ -149,7 +149,7 @@ p {
 }
 
 .preview-page :where(h1, h2, h3, h4, h5, p, li, figcaption) {
-  overflow-wrap: normal;
+  overflow-wrap: break-word;
   word-break: normal;
 }
 
@@ -485,7 +485,7 @@ p {
 
 .preview-option span {
   min-width: 0;
-  overflow-wrap: normal;
+  overflow-wrap: break-word;
 }
 
 .preview-input {

@@ -33,6 +33,24 @@ const STRUCTURE = { EASY: 1, MEDIUM: 2, HARD: 3 } as const;
 const LEADS = ["Đọc kĩ dữ kiện", "Đối chiếu các nhãn", "Phân tích bảng đã cho", "Kiểm tra từng khả năng", "Hoàn thành nhiệm vụ", "Chọn bằng chứng phù hợp", "Tính từ dữ liệu gốc", "Giải thích bằng số liệu", "Xác định đại lượng cần tìm", "Kiểm tra kết quả", "So sánh hai biểu diễn", "Suy luận từng bước", "Đọc đúng đơn vị", "Hoàn thiện bảng", "Đánh giá nhận xét", "Chọn mô hình đúng", "Theo dõi phép thử", "Tìm quy luật", "Lập kế hoạch thực hành", "Dùng định nghĩa", "Kiểm tra miền giá trị", "Chuẩn hóa kết quả", "Nêu kết luận", "Giúp nhóm học tập", "Hoàn thành phiếu khảo sát", "Đọc biểu đồ", "Xác minh quan hệ", "Chọn cách biểu diễn", "Kiểm tra tỉ lệ", "Tách bài toán thành bước", "Đối chiếu phép tính", "Hoàn thiện báo cáo"] as const;
 const CONTEXTS = ["khảo sát lớp học", "câu lạc bộ Toán", "hoạt động thể thao", "vườn trường", "thư viện", "ngày hội khoa học", "bảng theo dõi thời tiết", "phiếu thực hành", "trò chơi xác suất", "dự án môi trường", "kế hoạch học tập", "chuyến tham quan", "bảng dữ liệu địa lí", "thí nghiệm khoa học", "góc thống kê", "buổi ôn tập"] as const;
 const EVIDENCE_FRAMES = ["trên phiếu dữ liệu", "trong bảng kiểm", "từ ghi chép của nhóm", "trên thẻ nhiệm vụ", "trong báo cáo ngắn", "từ sơ đồ đã cho", "trên bảng lớp", "trong sổ thực hành", "từ bộ thẻ học", "trong phần tự kiểm tra", "trên phiếu khảo sát", "từ bản nháp", "trong hồ sơ dự án", "trên bảng con", "từ phần trình bày", "trong bài kiểm tra nhanh"] as const;
+const EXPERIMENT_SCENARIOS = [
+  { trial: "tung một đồng xu", event: "xuất hiện mặt ngửa" },
+  { trial: "gieo một xúc xắc", event: "xuất hiện mặt có số chấm chẵn" },
+  { trial: "quay một vòng quay bốn màu", event: "kim dừng ở ô màu xanh" },
+  { trial: "rút một thẻ rồi hoàn lại", event: "rút được thẻ màu đỏ" },
+  { trial: "ném bóng vào rổ", event: "bóng vào rổ" },
+  { trial: "gieo hai đồng xu", event: "hai mặt giống nhau" },
+  { trial: "chọn ngẫu nhiên một số từ 1 đến 10", event: "chọn được số chia hết cho 3" },
+  { trial: "quay một vòng quay tám ô", event: "kim dừng ở ô có số lẻ" },
+] as const;
+const THEORETICAL_PROBABILITY_SCENARIOS = [
+  { sampleSpace: "một bộ thẻ", event: "rút được thẻ màu đỏ" },
+  { sampleSpace: "một vòng quay", event: "kim dừng ở ô có ngôi sao" },
+  { sampleSpace: "một hộp bóng", event: "lấy được bóng màu xanh" },
+  { sampleSpace: "một bộ phiếu", event: "chọn được phiếu mang số chẵn" },
+  { sampleSpace: "một túi hình", event: "lấy được hình tam giác" },
+  { sampleSpace: "một bảng lựa chọn", event: "chọn được ô có dấu tích" },
+] as const;
 const LABEL_SETS = [["An", "Bình", "Chi", "Dũng"], ["Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm"], ["Nhóm A", "Nhóm B", "Nhóm C", "Nhóm D"], ["Đỏ", "Xanh", "Vàng", "Tím"], ["Mức 1", "Mức 2", "Mức 3", "Mức 4"]] as const;
 const SINGLE_LABELS = ["hợp lí", "không hợp lí", "chưa đủ dữ kiện", "không liên quan"] as const;
 
@@ -88,8 +106,8 @@ function buildModel(contract: WaveEOutcomeContract, input: GenerateQuestionInput
     case "TRIGONOMETRIC_FIELD_MEASUREMENT": { const angle = random.pick([30, 45, 60]); const adjacent = random.int(5, 20); return makeModel(contract, input, random, { operation: "TANGENT_DISTANCE", values: [angle, adjacent], labels: ["góc nâng (độ)", "cạnh kề (m)"], fingerprint: `trig-${angle}-${Math.floor(adjacent / 4)}`, meta: { shape: "RIGHT_TRIANGLE", unit: "m" } }); }
     case "GENETICS_PROBABILITY": return makeModel(contract, input, random, { operation: random.pick(["AA_X_AA_RECESSIVE", "AA_X_AA_DOMINANT"]), values: [1, 4], labels: ["kiểu gen thuận lợi", "tổng ô Punnett"], fingerprint: `genetics-${level}-${random.int(0, 31)}` });
     case "VOLUME_ESTIMATION": { const a = random.int(2, 7), b = random.int(2, 6), c = random.int(2, 5); return makeModel(contract, input, random, { operation: "BOX_UNIT_CUBES", values: [a, b, c], labels: ["dài", "rộng", "cao"], fingerprint: `volume-${level}-${a}-${b}-${c}`, meta: { unit: "khối lập phương" } }); }
-    case "THEORETICAL_PROBABILITY_RATIO": { const total = random.pick([4, 6, 8, 10, 12]); const favorable = random.int(1, total - 1); return makeModel(contract, input, random, { operation: "FAVORABLE_OVER_TOTAL", values: [favorable, total], labels: ["thuận lợi", "có thể"], fingerprint: `theory-${level}-${favorable}-${total}` }); }
-    case "RELATIVE_EXPERIMENT_FREQUENCY": { const total = random.pick([10, 12, 20, 24, 30]); const favorable = random.int(2, total - 2); return makeModel(contract, input, random, { operation: "EXPERIMENTAL_RATIO", values: [favorable, total], labels: ["số lần xảy ra", "tổng số lần thử"], fingerprint: `relative-${level}-${favorable}-${total}` }); }
+    case "THEORETICAL_PROBABILITY_RATIO": { const total = random.pick([4, 6, 8, 10, 12]); const favorable = random.int(1, total - 1); const scenario = random.pick(THEORETICAL_PROBABILITY_SCENARIOS); return makeModel(contract, input, random, { operation: "FAVORABLE_OVER_TOTAL", values: [favorable, total], labels: ["thuận lợi", "có thể"], fingerprint: `theory-${level}-${favorable}-${total}-${scenario.sampleSpace}`, meta: scenario }); }
+    case "RELATIVE_EXPERIMENT_FREQUENCY": { const total = random.pick([10, 12, 20, 24, 30]); const favorable = random.int(2, total - 2); const scenario = random.pick(EXPERIMENT_SCENARIOS); return makeModel(contract, input, random, { operation: "EXPERIMENTAL_RATIO", values: [favorable, total], labels: ["số lần xảy ra", "tổng số lần thử"], fingerprint: `relative-${level}-${favorable}-${total}-${scenario.trial}`, meta: scenario }); }
     case "FREQUENCY_INTERPRETATION": { const total = random.pick([20, 25, 30, 40]); const count = random.int(3, total - 3); const operation = contract.outcomeId.endsWith("012") ? "FREQUENCY_ROLE" : contract.outcomeId.endsWith("013") ? "RELATIVE_FREQUENCY_ROLE" : "RELATIVE_FREQUENCY"; return makeModel(contract, input, random, { operation, values: [count, total], labels: ["số lần xuất hiện", "tổng số quan sát"], fingerprint: `frequency-interpret-${operation}-${level}-${count}-${total}` }); }
     case "FREQUENCY_COUNT": { const target = random.int(1, 5); const observations = Array.from({ length: 8 + level * 2 }, (_, index) => index % 3 === 0 ? target : random.int(1, 6)); return makeModel(contract, input, random, { operation: "COUNT_TARGET", values: [target, ...observations], labels: observations.map((_, index) => `q${index + 1}`), fingerprint: `frequency-count-${level}-${target}-${random.int(0, 31)}` }); }
     case "EXPERIMENT_FREQUENCY": { const target = random.int(1, 6); const observations = Array.from({ length: 10 + level * 2 }, (_, index) => index % 4 === 0 ? target : random.int(1, 6)); return makeModel(contract, input, random, { operation: "COUNT_TARGET", values: [target, ...observations], labels: observations.map((_, index) => `l${index + 1}`), fingerprint: `experiment-count-${level}-${target}-${random.int(0, 31)}` }); }
@@ -201,8 +219,8 @@ function promptFor(m: WaveENormalizedProblemModel): string {
     case "AA_X_AA_RECESSIVE": return `${lead}. Với phép lai Aa × Aa, xác suất đời con có kiểu gen aa là bao nhiêu?`;
     case "AA_X_AA_DOMINANT": return `${lead}. Với phép lai Aa × Aa và trội hoàn toàn, xác suất đời con biểu hiện tính trạng trội là bao nhiêu?`;
     case "BOX_UNIT_CUBES": return `${lead}. Một hộp có kích thước ${v[0]} × ${v[1]} × ${v[2]} đơn vị. Ước lượng hộp chứa bao nhiêu khối lập phương đơn vị?`;
-    case "FAVORABLE_OVER_TOTAL": return `${lead}. Không gian mẫu có ${v[1]} kết quả đồng khả năng, trong đó ${v[0]} kết quả thuận lợi. Viết xác suất dưới dạng phân số tối giản.`;
-    case "EXPERIMENTAL_RATIO": return `${lead}. Trong ${v[1]} lượt thử, biến cố xảy ra ${v[0]} lần. Viết tần số tương đối dưới dạng phân số tối giản.`;
+    case "FAVORABLE_OVER_TOTAL": return `${lead}. ${String(m.meta.sampleSpace)} có ${v[1]} kết quả đồng khả năng; biến cố “${String(m.meta.event)}” có ${v[0]} kết quả thuận lợi. Viết xác suất dưới dạng phân số tối giản.`;
+    case "EXPERIMENTAL_RATIO": return `${lead}. Khi ${String(m.meta.trial)}, biến cố “${String(m.meta.event)}” xảy ra ${v[0]} lần trong ${v[1]} lượt thử. Viết tần số tương đối dưới dạng phân số tối giản.`;
     case "RELATIVE_FREQUENCY": return `${lead}. Trong ${v[1]} quan sát, giá trị cần xét xuất hiện ${v[0]} lần. Viết tần số tương đối dưới dạng phân số tối giản.`;
     case "ABSOLUTE_FREQUENCY": return `${lead}. Trong ${v[1]} quan sát, giá trị mục tiêu xuất hiện ${v[0]} lần. Tần số của giá trị là bao nhiêu?`;
     case "FREQUENCY_ROLE": return `${lead}. Trong bảng có ${v[1]} quan sát và một giá trị xuất hiện ${v[0]} lần. Ý nghĩa của tần số ${v[0]} là gì?`;
@@ -247,7 +265,7 @@ function visualFor(m: WaveENormalizedProblemModel): ProductVisual {
     if (["COIN_SPACE", "DIE_SPACE", "TWO_COIN_SPACE"].includes(m.operation)) return { type, description: "Các kết quả có thể của phép thử.", data: { rows: m.labels.map((label) => ({ name: "Kết quả", value: label })), operation: m.operation } };
     if (["CERTAIN", "POSSIBLE", "IMPOSSIBLE"].includes(m.operation)) return { type, description: "Mô tả phép thử và các kết quả có thể.", data: { rows: [{ name: "Phép thử", value: String(m.meta.trial) }, { name: "Các thẻ có thể rút", value: "1, 2, 3, 4, 5, 6" }], operation: m.operation } };
     if (m.operation === "EVEN_DIE_EVENT") return { type, description: "Không gian mẫu của một lần gieo xúc xắc.", data: { rows: v.map((value) => ({ name: "Kết quả", value })), operation: m.operation } };
-    return { type, description: "Bảng kết quả phép thử.", data: { rows: m.labels.length ? m.labels.map((label, index) => ({ name: label, value: v[index] ?? label })) : v.map((value, index) => ({ name: `Dữ kiện ${index + 1}`, value })), values: v, operation: m.operation } };
+    return { type, description: "Bảng kết quả phép thử.", data: { rows: m.labels.length ? m.labels.map((label, index) => ({ name: label, value: v[index] ?? label })) : v.map((value, index) => ({ name: `Dữ kiện ${index + 1}`, value })), values: v, operation: m.operation, trial: m.meta.trial ?? null, event: m.meta.event ?? null } };
   }
   if (type === "OBJECT_GROUPS") return { type, description: "Các nhóm vật thể biểu diễn phép chia trong đề.", data: { groups: Array.from({ length: Math.min(v[2] ?? 2, 10) }, () => v[1] ?? 1), values: v, operation: m.operation } };
   if (type === "MEASUREMENT_MODEL") return { type, description: "Mô hình kích thước và đơn vị đo của bài toán.", data: { values: v, labels: m.labels, operation: m.operation, unit: m.meta.unit ?? "đơn vị", shape: m.meta.shape ?? "MEASURE" } };

@@ -51,25 +51,15 @@ Browser
 ### Install
 
 ```bash
-npm install
+npm ci
 ```
 
-Create a local environment file from the example and provide placeholders or local values for the services you intend to run. Never commit real secrets.
-
-```bash
-cp .env.example .env.local
-```
-
-The commonly required variable names are:
-
-```text
-NEXT_PUBLIC_SUPABASE_URL=<your-local-supabase-url>
-NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<your-local-supabase-publishable-key>
-GOOGLE_API_KEY=<your-local-google-api-key>
-GOOGLE_AI_MODEL=<your-local-google-model-name>
-PLAVE_AI_PROVIDER=<local-provider-name>
-PLAVE_AI_TUTOR_ENABLED=<true-or-false>
-```
+Provide the paired public Supabase settings through the repository's validated
+runtime configuration or explicit process environment. The production-local
+launcher fails closed when that configuration is missing, partial, or invalid.
+Do not copy placeholder values into a runnable environment, commit local
+environment files, or expose provider credentials. AI Tutor remains off unless
+it is configured separately through its guarded local workflow.
 
 Build and start the local production server:
 
@@ -78,7 +68,12 @@ npm run build:production-local
 npm run start
 ```
 
-The expected local URL is <http://127.0.0.1:3001>.
+The production-local default is <http://localhost:3000> unless a different port
+is explicitly supplied. The URL printed by `npm run start` is authoritative.
+
+For a fully isolated loopback acceptance environment, use the Owner local-demo
+runbook. That workflow uses <http://127.0.0.1:3100> and is separate from the
+normal production-local server above.
 
 ## Testing summary
 
@@ -104,7 +99,8 @@ The recorded Project004 checkpoint includes:
 
 ## Demonstration video
 
-[Project demonstration video — add link]
+No public demonstration video is currently available. No video URL is claimed
+by this repository.
 
 ## Academic project notice
 
