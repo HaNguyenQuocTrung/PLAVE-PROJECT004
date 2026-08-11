@@ -36,6 +36,8 @@ Wave production is additive. Wave B uses the same shared pack schema and creates
 
 Wave C follows the same additive boundary with separate Wave C and derived A+B+C bindings. Its nine grade shards, independent mathematical oracles, deny-all release state, progression actions and reproduction commands are documented in `WAVE_C.md`. Wave A and Wave B bindings and bundle hashes remain frozen.
 
+Wave D adds separate source-verified Wave D and derived A+B+C+D bindings without rewriting Waves A–C. `WAVE_D.md` records the exact retained rows/pages, Grade 1 immutable overlay, deterministic oracle boundary, hypothesis-labelled progression and nine-shard reproduction commands. All candidates remain deny-all.
+
 ## Next content-production sprint
 
 Parallel workstreams should source-map one domain slice per grade, then author objectives/skills/edges and a deliberately small blueprint set. Each slice must pass source mapping, deterministic mathematics, explanation consistency, reference, grade-range, duplicate, ambiguity, leakage, security, bundle, simulation and regression gates. Any unresolved automated-verification insufficiency excludes the item from a candidate bundle. Grade 2 remains the only pilot candidate until separately authorized; no scaffold gains candidate or release state merely because files exist.
