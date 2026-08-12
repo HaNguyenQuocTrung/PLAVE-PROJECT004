@@ -49,8 +49,11 @@ test("dashboard and learn use server progress adapter, stable Vietnamese copy, a
   assert.match(learn, /adaptivePilotEnabled: false/u);
   assert.doesNotMatch(learn, /getUniversalCurriculumRuntimeFlag/u);
   assert.match(lessons, /loadStudentCurriculumProgress/u);
-  assert.match(lessons, /UniversalLessonsCatalog/u);
-  assert.match(lessons, /buildStudentCompetencyDashboard/u);
+  assert.match(lessons, /ReleasedCurriculumCatalog/u);
+  assert.match(lessons, /universal\.progress\.units\.map\(\(unit\) => unit\.unitId\)/u);
+  assert.match(lessons, /availableUnitIds\.has\(unit\.slug\)/u);
+  assert.match(lessons, /availableUnitIds\.has\(selectedRecommendation\.unitId\)/u);
+  assert.doesNotMatch(lessons, /buildStudentCompetencyDashboard/u);
   assert.match(lessons, /recordUniversalAvailabilityDiagnostic/u);
   assert.match(lessonsCatalog, /curriculumUnits\.filter\(\(unit\) => unit\.grade === grade\)/u);
   assert.match(lessonsCatalog, /CompetencyLearningPathPanel/u);
