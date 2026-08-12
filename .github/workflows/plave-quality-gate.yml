@@ -30,7 +30,6 @@ jobs:
       npm_config_audit: "false"
       npm_config_fund: "false"
       npm_config_update_notifier: "false"
-      PLAVE_CI_IMMUTABILITY_BASELINE: ${{ runner.temp }}/plave-ci-repository-baseline.json
     defaults:
       run:
         shell: bash --noprofile --norc -euo pipefail {0}
@@ -49,7 +48,9 @@ jobs:
           cache-dependency-path: package-lock.json
 
       - name: Capture canonical repository baseline
-        run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts initialize checkout
+        run: |
+          printf 'PLAVE_CI_IMMUTABILITY_BASELINE=%s\n' "$RUNNER_TEMP/plave-ci-repository-baseline.json" >> "$GITHUB_ENV"
+          PLAVE_CI_IMMUTABILITY_BASELINE="$RUNNER_TEMP/plave-ci-repository-baseline.json" node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts initialize checkout
 
       - name: Install committed dependency graph
         run: npm ci --ignore-scripts --no-audit --no-fund

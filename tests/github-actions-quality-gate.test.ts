@@ -108,8 +108,11 @@ test("Linux CI diagnostics lock locale and isolate every frozen test group", () 
 
 test("every mutating-risk quality group is followed by a fail-closed repository guard", () => {
   const job = workflow.jobs["quality-gate"];
-  assert.equal(job.env?.PLAVE_CI_IMMUTABILITY_BASELINE, "${{ runner.temp }}/plave-ci-repository-baseline.json");
+  assert.equal(job.env?.PLAVE_CI_IMMUTABILITY_BASELINE, undefined);
   const baseline = job.steps.find((step) => step.name === "Capture canonical repository baseline");
+  assert.match(baseline?.run ?? "", /PLAVE_CI_IMMUTABILITY_BASELINE=%s/u);
+  assert.match(baseline?.run ?? "", /RUNNER_TEMP/u);
+  assert.match(baseline?.run ?? "", /GITHUB_ENV/u);
   assert.match(baseline?.run ?? "", /verify-ci-repository-immutability[.]ts initialize checkout/u);
   const guardedLabels = [
     "dependency-installation", "dependency-boundary", "application-typecheck", "secret-boundary-typecheck",
@@ -118,4 +121,16 @@ test("every mutating-risk quality group is followed by a fail-closed repository 
     "frozen-artifact-equivalent", "production-build", "receipt-verification",
   ];
   for (const label of guardedLabels) assert.match(source, new RegExp(`verify-ci-repository-immutability[.]ts verify ${label}`, "u"), label);
+});
+
+test("workflow expressions use contexts available before jobs are instantiated", () => {
+  const job = workflow.jobs["quality-gate"];
+  const jobDefinition = JSON.stringify({
+    runsOn: job["runs-on"],
+    timeoutMinutes: job["timeout-minutes"],
+    env: job.env,
+  });
+  assert.doesNotMatch(jobDefinition, /\$\{\{\s*runner[.]/u);
+  assert.doesNotMatch(source, /PLAVE_CI_IMMUTABILITY_BASELINE:\s*\$\{\{/u);
+  assert.match(source, /PLAVE_CI_IMMUTABILITY_BASELINE="\$RUNNER_TEMP\/plave-ci-repository-baseline[.]json"/u);
 });
