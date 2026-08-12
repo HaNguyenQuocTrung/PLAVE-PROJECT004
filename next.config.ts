@@ -4,7 +4,11 @@ import {
 } from "./scripts/project004-identity.ts";
 import { productionLocalBuildContract } from "./scripts/production-local-build-contract.ts";
 
-const projectRoot = assertProject004Workspace();
+const projectRoot = assertProject004Workspace(process.cwd(), {
+  // Vercel checks out builds under an opaque ephemeral directory. Package,
+  // Supabase project, and cache identity checks remain mandatory below.
+  allowEphemeralDirectoryName: process.env.VERCEL === "1",
+});
 const isProductionLocal =
   process.env[productionLocalBuildContract.environmentFlag] === "true";
 const isOwnerLocalDemo = process.env.PLAVE_OWNER_LOCAL_DEMO === "true";

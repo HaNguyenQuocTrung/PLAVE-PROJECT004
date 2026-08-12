@@ -3,6 +3,7 @@ import { spawnSync } from "node:child_process";
 import {
   mkdirSync,
   mkdtempSync,
+  realpathSync,
   rmSync,
   writeFileSync,
 } from "node:fs";
@@ -43,6 +44,13 @@ test("workspace guard fails closed for cwd, package, database and cache identity
     assert.throws(
       () => assertProject004Workspace(temporaryRoot),
       /PROJECT004_IDENTITY:CWD_MISMATCH/,
+    );
+
+    assert.throws(
+      () => assertProject004Workspace(temporaryRoot, {
+        allowEphemeralDirectoryName: true,
+      }),
+      /PROJECT004_IDENTITY:PACKAGE_UNAVAILABLE/,
     );
 
     const candidate = join(temporaryRoot, "PLAVE-PROJECT004");
@@ -86,6 +94,32 @@ test("workspace guard fails closed for cwd, package, database and cache identity
       () => assertProject004Workspace(candidate),
       /PROJECT004_IDENTITY:CACHE_MISMATCH/,
     );
+  } finally {
+    rmSync(temporaryRoot, { recursive: true, force: true });
+  }
+});
+
+test("Vercel build bypasses only the ephemeral directory name", () => {
+  const temporaryRoot = mkdtempSync(join(tmpdir(), "vercel-build-"));
+  try {
+    mkdirSync(join(temporaryRoot, "supabase"), { recursive: true });
+    writeFileSync(join(temporaryRoot, "package.json"), JSON.stringify({
+      name: "plave-project004",
+    }));
+    writeFileSync(join(temporaryRoot, "supabase/config.toml"),
+      'project_id = "PLAVE-PROJECT004"\n');
+    writeFileSync(join(temporaryRoot, "next.config.ts"),
+      '".next-owner-local-project004"\n');
+    assert.equal(assertProject004Workspace(temporaryRoot, {
+      allowEphemeralDirectoryName: true,
+    }), realpathSync(temporaryRoot));
+
+    writeFileSync(join(temporaryRoot, "package.json"), JSON.stringify({
+      name: "wrong-project",
+    }));
+    assert.throws(() => assertProject004Workspace(temporaryRoot, {
+      allowEphemeralDirectoryName: true,
+    }), /PROJECT004_IDENTITY:PACKAGE_MISMATCH/);
   } finally {
     rmSync(temporaryRoot, { recursive: true, force: true });
   }

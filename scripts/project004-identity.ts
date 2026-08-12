@@ -20,9 +20,13 @@ export const project004Identity = {
 
 export function assertProject004Workspace(
   candidateRoot = process.cwd(),
+  options?: { allowEphemeralDirectoryName?: boolean },
 ) {
   const root = realpathSync(candidateRoot);
-  if (basename(root) !== project004Identity.directoryName) {
+  if (
+    basename(root) !== project004Identity.directoryName &&
+    options?.allowEphemeralDirectoryName !== true
+  ) {
     throw new Error("PROJECT004_IDENTITY:CWD_MISMATCH");
   }
 
