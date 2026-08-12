@@ -3,7 +3,11 @@ import test from "node:test";
 
 import {
   classifyHarnessChild,
+  extractHarnessFailureDetails,
   parseTerminalTapSummary,
+  redactHarnessOutput,
+  renderHarnessFailureAnnotation,
+  renderHarnessSummaryLine,
 } from "../scripts/run-official-full-harness.ts";
 
 const terminal = (override: Partial<Record<"tests" | "pass" | "fail" | "cancelled" | "skipped" | "todo", number>> = {}) => {
@@ -135,4 +139,41 @@ test("inconsistent summary counts fail reconciliation", () => {
   const result = classifyHarnessChild({ output, exitCode: 0, signal: null });
   assert.equal(result.reason, "COUNT_MISMATCH");
   assert.equal(result.actualFailures, 1);
+});
+
+test("multiple failing tests retain exact files, names and bounded diagnostics", () => {
+  const output = [
+    "not ok 1 - first defect",
+    "  location: '/repo/tests/first.test.ts:12:3'",
+    "  error: expected 2 but received 1",
+    "not ok 2 - second defect",
+    "  location: '/repo/tests/second.test.ts:8:1'",
+    "  error: assertion drift",
+    terminal({ tests: 2, pass: 0, fail: 2 }),
+  ].join("\n");
+  const failures = extractHarnessFailureDetails(output);
+  assert.deepEqual(failures.map(({ title, file, line, column }) => ({ title, file, line, column })), [
+    { title: "first defect", file: "tests/first.test.ts", line: 12, column: 3 },
+    { title: "second defect", file: "tests/second.test.ts", line: 8, column: 1 },
+  ]);
+  assert.match(failures[0].diagnostic, /expected 2 but received 1/u);
+  assert.equal(renderHarnessFailureAnnotation("DIRECT", failures[0]), "::error file=tests/first.test.ts,line=12,col=3::[full-harness:DIRECT] first defect");
+});
+
+test("signal, timeout and cleanup failures fail closed with distinct reasons", () => {
+  assert.equal(classifyHarnessChild({ output: "", exitCode: null, signal: "SIGTERM" }).reason, "CHILD_SIGNAL");
+  assert.equal(classifyHarnessChild({ output: "", exitCode: null, signal: null, timedOut: true }).reason, "TIMEOUT");
+  assert.equal(classifyHarnessChild({ output: terminal(), exitCode: 0, signal: null, cleanupFailed: true }).reason, "CLEANUP_FAILURE");
+});
+
+test("secret-like output is redacted before streaming or summary diagnostics", () => {
+  const sanitized = redactHarnessOutput("Authorization: Bearer abc.def token=my-token password=hunter2 https://user:pass@example.test/path");
+  assert.doesNotMatch(sanitized, /abc[.]def|my-token|hunter2|user:pass/u);
+  assert.match(sanitized, /Authorization=\[REDACTED\]/u);
+});
+
+test("machine-readable terminal summary renderer emits exactly one marker", () => {
+  const line = renderHarnessSummaryLine({ schemaVersion: "fixture", directActualFailures: 1 });
+  assert.equal((line.match(/PLAVE_FULL_HARNESS_SUMMARY=/gu) ?? []).length, 1);
+  assert.equal(JSON.parse(line.split("=", 2)[1]).directActualFailures, 1);
 });

@@ -1,6 +1,5 @@
 import { spawn } from "node:child_process";
-import { readdirSync } from "node:fs";
-import { tmpdir } from "node:os";
+import { appendFileSync, createWriteStream, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -19,8 +18,20 @@ export type HarnessChildClassification = Readonly<{
   actualFailures: number;
   environmentExclusions: number;
   failureTitles: readonly string[];
-  reason: "RECONCILED" | "MISSING_TERMINAL_SUMMARY" | "TRUNCATED_OUTPUT" | "COUNT_MISMATCH" | "CHILD_EXIT_WITHOUT_FAILURE";
+  reason: "RECONCILED" | "MISSING_TERMINAL_SUMMARY" | "TRUNCATED_OUTPUT" | "COUNT_MISMATCH" | "CHILD_EXIT_WITHOUT_FAILURE" | "CHILD_SIGNAL" | "TIMEOUT" | "CLEANUP_FAILURE";
 }>;
+
+export type HarnessFailureDetail = Readonly<{
+  title: string;
+  file?: string;
+  line?: number;
+  column?: number;
+  diagnostic: string;
+}>;
+
+const MAX_CAPTURE_BYTES = 16 * 1024 * 1024;
+const GROUP_TIMEOUT_MS = 15 * 60 * 1000;
+const TERMINATION_GRACE_MS = 5_000;
 
 const emptyTotals = (): TapTotals => ({
   tests: 0,
@@ -43,6 +54,50 @@ export function extractTapFailureTitles(output: string): readonly string[] {
   );
 }
 
+function repositoryPath(location: string) {
+  const normalized = location.replace(/^file:\/\//u, "").replaceAll("\\", "/");
+  const marker = normalized.lastIndexOf("/tests/");
+  return marker >= 0 ? normalized.slice(marker + 1) : undefined;
+}
+
+export function extractHarnessFailureDetails(output: string): readonly HarnessFailureDetail[] {
+  const failures = [...output.matchAll(/^\s*not ok \d+ - (.+)$/gmu)];
+  return failures.map((failure, index) => {
+    const start = (failure.index ?? 0) + failure[0].length;
+    const end = failures[index + 1]?.index ?? output.length;
+    const block = output.slice(start, end);
+    const location = block.match(/^\s*location: ['"](.+):(\d+):(\d+)['"]\s*$/mu);
+    const file = location ? repositoryPath(location[1]) : undefined;
+    return {
+      title: failure[1].trim(),
+      diagnostic: redactHarnessOutput(block.trim()).slice(0, 2_000),
+      ...(file ? { file, line: Number(location?.[2] ?? 1), column: Number(location?.[3] ?? 1) } : {}),
+    };
+  });
+}
+
+export function redactHarnessOutput(value: string) {
+  return value
+    .replace(/\b(Bearer)\s+[A-Za-z0-9._~+/=-]+/giu, "$1 [REDACTED]")
+    .replace(/\b(token|password|secret|cookie|authorization|api[_-]?key)\s*[:=]\s*[^\s,;]+/giu, "$1=[REDACTED]")
+    .replace(/(https?:\/\/)[^\s/@:]+:[^\s/@]+@/giu, "$1[REDACTED]@");
+}
+
+function workflowEscape(value: string) {
+  return value.replaceAll("%", "%25").replaceAll("\r", "%0D").replaceAll("\n", "%0A");
+}
+
+function workflowPropertyEscape(value: string) {
+  return workflowEscape(value).replaceAll(":", "%3A").replaceAll(",", "%2C");
+}
+
+export function renderHarnessFailureAnnotation(group: string, failure: HarnessFailureDetail) {
+  const properties = failure.file
+    ? ` file=${workflowPropertyEscape(failure.file)},line=${String(failure.line ?? 1)},col=${String(failure.column ?? 1)}`
+    : "";
+  return `::error${properties}::${workflowEscape(`[full-harness:${group}] ${failure.title}`)}`;
+}
+
 export function parseTerminalTapSummary(output: string): TapTotals | null {
   const values = {
     tests: finalCount(output, "tests"),
@@ -61,10 +116,22 @@ export function classifyHarnessChild(input: Readonly<{
   exitCode: number | null;
   signal: NodeJS.Signals | null;
   outputTruncated?: boolean;
+  timedOut?: boolean;
+  cleanupFailed?: boolean;
   exactEnvironmentFailureTitles?: readonly string[];
   exactEnvironmentFailureEvidence?: RegExp;
 }>): HarnessChildClassification {
   const failureTitles = extractTapFailureTitles(input.output);
+  if (input.timedOut || input.cleanupFailed) {
+    return {
+      validTerminalSummary: false,
+      totals: emptyTotals(),
+      actualFailures: 1,
+      environmentExclusions: 0,
+      failureTitles,
+      reason: input.timedOut ? "TIMEOUT" : "CLEANUP_FAILURE",
+    };
+  }
   if (input.outputTruncated) {
     return {
       validTerminalSummary: false,
@@ -76,7 +143,17 @@ export function classifyHarnessChild(input: Readonly<{
     };
   }
   const totals = parseTerminalTapSummary(input.output);
-  if (!totals || input.signal) {
+  if (input.signal) {
+    return {
+      validTerminalSummary: false,
+      totals: emptyTotals(),
+      actualFailures: 1,
+      environmentExclusions: 0,
+      failureTitles,
+      reason: "CHILD_SIGNAL",
+    };
+  }
+  if (!totals) {
     return {
       validTerminalSummary: false,
       totals: emptyTotals(),
@@ -167,24 +244,74 @@ async function runGroup(root: string, group: HarnessGroup) {
     stdio: ["ignore", "pipe", "pipe"],
   });
   let output = "";
+  let outputTruncated = false;
+  let timedOut = false;
+  let cleanupFailed = false;
+  const logPath = process.env.PLAVE_FULL_HARNESS_LOG;
+  const log = logPath ? createWriteStream(logPath, { flags: "a", mode: 0o600 }) : null;
+  const capture = (chunk: string) => {
+    const sanitized = redactHarnessOutput(chunk);
+    process.stdout.write(sanitized);
+    log?.write(sanitized);
+    output += sanitized;
+    if (Buffer.byteLength(output, "utf8") > MAX_CAPTURE_BYTES) {
+      outputTruncated = true;
+      output = output.slice(-MAX_CAPTURE_BYTES);
+    }
+  };
   child.stdout.setEncoding("utf8");
   child.stderr.setEncoding("utf8");
-  child.stdout.on("data", (chunk: string) => {
-    output += chunk;
+  child.stdout.on("data", capture);
+  child.stderr.on("data", capture);
+  const result = await new Promise<{ exitCode: number | null; signal: NodeJS.Signals | null; spawnError: string | null }>((resolveResult) => {
+    let settled = false;
+    let forcedTermination: NodeJS.Timeout | undefined;
+    const finish = (value: { exitCode: number | null; signal: NodeJS.Signals | null; spawnError: string | null }) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timeout);
+      if (forcedTermination) clearTimeout(forcedTermination);
+      resolveResult(value);
+    };
+    const timeout = setTimeout(() => {
+      timedOut = true;
+      if (!child.kill("SIGTERM")) {
+        cleanupFailed = true;
+        return;
+      }
+      forcedTermination = setTimeout(() => {
+        if (!child.kill("SIGKILL")) cleanupFailed = true;
+      }, TERMINATION_GRACE_MS);
+    }, GROUP_TIMEOUT_MS);
+    child.once("error", (error) => finish({ exitCode: null, signal: null, spawnError: error.name }));
+    child.once("close", (exitCode, signal) => finish({ exitCode, signal, spawnError: null }));
   });
-  child.stderr.on("data", (chunk: string) => {
-    output += chunk;
-  });
-  const result = await new Promise<{ exitCode: number | null; signal: NodeJS.Signals | null }>((resolveResult) => {
-    child.once("close", (exitCode, signal) => resolveResult({ exitCode, signal }));
-  });
+  await new Promise<void>((resolveLog) => log ? log.end(resolveLog) : resolveLog());
   const classification = classifyHarnessChild({
     output,
-    ...result,
+    exitCode: result.exitCode,
+    signal: result.signal,
+    outputTruncated,
+    timedOut,
+    cleanupFailed,
     exactEnvironmentFailureTitles: group.exactEnvironmentFailureTitles,
     exactEnvironmentFailureEvidence: group.exactEnvironmentFailureEvidence,
   });
-  return { name: group.name, ...classification };
+  const failures = extractHarnessFailureDetails(output);
+  for (const failure of failures) console.log(renderHarnessFailureAnnotation(group.name, failure));
+  return {
+    name: group.name,
+    command: [process.execPath, ...args].map((entry) => entry.replace(root, "<repo>")).join(" "),
+    exitCode: result.exitCode,
+    signal: result.signal,
+    spawnError: result.spawnError,
+    timedOut,
+    parserStatus: classification.validTerminalSummary ? "VALID" : classification.reason,
+    outputTruncated,
+    cleanupStatus: cleanupFailed ? "FAIL" as const : "PASS" as const,
+    failures,
+    ...classification,
+  };
 }
 
 function addTotals(left: TapTotals, right: TapTotals): TapTotals {
@@ -199,6 +326,7 @@ function addTotals(left: TapTotals, right: TapTotals): TapTotals {
 }
 
 export async function runOfficialFullHarness(root = resolve(import.meta.dirname, "..")) {
+  const startedAt = new Date();
   const allFiles = readdirSync(resolve(root, "tests"))
     .filter((name) => /[.]test[.](?:ts|mjs|js)$/u.test(name))
     .sort()
@@ -263,8 +391,15 @@ export async function runOfficialFullHarness(root = resolve(import.meta.dirname,
     emptyTotals(),
   );
   const summary = {
-    schemaVersion: "PLAVE_OFFICIAL_FULL_HARNESS_V1",
-    sourceTestFiles: allFiles.length,
+    schemaVersion: "PLAVE_OFFICIAL_FULL_HARNESS_V2",
+    node: process.version,
+    platform: `${process.platform}-${process.arch}`,
+    startedAt: startedAt.toISOString(),
+    endedAt: new Date().toISOString(),
+    durationMs: Date.now() - startedAt.getTime(),
+    command: "npm run --silent test:full:official",
+    discoveredFiles: allFiles.length,
+    executedTests: totals.tests,
     totals,
     directPass: totals.pass,
     directActualFailures: results.reduce(
@@ -284,25 +419,58 @@ export async function runOfficialFullHarness(root = resolve(import.meta.dirname,
     terminalSummaryValid: results.every(
       (result) => result.validTerminalSummary,
     ),
-    temporaryOutputRoot: tmpdir(),
+    unknownFailures: results.reduce((count, result) => count + (result.validTerminalSummary ? 0 : 1), 0),
+    cleanupStatus: results.every((result) => result.cleanupStatus === "PASS") ? "PASS" : "FAIL",
+    temporaryOutputRoot: "SYSTEM_TEMPORARY_DIRECTORY",
   } as const;
-  console.log(`PLAVE_FULL_HARNESS_SUMMARY=${JSON.stringify(summary)}`);
+  emitHarnessSummary(summary);
   if (!summary.terminalSummaryValid || summary.directActualFailures > 0) {
     process.exitCode = 1;
   }
   return summary;
 }
 
+function emitHarnessSummary(summary: Readonly<Record<string, unknown>>) {
+  const line = renderHarnessSummaryLine(summary);
+  const summaryPath = process.env.PLAVE_FULL_HARNESS_SUMMARY_PATH;
+  if (summaryPath) appendFileSync(summaryPath, `${line}\n`, { encoding: "utf8", mode: 0o600 });
+  else console.log(line);
+  const stepSummary = process.env.GITHUB_STEP_SUMMARY;
+  if (stepSummary) {
+    const totals = summary.totals as TapTotals | undefined;
+    appendFileSync(stepSummary, [
+      "### PLAVE official full harness",
+      `- Result: ${Number(summary.directActualFailures ?? 1) === 0 ? "PASS" : "FAIL"}`,
+      `- Tests: ${totals?.tests ?? 0}`,
+      `- Pass: ${totals?.pass ?? 0}`,
+      `- Actual failures: ${summary.directActualFailures ?? 1}`,
+      `- Environment exclusions: ${summary.knownEnvironmentExclusions ?? 0}`,
+      `- Unknown failures: ${summary.unknownFailures ?? 1}`,
+      `- Parser: ${summary.terminalSummaryValid ? "VALID" : "INVALID"}`,
+      `- Cleanup: ${summary.cleanupStatus ?? "FAIL"}`,
+      "",
+    ].join("\n"), { encoding: "utf8" });
+  }
+}
+
+export function renderHarnessSummaryLine(summary: Readonly<Record<string, unknown>>) {
+  return `PLAVE_FULL_HARNESS_SUMMARY=${JSON.stringify(summary)}`;
+}
+
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   runOfficialFullHarness().catch((error: unknown) => {
     const summary = {
-      schemaVersion: "PLAVE_OFFICIAL_FULL_HARNESS_V1",
+      schemaVersion: "PLAVE_OFFICIAL_FULL_HARNESS_V2",
+      node: process.version,
+      platform: `${process.platform}-${process.arch}`,
       terminalSummaryValid: false,
       directActualFailures: 1,
+      unknownFailures: 1,
+      cleanupStatus: "FAIL",
       reason: "RUNNER_CRASH",
-      error: error instanceof Error ? error.message : "UNKNOWN",
+      error: redactHarnessOutput(error instanceof Error ? error.message : "UNKNOWN"),
     };
-    console.log(`PLAVE_FULL_HARNESS_SUMMARY=${JSON.stringify(summary)}`);
+    emitHarnessSummary(summary);
     process.exitCode = 1;
   });
 }

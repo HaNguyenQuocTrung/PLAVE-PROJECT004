@@ -127,9 +127,21 @@ jobs:
         run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify browser-receipt
 
       - name: Run official full repository harness
-        run: npm_config_offline=true npm run --silent test:full:official
+        run: |
+          harness_log="$RUNNER_TEMP/plave-full-harness.log"
+          harness_summary="$RUNNER_TEMP/plave-full-harness-summary.txt"
+          harness_status=0
+          if PLAVE_FULL_HARNESS_LOG="$harness_log" PLAVE_FULL_HARNESS_SUMMARY_PATH="$harness_summary" npm_config_offline=true npm run --silent test:full:official; then
+            harness_status=0
+          else
+            harness_status=$?
+          fi
+          tail -n 120 "$harness_log"
+          cat "$harness_summary"
+          exit "$harness_status"
 
       - name: Guard repository after full harness
+        if: ${{ always() }}
         run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify full-harness
 
       - name: Run exact frozen-artifact equivalent

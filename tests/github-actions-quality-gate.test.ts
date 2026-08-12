@@ -20,7 +20,7 @@ const workflow = load(source, { schema: CORE_SCHEMA }) as {
     "runs-on": string;
     "timeout-minutes": number;
     env?: Record<string, string>;
-    steps: Array<{ name?: string; uses?: string; run?: string; with?: Record<string, unknown> }>;
+    steps: Array<{ name?: string; uses?: string; run?: string; if?: string; with?: Record<string, unknown> }>;
   }>;
 };
 
@@ -133,4 +133,18 @@ test("workflow expressions use contexts available before jobs are instantiated",
   assert.doesNotMatch(jobDefinition, /\$\{\{\s*runner[.]/u);
   assert.doesNotMatch(source, /PLAVE_CI_IMMUTABILITY_BASELINE:\s*\$\{\{/u);
   assert.match(source, /PLAVE_CI_IMMUTABILITY_BASELINE="\$RUNNER_TEMP\/plave-ci-repository-baseline[.]json"/u);
+});
+
+test("full harness streams sanitized diagnostics while preserving its exit code", () => {
+  const step = workflow.jobs["quality-gate"].steps.find((entry) => entry.name === "Run official full repository harness");
+  const run = step?.run ?? "";
+  assert.match(run, /PLAVE_FULL_HARNESS_LOG/u);
+  assert.match(run, /PLAVE_FULL_HARNESS_SUMMARY_PATH/u);
+  assert.match(run, /tail -n 120/u);
+  assert.match(run, /cat "\$harness_summary"/u);
+  assert.match(run, /exit "\$harness_status"/u);
+  assert.doesNotMatch(run, /continue-on-error|[|][|]\s*true/u);
+  const guard = workflow.jobs["quality-gate"].steps.find((entry) => entry.name === "Guard repository after full harness");
+  assert.equal(guard?.if, "${{ always() }}");
+  assert.match(guard?.run ?? "", /verify-ci-repository-immutability[.]ts verify full-harness/u);
 });
