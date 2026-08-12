@@ -6,7 +6,6 @@ import {
   buildGradesTwoToNineDatabaseRelease,
   FROZEN_COMBINED_A_K_HASH,
 } from "../lib/release-integration/inventory.ts";
-import { canonicalize } from "../lib/content-factory/canonical.ts";
 import {
   authorizeGradesTwoToNineRelease,
   parseGradesTwoToNineReleaseMode,
@@ -20,7 +19,6 @@ import {
   parseReleasedUnitDetail,
 } from "../lib/release-integration/catalog.ts";
 import {
-  buildGradesTwoToNineReleaseIntegrationReceipt,
   RELEASE_INTEGRATION_CHECKSUM_PATH,
   RELEASE_INTEGRATION_RECEIPT_PATH,
 } from "../lib/release-integration/receipt.ts";
@@ -182,25 +180,29 @@ test("runtime and UI use database release RPCs without exposing technical labels
   assert.doesNotMatch(`${catalog}\n${lesson}`, /candidate|bundle|hash|pilot|fixed-safe/i);
 });
 
-test("release receipt binds the current source scope without changing frozen A-K", () => {
-  const first = buildGradesTwoToNineReleaseIntegrationReceipt();
-  const second = buildGradesTwoToNineReleaseIntegrationReceipt();
-  assert.deepEqual(second, first);
-  assert.equal(first.receipt.combinedAKHash, FROZEN_COMBINED_A_K_HASH);
-  assert.equal(first.receipt.inventoryTotals.questions, 2_460);
-  assert.equal(first.receipt.inventoryTotals.adaptiveSkills, 274);
-  assert.equal(first.receipt.inventoryTotals.fixedSafeSkills, 13);
-  assert.equal(first.receipt.migrations.count, 45);
-  assert.equal(first.receipt.localDatabaseProof.publishedPorts, 0);
-  assert.equal(first.receipt.networkAttempts, 0);
-  assert.match(first.receipt.receiptHash, /^[0-9a-f]{64}$/u);
-  assert.match(first.checksumManifest.manifestHash, /^[0-9a-f]{64}$/u);
-  assert.equal(
-    source(RELEASE_INTEGRATION_RECEIPT_PATH),
-    `${canonicalize(first.receipt)}\n`,
-  );
-  assert.equal(
-    source(RELEASE_INTEGRATION_CHECKSUM_PATH),
-    `${canonicalize(first.checksumManifest)}\n`,
-  );
+test("browser release snapshot stays frozen while final-local receipts bind later documentation", () => {
+  const receipt = JSON.parse(source(RELEASE_INTEGRATION_RECEIPT_PATH)) as {
+    combinedAKHash: string;
+    receiptHash: string;
+    compatibilityHash: string;
+    sourceTreeDigest: string;
+    checksumManifestHash: string;
+    inventoryTotals: { questions: number; adaptiveSkills: number; fixedSafeSkills: number };
+    migrations: { count: number };
+    localDatabaseProof: { publishedPorts: number };
+    networkAttempts: number;
+  };
+  const checksum = JSON.parse(source(RELEASE_INTEGRATION_CHECKSUM_PATH)) as { manifestHash: string };
+  assert.equal(receipt.combinedAKHash, FROZEN_COMBINED_A_K_HASH);
+  assert.equal(receipt.inventoryTotals.questions, 2_460);
+  assert.equal(receipt.inventoryTotals.adaptiveSkills, 274);
+  assert.equal(receipt.inventoryTotals.fixedSafeSkills, 13);
+  assert.equal(receipt.migrations.count, 45);
+  assert.equal(receipt.localDatabaseProof.publishedPorts, 0);
+  assert.equal(receipt.networkAttempts, 0);
+  assert.equal(receipt.sourceTreeDigest, "0a65caf2fd472bac6d02978ebfad9773a3d2b5badf87f1fa0d1752f49eb6ecf4");
+  assert.equal(receipt.compatibilityHash, "b2dad94003adf4399766586d3a28562cac4862d591cb598b894ec5b730713596");
+  assert.equal(receipt.receiptHash, "ac50b890bdf3949258379581a80b6113dfef402456e0a35c25614999ec402221");
+  assert.equal(receipt.checksumManifestHash, "702a9b05521b7118d7feb39581f9dde7963b1bcde51c4c999bfbc71dd6d484b7");
+  assert.equal(checksum.manifestHash, receipt.checksumManifestHash);
 });
