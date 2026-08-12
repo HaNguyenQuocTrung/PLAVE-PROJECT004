@@ -1,0 +1,26 @@
+\set ON_ERROR_STOP on
+begin read only;
+set local statement_timeout = '30s';
+select 'ledger_rows',count(*)::text from supabase_migrations.schema_migrations;
+select 'migration_0045_rows',count(*)::text from supabase_migrations.schema_migrations where version='0045';
+select 'release_policies',count(*)::text from public.curriculum_grade_release_policies where grade between 2 and 9;
+select 'public_modes',count(*)::text from public.curriculum_grade_release_policies where grade between 2 and 9 and release_mode='PUBLIC' and catalog_enabled and runtime_enabled;
+select 'hidden_modes',count(*)::text from public.curriculum_grade_release_policies where grade between 2 and 9 and release_mode='HIDDEN' and not catalog_enabled and not runtime_enabled;
+select 'default_entitlements',count(*)::text from public.curriculum_release_pilot_entitlements;
+select 'runtime_units',count(*)::text from public.curriculum_release_units u join public.curriculum_grade_release_policies p using(release_id) where u.total_questions>0;
+select 'questions',count(*)::text from public.curriculum_release_questions q join public.curriculum_grade_release_policies p using(release_id);
+select 'skills',count(*)::text from public.curriculum_release_skills s join public.curriculum_grade_release_policies p using(release_id);
+select 'grade1_units',count(*)::text from public.learning_units where grade=1 and published;
+select 'grade1_questions',count(*)::text from public.questions q join public.learning_units u on u.slug=q.unit_slug where u.grade=1 and q.published;
+select 'grade1_solutions',count(*)::text from public.question_solutions s join public.questions q on q.code=s.question_id join public.learning_units u on u.slug=q.unit_slug where u.grade=1;
+select 'grade1_diagnostic',count(*)::text from public.grade1_diagnostic_blueprint where blueprint_version=1;
+select 'practice_attempts',count(*)::text from public.practice_attempts;
+select 'practice_answers',count(*)::text from public.practice_answers;
+select 'diagnostic_attempts',count(*)::text from public.diagnostic_attempts;
+select 'diagnostic_answers',count(*)::text from public.diagnostic_answers;
+select 'curriculum_attempts',count(*)::text from public.curriculum_attempts;
+select 'curriculum_answers',count(*)::text from public.curriculum_answers;
+select 'unit_progress',count(*)::text from public.student_curriculum_unit_progress;
+select 'outcome_progress',count(*)::text from public.student_curriculum_outcome_progress;
+select 'skill_progress',count(*)::text from public.student_curriculum_skill_progress;
+rollback;

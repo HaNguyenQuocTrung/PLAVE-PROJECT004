@@ -22,6 +22,14 @@ sensitive target metadata into the repository or terminal transcript.
 
 This handoff intentionally omits runnable remote target strings and credentials. Use the provider's approved secret injection and deployment interfaces at execution time.
 
+The canonical post-0045 operation package is
+`supabase/operations/grades-2-9-remote-release/`. Do not use the historical
+pre-0045 universal activation scripts: those pin an older ledger and inventory.
+Run `DIAGNOSTIC_READONLY.sql` first, preserve the post-0045/pre-activation
+backup, then use `ACTIVATE_PUBLIC.sql` only against the independently verified
+canonical target. Keep `DEACTIVATE.sql` available as the separately authorized,
+history-preserving rollback.
+
 ## Required sequence
 
 1. Reconcile the authorized commit and frozen hashes.
