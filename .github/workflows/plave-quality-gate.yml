@@ -23,6 +23,9 @@ jobs:
     timeout-minutes: 60
     env:
       CI: "1"
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+      TZ: UTC
       NEXT_TELEMETRY_DISABLED: "1"
       npm_config_audit: "false"
       npm_config_fund: "false"
@@ -64,15 +67,23 @@ jobs:
       - name: Audit credential-safe secret boundary
         run: npm_config_offline=true npm run --silent security:secret-boundary
 
-      - name: Verify migration release RLS and frozen integrity
-        run: >-
-          node --test --no-warnings --experimental-strip-types
-          tests/project004-remote-migration-0041.test.ts
-          tests/project004-disposable-migration-inventory.test.ts
-          tests/remote-rls-drift-remediation.test.mjs
-          tests/grades-2-9-release-integration.test.ts
-          tests/final-local-acceptance.test.ts
-          tests/real-local-browser-acceptance.test.ts
+      - name: Verify canonical migration inventory and SHA
+        run: node --no-warnings --experimental-strip-types scripts/run-ci-quality-test-group.ts migration-inventory
+
+      - name: Verify disposable migration boundary
+        run: node --no-warnings --experimental-strip-types scripts/run-ci-quality-test-group.ts disposable-migration
+
+      - name: Verify exact release RLS contract
+        run: node --no-warnings --experimental-strip-types scripts/run-ci-quality-test-group.ts release-rls
+
+      - name: Verify Grades 2-9 release integration
+        run: node --no-warnings --experimental-strip-types scripts/run-ci-quality-test-group.ts release-integration
+
+      - name: Verify final-local frozen acceptance
+        run: node --no-warnings --experimental-strip-types scripts/run-ci-quality-test-group.ts final-local-acceptance
+
+      - name: Verify browser acceptance receipt
+        run: node --no-warnings --experimental-strip-types scripts/run-ci-quality-test-group.ts browser-receipt
 
       - name: Run official full repository harness
         run: npm_config_offline=true npm run --silent test:full:official

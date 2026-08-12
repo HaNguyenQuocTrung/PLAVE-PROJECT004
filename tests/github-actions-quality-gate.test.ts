@@ -19,6 +19,7 @@ const workflow = load(source, { schema: CORE_SCHEMA }) as {
   jobs: Record<string, {
     "runs-on": string;
     "timeout-minutes": number;
+    env?: Record<string, string>;
     steps: Array<{ name?: string; uses?: string; run?: string; with?: Record<string, unknown> }>;
   }>;
 };
@@ -53,7 +54,12 @@ test("workflow reuses every canonical quality command", () => {
     "tsconfig.secret-boundary.json",
     "npm run --silent lint",
     "npm run --silent security:secret-boundary",
-    "tests/remote-rls-drift-remediation.test.mjs",
+    "scripts/run-ci-quality-test-group.ts migration-inventory",
+    "scripts/run-ci-quality-test-group.ts disposable-migration",
+    "scripts/run-ci-quality-test-group.ts release-rls",
+    "scripts/run-ci-quality-test-group.ts release-integration",
+    "scripts/run-ci-quality-test-group.ts final-local-acceptance",
+    "scripts/run-ci-quality-test-group.ts browser-receipt",
     "npm run --silent test:full:official",
     "npm run --silent build:production-local",
     "npm run --silent test:final-local-acceptance",
@@ -84,4 +90,18 @@ test("synthetic build values stay local-only and release defaults stay hidden", 
   assert.match(source, /PLAVE_GRADES_2_9_RELEASE_MODE: HIDDEN/u);
   assert.match(source, /PLAVE_CURRICULUM_RUNTIME_ENABLED: "false"/u);
   assert.doesNotMatch(source, /PLAVE_GRADES_2_9_RELEASE_MODE:\s*PUBLIC/u);
+});
+
+test("Linux CI diagnostics lock locale and isolate every frozen test group", () => {
+  const job = workflow.jobs["quality-gate"];
+  assert.equal(job.env?.LANG, "C.UTF-8");
+  assert.equal(job.env?.LC_ALL, "C.UTF-8");
+  assert.equal(job.env?.TZ, "UTC");
+  assert.match(source, /LANG: C[.]UTF-8/u);
+  assert.match(source, /LC_ALL: C[.]UTF-8/u);
+  assert.match(source, /TZ: UTC/u);
+  const diagnosticSteps = job.steps.filter((step) => step.run?.includes("run-ci-quality-test-group.ts"));
+  assert.equal(diagnosticSteps.length, 6);
+  assert.equal(new Set(diagnosticSteps.map((step) => step.name)).size, 6);
+  assert.doesNotMatch(diagnosticSteps.map((step) => step.run).join("\n"), /node\s+--test/u);
 });
