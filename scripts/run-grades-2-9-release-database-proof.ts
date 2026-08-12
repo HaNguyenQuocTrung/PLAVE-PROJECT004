@@ -63,6 +63,11 @@ try {
     create role service_role nologin;
     create schema auth authorization postgres;
     create schema extensions authorization postgres;
+    create schema supabase_migrations authorization postgres;
+    create table supabase_migrations.schema_migrations (
+      version text primary key,
+      statements text[] not null default array[]::text[]
+    );
     create table auth.users (
       id uuid primary key,
       aud text,
@@ -89,6 +94,8 @@ try {
   for (const migration of migrations) {
     try {
       psql(readFileSync(join(root, "supabase/migrations", migration), "utf8"));
+      psql(`insert into supabase_migrations.schema_migrations(version,statements)
+        values('${migration.slice(0, 4)}',array[]::text[]);`);
     } catch {
       throw new Error(`LOCAL_DB_PROOF:MIGRATION_FAILED:${migration}`);
     }
@@ -127,7 +134,10 @@ try {
       exception when others then if sqlerrm<>'CURRICULUM:RELEASE_UNAVAILABLE' then raise; end if; end;
     end; $hidden_default$;
   `);
-  psql(readFileSync(join(root, "supabase/operations/grades-2-9-local-release/ACTIVATE_PUBLIC.sql"), "utf8"));
+  // Exercise the exact remotely reviewed package against PostgreSQL rather
+  // than relying on static SQL assertions. This locks PL/pgSQL parseability,
+  // exact-tuple guards, atomic activation, and its terminal success contract.
+  psql(readFileSync(join(root, "supabase/operations/grades-2-9-remote-release/ACTIVATE_PUBLIC.sql"), "utf8"));
   psql(`do $pilot$
   declare v_policy public.curriculum_grade_release_policies%rowtype; v_catalog jsonb;
   begin

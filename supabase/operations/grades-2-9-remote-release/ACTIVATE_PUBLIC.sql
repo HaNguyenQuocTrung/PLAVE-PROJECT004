@@ -21,7 +21,8 @@ begin
     where grade between 2 and 9 order by grade for update;
 
   if exists (
-    (values
+    select 1
+    from (values
       (2,'plave-math-grade-2-a-k-v1','g2-combined-wave-a-b-c-d-e-f-g-h-i-j-k','g2-combined-1.0.0-wave-k','d07d43cfe4a55f6609b41ade67b461664a1506a1a3044e20037181ddd24dada1','g2-combined-policy-1.0.0-wave-k'),
       (3,'plave-math-grade-3-a-k-v1','g3-combined-wave-a-b-c-d-e-f-g-h-i-j-k','g3-combined-1.0.0-wave-k','da36593c635f74e7affbe7f21cd120b7af674a1915a21490df1273158b1b13b6','g3-combined-policy-1.0.0-wave-k'),
       (4,'plave-math-grade-4-a-k-v1','g4-combined-wave-a-b-c-d-e-f-g-h-i-j-k','g4-combined-1.0.0-wave-k','d5d3f524fa021ef9909e8de44764e8957a5fb0e2611051f38657439aca6b3d3a','g4-combined-policy-1.0.0-wave-k'),
@@ -30,9 +31,17 @@ begin
       (7,'plave-math-grade-7-a-k-v1','g7-combined-wave-a-b-c-d-e-f-g-h-i-j-k','g7-combined-1.0.0-wave-k','c8dd0f279a61a6950a234073ddd20df6796a454145e3d60cb365e8ad203768db','g7-combined-policy-1.0.0-wave-k'),
       (8,'plave-math-grade-8-a-k-v1','g8-combined-wave-a-b-c-d-e-f-g-h-i-j-k','g8-combined-1.0.0-wave-k','333dd541cb85e7583d819c785bc5b62c79f823cdd3e7c6d1e6077b54ef4f7ce2','g8-combined-policy-1.0.0-wave-k'),
       (9,'plave-math-grade-9-a-k-v1','g9-combined-wave-a-b-c-d-e-f-g-h-i-j-k','g9-combined-1.0.0-wave-k','4c82299bd8ab0fa6b4d69eca64a831cff4ecec8ff1808c40fb391f92e6640bb7','g9-combined-policy-1.0.0-wave-k')
-    except
-    select grade,release_id,candidate_id,candidate_version,candidate_bundle_sha256,policy_version
+    ) as expected(grade,release_id,candidate_id,candidate_version,candidate_bundle_sha256,policy_version)
+    full join (
+      select grade,release_id,candidate_id,candidate_version,candidate_bundle_sha256,policy_version
       from public.curriculum_grade_release_policies where grade between 2 and 9
+    ) as actual using (grade)
+    where expected.grade is null or actual.grade is null
+      or row(expected.release_id,expected.candidate_id,expected.candidate_version,
+        expected.candidate_bundle_sha256,expected.policy_version)
+        is distinct from
+        row(actual.release_id,actual.candidate_id,actual.candidate_version,
+          actual.candidate_bundle_sha256,actual.policy_version)
   ) then raise exception 'GRADES_2_9_REMOTE:EXACT_TUPLE_MISMATCH'; end if;
 
   if (select count(*) from public.curriculum_grade_release_policies where grade between 2 and 9
@@ -64,19 +73,19 @@ begin
   ] into v_history_before;
 
   update public.curriculum_releases r
-    set status='ACTIVE',activation_state='ACTIVE',activated_at=coalesce(activated_at,now()),retired_at=null
+    set status='ACTIVE',activation_state='ACTIVE',activated_at=coalesce(r.activated_at,now()),retired_at=null
     from public.curriculum_grade_release_policies p
     where p.release_id=r.release_id and p.grade between 2 and 9
       and ((r.status='DRAFT' and r.activation_state='INACTIVE') or (r.status='ACTIVE' and r.activation_state='ACTIVE'));
   get diagnostics v_release_rows = row_count;
 
-  update public.curriculum_grade_release_policies
+  update public.curriculum_grade_release_policies p
     set release_mode='PUBLIC',catalog_enabled=true,runtime_enabled=true,
-        retention_enabled=false,activated_at=coalesce(activated_at,now()),updated_at=now()
-    where grade between 2 and 9
-      and ((release_mode='HIDDEN' and not catalog_enabled and not runtime_enabled)
-        or (release_mode='PUBLIC' and catalog_enabled and runtime_enabled))
-      and not retention_enabled;
+        retention_enabled=false,activated_at=coalesce(p.activated_at,now()),updated_at=now()
+    where p.grade between 2 and 9
+      and ((p.release_mode='HIDDEN' and not p.catalog_enabled and not p.runtime_enabled)
+        or (p.release_mode='PUBLIC' and p.catalog_enabled and p.runtime_enabled))
+      and not p.retention_enabled;
   get diagnostics v_policy_rows = row_count;
 
   if v_release_rows <> 8 or v_policy_rows <> 8

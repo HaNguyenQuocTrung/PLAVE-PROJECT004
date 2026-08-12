@@ -15,6 +15,8 @@ test("remote 0045 activation is exact-tuple, atomic, idempotent and history pres
     assert.match(sql, new RegExp(`\\(${grade},'plave-math-grade-${grade}-a-k-v1','g${grade}-combined-wave-a-b-c-d-e-f-g-h-i-j-k'`, "u"));
   }
   assert.match(sql, /EXACT_TUPLE_MISMATCH/u);
+  assert.match(sql, /full join \([\s\S]*?\) as actual using \(grade\)/u);
+  assert.match(sql, /is distinct from/u);
   assert.match(sql, /v_history_after <> v_history_before/u);
   assert.match(sql, /release_mode='PUBLIC',catalog_enabled=true,runtime_enabled=true/u);
   assert.match(sql, /retention_enabled=false/u);
@@ -22,6 +24,15 @@ test("remote 0045 activation is exact-tuple, atomic, idempotent and history pres
   assert.match(sql, /commit;/u);
   assert.doesNotMatch(sql, /insert\s+into/iu);
   assert.doesNotMatch(sql, /learning_units[^;]*published\s*=\s*true/iu);
+});
+
+test("disposable database proof executes the exact remote activation SQL", () => {
+  const proof = readFileSync(resolve(root,
+    "scripts/run-grades-2-9-release-database-proof.ts"), "utf8");
+  assert.match(proof,
+    /grades-2-9-remote-release\/ACTIVATE_PUBLIC[.]sql/u);
+  assert.doesNotMatch(proof,
+    /grades-2-9-local-release\/ACTIVATE_PUBLIC[.]sql/u);
 });
 
 test("remote 0045 deactivation blocks discovery and preserves history", () => {
