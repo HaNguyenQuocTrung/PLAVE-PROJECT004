@@ -1,5 +1,10 @@
 # PLAVE Owner local demo — Grades 1–9
 
+> **HISTORICAL / SUPERSEDED:** The failed browser checkpoint below remains
+> accurate for its date. Current passing real-browser evidence and runbook are
+> `docs/final/PLAVE_GRADES_1_9_LOCAL_ACCEPTANCE.md` and
+> `docs/releases/GRADES_1_9_REAL_LOCAL_BROWSER_ACCEPTANCE.md`.
+
 Status: **NOT_READY_FOR_OWNER_BROWSER_DEMO**.
 
 Owner browser acceptance failed on 2026-07-31 while starting Grade 8

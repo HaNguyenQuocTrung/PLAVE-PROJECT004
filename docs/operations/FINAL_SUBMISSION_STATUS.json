@@ -1,8 +1,8 @@
 {
   "recordStatus": "ARCHIVED_NON_OPERATIONAL",
   "recordScope": "HISTORICAL_PRE_WAVE_A_TO_N_SNAPSHOT",
-  "supersededBy": "content/grade-packs/generated/wave-n-final-candidate-inventory.json",
-  "supersessionNotice": "The 171-unit and 2,052-question values below are historical only and are not the final submission inventory.",
+  "supersededBy": "content/releases/grades-1-9/final-local-acceptance-receipt.json",
+  "supersessionNotice": "The 171-unit and 2,052-question values below are historical only. Current local acceptance is canonicalized by docs/final/PLAVE_GRADES_1_9_LOCAL_ACCEPTANCE.md and content/releases/grades-1-9/final-local-acceptance-receipt.json.",
   "canonicalFinalInventory": {
     "questions": 2772,
     "skills": 338,

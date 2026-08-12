@@ -1,6 +1,6 @@
-# PLAVE FYP completion
+# PLAVE FYP completion and final local acceptance
 
-PLAVE Grades 1–9 is code-complete for the FYP scope and frozen pending separate Owner authorization for push or submission. Wave N adds no curriculum, production question, role, architecture, migration, publication, activation or entitlement.
+PLAVE Grades 1–9 is locally accepted for the FYP scope at baseline `20d276f14b94d74e60e5308953b99e708adb87e7`. This checkpoint reconciles the real browser, HTTP/API, database, authorization, persistence and quality proofs already completed at that exact executable source. It does not rerun those proofs and does not claim a remote release.
 
 ## Frozen product truth
 
@@ -8,33 +8,38 @@ PLAVE Grades 1–9 is code-complete for the FYP scope and frozen pending separat
 - Wave L compatibility: `ffbe617c9790a74cad0e0a9093da077e5f18428b3c529610bf482b9a72be5932`
 - Wave M compatibility: `17aefa873d610646fd5b6b8c67741ae8a4f7409206839dd672effa3dca18d02c`
 - Wave M corrective overlay: `17bc6698845b2d103bdf68388a9f7332f826c026ddb73f0478b659de8b75f643`
-- Final source-tree digest: `9a7555fd4a92c5545ba59ee4f190a040cc0631deff35a088a9afb24546c13855`
-- Final release receipt: `fa4eedfec30f999f6bcb88e6dc4ea972643f60b9c646cab4a7a094fb90edf6a5`
+- Browser E2E receipt: `4a2c7353b1c5831496967cf7e9d2d3393de524e2a3a3c547970bc9297aadb412`
+- Browser acceptance source tree: `0a65caf2fd472bac6d02978ebfad9773a3d2b5badf87f1fa0d1752f49eb6ecf4`
+- Browser compatibility: `b2dad94003adf4399766586d3a28562cac4862d591cb598b894ec5b730713596`
+- Browser release receipt: `ac50b890bdf3949258379581a80b6113dfef402456e0a35c25614999ec402221`
+- Browser checksum manifest: `702a9b05521b7118d7feb39581f9dde7963b1bcde51c4c999bfbc71dd6d484b7`
+- Migration 0045: `8ef040428b424bf84fe50c4077a891e042956e77436aca9f6f55ca1bf19a663f`
+- Database inventory: `829093cc59a2bf1d2d228030d63d27d43180163813490b266d7e92433d1e57b4`
 
 ## Grades 1–9 acceptance
 
 | Grade | Result | Learning | Progress | Path | History | Continuous learning |
 |---:|---|---|---|---|---|---|
-| 1 | PARTIAL_ACCEPTED | PASS | PASS | PASS | PASS | PASS |
-| 2 | PASS | PASS | PASS | PASS | PASS | PASS |
-| 3 | PASS | PASS | PASS | PASS | PASS | PASS |
-| 4 | PASS | PASS | PASS | PASS | PASS | PASS |
-| 5 | PASS | PASS | PASS | PASS | PASS | PASS |
-| 6 | PASS | PASS | PASS | PASS | PASS | PASS |
-| 7 | PASS | PASS | PASS | PASS | PASS | PASS |
-| 8 | PASS | PASS | PASS | PASS | PASS | PASS |
-| 9 | PASS | PASS | PASS | PASS | PASS | PASS |
+| 1 | LOCAL_ACCEPTED | PASS | PASS | PASS | PASS | PASS |
+| 2 | LOCAL_ACCEPTED | PASS | PASS | PASS | PASS | PASS |
+| 3 | LOCAL_ACCEPTED | PASS | PASS | PASS | PASS | PASS |
+| 4 | LOCAL_ACCEPTED | PASS | PASS | PASS | PASS | PASS |
+| 5 | LOCAL_ACCEPTED | PASS | PASS | PASS | PASS | PASS |
+| 6 | LOCAL_ACCEPTED | PASS | PASS | PASS | PASS | PASS |
+| 7 | LOCAL_ACCEPTED | PASS | PASS | PASS | PASS | PASS |
+| 8 | LOCAL_ACCEPTED | PASS | PASS | PASS | PASS | PASS |
+| 9 | LOCAL_ACCEPTED | PASS | PASS | PASS | PASS | PASS |
 
-Grade 1 is PARTIAL_ACCEPTED only because its verified public learning path remains fixed-runtime while adaptive behavior is shadow-only. The fixed journey works. Grades 2–9 pass the local hidden-candidate software proof.
+Grade 1 remains a public fixed runtime and was not converted to adaptive. Grades 2–9 passed real local `PUBLIC` browser journeys backed by the canonical database release. `LOCAL_ACCEPTED` does not mean remotely deployed or activated.
 
 ## Completion accounting
 
-Inventory remains 2,772 questions, 338 question-bearing skills and 176 units. Readiness remains 274 adaptive-ready, 13 fixed-safe, 51 Grade 1 shadow-only and 0 unavailable. Candidates remain DRAFT/HIDDEN with publication, pilot, runtime and retention disabled and zero default entitlement.
+The combined inventory remains 2,772 questions, 338 question-bearing skills and 176 units. Grades 2–9 contribute 2,460 questions, 287 skills and 163 source units: 128 question-bearing runtime units, 35 source units that fail closed, 274 adaptive skills and 13 fixed-safe skills. All 13 fixed-safe skills passed browser acceptance and make no adaptive-mastery claim. Default entitlement count remains zero.
 
 ## Authorized post-freeze correction
 
-The final audit findings were corrected without creating Wave O: the official secret-boundary command is tracked-only and credential-safe, Wave M regeneration uses scope `plave-wave-m-input-scope-v2` with input digest `b783388bb21ca51f683df79c1ee099dee7ef15059e013b93492b5bed6dc58848`, and submission-facing documentation now points to the canonical final inventory. Grades 2–9 release integration remains unperformed.
+The final audit findings were corrected without creating Wave O. The later Grades 2–9 integration materialized migration `0045`, added typed `HIDDEN`/`PILOT`/`PUBLIC` release behavior, connected catalog and runtime paths, and passed disposable local database plus browser acceptance. Repository default remains `HIDDEN`.
 
 The deterministic proof covers Student start/resume, answer, post-submit feedback, progress, motivation, history, mastery, remediation-return, fixed-safe fallback, retention, mixed practice, maximum termination, grade completion, deactivation, Parent/Teacher authorization, CAS/duplicate safety, solution isolation and continuous next action.
 
-No Wave O is planned. Push, merge, tag, PR, deploy, publication and activation require separate Owner authorization.
+Remote migration `0045`, remote Grades 2–9 activation and a new application deployment are `NOT_YET_EXECUTED`. Push, merge, tag, PR, deployment and remote activation require separate Owner authorization.

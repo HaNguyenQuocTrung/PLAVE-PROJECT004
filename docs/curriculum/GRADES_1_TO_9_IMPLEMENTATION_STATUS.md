@@ -1,5 +1,9 @@
 # Grades 1–9 implementation status
 
+> **HISTORICAL / SUPERSEDED:** This 2026-07-30 implementation snapshot is
+> preserved as evidence. Current release status is in
+> `docs/final/PLAVE_GRADES_1_9_LOCAL_ACCEPTANCE.md`.
+
 Updated: 2026-07-30
 
 Status: `GRADES 1–9 FULL OFFICIAL OUTCOME COVERAGE COMPLETE`

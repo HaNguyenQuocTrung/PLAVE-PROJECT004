@@ -15,7 +15,7 @@ Students need a coherent path from curriculum concepts to deliberate practice an
 ## Implemented features
 
 - Grade 1 fixed-runtime mathematics learning path.
-- Grades 2–9 verified curriculum packages materialized for an Owner-activated local release; the default remains `HIDDEN` and inactive.
+- Grades 2–9 database-backed adaptive and fixed-safe journeys, materialized by migration `0045` and accepted in a disposable local `PUBLIC` release; the repository default remains `HIDDEN`.
 - Lessons, practice, results, and learning history.
 - Score, XP, and mastery foundation.
 - AI Tutor local MVP.
@@ -85,6 +85,13 @@ application mode and exact database release flags are enabled. The default mode
 remains `HIDDEN`; this repository change does not publish, activate, or deploy
 any remote environment.
 
+Real installed-Chrome acceptance passed for Grades 1–9 at the frozen local
+checkpoint. Grade 1 remains on its public fixed runtime. Grades 2–9 use the
+database-backed adaptive/fixed-safe runtime when an Owner explicitly selects
+`PUBLIC` and the exact database release flags are active. This is local release
+acceptance, not evidence that migration `0045`, activation, or the application
+release has been applied to an online environment.
+
 ## Testing summary
 
 The recorded Project004 checkpoint includes:
@@ -94,7 +101,7 @@ The recorded Project004 checkpoint includes:
 - Production build: **76 static pages** generated across **115 application routes**.
 - Practice validation: **550/550**.
 - Generator V2 validation: **32,760/32,760**.
-- `npm audit`: **0 vulnerabilities** at the recorded checkpoint.
+- Offline installed-dependency validation: passed at the recorded checkpoint; no online vulnerability query is claimed.
 
 ## Honest limitations
 

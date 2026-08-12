@@ -1,22 +1,23 @@
 # PLAVE FYP demo guide
 
-This guide uses existing local routes/components and synthetic fixtures. It does not authorize publication, activate hidden candidates, start a server, inspect port 3000 or use credentials.
+This guide points to the accepted disposable local runtime and synthetic browser workflow. It does not authorize a remote migration, activation, publication or deployment.
 
 ## Demonstration sequence
 
-1. Explain the published Grade 1 fixed learning path and its LOCAL_SHADOW_ONLY adaptive comparison.
-2. Show the Student Dashboard, knowledge/lesson navigation, practice states, submit feedback, progress and learning history components through existing component/route proofs.
-3. Show one synthetic Grades 2–9 exact-entitlement journey from start/resume through progress, history and next action; clarify that the candidate remains hidden/inactive.
-4. Demonstrate mastery, remediation-return, retention, mixed practice, fixed-safe fallback and grade-complete future path using deterministic reports.
-5. Demonstrate approved/unapproved Parent and authorized/unauthorized Teacher access, anonymous/cross-user denial, duplicate/CAS protection and history preservation after deactivation.
-6. Close with the acceptance matrix: 8 PASS, 1 PARTIAL_ACCEPTED, 0 FAIL.
+1. Explain that Grade 1 uses the unchanged public fixed runtime.
+2. Follow `docs/releases/GRADES_1_9_REAL_LOCAL_BROWSER_ACCEPTANCE.md` for the disposable installed-browser proof.
+3. Show a Grade 1 login, lesson, submit, progress and history journey.
+4. With local PUBLIC mode and database flags explicitly enabled, show Grades 2–9 catalog, `/learn`, lesson, start/resume, feedback, progress, history and next action. PUBLIC does not require pilot UUID entitlement, but still requires authenticated Student, correct grade and exact active tuple.
+5. Show one adaptive journey and one fixed-safe journey; fixed-safe feedback must not be presented as adaptive mastery.
+6. Demonstrate approved/unapproved Parent and authorized/unauthorized Teacher reads, plus start/submit denial for non-Student roles.
+7. Close with the canonical matrix: 9 `LOCAL_ACCEPTED`, remote release `NOT_YET_EXECUTED`, Grades 2–9 online availability `NOT_YET_CLAIMED`.
 
 ## Evidence entry points
 
-- `content/grade-packs/generated/wave-n-final-acceptance-matrix.json`
-- `content/grade-packs/generated/wave-n-final-candidate-inventory.json`
-- `content/grade-packs/generated/wave-n-final-security-privacy-receipt.json`
-- `content/grade-packs/generated/wave-n-final-release-receipt.json`
-- `content/grade-packs/generated/wave-m-student-journey-report.json`
+- `content/releases/grades-1-9/final-local-acceptance-matrix.json`
+- `content/releases/grades-1-9/final-local-acceptance-receipt.json`
+- `content/releases/grades-2-9/release-inventory.json`
+- `content/releases/grades-2-9/release-integration-receipt.json`
+- `docs/e2e/GRADES_1_9_REAL_LOCAL_BROWSER_E2E_RECEIPT.json`
 
-Do not claim Grades 2–9 publication, adaptive mastery for fixed-safe skills, expert endorsement, live-user effectiveness or production deployment.
+Do not claim remote Grades 2–9 activation, online availability, adaptive mastery for fixed-safe skills, expert endorsement or live-user effectiveness.

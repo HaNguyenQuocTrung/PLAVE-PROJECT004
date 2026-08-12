@@ -24,8 +24,10 @@ Do not prefix either setting with `NEXT_PUBLIC_`.
 
 ## Owner-authorized local activation
 
-Prepare a disposable loopback PostgreSQL database with migrations 0001–0044,
-then explicitly provide its local connection only to the guarded command:
+Prepare a disposable loopback PostgreSQL database with the canonical migration
+inventory `0001–0045` (or `0001–0044` immediately before the guarded command
+installs canonical `0045`), then explicitly provide its local connection only
+to the guarded command:
 
 ```bash
 PLAVE_LOCAL_DATABASE_CLASSIFICATION=DISPOSABLE_LOCAL \

@@ -1,5 +1,10 @@
 # Universal Curriculum Local Release Runbook
 
+> **HISTORICAL / SUPERSEDED:** This pre-0045 local release runbook is preserved
+> for audit history. Use `docs/releases/GRADES_2_9_LOCAL_RELEASE.md` for the
+> canonical current local release procedure and
+> `docs/final/PLAVE_GRADES_1_9_LOCAL_ACCEPTANCE.md` for current status.
+
 ## Safety boundary
 
 This runbook is for a **disposable loopback PostgreSQL/Supabase database only**.
