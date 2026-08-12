@@ -1,4 +1,9 @@
-# Grades 1–9 content factory
+# Grades 1–9 content factory (HISTORICAL EVOLUTION DOCUMENT)
+
+The early scaffold statements below are preserved as historical design context,
+not current inventory truth. Current canonical inventory and release state are
+recorded in `content/releases/grades-2-9/release-inventory.json` and
+`docs/final/PLAVE_RELEASE_READINESS.md`.
 
 ## Truth and state boundaries
 

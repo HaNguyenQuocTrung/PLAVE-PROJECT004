@@ -82,15 +82,16 @@ It requires an explicitly classified loopback database and separate server-only
 application flags. Grades 2–9 are integrated for the typed local `PUBLIC` mode,
 so an authenticated Student can learn their authorized grade when both the
 application mode and exact database release flags are enabled. The default mode
-remains `HIDDEN`; this repository change does not publish, activate, or deploy
-any remote environment.
+remains `HIDDEN`. Canonical migration `0045` has been applied and verified on
+the canonical remote schema, but that operation did not activate Grades 2–9 or
+deploy the new application release.
 
 Real installed-Chrome acceptance passed for Grades 1–9 at the frozen local
 checkpoint. Grade 1 remains on its public fixed runtime. Grades 2–9 use the
 database-backed adaptive/fixed-safe runtime when an Owner explicitly selects
 `PUBLIC` and the exact database release flags are active. This is local release
-acceptance, not evidence that migration `0045`, activation, or the application
-release has been applied to an online environment.
+acceptance. Remote schema materialization is complete; PUBLIC activation,
+deployment and online acceptance are still separately gated.
 
 ## Testing summary
 
@@ -108,7 +109,9 @@ The recorded Project004 checkpoint includes:
 - Generator V2 remains **OFF by default**.
 - AI Tutor is a **local MVP**, not a production AI service commitment.
 - Grades 2–9 remain hidden by default. An Owner must explicitly install and activate the documented local release profile before eligible Students can access their own grade.
-- Remote deployment and remote migration execution are not claimed by this repository README.
+- Remote migration `0045` is recorded as applied and verified from preserved
+  Owner-authorized operational evidence. Remote Grades 2–9 activation,
+  deployment and online availability are not claimed.
 
 ## Repository
 

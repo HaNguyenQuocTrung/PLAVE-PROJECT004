@@ -19,6 +19,14 @@ const isGeneratorV2OwnerReview =
   process.env.PLAVE_GENERATOR_V2_OWNER_REVIEW === "true";
 const secretBoundaryAuditMode = process.env.PLAVE_SECRET_BOUNDARY_AUDIT_MODE;
 
+const securityHeaders = [
+  { key: "Content-Security-Policy", value: "base-uri 'self'; frame-ancestors 'none'; object-src 'none'" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=()" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "DENY" },
+] as const;
+
 const nextConfig: NextConfig = {
   distDir: secretBoundaryAuditMode === "DEV"
     ? ".next-secret-boundary-dev"
@@ -36,6 +44,9 @@ const nextConfig: NextConfig = {
       ? ".next-remote-dev-project004"
       : ".next",
   poweredByHeader: false,
+  async headers() {
+    return [{ source: "/:path*", headers: [...securityHeaders] }];
+  },
   logging: isOwnerLocalDemo ? { incomingRequests: false } : undefined,
   typescript: {
     tsconfigPath: secretBoundaryAuditMode

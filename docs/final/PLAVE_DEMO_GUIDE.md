@@ -10,7 +10,9 @@ This guide points to the accepted disposable local runtime and synthetic browser
 4. With local PUBLIC mode and database flags explicitly enabled, show Grades 2–9 catalog, `/learn`, lesson, start/resume, feedback, progress, history and next action. PUBLIC does not require pilot UUID entitlement, but still requires authenticated Student, correct grade and exact active tuple.
 5. Show one adaptive journey and one fixed-safe journey; fixed-safe feedback must not be presented as adaptive mastery.
 6. Demonstrate approved/unapproved Parent and authorized/unauthorized Teacher reads, plus start/submit denial for non-Student roles.
-7. Close with the canonical matrix: 9 `LOCAL_ACCEPTED`, remote release `NOT_YET_EXECUTED`, Grades 2–9 online availability `NOT_YET_CLAIMED`.
+7. Close with the canonical matrix: 9 `LOCAL_ACCEPTED`, remote schema
+   `MATERIALIZED_HIDDEN_NOT_ACTIVATED`, and Grades 2–9 online availability
+   `NOT_YET_CLAIMED`.
 
 ## Evidence entry points
 

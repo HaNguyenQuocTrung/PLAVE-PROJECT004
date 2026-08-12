@@ -13,13 +13,13 @@ import {
 
 const read = (path: string) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 
-test("canonical Grades 1-9 matrix records local acceptance without a remote-release claim", () => {
+test("canonical Grades 1-9 matrix separates local acceptance from hidden remote schema readiness", () => {
   const built = buildFinalLocalAcceptance();
   assert.equal(built.matrix.grades.length, 9);
   assert.equal(built.matrix.grades.every((row) => row.finalResult === "LOCAL_ACCEPTED"), true);
   assert.equal(built.matrix.grades[0]?.runtimeMode, "PUBLIC_FIXED");
   assert.equal(built.matrix.grades.slice(1).every((row) => row.runtimeMode === "LOCAL_PUBLIC_ADAPTIVE_AND_FIXED_SAFE"), true);
-  assert.equal(built.matrix.remoteRelease, "NOT_YET_EXECUTED");
+  assert.equal(built.matrix.remoteRelease, "SCHEMA_MATERIALIZED_HIDDEN_NOT_ACTIVATED");
   assert.equal(built.matrix.productionAvailabilityGradesTwoToNine, "NOT_YET_CLAIMED");
 });
 
@@ -30,8 +30,16 @@ test("final receipt locks inventory, browser proof, release modes and current-tu
     runtimeUnits: 128, skills: 287, solutions: 2460, units: 163, noQuestionSourceUnits: 35,
   });
   assert.equal(receipt.stableHashes.browserReceiptHash, "4a2c7353b1c5831496967cf7e9d2d3393de524e2a3a3c547970bc9297aadb412");
-  assert.equal(receipt.remoteState.migration0045, "NOT_EXECUTED");
-  assert.equal(Object.values(receipt.currentTurnBoundary).every((value) => value === 0), true);
+  assert.equal(receipt.remoteState.migration0045, "APPLIED_AND_VERIFIED");
+  assert.equal(receipt.remoteState.gradesTwoToNineActivation, "NOT_EXECUTED");
+  assert.equal(receipt.remoteState.deployment, "NOT_EXECUTED");
+  assert.equal(Object.values(receipt.receiptGenerationBoundary).every((value) => value === 0), true);
+  assert.equal(
+    receipt.historicalIncidents.includes(
+      "FINAL_DELIVERY_REAL_WORKTREE_NEXT_ENV_DISCOVERY_RECORDED_NO_VALUE_OUTPUT_BUILD_ABORTED",
+    ),
+    true,
+  );
 });
 
 test("generated final-local artifacts are canonical and reproducible", () => {
@@ -46,7 +54,7 @@ test("generated final-local artifacts are canonical and reproducible", () => {
   ] as const) assert.equal(read(path), `${canonicalize(value)}\n`);
 });
 
-test("submission-facing documentation states local integration and remote non-execution exactly", () => {
+test("submission-facing documentation distinguishes applied schema from activation and deployment", () => {
   for (const path of ["README.md", "docs/final/PLAVE_FYP_COMPLETION.md", "docs/final/PLAVE_GRADES_1_9_LOCAL_ACCEPTANCE.md"]) {
     const text = read(path);
     assert.match(text, /Grades 2.?9/u);
@@ -54,7 +62,8 @@ test("submission-facing documentation states local integration and remote non-ex
     assert.match(text, /remote/u);
   }
   assert.match(read("README.md"), /database-backed adaptive and fixed-safe journeys/u);
-  assert.match(read("docs/final/PLAVE_RELEASE_READINESS.md"), /NOT_YET_EXECUTED/u);
+  assert.match(read("docs/final/PLAVE_RELEASE_READINESS.md"), /APPLIED_AND_VERIFIED/u);
+  assert.match(read("docs/final/PLAVE_RELEASE_READINESS.md"), /HIDDEN_NOT_ACTIVATED/u);
   assert.match(read("docs/final/PLAVE_REMOTE_RELEASE_HANDOFF.md"), /Owner authorization/u);
   assert.doesNotMatch(read("docs/final/PLAVE_FYP_COMPLETION.md"), /release integration remains unperformed/u);
 });

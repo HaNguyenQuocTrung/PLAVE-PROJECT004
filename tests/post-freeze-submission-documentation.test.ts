@@ -11,7 +11,8 @@ test("README reports the current build metrics and honest release state", () => 
   assert.match(readme, /Grades 2–9 are integrated for the typed local `PUBLIC` mode/u);
   assert.match(readme, /authenticated Student can learn their authorized grade when both the\s+application mode and exact database release flags are enabled/u);
   assert.match(readme, /default mode\s+remains `HIDDEN`/u);
-  assert.match(readme, /does not publish, activate, or deploy\s+any remote environment/u);
+  assert.match(readme, /migration `0045` has been applied and verified/u);
+  assert.match(readme, /operation did not\s+activate Grades 2–9 or\s+deploy the new application release/u);
   assert.doesNotMatch(readme, /77\/77 routes/u);
   assert.doesNotMatch(readme, /Sprint 11B acceptance is incomplete/u);
   assert.doesNotMatch(readme, /remote (?:publication|activation|deployment) (?:is|was) complete/iu);
@@ -52,5 +53,6 @@ test("final handoff document agrees with the canonical inventory and keeps candi
   assert.match(completion, /176 units/u);
   assert.match(completion, /Repository default remains `HIDDEN`/u);
   assert.match(completion, /Default entitlement count remains zero/u);
-  assert.match(completion, /Remote migration `0045`, remote Grades 2–9 activation and a new application deployment are `NOT_YET_EXECUTED`/u);
+  assert.match(completion, /Remote migration `0045` is `APPLIED_AND_VERIFIED`/u);
+  assert.match(completion, /Grades 2–9 remote\s+activation and a new application deployment remain `NOT_YET_EXECUTED`/u);
 });

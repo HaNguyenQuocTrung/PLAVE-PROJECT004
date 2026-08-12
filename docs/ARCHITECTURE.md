@@ -1,4 +1,9 @@
-# PLAVE-PROJECT004 — Architecture
+# PLAVE-PROJECT004 — Architecture (HISTORICAL / SUPERSEDED)
+
+This proposed baseline is retained for audit history. The current canonical
+architecture and release truth are documented in `README.md`,
+`docs/final/PLAVE_FYP_COMPLETION.md` and
+`docs/final/PLAVE_RELEASE_READINESS.md`.
 
 - Trạng thái: proposed baseline chờ xác nhận
 - Kiểu hệ thống: một Next.js full-stack application

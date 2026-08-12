@@ -122,7 +122,7 @@ export function buildFinalLocalAcceptance(root = process.cwd()) {
     databaseMaterialized: "LEGACY_FIXED_DATABASE_PRESENT",
     runtimeMode: "PUBLIC_FIXED",
     deactivationPreservation: "NOT_APPLICABLE_FIXED_RUNTIME",
-    remoteRelease: "NOT_YET_EXECUTED",
+    remoteRelease: "SCHEMA_MATERIALIZED_HIDDEN_NOT_ACTIVATED",
     productionAvailability: "CURRENT_GRADE_1_PUBLIC_RUNTIME",
   } : {
     grade,
@@ -130,13 +130,13 @@ export function buildFinalLocalAcceptance(root = process.cwd()) {
     databaseMaterialized: "PASS_CANONICAL_0045",
     runtimeMode: "LOCAL_PUBLIC_ADAPTIVE_AND_FIXED_SAFE",
     deactivationPreservation: "PASS",
-    remoteRelease: "NOT_YET_EXECUTED",
+    remoteRelease: "SCHEMA_MATERIALIZED_HIDDEN_NOT_ACTIVATED",
     productionAvailability: "NOT_YET_CLAIMED",
   });
   const matrixCore = {
     schemaVersion: "plave-grades-1-9-final-local-acceptance-matrix-v1",
-    baselineHead: "20d276f14b94d74e60e5308953b99e708adb87e7",
-    remoteRelease: "NOT_YET_EXECUTED",
+    baselineHead: "1b22c957eec03762ba4ce07d5bbde61bc8eb115e",
+    remoteRelease: "SCHEMA_MATERIALIZED_HIDDEN_NOT_ACTIVATED",
     productionAvailabilityGradesTwoToNine: "NOT_YET_CLAIMED",
     grades,
   } as const;
@@ -165,12 +165,11 @@ export function buildFinalLocalAcceptance(root = process.cwd()) {
   const checksumManifest = { ...checksumCore, manifestHash: sha256(canonicalize(checksumCore)) };
 
   const receiptCore = {
-    schemaVersion: "plave-grades-1-9-final-local-acceptance-receipt-v1",
+    schemaVersion: "plave-grades-1-9-final-local-acceptance-receipt-v2",
     branch: "fix/fyp-product-truth",
-    baselineHead: "20d276f14b94d74e60e5308953b99e708adb87e7",
+    baselineHead: "1b22c957eec03762ba4ce07d5bbde61bc8eb115e",
     finalHeadBinding: {
-      mode: "POST_COMMIT_READ_ONLY_RECONCILIATION",
-      expectedAdditionalCommits: 2,
+      mode: "SOURCE_SCOPE_EXCLUDES_COMMIT_ID",
       commitHashExcludedToAvoidSelfReference: true,
     },
     migrations: { count: 45, first: "0001_auth_profiles.sql", last: "0045_grades_2_9_local_public_release.sql" },
@@ -190,14 +189,21 @@ export function buildFinalLocalAcceptance(root = process.cwd()) {
       "WAVE_K_CREDENTIAL_PRESENCE_READ_RECORDED",
       "POST_FREEZE_REAL_ENV_FILE_OPEN_RECORDED_NO_VALUE_OUTPUT",
       "PRE_MOCK_KEYCHAIN_BROWSER_PROMPT_RECORDED_NO_CREDENTIAL_READ",
+      "FINAL_DELIVERY_REAL_WORKTREE_NEXT_ENV_DISCOVERY_RECORDED_NO_VALUE_OUTPUT_BUILD_ABORTED",
     ],
-    currentTurnBoundary: {
+    receiptGenerationBoundary: {
       keychainAccesses: 0, keychainPrompts: 0, realEnvironmentFileOpens: 0, credentialReads: 0,
       inheritedProviderVariables: 0, browserLaunches: 0, externalNetworkAttempts: 0,
       remoteServiceOrDatabaseAttempts: 0, portOperations: 0, port3000Operations: 0,
       remoteMutations: 0, pushOrDeployOperations: 0,
     },
-    remoteState: { migration0045: "NOT_EXECUTED", gradesTwoToNineActivation: "NOT_EXECUTED", deployment: "NOT_EXECUTED" },
+    remoteState: {
+      evidenceClass: "OWNER_PRESERVED_OPERATIONAL_EVIDENCE_NOT_REQUERIED_BY_GENERATOR",
+      migration0045: "APPLIED_AND_VERIFIED",
+      gradesTwoToNineReleaseData: "MATERIALIZED_DRAFT_HIDDEN",
+      gradesTwoToNineActivation: "NOT_EXECUTED",
+      deployment: "NOT_EXECUTED",
+    },
   } as const;
   const receipt = { ...receiptCore, receiptHash: sha256(canonicalize(receiptCore)) };
   return { matrix, documentationManifest, checksumManifest, receipt, sourceEntries } as const;

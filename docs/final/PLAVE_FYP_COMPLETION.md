@@ -42,4 +42,8 @@ The final audit findings were corrected without creating Wave O. The later Grade
 
 The deterministic proof covers Student start/resume, answer, post-submit feedback, progress, motivation, history, mastery, remediation-return, fixed-safe fallback, retention, mixed practice, maximum termination, grade completion, deactivation, Parent/Teacher authorization, CAS/duplicate safety, solution isolation and continuous next action.
 
-Remote migration `0045`, remote Grades 2–9 activation and a new application deployment are `NOT_YET_EXECUTED`. Push, merge, tag, PR, deployment and remote activation require separate Owner authorization.
+Remote migration `0045` is `APPLIED_AND_VERIFIED` according to preserved
+sanitized Owner-authorized operational evidence. It materialized the canonical
+release data without activating or publishing Grades 2–9. Grades 2–9 remote
+activation and a new application deployment remain `NOT_YET_EXECUTED`; no
+online availability claim is made.

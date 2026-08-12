@@ -22,6 +22,10 @@ This document reconciles the already-passed browser, HTTP/API, disposable-databa
 
 ## Operational state
 
-The accepted PUBLIC activation occurred only in a disposable local database. Remote migration `0045`, remote Grades 2–9 activation and a new application deployment are `NOT_YET_EXECUTED`. Grades 2–9 online production availability is `NOT_YET_CLAIMED`.
+The accepted PUBLIC activation occurred only in a disposable local database.
+Remote migration `0045` is `APPLIED_AND_VERIFIED` from preserved sanitized
+Owner-authorized operational evidence, while remote Grades 2–9 activation and
+a new application deployment remain `NOT_YET_EXECUTED`. Grades 2–9 online
+production availability is `NOT_YET_CLAIMED`.
 
 The machine-readable matrix and receipt are under `content/releases/grades-1-9/`.
