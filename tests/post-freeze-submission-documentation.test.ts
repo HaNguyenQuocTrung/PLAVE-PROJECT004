@@ -7,7 +7,7 @@ test("README reports the current build metrics and honest release state", () => 
   assert.match(readme, /76 static pages/u);
   assert.match(readme, /115 application routes/u);
   assert.match(readme, /Grade 1 fixed-runtime/u);
-  assert.match(readme, /Grades 2–9 verified curriculum packages materialized for an Owner-activated local release; the default remains `HIDDEN` and inactive/u);
+  assert.match(readme, /Grades 2–9 database-backed adaptive and fixed-safe journeys, materialized by migration `0045` and accepted in a disposable local `PUBLIC` release; the repository default remains `HIDDEN`/u);
   assert.match(readme, /Grades 2–9 are integrated for the typed local `PUBLIC` mode/u);
   assert.match(readme, /authenticated Student can learn their authorized grade when both the\s+application mode and exact database release flags are enabled/u);
   assert.match(readme, /default mode\s+remains `HIDDEN`/u);
@@ -32,14 +32,16 @@ test("historical submission JSON is explicit about supersession and points to ca
   assert.equal(historical.totalUnits, 171);
   assert.equal(historical.totalQuestions, 2052);
   assert.equal(existsSync(historical.supersededBy), true);
-  const canonical = JSON.parse(readFileSync(historical.supersededBy, "utf8")) as { totals: Record<string, number> };
+  const canonical = JSON.parse(readFileSync(historical.supersededBy, "utf8")) as {
+    inventory: { allGrades: Record<string, number> };
+  };
   assert.deepEqual(historical.canonicalFinalInventory, {
-    questions: canonical.totals.questions,
-    skills: canonical.totals.skills,
-    units: canonical.totals.units,
-    publishedCandidates: canonical.totals.publishedCandidates,
-    activeCandidates: canonical.totals.activeCandidates,
-    defaultEntitlementCount: canonical.totals.defaultEntitlementCount,
+    questions: canonical.inventory.allGrades.questions,
+    skills: canonical.inventory.allGrades.skills,
+    units: canonical.inventory.allGrades.units,
+    publishedCandidates: 0,
+    activeCandidates: 0,
+    defaultEntitlementCount: 0,
   });
 });
 
@@ -48,6 +50,7 @@ test("final handoff document agrees with the canonical inventory and keeps candi
   assert.match(completion, /2,772 questions/u);
   assert.match(completion, /338 question-bearing skills/u);
   assert.match(completion, /176 units/u);
-  assert.match(completion, /DRAFT\/HIDDEN/u);
-  assert.match(completion, /zero default entitlement/u);
+  assert.match(completion, /Repository default remains `HIDDEN`/u);
+  assert.match(completion, /Default entitlement count remains zero/u);
+  assert.match(completion, /Remote migration `0045`, remote Grades 2–9 activation and a new application deployment are `NOT_YET_EXECUTED`/u);
 });

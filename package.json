@@ -91,6 +91,7 @@
     "dev": "next dev",
     "build": "next build",
     "build:production-local": "node --no-warnings --experimental-strip-types scripts/start-production-local.ts --build",
+    "verify:production-route-manifest": "node --no-warnings --experimental-strip-types scripts/verify-production-route-manifest.ts",
     "start": "node --no-warnings --experimental-strip-types scripts/start-production-local.ts",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit --project tsconfig.typecheck.json",

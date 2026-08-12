@@ -29,6 +29,14 @@ const useTestStdio =
   process.env.NODE_ENV === "test" &&
   Boolean(requestedTestRoot) &&
   process.env.PLAVE_AI_TUTOR_CONFIG_TEST_STDIO === "1";
+const testInterruptStep =
+  process.env.NODE_ENV === "test" && useTestStdio
+    ? process.env.PLAVE_AI_TUTOR_CONFIG_TEST_INTERRUPT_STEP
+    : undefined;
+const testAnswers =
+  process.env.NODE_ENV === "test" && useTestStdio && process.env.PLAVE_AI_TUTOR_CONFIG_TEST_ANSWERS
+    ? JSON.parse(process.env.PLAVE_AI_TUTOR_CONFIG_TEST_ANSWERS) as string[]
+    : undefined;
 if (
   root !== canonicalRoot &&
   !(root === temporaryRoot || root.startsWith(`${temporaryRoot}${sep}`))
@@ -75,11 +83,20 @@ async function openPromptSession(testStdio = false) {
   const interrupt = new AbortController();
   reader.on("SIGINT", () => interrupt.abort());
 
+  let promptStep = 0;
   const ask = async (prompt: string, masked: boolean) => {
+    promptStep += 1;
     destination.write(prompt);
     output.muted = masked;
     try {
-      const value = await reader.question("", { signal: interrupt.signal });
+      if (testInterruptStep === String(promptStep)) {
+        const error = new Error("The operation was aborted");
+        error.name = "AbortError";
+        throw error;
+      }
+      const value = testAnswers
+        ? (testAnswers.shift() ?? "")
+        : await reader.question("", { signal: interrupt.signal });
       if (value.length > 1_024) throw new Error("AI_TUTOR_CONFIG_VALUE_TOO_LONG");
       return value.trim();
     } finally {

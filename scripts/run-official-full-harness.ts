@@ -98,6 +98,17 @@ export function renderHarnessFailureAnnotation(group: string, failure: HarnessFa
   return `::error${properties}::${workflowEscape(`[full-harness:${group}] ${failure.title}`)}`;
 }
 
+export function deduplicateHarnessFailures(
+  failures: readonly Readonly<{ group: string; failure: HarnessFailureDetail }>[],
+) {
+  const unique = new Map<string, Readonly<{ group: string; failure: HarnessFailureDetail }>>();
+  for (const entry of failures) {
+    const key = [entry.failure.file ?? entry.group, entry.failure.line ?? 0, entry.failure.title].join(":");
+    if (!unique.has(key)) unique.set(key, entry);
+  }
+  return [...unique.values()];
+}
+
 export function parseTerminalTapSummary(output: string): TapTotals | null {
   const values = {
     tests: finalCount(output, "tests"),
@@ -361,9 +372,6 @@ export async function runOfficialFullHarness(root = resolve(import.meta.dirname,
           !generatedArtifactFiles.has(file) &&
           file !== loopbackFile,
       ),
-      exactEnvironmentFailureTitles: [
-        "Review 1. Filesystem and build manifest both recognize the dynamic review route",
-      ],
     },
     {
       name: "REACT_SERVER_DIRECT",
@@ -390,6 +398,11 @@ export async function runOfficialFullHarness(root = resolve(import.meta.dirname,
     (current, result) => addTotals(current, result.totals),
     emptyTotals(),
   );
+  const logicalFailures = deduplicateHarnessFailures(results.flatMap((result) =>
+    result.actualFailures > 0
+      ? result.failures.map((failure) => ({ group: result.name, failure }))
+      : [],
+  ));
   const summary = {
     schemaVersion: "PLAVE_OFFICIAL_FULL_HARNESS_V2",
     node: process.version,
@@ -406,6 +419,13 @@ export async function runOfficialFullHarness(root = resolve(import.meta.dirname,
       (count, result) => count + result.actualFailures,
       0,
     ),
+    logicalActualFailures: logicalFailures.length,
+    logicalFailureIdentities: logicalFailures.map(({ group, failure }) => ({
+      group,
+      file: failure.file ?? null,
+      line: failure.line ?? null,
+      title: failure.title,
+    })),
     knownEnvironmentExclusions: results.reduce(
       (count, result) => count + result.environmentExclusions,
       0,

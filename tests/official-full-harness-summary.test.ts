@@ -3,6 +3,7 @@ import test from "node:test";
 
 import {
   classifyHarnessChild,
+  deduplicateHarnessFailures,
   extractHarnessFailureDetails,
   parseTerminalTapSummary,
   redactHarnessOutput,
@@ -176,4 +177,12 @@ test("machine-readable terminal summary renderer emits exactly one marker", () =
   const line = renderHarnessSummaryLine({ schemaVersion: "fixture", directActualFailures: 1 });
   assert.equal((line.match(/PLAVE_FULL_HARNESS_SUMMARY=/gu) ?? []).length, 1);
   assert.equal(JSON.parse(line.split("=", 2)[1]).directActualFailures, 1);
+});
+
+test("a logical failure is counted once even when its title is repeated", () => {
+  const failure = { title: "same logical defect", file: "tests/same.test.ts", line: 9, diagnostic: "fixture" };
+  assert.equal(deduplicateHarnessFailures([
+    { group: "DIRECT", failure },
+    { group: "DIRECT", failure },
+  ]).length, 1);
 });

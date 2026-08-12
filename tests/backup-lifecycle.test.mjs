@@ -16,7 +16,6 @@ import test from "node:test";
 
 const repositoryRoot = process.cwd();
 const backupScript = "scripts/backup-supabase-dev-readonly.sh";
-const realShasum = "/usr/bin/shasum";
 const projectRef = "abcdefghijklmnopqrst";
 const publicUrl = `https://${projectRef}.supabase.co`;
 
@@ -230,7 +229,14 @@ case "\${PLAVE_FAKE_SHASUM_MODE:-success}" in
     exit 0
     ;;
 esac
-exec "${realShasum}" "$@"
+if [[ -x /usr/bin/shasum ]]; then
+  exec /usr/bin/shasum "$@"
+fi
+if command -v sha256sum >/dev/null 2>&1; then
+  if [[ "\${1:-}" == "-a" && "\${2:-}" == "256" ]]; then shift 2; fi
+  exec sha256sum "$@"
+fi
+exit 53
 `,
   );
 

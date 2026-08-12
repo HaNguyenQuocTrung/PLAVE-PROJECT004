@@ -159,6 +159,9 @@ jobs:
           PLAVE_AI_TUTOR_ENABLED: "false"
         run: npm_config_offline=true npm run --silent build:production-local
 
+      - name: Verify production dynamic route manifest
+        run: npm_config_offline=true npm run --silent verify:production-route-manifest
+
       - name: Guard repository after production build
         run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify production-build
 

@@ -62,6 +62,7 @@ test("workflow reuses every canonical quality command", () => {
     "scripts/run-ci-quality-test-group.ts browser-receipt",
     "npm run --silent test:full:official",
     "npm run --silent build:production-local",
+    "npm run --silent verify:production-route-manifest",
     "npm run --silent test:final-local-acceptance",
     "git diff --check",
   ]) assert.match(source, new RegExp(command.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"), "u"), command);
