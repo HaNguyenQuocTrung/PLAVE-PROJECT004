@@ -27,7 +27,7 @@
     "test:wave-f-shards": "node --no-warnings --experimental-strip-types scripts/run-content-factory-wave-f-shards.ts",
     "test:wave-f": "npm run --silent test:wave-f-shards && node --test --no-warnings --experimental-strip-types tests/content-factory-wave-f*.test.ts",
     "audit:offline-invocation": "node --no-warnings --experimental-strip-types scripts/audit-offline-invocation-boundary.ts",
-    "content:wave-g": "npm_config_offline=true node --no-warnings --experimental-strip-types scripts/audit-offline-invocation-boundary.ts && npm_config_offline=true node --no-warnings --experimental-strip-types scripts/build-content-factory-wave-g.ts",
+    "content:wave-g": "npm_config_offline=true node --no-warnings --experimental-strip-types scripts/audit-offline-invocation-boundary.ts --write-canonical && npm_config_offline=true node --no-warnings --experimental-strip-types scripts/build-content-factory-wave-g.ts",
     "test:wave-g-shards": "npm_config_offline=true node --no-warnings --experimental-strip-types scripts/audit-offline-invocation-boundary.ts && npm_config_offline=true node --no-warnings --experimental-strip-types scripts/run-content-factory-wave-g-shards.ts",
     "test:wave-g": "npm_config_offline=true npm run --silent test:wave-g-shards && npm_config_offline=true node --test --no-warnings --experimental-strip-types tests/content-factory-offline-invocation.test.ts tests/content-factory-wave-g*.test.ts",
     "audit:wave-h-offline-invocation": "node --no-warnings --experimental-strip-types scripts/audit-wave-h-offline-invocation.ts",

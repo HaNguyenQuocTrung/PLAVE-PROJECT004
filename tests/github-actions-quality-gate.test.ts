@@ -105,3 +105,17 @@ test("Linux CI diagnostics lock locale and isolate every frozen test group", () 
   assert.equal(new Set(diagnosticSteps.map((step) => step.name)).size, 6);
   assert.doesNotMatch(diagnosticSteps.map((step) => step.run).join("\n"), /node\s+--test/u);
 });
+
+test("every mutating-risk quality group is followed by a fail-closed repository guard", () => {
+  const job = workflow.jobs["quality-gate"];
+  assert.equal(job.env?.PLAVE_CI_IMMUTABILITY_BASELINE, "${{ runner.temp }}/plave-ci-repository-baseline.json");
+  const baseline = job.steps.find((step) => step.name === "Capture canonical repository baseline");
+  assert.match(baseline?.run ?? "", /verify-ci-repository-immutability[.]ts initialize checkout/u);
+  const guardedLabels = [
+    "dependency-installation", "dependency-boundary", "application-typecheck", "secret-boundary-typecheck",
+    "lint", "secret-audit", "migration-inventory", "disposable-migration", "release-rls",
+    "release-integration", "final-local-acceptance", "browser-receipt", "full-harness",
+    "frozen-artifact-equivalent", "production-build", "receipt-verification",
+  ];
+  for (const label of guardedLabels) assert.match(source, new RegExp(`verify-ci-repository-immutability[.]ts verify ${label}`, "u"), label);
+});

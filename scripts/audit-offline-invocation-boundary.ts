@@ -8,7 +8,9 @@ if (report.status !== "PASS") {
   for (const diagnostic of report.diagnostics) console.error(`${diagnostic.path}:${diagnostic.code}:${diagnostic.evidence}`);
   throw new Error("OFFLINE_INVOCATION_BOUNDARY_FAILED");
 }
-const output = resolve(process.cwd(), "content/grade-packs/generated");
-mkdirSync(output, { recursive: true });
-writeFileSync(resolve(output, "wave-g-invocation-boundary.json"), `${canonicalize(report)}\n`, { mode: 0o644 });
+if (process.argv.includes("--write-canonical")) {
+  const output = resolve(process.cwd(), "content/grade-packs/generated");
+  mkdirSync(output, { recursive: true });
+  writeFileSync(resolve(output, "wave-g-invocation-boundary.json"), `${canonicalize(report)}\n`, { mode: 0o644 });
+}
 console.log(`OFFLINE_INVOCATION_BOUNDARY_OK bare_npx=${report.bareNpxInvocations} network_capable_npm=${report.networkCapableNpmInvocations} wave_g_network_attempts=${report.waveGNetworkAttemptCount}`);

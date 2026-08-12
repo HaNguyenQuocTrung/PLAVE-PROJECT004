@@ -46,8 +46,12 @@ function fileHash(root: string, path: string) {
   return sha256(readFileSync(resolve(root, path)));
 }
 
-function sourcePaths(root: string) {
-  const result = spawnSync("/usr/bin/git", ["ls-files", "--cached", "--others", "--exclude-standard", "-z"], {
+function compareCanonicalPaths(left: string, right: string) {
+  return left < right ? -1 : left > right ? 1 : 0;
+}
+
+export function finalLocalSourcePaths(root: string) {
+  const result = spawnSync("/usr/bin/git", ["ls-files", "--cached", "-z"], {
     cwd: root,
     encoding: "utf8",
     env: { PATH: "/usr/bin:/bin", LC_ALL: "C", NODE_ENV: "test" },
@@ -62,7 +66,13 @@ function sourcePaths(root: string) {
       && !path.startsWith("node_modules/")
       && !path.startsWith(".local-artifacts/")
       && !/(?:^|\/)(?:coverage|dist|build|tmp|logs?)(?:\/|$)/u.test(path))
-    .sort((left, right) => left.localeCompare(right));
+    .sort(compareCanonicalPaths);
+}
+
+export function finalLocalSourceInventory(root: string) {
+  const paths = finalLocalSourcePaths(root);
+  const entries = paths.map((path) => ({ path, sha256: fileHash(root, path) }));
+  return { paths, entries, digest: sha256(canonicalize(entries)) } as const;
 }
 
 function assertExpected(actual: string, expected: string, code: string) {
@@ -141,13 +151,11 @@ export function buildFinalLocalAcceptance(root = process.cwd()) {
   } as const;
   const documentationManifest = { ...documentationCore, manifestHash: sha256(canonicalize(documentationCore)) };
 
-  const paths = sourcePaths(root);
-  const sourceEntries = paths.map((path) => ({ path, sha256: fileHash(root, path) }));
-  const sourceTreeDigest = sha256(canonicalize(sourceEntries));
+  const { entries: sourceEntries, digest: sourceTreeDigest } = finalLocalSourceInventory(root);
   const checksumCore = {
     schemaVersion: "plave-grades-1-9-final-local-checksum-v1",
     selfReferentialFilesExcluded: [...generatedPaths].sort(),
-    sourceScopeVersion: "plave-final-local-acceptance-source-scope-v1",
+    sourceScopeVersion: "plave-final-local-acceptance-source-scope-v2-tracked-only",
     sourceTreeDigest,
     sourceTreeInputCount: sourceEntries.length,
     acceptanceMatrixHash: matrix.matrixHash,
