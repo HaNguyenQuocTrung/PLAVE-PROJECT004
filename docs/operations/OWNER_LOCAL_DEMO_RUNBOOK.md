@@ -66,8 +66,9 @@ Run:
 npm run owner-local-demo:start
 ```
 
-START creates the isolated PROJECT004 Supabase stack, applies migrations
-0001–0044, performs one guarded local activation, validates the database
+START creates the isolated PROJECT004 Supabase stack, derives and validates the
+continuous tracked canonical migration inventory (currently 0001–0045), applies
+it without a separate seed file, performs one guarded local activation, validates the database
 state, starts Next.js on port 3100 and records a mode-0600 managed-state file.
 From Terminal 2,
 run the one standalone acceptance command while START remains active:
