@@ -3,7 +3,9 @@ import {
   type PracticeVisualSpec,
 } from "./visual.ts";
 import {
+  parseAnswerXpProjection,
   parseXpCompletionProjection,
+  type AnswerXpProjection,
   type XpCompletionProjection,
 } from "../scoring/completion.ts";
 
@@ -168,6 +170,7 @@ export type SubmitPracticeResult = {
   answeredCount: number;
   correctCount: number;
   completed: boolean;
+  xp?: AnswerXpProjection;
   xpCompletion?: XpCompletionProjection | null;
 };
 
@@ -580,6 +583,7 @@ export function parseSubmitPracticeRpcResult(
 ): SubmitPracticeResult | null {
   if (!isRecord(value)) return null;
   const steps = parseStringArray(value.solution_steps, 2);
+  const xp = parseAnswerXpProjection(value.xp);
 
   if (
     typeof value.is_correct !== "boolean" ||
@@ -594,6 +598,7 @@ export function parseSubmitPracticeRpcResult(
     ) ||
     !isIntegerInRange(value.correct_count, 0, value.answered_count) ||
     typeof value.completed !== "boolean"
+    || !xp
   ) {
     return null;
   }
@@ -607,6 +612,7 @@ export function parseSubmitPracticeRpcResult(
     answeredCount: value.answered_count,
     correctCount: value.correct_count,
     completed: value.completed,
+    xp,
   };
 }
 
@@ -749,6 +755,16 @@ function parseCanonicalSubmitPracticeResult(
     answered_count: value.answeredCount,
     correct_count: value.correctCount,
     completed: value.completed,
+    xp: isRecord(value.xp)
+      ? {
+          answer_xp_awarded: value.xp.answerXpAwarded,
+          attempt_xp_earned: value.xp.attemptXpEarned,
+          total_xp_after: value.xp.totalXpAfter,
+          policy_version: value.xp.policyVersion,
+          eligible: value.xp.eligible,
+          zero_xp_reason: value.xp.zeroXpReason,
+        }
+      : value.xp,
   });
   const xpCompletion =
     value.xpCompletion === null || value.xpCompletion === undefined

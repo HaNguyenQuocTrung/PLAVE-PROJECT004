@@ -172,7 +172,7 @@ export function buildFinalLocalAcceptance(root = process.cwd()) {
       mode: "SOURCE_SCOPE_EXCLUDES_COMMIT_ID",
       commitHashExcludedToAvoidSelfReference: true,
     },
-    migrations: { count: 45, first: "0001_auth_profiles.sql", last: "0045_grades_2_9_local_public_release.sql" },
+    migrations: { count: 46, first: "0001_auth_profiles.sql", last: "0046_unified_grade_1_9_xp.sql" },
     inventory: {
       allGrades: { questions: 2_772, skills: 338, units: 176 },
       gradeOne: { questions: 312, runtime: "PUBLIC_FIXED" },
@@ -200,6 +200,7 @@ export function buildFinalLocalAcceptance(root = process.cwd()) {
     remoteState: {
       evidenceClass: "OWNER_PRESERVED_OPERATIONAL_EVIDENCE_NOT_REQUERIED_BY_GENERATOR",
       migration0045: "APPLIED_AND_VERIFIED",
+      migration0046: "NOT_APPLIED_OWNER_AUTHORIZATION_REQUIRED",
       gradesTwoToNineReleaseData: "MATERIALIZED_DRAFT_HIDDEN",
       gradesTwoToNineActivation: "NOT_EXECUTED",
       deployment: "NOT_EXECUTED",

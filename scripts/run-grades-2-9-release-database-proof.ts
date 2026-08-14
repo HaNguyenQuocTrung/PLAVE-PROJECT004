@@ -1,7 +1,7 @@
 import { randomBytes } from "node:crypto";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { spawnSync } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 
 const root = process.cwd();
 const imageTag = "postgres:16-alpine";
@@ -30,6 +30,22 @@ function docker(args: readonly string[], input?: string, capture = false) {
 
 function psql(sql: string, capture = false) {
   return docker(["exec", "-i", name, "psql", "--quiet", "--no-psqlrc", "--set", "ON_ERROR_STOP=1", "--username", "postgres", "--dbname", "postgres", ...(capture ? ["--tuples-only", "--no-align"] : [])], sql, capture);
+}
+
+function concurrentPsql(sql: string) {
+  return new Promise<void>((resolvePromise, rejectPromise) => {
+    const child = spawn("docker", ["exec", "-i", name, "psql", "--quiet",
+      "--no-psqlrc", "--set", "ON_ERROR_STOP=1", "--username", "postgres",
+      "--dbname", "postgres"], {
+      env: commandEnvironment,
+      stdio: ["pipe", "ignore", "ignore"],
+    });
+    child.once("error", () => rejectPromise(new Error("LOCAL_DB_PROOF:CONCURRENT_CHILD_ERROR")));
+    child.once("exit", (code) => code === 0
+      ? resolvePromise()
+      : rejectPromise(new Error("LOCAL_DB_PROOF:CONCURRENT_SUBMIT_FAILED")));
+    child.stdin.end(sql);
+  });
 }
 
 let started = false;
@@ -88,10 +104,10 @@ try {
 
   const migrations = readdirSync(join(root, "supabase/migrations"))
     .filter((file) => /^\d{4}_.+\.sql$/.test(file)).sort();
-  if (migrations.length !== 45 || !migrations.at(-1)?.startsWith("0045_")) {
+  if (migrations.length !== 46 || !migrations.at(-1)?.startsWith("0046_")) {
     throw new Error("LOCAL_DB_PROOF:MIGRATION_INVENTORY_INVALID");
   }
-  for (const migration of migrations) {
+  for (const migration of migrations.slice(0, -1)) {
     try {
       psql(readFileSync(join(root, "supabase/migrations", migration), "utf8"));
       psql(`insert into supabase_migrations.schema_migrations(version,statements)
@@ -138,6 +154,54 @@ try {
   // than relying on static SQL assertions. This locks PL/pgSQL parseability,
   // exact-tuple guards, atomic activation, and its terminal success contract.
   psql(readFileSync(join(root, "supabase/operations/grades-2-9-remote-release/ACTIVATE_PUBLIC.sql"), "utf8"));
+  psql(readFileSync(join(root, "supabase/migrations", migrations.at(-1)!), "utf8"));
+  psql(`insert into supabase_migrations.schema_migrations(version,statements)
+    values('0046',array[]::text[]);`);
+  psql(`do $grade_one_xp$
+  declare v_state jsonb; v_attempt uuid; v_question text; v_answer text;
+    v_first jsonb; v_duplicate jsonb; v_total integer;
+  begin
+    perform set_config('request.jwt.claim.sub','41000000-0000-4000-8000-000000000001',true);
+    v_state:=public.start_or_resume_practice('grade-1-numbers-to-10');
+    v_attempt:=(v_state->>'attempt_id')::uuid;
+    v_question:=v_state->'question_order'->>0;
+    select solution.correct_answer into v_answer from public.question_solutions solution
+      where solution.question_id=v_question;
+    v_first:=public.submit_practice_answer(v_attempt,v_question,v_answer);
+    v_duplicate:=public.submit_practice_answer(v_attempt,v_question,v_answer);
+    v_total:=(public.get_my_score_xp_mastery()->>'total_xp')::integer;
+    if (v_first#>>'{xp,answer_xp_awarded}')::integer not in (10,15,20)
+      or (v_first#>>'{xp,attempt_xp_earned}')::integer<>(v_first#>>'{xp,answer_xp_awarded}')::integer
+      or (v_first#>>'{xp,total_xp_after}')::integer<>v_total
+      or (v_duplicate#>>'{xp,answer_xp_awarded}')::integer<>0
+      or v_duplicate#>>'{xp,zero_xp_reason}'<>'ANSWER_ALREADY_PERSISTED'
+      or (select count(*) from private.student_xp_ledger ledger
+        where ledger.runtime_source='PRACTICE_FIXED' and ledger.attempt_id=v_attempt)<>1
+    then raise exception 'PROOF:GRADE_ONE_UNIFIED_XP'; end if;
+  end; $grade_one_xp$;`);
+  const concurrentGradeOneSubmission = `begin;
+    select set_config('request.jwt.claim.sub','41000000-0000-4000-8000-000000000001',true);
+    do $concurrent$ declare v_attempt uuid; v_question text; v_answer text; begin
+      select attempt.id,attempt.question_order[2] into v_attempt,v_question
+      from public.practice_attempts attempt
+      where attempt.student_id='41000000-0000-4000-8000-000000000001'
+        and attempt.status='IN_PROGRESS';
+      select solution.correct_answer into v_answer from public.question_solutions solution
+        where solution.question_id=v_question;
+      perform public.submit_practice_answer(v_attempt,v_question,v_answer);
+    end; $concurrent$; commit;`;
+  await Promise.all([
+    concurrentPsql(concurrentGradeOneSubmission),
+    concurrentPsql(concurrentGradeOneSubmission),
+  ]);
+  if (psql(`select (select count(*) from public.practice_answers answer
+      join public.practice_attempts attempt on attempt.id=answer.attempt_id
+      where attempt.student_id='41000000-0000-4000-8000-000000000001')||':'||
+    (select count(*) from private.student_xp_ledger ledger
+      where ledger.student_id='41000000-0000-4000-8000-000000000001'
+        and ledger.runtime_source='PRACTICE_FIXED');`, true) !== "2:2") {
+    throw new Error("LOCAL_DB_PROOF:CONCURRENT_EXACTLY_ONCE_FAILED");
+  }
   psql(`do $pilot$
   declare v_policy public.curriculum_grade_release_policies%rowtype; v_catalog jsonb;
   begin
@@ -186,10 +250,16 @@ begin
       raise exception 'PROOF:SUBMIT_ERROR:G%:TYPE=%:ANSWER_LENGTH=%:%',v_grade,v_answer_type,char_length(v_answer),sqlerrm;
     end;
     if not (v_state#>>'{feedback,is_correct}')::boolean then raise exception 'PROOF:SUBMIT:G%',v_grade; end if;
+    if (v_state#>>'{xp,answer_xp_awarded}')::integer not in (10,15,20)
+      or (v_state#>>'{xp,total_xp_after}')::integer < (v_state#>>'{xp,answer_xp_awarded}')::integer
+      or v_state#>>'{xp,policy_version}' <> 'PLAVE_SCORING_POLICY_V1'
+    then raise exception 'PROOF:UNIFIED_XP_RESPONSE:G%',v_grade; end if;
     if v_grade=2 then
       v_duplicate:=public.submit_curriculum_answer(v_attempt,v_question,v_answer,v_expected_revision,v_submission);
       if (select count(*) from public.curriculum_answers where attempt_id=v_attempt)<>1
         or v_duplicate#>>'{feedback,question_id}'<>v_question
+        or (v_duplicate#>>'{xp,answer_xp_awarded}')::integer<>0
+        or v_duplicate#>>'{xp,zero_xp_reason}'<>'ANSWER_ALREADY_PERSISTED'
       then raise exception 'PROOF:DUPLICATE_EFFECT'; end if;
       begin
         perform public.submit_curriculum_answer(v_attempt,v_question,v_answer,v_expected_revision,gen_random_uuid());
@@ -257,6 +327,123 @@ begin
   then raise exception 'PROOF:FIXED_SAFE_MASTERY_OR_XP_CONTRACT'; end if;
 end;
 $fixed_safe$;`);
+  psql(`do $xp_policy_matrix$
+  declare v_state jsonb; v_attempt uuid; v_question text; v_answer text;
+    v_wrong text; v_before integer; v_after integer; v_first_attempt uuid;
+    v_retaken jsonb; v_summary jsonb;
+  begin
+    -- Complete a real Grade 2 production attempt so EASY/MEDIUM/HARD,
+    -- completion projections and aggregate convergence are exercised.
+    perform set_config('request.jwt.claim.sub','41000000-0000-4000-8000-000000000002',true);
+    select attempt.id into v_attempt from public.curriculum_attempts attempt
+      where attempt.student_id='41000000-0000-4000-8000-000000000002'
+        and attempt.status='IN_PROGRESS' order by attempt.started_at limit 1;
+    v_first_attempt:=v_attempt;
+    loop
+      v_state:=public.get_curriculum_attempt_state(v_attempt);
+      exit when v_state->>'status'='COMPLETED';
+      v_question:=v_state#>>'{current_question,question_id}';
+      select solution.correct_answer into v_answer
+      from private.curriculum_release_solutions solution
+      where solution.release_id=v_state->>'release_id' and solution.question_id=v_question;
+      v_state:=public.submit_curriculum_answer(v_attempt,v_question,v_answer,
+        (v_state->>'revision')::integer,gen_random_uuid());
+    end loop;
+    if (select count(distinct ledger.difficulty) from private.student_xp_ledger ledger
+      where ledger.student_id='41000000-0000-4000-8000-000000000002')<>3
+      or exists(select 1 from private.student_xp_ledger ledger where
+        (ledger.difficulty='EASY' and ledger.xp_amount<>10)
+        or (ledger.difficulty='MEDIUM' and ledger.xp_amount<>15)
+        or (ledger.difficulty='HARD' and ledger.xp_amount<>20))
+    then raise exception 'PROOF:DIFFICULTY_POLICY_MATRIX'; end if;
+
+    -- A legitimate retake gets a new attempt id and can earn again.
+    select attempt.unit_id into v_question from public.curriculum_attempts attempt
+      where attempt.id=v_first_attempt;
+    v_retaken:=public.start_or_resume_released_curriculum_unit(v_question,gen_random_uuid());
+    if (v_retaken->>'attempt_id')::uuid=v_first_attempt then
+      raise exception 'PROOF:RETAKE_REUSED_COMPLETED_ATTEMPT'; end if;
+    v_question:=v_retaken#>>'{current_question,question_id}';
+    select solution.correct_answer into v_answer from private.curriculum_release_solutions solution
+      where solution.release_id=v_retaken->>'release_id' and solution.question_id=v_question;
+    v_retaken:=public.submit_curriculum_answer((v_retaken->>'attempt_id')::uuid,
+      v_question,v_answer,(v_retaken->>'revision')::integer,gen_random_uuid());
+    if (v_retaken#>>'{xp,answer_xp_awarded}')::integer not in (10,15,20) then
+      raise exception 'PROOF:RETAKE_XP_MISSING'; end if;
+
+    -- A persisted incorrect Grade 3 answer returns an exact zero reason and
+    -- creates no ledger event.
+    perform set_config('request.jwt.claim.sub','41000000-0000-4000-8000-000000000003',true);
+    select attempt.id into v_attempt from public.curriculum_attempts attempt
+      where attempt.student_id='41000000-0000-4000-8000-000000000003'
+        and attempt.status='IN_PROGRESS' order by attempt.started_at limit 1;
+    v_state:=public.get_curriculum_attempt_state(v_attempt);
+    v_question:=v_state#>>'{current_question,question_id}';
+    select solution.correct_answer into v_answer from private.curriculum_release_solutions solution
+      where solution.release_id=v_state->>'release_id' and solution.question_id=v_question;
+    v_wrong:=case v_state#>>'{current_question,answer_type}'
+      when 'MULTIPLE_CHOICE' then case when v_answer='A' then 'B' else 'A' end
+      else ((v_answer::integer)+1)::text end;
+    select coalesce(sum(xp_amount),0)::integer into v_before from private.student_xp_ledger
+      where student_id='41000000-0000-4000-8000-000000000003';
+    v_state:=public.submit_curriculum_answer(v_attempt,v_question,v_wrong,
+      (v_state->>'revision')::integer,gen_random_uuid());
+    select coalesce(sum(xp_amount),0)::integer into v_after from private.student_xp_ledger
+      where student_id='41000000-0000-4000-8000-000000000003';
+    if v_before<>v_after or (v_state#>>'{xp,answer_xp_awarded}')::integer<>0
+      or v_state#>>'{xp,zero_xp_reason}'<>'INCORRECT_ANSWER'
+    then raise exception 'PROOF:INCORRECT_ZERO_XP'; end if;
+
+    -- The public aggregate, append-only ledger and per-attempt projections
+    -- converge after commit without client arithmetic.
+    perform set_config('request.jwt.claim.sub','41000000-0000-4000-8000-000000000002',true);
+    v_summary:=public.get_my_score_xp_mastery();
+    if (v_summary->>'total_xp')::integer<>(select coalesce(sum(xp_amount),0)
+      from private.student_xp_ledger where student_id='41000000-0000-4000-8000-000000000002')
+      or exists(select 1 from public.curriculum_attempts attempt
+        where attempt.student_id='41000000-0000-4000-8000-000000000002'
+          and attempt.xp_earned<>(select coalesce(sum(ledger.xp_amount),0)
+            from private.student_xp_ledger ledger where ledger.runtime_source='CURRICULUM'
+              and ledger.attempt_id=attempt.id and ledger.student_id=attempt.student_id))
+    then raise exception 'PROOF:XP_PROJECTION_DIVERGENCE'; end if;
+  end; $xp_policy_matrix$;`);
+  psql(`do $adaptive_xp$
+  declare v_release public.adaptive_practice_releases%rowtype; v_state jsonb;
+    v_attempt uuid; v_question text; v_answer text; v_submission uuid;
+    v_duplicate jsonb;
+  begin
+    update public.adaptive_practice_releases set runtime_enabled=true,
+      controlled_pilot_enabled=true,updated_at=now()
+      where unit_slug='grade-2-numbers-to-1000' returning * into v_release;
+    insert into public.adaptive_practice_pilot_members(student_id,unit_slug,
+      release_candidate_id,content_version,bundle_sha256,policy_version)
+    values('41000000-0000-4000-8000-000000000002',v_release.unit_slug,
+      v_release.release_candidate_id,v_release.content_version,
+      v_release.bundle_sha256,v_release.policy_version);
+    perform set_config('request.jwt.claim.sub','41000000-0000-4000-8000-000000000002',true);
+    v_state:=public.start_or_resume_adaptive_practice(v_release.unit_slug,gen_random_uuid());
+    v_attempt:=(v_state->>'attempt_id')::uuid;
+    v_question:=v_state#>>'{current_question,question_id}';
+    select solution.correct_answer into v_answer from public.question_solutions solution
+      where solution.question_id=v_question;
+    v_submission:=gen_random_uuid();
+    v_state:=public.submit_adaptive_practice_answer(v_attempt,v_question,v_answer,
+      (v_state->>'revision')::integer,v_submission);
+    v_duplicate:=public.submit_adaptive_practice_answer(v_attempt,v_question,v_answer,
+      0,v_submission);
+    if (v_state#>>'{xp,answer_xp_awarded}')::integer not in (10,15,20)
+      or (v_duplicate#>>'{xp,answer_xp_awarded}')::integer<>0
+      or (select count(*) from private.student_xp_ledger ledger
+        where ledger.runtime_source='ADAPTIVE_PILOT' and ledger.attempt_id=v_attempt)<>1
+    then raise exception 'PROOF:ADAPTIVE_UNIFIED_XP'; end if;
+    perform set_config('request.jwt.claim.sub','41000000-0000-4000-8000-000000000003',true);
+    begin
+      perform public.get_my_xp_attempt_projection('ADAPTIVE_PILOT',v_attempt,null);
+      raise exception 'PROOF:CROSS_USER_XP_ALLOWED';
+    exception when others then
+      if sqlerrm<>'SCORING:FORBIDDEN' then raise; end if;
+    end;
+  end; $adaptive_xp$;`);
   psql(`do $stakeholders$ declare v_view jsonb; begin
     perform set_config('request.jwt.claim.sub','42000000-0000-4000-8000-000000000001',true);
     v_view:=public.get_parent_child_universal_progress('44000000-0000-4000-8000-000000000001');
@@ -270,11 +457,12 @@ $fixed_safe$;`);
   end; $stakeholders$;`);
 
   const attemptsBeforeDeactivation = psql("select count(*) from public.curriculum_attempts where release_candidate_id is not null;", true);
+  const answersBeforeDeactivation = psql("select count(*) from public.curriculum_answers answer join public.curriculum_attempts attempt on attempt.id=answer.attempt_id where attempt.release_candidate_id is not null;", true);
   psql(readFileSync(join(root, "supabase/operations/grades-2-9-local-release/DEACTIVATE.sql"), "utf8"));
   const persistenceAfterDeactivation = psql(`select (select count(*) from public.curriculum_attempts where release_candidate_id is not null)||':'||
     (select count(*) from public.curriculum_answers answer join public.curriculum_attempts attempt on attempt.id=answer.attempt_id where attempt.release_candidate_id is not null)||':'||
     (select count(*) from public.curriculum_release_questions question join public.curriculum_grade_release_policies policy on policy.release_id=question.release_id);`, true);
-  if (!persistenceAfterDeactivation.startsWith(`${attemptsBeforeDeactivation}:9:2460`)) {
+  if (persistenceAfterDeactivation !== `${attemptsBeforeDeactivation}:${answersBeforeDeactivation}:2460`) {
     throw new Error("LOCAL_DB_PROOF:DEACTIVATION_HISTORY_LOSS");
   }
   psql(`do $hidden$ declare v_unit text; begin
@@ -304,7 +492,7 @@ $fixed_safe$;`);
       (select code from public.questions where unit_slug like 'grade-1-%')
   ) frozen;`, true);
   if (gradeOneBefore !== gradeOneAfter) throw new Error("LOCAL_DB_PROOF:GRADE_ONE_DRIFT");
-  console.log(`GRADES_2_9_LOCAL_DB_PROOF_OK migrations=45 questions=2460 attempts=${attemptsBeforeDeactivation} grade1_digest_preserved=true rollback=atomic_sql_contract`);
+  console.log(`GRADES_1_9_UNIFIED_XP_DB_PROOF_OK migrations=46 questions=2460 attempts=${attemptsBeforeDeactivation} grade1_digest_preserved=true exactly_once=true rollback=atomic_sql_contract`);
 } finally {
   if (started) {
     spawnSync("docker", ["stop", "--time", "2", name], { env: commandEnvironment, stdio: "ignore" });

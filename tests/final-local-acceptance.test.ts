@@ -31,6 +31,10 @@ test("final receipt locks inventory, browser proof, release modes and current-tu
   });
   assert.equal(receipt.stableHashes.browserReceiptHash, "ff804a5893aae4d53a784e71f3443d99d0d1b6626623eb1b0704d489b6d54ec5");
   assert.equal(receipt.remoteState.migration0045, "APPLIED_AND_VERIFIED");
+  assert.equal(
+    receipt.remoteState.migration0046,
+    "NOT_APPLIED_OWNER_AUTHORIZATION_REQUIRED",
+  );
   assert.equal(receipt.remoteState.gradesTwoToNineActivation, "NOT_EXECUTED");
   assert.equal(receipt.remoteState.deployment, "NOT_EXECUTED");
   assert.equal(Object.values(receipt.receiptGenerationBoundary).every((value) => value === 0), true);

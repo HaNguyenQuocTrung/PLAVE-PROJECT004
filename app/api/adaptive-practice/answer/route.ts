@@ -10,6 +10,7 @@ import { parseSubmitAdaptivePracticeRequest } from "@/lib/practice/adaptive-data
 import { resolveServerAdaptivePilotAccess } from "@/lib/practice/adaptive-pilot-server";
 import { isSameOriginRequest } from "@/lib/practice/errors";
 import { getStudentLearningContext } from "@/lib/practice/server";
+import { revalidateStudentLearningProjections } from "@/lib/curriculum-runtime/revalidation";
 
 const noStoreHeaders = { "Cache-Control": "no-store" };
 
@@ -75,6 +76,7 @@ export async function POST(request: Request) {
     return { data: result.data, error: result.error };
   };
   const result = await submitAdaptivePracticeAnswer(rpc, input);
+  if (result.ok) revalidateStudentLearningProjections();
   return jsonNoStore(
     result,
     result.ok ? 200 : errorStatus(result.error.code),

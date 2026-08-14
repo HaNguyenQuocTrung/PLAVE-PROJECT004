@@ -21,7 +21,7 @@ import {
 
 const root = resolve(import.meta.dirname, "..");
 
-test("historical workspace keeps its exact 0001-0040 prefix after validating canonical 0001-0045", () => {
+test("historical workspace keeps its exact 0001-0040 prefix after validating canonical 0001-0046", () => {
   const prepared = prepareDisposableMigrationWorkspace({
     candidateRoot: root,
     projectId:
@@ -69,11 +69,11 @@ test("historical workspace keeps its exact 0001-0040 prefix after validating can
     const sourceFilenames = readdirSync(
       resolve(root, "supabase/migrations"),
     ).sort();
-    assert.equal(sourceFilenames.length, 45);
+    assert.equal(sourceFilenames.length, 46);
     assert.match(sourceFilenames[0] ?? "", /^0001_/u);
     assert.equal(
       sourceFilenames.at(-1),
-      "0045_grades_2_9_local_public_release.sql",
+      "0046_unified_grade_1_9_xp.sql",
     );
     assert.deepEqual(
       readdirSync(prepared.migrationsDirectory).sort(),

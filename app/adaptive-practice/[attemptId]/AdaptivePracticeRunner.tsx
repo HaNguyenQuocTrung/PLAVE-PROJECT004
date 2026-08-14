@@ -78,6 +78,18 @@ function TerminalState({
       <p className="eyebrow">{copy.eyebrow}</p>
       <h2>{copy.title}</h2>
       <p>{copy.description}</p>
+      {state.xp ? (
+        <div className="scoring-result" aria-label="Kết quả XP của lượt học">
+          <div>
+            <span>XP lượt này</span>
+            <strong>{state.xp.attemptXpEarned} XP</strong>
+          </div>
+          <div>
+            <span>Tổng XP hiện tại</span>
+            <strong>{state.xp.totalXpAfter} XP</strong>
+          </div>
+        </div>
+      ) : null}
       {state.remediationSkillIds.length > 0 ? (
         <div>
           <h3>Kỹ năng nên ôn lại</h3>
@@ -442,6 +454,22 @@ export function AdaptivePracticeRunner({
             {!feedback.isCorrect ? (
               <p>
                 <strong>Gợi ý:</strong> {feedback.hint}
+              </p>
+            ) : null}
+            {pendingState?.xp ? (
+              <p
+                data-answer-xp-reason={
+                  pendingState.xp.zeroXpReason ?? "AWARDED"
+                }
+              >
+                {pendingState.xp.answerXpAwarded > 0
+                  ? `Câu này nhận ${pendingState.xp.answerXpAwarded} XP. Tổng hiện tại: ${pendingState.xp.totalXpAfter} XP.`
+                  : pendingState.xp.zeroXpReason === "ANSWER_ALREADY_PERSISTED"
+                    ? "Câu trả lời này đã được ghi nhận trước đó nên không cộng XP lần nữa."
+                    : pendingState.xp.zeroXpReason ===
+                        "HISTORICAL_ATTEMPT_NOT_ELIGIBLE"
+                      ? "Lượt học này được tạo trước chính sách XP thống nhất nên không nhận XP."
+                      : "Câu chưa đúng nên không nhận XP."}
               </p>
             ) : null}
           </div>

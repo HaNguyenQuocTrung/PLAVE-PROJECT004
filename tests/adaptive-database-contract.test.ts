@@ -45,6 +45,18 @@ function rpcState(feedback: unknown = null) {
     remediation_skill_ids: [],
     completed_at: null,
     feedback,
+    ...(feedback === null
+      ? {}
+      : {
+          xp: {
+            answer_xp_awarded: 10,
+            attempt_xp_earned: 10,
+            total_xp_after: 10,
+            policy_version: "PLAVE_SCORING_POLICY_V1",
+            eligible: true,
+            zero_xp_reason: null,
+          },
+        }),
   };
 }
 

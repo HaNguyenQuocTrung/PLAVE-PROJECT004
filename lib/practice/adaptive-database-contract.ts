@@ -2,6 +2,10 @@ import {
   parsePracticeVisualSpec,
   type PracticeVisualSpec,
 } from "./visual.ts";
+import {
+  parseAnswerXpProjection,
+  type AnswerXpProjection,
+} from "../scoring/completion.ts";
 
 export const adaptiveDatabaseErrorCodes = [
   "UNAUTHENTICATED",
@@ -88,6 +92,7 @@ export type AdaptiveRpcState = Readonly<{
   remediationSkillIds: readonly string[];
   completedAt: string | null;
   feedback: AdaptiveRpcFeedback | null;
+  xp?: AnswerXpProjection | null;
 }>;
 
 type RecordValue = Record<string, unknown>;
@@ -338,6 +343,7 @@ export function parseAdaptiveRpcState(
     "remediation_skill_ids",
     "completed_at",
     "feedback",
+    ...(value.xp === undefined ? [] : ["xp"]),
   ];
   if (!hasExactKeys(value, allowedKeys)) return null;
   const statuses = [
@@ -355,6 +361,9 @@ export function parseAdaptiveRpcState(
     allowPostSubmitFeedback && value.feedback !== null
       ? parseFeedback(value.feedback)
       : null;
+  const xp = value.xp === undefined
+    ? null
+    : parseAnswerXpProjection(value.xp);
   if (
     !isUuid(value.attempt_id) ||
     !isSlug(value.unit_slug) ||
@@ -375,7 +384,9 @@ export function parseAdaptiveRpcState(
     (!allowPostSubmitFeedback && value.feedback !== null) ||
     (allowPostSubmitFeedback &&
       value.feedback !== null &&
-      !feedback)
+      !feedback) ||
+    (allowPostSubmitFeedback && !xp) ||
+    (value.xp !== undefined && !xp)
   ) {
     return null;
   }
@@ -390,5 +401,6 @@ export function parseAdaptiveRpcState(
     remediationSkillIds: value.remediation_skill_ids as string[],
     completedAt: value.completed_at as string | null,
     feedback,
+    ...(value.xp === undefined ? {} : { xp }),
   };
 }

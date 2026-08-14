@@ -59,17 +59,17 @@ function invitationCode() {
   return `PLV-TCH-${"A".repeat(32)}`;
 }
 
-test("canonical migration inventory is derived as exact contiguous 0001-0045", () => {
+test("canonical migration inventory is derived as exact contiguous 0001-0046", () => {
   const inventory = loadTrackedCanonicalMigrationInventory();
   assert.equal(inventory.ok, true);
   assert.equal(inventory.first, "0001");
-  assert.equal(inventory.last, "0045");
-  assert.equal(inventory.count, 45);
+  assert.equal(inventory.last, "0046");
+  assert.equal(inventory.count, 46);
 });
 
 test("canonical migration audit rejects missing, duplicate and unexpected versions", () => {
   const valid = Array.from(
-    { length: 45 },
+    { length: 46 },
     (_, index) =>
       `${String(index + 1).padStart(4, "0")}_migration_${String(index + 1)}.sql`,
   );
@@ -87,9 +87,9 @@ test("canonical migration audit rejects missing, duplicate and unexpected versio
   assert.deepEqual(
     auditCanonicalMigrationFilenames(valid, [
       ...valid,
-      "0046_untracked.sql",
+      "0047_untracked.sql",
     ]).unexpectedFiles,
-    ["0046_untracked.sql"],
+    ["0047_untracked.sql"],
   );
 });
 

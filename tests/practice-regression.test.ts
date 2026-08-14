@@ -233,6 +233,14 @@ const correctAnswerRpcPayload = {
   answered_count: 1,
   correct_count: 1,
   completed: false,
+  xp: {
+    answer_xp_awarded: 10,
+    attempt_xp_earned: 10,
+    total_xp_after: 10,
+    policy_version: "PLAVE_SCORING_POLICY_V1",
+    eligible: true,
+    zero_xp_reason: null,
+  },
 };
 
 const canonicalCorrectAnswer = {
@@ -244,12 +252,28 @@ const canonicalCorrectAnswer = {
   answeredCount: 1,
   correctCount: 1,
   completed: false,
+  xp: {
+    answerXpAwarded: 10,
+    attemptXpEarned: 10,
+    totalXpAfter: 10,
+    policyVersion: "PLAVE_SCORING_POLICY_V1" as const,
+    eligible: true,
+    zeroXpReason: null,
+  },
 };
 
 const canonicalIncorrectAnswer = {
   ...canonicalCorrectAnswer,
   isCorrect: false,
   correctCount: 0,
+  xp: {
+    answerXpAwarded: 0,
+    attemptXpEarned: 0,
+    totalXpAfter: 0,
+    policyVersion: "PLAVE_SCORING_POLICY_V1" as const,
+    eligible: true,
+    zeroXpReason: "INCORRECT_ANSWER" as const,
+  },
 };
 
 const canonicalReviewAnswer = {
@@ -9481,6 +9505,7 @@ test("Sprint 5G 11. A graded response appears immediately without client scoring
       answeredCount: 6,
       correctCount: 5,
       completed: false,
+      xp: canonicalCorrectAnswer.xp,
     },
   });
   assert.ok(result);
@@ -10005,6 +10030,7 @@ test("Sprint 5H 11. A graded response appears immediately without client scoring
       answeredCount: 11,
       correctCount: 8,
       completed: false,
+      xp: canonicalIncorrectAnswer.xp,
     },
   });
   assert.ok(result);

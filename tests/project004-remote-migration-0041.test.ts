@@ -121,7 +121,7 @@ function awaitableMigrationFiles() {
     .sort();
 }
 
-test("canonical repository inventory is exact and contiguous through 0045 while preserving the historical 0041 contract", () => {
+test("canonical repository inventory is exact and contiguous through 0046 while preserving the historical 0041 contract", () => {
   const plan = JSON.parse(
     readFileSync(
       join(
@@ -138,15 +138,16 @@ test("canonical repository inventory is exact and contiguous through 0045 while 
     "0043_score_xp_mastery_foundation.sql",
     "0044_motivation_level_streak_goals_achievements.sql",
     "0045_grades_2_9_local_public_release.sql",
+    "0046_unified_grade_1_9_xp.sql",
   ];
   assert.equal(plan.migrations.length, 40);
   assert.deepEqual(awaitableMigrationFiles(), expected);
   assert.deepEqual(
     expected.map((filename) => filename.slice(0, 4)),
-    Array.from({ length: 45 }, (_, index) => String(index + 1).padStart(4, "0")),
+    Array.from({ length: 46 }, (_, index) => String(index + 1).padStart(4, "0")),
   );
   const migration0045 = readFileSync(
-    join(repositoryRoot, "supabase/migrations", expected.at(-1)!),
+    join(repositoryRoot, "supabase/migrations", "0045_grades_2_9_local_public_release.sql"),
   );
   assert.equal(
     createHash("sha256").update(migration0045).digest("hex"),

@@ -8,7 +8,7 @@ import {
 } from "../lib/curriculum-runtime/contracts.ts";
 import { projectCanonicalXpAfterCommit } from "../lib/curriculum-runtime/xp-projection.ts";
 import {
-  buildLegacyGradeOneXpCompletionProjection,
+  buildAttemptXpCompletionProjection,
   parseXpCompletionProjection,
   xpCompletionReasonText,
 } from "../lib/scoring/completion.ts";
@@ -136,21 +136,29 @@ test("a completed eligible attempt with no correct answer has an exact zero-XP r
   );
 });
 
-test("Grade 1 fixed first, resume and review journeys remain explicitly outside XP V1", () => {
+test("historical attempts remain explicitly outside the unified XP policy", () => {
   for (const journey of ["FIRST_COMPLETION", "RESUME", "REVIEW"] as const) {
-    const projection = buildLegacyGradeOneXpCompletionProjection(summary);
+    const projection = buildAttemptXpCompletionProjection({
+      policyVersion: null,
+      legacy: true,
+      attemptXpEarned: 0,
+    }, summary.totalXp);
     assert.equal(projection.attemptXpEarned, 0, journey);
     assert.equal(projection.totalXpAfter, 145, journey);
     assert.equal(
       projection.reason,
-      "LEGACY_GRADE1_RUNTIME_NOT_ELIGIBLE",
+      "HISTORICAL_ATTEMPT_NOT_ELIGIBLE",
       journey,
     );
   }
 });
 
 test("Grade 1 completion and reconciliation require the explicit zero-XP policy result", () => {
-  const xpCompletion = buildLegacyGradeOneXpCompletionProjection(summary);
+  const xpCompletion = buildAttemptXpCompletionProjection({
+    policyVersion: null,
+    legacy: true,
+    attemptXpEarned: 0,
+  }, summary.totalXp);
   const completedAnswer = {
     isCorrect: true,
     correctAnswer: "C",
@@ -160,6 +168,14 @@ test("Grade 1 completion and reconciliation require the explicit zero-XP policy 
     answeredCount: 24,
     correctCount: 20,
     completed: true,
+    xp: {
+      answerXpAwarded: 0,
+      attemptXpEarned: 0,
+      totalXpAfter: 145,
+      policyVersion: null,
+      eligible: false,
+      zeroXpReason: "HISTORICAL_ATTEMPT_NOT_ELIGIBLE",
+    },
   };
   assert.equal(
     parseSubmitPracticeApiResponse({ ok: true, data: completedAnswer }),
@@ -170,7 +186,7 @@ test("Grade 1 completion and reconciliation require the explicit zero-XP policy 
       ok: true,
       data: { ...completedAnswer, xpCompletion },
     })?.data.xpCompletion?.reason,
-    "LEGACY_GRADE1_RUNTIME_NOT_ELIGIBLE",
+    "HISTORICAL_ATTEMPT_NOT_ELIGIBLE",
   );
   assert.equal(
     parsePracticeAnswerStateApiResponse({
@@ -211,7 +227,7 @@ test("completed XP projections fail closed when the aggregate contract is malfor
       eligible: false,
       attemptXpEarned: 45,
       totalXpAfter: 145,
-      reason: "LEGACY_GRADE1_RUNTIME_NOT_ELIGIBLE",
+      reason: "HISTORICAL_ATTEMPT_NOT_ELIGIBLE",
     }),
     null,
   );
@@ -250,7 +266,7 @@ test("all production completion and result paths use canonical post-commit XP", 
   assert.match(curriculumAnswer, /revalidateStudentLearningProjections/u);
   assert.match(onDemandAnswer, /loadCanonicalStudentScoringSummary/u);
   assert.match(onDemandAnswer, /revalidateStudentLearningProjections/u);
-  assert.match(gradeOneAnswer, /buildLegacyGradeOneXpCompletionProjection/u);
+  assert.match(gradeOneAnswer, /buildAnswerXpCompletionProjection/u);
   assert.match(result, /totalXpAfter/u);
   assert.match(review, /totalXpAfter/u);
   assert.match(dashboard, /scoring\.totalXp/u);

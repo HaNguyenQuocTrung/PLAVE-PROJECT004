@@ -38,7 +38,6 @@ import { getLessonPath } from "@/lib/practice/catalog";
 import { getPracticeReviewPath } from "@/lib/practice/review";
 import { MotivationOverview } from "@/components/MotivationOverview";
 import { UniversalCurriculumStartButton } from "@/components/UniversalCurriculumStartButton";
-import { GradeOneLegacyXpPolicyNotice } from "@/components/GradeOneLegacyXpPolicyNotice";
 
 export const metadata = {
   title: "Tổng quan",
@@ -384,11 +383,6 @@ export default async function DashboardPage() {
               <strong>{universalProgress.scoring.masterySummary.needsReview}</strong>
             </div>
           </div>
-          {universalProgress.compatibilityMode === "LEGACY_GRADE1_AGGREGATED" ? (
-            <GradeOneLegacyXpPolicyNotice
-              totalXp={universalProgress.scoring.totalXp}
-            />
-          ) : null}
           <Button href="/learning-progress" variant="secondary">
             Xem chi tiết tiến trình
           </Button>

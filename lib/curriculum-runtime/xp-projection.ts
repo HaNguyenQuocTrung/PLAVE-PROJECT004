@@ -4,6 +4,7 @@ import {
   type StudentScoringSummary,
 } from "./contracts.ts";
 import {
+  buildAnswerXpCompletionProjection,
   buildCurriculumXpCompletionProjection,
   type XpCompletionProjection,
 } from "../scoring/completion.ts";
@@ -24,10 +25,9 @@ export function attachCanonicalXpCompletion(
   if (!state.scoring) return state;
   return {
     ...state,
-    xpCompletion: buildCurriculumXpCompletionProjection(
-      state.scoring,
-      summary,
-    ),
+    xpCompletion: state.xp
+      ? buildAnswerXpCompletionProjection(state.xp)
+      : buildCurriculumXpCompletionProjection(state.scoring, summary),
   };
 }
 
@@ -38,7 +38,11 @@ export function requireCanonicalXpCompletion(
   state: CurriculumAttemptState;
   projection: XpCompletionProjection;
 }> | null {
-  if (!state.scoring || !summary) return null;
+  if (
+    !state.scoring ||
+    !summary ||
+    (state.xp && state.xp.totalXpAfter !== summary.totalXp)
+  ) return null;
   const completedState = attachCanonicalXpCompletion(state, summary);
   return completedState.xpCompletion
     ? { state: completedState, projection: completedState.xpCompletion }

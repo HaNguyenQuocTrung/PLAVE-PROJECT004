@@ -11,7 +11,9 @@ import {
   type MotivationSummary,
 } from "../motivation/contracts.ts";
 import {
+  parseAnswerXpProjection,
   parseXpCompletionProjection,
+  type AnswerXpProjection,
   type XpCompletionProjection,
 } from "../scoring/completion.ts";
 
@@ -168,6 +170,7 @@ export type CurriculumAttemptState = Readonly<{
   currentQuestion: CurriculumAttemptQuestion | null;
   feedback: CurriculumAttemptFeedback | null;
   scoring?: AttemptScoringState | null;
+  xp?: AnswerXpProjection | null;
   xpCompletion?: XpCompletionProjection | null;
   motivation?: MotivationSummary | null;
   achievementUnlocks?: readonly MotivationAchievement[];
@@ -545,6 +548,9 @@ export function parseCurriculumAttemptState(
     value.xp_completion === null || value.xp_completion === undefined
       ? null
       : parseXpCompletionProjection(value.xp_completion);
+  const xp = value.xp === null || value.xp === undefined
+    ? null
+    : parseAnswerXpProjection(value.xp);
   const motivation =
     value.motivation === null || value.motivation === undefined
       ? null
@@ -576,6 +582,7 @@ export function parseCurriculumAttemptState(
     (value.xp_completion !== null &&
       value.xp_completion !== undefined &&
       xpCompletion === null) ||
+    (value.xp !== null && value.xp !== undefined && xp === null) ||
     (value.motivation !== null &&
       value.motivation !== undefined &&
       motivation === null) ||
@@ -602,6 +609,7 @@ export function parseCurriculumAttemptState(
     currentQuestion: question,
     feedback,
     scoring,
+    xp,
     xpCompletion,
     motivation,
     achievementUnlocks,
@@ -680,6 +688,16 @@ export function parseCurriculumAttemptApiState(
         }
       : value.scoring,
     xp_completion: value.xpCompletion,
+    xp: isRecord(value.xp)
+      ? {
+          answer_xp_awarded: value.xp.answerXpAwarded,
+          attempt_xp_earned: value.xp.attemptXpEarned,
+          total_xp_after: value.xp.totalXpAfter,
+          policy_version: value.xp.policyVersion,
+          eligible: value.xp.eligible,
+          zero_xp_reason: value.xp.zeroXpReason,
+        }
+      : value.xp,
   });
   return state?.status === "COMPLETED" && !state.xpCompletion ? null : state;
 }

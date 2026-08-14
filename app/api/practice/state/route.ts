@@ -17,7 +17,7 @@ import {
 } from "@/lib/practice/errors";
 import { getStudentLearningContext } from "@/lib/practice/server";
 import { loadCanonicalStudentScoringSummary } from "@/lib/curriculum-runtime/xp-projection";
-import { buildLegacyGradeOneXpCompletionProjection } from "@/lib/scoring/completion";
+import { buildAttemptXpCompletionProjection } from "@/lib/scoring/completion";
 
 const noStoreHeaders = { "Cache-Control": "no-store" };
 
@@ -130,6 +130,12 @@ export async function GET(request: Request) {
     if (review.status === "COMPLETED" && !scoring) {
       return jsonNoStore(practiceApiError("REQUEST_FAILED"), 502);
     }
+    const scoringAttempt = scoring?.attempts.find(
+      (attempt) => attempt.attemptId === attemptId,
+    ) ?? null;
+    if (review.status === "COMPLETED" && !scoringAttempt) {
+      return jsonNoStore(practiceApiError("REQUEST_FAILED"), 502);
+    }
     const response: PracticeApiSuccess<PracticeAnswerState> = {
       ok: true,
       data: {
@@ -137,8 +143,12 @@ export async function GET(request: Request) {
         answeredCount: review.answeredCount,
         correctCount: review.correctCount,
         completed: review.status === "COMPLETED",
-        xpCompletion: scoring
-          ? buildLegacyGradeOneXpCompletionProjection(scoring)
+        xpCompletion: scoring && scoringAttempt
+          ? buildAttemptXpCompletionProjection({
+              policyVersion: scoringAttempt.policyVersion,
+              legacy: scoringAttempt.legacy,
+              attemptXpEarned: scoringAttempt.xpEarned,
+            }, scoring.totalXp)
           : null,
       },
     };

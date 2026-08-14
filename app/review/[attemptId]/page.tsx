@@ -28,7 +28,7 @@ import {
 import { getStudentLearningContext } from "@/lib/practice/server";
 import { parseStudentScoringSummary } from "@/lib/curriculum-runtime/contracts";
 import {
-  buildLegacyGradeOneXpCompletionProjection,
+  buildAttemptXpCompletionProjection,
   xpCompletionReasonText,
 } from "@/lib/scoring/completion";
 
@@ -131,8 +131,18 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
   if (review.status === "COMPLETED" && !scoring) {
     return <ReviewErrorState retryHref={getPracticeReviewPath(attemptId)} />;
   }
-  const xpCompletion = review.status === "COMPLETED" && scoring
-    ? buildLegacyGradeOneXpCompletionProjection(scoring)
+  const scoringAttempt = scoring?.attempts.find(
+    (attempt) => attempt.attemptId === attemptId,
+  ) ?? null;
+  if (review.status === "COMPLETED" && !scoringAttempt) {
+    return <ReviewErrorState retryHref={getPracticeReviewPath(attemptId)} />;
+  }
+  const xpCompletion = review.status === "COMPLETED" && scoring && scoringAttempt
+    ? buildAttemptXpCompletionProjection({
+        policyVersion: scoringAttempt.policyVersion,
+        legacy: scoringAttempt.legacy,
+        attemptXpEarned: scoringAttempt.xpEarned,
+      }, scoring.totalXp)
     : null;
 
   return (
