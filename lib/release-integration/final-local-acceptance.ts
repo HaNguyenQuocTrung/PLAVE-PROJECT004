@@ -32,7 +32,7 @@ const documentationPaths = [
 
 const EXPECTED = {
   combinedAKHash: "de5cff15605c2fd4d09bf06740db9475a9918d20396e9d06f5ec27200b362b1e",
-  browserReceiptHash: "4a2c7353b1c5831496967cf7e9d2d3393de524e2a3a3c547970bc9297aadb412",
+  browserReceiptHash: "ff804a5893aae4d53a784e71f3443d99d0d1b6626623eb1b0704d489b6d54ec5",
   browserSourceTreeDigest: "0a65caf2fd472bac6d02978ebfad9773a3d2b5badf87f1fa0d1752f49eb6ecf4",
   browserCompatibilityHash: "b2dad94003adf4399766586d3a28562cac4862d591cb598b894ec5b730713596",
   browserReleaseReceiptHash: "ac50b890bdf3949258379581a80b6113dfef402456e0a35c25614999ec402221",
@@ -135,7 +135,7 @@ export function buildFinalLocalAcceptance(root = process.cwd()) {
   });
   const matrixCore = {
     schemaVersion: "plave-grades-1-9-final-local-acceptance-matrix-v1",
-    baselineHead: "1b22c957eec03762ba4ce07d5bbde61bc8eb115e",
+    baselineHead: "5bb8cc39311d387bd0240f3e8dcd9aef84be8bb3",
     remoteRelease: "SCHEMA_MATERIALIZED_HIDDEN_NOT_ACTIVATED",
     productionAvailabilityGradesTwoToNine: "NOT_YET_CLAIMED",
     grades,
@@ -167,7 +167,7 @@ export function buildFinalLocalAcceptance(root = process.cwd()) {
   const receiptCore = {
     schemaVersion: "plave-grades-1-9-final-local-acceptance-receipt-v2",
     branch: "fix/fyp-product-truth",
-    baselineHead: "1b22c957eec03762ba4ce07d5bbde61bc8eb115e",
+    baselineHead: "5bb8cc39311d387bd0240f3e8dcd9aef84be8bb3",
     finalHeadBinding: {
       mode: "SOURCE_SCOPE_EXCLUDES_COMMIT_ID",
       commitHashExcludedToAvoidSelfReference: true,

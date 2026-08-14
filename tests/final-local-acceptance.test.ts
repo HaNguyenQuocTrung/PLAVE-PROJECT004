@@ -29,7 +29,7 @@ test("final receipt locks inventory, browser proof, release modes and current-tu
     adaptiveSkills: 274, fixedSafeSkills: 13, grades: 8, questions: 2460,
     runtimeUnits: 128, skills: 287, solutions: 2460, units: 163, noQuestionSourceUnits: 35,
   });
-  assert.equal(receipt.stableHashes.browserReceiptHash, "4a2c7353b1c5831496967cf7e9d2d3393de524e2a3a3c547970bc9297aadb412");
+  assert.equal(receipt.stableHashes.browserReceiptHash, "ff804a5893aae4d53a784e71f3443d99d0d1b6626623eb1b0704d489b6d54ec5");
   assert.equal(receipt.remoteState.migration0045, "APPLIED_AND_VERIFIED");
   assert.equal(receipt.remoteState.gradesTwoToNineActivation, "NOT_EXECUTED");
   assert.equal(receipt.remoteState.deployment, "NOT_EXECUTED");
