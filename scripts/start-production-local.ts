@@ -3,7 +3,6 @@ import {
   cpSync,
   existsSync,
   mkdirSync,
-  mkdtempSync,
   renameSync,
   rmSync,
   symlinkSync,
@@ -12,10 +11,15 @@ import { resolve } from "node:path";
 
 import { assertProject004Workspace } from "./project004-identity.ts";
 import {
+  assertProductionLocalBuildBinding,
+  writeProductionLocalBuildBinding,
+} from "./production-local-build-binding.ts";
+import {
   loadProject004RemoteRuntimeConfigFile,
   Project004RemoteRuntimeFailure,
 } from "./project004-remote-runtime-connection.ts";
 import { productionLocalBuildContract } from "./production-local-build-contract.ts";
+import { createProductionLocalTemporaryRoot } from "./production-local-temporary-root.ts";
 
 type PublicRuntime = Readonly<{
   url: string;
@@ -99,11 +103,8 @@ try {
 }
 
 if (!buildMode) {
-  const buildId = resolve(
-    root,
-    productionLocalBuildContract.distDirectory,
-    "BUILD_ID",
-  );
+  const buildRoot = resolve(root, productionLocalBuildContract.distDirectory);
+  const buildId = resolve(buildRoot, "BUILD_ID");
   if (!existsSync(buildId)) {
     process.stderr.write(
       "PRODUCTION_LOCAL_START=FAIL\n" +
@@ -112,18 +113,30 @@ if (!buildMode) {
     );
     process.exit(1);
   }
+  try {
+    assertProductionLocalBuildBinding(buildRoot, runtime.source);
+  } catch {
+    process.stderr.write(
+      "PRODUCTION_LOCAL_START=FAIL\n" +
+        "ROOT_FAILURE_CODE=PRODUCTION_LOCAL_BUILD_RUNTIME_BINDING_INVALID\n" +
+        "REQUIRED_COMMAND=npm run build:production-local\n",
+    );
+    process.exit(1);
+  }
 }
 
-const temporaryRoot = mkdtempSync("/private/tmp/plave-production-local-");
+const temporaryRoot = createProductionLocalTemporaryRoot();
 const temporaryHome = resolve(temporaryRoot, "home");
+const temporaryTmp = resolve(temporaryRoot, "tmp");
 const runtimeRoot = resolve(temporaryRoot, "PLAVE-PROJECT004");
 mkdirSync(temporaryHome, { recursive: true, mode: 0o700 });
+mkdirSync(temporaryTmp, { recursive: true, mode: 0o700 });
 mkdirSync(runtimeRoot, { recursive: true, mode: 0o700 });
 
 const childEnvironment = {
   HOME: temporaryHome,
   PATH: "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
-  TMPDIR: "/private/tmp",
+  TMPDIR: temporaryTmp,
   LANG: "C.UTF-8",
   LC_ALL: "C.UTF-8",
   npm_config_offline: "true",
@@ -223,6 +236,7 @@ function promoteSanitizedBuild() {
   if (!existsSync(resolve(built, "BUILD_ID"))) {
     throw new Error("PRODUCTION_LOCAL_SANITIZED_BUILD_MISSING");
   }
+  writeProductionLocalBuildBinding(built, runtime.source);
   const destination = resolve(root, productionLocalBuildContract.distDirectory);
   const pending = `${destination}.pending-${String(process.pid)}`;
   const previous = `${destination}.previous-${String(process.pid)}`;

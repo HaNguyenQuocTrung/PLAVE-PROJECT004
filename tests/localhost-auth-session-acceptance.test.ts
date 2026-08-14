@@ -26,12 +26,17 @@ test("production-local wrapper blocks dotenv discovery and gives Next an allowli
     new URL("../scripts/start-production-local.ts", import.meta.url),
     "utf8",
   );
-  assert.match(wrapper, /mkdtempSync\("\/private\/tmp\/plave-production-local-"\)/u);
+  assert.match(wrapper, /createProductionLocalTemporaryRoot\(\)/u);
+  assert.match(wrapper, /TMPDIR: temporaryTmp/u);
+  assert.doesNotMatch(wrapper, /\/private\/tmp\/plave-production-local-/u);
   assert.match(wrapper, /__NEXT_PROCESSED_ENV: "true"/u);
   assert.match(wrapper, /npm_config_offline: "true"/u);
   assert.match(wrapper, /"--exclude=.env\*"/u);
   assert.match(wrapper, /PRODUCTION_LOCAL_WORKSPACE=DISPOSABLE_ENV_EXCLUDED/u);
   assert.match(wrapper, /PRODUCTION_LOCAL_BUILD=PROMOTED_SANITIZED/u);
+  assert.match(wrapper, /assertProductionLocalBuildBinding\(buildRoot, runtime\.source\)/u);
+  assert.match(wrapper, /writeProductionLocalBuildBinding\(built, runtime\.source\)/u);
+  assert.match(wrapper, /PRODUCTION_LOCAL_BUILD_RUNTIME_BINDING_INVALID/u);
   assert.match(wrapper, /buildMode \? \["--webpack"\] : \[\]/u);
   assert.match(wrapper, /PRODUCTION_LOCAL_AUTH_TEST_MODE_TARGET_INVALID/u);
   assert.match(wrapper, /mock-unreachable-auth-fetch[.]mjs/u);
