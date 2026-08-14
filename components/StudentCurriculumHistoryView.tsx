@@ -5,9 +5,11 @@ import type { StudentCurriculumHistory } from "@/lib/curriculum-runtime/contract
 export function StudentCurriculumHistoryView({
   history,
   enrichmentAvailable,
+  scoringTotalXp,
 }: Readonly<{
   history: StudentCurriculumHistory;
   enrichmentAvailable: boolean;
+  scoringTotalXp: number | null;
 }>) {
   return (
     <div className="content-page page-shell learning-history-page history-page--v2">
@@ -33,6 +35,15 @@ export function StudentCurriculumHistoryView({
             Điểm, XP và mức thành thạo tạm thời chưa sẵn sàng. Các lượt học
             và tiến độ đã lưu vẫn được hiển thị bên dưới.
           </p>
+        </section>
+      ) : null}
+
+      {scoringTotalXp !== null ? (
+        <section className="scoring-result" aria-label="Tổng XP hiện tại">
+          <div>
+            <span>Tổng XP hiện tại</span>
+            <strong>{scoringTotalXp} XP</strong>
+          </div>
         </section>
       ) : null}
 
@@ -84,7 +95,8 @@ export function StudentCurriculumHistoryView({
                   ) : null}
                   {attempt.legacyScoring ? (
                     <p className="legacy-score-label">
-                      Kết quả cũ · chưa áp dụng XP và thành thạo V1
+                      Lượt luyện tập cố định Lớp 1 · không thuộc phạm vi nhận
+                      XP V1 · XP lượt này: 0
                     </p>
                   ) : null}
                   <time dateTime={attempt.startedAt}>

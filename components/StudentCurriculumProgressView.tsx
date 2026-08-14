@@ -10,6 +10,7 @@ import {
 } from "@/lib/practice/catalog";
 import { skillCodes } from "@/lib/practice/contracts";
 import { MotivationOverview } from "./MotivationOverview";
+import { GradeOneLegacyXpPolicyNotice } from "./GradeOneLegacyXpPolicyNotice";
 
 type StudentCurriculumProgressViewProps = {
   progress: StudentCurriculumProgress;
@@ -142,6 +143,9 @@ export function StudentCurriculumProgressView({
               <strong>{progress.scoring.masterySummary.needsReview}</strong>
             </div>
           </div>
+          {progress.compatibilityMode === "LEGACY_GRADE1_AGGREGATED" ? (
+            <GradeOneLegacyXpPolicyNotice totalXp={progress.scoring.totalXp} />
+          ) : null}
           {progress.scoring.masterySummary.needsReview > 0 ? (
             <p className="mastery-review-note">
               Một vài kỹ năng cần được nhắc lại. Mỗi lần luyện là một cơ hội

@@ -20,6 +20,7 @@ import {
   serializeGeneratorV2DatabaseAnswer,
 } from "@/lib/generation-v2/answer-transport";
 import type { CanonicalResponse } from "@/lib/generation-v2/types";
+import { xpCompletionReasonText } from "@/lib/scoring/completion";
 
 type UniversalCurriculumRunnerProps = {
   initialState: CurriculumAttemptState;
@@ -244,11 +245,24 @@ export function UniversalCurriculumRunner({
                 {state.scoring.earnedWeight}/{state.scoring.possibleWeight}
               </strong>
             </div>
-            <div>
-              <span>XP nhận được</span>
-              <strong>{state.scoring.attemptXpEarned} XP</strong>
-            </div>
+            {state.xpCompletion ? (
+              <>
+                <div>
+                  <span>XP lượt này</span>
+                  <strong>{state.xpCompletion.attemptXpEarned} XP</strong>
+                </div>
+                <div>
+                  <span>Tổng XP sau lượt này</span>
+                  <strong>{state.xpCompletion.totalXpAfter} XP</strong>
+                </div>
+              </>
+            ) : null}
           </div>
+        ) : null}
+        {state.xpCompletion ? (
+          <p className="scoring-explanation" data-xp-completion-reason={state.xpCompletion.reason}>
+            {xpCompletionReasonText(state.xpCompletion.reason)}
+          </p>
         ) : null}
         <p className="scoring-explanation">
           Hoàn thành bài học và thành thạo kỹ năng là hai điều khác nhau. Em
@@ -433,6 +447,21 @@ export function UniversalCurriculumRunner({
                 <span aria-hidden="true">+</span>
                 {state.scoring?.xpDelta} XP
               </p>
+            ) : null}
+            {state.status === "COMPLETED" && state.xpCompletion ? (
+              <div className="scoring-result" role="status">
+                <div>
+                  <span>XP lượt này</span>
+                  <strong>{state.xpCompletion.attemptXpEarned} XP</strong>
+                </div>
+                <div>
+                  <span>Tổng XP sau lượt này</span>
+                  <strong>{state.xpCompletion.totalXpAfter} XP</strong>
+                </div>
+                <p data-xp-completion-reason={state.xpCompletion.reason}>
+                  {xpCompletionReasonText(state.xpCompletion.reason)}
+                </p>
+              </div>
             ) : null}
             {state.scoring?.masteryChanges.map((change) => (
               <p className="mastery-change" key={change.outcomeTitle}>

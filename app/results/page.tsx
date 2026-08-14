@@ -29,6 +29,7 @@ export default async function ResultsPage() {
     <StudentCurriculumHistoryView
       history={result.history}
       enrichmentAvailable={result.scoring !== null}
+      scoringTotalXp={result.scoring?.totalXp ?? null}
     />
   );
 }

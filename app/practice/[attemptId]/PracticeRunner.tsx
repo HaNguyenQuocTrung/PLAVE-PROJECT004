@@ -26,6 +26,7 @@ import {
   type GradedAnswer,
 } from "@/lib/practice/client-flow";
 import { getPracticeReviewPath } from "@/lib/practice/review";
+import { xpCompletionReasonText } from "@/lib/scoring/completion";
 
 type PracticeRunnerProps = {
   attemptId: string;
@@ -399,6 +400,21 @@ export function PracticeRunner({
               <p>
                 <strong>Gợi ý:</strong> {result.hint}
               </p>
+            ) : null}
+            {result.completed && result.xpCompletion ? (
+              <div className="scoring-result" role="status">
+                <div>
+                  <span>XP lượt này</span>
+                  <strong>{result.xpCompletion.attemptXpEarned} XP</strong>
+                </div>
+                <div>
+                  <span>Tổng XP sau lượt này</span>
+                  <strong>{result.xpCompletion.totalXpAfter} XP</strong>
+                </div>
+                <p data-xp-completion-reason={result.xpCompletion.reason}>
+                  {xpCompletionReasonText(result.xpCompletion.reason)}
+                </p>
+              </div>
             ) : null}
           </div>
         ) : null}

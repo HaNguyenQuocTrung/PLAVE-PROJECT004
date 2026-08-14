@@ -16,6 +16,11 @@ import { isSameOriginRequest } from "@/lib/practice/errors";
 import { getStudentLearningContext } from "@/lib/practice/server";
 import { evaluateGeneratedPracticePilotEligibility } from "@/lib/curriculum/generated-practice-pilot";
 import { safeUpstreamCode } from "@/lib/runtime-diagnostics/server";
+import { revalidateStudentLearningProjections } from "@/lib/curriculum-runtime/revalidation";
+import {
+  loadCanonicalStudentScoringSummary,
+  requireCanonicalXpCompletion,
+} from "@/lib/curriculum-runtime/xp-projection";
 
 export async function POST(request: Request) {
   const api = createCurriculumApiResponder(request);
@@ -90,5 +95,19 @@ export async function POST(request: Request) {
       serverErrorCode: "RESPONSE_MAPPING_FAILED",
     });
   }
-  return api.success({ ok: true, data: state });
+  const summary = state.status === "COMPLETED"
+    ? await loadCanonicalStudentScoringSummary(() =>
+        access.supabase.rpc("get_my_score_xp_mastery"),
+      )
+    : null;
+  const projectedState = state.status === "COMPLETED"
+    ? requireCanonicalXpCompletion(state, summary)?.state ?? null
+    : state;
+  if (!projectedState) {
+    return api.error("REQUEST_FAILED", {
+      serverErrorCode: "SCORING_PROJECTION_UNAVAILABLE",
+    });
+  }
+  revalidateStudentLearningProjections();
+  return api.success({ ok: true, data: projectedState });
 }

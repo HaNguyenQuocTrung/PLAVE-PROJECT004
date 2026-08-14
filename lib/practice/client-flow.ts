@@ -188,6 +188,7 @@ export async function reconcileSubmittedAnswer(
         answeredCount: parsed.data.answeredCount,
         correctCount: parsed.data.correctCount,
         completed: parsed.data.completed,
+        xpCompletion: parsed.data.xpCompletion,
       },
     };
   } catch {

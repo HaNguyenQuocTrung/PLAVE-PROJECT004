@@ -13,6 +13,8 @@ import {
 } from "@/lib/practice/errors";
 import { getStudentLearningContext } from "@/lib/practice/server";
 import { revalidateStudentLearningProjections } from "@/lib/curriculum-runtime/revalidation";
+import { loadCanonicalStudentScoringSummary } from "@/lib/curriculum-runtime/xp-projection";
+import { buildLegacyGradeOneXpCompletionProjection } from "@/lib/scoring/completion";
 
 type AnswerInput = {
   attemptId: string;
@@ -99,11 +101,28 @@ export async function POST(request: Request) {
     });
   }
 
+  const scoring = result.completed
+    ? await loadCanonicalStudentScoringSummary(() =>
+        access.supabase.rpc("get_my_score_xp_mastery"),
+      )
+    : null;
+  if (result.completed && !scoring) {
+    return NextResponse.json(practiceApiError("REQUEST_FAILED"), {
+      status: 502,
+    });
+  }
+  const projectedResult = result.completed && scoring
+    ? {
+        ...result,
+        xpCompletion: buildLegacyGradeOneXpCompletionProjection(scoring),
+      }
+    : result;
+
   revalidateStudentLearningProjections();
 
   const response: PracticeApiSuccess<SubmitPracticeResult> = {
     ok: true,
-    data: result,
+    data: projectedResult,
   };
   return NextResponse.json(response);
 }

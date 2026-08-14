@@ -16,6 +16,18 @@ import {
   loadStudentGeneratedPracticeState,
   toStudentStaticRuntimeState,
 } from "@/lib/generation-v2/student-runtime";
+import {
+  projectCanonicalXpAfterCommit,
+} from "@/lib/curriculum-runtime/xp-projection";
+
+async function projectCompletedXp(
+  access: Extract<Awaited<ReturnType<typeof getStudentLearningContext>>, { ok: true }>,
+  state: NonNullable<ReturnType<typeof parseCurriculumAttemptState>>,
+) {
+  return projectCanonicalXpAfterCommit(state, () =>
+    access.supabase.rpc("get_my_score_xp_mastery"),
+  );
+}
 
 export async function GET(request: Request) {
   const api = createCurriculumApiResponder(request);
@@ -52,7 +64,12 @@ export async function GET(request: Request) {
     loadStudentGeneratedPracticeState({ request, access, attemptId }),
   );
   if (generated.ok) {
-    return api.success({ ok: true, data: generated.state });
+    const state = await projectCompletedXp(access, generated.state);
+    return state
+      ? api.success({ ok: true, data: state })
+      : api.error("REQUEST_FAILED", {
+          serverErrorCode: "SCORING_PROJECTION_UNAVAILABLE",
+        });
   }
   if (generated.code !== "PRACTICE_UNAVAILABLE") {
     return api.error(generated.code, {
@@ -82,8 +99,14 @@ export async function GET(request: Request) {
       serverErrorCode: "RESPONSE_MAPPING_FAILED",
     });
   }
+  const projectedState = await projectCompletedXp(access, state);
+  if (!projectedState) {
+    return api.error("REQUEST_FAILED", {
+      serverErrorCode: "SCORING_PROJECTION_UNAVAILABLE",
+    });
+  }
   return api.success({
     ok: true,
-    data: toStudentStaticRuntimeState(state),
+    data: toStudentStaticRuntimeState(projectedState),
   });
 }

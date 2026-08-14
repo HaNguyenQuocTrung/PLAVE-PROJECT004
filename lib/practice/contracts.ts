@@ -2,6 +2,10 @@ import {
   parsePracticeVisualSpec,
   type PracticeVisualSpec,
 } from "./visual.ts";
+import {
+  parseXpCompletionProjection,
+  type XpCompletionProjection,
+} from "../scoring/completion.ts";
 
 export const GRADE_ONE_UNIT_SLUG = "grade-1-numbers-to-10";
 export const GRADE_ONE_ADDITION_UNIT_SLUG =
@@ -164,6 +168,7 @@ export type SubmitPracticeResult = {
   answeredCount: number;
   correctCount: number;
   completed: boolean;
+  xpCompletion?: XpCompletionProjection | null;
 };
 
 export type PracticeReviewAnswer = {
@@ -227,6 +232,7 @@ export type PracticeAnswerState = {
   answeredCount: number;
   correctCount: number;
   completed: boolean;
+  xpCompletion?: XpCompletionProjection | null;
 };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -734,8 +740,7 @@ function parseCanonicalSubmitPracticeResult(
   value: unknown,
 ): SubmitPracticeResult | null {
   if (!isRecord(value)) return null;
-
-  return parseSubmitPracticeRpcResult({
+  const result = parseSubmitPracticeRpcResult({
     is_correct: value.isCorrect,
     correct_answer: value.correctAnswer,
     solution_steps: value.solutionSteps,
@@ -745,6 +750,20 @@ function parseCanonicalSubmitPracticeResult(
     correct_count: value.correctCount,
     completed: value.completed,
   });
+  const xpCompletion =
+    value.xpCompletion === null || value.xpCompletion === undefined
+      ? null
+      : parseXpCompletionProjection(value.xpCompletion);
+  if (
+    !result ||
+    (value.xpCompletion !== null &&
+      value.xpCompletion !== undefined &&
+      xpCompletion === null) ||
+    (result.completed && xpCompletion === null)
+  ) {
+    return null;
+  }
+  return { ...result, xpCompletion };
 }
 
 function parseCanonicalReviewAnswer(
@@ -834,6 +853,19 @@ export function parsePracticeAnswerStateApiResponse(
     return null;
   }
 
+  const xpCompletion =
+    value.data.xpCompletion === null || value.data.xpCompletion === undefined
+      ? null
+      : parseXpCompletionProjection(value.data.xpCompletion);
+  if (
+    (value.data.xpCompletion !== null &&
+      value.data.xpCompletion !== undefined &&
+      xpCompletion === null) ||
+    (value.data.completed && xpCompletion === null)
+  ) {
+    return null;
+  }
+
   if (value.data.answer === null) {
     return {
       ok: true,
@@ -842,6 +874,7 @@ export function parsePracticeAnswerStateApiResponse(
         answeredCount: value.data.answeredCount,
         correctCount: value.data.correctCount,
         completed: value.data.completed,
+        xpCompletion,
       },
     };
   }
@@ -856,6 +889,7 @@ export function parsePracticeAnswerStateApiResponse(
       answeredCount: value.data.answeredCount,
       correctCount: value.data.correctCount,
       completed: value.data.completed,
+      xpCompletion,
     },
   };
 }

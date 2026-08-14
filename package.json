@@ -145,7 +145,7 @@
     "acceptance:generator-v2-owner-review": "node --no-warnings --experimental-strip-types scripts/run-generator-v2-owner-review-playwright.ts",
     "test:generator-v2-owner-review": "node --test --no-warnings --experimental-strip-types tests/generator-v2-owner-review.test.ts tests/generation-v2-database-proof-contract.test.ts",
     "test:generator-v2-student-runtime": "node --test --no-warnings --experimental-strip-types tests/generator-v2-student-runtime.test.ts",
-    "test:scoring-foundation": "node --test --no-warnings --experimental-strip-types tests/scoring-policy-v1.test.ts tests/scoring-migration-0043.test.ts tests/scoring-runtime-contract.test.ts",
+    "test:scoring-foundation": "node --test --no-warnings --experimental-strip-types tests/scoring-policy-v1.test.ts tests/scoring-migration-0043.test.ts tests/scoring-runtime-contract.test.ts tests/xp-completion-flow.test.ts",
     "acceptance:scoring-foundation": "PLAVE_SCORING_XP_MASTERY_PROOF=true GOOGLE_API_KEY= node --no-warnings --experimental-strip-types scripts/run-generator-v2-student-runtime.ts",
     "proof:scoring-migration-0043": "node --no-warnings --experimental-strip-types scripts/run-sprint-11a-migration-smoke.ts && node --no-warnings --experimental-strip-types scripts/run-sprint-11a-migration-upgrade-proof.ts",
     "test:motivation-foundation": "node --test --no-warnings --experimental-strip-types tests/motivation-policy-v1.test.ts tests/motivation-migration-0044.test.ts",
