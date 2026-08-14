@@ -9,6 +9,7 @@ import {
   AI_TUTOR_CONFIG_LOCK_NAME,
   AiTutorConfigurationLockError,
   acquireConfigurationLock,
+  assertPrivateCredentialFile,
   mergeEnvironmentValues,
   writeEnvironmentAtomically,
   type ConfigurationLock,
@@ -136,6 +137,7 @@ let promptSession: Awaited<ReturnType<typeof openPromptSession>> | null = null;
 
 try {
   lock = acquireConfigurationLock({ lockPath });
+  if (existsSync(target)) assertPrivateCredentialFile(target);
   const current = existsSync(target) ? readFileSync(target, "utf8") : "";
   const existingProvider = existingValue(current, "PLAVE_AI_PROVIDER")?.toUpperCase();
   const defaultProvider = PROVIDERS.has(existingProvider as ConfigurableProvider)

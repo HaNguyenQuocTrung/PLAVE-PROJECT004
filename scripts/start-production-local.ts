@@ -11,6 +11,10 @@ import { resolve } from "node:path";
 
 import { assertProject004Workspace } from "./project004-identity.ts";
 import {
+  AiTutorLocalRuntimeFailure,
+  resolveAiTutorServerRuntimeConfiguration,
+} from "./start-ai-tutor-local.ts";
+import {
   assertProductionLocalBuildBinding,
   writeProductionLocalBuildBinding,
 } from "./production-local-build-binding.ts";
@@ -84,6 +88,8 @@ function resolvePublicRuntime(root: string): PublicRuntime {
 const root = assertProject004Workspace();
 const nextBin = resolve(root, "node_modules/next/dist/bin/next");
 const buildMode = process.argv[2] === "--build";
+const applicationMode = "FULL_APPLICATION_AI_RUNTIME_REQUIRED" as const;
+const distDirectory = productionLocalBuildContract.distDirectory;
 if (!existsSync(nextBin)) {
   throw new Error("PRODUCTION_LOCAL_NEXT_BINARY_MISSING");
 }
@@ -102,8 +108,21 @@ try {
   process.exit(1);
 }
 
+let tutorConfig: ReturnType<typeof resolveAiTutorServerRuntimeConfiguration> | null = null;
 if (!buildMode) {
-  const buildRoot = resolve(root, productionLocalBuildContract.distDirectory);
+  try {
+    tutorConfig = resolveAiTutorServerRuntimeConfiguration(root, process.env);
+  } catch (error) {
+    const code =
+      error instanceof AiTutorLocalRuntimeFailure
+        ? error.code
+        : "PRODUCTION_LOCAL_AI_TUTOR_CONFIGURATION_INVALID";
+    process.stderr.write(
+      `PRODUCTION_LOCAL_START=FAIL\nROOT_FAILURE_CODE=${code}\n`,
+    );
+    process.exit(1);
+  }
+  const buildRoot = resolve(root, distDirectory);
   const buildId = resolve(buildRoot, "BUILD_ID");
   if (!existsSync(buildId)) {
     process.stderr.write(
@@ -114,7 +133,11 @@ if (!buildMode) {
     process.exit(1);
   }
   try {
-    assertProductionLocalBuildBinding(buildRoot, runtime.source);
+    assertProductionLocalBuildBinding(
+      buildRoot,
+      runtime.source,
+      applicationMode,
+    );
   } catch {
     process.stderr.write(
       "PRODUCTION_LOCAL_START=FAIL\n" +
@@ -147,6 +170,14 @@ const childEnvironment = {
   NEXT_TELEMETRY_DISABLED: "1",
   NEXT_PUBLIC_SUPABASE_URL: runtime.url,
   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: runtime.publishableKey,
+  PLAVE_AI_TUTOR_ENABLED: tutorConfig?.enabled ?? "false",
+  PLAVE_AI_PROVIDER: tutorConfig?.provider ?? "",
+  GOOGLE_API_KEY: tutorConfig?.apiKey ?? "",
+  GOOGLE_AI_MODEL: tutorConfig?.model ?? "",
+  GEMINI_API_KEY: "",
+  OPENAI_API_KEY: "",
+  OPENAI_MODEL: "",
+  PLAVE_AI_TUTOR_TEST_MODE: "",
 } satisfies NodeJS.ProcessEnv;
 if (runtime.flags.PLAVE_AUTH_FAILURE_TEST_MODE === "UNREACHABLE") {
   childEnvironment.NODE_OPTIONS = `--import=${resolve(runtimeRoot, "scripts/mock-unreachable-auth-fetch.mjs")}`;
@@ -190,8 +221,8 @@ for (const forbidden of [".env", ".env.local", ".env.production", ".git"]) {
 symlinkSync(resolve(root, "node_modules"), resolve(runtimeRoot, "node_modules"), "dir");
 if (!buildMode) {
   symlinkSync(
-    resolve(root, productionLocalBuildContract.distDirectory),
-    resolve(runtimeRoot, productionLocalBuildContract.distDirectory),
+    resolve(root, distDirectory),
+    resolve(runtimeRoot, distDirectory),
     "dir",
   );
 }
@@ -218,7 +249,10 @@ process.stdout.write(
     "PRODUCTION_LOCAL_WORKSPACE=DISPOSABLE_ENV_EXCLUDED",
     "SUPABASE_PUBLIC_ENV_PRESENT=2/2",
     `SUPABASE_PUBLIC_ENV_SOURCE=${runtime.source}`,
+    `PRODUCTION_LOCAL_APPLICATION_MODE=${applicationMode}`,
+    `AI_TUTOR_RUNTIME_CONFIGURATION=${buildMode ? "DEFERRED_SERVER_RUNTIME" : "VALIDATED_GOOGLE"}`,
     "SUPABASE_SECRET_ENV_PRINTED=NO",
+    "AI_TUTOR_SECRET_ENV_PRINTED=NO",
     "",
   ].join("\n"),
 );
@@ -232,12 +266,12 @@ function cleanup() {
 }
 process.once("exit", cleanup);
 function promoteSanitizedBuild() {
-  const built = resolve(runtimeRoot, productionLocalBuildContract.distDirectory);
+  const built = resolve(runtimeRoot, distDirectory);
   if (!existsSync(resolve(built, "BUILD_ID"))) {
     throw new Error("PRODUCTION_LOCAL_SANITIZED_BUILD_MISSING");
   }
-  writeProductionLocalBuildBinding(built, runtime.source);
-  const destination = resolve(root, productionLocalBuildContract.distDirectory);
+  writeProductionLocalBuildBinding(built, runtime.source, applicationMode);
+  const destination = resolve(root, distDirectory);
   const pending = `${destination}.pending-${String(process.pid)}`;
   const previous = `${destination}.previous-${String(process.pid)}`;
   rmSync(pending, { recursive: true, force: true });

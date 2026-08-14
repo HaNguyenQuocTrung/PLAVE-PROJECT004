@@ -1,12 +1,14 @@
 import assert from "node:assert/strict";
 import { spawn, type ChildProcess } from "node:child_process";
 import {
+  chmodSync,
   existsSync,
   mkdtempSync,
   readFileSync,
   readdirSync,
   rmSync,
   statSync,
+  symlinkSync,
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
@@ -17,6 +19,7 @@ import {
   AI_TUTOR_CONFIG_LOCK_NAME,
   AiTutorConfigurationLockError,
   acquireConfigurationLock,
+  assertPrivateCredentialFile,
   mergeEnvironmentValues,
   writeEnvironmentAtomically,
 } from "../lib/ai-tutor/configure-transaction.ts";
@@ -168,6 +171,30 @@ function transientFiles(root: string) {
       name.startsWith(".env.local.ai-tutor-"),
   );
 }
+
+test("credential target must be a current-owner regular non-symlink file with mode 0600", () => {
+  const root = temporaryRoot();
+  try {
+    const target = resolve(root, ".env.local");
+    writeFileSync(target, "PLAVE_AI_TUTOR_ENABLED=false\n", { mode: 0o600 });
+    assert.doesNotThrow(() => assertPrivateCredentialFile(target));
+    chmodSync(target, 0o644);
+    assert.throws(
+      () => assertPrivateCredentialFile(target),
+      /AI_TUTOR_CONFIG_FILE_PERMISSION_INVALID/u,
+    );
+    rmSync(target);
+    const backing = resolve(root, "backing");
+    writeFileSync(backing, "", { mode: 0o600 });
+    symlinkSync(backing, target);
+    assert.throws(
+      () => assertPrivateCredentialFile(target),
+      /AI_TUTOR_CONFIG_FILE_PERMISSION_INVALID/u,
+    );
+  } finally {
+    cleanupRoot(root);
+  }
+});
 
 test("atomic environment persistence preserves unrelated entries and mode 0600", () => {
   const root = temporaryRoot();

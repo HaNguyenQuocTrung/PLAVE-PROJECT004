@@ -7,7 +7,7 @@ import {
   existsSync,
   lstatSync,
   readFileSync,
-  rmSync,
+  readdirSync,
 } from "node:fs";
 import { createServer } from "node:net";
 import { resolve } from "node:path";
@@ -15,17 +15,18 @@ import { pathToFileURL } from "node:url";
 
 import { getAiTutorConfiguration } from "../lib/ai-tutor/config-values.ts";
 import { assertProject004Workspace } from "./project004-identity.ts";
+import { assertProductionLocalBuildBinding } from "./production-local-build-binding.ts";
+import { productionLocalBuildContract } from "./production-local-build-contract.ts";
 import {
   buildProject004RemoteRuntimeChildEnvironment,
   loadProject004RemoteRuntimeConfigFile,
-  project004RemoteRuntimeContract,
   Project004RemoteRuntimeFailure,
 } from "./project004-remote-runtime-connection.ts";
 
 export const aiTutorLocalRuntimeContract = {
   environmentFile: ".env.local",
   loopbackHost: "127.0.0.1",
-  loopbackPort: 3001,
+  loopbackPort: 3000,
   provider: "GOOGLE",
   model: "gemini-3.6-flash",
 } as const;
@@ -37,12 +38,55 @@ const tutorEnvironmentKeys = new Set([
   "GOOGLE_AI_MODEL",
 ]);
 
-type AiTutorLocalConfiguration = Readonly<{
+export type AiTutorLocalConfiguration = Readonly<{
   enabled: "true";
   provider: "GOOGLE";
   apiKey: string;
   model: "gemini-3.6-flash";
 }>;
+
+export function resolveAiTutorServerRuntimeConfiguration(
+  candidateRoot = process.cwd(),
+  environment: Readonly<Record<string, string | undefined>> = process.env,
+): AiTutorLocalConfiguration {
+  const explicitValues = [
+    environment.PLAVE_AI_TUTOR_ENABLED,
+    environment.PLAVE_AI_PROVIDER,
+    environment.GOOGLE_API_KEY,
+    environment.GOOGLE_AI_MODEL,
+  ];
+  const present = explicitValues.filter(
+    (value) => value !== undefined && value !== "",
+  ).length;
+  if (present === 0) return loadAiTutorLocalConfiguration(candidateRoot);
+  if (present !== explicitValues.length) {
+    fail("AI_TUTOR_SERVER_ENV_PARTIAL");
+  }
+  if (environment.PLAVE_AI_TUTOR_ENABLED !== "true") {
+    fail("AI_TUTOR_LOCAL_TUTOR_DISABLED");
+  }
+  if (environment.PLAVE_AI_PROVIDER !== aiTutorLocalRuntimeContract.provider) {
+    fail("AI_TUTOR_LOCAL_PROVIDER_INVALID");
+  }
+  if (environment.GOOGLE_AI_MODEL !== aiTutorLocalRuntimeContract.model) {
+    fail("AI_TUTOR_LOCAL_MODEL_INVALID");
+  }
+  const apiKey = environment.GOOGLE_API_KEY ?? "";
+  const validated = getAiTutorConfiguration({
+    NODE_ENV: "production",
+    PLAVE_AI_TUTOR_ENABLED: environment.PLAVE_AI_TUTOR_ENABLED,
+    PLAVE_AI_PROVIDER: environment.PLAVE_AI_PROVIDER,
+    GOOGLE_API_KEY: apiKey,
+    GOOGLE_AI_MODEL: environment.GOOGLE_AI_MODEL,
+  });
+  if (!validated.ok) fail("AI_TUTOR_LOCAL_GOOGLE_KEY_INVALID");
+  return {
+    enabled: "true",
+    provider: "GOOGLE",
+    apiKey,
+    model: "gemini-3.6-flash",
+  };
+}
 
 export type AiTutorLocalPortListener = Readonly<{
   pid: number;
@@ -189,6 +233,67 @@ export function buildAiTutorLocalChildEnvironment(
   child.OPENAI_MODEL = "";
   child.PLAVE_AI_TUTOR_TEST_MODE = "";
   return child;
+}
+
+const launcherEnvironmentAllowlist = [
+  "COLORTERM",
+  "HOME",
+  "LANG",
+  "LC_ALL",
+  "LC_CTYPE",
+  "NO_COLOR",
+  "PATH",
+  "SHELL",
+  "TERM",
+  "TMPDIR",
+  "TZ",
+] as const;
+
+export function buildAiTutorProductionLauncherEnvironments(
+  tutorConfig: AiTutorLocalConfiguration,
+  environment: Readonly<Record<string, string | undefined>> = process.env,
+) {
+  const base: NodeJS.ProcessEnv = { NODE_ENV: "production" };
+  for (const key of launcherEnvironmentAllowlist) {
+    const value = environment[key];
+    if (value !== undefined) base[key] = value;
+  }
+  base.NEXT_TELEMETRY_DISABLED = "1";
+  const build: NodeJS.ProcessEnv = {
+    ...base,
+    PLAVE_AI_TUTOR_ENABLED: "false",
+    PLAVE_AI_PROVIDER: "",
+    GOOGLE_API_KEY: "",
+    GOOGLE_AI_MODEL: "",
+    GEMINI_API_KEY: "",
+    OPENAI_API_KEY: "",
+    OPENAI_MODEL: "",
+    PLAVE_AI_TUTOR_TEST_MODE: "",
+  };
+  const runtime: NodeJS.ProcessEnv = {
+    ...base,
+    PLAVE_AI_TUTOR_ENABLED: tutorConfig.enabled,
+    PLAVE_AI_PROVIDER: tutorConfig.provider,
+    GOOGLE_API_KEY: tutorConfig.apiKey,
+    GOOGLE_AI_MODEL: tutorConfig.model,
+    GEMINI_API_KEY: "",
+    OPENAI_API_KEY: "",
+    OPENAI_MODEL: "",
+    PLAVE_AI_TUTOR_TEST_MODE: "",
+  };
+  return { build, runtime } as const;
+}
+
+export function parseAiTutorLocalPortArguments(args: readonly string[]) {
+  if (args.length === 0) return aiTutorLocalRuntimeContract.loopbackPort;
+  if (args.length !== 2 || args[0] !== "--port") {
+    fail("AI_TUTOR_LOCAL_ARGUMENTS_INVALID");
+  }
+  const port = Number(args[1]);
+  if (!/^\d+$/u.test(args[1] ?? "") || !Number.isSafeInteger(port)) {
+    fail("AI_TUTOR_LOCAL_PORT_INVALID");
+  }
+  return port;
 }
 
 function sanitizedMetadata(value: string) {
@@ -395,16 +500,62 @@ export async function waitForAiTutorLocalChild(
   return exitCode;
 }
 
-function prepareRemoteRuntimeCache(root: string) {
-  const cachePath = resolve(
+function assertAiTutorLocalBuildTargetSafe(root: string) {
+  const buildPath = resolve(
     root,
-    project004RemoteRuntimeContract.cacheDirectory,
+    productionLocalBuildContract.distDirectory,
   );
-  if (!existsSync(cachePath)) return;
-  if (lstatSync(cachePath).isSymbolicLink()) {
+  if (!existsSync(buildPath)) return;
+  if (lstatSync(buildPath).isSymbolicLink()) {
     fail("AI_TUTOR_LOCAL_CACHE_SYMLINK_REJECTED");
   }
-  rmSync(cachePath, { recursive: true, force: true });
+}
+
+export function assertAiTutorLocalProductionBuild(root: string) {
+  assertAiTutorLocalBuildTargetSafe(root);
+  const buildPath = resolve(
+    root,
+    productionLocalBuildContract.distDirectory,
+  );
+  if (!existsSync(resolve(buildPath, "BUILD_ID"))) {
+    fail("AI_TUTOR_LOCAL_PRODUCTION_BUILD_MISSING");
+  }
+  try {
+    assertProductionLocalBuildBinding(
+      buildPath,
+      "VALIDATED_RUNTIME_FILE",
+      "FULL_APPLICATION_AI_RUNTIME_REQUIRED",
+    );
+  } catch {
+    fail("AI_TUTOR_LOCAL_PRODUCTION_BUILD_BINDING_INVALID");
+  }
+  const staticRoot = resolve(buildPath, "static");
+  if (!existsSync(staticRoot) || !lstatSync(staticRoot).isDirectory()) {
+    fail("AI_TUTOR_LOCAL_CLIENT_ARTIFACT_MISSING");
+  }
+  const pending = [staticRoot];
+  while (pending.length > 0) {
+    const directory = pending.pop()!;
+    for (const entry of readdirSync(directory, { withFileTypes: true })) {
+      const path = resolve(directory, entry.name);
+      if (entry.isSymbolicLink()) {
+        fail("AI_TUTOR_LOCAL_CLIENT_ARTIFACT_SYMLINK_REJECTED");
+      }
+      if (entry.isDirectory()) {
+        pending.push(path);
+        continue;
+      }
+      if (
+        entry.isFile() &&
+        /[.](?:css|html|js|json|map|txt)$/u.test(entry.name) &&
+        /NEXT_PUBLIC_GOOGLE|NEXT_PUBLIC_PLAVE_AI_TUTOR_KEY/u.test(
+          readFileSync(path, "utf8"),
+        )
+      ) {
+        fail("AI_TUTOR_LOCAL_CLIENT_SECRET_BOUNDARY_FAILED");
+      }
+    }
+  }
 }
 
 export async function startAiTutorLocalRuntime(options?: {
@@ -419,7 +570,8 @@ export async function startAiTutorLocalRuntime(options?: {
   spawnChild?: typeof spawn;
   signalSource?: SignalSource;
   terminationGraceMs?: number;
-  onPrepared?: (input: Readonly<{ model: string }>) => void;
+  verifyBuild?: (root: string) => void;
+  onPrepared?: (input: Readonly<{ model: string; url: string }>) => void;
 }) {
   const root = assertProject004Workspace(
     options?.candidateRoot ?? process.cwd(),
@@ -429,10 +581,12 @@ export async function startAiTutorLocalRuntime(options?: {
   if (host !== aiTutorLocalRuntimeContract.loopbackHost) {
     fail("AI_TUTOR_LOCAL_NON_LOOPBACK_HOST_REJECTED");
   }
-  const remoteConfig = loadProject004RemoteRuntimeConfigFile(root);
-  const tutorConfig = loadAiTutorLocalConfiguration(root);
-  const childEnvironment = buildAiTutorLocalChildEnvironment(
-    remoteConfig,
+  loadProject004RemoteRuntimeConfigFile(root);
+  const tutorConfig = resolveAiTutorServerRuntimeConfiguration(
+    root,
+    options?.environment ?? process.env,
+  );
+  const launcherEnvironments = buildAiTutorProductionLauncherEnvironments(
     tutorConfig,
     options?.environment ?? process.env,
   );
@@ -442,26 +596,25 @@ export async function startAiTutorLocalRuntime(options?: {
     options?.inspectPort ?? inspectAiTutorLocalPort,
     options?.probePort ?? probeLoopbackPort,
   );
-  prepareRemoteRuntimeCache(root);
-  const nextBin = resolve(root, "node_modules/next/dist/bin/next");
-  if (!existsSync(nextBin)) fail("AI_TUTOR_LOCAL_NEXT_BINARY_MISSING");
-  options?.onPrepared?.({ model: tutorConfig.model });
+  assertAiTutorLocalBuildTargetSafe(root);
+  const productionLauncher = resolve(root, "scripts/start-production-local.ts");
+  if (!existsSync(productionLauncher)) {
+    fail("AI_TUTOR_LOCAL_PRODUCTION_LAUNCHER_MISSING");
+  }
   const previousUmask = process.umask(0o077);
-  let child: ChildProcess;
+  let buildChild: ChildProcess;
   try {
-    child = (options?.spawnChild ?? spawn)(
+    buildChild = (options?.spawnChild ?? spawn)(
       process.execPath,
       [
-        nextBin,
-        "dev",
-        "--hostname",
-        host,
-        "--port",
-        String(port),
+        "--no-warnings",
+        "--experimental-strip-types",
+        productionLauncher,
+        "--build",
       ],
       {
         cwd: root,
-        env: childEnvironment,
+        env: launcherEnvironments.build,
         stdio: "inherit",
         detached: process.platform !== "win32",
       },
@@ -469,7 +622,45 @@ export async function startAiTutorLocalRuntime(options?: {
   } finally {
     process.umask(previousUmask);
   }
-  return waitForAiTutorLocalChild(child, {
+  const buildExitCode = await waitForAiTutorLocalChild(buildChild, {
+    signalSource: options?.signalSource,
+    terminationGraceMs: options?.terminationGraceMs,
+  });
+  if (buildExitCode !== 0) {
+    if (buildExitCode === 130 || buildExitCode === 143) return buildExitCode;
+    fail("AI_TUTOR_LOCAL_PRODUCTION_BUILD_FAILED");
+  }
+  (options?.verifyBuild ?? assertAiTutorLocalProductionBuild)(root);
+  options?.onPrepared?.({
+    model: tutorConfig.model,
+    url: `http://localhost:${String(port)}/tutor`,
+  });
+
+  const runtimeUmask = process.umask(0o077);
+  let runtimeChild: ChildProcess;
+  try {
+    runtimeChild = (options?.spawnChild ?? spawn)(
+      process.execPath,
+      [
+        "--no-warnings",
+        "--experimental-strip-types",
+        productionLauncher,
+        "--hostname",
+        host,
+        "--port",
+        String(port),
+      ],
+      {
+        cwd: root,
+        env: launcherEnvironments.runtime,
+        stdio: "inherit",
+        detached: process.platform !== "win32",
+      },
+    );
+  } finally {
+    process.umask(runtimeUmask);
+  }
+  return waitForAiTutorLocalChild(runtimeChild, {
     signalSource: options?.signalSource,
     terminationGraceMs: options?.terminationGraceMs,
   });
@@ -500,8 +691,10 @@ const invokedPath = process.argv[1]
   : "";
 if (import.meta.url === invokedPath) {
   try {
+    const port = parseAiTutorLocalPortArguments(process.argv.slice(2));
     process.exitCode = await startAiTutorLocalRuntime({
-      onPrepared: ({ model }) => {
+      port,
+      onPrepared: ({ model, url }) => {
         process.stdout.write(
           [
             "AI_TUTOR_LOCAL_TARGET_GUARD=PASS",
@@ -510,7 +703,10 @@ if (import.meta.url === invokedPath) {
             "AI_TUTOR_LOCAL_PROVIDER=GOOGLE",
             `AI_TUTOR_LOCAL_MODEL=${model}`,
             "AI_TUTOR_LOCAL_KEY_CONFIGURED=YES",
+            "AI_TUTOR_LOCAL_BUILD_BINDING=PASS",
+            "AI_TUTOR_LOCAL_CLIENT_SECRET_BOUNDARY=PASS",
             "AI_TUTOR_LOCAL_START=READY",
+            `AI_TUTOR_LOCAL_URL=${url}`,
             "",
           ].join("\n"),
         );

@@ -4,17 +4,20 @@ import { resolve } from "node:path";
 export type ProductionLocalPublicRuntimeSource =
   | "EXPLICIT_ENVIRONMENT"
   | "VALIDATED_RUNTIME_FILE";
+export type ProductionLocalApplicationMode =
+  | "FULL_APPLICATION_AI_RUNTIME_REQUIRED";
 
-const schemaVersion = "plave-production-local-build-binding-v1";
+const schemaVersion = "plave-production-local-build-binding-v2";
 const bindingFile = ".plave-public-runtime-binding.json";
 
 export function writeProductionLocalBuildBinding(
   buildRoot: string,
   source: ProductionLocalPublicRuntimeSource,
+  mode: ProductionLocalApplicationMode,
 ) {
   writeFileSync(
     resolve(buildRoot, bindingFile),
-    `${JSON.stringify({ schemaVersion, source })}\n`,
+    `${JSON.stringify({ schemaVersion, source, mode })}\n`,
     { encoding: "utf8", flag: "wx", mode: 0o600 },
   );
 }
@@ -22,6 +25,7 @@ export function writeProductionLocalBuildBinding(
 export function assertProductionLocalBuildBinding(
   buildRoot: string,
   expectedSource: ProductionLocalPublicRuntimeSource,
+  expectedMode: ProductionLocalApplicationMode,
 ) {
   let value: unknown;
   try {
@@ -35,9 +39,10 @@ export function assertProductionLocalBuildBinding(
     !value ||
     typeof value !== "object" ||
     Array.isArray(value) ||
-    Object.keys(value).sort().join(",") !== "schemaVersion,source" ||
+    Object.keys(value).sort().join(",") !== "mode,schemaVersion,source" ||
     (value as Record<string, unknown>).schemaVersion !== schemaVersion ||
-    (value as Record<string, unknown>).source !== expectedSource
+    (value as Record<string, unknown>).source !== expectedSource ||
+    (value as Record<string, unknown>).mode !== expectedMode
   ) {
     throw new Error("PRODUCTION_LOCAL_BUILD_RUNTIME_BINDING_INVALID");
   }

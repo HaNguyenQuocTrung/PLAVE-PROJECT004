@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { HeaderNavigation } from "@/components/HeaderNavigation";
+import { getAiTutorPublicAvailability } from "@/lib/ai-tutor/config";
 import {
   getHeaderLogoHref,
   getHeaderNavigation,
@@ -10,10 +11,12 @@ import { getPublicAuthState } from "@/lib/auth/public-state";
 
 export async function PublicHeader() {
   const authState = await getPublicAuthState();
+  const aiTutorAvailability = getAiTutorPublicAvailability();
   const navigation = getHeaderNavigation(
     authState.authenticated,
     authState.role,
     authState.onboardingCompleted,
+    aiTutorAvailability.available,
   );
   const logoHref = getHeaderLogoHref(
     authState.authenticated,

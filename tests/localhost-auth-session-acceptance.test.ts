@@ -34,8 +34,8 @@ test("production-local wrapper blocks dotenv discovery and gives Next an allowli
   assert.match(wrapper, /"--exclude=.env\*"/u);
   assert.match(wrapper, /PRODUCTION_LOCAL_WORKSPACE=DISPOSABLE_ENV_EXCLUDED/u);
   assert.match(wrapper, /PRODUCTION_LOCAL_BUILD=PROMOTED_SANITIZED/u);
-  assert.match(wrapper, /assertProductionLocalBuildBinding\(buildRoot, runtime\.source\)/u);
-  assert.match(wrapper, /writeProductionLocalBuildBinding\(built, runtime\.source\)/u);
+  assert.match(wrapper, /assertProductionLocalBuildBinding\([\s\S]{0,120}applicationMode/u);
+  assert.match(wrapper, /writeProductionLocalBuildBinding\(built, runtime\.source, applicationMode\)/u);
   assert.match(wrapper, /PRODUCTION_LOCAL_BUILD_RUNTIME_BINDING_INVALID/u);
   assert.match(wrapper, /buildMode \? \["--webpack"\] : \[\]/u);
   assert.match(wrapper, /PRODUCTION_LOCAL_AUTH_TEST_MODE_TARGET_INVALID/u);

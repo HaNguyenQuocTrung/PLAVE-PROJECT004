@@ -59,18 +59,28 @@ Provide the paired public Supabase settings through the repository's validated
 runtime configuration or explicit process environment. The production-local
 launcher fails closed when that configuration is missing, partial, or invalid.
 Do not copy placeholder values into a runnable environment, commit local
-environment files, or expose provider credentials. AI Tutor remains off unless
-it is configured separately through its guarded local workflow.
+environment files, or expose provider credentials. Configure AI Tutor through
+the guarded Owner workflow in
+[`docs/operations/AI_TUTOR_OWNER_SETUP.md`](docs/operations/AI_TUTOR_OWNER_SETUP.md);
+`npm run start` fails before opening a listener when its required server-only
+Google configuration is absent or invalid.
 
 Build and start the local production server:
 
 ```bash
-npm run build:production-local
 npm run start
 ```
 
-The production-local default is <http://localhost:3000> unless a different port
-is explicitly supplied. The URL printed by `npm run start` is authoritative.
+To verify the sanitized production artifact without starting a listener, run:
+
+```bash
+npm run build:production-local
+```
+
+This command builds the canonical sanitized artifact without the provider key,
+then starts the complete application with the key available only to the server
+runtime. The default is <http://localhost:3000> unless a different test port is
+explicitly supplied. The URL printed by `npm run start` is authoritative.
 
 For a fully isolated loopback acceptance environment, use the Owner local-demo
 runbook. That workflow uses <http://127.0.0.1:3100> and is separate from the

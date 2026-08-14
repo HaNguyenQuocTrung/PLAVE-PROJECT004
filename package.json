@@ -93,7 +93,7 @@
     "build": "next build",
     "build:production-local": "node --no-warnings --experimental-strip-types scripts/start-production-local.ts --build",
     "verify:production-route-manifest": "node --no-warnings --experimental-strip-types scripts/verify-production-route-manifest.ts",
-    "start": "node --no-warnings --experimental-strip-types scripts/start-production-local.ts",
+    "start": "node --no-warnings --experimental-strip-types scripts/start-ai-tutor-local.ts",
     "acceptance:localhost-auth-session": "node --no-warnings --experimental-strip-types scripts/run-localhost-auth-session-acceptance.ts",
     "test:auth-session": "node --test --no-warnings --experimental-strip-types tests/auth-session-boundary.test.ts tests/localhost-auth-session-acceptance.test.ts",
     "lint": "eslint .",
