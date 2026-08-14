@@ -158,6 +158,11 @@ export function UniversalCurriculumRunner({
           setSubmittedQuestion(displayQuestion);
           setState(parsed);
           submissionKey.current = null;
+          if (parsed.status === "COMPLETED") {
+            // Route-handler revalidation updates the server projections, while
+            // refresh clears any Student pages prefetched before completion.
+            router.refresh();
+          }
           return;
         }
       }

@@ -1,6 +1,6 @@
 # AI Tutor Owner Setup
 
-Ngày cập nhật: 2026-08-01  
+Ngày cập nhật: 2026-08-14
 Mục đích: cấu hình Google Gemini key local, server-only, không gửi key qua chat
 
 ## 1. Cấu hình key
@@ -87,7 +87,22 @@ acceptance window. Evidence ở `artifacts/ai-tutor-quality/` chọn
 1.17 giây và median total 2.25 giây. Flash-Lite nhanh hơn nhưng fail mẫu phân số,
 nên không được chọn.
 
-## 3. Chạy authenticated local runtime
+## 3. Preflight rồi chạy authenticated local runtime
+
+`npm run start` là production-local runtime ở port 3000 và cố ý scrub toàn bộ
+AI Tutor/provider environment; vì vậy `/tutor` ở runtime đó phải hiển thị trạng
+thái disabled. Chỉ workflow riêng dưới đây bật Tutor cho child Next.js loopback
+ở port 3001; nó không thay đổi tracked production defaults.
+
+Preflight chỉ kiểm tra target/config/credential contract, quyền sở hữu và mode
+`0600`, cùng port loopback. Nó không gọi provider và không in key:
+
+```bash
+cd /Users/hatrung/Desktop/PLAVE-PROJECT004
+npm run --silent ai-tutor:local-preflight
+```
+
+Chỉ tiếp tục khi output có `AI_TUTOR_LOCAL_PREFLIGHT=PASS`.
 
 Command canonical kết hợp Supabase public/auth profile đã được guard với đúng bốn
 Tutor value trong `.env.local` mà không copy credential sang file khác:
@@ -191,9 +206,12 @@ Command này dùng key giả và deterministic provider với cấu hình `GOOGL
 trong `NODE_ENV=development`, không gọi remote API. Evidence ở
 `artifacts/ai-tutor-acceptance/`.
 
-Hiện tại Google key đã cấu hình trong `.env.local` mode `0600`; Sprint 9B bounded
-benchmark PASS đúng 6 requests và chọn `gemini-3.6-flash`. Authenticated local
-launcher regression 9/9 PASS. Live launcher in đủ diagnostics, `/tutor` trả 200,
+Sprint 9B bounded benchmark lịch sử PASS đúng 6 requests và chọn
+`gemini-3.6-flash`. Repository
+không dùng tài liệu tracked để khẳng định credential local hiện còn tồn tại;
+`ai-tutor:local-preflight` là kiểm tra hiện thời, không gọi provider.
+Authenticated local launcher regression 9/9 PASS. Live launcher in đủ
+diagnostics, `/tutor` trả 200,
 anonymous stream bị chặn `401 AI_AUTH_REQUIRED`, Ctrl+C trả `130` và port 3001
 không còn listener.
 

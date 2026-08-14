@@ -23,6 +23,7 @@ import {
   parseLearningUnit,
   type LearningUnit,
 } from "@/lib/practice/contracts";
+import { buildPersonalizedLearningPath } from "@/lib/personalized-path/contracts";
 import {
   buildPracticeHistory,
   getLessonPracticeState,
@@ -146,22 +147,6 @@ export default async function LearnPage() {
   ) {
     return <LearningAccessState kind="UNAVAILABLE" />;
   }
-  const gradeOneRecommendation =
-    gradeOneAdaptiveProgress?.ok
-      ? selectAdaptiveCurriculumRecommendation({
-          grade: 1,
-          progress: gradeOneAdaptiveProgress.progress,
-        })
-      : null;
-  const gradeOneCompetencyDashboard =
-    gradeOneAdaptiveProgress?.ok
-      ? buildStudentCompetencyDashboard({
-          progress: gradeOneAdaptiveProgress.progress,
-          now: new Date(),
-          adaptivePilotEnabled: false,
-        })
-      : null;
-
   const units: LearningUnit[] = [];
   for (const row of unitRows ?? []) {
     const unit = parseLearningUnit(row);
@@ -176,11 +161,48 @@ export default async function LearnPage() {
     }
     units.push(unit);
   }
+  const gradeOnePath = buildPersonalizedLearningPath({
+    grade: 1,
+    units,
+    attempts,
+    latestDiagnostic: null,
+    diagnosticDomains: null,
+    diagnosticEnabled: false,
+  });
+  const runtimeEligibleUnitIds = new Set(
+    gradeOnePath.units
+      .filter((item) => item.state !== "LOCKED")
+      .map((item) => item.unit.slug),
+  );
+  const selectedGradeOneRecommendation =
+    gradeOneAdaptiveProgress?.ok
+      ? selectAdaptiveCurriculumRecommendation({
+          grade: 1,
+          progress: gradeOneAdaptiveProgress.progress,
+        })
+      : null;
+  const gradeOneRecommendation =
+    selectedGradeOneRecommendation &&
+    runtimeEligibleUnitIds.has(selectedGradeOneRecommendation.unitId)
+      ? selectedGradeOneRecommendation
+      : null;
+  const gradeOneCompetencyDashboard =
+    gradeOneAdaptiveProgress?.ok
+      ? buildStudentCompetencyDashboard({
+          progress: gradeOneAdaptiveProgress.progress,
+          now: new Date(),
+          adaptivePilotEnabled: false,
+          runtimeEligibleUnitIds,
+        })
+      : null;
 
   return (
     <div className="catalog-page theory-catalog-page--v2 page-shell">
       {gradeOneCompetencyDashboard ? (
-        <CompetencyLearningPathPanel model={gradeOneCompetencyDashboard} />
+        <CompetencyLearningPathPanel
+          model={gradeOneCompetencyDashboard}
+          legacyPath={gradeOnePath}
+        />
       ) : null}
       <header className="catalog-hero">
         <p className="eyebrow">Thư viện kiến thức</p>

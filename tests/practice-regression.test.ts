@@ -13005,7 +13005,8 @@ test("Sprint 5N 3. A latest unit score below 70 percent becomes a deterministic 
   assert.ok(path.recommendation);
   assert.equal(path.recommendation.reasonCode, "LOW_RECENT_SCORE");
   assert.equal(path.recommendation.unitSlug, BASE_UNIT_SLUG);
-  assert.equal(path.recommendation.actionLabel, "Ôn lại");
+  assert.equal(path.recommendation.actionLabel, "Xem kết quả");
+  assert.match(path.recommendation.actionHref, /^\/review\//u);
   assert.equal(path.summary.needsReviewUnitCount, 1);
 });
 

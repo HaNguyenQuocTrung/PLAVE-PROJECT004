@@ -141,18 +141,35 @@ function clickText(text: string) {
 }
 
 async function login(page: LocalChromePage, stack: RealLocalGradesStack, actor: Actor) {
-  await page.navigate(`${stack.appOrigin}/login`);
-  await new Promise((resolvePromise) => setTimeout(resolvePromise, 500));
-  check(await page.evaluate<boolean>("(() => { const input=document.querySelector('#login-email');if(!(input instanceof HTMLInputElement))return false;input.focus();input.select();return true;})()"), "BROWSER_E2E_LOGIN_EMAIL_CONTROL");
-  await page.cdp.send("Input.insertText", { text: actor.email });
-  check(await page.evaluate<boolean>("(() => { const input=document.querySelector('#login-password');if(!(input instanceof HTMLInputElement))return false;input.focus();input.select();return true;})()"), "BROWSER_E2E_LOGIN_PASSWORD_CONTROL");
-  await page.cdp.send("Input.insertText", { text: actor.password });
-  check(await page.evaluate<boolean>(`document.querySelector('#login-email')?.value===${JSON.stringify(actor.email)} && document.querySelector('#login-password')?.value===${JSON.stringify(actor.password)}`), "BROWSER_E2E_LOGIN_VALUES");
-  check(await page.evaluate<boolean>("(() => { const form=document.querySelector('form');if(!(form instanceof HTMLFormElement))return false;form.requestSubmit();return true;})()"), "BROWSER_E2E_LOGIN_SUBMIT_CONTROL");
   const destinationExpression = actor.role === "TEACHER"
     ? "location.pathname==='/teacher' || location.pathname==='/teacher/onboarding'"
     : "location.pathname==='/dashboard'";
-  await waitFor(page, destinationExpression, `BROWSER_E2E_${actor.role}_LOGIN_DESTINATION`, 30_000);
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    await page.navigate(`${stack.appOrigin}/login`);
+    await new Promise((resolvePromise) => setTimeout(resolvePromise, 500));
+    check(await page.evaluate<boolean>("(() => { const input=document.querySelector('#login-email');if(!(input instanceof HTMLInputElement))return false;input.focus();input.select();return true;})()"), "BROWSER_E2E_LOGIN_EMAIL_CONTROL");
+    await page.cdp.send("Input.insertText", { text: actor.email });
+    check(await page.evaluate<boolean>("(() => { const input=document.querySelector('#login-password');if(!(input instanceof HTMLInputElement))return false;input.focus();input.select();return true;})()"), "BROWSER_E2E_LOGIN_PASSWORD_CONTROL");
+    await page.cdp.send("Input.insertText", { text: actor.password });
+    check(await page.evaluate<boolean>(`document.querySelector('#login-email')?.value===${JSON.stringify(actor.email)} && document.querySelector('#login-password')?.value===${JSON.stringify(actor.password)}`), "BROWSER_E2E_LOGIN_VALUES");
+    check(await page.evaluate<boolean>("(() => { const form=document.querySelector('form');if(!(form instanceof HTMLFormElement))return false;form.requestSubmit();return true;})()"), "BROWSER_E2E_LOGIN_SUBMIT_CONTROL");
+    const outcome = await waitFor<"DESTINATION" | "TRANSIENT_AUTH">(
+      page,
+      `(${destinationExpression})?'DESTINATION':document.body.innerText.includes('Tạm thời chưa thể xác minh đăng nhập')?'TRANSIENT_AUTH':''`,
+      `BROWSER_E2E_${actor.role}_LOGIN_DESTINATION`,
+      30_000,
+    );
+    if (outcome === "DESTINATION") return;
+    const graceDeadline = Date.now() + 30_000;
+    while (Date.now() < graceDeadline) {
+      if (await page.evaluate<boolean>(destinationExpression)) return;
+      await new Promise((resolvePromise) => setTimeout(resolvePromise, 100));
+    }
+    if (attempt === 0) {
+      await new Promise((resolvePromise) => setTimeout(resolvePromise, 750));
+    }
+  }
+  fail(`BROWSER_E2E_${actor.role}_LOGIN_TRANSIENT_RETRY_EXHAUSTED`);
 }
 
 async function logout(page: LocalChromePage) {
@@ -186,6 +203,43 @@ function attemptUnitId(stack: RealLocalGradesStack, attemptId: string, grade: nu
     return stack.query(`select unit_slug from public.practice_attempts where id=${sql(attemptId)}::uuid;`);
   }
   return stack.query(`select unit_id from public.curriculum_attempts where id=${sql(attemptId)}::uuid;`);
+}
+
+function curriculumAttemptStatus(
+  stack: RealLocalGradesStack,
+  attemptId: string,
+) {
+  return stack.query(
+    `select status from public.curriculum_attempts where id=${sql(attemptId)}::uuid;`,
+  );
+}
+
+function curriculumXpSnapshot(
+  stack: RealLocalGradesStack,
+  attemptId: string,
+  studentId: string,
+) {
+  return stack.query(`
+    select concat_ws('|',
+      attempt.xp_earned,
+      (select coalesce(sum(ledger.xp_amount),0)
+       from private.student_xp_ledger as ledger
+       where ledger.student_id=${sql(studentId)}::uuid),
+      (select count(*)
+       from private.student_xp_ledger as ledger
+       where ledger.attempt_id=attempt.id))
+    from public.curriculum_attempts as attempt
+    where attempt.id=${sql(attemptId)}::uuid;
+  `);
+}
+
+async function visibleTotalXp(page: LocalChromePage) {
+  return page.evaluate<number>(`(() => {
+    const element=document.querySelector('strong[aria-label$="điểm kinh nghiệm"]');
+    if (!(element instanceof HTMLElement)) return -1;
+    const value=Number.parseInt(element.textContent??'',10);
+    return Number.isFinite(value)?value:-1;
+  })()`);
 }
 
 async function answerVisibleQuestion(page: LocalChromePage, answer: string, wrong: boolean) {
@@ -246,18 +300,37 @@ async function gradeJourney(
     `document.body.innerText.toLocaleLowerCase('vi').includes('lớp ${String(grade)}')`,
     `BROWSER_E2E_G${String(grade)}_DASHBOARD_GRADE`,
   );
-  await page.navigate(`${stack.appOrigin}/learn`);
-  await waitFor(page, `document.body.innerText.includes('Toán lớp ${String(grade)}')`, `BROWSER_E2E_G${String(grade)}_CATALOG`);
-  if (grade === 1) await saveScreenshot(page, resolve(screenshotDirectory, "grade-1-catalog.png"));
+  if (grade === 2) {
+    check(await visibleTotalXp(page) === 0, "BROWSER_E2E_G2_XP_BEFORE_ZERO");
+  }
+  const recommendationHref = await page.evaluate<string>(`(() => {
+    const section=document.querySelector('[aria-labelledby="learning-path-title"]');
+    const action=section?.querySelector('a');
+    return action instanceof HTMLAnchorElement ? action.getAttribute('href')??'' : '';
+  })()`);
+  check(recommendationHref.startsWith("/learn/grade-"), `BROWSER_E2E_G${String(grade)}_RECOMMENDATION_CANONICAL_PATH`);
+  await page.navigate(`${stack.appOrigin}/lessons`);
+  await waitFor(page, `document.body.innerText.toLocaleLowerCase('vi').includes('lớp ${String(grade)}')`, `BROWSER_E2E_G${String(grade)}_CATALOG`);
+  if (grade === 1) {
+    await saveScreenshot(
+      page,
+      resolve(screenshotDirectory, "grade-1-catalog.png"),
+    );
+  }
+  check(
+    await page.evaluate<boolean>(
+      `[...document.querySelectorAll('.unit-card a')].some((link)=>link.getAttribute('href')===${JSON.stringify(recommendationHref)})`,
+    ),
+    `BROWSER_E2E_G${String(grade)}_RECOMMENDATION_LESSONS_PATH_AGREES`,
+  );
+  await page.navigate(`${stack.appOrigin}${recommendationHref}`);
+  await waitFor(
+    page,
+    "location.pathname.startsWith('/learn/grade-') && !document.body.innerText.includes('Chưa thể mở nội dung học lúc này.')",
+    `BROWSER_E2E_G${String(grade)}_RECOMMENDATION_OPENS`,
+  );
   const catalogOverflow = await page.evaluate<boolean>("document.documentElement.scrollWidth<=document.documentElement.clientWidth+1");
   check(catalogOverflow, `BROWSER_E2E_G${String(grade)}_NO_HORIZONTAL_OVERFLOW`);
-  check(
-    await page.evaluate<boolean>(clickText("Mở bài học")) ||
-      await page.evaluate<boolean>(clickText("Tiếp tục học")) ||
-      await page.evaluate<boolean>(clickText("Xem lý thuyết")),
-    `BROWSER_E2E_G${String(grade)}_OPEN_LESSON`,
-  );
-  await waitFor(page, "location.pathname.startsWith('/learn/grade-') && location.pathname.split('/').length>=4", `BROWSER_E2E_G${String(grade)}_LESSON_ROUTE`);
   if (grade === 1) await saveScreenshot(page, resolve(screenshotDirectory, "grade-1-lesson.png"));
   await waitFor(
     page,
@@ -275,6 +348,27 @@ async function gradeJourney(
   check(!/(?:correctAnswer|correct_answer|solutionSteps|solution_steps)/iu.test(storage), `BROWSER_E2E_G${String(grade)}_NO_STORAGE_LEAK`);
   await page.reload();
   await waitFor(page, "document.querySelector('.real-question-card')!==null", `BROWSER_E2E_G${String(grade)}_REFRESH_RESUME`);
+  await page.navigate(`${stack.appOrigin}/dashboard`);
+  await waitFor(page, "document.body.innerText.includes('Bài nên học tiếp')", `BROWSER_E2E_G${String(grade)}_IN_PROGRESS_RECOMMENDATION`);
+  check(
+    await page.evaluate<boolean>(`(() => {
+      const section=document.querySelector('[aria-labelledby="learning-path-title"]');
+      const action=[...section?.querySelectorAll('a,button')??[]].find((element)=>element.textContent?.includes('Tiếp tục học'));
+      if (!(action instanceof HTMLElement)) return false;
+      action.click();
+      return true;
+    })()`),
+    `BROWSER_E2E_G${String(grade)}_IN_PROGRESS_ACTION`,
+  );
+  await waitFor(
+    page,
+    grade === 1
+      ? `location.pathname===${JSON.stringify(practicePath)}`
+      : `location.pathname===${JSON.stringify(practicePath)}`,
+    `BROWSER_E2E_G${String(grade)}_IN_PROGRESS_RESUME_ROUTE`,
+    30_000,
+  );
+  await waitFor(page, "document.querySelector('.real-question-card')!==null", `BROWSER_E2E_G${String(grade)}_IN_PROGRESS_RESUMED`);
   let questionId = currentQuestion(stack, attemptId, grade);
   let correctAnswer = grade === 1 ? gradeOneAnswer(stack, questionId) : releasedAnswer(stack, attemptId, questionId);
   await answerVisibleQuestion(page, correctAnswer, true);
@@ -289,6 +383,68 @@ async function gradeJourney(
   await answerVisibleQuestion(page, correctAnswer, false);
   if (grade === 9) await saveScreenshot(page, resolve(screenshotDirectory, "grade-9-correct-feedback.png"));
   check(await page.evaluate<boolean>("[...document.querySelectorAll('button,a')].some((element)=>/Câu tiếp theo|Xem tiến trình/u.test(element.textContent??''))"), `BROWSER_E2E_G${String(grade)}_VALID_NEXT_ACTION`);
+  if (grade === 2) {
+    let guard = 0;
+    while (curriculumAttemptStatus(stack, attemptId) !== "COMPLETED") {
+      check(guard < 20, "BROWSER_E2E_G2_COMPLETION_LOOP_BOUNDED");
+      guard += 1;
+      check(await page.evaluate<boolean>(clickText("Câu tiếp theo")), "BROWSER_E2E_G2_NEXT_TO_COMPLETE");
+      await waitFor(page, "document.querySelector('.real-question-card')!==null && !document.body.innerText.includes('Đáp án đúng:')", "BROWSER_E2E_G2_NEXT_QUESTION_TO_COMPLETE");
+      questionId = currentQuestion(stack, attemptId, grade);
+      correctAnswer = releasedAnswer(stack, attemptId, questionId);
+      await answerVisibleQuestion(page, correctAnswer, false);
+    }
+    const xpSnapshot = curriculumXpSnapshot(stack, attemptId, actor.userId);
+    const [attemptXpText, aggregateXpText, eventCountText] = xpSnapshot.split("|");
+    const attemptXp = Number(attemptXpText);
+    const aggregateXp = Number(aggregateXpText);
+    check(attemptXp > 0 && aggregateXp === attemptXp, "BROWSER_E2E_G2_XP_LEDGER_AGGREGATE");
+    check(Number(eventCountText) > 0, "BROWSER_E2E_G2_XP_LEDGER_EVENTS");
+    await page.reload();
+    await waitFor(
+      page,
+      "document.querySelector('.curriculum-complete-card')!==null",
+      "BROWSER_E2E_G2_COMPLETION_RESULT_RELOAD",
+    );
+    await waitFor(page, `document.body.innerText.includes(${JSON.stringify(`${String(attemptXp)} XP`)})`, "BROWSER_E2E_G2_RESULT_XP");
+    check(await page.evaluate<boolean>(clickText("Xem tiến trình")), "BROWSER_E2E_G2_RESULT_TO_PROGRESS");
+    await waitFor(page, "location.pathname==='/learning-progress'", "BROWSER_E2E_G2_PROGRESS_AFTER_COMPLETION");
+    await waitFor(
+      page,
+      `document.querySelector(${JSON.stringify(`strong[aria-label="${String(aggregateXp)} điểm kinh nghiệm"]`)})!==null`,
+      "BROWSER_E2E_G2_PROGRESS_XP_RENDERED",
+    );
+    check(await visibleTotalXp(page) === aggregateXp, "BROWSER_E2E_G2_PROGRESS_XP_AGREES");
+    await waitFor(
+      page,
+      `(() => {
+        const section=document.querySelector('[aria-labelledby="completion-title"]');
+        return section instanceof HTMLElement &&
+          section.dataset.completedCount==='1' &&
+          Number(section.dataset.totalCount)>1;
+      })()`,
+      "BROWSER_E2E_G2_PROGRESS_ONE_COMPLETED_FROM_AUTHORIZED_INVENTORY",
+    );
+    await page.navigate(`${stack.appOrigin}/results`);
+    await waitFor(page, `document.body.innerText.includes(${JSON.stringify(`+${String(attemptXp)} XP`)})`, "BROWSER_E2E_G2_RESULTS_XP_AGREES");
+    await page.navigate(`${stack.appOrigin}/learning-history`);
+    await waitFor(page, `document.body.innerText.includes(${JSON.stringify(`+${String(attemptXp)} XP`)})`, "BROWSER_E2E_G2_HISTORY_XP_AGREES");
+    await page.navigate(`${stack.appOrigin}/dashboard`);
+    await waitFor(
+      page,
+      `document.querySelector(${JSON.stringify(`strong[aria-label="${String(aggregateXp)} điểm kinh nghiệm"]`)})!==null`,
+      "BROWSER_E2E_G2_DASHBOARD_XP_VISIBLE",
+    );
+    check(await visibleTotalXp(page) === aggregateXp, "BROWSER_E2E_G2_DASHBOARD_XP_AGREES");
+    await page.reload();
+    await waitFor(
+      page,
+      `document.querySelector(${JSON.stringify(`strong[aria-label="${String(aggregateXp)} điểm kinh nghiệm"]`)})!==null`,
+      "BROWSER_E2E_G2_DASHBOARD_XP_RELOAD",
+    );
+    check(await visibleTotalXp(page) === aggregateXp, "BROWSER_E2E_G2_DASHBOARD_XP_RETAINED");
+    check(curriculumXpSnapshot(stack, attemptId, actor.userId) === xpSnapshot, "BROWSER_E2E_G2_RELOAD_NO_DUPLICATE_XP");
+  }
   await page.navigate(`${stack.appOrigin}/learning-progress`);
   await waitFor(page, "document.body.innerText.includes('Tiến')", `BROWSER_E2E_G${String(grade)}_PROGRESS_VIEW`);
   await page.navigate(`${stack.appOrigin}/learning-history`);
@@ -456,7 +612,20 @@ async function deactivationProof(page: LocalChromePage, stack: RealLocalGradesSt
   check(stack.query(`select count(*) from public.curriculum_attempts where id=${sql(evidence.attemptId)}::uuid;`) === before, "BROWSER_E2E_DEACTIVATION_DATABASE_PRESERVED");
   stack.activate();
   const resumed = await browserFetch(page, "/api/curriculum-runtime/start", { unitSlug: evidence.unitId, idempotencyKey: randomUUID() });
-  check(resumed.status === 200 && String(record(record(JSON.parse(resumed.text)).data).attemptId) === evidence.attemptId, "BROWSER_E2E_REACTIVATION_RESUME");
+  const reactivatedAttemptId =
+    resumed.status === 200
+      ? String(record(record(JSON.parse(resumed.text)).data).attemptId)
+      : "";
+  check(
+    resumed.status === 200 &&
+      reactivatedAttemptId.length > 0 &&
+      reactivatedAttemptId !== evidence.attemptId,
+    "BROWSER_E2E_REACTIVATION_NEW_ATTEMPT_AFTER_COMPLETION",
+  );
+  check(
+    stack.query(`select count(*) from public.curriculum_attempts where id=${sql(evidence.attemptId)}::uuid;`) === before,
+    "BROWSER_E2E_REACTIVATION_PRESERVES_COMPLETED_ATTEMPT",
+  );
   await logout(page);
 }
 

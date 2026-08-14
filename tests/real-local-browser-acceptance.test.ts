@@ -47,7 +47,7 @@ test("journey covers Grades 1-9, thirteen fixed-safe skills and persisted browse
   for (const evidence of [
     "REFRESH_RESUME", "INCORRECT_FEEDBACK", "CORRECT_FEEDBACK", "HISTORY_EXACTLY_ONCE",
     "RELOGIN_PERSISTENCE", "FIXED_SAFE_NO_ADAPTIVE_MASTERY", "DEACTIVATION_DATABASE_PRESERVED",
-    "REACTIVATION_RESUME", "SCHOOL_GRADE_IMMUTABLE", "NO_ENTITLEMENT_GRANT",
+    "REACTIVATION_NEW_ATTEMPT_AFTER_COMPLETION", "SCHOOL_GRADE_IMMUTABLE", "NO_ENTITLEMENT_GRANT",
   ]) assert.match(journey, new RegExp(evidence, "u"));
   assert.equal(packageJson.scripts["acceptance:real-local-browser"], "node --no-warnings --experimental-strip-types scripts/run-browser-grades-1-9-acceptance.ts");
 });

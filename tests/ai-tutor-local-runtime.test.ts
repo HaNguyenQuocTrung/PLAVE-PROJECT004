@@ -32,6 +32,7 @@ import {
   serializeProject004RemoteRuntimeConfig,
   writeProject004RemoteRuntimeConfigFile,
 } from "../scripts/project004-remote-runtime-connection.ts";
+import { preflightAiTutorLocal } from "../scripts/preflight-ai-tutor-local.ts";
 
 const workspaceRoot = resolve(import.meta.dirname, "..");
 const sampleRef = "abcdefghijklmnopqrst";
@@ -156,6 +157,28 @@ test("Tutor environment merge reads only the four local keys and preserves valid
     assert.equal(child.GOOGLE_AI_MODEL, "gemini-3.6-flash");
     assert.equal(child.DATABASE_URL, "");
     assert.equal(child.UNRELATED, undefined);
+  } finally {
+    rmSync(temporaryRoot, { recursive: true, force: true });
+  }
+});
+
+test("local preflight validates protected configuration without spawning or calling a provider", async () => {
+  const { temporaryRoot, root } = createFakeCanonicalWorkspace();
+  let probed = false;
+  try {
+    const result = await preflightAiTutorLocal(root, {
+      inspectPort: () => [],
+      probePort: async (host, port) => {
+        probed = true;
+        assert.equal(host, "127.0.0.1");
+        assert.equal(port, 3001);
+      },
+    });
+    assert.deepEqual(result, {
+      provider: "GOOGLE",
+      model: "gemini-3.6-flash",
+    });
+    assert.equal(probed, true);
   } finally {
     rmSync(temporaryRoot, { recursive: true, force: true });
   }

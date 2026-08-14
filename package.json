@@ -63,6 +63,7 @@
     "test:content-factory": "node --test --no-warnings --experimental-strip-types tests/content-factory.test.ts tests/content-factory-pilot.test.ts tests/content-factory-operations.test.ts",
     "test:content-factory-operations-local": "node --no-warnings --experimental-strip-types scripts/test-content-factory-operations-local.ts",
     "ai-tutor:configure": "node --no-warnings --experimental-strip-types scripts/configure-ai-tutor.ts",
+    "ai-tutor:local-preflight": "node --no-warnings --experimental-strip-types scripts/preflight-ai-tutor-local.ts",
     "ai-tutor:local-start": "node --no-warnings --experimental-strip-types scripts/start-ai-tutor-local.ts",
     "security:secret-boundary": "node --no-warnings --experimental-strip-types scripts/audit-secret-boundary.ts",
     "build:grades-2-9-release": "node --no-warnings --experimental-strip-types scripts/build-grades-2-9-release-integration.ts",

@@ -13,6 +13,7 @@ import { parseMotivationSummary } from "../motivation/contracts.ts";
 import { getStudentLearningContext } from "../practice/server.ts";
 import { parseReleasedCatalog, parseReleasedUnitDetail } from "../release-integration/catalog.ts";
 import { getGradesTwoToNineReleaseMode } from "../release-integration/server-config.ts";
+import { reconcileStudentLearningEnrichment } from "./enrichment-consistency.ts";
 
 export async function loadStudentCurriculumProgress(
   existingAccess?: Awaited<ReturnType<typeof getStudentLearningContext>>,
@@ -21,15 +22,22 @@ export async function loadStudentCurriculumProgress(
   if (!access.ok) return access;
   const availability = await resolveUniversalCurriculumAvailability(access);
   if (!availability.ok) return availability;
-  const generatedResult = access.grade === 1
-    ? await access.supabase.rpc("get_my_generated_curriculum_evidence")
-    : { data: null, error: null };
-  const scoringResult = await access.supabase.rpc("get_my_score_xp_mastery");
-  const motivationResult = await access.supabase.rpc("get_my_motivation_v1");
   const progressRpc = access.grade >= 2
     ? "get_my_released_curriculum_progress"
     : "get_student_curriculum_progress";
-  const { data, error } = await access.supabase.rpc(progressRpc);
+  const [
+    { data, error },
+    generatedResult,
+    scoringResult,
+    motivationResult,
+  ] = await Promise.all([
+    access.supabase.rpc(progressRpc),
+    access.grade === 1
+      ? access.supabase.rpc("get_my_generated_curriculum_evidence")
+      : Promise.resolve({ data: null, error: null }),
+    access.supabase.rpc("get_my_score_xp_mastery"),
+    access.supabase.rpc("get_my_motivation_v1"),
+  ]);
   const baseProgress = error ? null : parseStudentCurriculumProgress(data);
   const generated =
     access.grade === 1 && !generatedResult.error
@@ -41,12 +49,16 @@ export async function loadStudentCurriculumProgress(
         ? mergeStudentGeneratedCurriculumProgress(baseProgress, generated)
         : null
       : baseProgress;
-  const scoring = scoringResult.error
+  const parsedScoring = scoringResult.error
     ? null
     : parseStudentScoringSummary(scoringResult.data);
-  const motivation = motivationResult.error
+  const parsedMotivation = motivationResult.error
     ? null
     : parseMotivationSummary(motivationResult.data);
+  const { scoring, motivation } = reconcileStudentLearningEnrichment({
+    scoring: parsedScoring,
+    motivation: parsedMotivation,
+  });
   if (!progress || progress.grade !== access.grade) {
     return { ok: false as const, reason: "DATA_UNAVAILABLE" as const };
   }

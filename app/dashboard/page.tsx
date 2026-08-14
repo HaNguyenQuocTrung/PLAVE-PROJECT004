@@ -35,6 +35,7 @@ import { loadParentWeeklySummary } from "@/lib/parent-dashboard/server";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentGeneratedPracticePilotEligibility } from "@/lib/curriculum/generated-practice-pilot";
 import { getLessonPath } from "@/lib/practice/catalog";
+import { getPracticeReviewPath } from "@/lib/practice/review";
 import { MotivationOverview } from "@/components/MotivationOverview";
 import { UniversalCurriculumStartButton } from "@/components/UniversalCurriculumStartButton";
 
@@ -241,6 +242,14 @@ export default async function DashboardPage() {
         progress: universalProgress,
         now: new Date(),
         adaptivePilotEnabled: false,
+        runtimeEligibleUnitIds:
+          studentProfile.grade === 1 && personalizedPath
+            ? new Set(
+                personalizedPath.units
+                  .filter((item) => item.state !== "LOCKED")
+                  .map((item) => item.unit.slug),
+              )
+            : undefined,
       })
     : null;
   const generatedPilotEligible =
@@ -252,6 +261,12 @@ export default async function DashboardPage() {
   const currentUnit = universalProgress?.units.find(
     (unit) => unit.status === "IN_PROGRESS",
   );
+  const currentLegacyUnit =
+    currentUnit?.source === "LEGACY_GRADE1"
+      ? personalizedPath?.units.find(
+          (item) => item.unit.slug === currentUnit.unitId,
+        ) ?? null
+      : null;
   const recentUnits = universalProgress
     ? [...universalProgress.units]
         .filter((unit) => unit.lastActivityAt)
@@ -293,10 +308,22 @@ export default async function DashboardPage() {
             <p>{universalProgress.masteryExplanation}</p>
             <div className="dashboard-diagnostic-card__actions">
               {currentUnit ? (
-                <UniversalCurriculumStartButton
-                  unitSlug={currentUnit.unitId}
-                  label="Tiếp tục bài này"
-                />
+                currentUnit.source === "LEGACY_GRADE1" ? (
+                  currentLegacyUnit?.activeAttempt ? (
+                    <Button
+                      href={`/practice/${currentLegacyUnit.activeAttempt.id}`}
+                    >
+                      Tiếp tục bài này
+                    </Button>
+                  ) : (
+                    <Button href="/lessons">Mở lộ trình</Button>
+                  )
+                ) : (
+                  <UniversalCurriculumStartButton
+                    unitSlug={currentUnit.unitId}
+                    label="Tiếp tục bài này"
+                  />
+                )
               ) : (
                 <Button href="/lessons">Chọn bài để học</Button>
               )}
@@ -367,7 +394,10 @@ export default async function DashboardPage() {
       ) : null}
 
       {competencyDashboard ? (
-        <CompetencyLearningPathPanel model={competencyDashboard} />
+        <CompetencyLearningPathPanel
+          model={competencyDashboard}
+          legacyPath={studentProfile.grade === 1 ? personalizedPath : null}
+        />
       ) : null}
 
       {recentUnits.length > 0 ? (
@@ -377,21 +407,60 @@ export default async function DashboardPage() {
             <h2 id="recent-learning-title">Các bài em vừa học</h2>
           </div>
           <ul>
-            {recentUnits.map((unit) => (
-              <li key={unit.unitId}>
-                <div>
-                  <strong>{unit.title}</strong>
-                  <span>
-                    {unit.status === "COMPLETED"
-                      ? "Đã hoàn thành"
-                      : "Đang học"}
-                  </span>
-                </div>
-                <Button href={getLessonPath(unit.unitId)} variant="secondary">
-                  {unit.status === "COMPLETED" ? "Xem lại" : "Tiếp tục"}
-                </Button>
-              </li>
-            ))}
+            {recentUnits.map((unit) => {
+              const legacyUnit =
+                unit.source === "LEGACY_GRADE1"
+                  ? personalizedPath?.units.find(
+                      (item) => item.unit.slug === unit.unitId,
+                    ) ?? null
+                  : null;
+              return (
+                <li key={unit.unitId}>
+                  <div>
+                    <strong>{unit.title}</strong>
+                    <span>
+                      {unit.status === "COMPLETED"
+                        ? "Đã hoàn thành"
+                        : "Đang học"}
+                    </span>
+                  </div>
+                  {legacyUnit?.activeAttempt ? (
+                    <Button
+                      href={`/practice/${legacyUnit.activeAttempt.id}`}
+                      variant="secondary"
+                    >
+                      Tiếp tục
+                    </Button>
+                  ) : legacyUnit?.latestCompletedAttempt ? (
+                    <Button
+                      href={getPracticeReviewPath(
+                        legacyUnit.latestCompletedAttempt.id,
+                      )}
+                      variant="secondary"
+                    >
+                      Xem kết quả
+                    </Button>
+                  ) : unit.source === "UNIVERSAL_CURRICULUM" &&
+                    unit.status === "IN_PROGRESS" ? (
+                    <UniversalCurriculumStartButton
+                      unitSlug={unit.unitId}
+                      label="Tiếp tục"
+                    />
+                  ) : unit.status === "COMPLETED" ? (
+                    <Button href="/results" variant="secondary">
+                      Xem kết quả
+                    </Button>
+                  ) : (
+                    <Button
+                      href={getLessonPath(unit.unitId)}
+                      variant="secondary"
+                    >
+                      Mở bài học
+                    </Button>
+                  )}
+                </li>
+              );
+            })}
           </ul>
           <Button href="/learning-history" variant="tertiary">
             Xem toàn bộ lịch sử

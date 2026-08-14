@@ -17,7 +17,7 @@ const screenshots = [
 
 const core = {
   schemaVersion: "plave-grades-1-9-real-local-browser-e2e-v1",
-  baselineHead: "58e4f42fc3ae161ef5f43bddf702d9d1469721c4",
+  baselineHead: "5bb8cc39311d387bd0240f3e8dcd9aef84be8bb3",
   browser: {
     family: "INSTALLED_CHROME_OR_CHROMIUM",
     automation: "LOCAL_CHROME_DEVTOOLS_PROTOCOL",
@@ -44,10 +44,17 @@ const core = {
     accessibilityChecks: "PASSED",
     authorizationIsolation: "PASSED",
     persistenceConcurrency: "PASSED",
+    recommendationRuntimeEligibility: "PASSED",
+    recommendationLessonPathAgreement: "PASSED",
+    completedAttemptXpConsistency: "PASSED",
+    xpReloadIdempotency: "PASSED",
     deactivationReactivation: "PASSED",
     solutionIsolation: "PASSED",
   },
-  productDefectsCorrected: ["GENERATOR_V2_CSS_MODULE_FOCUS_SELECTOR_SCOPE"],
+  productDefectsCorrected: [
+    "STUDENT_RECOMMENDATION_RUNTIME_ELIGIBILITY",
+    "STUDENT_XP_PROJECTION_CACHE_CONSISTENCY",
+  ],
   historicalKeychainPrompt: {
     occurredBeforeMockKeychainGuard: true,
     credentialValueRead: false,

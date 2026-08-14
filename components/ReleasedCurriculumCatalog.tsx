@@ -4,6 +4,7 @@ import type { StudentCurriculumProgress } from "@/lib/curriculum-runtime/contrac
 import { curriculumMasteryLabelText } from "@/lib/curriculum-runtime/contracts";
 import type { ReleasedCatalogUnit } from "@/lib/release-integration/catalog";
 import { getLessonPath } from "@/lib/practice/catalog";
+import { UniversalCurriculumStartButton } from "@/components/UniversalCurriculumStartButton";
 
 type Props = Readonly<{
   grade: number;
@@ -79,9 +80,16 @@ export function ReleasedCurriculumCatalog({ grade, units, progress, recommendati
                   <span>{unit.learningGoals[0]}</span>
                 </div>
                 <p className="unit-card__progress">Tối đa {Math.min(12, unit.totalQuestions)} câu mỗi lượt · Tự động lưu</p>
-                <Button href={getLessonPath(unit.unitId)}>
-                  {unitProgress?.status === "IN_PROGRESS" ? "Tiếp tục học" : "Mở bài học"}
-                </Button>
+                {unitProgress?.status === "IN_PROGRESS" ? (
+                  <UniversalCurriculumStartButton
+                    unitSlug={unit.unitId}
+                    label="Tiếp tục học"
+                  />
+                ) : unitProgress?.status === "COMPLETED" ? (
+                  <Button href="/results">Xem kết quả</Button>
+                ) : (
+                  <Button href={getLessonPath(unit.unitId)}>Mở bài học</Button>
+                )}
               </article>
             );
           })}
