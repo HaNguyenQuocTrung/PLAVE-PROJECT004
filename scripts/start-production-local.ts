@@ -1,5 +1,13 @@
-import { spawn } from "node:child_process";
-import { existsSync } from "node:fs";
+import { spawn, spawnSync } from "node:child_process";
+import {
+  cpSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  renameSync,
+  rmSync,
+  symlinkSync,
+} from "node:fs";
 import { resolve } from "node:path";
 
 import { assertProject004Workspace } from "./project004-identity.ts";
@@ -19,15 +27,32 @@ type PublicRuntime = Readonly<{
 function resolvePublicRuntime(root: string): PublicRuntime {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const publishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+  const authFailureTestMode = process.env.PLAVE_AUTH_FAILURE_TEST_MODE;
   if (Boolean(url) !== Boolean(publishableKey)) {
     throw new Error("PRODUCTION_LOCAL_SUPABASE_PUBLIC_ENV_PARTIAL");
   }
+  if (authFailureTestMode && (!url || !publishableKey)) {
+    throw new Error("PRODUCTION_LOCAL_AUTH_TEST_MODE_TARGET_INVALID");
+  }
   if (url && publishableKey) {
+    const loopback = new URL(url);
+    const testModeEnabled = authFailureTestMode === "UNREACHABLE";
+    if (
+      authFailureTestMode &&
+      (!testModeEnabled ||
+        loopback.protocol !== "http:" ||
+        !["127.0.0.1", "localhost", "::1"].includes(loopback.hostname) ||
+        publishableKey !== "synthetic-public-key")
+    ) {
+      throw new Error("PRODUCTION_LOCAL_AUTH_TEST_MODE_TARGET_INVALID");
+    }
     return {
       url,
       publishableKey,
       source: "EXPLICIT_ENVIRONMENT",
-      flags: {},
+      flags: testModeEnabled
+        ? { PLAVE_AUTH_FAILURE_TEST_MODE: "UNREACHABLE" }
+        : {},
     };
   }
 
@@ -89,20 +114,86 @@ if (!buildMode) {
   }
 }
 
-const child = spawn(
-  process.execPath,
-  [nextBin, buildMode ? "build" : "start", ...process.argv.slice(buildMode ? 3 : 2)],
+const temporaryRoot = mkdtempSync("/private/tmp/plave-production-local-");
+const temporaryHome = resolve(temporaryRoot, "home");
+const runtimeRoot = resolve(temporaryRoot, "PLAVE-PROJECT004");
+mkdirSync(temporaryHome, { recursive: true, mode: 0o700 });
+mkdirSync(runtimeRoot, { recursive: true, mode: 0o700 });
+
+const childEnvironment = {
+  HOME: temporaryHome,
+  PATH: "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+  TMPDIR: "/private/tmp",
+  LANG: "C.UTF-8",
+  LC_ALL: "C.UTF-8",
+  npm_config_offline: "true",
+  __NEXT_PROCESSED_ENV: "true",
+  ...runtime.flags,
+  [productionLocalBuildContract.environmentFlag]: "true",
+  NODE_ENV: "production",
+  NEXT_TELEMETRY_DISABLED: "1",
+  NEXT_PUBLIC_SUPABASE_URL: runtime.url,
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: runtime.publishableKey,
+} satisfies NodeJS.ProcessEnv;
+if (runtime.flags.PLAVE_AUTH_FAILURE_TEST_MODE === "UNREACHABLE") {
+  childEnvironment.NODE_OPTIONS = `--import=${resolve(runtimeRoot, "scripts/mock-unreachable-auth-fetch.mjs")}`;
+}
+
+const workspaceResult = spawnSync(
+  "/usr/bin/rsync",
+  [
+    "-a",
+    "--exclude=.git",
+    "--exclude=.env*",
+    "--exclude=.next*",
+    "--exclude=node_modules",
+    "--exclude=coverage",
+    "--exclude=dist",
+    "--exclude=build",
+    "--exclude=artifacts",
+    "--exclude=reports",
+    "--exclude=.local-artifacts",
+    "--exclude=supabase/.temp",
+    "--exclude=*.log",
+    `${root}/`,
+    `${runtimeRoot}/`,
+  ],
   {
     cwd: root,
-    env: {
-      ...process.env,
-      ...runtime.flags,
-      [productionLocalBuildContract.environmentFlag]: "true",
-      NODE_ENV: "production",
-      NEXT_TELEMETRY_DISABLED: "1",
-      NEXT_PUBLIC_SUPABASE_URL: runtime.url,
-      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: runtime.publishableKey,
-    },
+    env: childEnvironment,
+    stdio: "ignore",
+  },
+);
+if (workspaceResult.status !== 0 || workspaceResult.error) {
+  rmSync(temporaryRoot, { recursive: true, force: true });
+  throw new Error("PRODUCTION_LOCAL_SANITIZED_WORKSPACE_FAILED");
+}
+for (const forbidden of [".env", ".env.local", ".env.production", ".git"]) {
+  if (existsSync(resolve(runtimeRoot, forbidden))) {
+    rmSync(temporaryRoot, { recursive: true, force: true });
+    throw new Error("PRODUCTION_LOCAL_SANITIZED_WORKSPACE_INVALID");
+  }
+}
+symlinkSync(resolve(root, "node_modules"), resolve(runtimeRoot, "node_modules"), "dir");
+if (!buildMode) {
+  symlinkSync(
+    resolve(root, productionLocalBuildContract.distDirectory),
+    resolve(runtimeRoot, productionLocalBuildContract.distDirectory),
+    "dir",
+  );
+}
+
+const child = spawn(
+  process.execPath,
+  [
+    nextBin,
+    buildMode ? "build" : "start",
+    ...(buildMode ? ["--webpack"] : []),
+    ...process.argv.slice(buildMode ? 3 : 2),
+  ],
+  {
+    cwd: runtimeRoot,
+    env: childEnvironment,
     stdio: "inherit",
     detached: false,
   },
@@ -111,6 +202,7 @@ const child = spawn(
 process.stdout.write(
   [
     `PRODUCTION_LOCAL_${buildMode ? "BUILD" : "START"}=BEGIN`,
+    "PRODUCTION_LOCAL_WORKSPACE=DISPOSABLE_ENV_EXCLUDED",
     "SUPABASE_PUBLIC_ENV_PRESENT=2/2",
     `SUPABASE_PUBLIC_ENV_SOURCE=${runtime.source}`,
     "SUPABASE_SECRET_ENV_PRINTED=NO",
@@ -119,6 +211,40 @@ process.stdout.write(
 );
 
 let stopping = false;
+let cleaned = false;
+function cleanup() {
+  if (cleaned) return;
+  cleaned = true;
+  rmSync(temporaryRoot, { recursive: true, force: true });
+}
+process.once("exit", cleanup);
+function promoteSanitizedBuild() {
+  const built = resolve(runtimeRoot, productionLocalBuildContract.distDirectory);
+  if (!existsSync(resolve(built, "BUILD_ID"))) {
+    throw new Error("PRODUCTION_LOCAL_SANITIZED_BUILD_MISSING");
+  }
+  const destination = resolve(root, productionLocalBuildContract.distDirectory);
+  const pending = `${destination}.pending-${String(process.pid)}`;
+  const previous = `${destination}.previous-${String(process.pid)}`;
+  rmSync(pending, { recursive: true, force: true });
+  rmSync(previous, { recursive: true, force: true });
+  cpSync(built, pending, { recursive: true });
+  let previousMoved = false;
+  try {
+    if (existsSync(destination)) {
+      renameSync(destination, previous);
+      previousMoved = true;
+    }
+    renameSync(pending, destination);
+    rmSync(previous, { recursive: true, force: true });
+  } catch (error) {
+    rmSync(pending, { recursive: true, force: true });
+    if (previousMoved && !existsSync(destination) && existsSync(previous)) {
+      renameSync(previous, destination);
+    }
+    throw error;
+  }
+}
 function stop(signal: NodeJS.Signals) {
   if (stopping || !child.pid) return;
   stopping = true;
@@ -132,11 +258,25 @@ process.once("SIGINT", () => stop("SIGTERM"));
 process.once("SIGTERM", () => stop("SIGTERM"));
 
 child.once("error", () => {
+  cleanup();
   process.stderr.write(
     `PRODUCTION_LOCAL_${buildMode ? "BUILD" : "START"}=FAIL\nROOT_FAILURE_CODE=NEXT_${buildMode ? "BUILD" : "START"}_FAILED\n`,
   );
   process.exitCode = 1;
 });
 child.once("exit", (code, signal) => {
-  process.exitCode = stopping ? 0 : signal ? 1 : (code ?? 0);
+  let finalCode = stopping ? 0 : signal ? 1 : (code ?? 0);
+  if (buildMode && finalCode === 0) {
+    try {
+      promoteSanitizedBuild();
+      process.stdout.write("PRODUCTION_LOCAL_BUILD=PROMOTED_SANITIZED\n");
+    } catch {
+      process.stderr.write(
+        "PRODUCTION_LOCAL_BUILD=FAIL\nROOT_FAILURE_CODE=SANITIZED_BUILD_PROMOTION_FAILED\n",
+      );
+      finalCode = 1;
+    }
+  }
+  cleanup();
+  process.exitCode = finalCode;
 });

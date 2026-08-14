@@ -1,8 +1,10 @@
 import "server-only";
 
+import { headers } from "next/headers";
 import { cache } from "react";
 
 import type { HeaderRole } from "@/lib/auth/navigation";
+import { readAuthRequestState } from "@/lib/auth/session-boundary";
 import { createClient } from "@/lib/supabase/server";
 
 export type PublicAuthState = {
@@ -11,6 +13,7 @@ export type PublicAuthState = {
   fullName: string | null;
   grade: number | null;
   onboardingCompleted: boolean;
+  authNotice: "RECOVERED" | "UNAVAILABLE" | null;
 };
 
 const guestState: PublicAuthState = {
@@ -19,11 +22,21 @@ const guestState: PublicAuthState = {
   fullName: null,
   grade: null,
   onboardingCompleted: false,
+  authNotice: null,
 };
 
 export const getPublicAuthState = cache(
   async (): Promise<PublicAuthState> => {
     try {
+      const requestState = readAuthRequestState(await headers());
+      if (requestState === "ANONYMOUS") return guestState;
+      if (requestState === "RECOVERED") {
+        return { ...guestState, authNotice: "RECOVERED" };
+      }
+      if (requestState === "UNAVAILABLE") {
+        return { ...guestState, authNotice: "UNAVAILABLE" };
+      }
+
       const supabase = await createClient();
       const {
         data: { user },
@@ -65,6 +78,7 @@ export const getPublicAuthState = cache(
           typeof profile?.full_name === "string" ? profile.full_name : null,
         grade,
         onboardingCompleted: profile?.onboarding_completed === true,
+        authNotice: null,
       };
     } catch {
       // Public pages remain available if the auth service is unavailable.

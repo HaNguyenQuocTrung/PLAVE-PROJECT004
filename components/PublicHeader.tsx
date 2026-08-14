@@ -61,6 +61,13 @@ export async function PublicHeader() {
           navigation={navigation}
         />
       </div>
+      {authState.authNotice ? (
+        <p className="auth-session-notice" role="status">
+          {authState.authNotice === "RECOVERED"
+            ? "Phiên đăng nhập cũ không còn hợp lệ và đã được dọn dẹp an toàn."
+            : "Tạm thời chưa thể xác minh đăng nhập. Nội dung công khai vẫn sử dụng được; hãy thử lại sau."}
+        </p>
+      ) : null}
     </header>
   );
 }
