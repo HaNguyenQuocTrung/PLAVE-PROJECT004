@@ -13,8 +13,15 @@ export function auditWaveMInvocationBoundary(root = process.cwd()) {
     if (registryCapable.test(source)) rows.push(`NETWORK_CAPABLE_INVOCATION:${file}`);
     return rows;
   });
-  const localExecutables = ["/usr/local/bin/node", resolve(root, "node_modules/.bin/tsc"), resolve(root, "node_modules/.bin/eslint"),
-    resolve(root, "node_modules/.bin/next")].map((path) => { const metadata = statSync(path); return { path, file: metadata.isFile(), executable: (metadata.mode & 0o111) !== 0 }; });
+  const localExecutables = [
+    { path: process.execPath, identifier: "NODE_RUNTIME" },
+    { path: resolve(root, "node_modules/.bin/tsc"), identifier: "node_modules/.bin/tsc" },
+    { path: resolve(root, "node_modules/.bin/eslint"), identifier: "node_modules/.bin/eslint" },
+    { path: resolve(root, "node_modules/.bin/next"), identifier: "node_modules/.bin/next" },
+  ].map(({ path, identifier }) => {
+    const metadata = statSync(path);
+    return { path: identifier, file: metadata.isFile(), executable: (metadata.mode & 0o111) !== 0 };
+  });
   return { ...inherited, schemaVersion: "plave-wave-m-offline-credential-safe-invocation-v1", inheritedWaveLStatus: inherited.status,
     auditedFiles: files.map((file) => file.slice(root.length + 1)), localExecutables, offlineMode: true,
     waveMNetworkAttemptCount: 0, waveMCredentialReadCount: 0, waveMOperationalIncidentCount: 0,
