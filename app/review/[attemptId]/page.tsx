@@ -5,6 +5,7 @@ import { LearningAccessState } from "@/components/LearningAccessState";
 import { PracticeVisual } from "@/components/PracticeVisual";
 import { ReviewErrorState } from "@/components/ReviewErrorState";
 import { StartPracticeButton } from "@/components/StartPracticeButton";
+import { XpCompletionSummary } from "@/components/XpCompletionSummary";
 import { getLessonPath } from "@/lib/practice/catalog";
 import {
   isUuid,
@@ -26,6 +27,8 @@ import {
   resolveReviewAttemptId,
 } from "@/lib/practice/review";
 import { getStudentLearningContext } from "@/lib/practice/server";
+import { parseStudentScoringSummary } from "@/lib/curriculum-runtime/contracts";
+import { buildAttemptXpCompletionProjection } from "@/lib/scoring/completion";
 
 export const metadata = {
   title: "Kết quả bài làm",
@@ -87,6 +90,7 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
   const [
     { data: unitRow, error: unitError },
     { data: attemptRows, error: attemptHistoryError },
+    { data: scoringData, error: scoringError },
   ] = await Promise.all([
     access.supabase
       .from("learning_units")
@@ -104,6 +108,7 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
       .eq("unit_slug", review.unitSlug)
       .order("started_at", { ascending: true })
       .order("id", { ascending: true }),
+    access.supabase.rpc("get_my_score_xp_mastery"),
   ]);
   const unit = unitError ? null : parseLearningUnit(unitRow);
   if (!unit) {
@@ -117,6 +122,25 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
     : parseAttemptRows(attemptRows);
   const attemptNumber = parsedAttempts
     ? getAttemptNumber(buildPracticeHistory(parsedAttempts), review.attemptId)
+    : null;
+  const scoring = scoringError
+    ? null
+    : parseStudentScoringSummary(scoringData);
+  if (review.status === "COMPLETED" && !scoring) {
+    return <ReviewErrorState retryHref={getPracticeReviewPath(attemptId)} />;
+  }
+  const scoringAttempt = scoring?.attempts.find(
+    (attempt) => attempt.attemptId === attemptId,
+  ) ?? null;
+  if (review.status === "COMPLETED" && !scoringAttempt) {
+    return <ReviewErrorState retryHref={getPracticeReviewPath(attemptId)} />;
+  }
+  const xpCompletion = review.status === "COMPLETED" && scoring && scoringAttempt
+    ? buildAttemptXpCompletionProjection({
+        policyVersion: scoringAttempt.policyVersion,
+        legacy: scoringAttempt.legacy,
+        attemptXpEarned: scoringAttempt.xpEarned,
+      }, scoring.totalXp)
     : null;
 
   return (
@@ -139,6 +163,9 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
               ? `Em trả lời đúng ${review.correctCount}/${review.totalQuestions} câu. Kết quả đã được lưu vào lịch sử.`
               : `Em đã trả lời ${review.answeredCount}/${review.totalQuestions} câu.`}
           </p>
+          {review.status === "COMPLETED" ? (
+            <XpCompletionSummary projection={xpCompletion} />
+          ) : null}
         </div>
         {review.status === "IN_PROGRESS" ? (
           <Button href={`/practice/${review.attemptId}`}>

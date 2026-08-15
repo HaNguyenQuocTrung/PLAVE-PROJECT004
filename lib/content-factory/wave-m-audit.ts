@@ -18,7 +18,8 @@ export function auditWaveM(root = process.cwd()) {
   const journeys = proveWaveMAllGradeJourneys(packs); const routeAccessibility = auditWaveMRouteAccessibility(root);
   const definitionOfDone = buildWaveMDefinitionOfDone({ journeys, routeAudit: routeAccessibility });
   const invocationBoundary = auditWaveMInvocationBoundary(root); const credentialSafe = auditWaveMCredentialSafe(root);
-  const migrations = readdirSync(`${root}/supabase/migrations`).filter((entry) => /^\d{4}_.+\.sql$/u.test(entry)).sort();
+  const migrations = readdirSync(`${root}/supabase/migrations`)
+    .filter((entry) => /^\d{4}_.+\.sql$/u.test(entry) && entry.slice(0, 4) <= "0044").sort();
   const progressContract = { schemaVersion: "plave-wave-m-progress-contract-report-v1",
     requiredFields: ["currentGradeUnitSkill", "startedCompletedAttempts", "accuracyEvidence", "masteryProvenance", "remediation",
       "retentionDue", "lastActivity", "recommendedNextAction", "completionSummary"],

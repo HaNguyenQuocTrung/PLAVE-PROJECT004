@@ -1,0 +1,178 @@
+name: PLAVE Grades 1-9 Quality Gate
+
+on:
+  push:
+    branches:
+      - fix/fyp-product-truth
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: plave-quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality-gate:
+    name: Grades 1-9 quality gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      CI: "1"
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+      TZ: UTC
+      NEXT_TELEMETRY_DISABLED: "1"
+      npm_config_audit: "false"
+      npm_config_fund: "false"
+      npm_config_update_notifier: "false"
+    defaults:
+      run:
+        shell: bash --noprofile --norc -euo pipefail {0}
+    steps:
+      - name: Checkout exact event commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Set up canonical Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.16.0
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Capture canonical repository baseline
+        run: |
+          printf 'PLAVE_CI_IMMUTABILITY_BASELINE=%s\n' "$RUNNER_TEMP/plave-ci-repository-baseline.json" >> "$GITHUB_ENV"
+          PLAVE_CI_IMMUTABILITY_BASELINE="$RUNNER_TEMP/plave-ci-repository-baseline.json" node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts initialize checkout
+
+      - name: Install committed dependency graph
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Guard repository after dependency installation
+        run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify dependency-installation
+
+      - name: Verify lockfile and offline invocation boundary
+        run: |
+          npm_config_offline=true npm ls --all
+          npm_config_offline=true npm run --silent audit:offline-invocation
+
+      - name: Guard repository after dependency boundary
+        run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify dependency-boundary
+
+      - name: Typecheck application
+        run: npm_config_offline=true npm run --silent typecheck
+
+      - name: Guard repository after application typecheck
+        run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify application-typecheck
+
+      - name: Typecheck secret boundary
+        run: ./node_modules/.bin/tsc --noEmit --project tsconfig.secret-boundary.json
+
+      - name: Guard repository after secret-boundary typecheck
+        run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify secret-boundary-typecheck
+
+      - name: Lint repository
+        run: npm_config_offline=true npm run --silent lint
+
+      - name: Guard repository after lint
+        run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify lint
+
+      - name: Audit credential-safe secret boundary
+        run: npm_config_offline=true npm run --silent security:secret-boundary
+
+      - name: Guard repository after secret audit
+        run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify secret-audit
+
+      - name: Verify canonical migration inventory and SHA
+        run: node --no-warnings --experimental-strip-types scripts/run-ci-quality-test-group.ts migration-inventory
+
+      - name: Guard repository after migration inventory
+        run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify migration-inventory
+
+      - name: Verify disposable migration boundary
+        run: node --no-warnings --experimental-strip-types scripts/run-ci-quality-test-group.ts disposable-migration
+
+      - name: Guard repository after disposable migration boundary
+        run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify disposable-migration
+
+      - name: Verify exact release RLS contract
+        run: node --no-warnings --experimental-strip-types scripts/run-ci-quality-test-group.ts release-rls
+
+      - name: Guard repository after release RLS
+        run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify release-rls
+
+      - name: Verify Grades 2-9 release integration
+        run: node --no-warnings --experimental-strip-types scripts/run-ci-quality-test-group.ts release-integration
+
+      - name: Guard repository after release integration
+        run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify release-integration
+
+      - name: Verify final-local frozen acceptance
+        run: node --no-warnings --experimental-strip-types scripts/run-ci-quality-test-group.ts final-local-acceptance
+
+      - name: Guard repository after final-local acceptance
+        run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify final-local-acceptance
+
+      - name: Verify browser acceptance receipt
+        run: node --no-warnings --experimental-strip-types scripts/run-ci-quality-test-group.ts browser-receipt
+
+      - name: Guard repository after browser receipt
+        run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify browser-receipt
+
+      - name: Run official full repository harness
+        run: |
+          harness_log="$RUNNER_TEMP/plave-full-harness.log"
+          harness_summary="$RUNNER_TEMP/plave-full-harness-summary.txt"
+          harness_status=0
+          if PLAVE_FULL_HARNESS_LOG="$harness_log" PLAVE_FULL_HARNESS_SUMMARY_PATH="$harness_summary" npm_config_offline=true npm run --silent test:full:official; then
+            harness_status=0
+          else
+            harness_status=$?
+          fi
+          tail -n 120 "$harness_log"
+          cat "$harness_summary"
+          exit "$harness_status"
+
+      - name: Guard repository after full harness
+        if: ${{ always() }}
+        run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify full-harness
+
+      - name: Run exact frozen-artifact equivalent
+        run: npm_config_offline=true npm run --silent test:final-local-acceptance
+
+      - name: Guard repository after frozen-artifact equivalent
+        run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify frozen-artifact-equivalent
+
+      - name: Build production application with synthetic local-only values
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: plave_ci_test_only_publishable_key
+          PLAVE_GRADES_2_9_RELEASE_MODE: HIDDEN
+          PLAVE_CURRICULUM_RUNTIME_ENABLED: "false"
+          PLAVE_AI_TUTOR_ENABLED: "false"
+        run: npm_config_offline=true npm run --silent build:production-local
+
+      - name: Verify production dynamic route manifest
+        run: npm_config_offline=true npm run --silent verify:production-route-manifest
+
+      - name: Guard repository after production build
+        run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify production-build
+
+      - name: Verify deterministic final acceptance receipts
+        run: |
+          npm_config_offline=true npm run --silent build:final-local-acceptance
+          git diff --exit-code -- content/releases/grades-1-9
+          npm_config_offline=true npm run --silent test:final-local-acceptance
+
+      - name: Guard repository after receipt verification
+        run: node --no-warnings --experimental-strip-types scripts/verify-ci-repository-immutability.ts verify receipt-verification
+
+      - name: Verify whitespace cleanliness
+        run: git diff --check

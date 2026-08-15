@@ -19,6 +19,10 @@ import {
   getGradeContentEmptyDescription,
   getGradeContentEmptyTitle,
 } from "@/lib/practice/grade-content";
+import {
+  CURRENT_MASTERY_HELP,
+  getVietnameseOutcomeLabel,
+} from "@/lib/learning/presentation";
 
 type UniversalCurriculumCatalogProps = {
   grade: number;
@@ -67,7 +71,7 @@ export function UniversalCurriculumCatalog({
           <h2 id="catalog-progress">
             Hoàn thành {completed}/{units.length} chủ đề
           </h2>
-          <p>{progress.masteryExplanation}</p>
+          <p>{CURRENT_MASTERY_HELP}</p>
         </div>
       </section>
 
@@ -81,7 +85,12 @@ export function UniversalCurriculumCatalog({
             <h2 id="adaptive-curriculum-title">
               Nội dung nên luyện tiếp
             </h2>
-            <p>{recommendation.outcomeTitle}</p>
+            <p>
+              {getVietnameseOutcomeLabel({
+                outcomeId: recommendation.outcomeId,
+                label: recommendation.outcomeTitle,
+              })}
+            </p>
             <p>{recommendation.explanation}</p>
             <p className="recommendation-note">
               Gợi ý này dựa trên tiến độ hiện có và có thể thay đổi khi em học

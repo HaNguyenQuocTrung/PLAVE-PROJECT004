@@ -1,5 +1,9 @@
 # PLAVE Product Completeness Matrix
 
+> **HISTORICAL / SUPERSEDED:** This 2026-07-30 matrix is preserved as an audit
+> snapshot. Use `docs/final/PLAVE_GRADES_1_9_LOCAL_ACCEPTANCE.md` for current
+> release readiness.
+
 **Audit date:** 2026-07-30
 **Decision:** `READY_WITH_KNOWN_LIMITATIONS`
 

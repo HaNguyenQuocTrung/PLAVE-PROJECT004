@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 
 import { Button } from "@/components/Button";
 import { ControlledPilotCard } from "@/components/ControlledPilotCard";
-import { UniversalLessonsCatalog } from "@/components/UniversalLessonsCatalog";
+import { ReleasedCurriculumCatalog } from "@/components/ReleasedCurriculumCatalog";
 import { LearningAccessState } from "@/components/LearningAccessState";
 import { PersonalizedLearningOverview } from "@/components/PersonalizedLearningOverview";
 import { PersonalizedRecommendationCard } from "@/components/PersonalizedRecommendationCard";
@@ -19,7 +19,8 @@ import {
   getPersonalizedUnitStateLabel,
 } from "@/lib/personalized-path/contracts";
 import { loadStudentPersonalizedPathWithClient } from "@/lib/personalized-path/server";
-import { buildStudentCompetencyDashboard } from "@/lib/competency/student-adapter";
+import { selectAdaptiveCurriculumRecommendation } from "@/lib/curriculum/adaptive-selection";
+import type { CurriculumGrade } from "@/lib/curriculum/types";
 import { loadStudentCurriculumProgress } from "@/lib/curriculum-runtime/server";
 import { recordUniversalAvailabilityDiagnostic } from "@/lib/curriculum-runtime/diagnostics";
 import { getUniversalCurriculumRuntimeFlag } from "@/lib/curriculum-runtime/feature-flag";
@@ -50,12 +51,24 @@ export default async function LessonsPage() {
     }).eligible;
   const universal = await loadStudentCurriculumProgress(access);
   if (access.grade >= 2 && universal.ok) {
-    const competency = buildStudentCompetencyDashboard({
-      progress: universal.progress,
-      now: new Date(),
-      adaptivePilotEnabled: false,
-    });
-    if (competency) {
+    const releasedCatalog = "catalog" in universal.availability
+      ? universal.availability.catalog
+      : null;
+    if (releasedCatalog) {
+      const availableUnitIds = new Set(
+        universal.progress.units.map((unit) => unit.unitId),
+      );
+      const availableUnits = releasedCatalog.units
+        .map((unit) => ({ ...unit, slug: unit.unitId }))
+        .filter((unit) => availableUnitIds.has(unit.slug));
+      const selectedRecommendation = selectAdaptiveCurriculumRecommendation({
+        grade: access.grade as CurriculumGrade,
+        progress: universal.progress,
+      });
+      const recommendation = selectedRecommendation &&
+        availableUnitIds.has(selectedRecommendation.unitId)
+        ? selectedRecommendation
+        : null;
       recordUniversalAvailabilityDiagnostic({
         route: "/lessons",
         role: "STUDENT",
@@ -67,11 +80,11 @@ export default async function LessonsPage() {
         progress: universal.progress,
       });
       return (
-        <UniversalLessonsCatalog
+        <ReleasedCurriculumCatalog
           grade={access.grade}
+          units={availableUnits}
           progress={universal.progress}
-          competency={competency}
-          generatedPilotEligible={generatedPilotEligible}
+          recommendation={recommendation}
         />
       );
     }

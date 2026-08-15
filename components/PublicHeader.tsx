@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { HeaderNavigation } from "@/components/HeaderNavigation";
+import { getAiTutorPublicAvailability } from "@/lib/ai-tutor/config";
 import {
   getHeaderLogoHref,
   getHeaderNavigation,
@@ -10,10 +11,12 @@ import { getPublicAuthState } from "@/lib/auth/public-state";
 
 export async function PublicHeader() {
   const authState = await getPublicAuthState();
+  const aiTutorAvailability = getAiTutorPublicAvailability();
   const navigation = getHeaderNavigation(
     authState.authenticated,
     authState.role,
     authState.onboardingCompleted,
+    aiTutorAvailability.available,
   );
   const logoHref = getHeaderLogoHref(
     authState.authenticated,
@@ -61,6 +64,13 @@ export async function PublicHeader() {
           navigation={navigation}
         />
       </div>
+      {authState.authNotice ? (
+        <p className="auth-session-notice" role="status">
+          {authState.authNotice === "RECOVERED"
+            ? "Phiên đăng nhập cũ không còn hợp lệ và đã được dọn dẹp an toàn."
+            : "Tạm thời chưa thể xác minh đăng nhập. Nội dung công khai vẫn sử dụng được; hãy thử lại sau."}
+        </p>
+      ) : null}
     </header>
   );
 }

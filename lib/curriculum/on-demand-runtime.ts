@@ -26,6 +26,10 @@ import {
   loadStudentCurriculumProgress,
 } from "../curriculum-runtime/server.ts";
 import {
+  loadCanonicalStudentScoringSummary,
+  requireCanonicalXpCompletion,
+} from "../curriculum-runtime/xp-projection.ts";
+import {
   getStudentLearningContext,
 } from "../practice/server.ts";
 
@@ -286,5 +290,14 @@ export async function loadOnDemandAttemptState(
       databaseError: error ?? null,
     };
   }
-  return { ok: true as const, state };
+  if (state.status !== "COMPLETED") {
+    return { ok: true as const, state };
+  }
+  const summary = await loadCanonicalStudentScoringSummary(() =>
+    access.supabase.rpc("get_my_score_xp_mastery"),
+  );
+  const projected = requireCanonicalXpCompletion(state, summary);
+  return projected
+    ? { ok: true as const, state: projected.state }
+    : { ok: false as const, reason: "DATA_UNAVAILABLE" as const };
 }

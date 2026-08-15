@@ -1,4 +1,16 @@
 {
+  "recordStatus": "ARCHIVED_NON_OPERATIONAL",
+  "recordScope": "HISTORICAL_PRE_WAVE_A_TO_N_SNAPSHOT",
+  "supersededBy": "content/releases/grades-1-9/final-local-acceptance-receipt.json",
+  "supersessionNotice": "The 171-unit and 2,052-question values below are historical only. Current local acceptance is canonicalized by docs/final/PLAVE_GRADES_1_9_LOCAL_ACCEPTANCE.md and content/releases/grades-1-9/final-local-acceptance-receipt.json.",
+  "canonicalFinalInventory": {
+    "questions": 2772,
+    "skills": 338,
+    "units": 176,
+    "publishedCandidates": 0,
+    "activeCandidates": 0,
+    "defaultEntitlementCount": 0
+  },
   "generatedAt": "2026-07-30",
   "officialOutcomeCoverage": {
     "implemented": 546,

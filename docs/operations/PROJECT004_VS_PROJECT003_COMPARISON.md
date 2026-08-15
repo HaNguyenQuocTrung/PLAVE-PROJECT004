@@ -14,7 +14,11 @@ The targeted remediation closed the three former HIGH findings. The final re-aud
 
 ## Repository and provenance risk
 
-Both directories resolve to the same parent Git repository at `/Users/hatrung`, where each project is an untracked directory. There is no independent commit history for either project. A future promotion or copy plan needs an explicit filesystem backup/checksum rollback procedure; a normal Git rollback cannot be assumed.
+At the recorded historical checkpoint, both directories resolved to the same
+parent Git repository and each project was an untracked directory. There was no
+independent commit history for either project. A future promotion or copy plan
+therefore needed an explicit filesystem backup/checksum rollback procedure; a
+normal Git rollback could not be assumed.
 
 ## PROJECT003-only files
 

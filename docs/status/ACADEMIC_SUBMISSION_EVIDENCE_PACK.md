@@ -1,5 +1,9 @@
 # Academic Submission Evidence Pack
 
+> **HISTORICAL / SUPERSEDED:** This evidence pack records its original
+> checkpoint, including gaps that were later closed. Current acceptance is in
+> `docs/final/PLAVE_GRADES_1_9_LOCAL_ACCEPTANCE.md`.
+
 Status: `COMPLETE_WITH_EXPLICIT_EVIDENCE_GAPS`
 Prepared: 3 August 2026 (Asia/Ho_Chi_Minh)
 Scope: read-only documentation and screenshot curation; this document does not alter any product milestone.

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/Button";
 import { PracticeVisual } from "@/components/PracticeVisual";
+import { XpCompletionSummary } from "@/components/XpCompletionSummary";
 import {
   parseAdaptiveApiResponse,
   type AdaptiveApiError,
@@ -18,6 +19,8 @@ import {
   PRACTICE_NUMBER_INPUT_MAX_DIGITS,
 } from "@/lib/practice/contracts";
 import { normalizePracticeNumberInput } from "@/lib/practice/client-flow";
+import { buildAnswerXpCompletionProjection } from "@/lib/scoring/completion";
+import { getVietnameseUnitLabel } from "@/lib/learning/presentation";
 
 type AdaptivePracticeRunnerProps = {
   initialState: AdaptiveRpcState;
@@ -42,6 +45,14 @@ function TerminalState({
 }: {
   state: AdaptiveRpcState;
 }) {
+  const completed = [
+    "MASTERED_EARLY",
+    "REMEDIATION_REQUIRED",
+    "MAX_REACHED",
+  ].includes(state.status);
+  const xpCompletion = state.xp
+    ? buildAnswerXpCompletionProjection(state.xp)
+    : null;
   const copy = {
     MASTERED_EARLY: {
       eyebrow: "Hoàn thành lượt học",
@@ -78,6 +89,7 @@ function TerminalState({
       <p className="eyebrow">{copy.eyebrow}</p>
       <h2>{copy.title}</h2>
       <p>{copy.description}</p>
+      {completed ? <XpCompletionSummary projection={xpCompletion} /> : null}
       {state.remediationSkillIds.length > 0 ? (
         <div>
           <h3>Kỹ năng nên ôn lại</h3>
@@ -285,7 +297,9 @@ export function AdaptivePracticeRunner({
         <div className="practice-runner__header">
           <div>
             <p className="eyebrow">Luyện tập theo năng lực</p>
-            <h1 id="adaptive-practice-title">{unitTitle}</h1>
+            <h1 id="adaptive-practice-title">
+              {getVietnameseUnitLabel({ label: unitTitle })}
+            </h1>
           </div>
           <p className="adaptive-progress" aria-label="Tiến độ lượt học">
             Đã làm {state.answeredCount} câu
@@ -315,7 +329,9 @@ export function AdaptivePracticeRunner({
       <div className="practice-runner__header">
         <div>
           <p className="eyebrow">Luyện tập theo năng lực</p>
-          <h1 id="adaptive-practice-title">{unitTitle}</h1>
+          <h1 id="adaptive-practice-title">
+            {getVietnameseUnitLabel({ label: unitTitle })}
+          </h1>
         </div>
         <div className="practice-progress-summary">
           <p
@@ -442,6 +458,22 @@ export function AdaptivePracticeRunner({
             {!feedback.isCorrect ? (
               <p>
                 <strong>Gợi ý:</strong> {feedback.hint}
+              </p>
+            ) : null}
+            {pendingState?.xp ? (
+              <p
+                data-answer-xp-reason={
+                  pendingState.xp.zeroXpReason ?? "AWARDED"
+                }
+              >
+                {pendingState.xp.answerXpAwarded > 0
+                  ? `Câu này nhận ${pendingState.xp.answerXpAwarded} XP. Tổng hiện tại: ${pendingState.xp.totalXpAfter} XP.`
+                  : pendingState.xp.zeroXpReason === "ANSWER_ALREADY_PERSISTED"
+                    ? "Câu trả lời này đã được ghi nhận trước đó nên không cộng XP lần nữa."
+                    : pendingState.xp.zeroXpReason ===
+                        "HISTORICAL_ATTEMPT_NOT_ELIGIBLE"
+                      ? "Lượt học này được tạo trước chính sách XP thống nhất nên không nhận XP."
+                      : "Câu chưa đúng nên không nhận XP."}
               </p>
             ) : null}
           </div>

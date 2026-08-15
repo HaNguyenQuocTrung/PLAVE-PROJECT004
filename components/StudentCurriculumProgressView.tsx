@@ -6,38 +6,31 @@ import {
 } from "@/lib/curriculum-runtime/contracts";
 import {
   getLessonPath,
-  getSkillLabel,
 } from "@/lib/practice/catalog";
-import { skillCodes } from "@/lib/practice/contracts";
 import { MotivationOverview } from "./MotivationOverview";
+import {
+  CURRENT_MASTERY_HELP,
+  curriculumOutcomeStateText,
+  getCurriculumOutcomeEvidenceState,
+  getVietnameseOutcomeLabel,
+  getVietnameseSkillLabel,
+  getVietnameseUnitLabel,
+} from "@/lib/learning/presentation";
 
 type StudentCurriculumProgressViewProps = {
   progress: StudentCurriculumProgress;
 };
 
-const localizedLegacySkillTitles = new Map(
-  skillCodes.map((skillCode) => [
-    skillCode.replaceAll("_", " ").toLocaleLowerCase("vi"),
-    getSkillLabel(skillCode),
-  ]),
-);
-
-function studentFacingEvidenceTitle(item: CurriculumProgressEvidence) {
-  if (item.evidenceBasis !== "LEGACY_QUESTION_SKILL") return item.title;
-  return (
-    localizedLegacySkillTitles.get(item.title.toLocaleLowerCase("vi")) ??
-    "Kỹ năng Toán học"
-  );
-}
-
 function EvidenceList({
   title,
   description,
   items,
+  kind,
 }: {
   title: string;
   description: string;
   items: readonly CurriculumProgressEvidence[];
+  kind: "OUTCOME" | "SKILL";
 }) {
   return (
     <section className="lesson-section" aria-labelledby={`${title}-title`}>
@@ -61,7 +54,11 @@ function EvidenceList({
               <span className="unit-status">
                 {curriculumMasteryLabelText[item.masteryLabel]}
               </span>
-              <h3>{studentFacingEvidenceTitle(item)}</h3>
+              <h3>
+                {kind === "OUTCOME"
+                  ? getVietnameseOutcomeLabel({ label: item.title })
+                  : getVietnameseSkillLabel({ label: item.title })}
+              </h3>
               <p>
                 {item.correctCount}/{item.evidenceCount} bằng chứng đúng
               </p>
@@ -79,16 +76,20 @@ export function StudentCurriculumProgressView({
   const completed = progress.units.filter(
     (unit) => unit.status === "COMPLETED",
   ).length;
+  const totalLearningEvidence = progress.units.reduce(
+    (total, unit) => total + unit.evidenceCount,
+    0,
+  );
+  const outcomeState = getCurriculumOutcomeEvidenceState({
+    totalLearningEvidence,
+    outcomes: progress.outcomes,
+  });
   return (
     <div className="content-page page-shell learning-progress-page progress-page--v2">
       <header className="catalog-hero">
         <p className="eyebrow">Tiến trình học tập</p>
         <h1>Toán lớp {progress.grade}</h1>
-        <p>{progress.masteryExplanation}</p>
-        <p>
-          Các nhãn này là quy tắc sản phẩm minh bạch, không phải kết luận khoa
-          học về “trình độ” của em.
-        </p>
+        <p>{CURRENT_MASTERY_HELP}</p>
         <div className="catalog-hero__actions">
           <Button href="/lessons">Tiếp tục học</Button>
           <Button href="/learning-history" variant="secondary">
@@ -171,7 +172,12 @@ export function StudentCurriculumProgressView({
               >
                 {curriculumMasteryLabelText[unit.masteryLabel]}
               </span>
-              <h3>{unit.title}</h3>
+              <h3>
+                {getVietnameseUnitLabel({
+                  unitId: unit.unitId,
+                  label: unit.title,
+                })}
+              </h3>
               <p>
                 Đúng {unit.correctCount}/{unit.evidenceCount} câu đã ghi nhận
               </p>
@@ -186,15 +192,40 @@ export function StudentCurriculumProgressView({
         </div>
       </section>
 
-      <EvidenceList
-        title="Mục tiêu học tập"
-        description="Kết quả được nhóm theo mục tiêu chính thức nhưng chỉ hiển thị bằng lời dễ hiểu."
-        items={progress.outcomes}
-      />
+      {outcomeState === "EVIDENCE_AVAILABLE" ? (
+        <EvidenceList
+          title="Mục tiêu học tập theo chương trình có liên kết"
+          description="Kết quả chỉ được nhóm khi câu hỏi hoặc bài học có liên kết mục tiêu đã lưu rõ ràng."
+          items={progress.outcomes}
+          kind="OUTCOME"
+        />
+      ) : (
+        <section
+          className="lesson-section"
+          aria-labelledby="student-outcome-state-title"
+          data-curriculum-outcome-state={outcomeState}
+        >
+          <div className="empty-state" role="status">
+            <h2 id="student-outcome-state-title">
+              {curriculumOutcomeStateText[outcomeState].title}
+            </h2>
+            <p>{curriculumOutcomeStateText[outcomeState].description}</p>
+          </div>
+          {outcomeState === "INSUFFICIENT_EVIDENCE" ? (
+            <EvidenceList
+              title="Mục tiêu học tập theo chương trình có liên kết"
+              description="Các bằng chứng hiện có được hiển thị riêng, chưa phải kết luận đánh giá chính thức."
+              items={progress.outcomes}
+              kind="OUTCOME"
+            />
+          ) : null}
+        </section>
+      )}
       <EvidenceList
         title="Kỹ năng"
         description="Mỗi nhãn dựa trên số câu đã làm, số câu đúng và kết quả gần đây."
         items={progress.skills}
+        kind="SKILL"
       />
     </div>
   );

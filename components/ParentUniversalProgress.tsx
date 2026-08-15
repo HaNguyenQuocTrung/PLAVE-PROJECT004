@@ -6,6 +6,15 @@ import {
 import type { StudentScoringSummary } from "@/lib/curriculum-runtime/contracts";
 import type { MotivationSummary } from "@/lib/motivation/contracts";
 import { MotivationOverview } from "@/components/MotivationOverview";
+import {
+  CURRENT_MASTERY_HELP,
+  curriculumOutcomeStateText,
+  getCurriculumOutcomeEvidenceState,
+  getVietnameseLearningLabel,
+  getVietnameseOutcomeLabel,
+  getVietnameseSkillLabel,
+  getVietnameseUnitLabel,
+} from "@/lib/learning/presentation";
 
 type Props = {
   progress: ParentUniversalProgressData;
@@ -24,9 +33,11 @@ function percent(value: number | null) {
 function EvidenceList({
   items,
   empty,
+  kind,
 }: {
   items: ParentUniversalEvidence[];
   empty: string;
+  kind: "OUTCOME" | "SKILL" | "LEARNING";
 }) {
   if (!items.length) {
     return <p className="parent-section-note">{empty}</p>;
@@ -36,7 +47,13 @@ function EvidenceList({
       {items.map((item, index) => (
         <li key={`${item.source}-${item.title}-${index}`}>
           <div>
-            <strong>{item.title}</strong>
+            <strong>
+              {kind === "OUTCOME"
+                ? getVietnameseOutcomeLabel({ label: item.title })
+                : kind === "SKILL"
+                  ? getVietnameseSkillLabel({ label: item.title })
+                  : getVietnameseLearningLabel({ label: item.title })}
+            </strong>
             <span>
               {item.correctCount}/{item.evidenceCount} câu đúng ·{" "}
               {percent(item.accuracyPercent)}
@@ -57,6 +74,10 @@ export function ParentUniversalProgress({ progress, scoring, motivation }: Props
   const startedUnits = progress.units.filter(
     (unit) => unit.status !== "NOT_STARTED",
   );
+  const outcomeState = getCurriculumOutcomeEvidenceState({
+    totalLearningEvidence: progress.summary.totalAnswered,
+    outcomes: progress.outcomes,
+  });
   return (
     <div className="parent-universal-progress">
       {scoring ? (
@@ -128,7 +149,12 @@ export function ParentUniversalProgress({ progress, scoring, motivation }: Props
             {progress.units.map((unit) => (
               <li key={unit.unitId}>
                 <div>
-                  <strong>{unit.title}</strong>
+                  <strong>
+                    {getVietnameseUnitLabel({
+                      unitId: unit.unitId,
+                      label: unit.title,
+                    })}
+                  </strong>
                   <span>
                     {unit.evidenceCount
                       ? `${unit.correctCount}/${unit.evidenceCount} câu đúng`
@@ -152,13 +178,34 @@ export function ParentUniversalProgress({ progress, scoring, motivation }: Props
           <div className="section-heading">
             <div>
               <p className="eyebrow">Mục tiêu học tập</p>
-              <h2 id="parent-outcomes-title">Theo yêu cầu chương trình</h2>
+              <h2 id="parent-outcomes-title">
+                Theo mục tiêu chương trình có liên kết
+              </h2>
             </div>
           </div>
-          <EvidenceList
-            items={progress.outcomes}
-            empty="Chưa có bằng chứng học tập theo mục tiêu chương trình."
-          />
+          {outcomeState === "EVIDENCE_AVAILABLE" ? (
+            <EvidenceList
+              items={progress.outcomes}
+              empty="Chưa có bằng chứng theo mục tiêu chương trình."
+              kind="OUTCOME"
+            />
+          ) : (
+            <div
+              className="parent-empty-state"
+              data-curriculum-outcome-state={outcomeState}
+              role="status"
+            >
+              <h3>{curriculumOutcomeStateText[outcomeState].title}</h3>
+              <p>{curriculumOutcomeStateText[outcomeState].description}</p>
+              {outcomeState === "INSUFFICIENT_EVIDENCE" ? (
+                <EvidenceList
+                  items={progress.outcomes}
+                  empty="Chưa có bằng chứng theo mục tiêu chương trình."
+                  kind="OUTCOME"
+                />
+              ) : null}
+            </div>
+          )}
         </section>
 
         <section
@@ -174,6 +221,7 @@ export function ParentUniversalProgress({ progress, scoring, motivation }: Props
           <EvidenceList
             items={progress.skills}
             empty="Chưa có bằng chứng học tập theo kỹ năng."
+            kind="SKILL"
           />
         </section>
       </div>
@@ -196,6 +244,7 @@ export function ParentUniversalProgress({ progress, scoring, motivation }: Props
             <EvidenceList
               items={progress.strengths}
               empty="Chưa đủ bằng chứng để ghi nhận điểm mạnh."
+              kind="LEARNING"
             />
           </div>
           <div>
@@ -203,10 +252,11 @@ export function ParentUniversalProgress({ progress, scoring, motivation }: Props
             <EvidenceList
               items={progress.needsPractice}
               empty="Chưa có nội dung nào được gắn nhãn cần luyện thêm."
+              kind="LEARNING"
             />
           </div>
         </div>
-        <p className="parent-section-note">{progress.masteryExplanation}</p>
+        <p className="parent-section-note">{CURRENT_MASTERY_HELP}</p>
       </section>
 
       <section
@@ -236,6 +286,7 @@ export function ParentUniversalProgress({ progress, scoring, motivation }: Props
             <EvidenceList
               items={progress.assignmentOutcomes}
               empty="Chưa có kết quả theo mục tiêu từ bài giáo viên giao."
+              kind="OUTCOME"
             />
           </div>
           <div>
@@ -243,6 +294,7 @@ export function ParentUniversalProgress({ progress, scoring, motivation }: Props
             <EvidenceList
               items={progress.assignmentSkills}
               empty="Chưa có kết quả theo kỹ năng từ bài giáo viên giao."
+              kind="SKILL"
             />
           </div>
         </div>
@@ -272,7 +324,9 @@ export function ParentUniversalProgress({ progress, scoring, motivation }: Props
             {progress.attempts.map((attempt) => (
               <li key={attempt.attemptId}>
                 <div>
-                  <strong>{attempt.unitTitle}</strong>
+                  <strong>
+                    {getVietnameseUnitLabel({ label: attempt.unitTitle })}
+                  </strong>
                   <span>
                     {attempt.correctCount}/{attempt.answeredCount} câu đã làm
                     đúng

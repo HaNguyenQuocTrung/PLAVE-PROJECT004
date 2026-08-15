@@ -1,5 +1,8 @@
 # Grades 1–9 curriculum coverage matrix
 
+> **HISTORICAL / SUPERSEDED:** This 2026-07-30 coverage snapshot is preserved
+> as evidence. Current release status is in `docs/final/PLAVE_GRADES_1_9_LOCAL_ACCEPTANCE.md`.
+
 Updated: 2026-07-30
 Status: `37/37 APPLICABLE DOMAIN CELLS COMPLETE — 546/546 OFFICIAL OUTCOMES VALIDATED`
 

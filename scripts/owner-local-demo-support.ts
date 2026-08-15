@@ -2,7 +2,6 @@ import { spawnSync } from "node:child_process";
 import {
   existsSync,
   readFileSync,
-  readdirSync,
   rmSync,
   writeFileSync,
 } from "node:fs";
@@ -17,6 +16,9 @@ import {
 import {
   assertProject004Workspace,
 } from "./project004-identity.ts";
+import {
+  loadTrackedCanonicalMigrationInventory,
+} from "./canonical-migration-inventory.ts";
 
 export type OwnerLocalSupabase = Readonly<{
   apiUrl: string;
@@ -55,7 +57,6 @@ export class OwnerLocalPreflightError extends Error {
 const loopbackHosts = new Set(["127.0.0.1", "localhost", "::1"]);
 export const ownerLocalAppPort = 3100;
 export const ownerLocalAppOrigin = `http://127.0.0.1:${ownerLocalAppPort}`;
-const ownerLocalMigrationCount = 44;
 const ownerLocalSupabasePorts = [54320, 54321, 54322, 54323, 54324, 54327, 8083] as const;
 export const ownerLocalManagedStatePath = join(
   tmpdir(),
@@ -575,22 +576,7 @@ export function evaluateOwnerLocalPreflight(
 
 export function migrationFilesComplete() {
   try {
-    const migrationVersions = readdirSync(
-      resolve(process.cwd(), "supabase/migrations"),
-    )
-      .map((name) => /^(\d{4})_.*\.sql$/.exec(name)?.[1])
-      .filter((value): value is string => Boolean(value))
-      .sort();
-    const expected = Array.from(
-      { length: ownerLocalMigrationCount },
-      (_, index) => String(index + 1).padStart(4, "0"),
-    );
-    return (
-      migrationVersions.length === expected.length &&
-      migrationVersions.every(
-        (version, index) => version === expected[index],
-      )
-    );
+    return loadTrackedCanonicalMigrationInventory().ok;
   } catch {
     return false;
   }
@@ -883,6 +869,7 @@ function ownerLocalDockerNamespaceIsAvailable() {
 
 export function assertOwnerLocalSetupPreflight() {
   assertProject004Workspace();
+  const migrationInventory = loadTrackedCanonicalMigrationInventory();
   const config = readFileSync(
     resolve(process.cwd(), "supabase/config.toml"),
     "utf8",
@@ -933,7 +920,8 @@ export function assertOwnerLocalSetupPreflight() {
       configValue(studio, "api_url") === '"http://127.0.0.1"' &&
       configValue(analytics, "port") === "54327" &&
       configValue(edgeRuntime, "inspector_port") === "8083",
-    MIGRATIONS_0001_0044: migrationFilesComplete(),
+    [`MIGRATIONS_${migrationInventory.first}_${migrationInventory.last}`]:
+      migrationInventory.ok,
     SAFE_DEMO_ENV: [
       "owner-local-demo:preflight",
       "owner-local-demo:start",

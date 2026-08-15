@@ -17,7 +17,10 @@ does not administer hosted Supabase.
    stack. The invitation command rejects non-loopback API and PostgreSQL
    targets. A `production-local` runtime configured for remote development is
    not the Owner-local Teacher test environment.
-3. START applies and confirms migrations through `0044` locally. Do not paste a
+3. START derives and verifies a continuous tracked canonical migration inventory
+   from `0001` through the highest migration (currently `0045`) and applies it
+   locally. Supabase seed execution is disabled because migrations plus the
+   guarded local materializer own the complete bootstrap contract. Do not paste a
    database password, service key, invitation, or environment file into chat.
 
 ## Create exactly one invitation
@@ -51,6 +54,12 @@ record, screenshot, or send the code or environment values through chat.
 4. Verify Teacher access remains unavailable before activation and becomes
    `ACTIVE` only after the confirmed Teacher account atomically claims the
    valid invitation.
+
+Registration and activation are intentionally separate. The registration
+action checks only the invitation shape and never stores it in Auth metadata;
+the Teacher must retain the same plaintext code privately and enter it again at
+`/teacher/onboarding`. A synthetic Teacher account is not evidence that this
+invitation path works.
 
 Selecting Teacher at signup creates an unactivated canonical `TEACHER`
 profile. Activation additionally claims `public.teacher_invitations`, creates

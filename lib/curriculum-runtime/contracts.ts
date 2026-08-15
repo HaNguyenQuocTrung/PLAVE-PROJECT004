@@ -10,6 +10,12 @@ import {
   type MotivationAchievement,
   type MotivationSummary,
 } from "../motivation/contracts.ts";
+import {
+  parseAnswerXpProjection,
+  parseXpCompletionProjection,
+  type AnswerXpProjection,
+  type XpCompletionProjection,
+} from "../scoring/completion.ts";
 
 export type CurriculumRuntimeMode = "STATIC" | "GENERATED_V2";
 
@@ -123,8 +129,8 @@ export const curriculumMasteryLabelText: Record<
   IN_PROGRESS: "Đang học",
   NEEDS_PRACTICE: "Cần luyện thêm",
   DEVELOPING: "Đang phát triển",
-  PROFICIENT: "Đã vững",
-  MASTERED: "Thành thạo",
+  PROFICIENT: "Đạt yêu cầu",
+  MASTERED: "Đạt mức thành thạo theo tiêu chí hiện tại",
 };
 
 export type CurriculumAttemptQuestion = Readonly<{
@@ -164,6 +170,8 @@ export type CurriculumAttemptState = Readonly<{
   currentQuestion: CurriculumAttemptQuestion | null;
   feedback: CurriculumAttemptFeedback | null;
   scoring?: AttemptScoringState | null;
+  xp?: AnswerXpProjection | null;
+  xpCompletion?: XpCompletionProjection | null;
   motivation?: MotivationSummary | null;
   achievementUnlocks?: readonly MotivationAchievement[];
 }>;
@@ -327,7 +335,8 @@ function parseOptions(value: unknown): readonly PreviewOption[] | null {
   if (value === null) return null;
   if (
     !Array.isArray(value) ||
-    value.length !== 4 ||
+    value.length < 2 ||
+    value.length > 4 ||
     !value.every(
       (option) =>
         isRecord(option) &&
@@ -535,6 +544,13 @@ export function parseCurriculumAttemptState(
     value.scoring === null || value.scoring === undefined
       ? null
       : parseAttemptScoring(value.scoring);
+  const xpCompletion =
+    value.xp_completion === null || value.xp_completion === undefined
+      ? null
+      : parseXpCompletionProjection(value.xp_completion);
+  const xp = value.xp === null || value.xp === undefined
+    ? null
+    : parseAnswerXpProjection(value.xp);
   const motivation =
     value.motivation === null || value.motivation === undefined
       ? null
@@ -563,6 +579,10 @@ export function parseCurriculumAttemptState(
     (value.scoring !== null &&
       value.scoring !== undefined &&
       scoring === null) ||
+    (value.xp_completion !== null &&
+      value.xp_completion !== undefined &&
+      xpCompletion === null) ||
+    (value.xp !== null && value.xp !== undefined && xp === null) ||
     (value.motivation !== null &&
       value.motivation !== undefined &&
       motivation === null) ||
@@ -589,6 +609,8 @@ export function parseCurriculumAttemptState(
     currentQuestion: question,
     feedback,
     scoring,
+    xp,
+    xpCompletion,
     motivation,
     achievementUnlocks,
   };
@@ -619,7 +641,7 @@ export function parseCurriculumAttemptApiState(
         feedback: value.feedback.feedback,
       }
     : value.feedback;
-  return parseCurriculumAttemptState({
+  const state = parseCurriculumAttemptState({
     runtime_mode: value.runtimeMode,
     attempt_id: value.attemptId,
     release_id: value.releaseId,
@@ -665,7 +687,19 @@ export function parseCurriculumAttemptApiState(
             : value.scoring.masteryChanges,
         }
       : value.scoring,
+    xp_completion: value.xpCompletion,
+    xp: isRecord(value.xp)
+      ? {
+          answer_xp_awarded: value.xp.answerXpAwarded,
+          attempt_xp_earned: value.xp.attemptXpEarned,
+          total_xp_after: value.xp.totalXpAfter,
+          policy_version: value.xp.policyVersion,
+          eligible: value.xp.eligible,
+          zero_xp_reason: value.xp.zeroXpReason,
+        }
+      : value.xp,
   });
+  return state?.status === "COMPLETED" && !state.xpCompletion ? null : state;
 }
 
 export function parseStartCurriculumRequest(value: unknown) {

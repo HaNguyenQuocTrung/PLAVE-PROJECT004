@@ -53,12 +53,16 @@ test("ordinary curriculum resume actions use the canonical idempotent start cont
   const startButton = read("components/UniversalCurriculumStartButton.tsx");
   const startRoute = read("app/api/curriculum-runtime/start/route.ts");
 
-  assert.match(recommendation, /CONTINUE_IN_PROGRESS/u);
+  assert.match(recommendation, /recommendedUnit[.]status === "IN_PROGRESS"/u);
+  assert.match(recommendation, /recommendedUnit[.]source === "LEGACY_GRADE1"/u);
+  assert.match(recommendation, /getPracticeReviewPath/u);
+  assert.match(recommendation, /getLessonPath\(recommendation[.]candidateId\)/u);
   assert.match(recommendation, /label="Tiếp tục học"/u);
   assert.match(catalog, /item[?][.]status === "IN_PROGRESS"[\s\S]*UniversalCurriculumStartButton/u);
   assert.match(dashboard, /currentUnit[\s\S]*label="Tiếp tục bài này"/u);
   assert.match(startButton, /idempotencyKey/u);
   assert.match(startButton, /api\/curriculum-runtime\/start/u);
+  assert.match(startButton, /router[.]refresh\(\)/u);
   assert.match(startRoute, /start_or_resume_curriculum_unit/u);
   assert.doesNotMatch(startRoute, /insert\s+into/iu);
 });
@@ -85,6 +89,13 @@ test("successful learning writes invalidate every canonical read projection", ()
     assert.match(source, /revalidateStudentLearningProjections\(\)/u);
     assert.match(source, /if \(!result\)|if \(!state|generated[.]ok/u);
   }
+  const runner = read(
+    "app/curriculum-practice/[attemptId]/UniversalCurriculumRunner.tsx",
+  );
+  assert.match(
+    runner,
+    /parsed[.]status === "COMPLETED"[\s\S]*router[.]refresh\(\)/u,
+  );
 });
 
 test("Results and History preserve base evidence when optional enrichment is absent", () => {

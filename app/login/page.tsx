@@ -55,6 +55,12 @@ export default function LoginPage() {
         setNotice(
           "Phiên đặt lại mật khẩu không hợp lệ hoặc đã hết hạn. Hãy yêu cầu một email mới.",
         );
+      } else if (search.get("error") === "session-invalid") {
+        setNotice("Phiên đăng nhập cũ không còn hợp lệ. Vui lòng đăng nhập lại.");
+      } else if (search.get("error") === "auth-unavailable") {
+        setNotice(
+          "Tạm thời chưa thể xác minh đăng nhập. Vui lòng thử lại sau; phiên hiện có chưa bị xóa.",
+        );
       }
 
       const remembered = window.localStorage.getItem(rememberedEmailKey);

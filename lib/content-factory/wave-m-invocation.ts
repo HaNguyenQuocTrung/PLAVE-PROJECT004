@@ -1,14 +1,10 @@
-import { readFileSync, readdirSync, statSync } from "node:fs";
-import { join, resolve } from "node:path";
+import { readFileSync, statSync } from "node:fs";
+import { resolve } from "node:path";
 import { auditWaveLInvocationBoundary } from "./wave-l-invocation.ts";
-
-function waveMFiles(root: string) {
-  return ["lib/content-factory", "scripts", "tests"].flatMap((folder) => readdirSync(resolve(root, folder), { withFileTypes: true })
-    .filter((entry) => entry.isFile() && entry.name.includes("wave-m")).map((entry) => join(root, folder, entry.name))).sort();
-}
+import { waveMInputFiles } from "./wave-m-input-scope.ts";
 
 export function auditWaveMInvocationBoundary(root = process.cwd()) {
-  const inherited = auditWaveLInvocationBoundary(root); const files = waveMFiles(root);
+  const inherited = auditWaveLInvocationBoundary(root); const files = waveMInputFiles(root);
   const bareRunner = new RegExp(`\\b${"n"}${"px"}\\b`, "u");
   const registryCapable = new RegExp(`\\b(?:${["c", "url"].join("")}|${["w", "get"].join("")}|npm\\s+(?:install|update|audit|view|search)|pnpm\\s+(?:add|install)|yarn\\s+add)\\b`, "iu");
   const diagnostics = files.filter((file) => !file.endsWith("wave-m-invocation.ts")).flatMap((file) => {

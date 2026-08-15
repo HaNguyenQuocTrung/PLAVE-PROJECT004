@@ -13,6 +13,7 @@ import {
 } from "@/lib/practice/errors";
 import { getStudentLearningContext } from "@/lib/practice/server";
 import { revalidateStudentLearningProjections } from "@/lib/curriculum-runtime/revalidation";
+import { buildAnswerXpCompletionProjection } from "@/lib/scoring/completion";
 
 type AnswerInput = {
   attemptId: string;
@@ -98,12 +99,24 @@ export async function POST(request: Request) {
       status: 502,
     });
   }
+  if (!result.xp) {
+    return NextResponse.json(practiceApiError("REQUEST_FAILED"), {
+      status: 502,
+    });
+  }
+
+  const projectedResult = result.completed
+    ? {
+        ...result,
+        xpCompletion: buildAnswerXpCompletionProjection(result.xp),
+      }
+    : result;
 
   revalidateStudentLearningProjections();
 
   const response: PracticeApiSuccess<SubmitPracticeResult> = {
     ok: true,
-    data: result,
+    data: projectedResult,
   };
   return NextResponse.json(response);
 }

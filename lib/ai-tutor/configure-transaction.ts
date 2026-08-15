@@ -17,6 +17,20 @@ import { dirname, resolve } from "node:path";
 export const AI_TUTOR_CONFIG_LOCK_NAME = ".ai-tutor-config.lock";
 export const AI_TUTOR_CONFIG_LOCK_VERSION = 1;
 
+export function assertPrivateCredentialFile(path: string) {
+  const stat = lstatSync(path);
+  const processUid =
+    typeof process.getuid === "function" ? process.getuid() : null;
+  if (
+    !stat.isFile() ||
+    stat.isSymbolicLink() ||
+    (stat.mode & 0o777) !== 0o600 ||
+    (processUid !== null && stat.uid !== processUid)
+  ) {
+    throw new Error("AI_TUTOR_CONFIG_FILE_PERMISSION_INVALID");
+  }
+}
+
 type LockOwner = Readonly<{
   version: 1;
   pid: number;

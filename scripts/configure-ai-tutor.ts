@@ -9,6 +9,7 @@ import {
   AI_TUTOR_CONFIG_LOCK_NAME,
   AiTutorConfigurationLockError,
   acquireConfigurationLock,
+  assertPrivateCredentialFile,
   mergeEnvironmentValues,
   writeEnvironmentAtomically,
   type ConfigurationLock,
@@ -25,6 +26,18 @@ const root =
   process.env.NODE_ENV === "test" && requestedTestRoot
     ? resolve(requestedTestRoot)
     : canonicalRoot;
+const useTestStdio =
+  process.env.NODE_ENV === "test" &&
+  Boolean(requestedTestRoot) &&
+  process.env.PLAVE_AI_TUTOR_CONFIG_TEST_STDIO === "1";
+const testInterruptStep =
+  process.env.NODE_ENV === "test" && useTestStdio
+    ? process.env.PLAVE_AI_TUTOR_CONFIG_TEST_INTERRUPT_STEP
+    : undefined;
+const testAnswers =
+  process.env.NODE_ENV === "test" && useTestStdio && process.env.PLAVE_AI_TUTOR_CONFIG_TEST_ANSWERS
+    ? JSON.parse(process.env.PLAVE_AI_TUTOR_CONFIG_TEST_ANSWERS) as string[]
+    : undefined;
 if (
   root !== canonicalRoot &&
   !(root === temporaryRoot || root.startsWith(`${temporaryRoot}${sep}`))
@@ -58,20 +71,33 @@ class MaskedTtyOutput extends Writable {
   }
 }
 
-async function openPromptSession() {
-  if (!existsSync(ttyPath)) throw new Error("AI_TUTOR_TTY_REQUIRED");
-  const input = new TtyReadStream(openSync(ttyPath, "r"));
-  const destination = new TtyWriteStream(openSync(ttyPath, "w"));
+async function openPromptSession(testStdio = false) {
+  if (!testStdio && !existsSync(ttyPath)) throw new Error("AI_TUTOR_TTY_REQUIRED");
+  const input = testStdio
+    ? process.stdin
+    : new TtyReadStream(openSync(ttyPath, "r"));
+  const destination = testStdio
+    ? process.stdout
+    : new TtyWriteStream(openSync(ttyPath, "w"));
   const output = new MaskedTtyOutput(destination);
   const reader = createInterface({ input, output, terminal: true });
   const interrupt = new AbortController();
   reader.on("SIGINT", () => interrupt.abort());
 
+  let promptStep = 0;
   const ask = async (prompt: string, masked: boolean) => {
+    promptStep += 1;
     destination.write(prompt);
     output.muted = masked;
     try {
-      const value = await reader.question("", { signal: interrupt.signal });
+      if (testInterruptStep === String(promptStep)) {
+        const error = new Error("The operation was aborted");
+        error.name = "AbortError";
+        throw error;
+      }
+      const value = testAnswers
+        ? (testAnswers.shift() ?? "")
+        : await reader.question("", { signal: interrupt.signal });
       if (value.length > 1_024) throw new Error("AI_TUTOR_CONFIG_VALUE_TOO_LONG");
       return value.trim();
     } finally {
@@ -85,8 +111,10 @@ async function openPromptSession() {
     closed = true;
     reader.close();
     output.end();
-    destination.end();
-    input.destroy();
+    if (!testStdio) {
+      destination.end();
+      input.destroy();
+    }
   };
   return { ask, close };
 }
@@ -109,13 +137,14 @@ let promptSession: Awaited<ReturnType<typeof openPromptSession>> | null = null;
 
 try {
   lock = acquireConfigurationLock({ lockPath });
+  if (existsSync(target)) assertPrivateCredentialFile(target);
   const current = existsSync(target) ? readFileSync(target, "utf8") : "";
   const existingProvider = existingValue(current, "PLAVE_AI_PROVIDER")?.toUpperCase();
   const defaultProvider = PROVIDERS.has(existingProvider as ConfigurableProvider)
     ? (existingProvider as ConfigurableProvider)
     : "GOOGLE";
 
-  promptSession = await openPromptSession();
+  promptSession = await openPromptSession(useTestStdio);
   const enteredProvider = (
     await promptSession.ask(
       `Provider [${defaultProvider}] (OPENAI/GOOGLE/DEEPSEEK): `,

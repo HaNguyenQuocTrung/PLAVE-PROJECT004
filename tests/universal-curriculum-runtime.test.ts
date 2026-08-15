@@ -138,7 +138,7 @@ test("student labels are explanatory and never expose an unsupported numeric lev
     IN_PROGRESS: "Đang học",
     NEEDS_PRACTICE: "Cần luyện thêm",
     DEVELOPING: "Đang phát triển",
-    PROFICIENT: "Đã vững",
-    MASTERED: "Thành thạo",
+    PROFICIENT: "Đạt yêu cầu",
+    MASTERED: "Đạt mức thành thạo theo tiêu chí hiện tại",
   });
 });

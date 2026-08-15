@@ -233,6 +233,14 @@ const correctAnswerRpcPayload = {
   answered_count: 1,
   correct_count: 1,
   completed: false,
+  xp: {
+    answer_xp_awarded: 10,
+    attempt_xp_earned: 10,
+    total_xp_after: 10,
+    policy_version: "PLAVE_SCORING_POLICY_V1",
+    eligible: true,
+    zero_xp_reason: null,
+  },
 };
 
 const canonicalCorrectAnswer = {
@@ -244,12 +252,28 @@ const canonicalCorrectAnswer = {
   answeredCount: 1,
   correctCount: 1,
   completed: false,
+  xp: {
+    answerXpAwarded: 10,
+    attemptXpEarned: 10,
+    totalXpAfter: 10,
+    policyVersion: "PLAVE_SCORING_POLICY_V1" as const,
+    eligible: true,
+    zeroXpReason: null,
+  },
 };
 
 const canonicalIncorrectAnswer = {
   ...canonicalCorrectAnswer,
   isCorrect: false,
   correctCount: 0,
+  xp: {
+    answerXpAwarded: 0,
+    attemptXpEarned: 0,
+    totalXpAfter: 0,
+    policyVersion: "PLAVE_SCORING_POLICY_V1" as const,
+    eligible: true,
+    zeroXpReason: "INCORRECT_ANSWER" as const,
+  },
 };
 
 const canonicalReviewAnswer = {
@@ -572,18 +596,13 @@ test("18. Canonical answer-state contract rejects malformed wrappers", () => {
   );
 });
 
-test("Review 1. Filesystem and build manifest both recognize the dynamic review route", () => {
+test("Review 1. Clean-checkout filesystem recognizes the dynamic review route before build", () => {
   const routeFile = join(
     process.cwd(),
     "app/review/[attemptId]/page.tsx",
   );
-  const manifestFile = join(process.cwd(), ".next/routes-manifest.json");
   assert.equal(existsSync(routeFile), true);
-  assert.equal(existsSync(manifestFile), true);
-  assert.match(
-    readFileSync(manifestFile, "utf8"),
-    /"page":\s*"\/review\/\[attemptId\]"/,
-  );
+  assert.match(readFileSync(routeFile, "utf8"), /resolveReviewAttemptId/u);
 });
 
 test("Review 2. Next.js 16 promise params resolve the attempt segment", async () => {
@@ -9486,6 +9505,7 @@ test("Sprint 5G 11. A graded response appears immediately without client scoring
       answeredCount: 6,
       correctCount: 5,
       completed: false,
+      xp: canonicalCorrectAnswer.xp,
     },
   });
   assert.ok(result);
@@ -10010,6 +10030,7 @@ test("Sprint 5H 11. A graded response appears immediately without client scoring
       answeredCount: 11,
       correctCount: 8,
       completed: false,
+      xp: canonicalIncorrectAnswer.xp,
     },
   });
   assert.ok(result);
@@ -13010,7 +13031,8 @@ test("Sprint 5N 3. A latest unit score below 70 percent becomes a deterministic 
   assert.ok(path.recommendation);
   assert.equal(path.recommendation.reasonCode, "LOW_RECENT_SCORE");
   assert.equal(path.recommendation.unitSlug, BASE_UNIT_SLUG);
-  assert.equal(path.recommendation.actionLabel, "Ôn lại");
+  assert.equal(path.recommendation.actionLabel, "Xem kết quả");
+  assert.match(path.recommendation.actionHref, /^\/review\//u);
   assert.equal(path.summary.needsReviewUnitCount, 1);
 });
 
@@ -13673,7 +13695,7 @@ test("Sprint 6B 3. Unknown safe skill codes receive a Vietnamese fallback instea
   assert.equal(getSkillLabel(futureSkill), "Kỹ năng đang được cập nhật");
   assert.equal(
     getParentSkillLabel(futureSkill),
-    "Kỹ năng đang được cập nhật",
+    "Chưa có tên kỹ năng tiếng Việt",
   );
 
   const parentPayload = {

@@ -22,6 +22,7 @@ import {
   getLessonPath,
   isUnitPracticeUnlocked,
 } from "../practice/catalog.ts";
+import { getPracticeReviewPath } from "../practice/review.ts";
 import type {
   LearningUnit,
   PracticeAttempt,
@@ -53,7 +54,7 @@ export type PersonalizedRecommendation = {
   actionLabel:
     | "Tiếp tục"
     | "Học lý thuyết"
-    | "Ôn lại"
+    | "Xem kết quả"
     | "Tiếp tục đánh giá"
     | "Làm đánh giá lại";
 };
@@ -232,11 +233,13 @@ function buildUnitRecommendation(
     reason,
     actionHref: isContinue && item.activeAttempt
       ? `/practice/${item.activeAttempt.id}`
-      : getLessonPath(item.unit.slug),
+      : isReview && item.latestCompletedAttempt
+        ? getPracticeReviewPath(item.latestCompletedAttempt.id)
+        : getLessonPath(item.unit.slug),
     actionLabel: isContinue
       ? "Tiếp tục"
       : isReview
-        ? "Ôn lại"
+        ? "Xem kết quả"
         : "Học lý thuyết",
   };
 }

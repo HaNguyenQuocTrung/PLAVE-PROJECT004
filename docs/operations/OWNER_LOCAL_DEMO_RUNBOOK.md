@@ -1,5 +1,10 @@
 # PLAVE Owner local demo — Grades 1–9
 
+> **HISTORICAL / SUPERSEDED:** The failed browser checkpoint below remains
+> accurate for its date. Current passing real-browser evidence and runbook are
+> `docs/final/PLAVE_GRADES_1_9_LOCAL_ACCEPTANCE.md` and
+> `docs/releases/GRADES_1_9_REAL_LOCAL_BROWSER_ACCEPTANCE.md`.
+
 Status: **NOT_READY_FOR_OWNER_BROWSER_DEMO**.
 
 Owner browser acceptance failed on 2026-07-31 while starting Grade 8
@@ -45,7 +50,7 @@ not alter or deploy that remote schema.
 
 Prerequisites:
 
-1. Work from `/Users/hatrung/Desktop/PLAVE-PROJECT004`.
+1. Work from the repository root.
 2. Keep Docker running. Do not start a separate PROJECT004 Supabase stack.
 3. Ensure port 3100 and the configured local Supabase ports are free.
 
@@ -61,8 +66,9 @@ Run:
 npm run owner-local-demo:start
 ```
 
-START creates the isolated PROJECT004 Supabase stack, applies migrations
-0001–0044, performs one guarded local activation, validates the database
+START creates the isolated PROJECT004 Supabase stack, derives and validates the
+continuous tracked canonical migration inventory (currently 0001–0045), applies
+it without a separate seed file, performs one guarded local activation, validates the database
 state, starts Next.js on port 3100 and records a mode-0600 managed-state file.
 From Terminal 2,
 run the one standalone acceptance command while START remains active:

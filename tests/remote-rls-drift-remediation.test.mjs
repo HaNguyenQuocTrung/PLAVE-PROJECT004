@@ -126,8 +126,11 @@ test("all repository-created public tables explicitly enable RLS", () => {
       "curriculum_attempts",
       "curriculum_generated_answers",
       "curriculum_generated_questions",
+      "curriculum_grade_release_policies",
       "curriculum_legacy_grade1_outcome_mappings",
+      "curriculum_release_pilot_entitlements",
       "curriculum_release_questions",
+      "curriculum_release_skills",
       "curriculum_release_units",
       "curriculum_releases",
       "diagnostic_answers",
@@ -183,6 +186,7 @@ test("all repository-created public tables explicitly enable RLS", () => {
     "curriculum_answers",
     "curriculum_generated_answers",
     "curriculum_generated_questions",
+    "curriculum_grade_release_policies",
     "student_curriculum_unit_progress",
     "student_curriculum_outcome_progress",
     "student_curriculum_skill_progress",
@@ -190,6 +194,8 @@ test("all repository-created public tables explicitly enable RLS", () => {
     "student_assignment_skill_progress",
     "teacher_curriculum_assignment_drafts",
     "teacher_curriculum_assignment_draft_items",
+    "curriculum_release_pilot_entitlements",
+    "curriculum_release_skills",
   ]) {
     assert.match(
       allSql,
@@ -200,6 +206,34 @@ test("all repository-created public tables explicitly enable RLS", () => {
       ),
     );
   }
+});
+
+test("0045 release control tables keep an exact deny-all direct-table security contract", () => {
+  const migration0045 = fs.readFileSync(
+    path.join(
+      repositoryRoot,
+      "supabase/migrations/0045_grades_2_9_local_public_release.sql",
+    ),
+    "utf8",
+  );
+  const tables = [
+    "curriculum_grade_release_policies",
+    "curriculum_release_pilot_entitlements",
+    "curriculum_release_skills",
+  ];
+  for (const table of tables) {
+    assert.match(migration0045, new RegExp(`create table public[.]${table} \\(`, "u"));
+    assert.match(migration0045, new RegExp(`alter table public[.]${table} enable row level security;`, "u"));
+    assert.match(migration0045, new RegExp(`alter table public[.]${table} force row level security;`, "u"));
+    assert.match(migration0045, new RegExp(`revoke all on public[.]${table} from public, anon, authenticated;`, "u"));
+    assert.doesNotMatch(migration0045, new RegExp(`create policy[\\s\\S]*? on public[.]${table}`, "iu"));
+    assert.doesNotMatch(migration0045, new RegExp(`grant [^;]+ on (?:table )?public[.]${table}`, "iu"));
+    assert.doesNotMatch(migration0045, new RegExp(`alter table public[.]${table} owner to`, "iu"));
+  }
+  assert.match(migration0045, /curriculum_grade_release_state_check check/u);
+  assert.match(migration0045, /primary key \(release_id, skill_id\)/u);
+  assert.match(migration0045, /primary key \(student_id, grade\)/u);
+  assert.match(migration0045, /foreign key \(grade\) references public[.]curriculum_grade_release_policies\(grade\) on delete restrict/u);
 });
 
 test("0035, 0036, and runtime do not depend on helper or event trigger", () => {

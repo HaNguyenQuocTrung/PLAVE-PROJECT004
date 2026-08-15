@@ -369,7 +369,7 @@ export default function RegisterPage() {
             }}
             autoComplete="email"
             inputMode="email"
-            placeholder="Enter your email address"
+            placeholder="Nhập địa chỉ email của bạn"
             required
             error={errors.email}
             inputRef={emailRef}

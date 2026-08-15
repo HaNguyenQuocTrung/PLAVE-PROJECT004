@@ -205,6 +205,7 @@ export function parseAdaptiveApiResponse(
         "remediationSkillIds",
         "completedAt",
         "feedback",
+        ...(value.data.xp === undefined ? [] : ["xp"]),
       ]) ||
       !isExactClientQuestion(value.data.currentQuestion) ||
       !isExactClientFeedback(value.data.feedback)
@@ -226,6 +227,18 @@ export function parseAdaptiveApiResponse(
         remediation_skill_ids: data.remediationSkillIds,
         completed_at: data.completedAt,
         feedback: toDatabaseFeedback(data.feedback),
+        ...(isRecord(data.xp)
+          ? {
+              xp: {
+                answer_xp_awarded: data.xp.answerXpAwarded,
+                attempt_xp_earned: data.xp.attemptXpEarned,
+                total_xp_after: data.xp.totalXpAfter,
+                policy_version: data.xp.policyVersion,
+                eligible: data.xp.eligible,
+                zero_xp_reason: data.xp.zeroXpReason,
+              },
+            }
+          : {}),
       },
       allowPostSubmitFeedback,
     );

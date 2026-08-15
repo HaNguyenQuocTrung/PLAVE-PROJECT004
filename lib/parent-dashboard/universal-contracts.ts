@@ -472,5 +472,5 @@ export const parentMasteryLabels: Record<
   NEEDS_PRACTICE: "Cần luyện thêm",
   DEVELOPING: "Đang phát triển",
   PROFICIENT: "Đạt yêu cầu",
-  MASTERED: "Thành thạo theo giả thuyết sản phẩm",
+  MASTERED: "Đạt mức thành thạo theo tiêu chí hiện tại",
 };

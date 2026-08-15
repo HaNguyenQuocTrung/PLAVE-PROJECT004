@@ -19,7 +19,10 @@ import test from "node:test";
 
 import {
   buildAiTutorLocalChildEnvironment,
+  buildAiTutorProductionLauncherEnvironments,
   loadAiTutorLocalConfiguration,
+  parseAiTutorLocalPortArguments,
+  resolveAiTutorServerRuntimeConfiguration,
   parseAiTutorLocalEnvironment,
   startAiTutorLocalRuntime,
   AiTutorLocalRuntimeFailure,
@@ -32,6 +35,8 @@ import {
   serializeProject004RemoteRuntimeConfig,
   writeProject004RemoteRuntimeConfigFile,
 } from "../scripts/project004-remote-runtime-connection.ts";
+import { preflightAiTutorLocal } from "../scripts/preflight-ai-tutor-local.ts";
+import { getHeaderNavigation } from "../lib/auth/navigation.ts";
 
 const workspaceRoot = resolve(import.meta.dirname, "..");
 const sampleRef = "abcdefghijklmnopqrst";
@@ -59,6 +64,7 @@ function createFakeCanonicalWorkspace(input?: {
   mkdirSync(join(root, "node_modules/next/dist/bin"), {
     recursive: true,
   });
+  mkdirSync(join(root, "scripts"), { recursive: true });
   writeFileSync(
     join(root, "package.json"),
     '{"name":"plave-project004"}\n',
@@ -72,6 +78,7 @@ function createFakeCanonicalWorkspace(input?: {
     'const cache = ".next-owner-local-project004";\n',
   );
   writeFileSync(join(root, "node_modules/next/dist/bin/next"), "");
+  writeFileSync(join(root, "scripts/start-production-local.ts"), "");
   if (input?.remote !== false) {
     writeProject004RemoteRuntimeConfigFile(sampleRemoteConfig(), root);
   }
@@ -161,6 +168,86 @@ test("Tutor environment merge reads only the four local keys and preserves valid
   }
 });
 
+test("local preflight validates protected configuration without spawning or calling a provider", async () => {
+  const { temporaryRoot, root } = createFakeCanonicalWorkspace();
+  let probed = false;
+  try {
+    const result = await preflightAiTutorLocal(root, {
+      inspectPort: () => [],
+      probePort: async (host, port) => {
+        probed = true;
+        assert.equal(host, "127.0.0.1");
+        assert.equal(port, 3000);
+      },
+    });
+    assert.deepEqual(result, {
+      provider: "GOOGLE",
+      model: "gemini-3.6-flash",
+      port: 3000,
+      buildBinding: "REBUILD_ON_START",
+    });
+    assert.equal(probed, true);
+  } finally {
+    rmSync(temporaryRoot, { recursive: true, force: true });
+  }
+});
+
+test("explicit AI Tutor port accepts loopback-safe numeric overrides only", () => {
+  assert.equal(parseAiTutorLocalPortArguments([]), 3000);
+  assert.equal(parseAiTutorLocalPortArguments(["--port", "3001"]), 3001);
+  expectLocalFailure(
+    () => parseAiTutorLocalPortArguments(["--hostname", "0.0.0.0"]),
+    "AI_TUTOR_LOCAL_ARGUMENTS_INVALID",
+  );
+  expectLocalFailure(
+    () => parseAiTutorLocalPortArguments(["--port", "not-a-port"]),
+    "AI_TUTOR_LOCAL_PORT_INVALID",
+  );
+});
+
+test("Student navigation follows server-side AI availability policy", () => {
+  assert.equal(
+    getHeaderNavigation(true, "STUDENT", true, true).some(
+      (item) => item.href === "/tutor",
+    ),
+    true,
+  );
+  assert.equal(
+    getHeaderNavigation(true, "STUDENT", true, false).some(
+      (item) => item.href === "/tutor",
+    ),
+    false,
+  );
+});
+
+test("server runtime accepts only a complete validated Google environment or protected local file", () => {
+  const { temporaryRoot, root } = createFakeCanonicalWorkspace();
+  try {
+    const explicit = resolveAiTutorServerRuntimeConfiguration(root, {
+      PLAVE_AI_TUTOR_ENABLED: "true",
+      PLAVE_AI_PROVIDER: "GOOGLE",
+      GOOGLE_API_KEY: syntheticGoogleKey,
+      GOOGLE_AI_MODEL: "gemini-3.6-flash",
+    });
+    assert.equal(explicit.provider, "GOOGLE");
+    assert.equal(explicit.model, "gemini-3.6-flash");
+    expectLocalFailure(
+      () =>
+        resolveAiTutorServerRuntimeConfiguration(root, {
+          PLAVE_AI_TUTOR_ENABLED: "true",
+          PLAVE_AI_PROVIDER: "GOOGLE",
+        }),
+      "AI_TUTOR_SERVER_ENV_PARTIAL",
+    );
+    assert.equal(
+      resolveAiTutorServerRuntimeConfiguration(root, {}).provider,
+      "GOOGLE",
+    );
+  } finally {
+    rmSync(temporaryRoot, { recursive: true, force: true });
+  }
+});
+
 test("remote runtime remains Tutor OFF while only the local child runtime becomes ON", () => {
   const remoteOnly = buildProject004RemoteRuntimeChildEnvironment(
     sampleRemoteConfig(),
@@ -179,8 +266,8 @@ test("remote runtime remains Tutor OFF while only the local child runtime become
 
 test("Google key is server-only: absent from public env, argv, diagnostics, and repository client sources", async () => {
   const { temporaryRoot, root } = createFakeCanonicalWorkspace();
-  let capturedArgs: readonly string[] = [];
-  let capturedOptions: SpawnOptions | undefined;
+  const capturedArgs: (readonly string[])[] = [];
+  const capturedOptions: SpawnOptions[] = [];
   let diagnostics = "";
   try {
     const fakeSpawn = ((
@@ -188,11 +275,11 @@ test("Google key is server-only: absent from public env, argv, diagnostics, and 
       args: readonly string[],
       options: SpawnOptions,
     ) => {
-      capturedArgs = args;
-      capturedOptions = options;
+      capturedArgs.push(args);
+      capturedOptions.push(options);
       const child = new EventEmitter() as ChildProcess;
       Object.defineProperty(child, "pid", {
-        value: 42421,
+        value: 42421 + capturedArgs.length,
         configurable: true,
       });
       Object.defineProperty(child, "exitCode", {
@@ -208,6 +295,7 @@ test("Google key is server-only: absent from public env, argv, diagnostics, and 
       inspectPort: () => [],
       probePort: async () => undefined,
       spawnChild: fakeSpawn,
+      verifyBuild: () => undefined,
       onPrepared: ({ model }) => {
         diagnostics = [
           "AI_TUTOR_LOCAL_PROVIDER=GOOGLE",
@@ -217,17 +305,54 @@ test("Google key is server-only: absent from public env, argv, diagnostics, and 
       },
     });
     assert.equal(exitCode, 0);
-    const childEnvironment = (capturedOptions?.env ?? {}) as NodeJS.ProcessEnv;
-    assert.equal(childEnvironment.GOOGLE_API_KEY, syntheticGoogleKey);
-    assert.equal(childEnvironment.NEXT_PUBLIC_GOOGLE_API_KEY, undefined);
-    assert.equal(childEnvironment.NEXT_PUBLIC_PLAVE_AI_TUTOR_KEY, undefined);
-    assert.doesNotMatch(capturedArgs.join(" "), new RegExp(syntheticGoogleKey, "u"));
+    assert.equal(capturedOptions.length, 2);
+    const buildEnvironment = (capturedOptions[0]?.env ?? {}) as NodeJS.ProcessEnv;
+    const runtimeEnvironment = (capturedOptions[1]?.env ?? {}) as NodeJS.ProcessEnv;
+    assert.equal(buildEnvironment.GOOGLE_API_KEY, "");
+    assert.equal(buildEnvironment.PLAVE_AI_TUTOR_ENABLED, "false");
+    assert.equal(runtimeEnvironment.GOOGLE_API_KEY, syntheticGoogleKey);
+    assert.equal(runtimeEnvironment.PLAVE_AI_TUTOR_ENABLED, "true");
+    assert.equal(runtimeEnvironment.NEXT_PUBLIC_SUPABASE_URL, undefined);
+    assert.equal(runtimeEnvironment.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY, undefined);
+    assert.equal(runtimeEnvironment.NEXT_PUBLIC_GOOGLE_API_KEY, undefined);
+    assert.equal(runtimeEnvironment.NEXT_PUBLIC_PLAVE_AI_TUTOR_KEY, undefined);
+    assert.match(capturedArgs[0]?.join(" ") ?? "", /start-production-local[.]ts --build/u);
+    assert.match(capturedArgs[1]?.join(" ") ?? "", /start-production-local[.]ts --hostname 127[.]0[.]0[.]1 --port 43221/u);
+    assert.doesNotMatch(capturedArgs.flat().join(" "), new RegExp(syntheticGoogleKey, "u"));
     assert.doesNotMatch(diagnostics, new RegExp(syntheticGoogleKey, "u"));
     const clientSources = [
       readFileSync(join(workspaceRoot, "components/AiTutorChat.tsx"), "utf8"),
       readFileSync(join(workspaceRoot, "app/tutor/page.tsx"), "utf8"),
     ].join("\n");
     assert.doesNotMatch(clientSources, /GOOGLE_API_KEY|NEXT_PUBLIC_GOOGLE/u);
+    const productionWrapper = readFileSync(
+      join(workspaceRoot, "scripts/start-production-local.ts"),
+      "utf8",
+    );
+    assert.match(productionWrapper, /GOOGLE_API_KEY: tutorConfig[?][.]apiKey/u);
+  } finally {
+    rmSync(temporaryRoot, { recursive: true, force: true });
+  }
+});
+
+test("production launcher environments never inherit unrestricted variables or expose the key during build", () => {
+  const { temporaryRoot, root } = createFakeCanonicalWorkspace();
+  try {
+    const tutor = loadAiTutorLocalConfiguration(root);
+    const environments = buildAiTutorProductionLauncherEnvironments(
+      tutor,
+      {
+        PATH: "/safe/path",
+        DATABASE_URL: "must-not-pass",
+        GOOGLE_API_KEY: "INHERITED_KEY_MUST_NOT_WIN",
+      },
+    );
+    assert.equal(environments.build.GOOGLE_API_KEY, "");
+    assert.equal(environments.runtime.GOOGLE_API_KEY, syntheticGoogleKey);
+    assert.equal(environments.build.DATABASE_URL, undefined);
+    assert.equal(environments.runtime.DATABASE_URL, undefined);
+    assert.equal(environments.build.NEXT_PUBLIC_SUPABASE_URL, undefined);
+    assert.equal(environments.runtime.NEXT_PUBLIC_SUPABASE_URL, undefined);
   } finally {
     rmSync(temporaryRoot, { recursive: true, force: true });
   }

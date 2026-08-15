@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Button } from "@/components/Button";
 import { PracticeVisual } from "@/components/PracticeVisual";
 import { ProgressBar } from "@/components/ProgressBar";
+import { XpCompletionSummary } from "@/components/XpCompletionSummary";
 import {
   PRACTICE_NUMBER_INPUT_MAX_DIGITS,
   parsePracticeApiError,
@@ -399,6 +400,12 @@ export function PracticeRunner({
               <p>
                 <strong>Gợi ý:</strong> {result.hint}
               </p>
+            ) : null}
+            {result.completed ? (
+              <XpCompletionSummary
+                projection={result.xpCompletion}
+                totalLabel="Tổng XP sau lượt này"
+              />
             ) : null}
           </div>
         ) : null}

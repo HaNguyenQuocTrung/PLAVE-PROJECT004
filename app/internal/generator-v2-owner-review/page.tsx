@@ -8,7 +8,7 @@ import { GeneratorV2OwnerReview } from "./GeneratorV2OwnerReview";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
-export const metadata = { title: "PLAVE Generator V2 · Owner usefulness review" };
+export const metadata = { title: "PLAVE Generator V2 · Đánh giá độ hữu ích" };
 
 export default async function GeneratorV2OwnerReviewPage() {
   const host = (await headers()).get("host")?.split(":")[0] ?? "";

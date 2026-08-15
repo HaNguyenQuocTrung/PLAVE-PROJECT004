@@ -93,7 +93,8 @@ test("Owner local demo commands are loopback-only and never print local keys", (
   assert.match(start, /startOwnerLocalSupabase\(\)/);
   assert.match(start, /stopOwnerLocalSupabase\(\)/);
   assert.match(stop, /OWNER_LOCAL_ACCEPTANCE_DATA=REMOVED/);
-  assert.match(support, /const ownerLocalMigrationCount = 44/);
+  assert.doesNotMatch(support, /ownerLocalMigrationCount\s*=\s*44/);
+  assert.match(support, /loadTrackedCanonicalMigrationInventory/);
   assert.match(support, /get_parent_child_score_xp_mastery\(uuid\)/);
   assert.match(support, /get_parent_child_motivation_v1\(uuid\)/);
   for (const command of Object.values(packageJson.scripts).filter((value) =>

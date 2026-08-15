@@ -4,7 +4,7 @@
 > frozen and no instruction below may be executed.
 
 Status: **READY_FOR_TRANSFER_AND_FINAL_REVIEW**
-Source: `/Users/hatrung/Desktop/PLAVE-PROJECT004`
+Source: the checked-out Project004 repository root.
 Target: `PLAVE-PROJECT003` — not accessed or modified by this run
 
 This is a selective payload manifest. It is not authorization to overwrite

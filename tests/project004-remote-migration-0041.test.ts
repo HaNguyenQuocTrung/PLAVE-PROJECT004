@@ -121,6 +121,41 @@ function awaitableMigrationFiles() {
     .sort();
 }
 
+test("canonical repository inventory is exact and contiguous through 0047 while preserving the historical 0041 contract", () => {
+  const plan = JSON.parse(
+    readFileSync(
+      join(
+        repositoryRoot,
+        "docs/operations/PROJECT004_REMOTE_DEV_MIGRATION_PLAN.json",
+      ),
+      "utf8",
+    ),
+  ) as { migrations: Array<{ file: string; version: string }> };
+  const expected = [
+    ...plan.migrations.map(({ file }) => file),
+    "0041_generated_practice_semantic_provenance.sql",
+    "0042_fix_generated_question_provenance_trigger_security.sql",
+    "0043_score_xp_mastery_foundation.sql",
+    "0044_motivation_level_streak_goals_achievements.sql",
+    "0045_grades_2_9_local_public_release.sql",
+    "0046_unified_grade_1_9_xp.sql",
+    "0047_unified_learning_activity_projection.sql",
+  ];
+  assert.equal(plan.migrations.length, 40);
+  assert.deepEqual(awaitableMigrationFiles(), expected);
+  assert.deepEqual(
+    expected.map((filename) => filename.slice(0, 4)),
+    Array.from({ length: 47 }, (_, index) => String(index + 1).padStart(4, "0")),
+  );
+  const migration0045 = readFileSync(
+    join(repositoryRoot, "supabase/migrations", "0045_grades_2_9_local_public_release.sql"),
+  );
+  assert.equal(
+    createHash("sha256").update(migration0045).digest("hex"),
+    "8ef040428b424bf84fe50c4077a891e042956e77436aca9f6f55ca1bf19a663f",
+  );
+});
+
 function environment() {
   return {
     ...process.env,
@@ -520,48 +555,35 @@ test("local 0041 checksum drift fails before any remote command", () => {
   }
 });
 
-test("prefix checksum drift or an extra local migration fails before remote access", () => {
-  for (const drift of ["PREFIX", "EXTRA"] as const) {
-    const { temporaryRoot, root } = createWorkspace();
-    try {
-      if (drift === "PREFIX") {
-        writeFileSync(
-          join(
-            root,
-            "supabase/migrations",
-            "0040_deterministic_on_demand_curriculum.sql",
-          ),
-          "\n-- prefix drift\n",
-          { flag: "a" },
-        );
-      } else {
-        writeFileSync(
-          join(
-            root,
-            "supabase/migrations",
-            "0045_unapproved_extra.sql",
-          ),
-          "begin;\ncommit;\n",
-        );
-      }
-      let calls = 0;
-      const report = executeMigration0041RemotePreflight({
-        environment: environment(),
-        candidateRoot: root,
-        runner: (...args) => {
-          calls += 1;
-          return mockRunner().runner(...args);
-        },
-      });
-      assert.equal(report.ok, false);
-      assert.equal(calls, 0);
-      assert.notEqual(report.rootFailureCode, "NONE");
-    } finally {
-      rmSync(temporaryRoot, {
-        recursive: true,
-        force: true,
-      });
-    }
+test("historical 0001-0040 prefix checksum drift fails before remote access", () => {
+  const { temporaryRoot, root } = createWorkspace();
+  try {
+    writeFileSync(
+      join(
+        root,
+        "supabase/migrations",
+        "0040_deterministic_on_demand_curriculum.sql",
+      ),
+      "\n-- prefix drift\n",
+      { flag: "a" },
+    );
+    let calls = 0;
+    const report = executeMigration0041RemotePreflight({
+      environment: environment(),
+      candidateRoot: root,
+      runner: (...args) => {
+        calls += 1;
+        return mockRunner().runner(...args);
+      },
+    });
+    assert.equal(report.ok, false);
+    assert.equal(calls, 0);
+    assert.notEqual(report.rootFailureCode, "NONE");
+  } finally {
+    rmSync(temporaryRoot, {
+      recursive: true,
+      force: true,
+    });
   }
 });
 

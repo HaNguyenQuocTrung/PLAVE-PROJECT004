@@ -632,6 +632,17 @@ main {
   gap: 2rem;
 }
 
+.auth-session-notice {
+  width: min(100% - 2rem, 86rem);
+  margin: 0 auto;
+  border-top: 1px solid rgba(203, 213, 225, 0.65);
+  color: var(--text-secondary);
+  padding: 0.45rem 0 0.55rem;
+  font-size: 0.84rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
 .brand {
   display: inline-flex;
   flex: 0 0 auto;
@@ -7932,6 +7943,7 @@ main {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   background: var(--surface);
+  color: var(--text);
 }
 
 .scoring-result span,
@@ -7941,8 +7953,23 @@ main {
 }
 
 .scoring-result strong {
+  color: var(--text);
   font-size: clamp(1.2rem, 3vw, 1.75rem);
   overflow-wrap: normal;
+}
+
+.xp-projection-unavailable {
+  margin-block: 1rem;
+  border: 1px solid var(--error);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text);
+  padding: 1rem;
+}
+
+.xp-projection-unavailable strong,
+.xp-projection-unavailable p {
+  color: var(--text);
 }
 
 .xp-award {

@@ -36,7 +36,7 @@ process group riêng; `finally` dọn cả group theo thứ tự `SIGINT`, `SIGT
 Canonical lock path:
 
 ```text
-/Users/hatrung/Desktop/PLAVE-PROJECT004/.ai-tutor-config.lock
+<repository-root>/.ai-tutor-config.lock
 ```
 
 Lock chỉ chứa metadata owner không bí mật. Khi lock đã có, implementation đọc và

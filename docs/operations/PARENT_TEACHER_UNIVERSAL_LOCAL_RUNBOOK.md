@@ -1,5 +1,9 @@
 # Parent/Teacher universal runtime — local acceptance runbook
 
+> **HISTORICAL / SUPERSEDED:** This pre-browser runbook is preserved as
+> evidence. Current Parent/Teacher browser acceptance is summarized in
+> `docs/final/PLAVE_GRADES_1_9_LOCAL_ACCEPTANCE.md`.
+
 Status: **LIVE-LOCAL DATABASE PASS — 9 Grades × 12 checks;
 NOT_READY_FOR_OWNER_BROWSER_DEMO.**
 
@@ -33,7 +37,7 @@ Static tests are not a substitute for that evidence.
 
 ## Exact local command
 
-From `/Users/hatrung/Desktop/PLAVE-PROJECT004`, run:
+From the repository root, run:
 
 ```bash
 npm run test:universal-collaboration-local

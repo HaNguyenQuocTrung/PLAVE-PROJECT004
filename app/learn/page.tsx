@@ -4,15 +4,14 @@ import { Button } from "@/components/Button";
 import { CompetencyLearningPathPanel } from "@/components/CompetencyLearningPathPanel";
 import { AdaptiveOnDemandStartButton } from "@/components/AdaptiveOnDemandStartButton";
 import { LearningAccessState } from "@/components/LearningAccessState";
-import { UniversalCurriculumCatalog } from "@/components/UniversalCurriculumCatalog";
+import { ReleasedCurriculumCatalog } from "@/components/ReleasedCurriculumCatalog";
 import {
   selectAdaptiveCurriculumRecommendation,
 } from "@/lib/curriculum/adaptive-selection";
+import type { CurriculumGrade } from "@/lib/curriculum/types";
 import { buildStudentCompetencyDashboard } from "@/lib/competency/student-adapter";
 import { getOnDemandRuntimeConfiguration } from "@/lib/curriculum/on-demand-feature-flag";
 import { getCurrentGeneratedPracticePilotEligibility } from "@/lib/curriculum/generated-practice-pilot";
-import { curriculumUnits } from "@/lib/curriculum/registry";
-import type { CurriculumGrade } from "@/lib/curriculum/types";
 import { loadStudentCurriculumProgress } from "@/lib/curriculum-runtime/server";
 import {
   getLessonPath,
@@ -24,6 +23,7 @@ import {
   parseLearningUnit,
   type LearningUnit,
 } from "@/lib/practice/contracts";
+import { buildPersonalizedLearningPath } from "@/lib/personalized-path/contracts";
 import {
   buildPracticeHistory,
   getLessonPracticeState,
@@ -37,6 +37,7 @@ import {
   resolvePracticeRuntimeAccess,
 } from "@/lib/practice/runtime-flags";
 import { getStudentLearningContext } from "@/lib/practice/server";
+import { getVietnameseOutcomeLabel } from "@/lib/learning/presentation";
 
 export const metadata = {
   title: "Lý thuyết",
@@ -64,20 +65,22 @@ export default async function LearnPage() {
     }).eligible;
 
   const progressResult = await loadStudentCurriculumProgress(access);
-  if (access.grade >= 2 && progressResult.ok) {
-    if (
-      !progressResult.ok ||
-      progressResult.progress.grade !== access.grade
-    ) {
+  if (access.grade >= 2) {
+    if (!progressResult.ok || progressResult.progress.grade !== access.grade) {
+      return <LearningAccessState kind="UNAVAILABLE" />;
+    }
+    const releasedCatalog = "catalog" in progressResult.availability
+      ? progressResult.availability.catalog
+      : null;
+    if (!releasedCatalog) {
       return <LearningAccessState kind="UNAVAILABLE" />;
     }
     const availableUnitIds = new Set(
       progressResult.progress.units.map((unit) => unit.unitId),
     );
-    const availableUnits = curriculumUnits.filter(
-      (unit) =>
-        unit.grade === access.grade && availableUnitIds.has(unit.slug),
-    );
+    const availableUnits = releasedCatalog.units
+      .map((unit) => ({ ...unit, slug: unit.unitId }))
+      .filter((unit) => availableUnitIds.has(unit.slug));
     const selectedRecommendation =
       selectAdaptiveCurriculumRecommendation({
         grade: access.grade as CurriculumGrade,
@@ -100,13 +103,11 @@ export default async function LearnPage() {
             <CompetencyLearningPathPanel model={competencyDashboard} />
           </div>
         ) : null}
-        <UniversalCurriculumCatalog
+        <ReleasedCurriculumCatalog
           grade={access.grade}
           units={availableUnits}
           progress={progressResult.progress}
           recommendation={adaptiveRecommendation}
-          onDemandRuntimeEnabled={onDemandRuntimeEnabled}
-          competencyRecommendation={competencyDashboard?.recommendation ?? null}
         />
       </>
     );
@@ -147,22 +148,6 @@ export default async function LearnPage() {
   ) {
     return <LearningAccessState kind="UNAVAILABLE" />;
   }
-  const gradeOneRecommendation =
-    gradeOneAdaptiveProgress?.ok
-      ? selectAdaptiveCurriculumRecommendation({
-          grade: 1,
-          progress: gradeOneAdaptiveProgress.progress,
-        })
-      : null;
-  const gradeOneCompetencyDashboard =
-    gradeOneAdaptiveProgress?.ok
-      ? buildStudentCompetencyDashboard({
-          progress: gradeOneAdaptiveProgress.progress,
-          now: new Date(),
-          adaptivePilotEnabled: false,
-        })
-      : null;
-
   const units: LearningUnit[] = [];
   for (const row of unitRows ?? []) {
     const unit = parseLearningUnit(row);
@@ -177,11 +162,48 @@ export default async function LearnPage() {
     }
     units.push(unit);
   }
+  const gradeOnePath = buildPersonalizedLearningPath({
+    grade: 1,
+    units,
+    attempts,
+    latestDiagnostic: null,
+    diagnosticDomains: null,
+    diagnosticEnabled: false,
+  });
+  const runtimeEligibleUnitIds = new Set(
+    gradeOnePath.units
+      .filter((item) => item.state !== "LOCKED")
+      .map((item) => item.unit.slug),
+  );
+  const selectedGradeOneRecommendation =
+    gradeOneAdaptiveProgress?.ok
+      ? selectAdaptiveCurriculumRecommendation({
+          grade: 1,
+          progress: gradeOneAdaptiveProgress.progress,
+        })
+      : null;
+  const gradeOneRecommendation =
+    selectedGradeOneRecommendation &&
+    runtimeEligibleUnitIds.has(selectedGradeOneRecommendation.unitId)
+      ? selectedGradeOneRecommendation
+      : null;
+  const gradeOneCompetencyDashboard =
+    gradeOneAdaptiveProgress?.ok
+      ? buildStudentCompetencyDashboard({
+          progress: gradeOneAdaptiveProgress.progress,
+          now: new Date(),
+          adaptivePilotEnabled: false,
+          runtimeEligibleUnitIds,
+        })
+      : null;
 
   return (
     <div className="catalog-page theory-catalog-page--v2 page-shell">
       {gradeOneCompetencyDashboard ? (
-        <CompetencyLearningPathPanel model={gradeOneCompetencyDashboard} />
+        <CompetencyLearningPathPanel
+          model={gradeOneCompetencyDashboard}
+          legacyPath={gradeOnePath}
+        />
       ) : null}
       <header className="catalog-hero">
         <p className="eyebrow">Thư viện kiến thức</p>
@@ -200,7 +222,12 @@ export default async function LearnPage() {
           <div className="personalized-recommendation__content">
             <p className="eyebrow">Gợi ý từ bằng chứng học tập</p>
             <h2 id="grade-one-adaptive-title">Luyện thêm theo tiến độ của em</h2>
-            <p>{gradeOneRecommendation.outcomeTitle}</p>
+            <p>
+              {getVietnameseOutcomeLabel({
+                outcomeId: gradeOneRecommendation.outcomeId,
+                label: gradeOneRecommendation.outcomeTitle,
+              })}
+            </p>
             <p>{gradeOneRecommendation.explanation}</p>
             <p className="parent-section-note">
               Đây là giả thuyết sản phẩm trong phạm vi Toán lớp 1, không phải

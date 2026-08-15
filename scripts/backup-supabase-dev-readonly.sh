@@ -26,8 +26,29 @@ require_executable() {
 require_executable node
 require_executable supabase
 require_executable docker
-require_executable shasum
 require_executable openssl
+
+if command -v shasum >/dev/null 2>&1; then
+  checksum_file() {
+    shasum -a 256 "$1" | awk '{print $1}'
+  }
+  checksum_manifest() {
+    shasum -a 256 "$@"
+  }
+elif command -v sha256sum >/dev/null 2>&1; then
+  checksum_file() {
+    sha256sum "$1" | awk '{print $1}'
+  }
+  checksum_manifest() {
+    sha256sum "$@"
+  }
+else
+  fail 'A SHA-256 checksum executable is required.'
+fi
+
+file_size() {
+  stat -c %s "$1" 2>/dev/null || stat -f %z "$1" 2>/dev/null
+}
 
 if [[ -z "${PLAVE_DEV_DB_URL:-}" ]]; then
   fail 'PLAVE_DEV_DB_URL must be loaded in the current shell by a hidden prompt.'
@@ -322,17 +343,17 @@ observed_restore_counts="$(<"${observed_counts_file}")" \
 rm -f -- "${observed_counts_file}" \
   || fail 'Could not clear temporary sanitized aggregate counts.'
 
-roles_sha="$(shasum -a 256 "${roles_file}" 2>/dev/null | awk '{print $1}')" \
+roles_sha="$(checksum_file "${roles_file}" 2>/dev/null)" \
   || fail 'roles.sql checksum failed.'
-schema_sha="$(shasum -a 256 "${schema_file}" 2>/dev/null | awk '{print $1}')" \
+schema_sha="$(checksum_file "${schema_file}" 2>/dev/null)" \
   || fail 'schema.sql checksum failed.'
-data_sha="$(shasum -a 256 "${data_file}" 2>/dev/null | awk '{print $1}')" \
+data_sha="$(checksum_file "${data_file}" 2>/dev/null)" \
   || fail 'data.sql checksum failed.'
-roles_size="$(stat -f %z "${roles_file}" 2>/dev/null)" \
+roles_size="$(file_size "${roles_file}")" \
   || fail 'roles.sql size check failed.'
-schema_size="$(stat -f %z "${schema_file}" 2>/dev/null)" \
+schema_size="$(file_size "${schema_file}")" \
   || fail 'schema.sql size check failed.'
-data_size="$(stat -f %z "${data_file}" 2>/dev/null)" \
+data_size="$(file_size "${data_file}")" \
   || fail 'data.sql size check failed.'
 
 PLAVE_BACKUP_ID="${backup_id}" \
@@ -471,7 +492,7 @@ chmod 600 "${manifest_file}" "${readme_file}" 2>/dev/null \
 
 (
   cd "${staging_dir}"
-  shasum -a 256 \
+  checksum_manifest \
     roles.sql \
     schema.sql \
     data.sql \

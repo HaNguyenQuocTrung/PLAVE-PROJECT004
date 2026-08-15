@@ -24,7 +24,7 @@ browser-observed evidence. Các source/component/build/security contract tương
 Chạy bên ngoài sandbox, trong đúng thư mục:
 
 ```bash
-cd /Users/hatrung/Desktop/PLAVE-PROJECT004
+cd <repository-root>
 curl -I --max-time 3 http://127.0.0.1:3000/
 ```
 
@@ -32,7 +32,7 @@ Nếu đã nhận HTTP response, dùng server hiện có và không khởi độ
 hai. Nếu chưa có response:
 
 ```bash
-cd /Users/hatrung/Desktop/PLAVE-PROJECT004
+cd <repository-root>
 npm run dev
 ```
 

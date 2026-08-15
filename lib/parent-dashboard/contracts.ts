@@ -2,6 +2,10 @@ import {
   skillCodes as practiceSkillCodes,
   isSkillCode as isPracticeSkillCode,
 } from "../practice/contracts.ts";
+import {
+  getVietnameseSkillLabel,
+} from "../learning/presentation.ts";
+import { skillLabels } from "../practice/catalog.ts";
 
 export const PARENT_SKILL_CODES = [
   "COUNT_RECOGNIZE",
@@ -14,71 +18,11 @@ export const PARENT_SUPPORTED_SKILL_CODES = practiceSkillCodes;
 
 export type ParentSkillCode = string;
 
-export const PARENT_SKILL_LABELS: Record<string, string> = {
-  COUNT_RECOGNIZE: "Đếm và nhận biết số",
-  READ_WRITE_MATCH: "Đọc, viết và ghép số",
-  SEQUENCE_COMPARE_ORDER: "Thứ tự và so sánh",
-  COMPOSE_DECOMPOSE: "Tách và gộp số",
-  ADDITION_MEANING: "Ý nghĩa của phép cộng",
-  ADDITION_CALCULATION: "Tính tổng trong phạm vi 10",
-  NUMBER_BONDS: "Các cách tạo thành một số",
-  ONE_STEP_WORD_PROBLEM: "Bài toán cộng có lời văn",
-  SUBTRACTION_MEANING: "Ý nghĩa của phép trừ",
-  SUBTRACTION_CALCULATION: "Tính hiệu trong phạm vi 10",
-  ADDITION_SUBTRACTION_RELATION: "Liên hệ cộng và trừ",
-  ONE_STEP_SUBTRACTION_WORD_PROBLEM: "Bài toán trừ có lời văn",
-  COUNT_READ_WRITE_TO_20: "Đếm, đọc và viết số đến 20",
-  SEQUENCE_TO_20: "Dãy số đến 20",
-  COMPARE_ORDER_TO_20: "So sánh và sắp xếp",
-  TENS_ONES_TO_20: "Chục và đơn vị",
-  ADD_TEN_AND_ONES: "Cộng 10 và các đơn vị",
-  ADD_TEEN_AND_ONES_NO_CARRY:
-    "Cộng số có hai chữ số với số có một chữ số",
-  ADD_USING_TENS_ONES: "Cộng theo chục và đơn vị",
-  ONE_STEP_ADDITION_TO_20: "Bài toán cộng đến 20",
-  SUBTRACTION_WITHIN_20_NO_BORROW:
-    "Trừ trong phạm vi 20 không mượn",
-  MISSING_NUMBER_SUBTRACTION: "Tìm số còn thiếu trong phép trừ",
-  SUBTRACTION_WORD_PROBLEM: "Bài toán trừ đến 20",
-  COUNT_RECOGNIZE_TO_100: "Đếm và nhận biết số đến 100",
-  READ_WRITE_TO_100: "Đọc và viết số đến 100",
-  TENS_ONES_COMPOSE: "Chục, đơn vị và cấu tạo số",
-  COMPARE_ORDER_TO_100: "So sánh, sắp xếp và số liền kề",
-  ADD_TENS_WITHIN_100: "Cộng các số tròn chục",
-  ADD_TWO_DIGIT_NO_CARRY: "Cộng số có hai chữ số không nhớ",
-  MISSING_NUMBER_ADDITION_100: "Tìm số còn thiếu trong phép cộng",
-  ADDITION_WORD_PROBLEM_100: "Bài toán cộng trong phạm vi 100",
-  SUBTRACT_TENS_WITHIN_100: "Trừ các số tròn chục",
-  SUBTRACT_TWO_DIGIT_NO_BORROW:
-    "Trừ số có hai chữ số không mượn",
-  MISSING_NUMBER_SUBTRACTION_100:
-    "Tìm số còn thiếu trong phép trừ",
-  SUBTRACTION_WORD_PROBLEM_100:
-    "Bài toán trừ trong phạm vi 100",
-  RECOGNIZE_BASIC_SHAPES: "Nhận biết các hình cơ bản",
-  COMPARE_AND_SORT_SHAPES: "So sánh và phân loại hình",
-  POSITION_RELATIONS: "Nhận biết vị trí",
-  COUNT_SHAPES_IN_PICTURE: "Đếm hình trong minh họa",
-  COMPARE_LENGTHS: "So sánh độ dài",
-  ORDER_BY_LENGTH: "Sắp xếp theo độ dài",
-  MEASURE_WITH_EQUAL_UNITS: "Đo bằng đơn vị bằng nhau",
-  READ_SIMPLE_MEASUREMENT: "Đọc phép đo đơn giản",
-  READ_WHOLE_HOURS: "Đọc giờ đúng",
-  ORDER_DAILY_EVENTS: "Sắp xếp hoạt động trong ngày",
-  DAYS_OF_WEEK: "Các ngày trong tuần",
-  READ_SIMPLE_CALENDAR: "Đọc lịch đơn giản",
-  CUBE_RECOGNITION: "Nhận biết khối lập phương",
-  CUBOID_RECOGNITION: "Nhận biết khối hộp chữ nhật",
-  REAL_OBJECT_CLASSIFICATION: "Phân loại đồ vật theo hình khối",
-  SIMPLE_BLOCK_COMPOSITION: "Ghép và đếm các khối đơn giản",
-  NUMBER_RECOGNITION_TO_1000: "Nhận biết số trong phạm vi 1000",
-  READ_WRITE_TO_1000: "Đọc và viết số trong phạm vi 1000",
-  PLACE_VALUE_TO_1000: "Hàng trăm, chục và đơn vị",
-  SEQUENCE_TO_1000: "So sánh và sắp xếp số đến 1000",
-};
+export const PARENT_SKILL_LABELS: Readonly<Record<string, string>> =
+  skillLabels;
 
 export function getParentSkillLabel(skillCode: ParentSkillCode) {
-  return PARENT_SKILL_LABELS[skillCode] ?? "Kỹ năng đang được cập nhật";
+  return getVietnameseSkillLabel({ skillId: skillCode });
 }
 
 export type ParentLearningSkill = {

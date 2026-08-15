@@ -3,11 +3,13 @@ import { notFound, redirect } from "next/navigation";
 
 import { LearningAccessState } from "@/components/LearningAccessState";
 import { LessonDetail } from "@/components/LessonDetail";
-import { UniversalCurriculumLesson } from "@/components/UniversalCurriculumLesson";
+import { ReleasedCurriculumLesson } from "@/components/ReleasedCurriculumLesson";
 import { getCurriculumUnit } from "@/lib/curriculum/registry";
 import { studentUnitTitle } from "@/lib/curriculum/student-facing";
 import { parseStudentCurriculumProgress } from "@/lib/curriculum-runtime/contracts";
 import { getUniversalCurriculumRuntimeFlag } from "@/lib/curriculum-runtime/feature-flag";
+import { loadReleasedCurriculumUnit } from "@/lib/curriculum-runtime/server";
+import { getGradesTwoToNineReleaseMode } from "@/lib/release-integration/server-config";
 import {
   getUnitSlugFromLessonRoute,
   isUnitPracticeUnlocked,
@@ -85,22 +87,20 @@ export default async function LessonPage({ params }: LessonPageProps) {
     return <LearningAccessState kind="GRADE" />;
   }
 
-  const curriculumUnit = getCurriculumUnit(unitSlug);
-  if (
-    access.grade >= 2 &&
-    getUniversalCurriculumRuntimeFlag().enabled &&
-    curriculumUnit?.grade === access.grade
-  ) {
+  if (access.grade >= 2 && getUniversalCurriculumRuntimeFlag().enabled
+    && getGradesTwoToNineReleaseMode().mode !== "HIDDEN") {
+    const released = await loadReleasedCurriculumUnit(unitSlug, access);
+    if (!released.ok) return <LearningAccessState kind="NOT_FOUND" />;
     const { data, error } = await access.supabase.rpc(
-      "get_student_curriculum_progress",
+      "get_my_released_curriculum_progress",
     );
     const progress = error ? null : parseStudentCurriculumProgress(data);
     if (!progress || progress.grade !== access.grade) {
       return <LearningAccessState kind="UNAVAILABLE" />;
     }
     return (
-      <UniversalCurriculumLesson
-        unit={curriculumUnit}
+      <ReleasedCurriculumLesson
+        unit={released.unit}
         progress={
           progress.units.find((item) => item.unitId === unitSlug) ?? null
         }

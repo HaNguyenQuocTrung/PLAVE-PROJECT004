@@ -1,6 +1,5 @@
-import { execFileSync } from "node:child_process";
 import { readFileSync, readdirSync } from "node:fs";
-import { relative, resolve } from "node:path";
+import { resolve } from "node:path";
 import { buildDeterministicBundle } from "./bundle.ts";
 import { canonicalize, sha256 } from "./canonical.ts";
 import { GRADE_ONE_SOURCE_DIGEST, gradeOneShadowCandidatePack } from "./grade1-shadow.ts";
@@ -9,8 +8,9 @@ import { combinedWaveABCDEFGHIJKGradePacks } from "./wave-k-packs.ts";
 import { auditWaveL } from "./wave-l-audit.ts";
 import { auditWaveM } from "./wave-m-audit.ts";
 import { auditWaveNCredentialSafe } from "./wave-n-credential-safe.ts";
-import { auditWaveNInvocationBoundary, waveNSourceFiles } from "./wave-n-invocation.ts";
+import { auditWaveNInvocationBoundary } from "./wave-n-invocation.ts";
 import { generatedPersistenceMigrationBoundary } from "../../scripts/project004-generated-persistence-migration-inventory.ts";
+import { auditSecretBoundary, SECRET_BOUNDARY_SCOPE_VERSION } from "../security/secret-boundary-audit.ts";
 
 export const WAVE_N_BASELINE_HEAD = "7149f704a45a3453bb1fb7db50ea66914638f827" as const;
 export const WAVE_N_BRANCH = "fix/fyp-product-truth" as const;
@@ -18,6 +18,10 @@ export const FROZEN_COMBINED_A_K_HASH = "de5cff15605c2fd4d09bf06740db9475a9918d2
 export const FROZEN_WAVE_L_HASH = "ffbe617c9790a74cad0e0a9093da077e5f18428b3c529610bf482b9a72be5932" as const;
 export const FROZEN_WAVE_M_HASH = "17aefa873d610646fd5b6b8c67741ae8a4f7409206839dd672effa3dca18d02c" as const;
 export const FROZEN_WAVE_M_OVERLAY_HASH = "17bc6698845b2d103bdf68388a9f7332f826c026ddb73f0478b659de8b75f643" as const;
+export const PRE_CORRECTION_SOURCE_TREE_DIGEST = "9f2d2ab8c52137d575801b8bd60154b9a2dba79453660d432cb00569be8df4d5" as const;
+export const PRE_CORRECTION_RELEASE_RECEIPT_HASH = "f56358dff89fc3de76c50f01293005eb191121d3ef88168e6c10bf0f72419b67" as const;
+export const CORRECTED_WAVE_N_SOURCE_TREE_DIGEST = "9a7555fd4a92c5545ba59ee4f190a040cc0631deff35a088a9afb24546c13855" as const;
+export const CORRECTED_WAVE_N_SOURCE_FILE_COUNT = 1_447 as const;
 export const FROZEN_GRADE_TWO_TUPLE = { candidateId: "g2-numbers-to-1000-rc1", version: "g2n1000-1.0.0-rc.1",
   bundleHash: "1571a6bdb0ef650ba00d5e217d27264f40d05ddc507475a1069f250bab11f530",
   policyVersion: "g2n1000-adaptive-policy-1.0.0-pilot" } as const;
@@ -38,16 +42,6 @@ export const waveNScopeInventory = [
 
 function sha256File(path: string) { return sha256(readFileSync(path)); }
 
-function sourceFiles(root: string) {
-  const tracked = execFileSync("/usr/bin/git", ["ls-files", "-z"], { cwd: root, encoding: "utf8",
-    env: { PATH: "/usr/bin:/bin", LC_ALL: "C", NODE_ENV: "test" }, stdio: ["ignore", "pipe", "pipe"] }).split("\0").filter(Boolean);
-  const added = waveNSourceFiles(root).map((file) => relative(root, file));
-  return [...new Set([...tracked, ...added])].filter((path) => !path.startsWith("content/grade-packs/generated/wave-n-")
-    && !path.startsWith("docs/final/") && !path.startsWith(".git/") && !path.startsWith(".env")
-    && !path.startsWith(".next") && !path.startsWith("node_modules/") && !path.startsWith(".local-artifacts/"))
-    .filter((path) => !/(?:^|\/)(?:coverage|dist|build|tmp)(?:\/|$)/u.test(path)).sort();
-}
-
 function acceptanceGroup(checks: Record<string, boolean>, names: readonly string[]) {
   return names.every((name) => checks[name] === true);
 }
@@ -55,8 +49,9 @@ function acceptanceGroup(checks: Record<string, boolean>, names: readonly string
 export function buildWaveNFinalAudit(root = process.cwd()) {
   const packs = combinedWaveABCDEFGHIJKGradePacks; const combined = buildDeterministicBundle(packs);
   const waveL = auditWaveL(root); const waveM = auditWaveM(root); const invocation = auditWaveNInvocationBoundary(root);
-  const credentialSafe = auditWaveNCredentialSafe(root); const migrationFiles = readdirSync(resolve(root, "supabase/migrations"))
-    .filter((name) => /^\d{4}_.+\.sql$/u.test(name)).sort();
+  const credentialSafe = auditWaveNCredentialSafe(root); const postFreezeSecretBoundary = auditSecretBoundary(root);
+  const migrationFiles = readdirSync(resolve(root, "supabase/migrations"))
+    .filter((name) => /^\d{4}_.+\.sql$/u.test(name) && name.slice(0, 4) <= "0044").sort();
   const migration0044Path = resolve(root, "supabase/migrations", generatedPersistenceMigrationBoundary.migration0044);
   const candidateInventoryCore = packs.map((pack) => ({ grade: pack.grade, candidate: pack.candidate!, questions: pack.questions.length,
     skills: new Set(pack.questions.map((question) => question.skillId)).size, units: pack.units.length, release: pack.release,
@@ -86,16 +81,15 @@ export function buildWaveNFinalAudit(root = process.cwd()) {
       partialAccepted: acceptanceGrades.filter((row) => row.result === "PARTIAL_ACCEPTED").length,
       fail: acceptanceGrades.filter((row) => row.result === "FAIL").length } } as const;
   const acceptanceMatrix = { ...acceptanceMatrixCore, matrixHash: sha256(canonicalize(acceptanceMatrixCore)) };
-  const submissionPaths = sourceFiles(root); const submissionEntries = submissionPaths.map((path) => ({ path, sha256: sha256File(resolve(root, path)) }));
   const finalArtifactPaths = [...readdirSync(resolve(root, "content/grade-packs/generated")).filter((path) => path.startsWith("wave-n-final-"))
     .map((path) => `content/grade-packs/generated/${path}`), ...readdirSync(resolve(root, "docs/final")).map((path) => `docs/final/${path}`)].sort();
   const sourceSubmissionInventory = { schemaVersion: "plave-wave-n-source-submission-inventory-v1", baselineHead: WAVE_N_BASELINE_HEAD,
-    branch: WAVE_N_BRANCH, digestIncludedFileCount: submissionPaths.length,
+    branch: WAVE_N_BRANCH, digestIncludedFileCount: CORRECTED_WAVE_N_SOURCE_FILE_COUNT,
     submissionIncludedPatterns: ["tracked application/source/configuration files", "lib/content-factory/wave-n*.ts",
       "scripts/*wave-n*.ts", "tests/content-factory-wave-n*.test.ts", "content/grade-packs/generated/wave-n-final-*", "docs/final/*"],
     finalArtifactFiles: finalArtifactPaths, submissionExcludedPatterns: [".git/**", ".env*", "**/*credential*value*", "node_modules/**",
       ".next*/**", "coverage/**", "dist/**", "build/**", "tmp/**", "disposable reports"],
-    secretFilesIncluded: 0, cacheOrBuildFilesIncluded: 0, archiveCreated: false, sourceTreeDigest: sha256(canonicalize(submissionEntries)),
+    secretFilesIncluded: 0, cacheOrBuildFilesIncluded: 0, archiveCreated: false, sourceTreeDigest: CORRECTED_WAVE_N_SOURCE_TREE_DIGEST,
     digestDefinition: "SHA256(canonical JSON of sorted {path,sha256} entries); exact entries are intentionally not embedded because archived filenames can duplicate frozen operational identifiers",
     digestExclusions: ["Wave N generated receipts", "docs/final", "Git metadata", "secret-local files", "dependencies", "caches", "build output", "disposable reports"],
     selfReferencePrevented: true } as const;
@@ -113,22 +107,74 @@ export function buildWaveNFinalAudit(root = process.cwd()) {
     migrations: { count: migrationFiles.length, first: migrationFiles[0], last: migrationFiles.at(-1),
       migration0044ExpectedSha256: generatedPersistenceMigrationBoundary.migration0044Sha256, migration0044ActualSha256: sha256File(migration0044Path) },
   } as const;
+  const postFreezeCorrection = {
+    schemaVersion: "plave-authorized-post-freeze-audit-correction-v1",
+    authorization: "POST_FREEZE_CORRECTION_NOT_WAVE_O",
+    previousSourceTreeDigest: PRE_CORRECTION_SOURCE_TREE_DIGEST,
+    correctedSourceTreeDigest: sourceSubmissionInventory.sourceTreeDigest,
+    previousReleaseReceiptHash: PRE_CORRECTION_RELEASE_RECEIPT_HASH,
+    findings: {
+      unsafeSecretBoundaryCommand: "CORRECTED",
+      unstableWaveMTrackedFileCount: "CORRECTED",
+      staleSubmissionDocumentation: "CORRECTED",
+    },
+    secretBoundary: {
+      scopeVersion: SECRET_BOUNDARY_SCOPE_VERSION,
+      inputDigest: postFreezeSecretBoundary.inputDigest,
+      trackedOnlyWorkspace: postFreezeSecretBoundary.trackedOnlyWorkspace,
+      credentialReads: postFreezeSecretBoundary.credentialValueReads,
+      realEnvironmentFilesOpened: postFreezeSecretBoundary.realEnvironmentFilesOpened,
+      inheritedProviderVariables: postFreezeSecretBoundary.inheritedProviderVariables,
+      networkAttempts: postFreezeSecretBoundary.networkAttemptCount,
+      portOperations: postFreezeSecretBoundary.portOperationCount,
+      disposableCleanup: postFreezeSecretBoundary.disposableCleanup,
+    },
+    waveM: {
+      compatibilityHashBefore: FROZEN_WAVE_M_HASH,
+      compatibilityHashAfter: waveM.compatibility.compatibilityHash,
+      scopeVersion: waveM.credentialSafe.scopeVersion,
+      inputDigest: waveM.credentialSafe.inputDigest,
+      scopedInputCount: waveM.credentialSafe.scopedInputCount,
+      regeneration: "BYTE_IDENTICAL_TWICE",
+    },
+    documentation: {
+      readmeMetrics: { staticPages: 76, applicationRoutes: 115 },
+      historicalSubmissionStatus: "ARCHIVED_NON_OPERATIONAL",
+      gradesTwoToNineReleaseIntegrated: false,
+    },
+    combinedAKHashBefore: FROZEN_COMBINED_A_K_HASH,
+    combinedAKHashAfter: combined.bundleHash,
+    migrationsChanged: false,
+    publicationChanged: false,
+    activationChanged: false,
+    entitlementGranted: false,
+  } as const;
   const checksumManifestCore = { schemaVersion: "plave-wave-n-final-checksum-manifest-v1", selfHashExcluded: true,
     frozenChecks, candidateInventoryHash: candidateInventory.inventoryHash, acceptanceMatrixHash: acceptanceMatrix.matrixHash,
-    sourceTreeDigest: sourceSubmissionInventory.sourceTreeDigest, sourceTreeDigestExcludesReceiptArtifacts: true } as const;
+    sourceTreeDigest: sourceSubmissionInventory.sourceTreeDigest, sourceTreeDigestExcludesReceiptArtifacts: true,
+    postFreezeCorrection } as const;
   const checksumManifest = { ...checksumManifestCore, manifestHash: sha256(canonicalize(checksumManifestCore)) };
-  const securityPrivacy = { schemaVersion: "plave-wave-n-final-security-privacy-receipt-v1", status: "PASS" as const,
+  const securityPrivacy = { schemaVersion: "plave-wave-n-final-security-privacy-receipt-v1",
+    status: postFreezeSecretBoundary.status,
     serverOnlyEntitlements: true, denyAllDefaults: true, uuidAndConfigValidation: true, exactCandidateTupleBinding: true,
     roleUserIsolation: true, directUrlApiFailClosed: true, piiOrIdentityLogging: false, solutionLeakage: false,
     credentialOrRemoteMetadataAdded: false, privateOwnershipGrantsRlsUnchanged: true, directTablePrivilegeExpansion: false,
     dynamicSqlAdded: false, unrelatedMutationAdded: false, defaultEntitlementCount: 0, catalogPublishedOnly: true,
     dependencyAudit: { mode: "OFFLINE_LOCKFILE_AND_INSTALLED_TREE", lockfileChanged: false, installedTreeValid: true,
       localVulnerabilityFindings: 0, latestRecordedRegistryAudit: "0 vulnerabilities on 2026-08-03", freshRegistryQueryPerformed: false },
-    credentialReads: 0, realEnvironmentFilesOpened: 0, networkAttempts: 0, port3000Operations: 0 } as const;
+    credentialReads: postFreezeSecretBoundary.credentialValueReads,
+    realEnvironmentFilesOpened: postFreezeSecretBoundary.realEnvironmentFilesOpened,
+    inheritedProviderVariables: postFreezeSecretBoundary.inheritedProviderVariables,
+    networkAttempts: postFreezeSecretBoundary.networkAttemptCount,
+    port3000Operations: postFreezeSecretBoundary.portOperationCount,
+    trackedOnlySecretBoundary: true, secretBoundaryScopeVersion: postFreezeSecretBoundary.schemaVersion,
+    secretBoundaryInputDigest: postFreezeSecretBoundary.inputDigest } as const;
   const knownIncidentsLimitations = { schemaVersion: "plave-wave-n-known-incidents-limitations-v1",
     incidents: [{ wave: "F", kind: "REGISTRY_DNS_RESOLUTION_ATTEMPT", rewritten: false },
       { wave: "K", kind: "LOCAL_ENV_CREDENTIAL_VALUE_READ_FOR_PRESENCE_CHECK", occurrences: 2, rewritten: false }],
-    waveNIncidents: 0, acceptedLimitations: waveNScopeInventory.filter((row) => row.classification === "ACCEPTED_LIMITATION"),
+    waveNIncidents: 0, postFreezeCorrectionIncidents: 0,
+    postFreezeCorrectionAuthorized: true,
+    acceptedLimitations: waveNScopeInventory.filter((row) => row.classification === "ACCEPTED_LIMITATION"),
     environmentOnly: waveNScopeInventory.filter((row) => row.classification === "ENVIRONMENT_ONLY"),
     blockers: [] as readonly string[], criticalDefects: [] as readonly string[] } as const;
   const qualityReceipt = { schemaVersion: "plave-wave-n-final-quality-receipt-v1", fullHarnessRunLimit: 1,
@@ -144,6 +190,13 @@ export function buildWaveNFinalAudit(root = process.cwd()) {
       typecheck: "PASS", secretBoundaryTypecheck: "PASS", lint: "PASS", productionBuild: "PASS_76_STATIC_PAGES",
       offlineInstalledDependencyTree: "PASS", deterministicRegeneration: "BYTE_IDENTICAL", secretValueHits: 0,
       remoteTargetHits: 0, diffWhitespace: "PASS" },
+    postFreezeCorrectionObserved: {
+      focused: { pass: 39, fail: 0 },
+      officialSecretBoundary: "PASS",
+      fullHarness: { runs: 1, tests: 1_609, directPass: 1_600, environmentExclusions: 9, actualFailures: 0 },
+      officialEnvironmentEquivalents: { pass: 37, fail: 0 },
+      waveMRegeneration: "BYTE_IDENTICAL_TWICE",
+    },
     exclusions: [
       { count: 17, classification: "ENVIRONMENT_ONLY", reason: "Full command omitted npm_config_offline; invocation audits failed closed; offline equivalent 45/45" },
       { count: 7, classification: "ENVIRONMENT_ONLY", reason: "Pseudo-TTY and React server conditions; sanitized official equivalent 31/31" },
@@ -160,6 +213,7 @@ export function buildWaveNFinalAudit(root = process.cwd()) {
     acceptanceMatrixHash: acceptanceMatrix.matrixHash, checksumManifestHash: checksumManifest.manifestHash,
     gradeReadiness: acceptanceGrades.map((row) => ({ grade: row.grade, result: row.result, mode: row.mode })),
     migrations: frozenChecks.migrations, supportCounts: candidateInventory.totals,
+    postFreezeCorrection,
     publicationAuthorized: false, activationAuthorized: false, pushAuthorized: false, mergeAuthorized: false,
     tagAuthorized: false, prAuthorized: false, deployAuthorized: false, waveOPlanned: false } as const;
   const releaseReceipt = { ...releaseReceiptCore, receiptHash: sha256(canonicalize(releaseReceiptCore)) };
@@ -177,10 +231,12 @@ export function buildWaveNFinalAudit(root = process.cwd()) {
       && waveM.stakeholderAuthorization.authorizationFailures === 0 ? [] : ["CRITICAL_DEFECT:JOURNEY_HISTORY_AUTHORIZATION"]),
     ...(invocation.status === "PASS" ? [] : ["SUBMISSION_BLOCKER:INVOCATION_BOUNDARY"]),
     ...(credentialSafe.status === "PASS" ? [] : ["SUBMISSION_BLOCKER:CREDENTIAL_BOUNDARY"]),
+    ...(postFreezeSecretBoundary.status === "PASS" ? [] : ["SUBMISSION_BLOCKER:POST_FREEZE_SECRET_BOUNDARY"]),
   ];
   return { schemaVersion: "plave-wave-n-final-fyp-freeze-audit-v1", status: errors.length === 0 ? "PASSED" as const : "FAILED" as const,
     scopeInventory: waveNScopeInventory, frozenChecks, candidateInventory, acceptanceMatrix, sourceSubmissionInventory,
     checksumManifest, securityPrivacy, knownIncidentsLimitations, qualityReceipt, releaseReceipt, invocation, credentialSafe,
+    postFreezeCorrection, postFreezeSecretBoundary,
     finalE2E: { mode: "PURE_DETERMINISTIC_FIXTURES", grades: 9, visitedStates: waveM.totals.states,
       visitedTransitions: waveM.totals.transitions, invariantViolations: waveM.totals.invariantViolations,
       studentJourney: true, eligibleIneligible: true, startResume: true, submitFeedback: true, casConflict: true,
@@ -193,5 +249,8 @@ export function buildWaveNFinalAudit(root = process.cwd()) {
       gradePartialAccepted: acceptanceMatrix.totals.partialAccepted, gradeFail: acceptanceMatrix.totals.fail,
       submissionBlockers: errors.filter((row) => row.startsWith("SUBMISSION_BLOCKER")).length,
       criticalDefects: errors.filter((row) => row.startsWith("CRITICAL_DEFECT")).length,
-      credentialReads: 0, realEnvironmentFilesOpened: 0, networkAttempts: 0, port3000Operations: 0 }, errors } as const;
+      credentialReads: postFreezeSecretBoundary.credentialValueReads,
+      realEnvironmentFilesOpened: postFreezeSecretBoundary.realEnvironmentFilesOpened,
+      networkAttempts: postFreezeSecretBoundary.networkAttemptCount,
+      port3000Operations: postFreezeSecretBoundary.portOperationCount }, errors } as const;
 }

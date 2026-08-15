@@ -29,6 +29,7 @@ import {
   parseMotivationSummary,
   type MotivationSummary,
 } from "@/lib/motivation/contracts";
+import { reconcileStudentLearningEnrichment } from "@/lib/curriculum-runtime/enrichment-consistency";
 
 type ServerSupabaseClient = Awaited<ReturnType<typeof createClient>>;
 
@@ -175,12 +176,16 @@ export async function loadParentChildLearningDashboard(
   if (!universalProgress) {
     return { ok: false, reason: "UNAVAILABLE" };
   }
-  const scoring = scoringResult.error
+  const parsedScoring = scoringResult.error
     ? null
     : parseStudentScoringSummary(scoringResult.data);
-  const motivation = motivationResult.error
+  const parsedMotivation = motivationResult.error
     ? null
     : parseMotivationSummary(motivationResult.data);
+  const { scoring, motivation } = reconcileStudentLearningEnrichment({
+    scoring: parsedScoring,
+    motivation: parsedMotivation,
+  });
 
   return {
     ok: true,

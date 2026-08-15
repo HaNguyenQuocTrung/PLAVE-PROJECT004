@@ -25,6 +25,8 @@ import {
 } from "@/lib/generation-v2/student-runtime-policy";
 import { curriculumRuntimeHttpStatus } from "@/lib/curriculum-runtime/api-response";
 import { revalidateStudentLearningProjections } from "@/lib/curriculum-runtime/revalidation";
+import { getGradesTwoToNineReleaseMode } from "@/lib/release-integration/server-config";
+import { parseReleasedCatalog } from "@/lib/release-integration/catalog";
 
 function status(code: CurriculumRuntimeErrorCode) {
   return curriculumRuntimeHttpStatus(code);
@@ -89,6 +91,37 @@ export async function POST(request: Request) {
   const input = parseStartCurriculumRequest(body);
   if (!input) {
     return error("INVALID_REQUEST", 400, "INVALID_INPUT");
+  }
+  const gradesTwoToNineMode = getGradesTwoToNineReleaseMode();
+  if (access.grade >= 2) {
+    if (gradesTwoToNineMode.mode === "HIDDEN") {
+      return error("RELEASE_UNAVAILABLE", 404, "RELEASE_HIDDEN");
+    }
+    const catalogResult = await trace.measure(
+      "rpc",
+      () => access.supabase.rpc("get_my_grades_2_9_release_catalog"),
+    );
+    const catalog = catalogResult.error ? null : parseReleasedCatalog(catalogResult.data);
+    if (!catalog || catalog.grade !== access.grade || catalog.releaseMode !== gradesTwoToNineMode.mode) {
+      return error("RELEASE_UNAVAILABLE", 404, "RELEASE_MODE_OR_TUPLE_MISMATCH");
+    }
+    const { data, error: rpcError } = await trace.measure(
+      "rpc",
+      () => access.supabase.rpc("start_or_resume_released_curriculum_unit", {
+        p_unit_slug: input.unitSlug,
+        p_idempotency_key: input.idempotencyKey,
+      }),
+    );
+    if (rpcError) {
+      const code = mapCurriculumRpcError(rpcError);
+      return error(code, status(code), `RPC_${code}`, safeUpstreamCode(rpcError.code));
+    }
+    const state = parseCurriculumAttemptState(data);
+    if (!state || state.grade !== access.grade || state.feedback !== null) {
+      return error("REQUEST_FAILED", 502, "RESPONSE_MAPPING_FAILED");
+    }
+    revalidateStudentLearningProjections();
+    return json(trace, { ok: true, data: toStudentStaticRuntimeState(state) }, 200, "RELEASED_CURRICULUM_STARTED");
   }
   if (generatorPolicy.globalEnabled) {
     const generated = await trace.measure("generation", () =>

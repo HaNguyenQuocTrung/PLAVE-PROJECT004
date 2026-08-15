@@ -81,6 +81,7 @@ export function getHeaderNavigation(
   authenticated: boolean,
   role: HeaderRole = null,
   onboardingCompleted = true,
+  aiTutorAvailable = true,
 ): HeaderNavigationItem[] {
   if (authenticated) {
     if (!onboardingCompleted) return [];
@@ -105,11 +106,13 @@ export function getHeaderNavigation(
             "/assignments",
           ],
         },
-        {
-          href: "/tutor",
-          label: "AI Tutor",
-          activePrefixes: ["/tutor"],
-        },
+        ...(aiTutorAvailable
+          ? [{
+              href: "/tutor",
+              label: "AI Tutor",
+              activePrefixes: ["/tutor"],
+            }]
+          : []),
         {
           href: "/learning-progress",
           label: "Tiến bộ",

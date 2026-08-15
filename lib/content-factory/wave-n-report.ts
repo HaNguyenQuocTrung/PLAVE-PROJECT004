@@ -13,7 +13,8 @@ export function renderWaveNIndependentAudit(audit: Audit) {
     + `Frozen hashes: A–K \`${audit.frozenChecks.combinedAK.actual}\`, Wave L \`${audit.frozenChecks.waveL.actual}\`, Wave M \`${audit.frozenChecks.waveM.actual}\`, corrective overlay \`${audit.frozenChecks.waveMCorrectiveOverlay.actual}\`.\n\n`
     + `Acceptance: ${audit.totals.gradePass} PASS, ${audit.totals.gradePartialAccepted} PARTIAL_ACCEPTED, ${audit.totals.gradeFail} FAIL. `
     + `States/transitions: ${audit.finalE2E.visitedStates}/${audit.finalE2E.visitedTransitions}; violations: ${audit.finalE2E.invariantViolations}.\n\n`
-    + `Credential reads, real environment files opened, network attempts and port 3000 operations: ${audit.totals.credentialReads}/${audit.totals.realEnvironmentFilesOpened}/${audit.totals.networkAttempts}/${audit.totals.port3000Operations}.\n`;
+    + `Credential reads, real environment files opened, network attempts and port 3000 operations: ${audit.totals.credentialReads}/${audit.totals.realEnvironmentFilesOpened}/${audit.totals.networkAttempts}/${audit.totals.port3000Operations}.\n\n`
+    + `Authorized post-freeze correction: secret-boundary scope \`${audit.postFreezeCorrection.secretBoundary.scopeVersion}\`; Wave M scope \`${audit.postFreezeCorrection.waveM.scopeVersion}\` with input digest \`${audit.postFreezeCorrection.waveM.inputDigest}\`. A–K remains \`${audit.postFreezeCorrection.combinedAKHashAfter}\`.\n`;
 }
 
 export function renderCompletion(audit: Audit) {
@@ -22,6 +23,7 @@ export function renderCompletion(audit: Audit) {
     + `## Grades 1–9 acceptance\n\n| Grade | Result | Learning | Progress | Path | History | Continuous learning |\n|---:|---|---|---|---|---|---|\n${acceptanceRows(audit)}\n\n`
     + `Grade 1 is PARTIAL_ACCEPTED only because its verified public learning path remains fixed-runtime while adaptive behavior is shadow-only. The fixed journey works. Grades 2–9 pass the local hidden-candidate software proof.\n\n`
     + `## Completion accounting\n\nInventory remains 2,772 questions, 338 question-bearing skills and 176 units. Readiness remains 274 adaptive-ready, 13 fixed-safe, 51 Grade 1 shadow-only and 0 unavailable. Candidates remain DRAFT/HIDDEN with publication, pilot, runtime and retention disabled and zero default entitlement.\n\n`
+    + `## Authorized post-freeze correction\n\nThe final audit findings were corrected without creating Wave O: the official secret-boundary command is tracked-only and credential-safe, Wave M regeneration uses scope \`${audit.postFreezeCorrection.waveM.scopeVersion}\` with input digest \`${audit.postFreezeCorrection.waveM.inputDigest}\`, and submission-facing documentation now points to the canonical final inventory. Grades 2–9 release integration remains unperformed.\n\n`
     + `The deterministic proof covers Student start/resume, answer, post-submit feedback, progress, motivation, history, mastery, remediation-return, fixed-safe fallback, retention, mixed practice, maximum termination, grade completion, deactivation, Parent/Teacher authorization, CAS/duplicate safety, solution isolation and continuous next action.\n\n`
     + `No Wave O is planned. Push, merge, tag, PR, deploy, publication and activation require separate Owner authorization.\n`;
 }

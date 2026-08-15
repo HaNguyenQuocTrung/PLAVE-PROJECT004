@@ -10,6 +10,10 @@ import {
   toStudentStaticRuntimeState,
 } from "@/lib/generation-v2/student-runtime";
 import { readGeneratorV2StudentRuntimePolicy } from "@/lib/generation-v2/student-runtime-policy";
+import {
+  loadCanonicalStudentScoringSummary,
+  requireCanonicalXpCompletion,
+} from "@/lib/curriculum-runtime/xp-projection";
 
 import { UniversalCurriculumRunner } from "./UniversalCurriculumRunner";
 
@@ -63,9 +67,18 @@ export default async function CurriculumPracticePage({ params }: PageProps) {
     if (generated.state.feedback !== null) {
       return <LearningAccessState kind="UNAVAILABLE" />;
     }
+    const summary = generated.state.status === "COMPLETED"
+      ? await loadCanonicalStudentScoringSummary(() =>
+          access.supabase.rpc("get_my_score_xp_mastery"),
+        )
+      : null;
+    const generatedState = generated.state.status === "COMPLETED"
+      ? requireCanonicalXpCompletion(generated.state, summary)?.state ?? null
+      : generated.state;
+    if (!generatedState) return <LearningAccessState kind="UNAVAILABLE" />;
     return (
       <div className="practice-page practice-focus-shell page-shell universal-practice-page">
-        <UniversalCurriculumRunner initialState={generated.state} />
+        <UniversalCurriculumRunner initialState={generatedState} />
       </div>
     );
   }
@@ -81,10 +94,19 @@ export default async function CurriculumPracticePage({ params }: PageProps) {
   if (state.grade !== access.grade || state.feedback !== null) {
     return <LearningAccessState kind="UNAVAILABLE" />;
   }
+  const summary = state.status === "COMPLETED"
+    ? await loadCanonicalStudentScoringSummary(() =>
+        access.supabase.rpc("get_my_score_xp_mastery"),
+      )
+    : null;
+  const projectedState = state.status === "COMPLETED"
+    ? requireCanonicalXpCompletion(state, summary)?.state ?? null
+    : state;
+  if (!projectedState) return <LearningAccessState kind="UNAVAILABLE" />;
   return (
     <div className="practice-page practice-focus-shell page-shell universal-practice-page">
       <UniversalCurriculumRunner
-        initialState={toStudentStaticRuntimeState(state)}
+        initialState={toStudentStaticRuntimeState(projectedState)}
       />
     </div>
   );

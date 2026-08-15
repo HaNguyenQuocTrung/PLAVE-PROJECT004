@@ -1,5 +1,9 @@
 # Local learning-persistence regression tests
 
+> **HISTORICAL / SUPERSEDED:** This earlier persistence runbook is preserved
+> for audit history. Use `docs/releases/GRADES_1_9_REAL_LOCAL_BROWSER_ACCEPTANCE.md`
+> and `docs/final/PLAVE_GRADES_1_9_LOCAL_ACCEPTANCE.md` for current status.
+
 These Docker-required tests exercise only disposable loopback Supabase and
 Next.js resources. They do not load `.env.local`, contact hosted Supabase, send
 provider email, or reuse the application on port 3000.

@@ -1,6 +1,6 @@
 # AI Tutor Owner Setup
 
-Ngày cập nhật: 2026-08-01  
+Ngày cập nhật: 2026-08-14
 Mục đích: cấu hình Google Gemini key local, server-only, không gửi key qua chat
 
 ## 1. Cấu hình key
@@ -8,7 +8,7 @@ Mục đích: cấu hình Google Gemini key local, server-only, không gửi key
 Từ project root bắt buộc:
 
 ```bash
-cd /Users/hatrung/Desktop/PLAVE-PROJECT004
+cd <repository-root>
 npm run --silent ai-tutor:configure
 ```
 
@@ -21,7 +21,7 @@ không gọi provider và không in prefix/suffix. Với Google, command tự d�
 Configure được serialize bằng lock project-local:
 
 ```text
-/Users/hatrung/Desktop/PLAVE-PROJECT004/.ai-tutor-config.lock
+<repository-root>/.ai-tutor-config.lock
 ```
 
 Lock chỉ chứa metadata owner, không chứa key/config value. Nếu một configure khác
@@ -48,7 +48,7 @@ gửi key qua chat.
 Sau khi configure:
 
 ```bash
-cd /Users/hatrung/Desktop/PLAVE-PROJECT004
+cd <repository-root>
 npm run --silent smoke:ai-tutor-google
 ```
 
@@ -87,21 +87,50 @@ acceptance window. Evidence ở `artifacts/ai-tutor-quality/` chọn
 1.17 giây và median total 2.25 giây. Flash-Lite nhanh hơn nhưng fail mẫu phân số,
 nên không được chọn.
 
-## 3. Chạy authenticated local runtime
+## 3. Preflight rồi chạy complete authenticated localhost application
 
-Command canonical kết hợp Supabase public/auth profile đã được guard với đúng bốn
-Tutor value trong `.env.local` mà không copy credential sang file khác:
+`npm run start` là canonical production-local workflow cho toàn bộ ứng dụng,
+bao gồm AI Tutor. Command validate Supabase runtime và Google AI server config
+trước khi build/start; nếu thiếu hoặc sai, nó fail với exact blocker và không mở
+một ứng dụng thiếu chức năng trong khi navigation vẫn quảng bá AI Tutor.
+
+Preflight kiểm tra target/config/credential contract, quyền sở hữu và mode
+`0600`, port loopback và trạng thái canonical production-build binding hiện có.
+Nó không gọi provider và không in key. `REBUILD_ON_START` là trạng thái hợp lệ vì
+`npm run start` tạo lại canonical sanitized artifact trước khi mở listener:
 
 ```bash
-cd /Users/hatrung/Desktop/PLAVE-PROJECT004
-npm run --silent ai-tutor:local-start
+cd <repository-root>
+npm run --silent ai-tutor:local-preflight
 ```
 
-Command bắt buộc dùng `.env.remote-dev.local` mode `0600`, gọi lại chính loader và
-target guard của `remote-dev:runtime-start`, sau đó merge `PLAVE_AI_TUTOR_ENABLED`,
-`PLAVE_AI_PROVIDER`, `GOOGLE_API_KEY`, `GOOGLE_AI_MODEL` từ `.env.local` mode
-`0600` chỉ vào child Next.js. Next bind chính xác `127.0.0.1:3001`;
-`remote-dev:runtime-start` và repository-default Tutor vẫn OFF.
+Chỉ tiếp tục khi output có `AI_TUTOR_LOCAL_PREFLIGHT=PASS`.
+
+Sau khi preflight PASS, Owner chỉ chạy:
+
+```bash
+cd <repository-root>
+npm run start
+```
+
+Command bắt buộc dùng `.env.remote-dev.local` mode `0600` và gọi lại canonical
+validated runtime loader. Nó tạo canonical sanitized production build tại
+`.next-remote-dev-project004` với binding
+`VALIDATED_RUNTIME_FILE + FULL_APPLICATION_AI_RUNTIME_REQUIRED`; build process
+không nhận Google key. Chỉ process `next start` sau khi binding PASS mới nhận
+`PLAVE_AI_TUTOR_ENABLED`, `PLAVE_AI_PROVIDER`, `GOOGLE_API_KEY` và
+`GOOGLE_AI_MODEL` qua server-only allowlist. Next bind loopback và Owner mở đúng
+`http://localhost:3000/tutor`.
+
+Port 3001 chỉ là optional testing override của cùng command, cùng artifact và
+cùng application behavior:
+
+```bash
+npm run --silent ai-tutor:local-preflight -- --port 3001
+npm run start -- --port 3001
+```
+
+Host vẫn bị khóa ở `127.0.0.1`; không có option bind ra network interface.
 
 Expected diagnostics không chứa secret:
 
@@ -112,7 +141,10 @@ AI_TUTOR_LOCAL_SUPABASE_PUBLIC_CONFIG=PASS
 AI_TUTOR_LOCAL_PROVIDER=GOOGLE
 AI_TUTOR_LOCAL_MODEL=gemini-3.6-flash
 AI_TUTOR_LOCAL_KEY_CONFIGURED=YES
+AI_TUTOR_LOCAL_BUILD_BINDING=PASS
+AI_TUTOR_LOCAL_CLIENT_SECRET_BOUNDARY=PASS
 AI_TUTOR_LOCAL_START=READY
+AI_TUTOR_LOCAL_URL=http://localhost:3000/tutor
 ```
 
 Nếu port đã có listener, command fail closed và in
@@ -123,7 +155,7 @@ và trả exit `130`.
 
 ## 4. Authenticated Owner browser recheck Sprint 9B
 
-Giữ command trên chạy, mở `http://127.0.0.1:3001/tutor`, đăng nhập bằng Student
+Giữ command trên chạy, mở `http://localhost:3000/tutor`, đăng nhập bằng Student
 thuộc clean remote-development target. Không chạy lại 6 benchmark requests.
 Thực hiện số request nhỏ nhất để bao phủ:
 
@@ -191,11 +223,14 @@ Command này dùng key giả và deterministic provider với cấu hình `GOOGL
 trong `NODE_ENV=development`, không gọi remote API. Evidence ở
 `artifacts/ai-tutor-acceptance/`.
 
-Hiện tại Google key đã cấu hình trong `.env.local` mode `0600`; Sprint 9B bounded
-benchmark PASS đúng 6 requests và chọn `gemini-3.6-flash`. Authenticated local
-launcher regression 9/9 PASS. Live launcher in đủ diagnostics, `/tutor` trả 200,
-anonymous stream bị chặn `401 AI_AUTH_REQUIRED`, Ctrl+C trả `130` và port 3001
-không còn listener.
+Sprint 9B bounded benchmark lịch sử PASS đúng 6 requests và chọn
+`gemini-3.6-flash`. Repository
+không dùng tài liệu tracked để khẳng định credential local hiện còn tồn tại;
+`ai-tutor:local-preflight` là kiểm tra hiện thời, không gọi provider.
+Authenticated local launcher regression bao phủ production build/runtime
+separation, secretless build, server-only runtime key, exact URL, fail-closed
+configuration, port ownership và process-tree cleanup. Live provider acceptance
+chỉ được cập nhật sau đúng một Owner-authorized authenticated round-trip.
 
 Real-provider authenticated browser review Sprint 9B chưa được claim: browser
 runtime trả danh sách backend rỗng trong execution environment hiện tại. Owner

@@ -1,5 +1,9 @@
 # Final student experience acceptance — Toán Lớp 1–9
 
+> **HISTORICAL / SUPERSEDED:** This local-draft acceptance snapshot is
+> preserved as evidence. Current real-browser acceptance is in
+> `docs/final/PLAVE_GRADES_1_9_LOCAL_ACCEPTANCE.md`.
+
 Ngày kiểm tra: 2026-07-30
 Phạm vi: local draft demo trong `PLAVE-PROJECT004`
 Quyết định: **READY_FOR_LOCAL_DEMO_AND_SUBMISSION**

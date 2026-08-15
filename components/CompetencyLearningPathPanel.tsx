@@ -2,7 +2,9 @@ import { Button } from "@/components/Button";
 import { UniversalCurriculumStartButton } from "@/components/UniversalCurriculumStartButton";
 import { StatusBadge } from "@/components/UiStates";
 import type { StudentCompetencyDashboard } from "@/lib/competency/student-adapter";
+import type { PersonalizedLearningPath } from "@/lib/personalized-path/contracts";
 import { getLessonPath } from "@/lib/practice/catalog";
+import { getPracticeReviewPath } from "@/lib/practice/review";
 
 const statusText = {
   NOT_STARTED: "Mới bắt đầu",
@@ -29,13 +31,64 @@ const reasonText = {
 
 export function CompetencyLearningPathPanel({
   model,
-}: Readonly<{ model: StudentCompetencyDashboard }>) {
+  legacyPath = null,
+}: Readonly<{
+  model: StudentCompetencyDashboard;
+  legacyPath?: PersonalizedLearningPath | null;
+}>) {
   const recommendation = model.recommendation;
   const recommendationReasons = recommendation
     ? recommendation.reasonCodes.slice(0, 2).map((code) => reasonText[code])
     : [];
-  const resumesActiveAttempt =
-    recommendation?.reasonCodes.includes("CONTINUE_IN_PROGRESS") ?? false;
+  const recommendedUnit = model.recommendedUnit;
+  const legacyUnit = recommendation && legacyPath
+    ? legacyPath.units.find(
+        (item) => item.unit.slug === recommendation.candidateId,
+      ) ?? null
+    : null;
+  const action =
+    recommendation && recommendedUnit
+      ? recommendedUnit.source === "LEGACY_GRADE1"
+        ? legacyUnit?.activeAttempt
+          ? (
+              <Button href={`/practice/${legacyUnit.activeAttempt.id}`}>
+                Tiếp tục học
+              </Button>
+            )
+          : legacyUnit?.latestCompletedAttempt
+            ? (
+                <Button
+                  href={getPracticeReviewPath(
+                    legacyUnit.latestCompletedAttempt.id,
+                  )}
+                >
+                  Xem kết quả
+                </Button>
+              )
+            : legacyUnit
+              ? (
+                  <Button href={getLessonPath(recommendation.candidateId)}>
+                    Học bài này
+                  </Button>
+                )
+              : null
+        : recommendedUnit.status === "IN_PROGRESS"
+          ? (
+              <UniversalCurriculumStartButton
+                unitSlug={recommendation.candidateId}
+                label="Tiếp tục học"
+              />
+            )
+          : recommendedUnit.status === "COMPLETED"
+            ? (
+                <Button href="/results">Xem kết quả</Button>
+              )
+            : (
+                <Button href={getLessonPath(recommendation.candidateId)}>
+                  Học bài này
+                </Button>
+              )
+      : null;
   return (
     <>
       <section
@@ -46,7 +99,7 @@ export function CompetencyLearningPathPanel({
           <p className="eyebrow">Từ hoạt động học hiện có</p>
           <h2 id="learning-path-title">Bài nên học tiếp</h2>
         </div>
-        {recommendation ? (
+        {recommendation && recommendedUnit && action ? (
           <div className="personalized-recommendation">
             <div className="personalized-recommendation__content">
               <h3>{recommendation.title}</h3>
@@ -63,16 +116,7 @@ export function CompetencyLearningPathPanel({
                 <p>{recommendation.explanation}</p>
               )}
             </div>
-            {resumesActiveAttempt ? (
-              <UniversalCurriculumStartButton
-                unitSlug={recommendation.candidateId}
-                label="Tiếp tục học"
-              />
-            ) : (
-              <Button href={getLessonPath(recommendation.candidateId)}>
-                Học bài này
-              </Button>
-            )}
+            {action}
           </div>
         ) : (
           <div className="empty-state">

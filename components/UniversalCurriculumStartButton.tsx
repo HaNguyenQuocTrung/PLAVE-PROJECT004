@@ -64,6 +64,7 @@ export function UniversalCurriculumStartButton({
         if (state) {
           idempotencyKey.current = null;
           performance.mark("plave:start-practice-route-push");
+          router.refresh();
           router.push(`/curriculum-practice/${state.attemptId}`);
           return;
         }

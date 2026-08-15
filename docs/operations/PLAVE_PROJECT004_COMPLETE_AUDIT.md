@@ -6,7 +6,7 @@
 **Decision: READY_WITH_KNOWN_LIMITATIONS**
 
 **Audit date:** 2026-07-30
-**Scope:** `/Users/hatrung/Desktop/PLAVE-PROJECT004` only
+**Scope:** the checked-out Project004 repository only
 **Mode:** read-only application audit; only the four explicitly authorized audit artifacts were added
 **Remote state:** not queried or changed
 **Pedagogical status:** internal technical/content sampling only; this is not expert pedagogical endorsement
@@ -411,7 +411,7 @@ A recipient can use `package.json` and `docs/operations/FINAL_LOCAL_DEMO_RUNBOOK
 The canonical local demo steps are:
 
 ```bash
-cd /Users/hatrung/Desktop/PLAVE-PROJECT004
+cd <repository-root>
 npm install
 npm run dev
 ```

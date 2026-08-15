@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { CurriculumVisual } from "@/app/curriculum-preview/CurriculumVisual";
 import { Button } from "@/components/Button";
 import { ProgressBar } from "@/components/ProgressBar";
+import { XpCompletionSummary } from "@/components/XpCompletionSummary";
 import {
   AnswerControl as GeneratorV2AnswerControl,
   QuestionVisual as GeneratorV2QuestionVisual,
@@ -20,6 +21,10 @@ import {
   serializeGeneratorV2DatabaseAnswer,
 } from "@/lib/generation-v2/answer-transport";
 import type { CanonicalResponse } from "@/lib/generation-v2/types";
+import {
+  getVietnameseOutcomeLabel,
+  getVietnameseUnitLabel,
+} from "@/lib/learning/presentation";
 
 type UniversalCurriculumRunnerProps = {
   initialState: CurriculumAttemptState;
@@ -158,6 +163,11 @@ export function UniversalCurriculumRunner({
           setSubmittedQuestion(displayQuestion);
           setState(parsed);
           submissionKey.current = null;
+          if (parsed.status === "COMPLETED") {
+            // Route-handler revalidation updates the server projections, while
+            // refresh clears any Student pages prefetched before completion.
+            router.refresh();
+          }
           return;
         }
       }
@@ -222,7 +232,12 @@ export function UniversalCurriculumRunner({
     return (
       <section className="practice-runner curriculum-complete-card">
         <p className="eyebrow">Đã hoàn thành</p>
-        <h1>{state.unitTitle}</h1>
+        <h1>
+          {getVietnameseUnitLabel({
+            unitId: state.unitId,
+            label: state.unitTitle,
+          })}
+        </h1>
         <p>
           Em trả lời đúng {state.correctCount}/{state.totalQuestions} câu.
           Tiến trình đã được lưu.
@@ -239,12 +254,12 @@ export function UniversalCurriculumRunner({
                 {state.scoring.earnedWeight}/{state.scoring.possibleWeight}
               </strong>
             </div>
-            <div>
-              <span>XP nhận được</span>
-              <strong>{state.scoring.attemptXpEarned} XP</strong>
-            </div>
           </div>
         ) : null}
+        <XpCompletionSummary
+          projection={state.xpCompletion}
+          totalLabel="Tổng XP sau lượt này"
+        />
         <p className="scoring-explanation">
           Hoàn thành bài học và thành thạo kỹ năng là hai điều khác nhau. Em
           có thể tiếp tục luyện để nâng mức thành thạo.
@@ -276,7 +291,12 @@ export function UniversalCurriculumRunner({
       <div className="practice-runner__header">
         <div>
           <p className="eyebrow">Luyện tập · Tự động lưu</p>
-          <h1 id="runtime-title">{state.unitTitle}</h1>
+          <h1 id="runtime-title">
+            {getVietnameseUnitLabel({
+              unitId: state.unitId,
+              label: state.unitTitle,
+            })}
+          </h1>
         </div>
         <div className="practice-progress-summary">
           <ProgressBar
@@ -429,16 +449,24 @@ export function UniversalCurriculumRunner({
                 {state.scoring?.xpDelta} XP
               </p>
             ) : null}
+            {state.status === "COMPLETED" ? (
+              <XpCompletionSummary
+                projection={state.xpCompletion}
+                totalLabel="Tổng XP sau lượt này"
+              />
+            ) : null}
             {state.scoring?.masteryChanges.map((change) => (
               <p className="mastery-change" key={change.outcomeTitle}>
-                <strong>{change.outcomeTitle}:</strong>{" "}
+                <strong>
+                  {getVietnameseOutcomeLabel({ label: change.outcomeTitle })}:
+                </strong>{" "}
                 {change.masteryPercent}% ·{" "}
                 {change.status === "NEEDS_REVIEW"
                   ? "Nên ôn lại"
                   : change.status === "MASTERED"
-                    ? "Thành thạo"
+                    ? "Đạt mức thành thạo theo tiêu chí hiện tại"
                     : change.status === "PROFICIENT"
-                      ? "Đã vững"
+                      ? "Đạt yêu cầu"
                       : change.status === "DEVELOPING"
                         ? "Đang phát triển"
                         : "Đang học"}

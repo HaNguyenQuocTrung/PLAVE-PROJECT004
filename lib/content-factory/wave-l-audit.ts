@@ -26,7 +26,7 @@ export function auditWaveL(root = process.cwd()) {
   const credentialSafe = auditWaveLCredentialSafe(root);
   const shards = [verifyWaveLGrades1To3Shard(), verifyWaveLGrades4To6Shard(), verifyWaveLGrades7To9Shard()];
   const combinedBundle = buildDeterministicBundle(packs); const migrations = readdirSync(`${root}/supabase/migrations`)
-    .filter((entry) => /^\d{4}_.+\.sql$/u.test(entry)).sort();
+    .filter((entry) => /^\d{4}_.+\.sql$/u.test(entry) && entry.slice(0, 4) <= "0044").sort();
   const compatibilityCore = { schemaVersion: "plave-wave-l-combined-a-k-runtime-compatibility-v1",
     frozenCombinedAKBundleHash, candidates: packs.map((pack) => ({ grade: pack.grade, candidate: pack.candidate })),
     inventoryHashes: inventories.map((row) => ({ grade: row.grade, inventoryHash: row.inventoryHash })), policy: waveLPolicyMatrix,
