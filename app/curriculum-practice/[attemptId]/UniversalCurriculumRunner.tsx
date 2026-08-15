@@ -21,6 +21,10 @@ import {
   serializeGeneratorV2DatabaseAnswer,
 } from "@/lib/generation-v2/answer-transport";
 import type { CanonicalResponse } from "@/lib/generation-v2/types";
+import {
+  getVietnameseOutcomeLabel,
+  getVietnameseUnitLabel,
+} from "@/lib/learning/presentation";
 
 type UniversalCurriculumRunnerProps = {
   initialState: CurriculumAttemptState;
@@ -228,7 +232,12 @@ export function UniversalCurriculumRunner({
     return (
       <section className="practice-runner curriculum-complete-card">
         <p className="eyebrow">Đã hoàn thành</p>
-        <h1>{state.unitTitle}</h1>
+        <h1>
+          {getVietnameseUnitLabel({
+            unitId: state.unitId,
+            label: state.unitTitle,
+          })}
+        </h1>
         <p>
           Em trả lời đúng {state.correctCount}/{state.totalQuestions} câu.
           Tiến trình đã được lưu.
@@ -282,7 +291,12 @@ export function UniversalCurriculumRunner({
       <div className="practice-runner__header">
         <div>
           <p className="eyebrow">Luyện tập · Tự động lưu</p>
-          <h1 id="runtime-title">{state.unitTitle}</h1>
+          <h1 id="runtime-title">
+            {getVietnameseUnitLabel({
+              unitId: state.unitId,
+              label: state.unitTitle,
+            })}
+          </h1>
         </div>
         <div className="practice-progress-summary">
           <ProgressBar
@@ -443,14 +457,16 @@ export function UniversalCurriculumRunner({
             ) : null}
             {state.scoring?.masteryChanges.map((change) => (
               <p className="mastery-change" key={change.outcomeTitle}>
-                <strong>{change.outcomeTitle}:</strong>{" "}
+                <strong>
+                  {getVietnameseOutcomeLabel({ label: change.outcomeTitle })}:
+                </strong>{" "}
                 {change.masteryPercent}% ·{" "}
                 {change.status === "NEEDS_REVIEW"
                   ? "Nên ôn lại"
                   : change.status === "MASTERED"
-                    ? "Thành thạo"
+                    ? "Đạt mức thành thạo theo tiêu chí hiện tại"
                     : change.status === "PROFICIENT"
-                      ? "Đã vững"
+                      ? "Đạt yêu cầu"
                       : change.status === "DEVELOPING"
                         ? "Đang phát triển"
                         : "Đang học"}

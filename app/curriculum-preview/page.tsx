@@ -16,7 +16,7 @@ import {
 import { CurriculumVisual } from "./CurriculumVisual";
 
 export const metadata: Metadata = {
-  title: "Curriculum Preview — Toán Lớp 1–9",
+  title: "Xem trước chương trình — Toán Lớp 1–9",
   description:
     "Bản xem trước cục bộ nội dung Toán Lớp 1–9 do PLAVE tạo, chưa xuất bản.",
 };

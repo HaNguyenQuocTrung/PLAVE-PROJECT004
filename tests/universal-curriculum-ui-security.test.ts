@@ -33,7 +33,7 @@ test("authenticated UI includes own-grade catalog, resume, progress and history"
   assert.match(runner, /Lời giải từng bước/);
   assert.match(progress, /Mục tiêu học tập/);
   assert.match(progress, /Kỹ năng/);
-  assert.match(progress, /không phải kết luận khoa\s+học/);
+  assert.match(progress, /CURRENT_MASTERY_HELP/);
 });
 
 test("mobile and accessibility contracts remain explicit", () => {

@@ -13695,7 +13695,7 @@ test("Sprint 6B 3. Unknown safe skill codes receive a Vietnamese fallback instea
   assert.equal(getSkillLabel(futureSkill), "Kỹ năng đang được cập nhật");
   assert.equal(
     getParentSkillLabel(futureSkill),
-    "Kỹ năng đang được cập nhật",
+    "Chưa có tên kỹ năng tiếng Việt",
   );
 
   const parentPayload = {

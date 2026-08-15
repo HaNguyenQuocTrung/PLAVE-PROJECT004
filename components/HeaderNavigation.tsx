@@ -263,7 +263,7 @@ export function HeaderNavigation({
           <span />
           <span />
         </span>
-        <span>Menu</span>
+        <span>Trình đơn</span>
       </button>
 
       <div

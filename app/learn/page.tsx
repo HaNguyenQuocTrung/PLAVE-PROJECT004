@@ -37,6 +37,7 @@ import {
   resolvePracticeRuntimeAccess,
 } from "@/lib/practice/runtime-flags";
 import { getStudentLearningContext } from "@/lib/practice/server";
+import { getVietnameseOutcomeLabel } from "@/lib/learning/presentation";
 
 export const metadata = {
   title: "Lý thuyết",
@@ -221,7 +222,12 @@ export default async function LearnPage() {
           <div className="personalized-recommendation__content">
             <p className="eyebrow">Gợi ý từ bằng chứng học tập</p>
             <h2 id="grade-one-adaptive-title">Luyện thêm theo tiến độ của em</h2>
-            <p>{gradeOneRecommendation.outcomeTitle}</p>
+            <p>
+              {getVietnameseOutcomeLabel({
+                outcomeId: gradeOneRecommendation.outcomeId,
+                label: gradeOneRecommendation.outcomeTitle,
+              })}
+            </p>
             <p>{gradeOneRecommendation.explanation}</p>
             <p className="parent-section-note">
               Đây là giả thuyết sản phẩm trong phạm vi Toán lớp 1, không phải

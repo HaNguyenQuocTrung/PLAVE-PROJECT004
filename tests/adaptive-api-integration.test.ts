@@ -377,7 +377,7 @@ test("Sprint 6I 10. Student and Parent use safe Vietnamese Grade 2 skill labels"
   }
   assert.equal(
     getParentSkillLabel("UNRELEASED_GRADE2_SKILL"),
-    "Kỹ năng đang được cập nhật",
+    "Chưa có tên kỹ năng tiếng Việt",
   );
 });
 

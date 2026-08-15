@@ -38,6 +38,10 @@ import { getLessonPath } from "@/lib/practice/catalog";
 import { getPracticeReviewPath } from "@/lib/practice/review";
 import { MotivationOverview } from "@/components/MotivationOverview";
 import { UniversalCurriculumStartButton } from "@/components/UniversalCurriculumStartButton";
+import {
+  CURRENT_MASTERY_HELP,
+  getVietnameseUnitLabel,
+} from "@/lib/learning/presentation";
 
 export const metadata = {
   title: "Tổng quan",
@@ -302,10 +306,10 @@ export default async function DashboardPage() {
             </p>
             <h2 id="universal-progress-title">
               {currentUnit
-                ? `Tiếp tục: ${currentUnit.title}`
+                ? `Tiếp tục: ${getVietnameseUnitLabel({ unitId: currentUnit.unitId, label: currentUnit.title })}`
                 : `Bắt đầu lộ trình Toán lớp ${studentProfile.grade}`}
             </h2>
-            <p>{universalProgress.masteryExplanation}</p>
+            <p>{CURRENT_MASTERY_HELP}</p>
             <div className="dashboard-diagnostic-card__actions">
               {currentUnit ? (
                 currentUnit.source === "LEGACY_GRADE1" ? (
@@ -417,7 +421,12 @@ export default async function DashboardPage() {
               return (
                 <li key={unit.unitId}>
                   <div>
-                    <strong>{unit.title}</strong>
+                    <strong>
+                      {getVietnameseUnitLabel({
+                        unitId: unit.unitId,
+                        label: unit.title,
+                      })}
+                    </strong>
                     <span>
                       {unit.status === "COMPLETED"
                         ? "Đã hoàn thành"

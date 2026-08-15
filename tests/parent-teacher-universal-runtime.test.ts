@@ -259,10 +259,10 @@ test("parent universal read model distinguishes Grade 1 and assignment evidence"
 });
 
 test("integrated Parent and Teacher UI states are student-learning focused", () => {
-  assert.match(parentComponent, /Theo yêu cầu chương trình/);
+  assert.match(parentComponent, /Theo mục tiêu chương trình có liên kết/);
   assert.match(parentComponent, /Kết quả bài giáo viên giao/);
   assert.match(parentComponent, /không cộng trùng lượt học/);
-  assert.match(teacherBuilder, /Hệ thống chọn xác định từ phạm vi và seed/);
+  assert.match(teacherBuilder, /Hệ thống chọn xác định từ phạm vi và mã sinh/);
   assert.match(teacherBuilder, /Lưu bản nháp/);
   assert.match(teacherBuilder, /Giao cho lớp/);
   assert.doesNotMatch(teacherBuilder, /correctAnswer|solutionSteps/);

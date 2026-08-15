@@ -1,6 +1,7 @@
 import { Button } from "@/components/Button";
 import { EmptyState } from "@/components/UiStates";
 import type { StudentCurriculumHistory } from "@/lib/curriculum-runtime/contracts";
+import { getVietnameseUnitLabel } from "@/lib/learning/presentation";
 
 export function StudentCurriculumHistoryView({
   history,
@@ -78,7 +79,12 @@ export function StudentCurriculumHistoryView({
                         ? "Đang học"
                         : "Đã kết thúc"}
                   </span>
-                  <h3>{attempt.unitTitle}</h3>
+                  <h3>
+                    {getVietnameseUnitLabel({
+                      unitId: attempt.unitId,
+                      label: attempt.unitTitle,
+                    })}
+                  </h3>
                   <p>
                     Đúng {attempt.correctCount}/{attempt.answeredCount} câu đã
                     làm · Tổng {attempt.totalQuestions} câu

@@ -20,6 +20,7 @@ import {
 } from "@/lib/practice/contracts";
 import { normalizePracticeNumberInput } from "@/lib/practice/client-flow";
 import { buildAnswerXpCompletionProjection } from "@/lib/scoring/completion";
+import { getVietnameseUnitLabel } from "@/lib/learning/presentation";
 
 type AdaptivePracticeRunnerProps = {
   initialState: AdaptiveRpcState;
@@ -296,7 +297,9 @@ export function AdaptivePracticeRunner({
         <div className="practice-runner__header">
           <div>
             <p className="eyebrow">Luyện tập theo năng lực</p>
-            <h1 id="adaptive-practice-title">{unitTitle}</h1>
+            <h1 id="adaptive-practice-title">
+              {getVietnameseUnitLabel({ label: unitTitle })}
+            </h1>
           </div>
           <p className="adaptive-progress" aria-label="Tiến độ lượt học">
             Đã làm {state.answeredCount} câu
@@ -326,7 +329,9 @@ export function AdaptivePracticeRunner({
       <div className="practice-runner__header">
         <div>
           <p className="eyebrow">Luyện tập theo năng lực</p>
-          <h1 id="adaptive-practice-title">{unitTitle}</h1>
+          <h1 id="adaptive-practice-title">
+            {getVietnameseUnitLabel({ label: unitTitle })}
+          </h1>
         </div>
         <div className="practice-progress-summary">
           <p

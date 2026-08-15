@@ -5,6 +5,11 @@ import { curriculumMasteryLabelText } from "@/lib/curriculum-runtime/contracts";
 import type { ReleasedCatalogUnit } from "@/lib/release-integration/catalog";
 import { getLessonPath } from "@/lib/practice/catalog";
 import { UniversalCurriculumStartButton } from "@/components/UniversalCurriculumStartButton";
+import {
+  CURRENT_MASTERY_HELP,
+  getVietnameseOutcomeLabel,
+  getVietnameseUnitLabel,
+} from "@/lib/learning/presentation";
 
 type Props = Readonly<{
   grade: number;
@@ -41,7 +46,7 @@ export function ReleasedCurriculumCatalog({ grade, units, progress, recommendati
           <div className="personalized-recommendation__content">
             <p className="eyebrow">Gợi ý từ tiến độ của em</p>
             <h2 id="released-recommendation-title">Nội dung nên tiếp tục</h2>
-            <p>{recommendation.outcomeTitle}</p>
+            <p>{getVietnameseOutcomeLabel({ outcomeId: recommendation.outcomeId, label: recommendation.outcomeTitle })}</p>
             <p>{recommendation.explanation}</p>
           </div>
         </section>
@@ -50,7 +55,7 @@ export function ReleasedCurriculumCatalog({ grade, units, progress, recommendati
         <div>
           <p className="eyebrow">Tiến độ của em</p>
           <h2 id="released-catalog-progress">Hoàn thành {completed}/{units.length} chủ đề</h2>
-          <p>{progress.masteryExplanation}</p>
+          <p>{CURRENT_MASTERY_HELP}</p>
         </div>
       </section>
       <section className="unit-catalog" aria-labelledby="released-unit-catalog-title">
@@ -73,7 +78,7 @@ export function ReleasedCurriculumCatalog({ grade, units, progress, recommendati
                   </span>
                   <span>{domainLabels[unit.domain] ?? "Toán học"}</span>
                 </div>
-                <h3>{unit.title}</h3>
+                <h3>{getVietnameseUnitLabel({ unitId: unit.unitId, label: unit.title, description: unit.description })}</h3>
                 <p>{unit.description}</p>
                 <div className="unit-card__objective">
                   <strong>Em sẽ hiểu</strong>

@@ -15,6 +15,11 @@ import type {
   TeacherCurriculumCatalog,
   TeacherCurriculumDraft,
 } from "@/lib/assignments/curriculum-contracts";
+import {
+  getVietnameseOutcomeLabel,
+  getVietnameseSkillLabel,
+  getVietnameseUnitLabel,
+} from "@/lib/learning/presentation";
 import type { TeacherClassroomSummary } from "@/lib/classrooms/contracts";
 import { fetchWithClientTimeout } from "@/lib/http/client-request";
 
@@ -70,7 +75,13 @@ export function TeacherCurriculumAssignmentBuilder({
     const choices = new Map<string, string>();
     catalog?.questions.forEach((question) =>
       question.officialOutcomeIds.forEach((id, index) =>
-        choices.set(id, question.officialOutcomeTitles[index] ?? id),
+        choices.set(
+          id,
+          getVietnameseOutcomeLabel({
+            outcomeId: id,
+            label: question.officialOutcomeTitles[index],
+          }),
+        ),
       ),
     );
     return [...choices.entries()];
@@ -78,7 +89,13 @@ export function TeacherCurriculumAssignmentBuilder({
   const skillChoices = useMemo(() => {
     const choices = new Map<string, string>();
     catalog?.questions.forEach((question) =>
-      choices.set(question.skillId, question.skillTitle),
+      choices.set(
+        question.skillId,
+        getVietnameseSkillLabel({
+          skillId: question.skillId,
+          label: question.skillTitle,
+        }),
+      ),
     );
     return [...choices.entries()];
   }, [catalog]);
@@ -342,7 +359,10 @@ export function TeacherCurriculumAssignmentBuilder({
                   .filter((unit) => !domain || unit.domain === domain)
                   .map((unit) => (
                     <option key={unit.unitId} value={unit.unitId}>
-                      {unit.title}
+                      {getVietnameseUnitLabel({
+                        unitId: unit.unitId,
+                        label: unit.title,
+                      })}
                     </option>
                   ))}
               </select>
@@ -408,8 +428,8 @@ export function TeacherCurriculumAssignmentBuilder({
                     />
                     <span>
                       {value === "DETERMINISTIC"
-                        ? "Hệ thống chọn xác định từ phạm vi và seed"
-                        : "Giáo viên chọn thủ công câu public"}
+                        ? "Hệ thống chọn xác định từ phạm vi và mã sinh"
+                        : "Giáo viên chọn thủ công câu hỏi công khai"}
                     </span>
                   </label>
                 ))}
@@ -430,7 +450,7 @@ export function TeacherCurriculumAssignmentBuilder({
                     />
                   </label>
                   <label>
-                    Seed xác định
+                    Mã sinh xác định
                     <input
                       value={seed}
                       minLength={4}
@@ -462,7 +482,13 @@ export function TeacherCurriculumAssignmentBuilder({
                         <span>
                           <strong>{question.prompt}</strong>
                           <small>
-                            {question.unitTitle} · {question.skillTitle}
+                            {getVietnameseUnitLabel({
+                              unitId: question.unitId,
+                              label: question.unitTitle,
+                            })} · {getVietnameseSkillLabel({
+                              skillId: question.skillId,
+                              label: question.skillTitle,
+                            })}
                           </small>
                         </span>
                       </label>

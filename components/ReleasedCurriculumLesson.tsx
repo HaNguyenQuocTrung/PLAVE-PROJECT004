@@ -2,6 +2,10 @@ import { Button } from "@/components/Button";
 import { UniversalCurriculumStartButton } from "@/components/UniversalCurriculumStartButton";
 import type { CurriculumProgressUnit } from "@/lib/curriculum-runtime/contracts";
 import type { ReleasedUnitDetail } from "@/lib/release-integration/catalog";
+import {
+  getVietnameseLearningLabel,
+  getVietnameseUnitLabel,
+} from "@/lib/learning/presentation";
 
 type Props = Readonly<{
   unit: ReleasedUnitDetail;
@@ -22,7 +26,13 @@ export function ReleasedCurriculumLesson({ unit, progress }: Props) {
       <header className="real-lesson-hero">
         <div>
           <p className="eyebrow">Bài học Toán lớp {unit.grade}</p>
-          <h1>{unit.title}</h1>
+          <h1>
+            {getVietnameseUnitLabel({
+              unitId: unit.unitId,
+              label: unit.title,
+              description: unit.description,
+            })}
+          </h1>
           <p>{unit.description}</p>
           <p className="unit-status" role="status">
             {progress?.status === "COMPLETED"
@@ -48,7 +58,7 @@ export function ReleasedCurriculumLesson({ unit, progress }: Props) {
           {unit.theory.map((section, index) => (
             <article className="lesson-topic" key={`${section.title}-${index}`}>
               <p className="lesson-topic__number">Phần {index + 1}</p>
-              <h3>{section.title}</h3>
+              <h3>{getVietnameseLearningLabel({ label: section.title })}</h3>
               {section.explanation.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </article>
           ))}
