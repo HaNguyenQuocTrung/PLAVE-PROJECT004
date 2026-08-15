@@ -19,6 +19,19 @@ export type XpCompletionProjection = Readonly<{
   reason: XpCompletionReason;
 }>;
 
+export type XpCompletionResultView =
+  | Readonly<{
+      kind: "READY";
+      projection: XpCompletionProjection;
+      attemptXpText: string;
+      totalXpText: string;
+      reasonText: string;
+    }>
+  | Readonly<{
+      kind: "UNAVAILABLE";
+      message: string;
+    }>;
+
 export const answerZeroXpReasons = [
   "INCORRECT_ANSWER",
   "ANSWER_ALREADY_PERSISTED",
@@ -141,6 +154,25 @@ export function parseXpCompletionProjection(
   return value as XpCompletionProjection;
 }
 
+export function buildXpCompletionResultView(
+  value: unknown,
+): XpCompletionResultView {
+  const projection = parseXpCompletionProjection(value);
+  if (!projection) {
+    return {
+      kind: "UNAVAILABLE",
+      message:
+        "Chưa thể tải kết quả XP đã lưu. Em hãy tải lại trang; PLAVE sẽ không hiển thị số XP chưa được xác minh.",
+    };
+  }
+  return {
+    kind: "READY",
+    projection,
+    attemptXpText: `${projection.attemptXpEarned} XP`,
+    totalXpText: `${projection.totalXpAfter} XP`,
+    reasonText: xpCompletionReasonText(projection.reason),
+  };
+}
 
 export function parseAnswerXpProjection(
   value: unknown,

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { CurriculumVisual } from "@/app/curriculum-preview/CurriculumVisual";
 import { Button } from "@/components/Button";
 import { ProgressBar } from "@/components/ProgressBar";
+import { XpCompletionSummary } from "@/components/XpCompletionSummary";
 import {
   AnswerControl as GeneratorV2AnswerControl,
   QuestionVisual as GeneratorV2QuestionVisual,
@@ -20,7 +21,6 @@ import {
   serializeGeneratorV2DatabaseAnswer,
 } from "@/lib/generation-v2/answer-transport";
 import type { CanonicalResponse } from "@/lib/generation-v2/types";
-import { xpCompletionReasonText } from "@/lib/scoring/completion";
 
 type UniversalCurriculumRunnerProps = {
   initialState: CurriculumAttemptState;
@@ -245,25 +245,12 @@ export function UniversalCurriculumRunner({
                 {state.scoring.earnedWeight}/{state.scoring.possibleWeight}
               </strong>
             </div>
-            {state.xpCompletion ? (
-              <>
-                <div>
-                  <span>XP lượt này</span>
-                  <strong>{state.xpCompletion.attemptXpEarned} XP</strong>
-                </div>
-                <div>
-                  <span>Tổng XP sau lượt này</span>
-                  <strong>{state.xpCompletion.totalXpAfter} XP</strong>
-                </div>
-              </>
-            ) : null}
           </div>
         ) : null}
-        {state.xpCompletion ? (
-          <p className="scoring-explanation" data-xp-completion-reason={state.xpCompletion.reason}>
-            {xpCompletionReasonText(state.xpCompletion.reason)}
-          </p>
-        ) : null}
+        <XpCompletionSummary
+          projection={state.xpCompletion}
+          totalLabel="Tổng XP sau lượt này"
+        />
         <p className="scoring-explanation">
           Hoàn thành bài học và thành thạo kỹ năng là hai điều khác nhau. Em
           có thể tiếp tục luyện để nâng mức thành thạo.
@@ -448,20 +435,11 @@ export function UniversalCurriculumRunner({
                 {state.scoring?.xpDelta} XP
               </p>
             ) : null}
-            {state.status === "COMPLETED" && state.xpCompletion ? (
-              <div className="scoring-result" role="status">
-                <div>
-                  <span>XP lượt này</span>
-                  <strong>{state.xpCompletion.attemptXpEarned} XP</strong>
-                </div>
-                <div>
-                  <span>Tổng XP sau lượt này</span>
-                  <strong>{state.xpCompletion.totalXpAfter} XP</strong>
-                </div>
-                <p data-xp-completion-reason={state.xpCompletion.reason}>
-                  {xpCompletionReasonText(state.xpCompletion.reason)}
-                </p>
-              </div>
+            {state.status === "COMPLETED" ? (
+              <XpCompletionSummary
+                projection={state.xpCompletion}
+                totalLabel="Tổng XP sau lượt này"
+              />
             ) : null}
             {state.scoring?.masteryChanges.map((change) => (
               <p className="mastery-change" key={change.outcomeTitle}>

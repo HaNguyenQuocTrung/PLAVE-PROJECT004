@@ -128,10 +128,14 @@ test("Student UI distinguishes attempt score, XP, mastery and lesson completion"
     "components/StudentCurriculumProgressView.tsx",
     "utf8",
   );
+  const xpSummary = readFileSync(
+    "components/XpCompletionSummary.tsx",
+    "utf8",
+  );
   assert.match(runner, /Điểm lượt học/u);
-  assert.match(runner, /XP lượt này/u);
+  assert.match(xpSummary, /XP lượt này/u);
   assert.match(runner, /Tổng XP sau lượt này/u);
-  assert.match(runner, /xpCompletionReasonText/u);
+  assert.match(runner, /XpCompletionSummary/u);
   assert.match(runner, /Hoàn thành bài học và thành thạo kỹ năng là hai điều khác nhau/u);
   assert.match(runner, /xpDelta/u);
   assert.match(progress, /Điểm, XP và mức thành thạo/u);

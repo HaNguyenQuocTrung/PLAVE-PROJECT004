@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Button } from "@/components/Button";
 import { PracticeVisual } from "@/components/PracticeVisual";
 import { ProgressBar } from "@/components/ProgressBar";
+import { XpCompletionSummary } from "@/components/XpCompletionSummary";
 import {
   PRACTICE_NUMBER_INPUT_MAX_DIGITS,
   parsePracticeApiError,
@@ -26,7 +27,6 @@ import {
   type GradedAnswer,
 } from "@/lib/practice/client-flow";
 import { getPracticeReviewPath } from "@/lib/practice/review";
-import { xpCompletionReasonText } from "@/lib/scoring/completion";
 
 type PracticeRunnerProps = {
   attemptId: string;
@@ -401,20 +401,11 @@ export function PracticeRunner({
                 <strong>Gợi ý:</strong> {result.hint}
               </p>
             ) : null}
-            {result.completed && result.xpCompletion ? (
-              <div className="scoring-result" role="status">
-                <div>
-                  <span>XP lượt này</span>
-                  <strong>{result.xpCompletion.attemptXpEarned} XP</strong>
-                </div>
-                <div>
-                  <span>Tổng XP sau lượt này</span>
-                  <strong>{result.xpCompletion.totalXpAfter} XP</strong>
-                </div>
-                <p data-xp-completion-reason={result.xpCompletion.reason}>
-                  {xpCompletionReasonText(result.xpCompletion.reason)}
-                </p>
-              </div>
+            {result.completed ? (
+              <XpCompletionSummary
+                projection={result.xpCompletion}
+                totalLabel="Tổng XP sau lượt này"
+              />
             ) : null}
           </div>
         ) : null}

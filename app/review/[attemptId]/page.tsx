@@ -5,6 +5,7 @@ import { LearningAccessState } from "@/components/LearningAccessState";
 import { PracticeVisual } from "@/components/PracticeVisual";
 import { ReviewErrorState } from "@/components/ReviewErrorState";
 import { StartPracticeButton } from "@/components/StartPracticeButton";
+import { XpCompletionSummary } from "@/components/XpCompletionSummary";
 import { getLessonPath } from "@/lib/practice/catalog";
 import {
   isUuid,
@@ -27,10 +28,7 @@ import {
 } from "@/lib/practice/review";
 import { getStudentLearningContext } from "@/lib/practice/server";
 import { parseStudentScoringSummary } from "@/lib/curriculum-runtime/contracts";
-import {
-  buildAttemptXpCompletionProjection,
-  xpCompletionReasonText,
-} from "@/lib/scoring/completion";
+import { buildAttemptXpCompletionProjection } from "@/lib/scoring/completion";
 
 export const metadata = {
   title: "Kết quả bài làm",
@@ -165,20 +163,8 @@ export default async function ReviewPage({ params }: ReviewPageProps) {
               ? `Em trả lời đúng ${review.correctCount}/${review.totalQuestions} câu. Kết quả đã được lưu vào lịch sử.`
               : `Em đã trả lời ${review.answeredCount}/${review.totalQuestions} câu.`}
           </p>
-          {xpCompletion ? (
-            <div className="scoring-result" aria-label="Kết quả XP của lượt học">
-              <div>
-                <span>XP lượt này</span>
-                <strong>{xpCompletion.attemptXpEarned} XP</strong>
-              </div>
-              <div>
-                <span>Tổng XP hiện tại</span>
-                <strong>{xpCompletion.totalXpAfter} XP</strong>
-              </div>
-              <p data-xp-completion-reason={xpCompletion.reason}>
-                {xpCompletionReasonText(xpCompletion.reason)}
-              </p>
-            </div>
+          {review.status === "COMPLETED" ? (
+            <XpCompletionSummary projection={xpCompletion} />
           ) : null}
         </div>
         {review.status === "IN_PROGRESS" ? (

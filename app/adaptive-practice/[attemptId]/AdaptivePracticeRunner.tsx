@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/Button";
 import { PracticeVisual } from "@/components/PracticeVisual";
+import { XpCompletionSummary } from "@/components/XpCompletionSummary";
 import {
   parseAdaptiveApiResponse,
   type AdaptiveApiError,
@@ -18,6 +19,7 @@ import {
   PRACTICE_NUMBER_INPUT_MAX_DIGITS,
 } from "@/lib/practice/contracts";
 import { normalizePracticeNumberInput } from "@/lib/practice/client-flow";
+import { buildAnswerXpCompletionProjection } from "@/lib/scoring/completion";
 
 type AdaptivePracticeRunnerProps = {
   initialState: AdaptiveRpcState;
@@ -42,6 +44,14 @@ function TerminalState({
 }: {
   state: AdaptiveRpcState;
 }) {
+  const completed = [
+    "MASTERED_EARLY",
+    "REMEDIATION_REQUIRED",
+    "MAX_REACHED",
+  ].includes(state.status);
+  const xpCompletion = state.xp
+    ? buildAnswerXpCompletionProjection(state.xp)
+    : null;
   const copy = {
     MASTERED_EARLY: {
       eyebrow: "Hoàn thành lượt học",
@@ -78,18 +88,7 @@ function TerminalState({
       <p className="eyebrow">{copy.eyebrow}</p>
       <h2>{copy.title}</h2>
       <p>{copy.description}</p>
-      {state.xp ? (
-        <div className="scoring-result" aria-label="Kết quả XP của lượt học">
-          <div>
-            <span>XP lượt này</span>
-            <strong>{state.xp.attemptXpEarned} XP</strong>
-          </div>
-          <div>
-            <span>Tổng XP hiện tại</span>
-            <strong>{state.xp.totalXpAfter} XP</strong>
-          </div>
-        </div>
-      ) : null}
+      {completed ? <XpCompletionSummary projection={xpCompletion} /> : null}
       {state.remediationSkillIds.length > 0 ? (
         <div>
           <h3>Kỹ năng nên ôn lại</h3>

@@ -251,6 +251,10 @@ test("all production completion and result paths use canonical post-commit XP", 
     "utf8",
   );
   const review = readFileSync("app/review/[attemptId]/page.tsx", "utf8");
+  const xpSummary = readFileSync(
+    "components/XpCompletionSummary.tsx",
+    "utf8",
+  );
   const dashboard = readFileSync("app/dashboard/page.tsx", "utf8");
   const progress = readFileSync(
     "components/StudentCurriculumProgressView.tsx",
@@ -267,8 +271,9 @@ test("all production completion and result paths use canonical post-commit XP", 
   assert.match(onDemandAnswer, /loadCanonicalStudentScoringSummary/u);
   assert.match(onDemandAnswer, /revalidateStudentLearningProjections/u);
   assert.match(gradeOneAnswer, /buildAnswerXpCompletionProjection/u);
-  assert.match(result, /totalXpAfter/u);
-  assert.match(review, /totalXpAfter/u);
+  assert.match(result, /XpCompletionSummary/u);
+  assert.match(review, /XpCompletionSummary/u);
+  assert.match(xpSummary, /totalXpAfter/u);
   assert.match(dashboard, /scoring\.totalXp/u);
   assert.match(progress, /scoring\.totalXp/u);
   assert.match(history, /scoringTotalXp/u);
