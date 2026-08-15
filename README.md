@@ -356,11 +356,13 @@ workflow or contributor license agreement is defined.
 
 - **Last repository review:** 2026-08-15
 - **Baseline entering this review:** `099b0b8050dd1c33348c2df1350466c260ed04ce`
-- **Last verified handoff commit:** to be replaced with the first post-review
-  exact-head commit after its GitHub Actions quality gate succeeds.
+- **Last verified source/content handoff commit:**
+  `5ccf1fac7a6e63af00b3faaa78fc79680c42bb26` — exact-head quality gate
+  [31868865536](https://github.com/HaNguyenQuocTrung/PLAVE-PROJECT004/actions/runs/31868865536)
+  succeeded.
 - **Canonical workflow:** `.github/workflows/plave-quality-gate.yml`
 - **Deterministic evidence:** `content/releases/grades-1-9/`
 
-Because a commit cannot embed its own hash without changing that hash, the
-handoff records the first post-review CI-green commit here; any later
+Because a commit cannot embed its own hash without changing that hash, this
+field records the CI-green source/content handoff commit. A later metadata and
 receipt-only commit is reported separately in Git history and CI.

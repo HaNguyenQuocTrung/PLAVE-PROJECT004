@@ -34,6 +34,8 @@ test("README is a complete product-truth handoff rather than a stale metric snap
   assert.match(source, /not evidence of learning effectiveness/u);
   assert.match(source, /Locally demonstrated and configured, not deployed/u);
   assert.match(source, /No `LICENSE` file is currently included/u);
+  assert.match(source, /Last verified source\/content handoff commit:[\s\S]{0,120}`[0-9a-f]{40}`/u);
+  assert.doesNotMatch(source, /to be replaced/u);
   assert.doesNotMatch(source, /curriculum-aligned lessons/u);
   assert.doesNotMatch(source, /production.ready|production-ready/iu);
   assert.doesNotMatch(source, /\b\d{2,},?\d*\/\d{2,},?\d*\b/u);
