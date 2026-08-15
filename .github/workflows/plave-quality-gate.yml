@@ -220,7 +220,16 @@ jobs:
         run: |
           node --no-warnings --experimental-strip-types scripts/verify-docker-image-metadata.ts plave-application:local
           scan_container="$(docker create plave-application:local)"
-          trap 'docker rm --force "$scan_container" >/dev/null 2>&1 || true' EXIT
+          cleanup_scan_container() {
+            status=$?
+            trap - EXIT
+            set +e
+            docker rm --force "$scan_container" >/dev/null 2>&1
+            cleanup_status=$?
+            if [[ "$status" -ne 0 ]]; then exit "$status"; fi
+            exit "$cleanup_status"
+          }
+          trap cleanup_scan_container EXIT
           docker export "$scan_container" > "$RUNNER_TEMP/plave-application-rootfs.tar"
           tar -tf "$RUNNER_TEMP/plave-application-rootfs.tar" > "$RUNNER_TEMP/plave-application-files.txt"
           if grep -E '(^|/)app/(\.git|\.github|\.env($|[.])|tests|coverage|artifacts|reports|backups?)($|/)' "$RUNNER_TEMP/plave-application-files.txt"; then
@@ -237,7 +246,13 @@ jobs:
       - name: Verify non-root hardened runtime
         run: |
           cleanup() {
-            docker compose --env-file .env.docker.example down --remove-orphans --volumes >/dev/null 2>&1 || true
+            status=$?
+            trap - EXIT
+            set +e
+            docker compose --env-file .env.docker.example down --remove-orphans --volumes >/dev/null 2>&1
+            cleanup_status=$?
+            if [[ "$status" -ne 0 ]]; then exit "$status"; fi
+            exit "$cleanup_status"
           }
           trap cleanup EXIT
           docker compose --env-file .env.docker.example up --detach --no-build app
@@ -264,5 +279,3 @@ jobs:
           docker compose --env-file .env.docker.example stop --timeout 15 app
           test "$(docker inspect --format '{{.State.OOMKilled}}' "$container_id")" = false
           test "$(docker inspect --format '{{.State.ExitCode}}' "$container_id")" != 137
-          cleanup
-          trap - EXIT
