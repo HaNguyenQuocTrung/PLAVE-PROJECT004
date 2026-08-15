@@ -176,3 +176,106 @@ jobs:
 
       - name: Verify whitespace cleanliness
         run: git diff --check
+
+  docker-delivery:
+    name: Secure application-only Docker delivery
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CI: "1"
+      NEXT_TELEMETRY_DISABLED: "1"
+      NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: plave_docker_ci_publishable_key
+    defaults:
+      run:
+        shell: bash --noprofile --norc -euo pipefail {0}
+    steps:
+      - name: Checkout exact event commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Set up canonical Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.16.0
+
+      - name: Verify Docker and Compose source contracts
+        run: npm run --silent docker:verify
+
+      - name: Render synthetic Compose configuration
+        run: docker compose --env-file .env.docker.example config --quiet
+
+      - name: Build application-only image
+        run: |
+          docker build \
+            --platform linux/amd64 \
+            --build-arg NEXT_PUBLIC_SUPABASE_URL="$NEXT_PUBLIC_SUPABASE_URL" \
+            --build-arg NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY="$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY" \
+            --tag plave-application:local \
+            .
+
+      - name: Inspect image metadata and filesystem
+        run: |
+          node --no-warnings --experimental-strip-types scripts/verify-docker-image-metadata.ts plave-application:local
+          scan_container="$(docker create plave-application:local)"
+          cleanup_scan_container() {
+            status=$?
+            trap - EXIT
+            set +e
+            docker rm --force "$scan_container" >/dev/null 2>&1
+            cleanup_status=$?
+            if [[ "$status" -ne 0 ]]; then exit "$status"; fi
+            exit "$cleanup_status"
+          }
+          trap cleanup_scan_container EXIT
+          docker export "$scan_container" > "$RUNNER_TEMP/plave-application-rootfs.tar"
+          tar -tf "$RUNNER_TEMP/plave-application-rootfs.tar" > "$RUNNER_TEMP/plave-application-files.txt"
+          if grep -E '(^|/)app/(\.git|\.github|\.env($|[.])|tests|coverage|artifacts|reports|backups?)($|/)' "$RUNNER_TEMP/plave-application-files.txt"; then
+            echo 'Forbidden development/private material found in final image.' >&2
+            exit 1
+          fi
+          if grep '^app/docs/' "$RUNNER_TEMP/plave-application-files.txt" | grep -Ev '^app/docs/$|^app/docs/curriculum/$|^app/docs/curriculum/GRADES_1_TO_9_OFFICIAL_OUTCOME_STATUS[.]json$'; then
+            echo 'Unexpected documentation material found in final image.' >&2
+            exit 1
+          fi
+          docker rm "$scan_container" >/dev/null
+          trap - EXIT
+
+      - name: Verify non-root hardened runtime
+        run: |
+          cleanup() {
+            status=$?
+            trap - EXIT
+            set +e
+            docker compose --env-file .env.docker.example down --remove-orphans --volumes >/dev/null 2>&1
+            cleanup_status=$?
+            if [[ "$status" -ne 0 ]]; then exit "$status"; fi
+            exit "$cleanup_status"
+          }
+          trap cleanup EXIT
+          docker compose --env-file .env.docker.example up --detach --no-build app
+          for attempt in $(seq 1 60); do
+            container_id="$(docker compose --env-file .env.docker.example ps --quiet app)"
+            health="$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}missing{{end}}' "$container_id")"
+            if [[ "$health" == healthy ]]; then break; fi
+            if [[ "$attempt" == 60 ]]; then
+              docker compose --env-file .env.docker.example logs --no-log-prefix app
+              exit 1
+            fi
+            sleep 1
+          done
+          test "$(docker exec "$container_id" id -u)" = 1000
+          node --no-warnings --experimental-strip-types scripts/verify-docker-runtime.ts http://127.0.0.1:3100
+          docker compose --env-file .env.docker.example restart app
+          for attempt in $(seq 1 60); do
+            health="$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}missing{{end}}' "$container_id")"
+            if [[ "$health" == healthy ]]; then break; fi
+            if [[ "$attempt" == 60 ]]; then exit 1; fi
+            sleep 1
+          done
+          node --no-warnings --experimental-strip-types scripts/verify-docker-runtime.ts http://127.0.0.1:3100
+          docker compose --env-file .env.docker.example stop --timeout 15 app
+          test "$(docker inspect --format '{{.State.OOMKilled}}' "$container_id")" = false
+          test "$(docker inspect --format '{{.State.ExitCode}}' "$container_id")" != 137

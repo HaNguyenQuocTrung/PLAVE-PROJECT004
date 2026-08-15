@@ -34,6 +34,7 @@ next-env.d.ts
 # Environment overrides
 .env*
 !.env.example
+!.env.docker.example
 !.env.remote-dev.local.example
 .project004-remote-migration-0041-approval.local
 
