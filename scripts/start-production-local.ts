@@ -73,6 +73,7 @@ function resolvePublicRuntime(root: string): PublicRuntime {
       PLAVE_PROJECT004_REMOTE_RUNTIME_MODE: config.runtimeMode,
       PLAVE_PROJECT004_REMOTE_TARGET_NAME: config.targetName,
       PLAVE_CURRICULUM_RUNTIME_ENABLED: config.curriculumRuntimeEnabled,
+      PLAVE_GRADES_2_9_RELEASE_MODE: config.gradesTwoToNineReleaseMode,
       PLAVE_ON_DEMAND_GENERATION_ENABLED: "false",
       PLAVE_GENERATED_PRACTICE_RUNTIME_ENABLED: "false",
       PLAVE_GENERATED_PRACTICE_MODE: "OFF",

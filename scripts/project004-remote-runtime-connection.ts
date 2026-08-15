@@ -28,6 +28,7 @@ const requiredEnvironmentKeys = [
   "NEXT_PUBLIC_SUPABASE_URL",
   "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
   "PLAVE_CURRICULUM_RUNTIME_ENABLED",
+  "PLAVE_GRADES_2_9_RELEASE_MODE",
   "PLAVE_ON_DEMAND_GENERATION_ENABLED",
   "PLAVE_GENERATED_PRACTICE_RUNTIME_ENABLED",
   "PLAVE_GENERATED_PRACTICE_MODE",
@@ -89,6 +90,7 @@ export type Project004RemoteRuntimeConfig = {
   publicUrl: string;
   publishableKey: string;
   curriculumRuntimeEnabled: string;
+  gradesTwoToNineReleaseMode: "HIDDEN" | "PUBLIC";
   onDemandGenerationEnabled: string;
   generatedPracticeRuntimeEnabled: string;
   generatedPracticeMode: string;
@@ -207,6 +209,9 @@ export function assertProject004RemoteRuntimeConfig(
     !["true", "false"].includes(
       config.curriculumRuntimeEnabled,
     ) ||
+    (config.curriculumRuntimeEnabled === "true"
+      ? config.gradesTwoToNineReleaseMode !== "PUBLIC"
+      : config.gradesTwoToNineReleaseMode !== "HIDDEN") ||
     config.generatedPracticeMode !== "OFF" ||
     disabledFlags.some((value) => value !== "false") ||
     config.adaptivePilotUserIds !== ""
@@ -231,6 +236,7 @@ export function createProject004RemoteRuntimeConfig(input: {
     publicUrl: input.publicUrl.trim(),
     publishableKey: input.publishableKey.trim(),
     curriculumRuntimeEnabled: "true",
+    gradesTwoToNineReleaseMode: "PUBLIC",
     onDemandGenerationEnabled: "false",
     generatedPracticeRuntimeEnabled: "false",
     generatedPracticeMode: "OFF",
@@ -253,6 +259,7 @@ export function serializeProject004RemoteRuntimeConfig(
     `NEXT_PUBLIC_SUPABASE_URL=${config.publicUrl}`,
     `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=${config.publishableKey}`,
     `PLAVE_CURRICULUM_RUNTIME_ENABLED=${config.curriculumRuntimeEnabled}`,
+    `PLAVE_GRADES_2_9_RELEASE_MODE=${config.gradesTwoToNineReleaseMode}`,
     `PLAVE_ON_DEMAND_GENERATION_ENABLED=${config.onDemandGenerationEnabled}`,
     `PLAVE_GENERATED_PRACTICE_RUNTIME_ENABLED=${config.generatedPracticeRuntimeEnabled}`,
     `PLAVE_GENERATED_PRACTICE_MODE=${config.generatedPracticeMode}`,
@@ -286,6 +293,15 @@ export function parseProject004RemoteRuntimeConfig(
   ) {
     fail("REMOTE_RUNTIME_ENV_KEY_SET_INVALID");
   }
+  const gradesTwoToNineReleaseMode = values.get(
+    "PLAVE_GRADES_2_9_RELEASE_MODE",
+  );
+  if (
+    gradesTwoToNineReleaseMode !== "HIDDEN" &&
+    gradesTwoToNineReleaseMode !== "PUBLIC"
+  ) {
+    fail("REMOTE_RUNTIME_FEATURE_FLAG_CONTRACT_REJECTED");
+  }
   return assertProject004RemoteRuntimeConfig({
     runtimeMode:
       values.get("PLAVE_PROJECT004_REMOTE_RUNTIME_MODE") ?? "",
@@ -300,6 +316,7 @@ export function parseProject004RemoteRuntimeConfig(
       "",
     curriculumRuntimeEnabled:
       values.get("PLAVE_CURRICULUM_RUNTIME_ENABLED") ?? "",
+    gradesTwoToNineReleaseMode,
     onDemandGenerationEnabled:
       values.get("PLAVE_ON_DEMAND_GENERATION_ENABLED") ?? "",
     generatedPracticeRuntimeEnabled:
@@ -359,6 +376,7 @@ export function setProject004RemoteRuntimeUniversalFlag(
     assertProject004RemoteRuntimeConfig({
       ...config,
       curriculumRuntimeEnabled: enabled ? "true" : "false",
+      gradesTwoToNineReleaseMode: enabled ? "PUBLIC" : "HIDDEN",
     }),
     candidateRoot,
   );
@@ -417,6 +435,8 @@ export function buildProject004RemoteRuntimeChildEnvironment(
     config.publishableKey;
   child.PLAVE_CURRICULUM_RUNTIME_ENABLED =
     config.curriculumRuntimeEnabled;
+  child.PLAVE_GRADES_2_9_RELEASE_MODE =
+    config.gradesTwoToNineReleaseMode;
   child.PLAVE_ON_DEMAND_GENERATION_ENABLED = "false";
   child.PLAVE_GENERATED_PRACTICE_RUNTIME_ENABLED = "false";
   child.PLAVE_GENERATED_PRACTICE_MODE = "OFF";
@@ -454,6 +474,7 @@ export function renderProject004RemoteRuntimeContractSmoke() {
     child.SUPABASE_SERVICE_ROLE_KEY === "" &&
     child.PLAVE_LOCAL_DATABASE_URL === "" &&
     child.PLAVE_CURRICULUM_RUNTIME_ENABLED === "true" &&
+    child.PLAVE_GRADES_2_9_RELEASE_MODE === "PUBLIC" &&
     child.PLAVE_GENERATED_PRACTICE_RUNTIME_ENABLED === "false" &&
     child.PLAVE_GENERATED_PRACTICE_MODE === "OFF" &&
     child.PLAVE_ADAPTIVE_PILOT_USER_IDS === "";

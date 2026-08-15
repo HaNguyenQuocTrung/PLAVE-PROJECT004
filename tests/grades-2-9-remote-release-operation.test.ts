@@ -36,6 +36,12 @@ test("disposable database proof executes the exact remote activation SQL", () =>
     /grades-2-9-remote-release\/ACTIVATE_PUBLIC[.]sql/u);
   assert.doesNotMatch(proof,
     /grades-2-9-local-release\/ACTIVATE_PUBLIC[.]sql/u);
+  assert.ok(
+    proof.indexOf("values('0047',array[]::text[])") <
+      proof.indexOf("grades-2-9-remote-release/ACTIVATE_PUBLIC.sql"),
+    "the post-0047 activation package must run only after 0047 is recorded",
+  );
+  assert.match(proof, /unifiedActivitySchemaBoundary !== "3\|4\|4\|false\|0"/u);
 });
 
 test("remote 0045 deactivation blocks discovery and preserves history", () => {
