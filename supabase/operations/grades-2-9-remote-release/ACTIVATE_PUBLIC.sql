@@ -1,7 +1,7 @@
 \set ON_ERROR_STOP on
 
--- Canonical post-0045 remote operation. The caller must independently verify
--- project ref vvseikavrfhjchyrcgqi and run the verified pre-activation backup.
+-- Canonical post-0047 remote operation. The caller must independently verify
+-- project identity and run a fresh verified pre-activation backup/restore proof.
 begin;
 set local lock_timeout = '5s';
 set local statement_timeout = '60s';
@@ -13,9 +13,16 @@ declare
   v_history_before bigint[];
   v_history_after bigint[];
 begin
-  if (select count(*) from supabase_migrations.schema_migrations) <> 45
-    or (select count(*) from supabase_migrations.schema_migrations where version = '0045') <> 1
-  then raise exception 'GRADES_2_9_REMOTE:LEDGER_NOT_EXACT_0045'; end if;
+  if (select count(*) from supabase_migrations.schema_migrations) <> 47
+    or (select count(distinct version) from supabase_migrations.schema_migrations) <> 47
+    or exists (
+      select 1 from generate_series(1,47) as expected(version)
+      where not exists (
+        select 1 from supabase_migrations.schema_migrations as applied
+        where applied.version = lpad(expected.version::text,4,'0')
+      )
+    )
+  then raise exception 'GRADES_2_9_REMOTE:LEDGER_NOT_EXACT_0047'; end if;
 
   perform 1 from public.curriculum_grade_release_policies
     where grade between 2 and 9 order by grade for update;

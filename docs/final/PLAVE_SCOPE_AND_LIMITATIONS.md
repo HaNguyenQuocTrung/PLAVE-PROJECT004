@@ -23,9 +23,11 @@ Grades 1–9 learning journeys are proven through the real local browser and dis
 - Thirteen Grades 2–9 skills use fixed-safe practice and make no adaptive-mastery claim.
 - Open-ended, experiential, visual-dependent and verification-insufficient outcomes remain excluded or UNKNOWN.
 - The repository default remains HIDDEN. The accepted PUBLIC activation occurred only in a disposable local database.
-- Remote migration 0045 has been applied and verified, while Grades 2–9 remain
-  DRAFT/HIDDEN. Remote activation and a new deployment have not been executed;
-  no online availability claim is made for Grades 2–9.
+- Preserved Owner-authorized evidence records remote migrations 0045–0047 as
+  applied and verified, while Grades 2–9 remain DRAFT/HIDDEN. This documentation
+  audit did not re-query the remote database. Remote activation and a new
+  deployment have not been executed; no online availability claim is made for
+  Grades 2–9.
 - No expert review or live-user pilot is claimed.
 
 These limitations are product truth, not defects silently converted to PASS.

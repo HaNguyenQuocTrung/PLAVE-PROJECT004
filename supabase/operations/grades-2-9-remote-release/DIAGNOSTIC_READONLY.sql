@@ -3,6 +3,19 @@ begin read only;
 set local statement_timeout = '30s';
 select 'ledger_rows',count(*)::text from supabase_migrations.schema_migrations;
 select 'migration_0045_rows',count(*)::text from supabase_migrations.schema_migrations where version='0045';
+select 'migration_0046_rows',count(*)::text from supabase_migrations.schema_migrations where version='0046';
+select 'migration_0047_rows',count(*)::text from supabase_migrations.schema_migrations where version='0047';
+select 'ledger_continuous_0001_0047',(
+  (select count(*) from supabase_migrations.schema_migrations)=47
+  and (select count(distinct version) from supabase_migrations.schema_migrations)=47
+  and not exists (
+    select 1 from generate_series(1,47) as expected(version)
+    where not exists (
+      select 1 from supabase_migrations.schema_migrations as applied
+      where applied.version=lpad(expected.version::text,4,'0')
+    )
+  )
+)::text;
 select 'release_policies',count(*)::text from public.curriculum_grade_release_policies where grade between 2 and 9;
 select 'public_modes',count(*)::text from public.curriculum_grade_release_policies where grade between 2 and 9 and release_mode='PUBLIC' and catalog_enabled and runtime_enabled;
 select 'hidden_modes',count(*)::text from public.curriculum_grade_release_policies where grade between 2 and 9 and release_mode='HIDDEN' and not catalog_enabled and not runtime_enabled;

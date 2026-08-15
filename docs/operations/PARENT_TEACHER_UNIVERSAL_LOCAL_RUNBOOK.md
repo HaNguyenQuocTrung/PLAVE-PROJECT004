@@ -37,7 +37,7 @@ Static tests are not a substitute for that evidence.
 
 ## Exact local command
 
-From `/Users/hatrung/Desktop/PLAVE-PROJECT004`, run:
+From the repository root, run:
 
 ```bash
 npm run test:universal-collaboration-local

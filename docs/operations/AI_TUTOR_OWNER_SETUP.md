@@ -8,7 +8,7 @@ Mục đích: cấu hình Google Gemini key local, server-only, không gửi key
 Từ project root bắt buộc:
 
 ```bash
-cd /Users/hatrung/Desktop/PLAVE-PROJECT004
+cd <repository-root>
 npm run --silent ai-tutor:configure
 ```
 
@@ -21,7 +21,7 @@ không gọi provider và không in prefix/suffix. Với Google, command tự d�
 Configure được serialize bằng lock project-local:
 
 ```text
-/Users/hatrung/Desktop/PLAVE-PROJECT004/.ai-tutor-config.lock
+<repository-root>/.ai-tutor-config.lock
 ```
 
 Lock chỉ chứa metadata owner, không chứa key/config value. Nếu một configure khác
@@ -48,7 +48,7 @@ gửi key qua chat.
 Sau khi configure:
 
 ```bash
-cd /Users/hatrung/Desktop/PLAVE-PROJECT004
+cd <repository-root>
 npm run --silent smoke:ai-tutor-google
 ```
 
@@ -100,7 +100,7 @@ Nó không gọi provider và không in key. `REBUILD_ON_START` là trạng thá
 `npm run start` tạo lại canonical sanitized artifact trước khi mở listener:
 
 ```bash
-cd /Users/hatrung/Desktop/PLAVE-PROJECT004
+cd <repository-root>
 npm run --silent ai-tutor:local-preflight
 ```
 
@@ -109,7 +109,7 @@ Chỉ tiếp tục khi output có `AI_TUTOR_LOCAL_PREFLIGHT=PASS`.
 Sau khi preflight PASS, Owner chỉ chạy:
 
 ```bash
-cd /Users/hatrung/Desktop/PLAVE-PROJECT004
+cd <repository-root>
 npm run start
 ```
 

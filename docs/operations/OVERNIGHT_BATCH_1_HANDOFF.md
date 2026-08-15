@@ -10,7 +10,7 @@ Secrets observed: **false**
 
 ## Scope and boundaries
 
-Work was limited to `/Users/hatrung/Desktop/PLAVE-PROJECT004`.
+Work was limited to the checked-out Project004 repository root.
 No remote Supabase action, real membership, real UUID, activation,
 publication, migration, deployment, Docker action, network action, git
 mutation, or `.env.local` read/write was performed. PROJECT003 was not

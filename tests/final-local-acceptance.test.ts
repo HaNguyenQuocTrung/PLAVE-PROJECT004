@@ -37,7 +37,7 @@ test("final receipt locks inventory, browser proof, release modes and current-tu
   );
   assert.equal(
     receipt.remoteState.migration0047,
-    "NOT_APPLIED_OWNER_AUTHORIZATION_REQUIRED",
+    "APPLIED_AND_VERIFIED",
   );
   assert.equal(receipt.remoteState.gradesTwoToNineActivation, "NOT_EXECUTED");
   assert.equal(receipt.remoteState.deployment, "NOT_EXECUTED");
@@ -69,7 +69,7 @@ test("submission-facing documentation distinguishes applied schema from activati
     assert.match(text, /local/u);
     assert.match(text, /remote/u);
   }
-  assert.match(read("README.md"), /database-backed adaptive and fixed-safe journeys/u);
+  assert.match(read("README.md"), /database-backed fixed-safe\/adaptive paths/u);
   assert.match(read("docs/final/PLAVE_RELEASE_READINESS.md"), /APPLIED_AND_VERIFIED/u);
   assert.match(read("docs/final/PLAVE_RELEASE_READINESS.md"), /HIDDEN_NOT_ACTIVATED/u);
   assert.match(read("docs/final/PLAVE_REMOTE_RELEASE_HANDOFF.md"), /Owner authorization/u);

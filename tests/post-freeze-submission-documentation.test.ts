@@ -1,21 +1,70 @@
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 import test from "node:test";
 
-test("README reports the current build metrics and honest release state", () => {
-  const readme = readFileSync("README.md", "utf8");
-  assert.match(readme, /76 static pages/u);
-  assert.match(readme, /115 application routes/u);
-  assert.match(readme, /Grade 1 fixed-runtime/u);
-  assert.match(readme, /Grades 2–9 database-backed adaptive and fixed-safe journeys, materialized by migration `0045` and accepted in a disposable local `PUBLIC` release; the repository default remains `HIDDEN`/u);
-  assert.match(readme, /Grades 2–9 are integrated for the typed local `PUBLIC` mode/u);
-  assert.match(readme, /authenticated Student can learn their authorized grade when both the\s+application mode and exact database release flags are enabled/u);
-  assert.match(readme, /default mode\s+remains `HIDDEN`/u);
-  assert.match(readme, /migration `0045` has been applied and verified/u);
-  assert.match(readme, /operation did not\s+activate Grades 2–9 or\s+deploy the new application release/u);
-  assert.doesNotMatch(readme, /77\/77 routes/u);
-  assert.doesNotMatch(readme, /Sprint 11B acceptance is incomplete/u);
-  assert.doesNotMatch(readme, /remote (?:publication|activation|deployment) (?:is|was) complete/iu);
+const readmePath = resolve("README.md");
+const readme = () => readFileSync(readmePath, "utf8");
+
+test("README is a complete product-truth handoff rather than a stale metric snapshot", () => {
+  const source = readme();
+  for (const heading of [
+    "Current product truth",
+    "Users and product surfaces",
+    "Core learning behavior",
+    "Architecture",
+    "Repository structure",
+    "Prerequisites",
+    "Environment configuration",
+    "Local setup",
+    "Database and migrations",
+    "Testing and quality",
+    "Security and privacy",
+    "Deployment status",
+    "Known limitations",
+    "Academic context",
+    "License and contributions",
+    "Evidence freshness",
+  ]) assert.match(source, new RegExp(`^## ${heading}$`, "mu"), heading);
+
+  assert.match(source, /Grade 1[\s\S]*fixed-practice runtime/u);
+  assert.match(source, /Grades 2–9[\s\S]*remain `HIDDEN`/u);
+  assert.match(source, /migration(?:s)? `0045`, `0046` and\s+`0047`/u);
+  assert.match(source, /skill\/question-to-outcome mapping has not been proven/u);
+  assert.match(source, /not evidence of learning effectiveness/u);
+  assert.match(source, /Locally demonstrated and configured, not deployed/u);
+  assert.match(source, /No `LICENSE` file is currently included/u);
+  assert.doesNotMatch(source, /curriculum-aligned lessons/u);
+  assert.doesNotMatch(source, /production.ready|production-ready/iu);
+  assert.doesNotMatch(source, /\b\d{2,},?\d*\/\d{2,},?\d*\b/u);
+  assert.doesNotMatch(source, /\/Users\/|\/private\/tmp\//u);
+});
+
+test("README commands are backed by package scripts or tracked executables", () => {
+  const source = readme();
+  const manifest = JSON.parse(readFileSync("package.json", "utf8")) as {
+    scripts: Record<string, string>;
+  };
+  const scriptCommands = [...source.matchAll(/^npm run (?:--silent )?([^\s`]+).*$/gmu)]
+    .map((match) => match[1] ?? "");
+  for (const command of scriptCommands) {
+    assert.equal(Boolean(manifest.scripts[command]), true, `missing npm script: ${command}`);
+  }
+  assert.equal(existsSync("scripts/run-ci-quality-test-group.ts"), true);
+  assert.equal(existsSync("tsconfig.secret-boundary.json"), true);
+  assert.equal(existsSync(".env.example"), true);
+});
+
+test("README relative links resolve to tracked handoff resources", () => {
+  const source = readme();
+  const links = [...source.matchAll(/\[[^\]]+\]\(([^)]+)\)/gu)]
+    .map((match) => match[1])
+    .filter((target) => !/^(?:https?:|#)/u.test(target));
+  for (const target of links) {
+    const path = resolve(dirname(readmePath), target.split("#", 1)[0] ?? "");
+    assert.equal(existsSync(path), true, `broken README link: ${target}`);
+    assert.equal(statSync(path).isFile() || statSync(path).isDirectory(), true);
+  }
 });
 
 test("historical submission JSON is explicit about supersession and points to canonical final inventory", () => {
@@ -46,13 +95,12 @@ test("historical submission JSON is explicit about supersession and points to ca
   });
 });
 
-test("final handoff document agrees with the canonical inventory and keeps candidates hidden", () => {
+test("final handoff keeps local acceptance separate from hidden remote activation", () => {
   const completion = readFileSync("docs/final/PLAVE_FYP_COMPLETION.md", "utf8");
-  assert.match(completion, /2,772 questions/u);
-  assert.match(completion, /338 question-bearing skills/u);
-  assert.match(completion, /176 units/u);
+  const readiness = readFileSync("docs/final/PLAVE_RELEASE_READINESS.md", "utf8");
   assert.match(completion, /Repository default remains `HIDDEN`/u);
   assert.match(completion, /Default entitlement count remains zero/u);
-  assert.match(completion, /Remote migration `0045` is `APPLIED_AND_VERIFIED`/u);
-  assert.match(completion, /Grades 2–9 remote\s+activation and a new application deployment remain `NOT_YET_EXECUTED`/u);
+  assert.match(readiness, /Remote migrations 0045–0047/u);
+  assert.match(readiness, /HIDDEN_NOT_ACTIVATED/u);
+  assert.match(readiness, /NOT_YET_EXECUTED/u);
 });

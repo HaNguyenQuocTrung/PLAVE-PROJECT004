@@ -50,7 +50,7 @@ not alter or deploy that remote schema.
 
 Prerequisites:
 
-1. Work from `/Users/hatrung/Desktop/PLAVE-PROJECT004`.
+1. Work from the repository root.
 2. Keep Docker running. Do not start a separate PROJECT004 Supabase stack.
 3. Ensure port 3100 and the configured local Supabase ports are free.
 

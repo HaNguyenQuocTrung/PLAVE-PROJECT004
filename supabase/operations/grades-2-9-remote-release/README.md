@@ -1,9 +1,10 @@
 # Canonical Grades 2–9 remote release operations
 
-These post-0045 operations are for the canonical project
-`vvseikavrfhjchyrcgqi` only. The SQL does not identify the remote target; the
-operator must verify the Session Pooler target independently and must retain a
-verified post-0045/pre-activation backup before running `ACTIVATE_PUBLIC.sql`.
+These operations were introduced after migration `0045` and now require the
+continuous canonical ledger `0001`–`0047`. The SQL does not select a remote
+target; the operator must verify the approved project independently and retain
+a fresh post-0047/pre-activation backup plus disposable restore proof before
+running `ACTIVATE_PUBLIC.sql`.
 
 `DIAGNOSTIC_READONLY.sql` is scalar/read-only. `ACTIVATE_PUBLIC.sql` locks and
 checks the eight frozen candidate tuples, inventory, Grade 1 boundary, zero

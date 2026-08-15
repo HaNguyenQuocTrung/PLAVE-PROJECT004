@@ -201,7 +201,7 @@ export function buildFinalLocalAcceptance(root = process.cwd()) {
       evidenceClass: "OWNER_PRESERVED_OPERATIONAL_EVIDENCE_NOT_REQUERIED_BY_GENERATOR",
       migration0045: "APPLIED_AND_VERIFIED",
       migration0046: "APPLIED_AND_VERIFIED",
-      migration0047: "NOT_APPLIED_OWNER_AUTHORIZATION_REQUIRED",
+      migration0047: "APPLIED_AND_VERIFIED",
       gradesTwoToNineReleaseData: "MATERIALIZED_DRAFT_HIDDEN",
       gradesTwoToNineActivation: "NOT_EXECUTED",
       deployment: "NOT_EXECUTED",
