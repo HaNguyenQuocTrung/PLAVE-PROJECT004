@@ -53,6 +53,29 @@ test("real student adapter is grade-scoped and does not fabricate missing eviden
   assert.ok(model.skills.every((skill) => skill.confidence === "LOW"));
   assert.ok(model.recommendation);
   assert.equal(model.recommendation.schoolGrade, 8);
+  assert.doesNotMatch(model.recommendation.title, /\bgrade [1-9]\b|\bp[01]\b/iu);
+});
+
+test("dashboard recommendation localizes a raw runtime unit title without changing its identifier", () => {
+  const observed = progress(2);
+  const rawUnit = {
+    ...observed.units[0]!,
+    unitId: "grade-2-applied-measurement-p0",
+    title: "grade 2 applied measurement p0",
+  };
+  const model = buildStudentCompetencyDashboard({
+    progress: { ...observed, units: [rawUnit] },
+    now: new Date("2026-08-15T00:00:00.000Z"),
+    adaptivePilotEnabled: false,
+  });
+  assert.ok(model?.recommendation);
+  assert.equal(model.recommendation.candidateId, rawUnit.unitId);
+  assert.equal(
+    model.recommendation.title,
+    "Giải quyết được một số vấn đề thực tiễn liên quan đến đo lường các đại lượng đã học",
+  );
+  assert.equal(model.skills[0]?.displayName, model.recommendation.title);
+  assert.doesNotMatch(model.recommendation.title, /grade|applied|measurement|p0/iu);
 });
 
 test("dashboard and learn use server progress adapter, stable Vietnamese copy, and fixed practice links", () => {
