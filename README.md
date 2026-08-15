@@ -370,6 +370,15 @@ and guarded learning workflows. It does not claim Ministry endorsement, school
 certification, expert curriculum review or measured improvement in student
 learning outcomes.
 
+### Submission artifacts outside this repository
+
+This repository contains the assessed application source, lockfile,
+migrations, tests, CI workflow, application-only Docker delivery and technical
+documentation. It does **not** contain a final report document, presentation
+slides, demonstration video, ethics/consent package or a standalone AI-use
+declaration. Those items must be submitted separately when required by the
+institution, and their existence must not be inferred from software receipts.
+
 ## License and contributions
 
 No `LICENSE` file is currently included. The repository must not be assumed to
@@ -380,14 +389,14 @@ workflow or contributor license agreement is defined.
 ## Evidence freshness
 
 - **Last repository review:** 2026-08-15
-- **Baseline entering this review:** `099b0b8050dd1c33348c2df1350466c260ed04ce`
 - **Last verified source/content handoff commit:**
-  `5ccf1fac7a6e63af00b3faaa78fc79680c42bb26` — exact-head quality gate
-  [31868865536](https://github.com/HaNguyenQuocTrung/PLAVE-PROJECT004/actions/runs/31868865536)
+  `41e8187fff26f47b8bb812e353817f7406eca77f` — exact-head quality gate
+  [31872525271](https://github.com/HaNguyenQuocTrung/PLAVE-PROJECT004/actions/runs/31872525271)
   succeeded.
 - **Canonical workflow:** `.github/workflows/plave-quality-gate.yml`
 - **Deterministic evidence:** `content/releases/grades-1-9/`
 
 Because a commit cannot embed its own hash without changing that hash, this
-field records the CI-green source/content handoff commit. A later metadata and
-receipt-only commit is reported separately in Git history and CI.
+field records the latest pushed CI-green baseline entering the local
+pre-submission audit. Any later local audit commit requires an Owner push and a
+new exact-head CI result before it becomes remote verification evidence.

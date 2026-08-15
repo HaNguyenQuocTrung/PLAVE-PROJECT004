@@ -1,7 +1,7 @@
 {
   "recordStatus": "ARCHIVED_NON_OPERATIONAL",
   "auditDate": "2026-07-30",
-  "projectPath": "/Users/hatrung/Desktop/PLAVE-PROJECT004",
+  "projectPath": "PLAVE-PROJECT004",
   "decision": "READY_WITH_KNOWN_LIMITATIONS",
   "scope": {
     "mode": "READ_ONLY_APPLICATION_AUDIT",
@@ -837,7 +837,7 @@
       "Adaptive is deliberately hidden and disabled",
       "Grade 2 remains frozen DRAFT/HIDDEN"
     ],
-    "localDemoCommand": "cd /Users/hatrung/Desktop/PLAVE-PROJECT004 && npm install && npm run dev",
+    "localDemoCommand": "cd <repository-root> && npm install && npm run dev",
     "localDemoUrl": "http://127.0.0.1:3000/curriculum-preview",
     "doNotInclude": [
       ".next",

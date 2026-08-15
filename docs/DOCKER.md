@@ -91,7 +91,9 @@ changes.
 - only bounded tmpfs mounts for `/tmp` and the Next.js cache are writable;
 - no repository bind mount, named secret volume, Docker socket or host network;
 - `.dockerignore` excludes Git metadata, private environment files, tests,
-  documentation, reports, dumps, logs and development output;
+  non-runtime documentation, reports, dumps, logs and development output. The
+  one allowlisted curriculum-status JSON file is a traced application build
+  input, not handoff documentation;
 - no lifecycle command applies migrations, seeds or remote operations;
 - health responses expose no environment, commit, hostname or internal path.
 

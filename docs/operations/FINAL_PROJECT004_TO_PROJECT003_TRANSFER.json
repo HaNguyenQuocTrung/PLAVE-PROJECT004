@@ -1,7 +1,7 @@
 {
   "recordStatus": "ARCHIVED_NON_OPERATIONAL",
   "status": "READY_FOR_TRANSFER_AND_FINAL_REVIEW",
-  "sourceProject": "/Users/hatrung/Desktop/PLAVE-PROJECT004",
+  "sourceProject": "PLAVE-PROJECT004",
   "targetProject": "PLAVE-PROJECT003_NOT_ACCESSED",
   "createdFiles": [
     "lib/auth/registration-result.ts",
