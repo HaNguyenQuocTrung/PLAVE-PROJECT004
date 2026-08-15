@@ -1,5 +1,6 @@
 import type { StudentCurriculumProgress } from "../curriculum-runtime/contracts.ts";
 import { curriculumUnits } from "../curriculum/registry.ts";
+import { getVietnameseUnitLabel } from "../learning/presentation.ts";
 import {
   computeSkillCompetencyFromSummary,
   recommendNextLearningPath,
@@ -54,7 +55,13 @@ export function buildStudentCompetencyDashboard(input: Readonly<{
         retentionDataAvailable: false,
       },
     });
-    return { ...competency, displayName: observed?.title ?? unit.title };
+    return {
+      ...competency,
+      displayName: getVietnameseUnitLabel({
+        unitId: unit.unitId,
+        label: observed?.title ?? unit.title,
+      }),
+    };
   });
   const recommendation = recommendNextLearningPath({
     schoolGrade: input.progress.grade,
@@ -65,7 +72,10 @@ export function buildStudentCompetencyDashboard(input: Readonly<{
         candidateId: unit.unitId,
         skillId: unit.unitId,
         schoolGrade: input.progress.grade,
-        title: unit.title,
+        title: getVietnameseUnitLabel({
+          unitId: unit.unitId,
+          label: unit.title,
+        }),
         curriculumOrder: index,
         sequenceRelevance: 100 - index,
         unfinishedEngagement: unit.status === "IN_PROGRESS" ? 100 : 0,

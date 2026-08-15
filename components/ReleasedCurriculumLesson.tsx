@@ -13,6 +13,11 @@ type Props = Readonly<{
 }>;
 
 export function ReleasedCurriculumLesson({ unit, progress }: Props) {
+  const localizedUnitTitle = getVietnameseUnitLabel({
+    unitId: unit.unitId,
+    label: unit.title,
+    description: unit.description,
+  });
   const buttonLabel = progress?.status === "IN_PROGRESS"
     ? "Tiếp tục luyện tập"
     : progress?.status === "COMPLETED"
@@ -27,11 +32,7 @@ export function ReleasedCurriculumLesson({ unit, progress }: Props) {
         <div>
           <p className="eyebrow">Bài học Toán lớp {unit.grade}</p>
           <h1>
-            {getVietnameseUnitLabel({
-              unitId: unit.unitId,
-              label: unit.title,
-              description: unit.description,
-            })}
+            {localizedUnitTitle}
           </h1>
           <p>{unit.description}</p>
           <p className="unit-status" role="status">
@@ -58,7 +59,12 @@ export function ReleasedCurriculumLesson({ unit, progress }: Props) {
           {unit.theory.map((section, index) => (
             <article className="lesson-topic" key={`${section.title}-${index}`}>
               <p className="lesson-topic__number">Phần {index + 1}</p>
-              <h3>{getVietnameseLearningLabel({ label: section.title })}</h3>
+              <h3>
+                {getVietnameseLearningLabel({
+                  label: section.title,
+                  nearestVietnameseLabel: localizedUnitTitle,
+                })}
+              </h3>
               {section.explanation.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </article>
           ))}

@@ -68,6 +68,7 @@
     "security:secret-boundary": "node --no-warnings --experimental-strip-types scripts/audit-secret-boundary.ts",
     "build:grades-2-9-release": "node --no-warnings --experimental-strip-types scripts/build-grades-2-9-release-integration.ts",
     "build:grades-2-9-release-receipt": "node --no-warnings --experimental-strip-types scripts/build-grades-2-9-release-receipt.ts",
+    "build:vietnamese-curriculum-labels": "node --no-warnings --experimental-strip-types scripts/build-vietnamese-curriculum-labels.ts",
     "local:grades-1-9": "node --no-warnings --experimental-strip-types scripts/run-local-grades-1-9-release.ts activate",
     "local:grades-1-9:deactivate": "node --no-warnings --experimental-strip-types scripts/run-local-grades-1-9-release.ts deactivate",
     "local:grades-1-9:diagnostic": "node --no-warnings --experimental-strip-types scripts/run-local-grades-1-9-release.ts diagnostic",

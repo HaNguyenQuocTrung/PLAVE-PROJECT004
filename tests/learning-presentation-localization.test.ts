@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 
@@ -6,6 +7,7 @@ import {
   CURRENT_MASTERY_HELP,
   MISSING_VIETNAMESE_OUTCOME_LABEL,
   MISSING_VIETNAMESE_SKILL_LABEL,
+  MISSING_VIETNAMESE_UNIT_LABEL,
   curriculumOutcomeStateText,
   getCurriculumOutcomeEvidenceState,
   getVietnameseOutcomeLabel,
@@ -17,6 +19,7 @@ import { getParentSkillLabel } from "../lib/parent-dashboard/contracts.ts";
 import { getSkillLabel } from "../lib/practice/catalog.ts";
 import { skillCodes } from "../lib/practice/contracts.ts";
 import { buildGradesTwoToNineDatabaseRelease } from "../lib/release-integration/inventory.ts";
+import { titleFromCanonicalVietnameseEvidence } from "../lib/learning/vietnamese-title-policy.ts";
 import {
   parentMasteryLabels,
 } from "../lib/parent-dashboard/universal-contracts.ts";
@@ -132,12 +135,13 @@ test("Grades 2–9 Vietnamese metadata passes through while raw IDs and English 
       unitId: "grade-8-linear-equations-p0",
       label: "grade 8 linear equations p0",
     }),
-    "Chưa có tên chủ đề tiếng Việt",
+    "Chủ đề Toán học",
   );
 });
 
-test("the full Grades 2–9 release inventory never exposes English skill or outcome metadata", () => {
+test("the full Grades 2–9 release inventory resolves every unit, skill and outcome to Vietnamese", () => {
   const release = buildGradesTwoToNineDatabaseRelease();
+  const units = release.grades.flatMap((grade) => grade.units);
   const questions = release.grades.flatMap((grade) => grade.questions);
   const skills = new Map(
     questions.map((question) => [question.skillId, question.skillTitle]),
@@ -152,24 +156,103 @@ test("the full Grades 2–9 release inventory never exposes English skill or out
   );
 
   assert.equal(release.grades.length, 8);
+  assert.equal(units.length, 163);
   assert.equal(skills.size, 287);
   assert.equal(outcomes.size, 287);
+  let missingBefore = 0;
+  let rawExposureBefore = 0;
+  for (const unit of units) {
+    if (!isVietnamesePresentationLabel(unit.title)) missingBefore += 1;
+    if (/\bgrade [2-9]\b|\bp[01]\b/iu.test(unit.title)) {
+      rawExposureBefore += 1;
+    }
+    const displayed = getVietnameseUnitLabel({
+      unitId: unit.unitId,
+      label: unit.title,
+    });
+    assert.equal(isVietnamesePresentationLabel(displayed), true, unit.unitId);
+    assert.doesNotMatch(displayed, /\bgrade [1-9]\b|\bp[01]\b/iu, unit.unitId);
+    assert.notEqual(displayed, MISSING_VIETNAMESE_UNIT_LABEL, unit.unitId);
+  }
+  assert.equal(missingBefore, 162);
+  assert.equal(rawExposureBefore, 162);
   for (const [skillId, label] of skills) {
     const displayed = getVietnameseSkillLabel({ skillId, label });
     assert.notEqual(displayed, MISSING_VIETNAMESE_SKILL_LABEL);
     assert.equal(isVietnamesePresentationLabel(displayed), true);
   }
 
-  let missingCanonicalOutcomeLabels = 0;
   for (const [outcomeId, label] of outcomes) {
     const displayed = getVietnameseOutcomeLabel({ outcomeId, label });
-    if (displayed === MISSING_VIETNAMESE_OUTCOME_LABEL) {
-      missingCanonicalOutcomeLabels += 1;
-      continue;
-    }
+    assert.notEqual(displayed, MISSING_VIETNAMESE_OUTCOME_LABEL);
     assert.equal(isVietnamesePresentationLabel(displayed), true);
   }
-  assert.equal(missingCanonicalOutcomeLabels, 4);
+});
+
+test("generated Vietnamese unit labels are canonical, reproducible and source-provenanced", () => {
+  const artifact = JSON.parse(
+    readFileSync(
+      new URL(
+        "../content/releases/grades-2-9/vietnamese-curriculum-labels.json",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+  ) as {
+    schemaVersion: string;
+    artifactHash: string;
+    provenance: {
+      sourceInventoryHash: string;
+      sourceMigrationSha256: string;
+    };
+    counts: { grades: number; units: number; runtimeUnits: number };
+    units: readonly {
+      unitId: string;
+      grade: number;
+      title: string;
+      sourceField: "TITLE" | "DESCRIPTION" | "LEARNING_GOAL";
+      sourceIndex: number;
+    }[];
+  };
+  const release = buildGradesTwoToNineDatabaseRelease();
+  const releaseUnits = new Map(
+    release.grades.flatMap((grade) =>
+      grade.units.map((unit) => [unit.unitId, unit] as const),
+    ),
+  );
+  assert.equal(artifact.schemaVersion, "plave-vietnamese-curriculum-labels-v1");
+  assert.equal(artifact.provenance.sourceInventoryHash, release.inventoryHash);
+  assert.equal(artifact.counts.grades, 8);
+  assert.equal(artifact.counts.units, 163);
+  assert.equal(artifact.counts.runtimeUnits, 128);
+  assert.equal(new Set(artifact.units.map((unit) => unit.unitId)).size, 163);
+  assert.equal(
+    artifact.provenance.sourceMigrationSha256,
+    createHash("sha256")
+      .update(
+        readFileSync(
+          new URL(
+            "../supabase/migrations/0045_grades_2_9_local_public_release.sql",
+            import.meta.url,
+          ),
+        ),
+      )
+      .digest("hex"),
+  );
+  for (const localized of artifact.units) {
+    const source = releaseUnits.get(localized.unitId);
+    assert.ok(source, localized.unitId);
+    const evidence = localized.sourceField === "TITLE"
+      ? source.title
+      : localized.sourceField === "DESCRIPTION"
+        ? source.description
+        : source.learningGoals[localized.sourceIndex];
+    assert.equal(
+      localized.title,
+      titleFromCanonicalVietnameseEvidence(evidence),
+      localized.unitId,
+    );
+  }
 });
 
 test("curriculum outcome evidence states distinguish no activity, missing mapping, insufficient and available evidence", () => {

@@ -1,21 +1,31 @@
 import { getSkillLabel, skillLabels } from "../practice/catalog.ts";
+import localizationInventory from "../../content/releases/grades-2-9/vietnamese-curriculum-labels.json" with {
+  type: "json",
+};
+import {
+  compactPresentationText,
+  isVietnameseEvidenceText,
+} from "./vietnamese-title-policy.ts";
 
 export const MISSING_VIETNAMESE_SKILL_LABEL =
-  "Chưa có tên kỹ năng tiếng Việt";
+  "Kỹ năng Toán học";
 export const MISSING_VIETNAMESE_OUTCOME_LABEL =
-  "Chưa có tên mục tiêu bằng tiếng Việt";
+  "Mục tiêu học tập của bài";
 export const MISSING_VIETNAMESE_UNIT_LABEL =
-  "Chưa có tên chủ đề tiếng Việt";
+  "Chủ đề Toán học";
 export const MISSING_VIETNAMESE_LEARNING_LABEL =
-  "Chưa có tên nội dung học tập bằng tiếng Việt";
+  "Nội dung Toán học";
 
-const VIETNAMESE_CHARACTER = /[ăâđêôơưáàảãạấầẩẫậắằẳẵặéèẻẽẹếềểễệíìỉĩịóòỏõọốồổỗộớờởỡợúùủũụứừửữựýỳỷỹỵ]/iu;
 const INTERNAL_IDENTIFIER =
   /^(?:[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+|[a-z0-9]+(?:-[a-z0-9]+){2,})$/u;
 
 function compact(value: string | null | undefined) {
-  return value?.trim().replace(/\s+/gu, " ") ?? "";
+  return compactPresentationText(value);
 }
+
+const canonicalUnitTitles = new Map(
+  localizationInventory.units.map((unit) => [unit.unitId, unit.title]),
+);
 
 function normalizedLegacySkillKey(value: string) {
   return compact(value)
@@ -35,8 +45,7 @@ const KNOWN_LEGACY_SKILL_CODES = new Set<string>(Object.keys(skillLabels));
 export function isVietnamesePresentationLabel(
   value: string | null | undefined,
 ) {
-  const candidate = compact(value);
-  return candidate.length >= 2 && VIETNAMESE_CHARACTER.test(candidate);
+  return isVietnameseEvidenceText(value);
 }
 
 function knownLegacySkillCode(
@@ -68,6 +77,10 @@ export function getVietnameseOutcomeLabel(input: {
 }) {
   const label = compact(input.label);
   if (isVietnamesePresentationLabel(label)) return label;
+  const equivalentSkillLabel = getVietnameseSkillLabel({ label });
+  if (equivalentSkillLabel !== MISSING_VIETNAMESE_SKILL_LABEL) {
+    return equivalentSkillLabel;
+  }
   return MISSING_VIETNAMESE_OUTCOME_LABEL;
 }
 
@@ -76,6 +89,8 @@ export function getVietnameseUnitLabel(input: {
   label?: string | null;
   description?: string | null;
 }) {
+  const canonicalTitle = canonicalUnitTitles.get(compact(input.unitId));
+  if (canonicalTitle) return canonicalTitle;
   const label = compact(input.label);
   if (
     label.length >= 2 &&
@@ -94,6 +109,7 @@ export function getVietnameseUnitLabel(input: {
 export function getVietnameseLearningLabel(input: {
   identifier?: string | null;
   label?: string | null;
+  nearestVietnameseLabel?: string | null;
 }) {
   const skillLabel = getVietnameseSkillLabel({
     skillId: input.identifier,
@@ -101,8 +117,10 @@ export function getVietnameseLearningLabel(input: {
   });
   if (skillLabel !== MISSING_VIETNAMESE_SKILL_LABEL) return skillLabel;
   const label = compact(input.label);
-  return isVietnamesePresentationLabel(label)
-    ? label
+  if (isVietnamesePresentationLabel(label)) return label;
+  const nearest = compact(input.nearestVietnameseLabel);
+  return isVietnamesePresentationLabel(nearest)
+    ? nearest
     : MISSING_VIETNAMESE_LEARNING_LABEL;
 }
 
