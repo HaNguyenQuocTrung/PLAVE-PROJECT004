@@ -174,7 +174,7 @@ function roleToken(secret: string, role: "anon") {
 function applyMigrations(root: string, home: string, database: string) {
   const names = readdirSync(resolve(root, "supabase/migrations"))
     .filter((name) => /^\d{4}_[a-z0-9_]+[.]sql$/u.test(name)).sort();
-  if (names.length !== 46 || names[0] !== "0001_auth_profiles.sql" || names.at(-1) !== "0046_unified_grade_1_9_xp.sql") {
+  if (names.length !== 47 || names[0] !== "0001_auth_profiles.sql" || names.at(-1) !== "0047_unified_learning_activity_projection.sql") {
     fail("REAL_LOCAL_MIGRATION_BOUNDARY_INVALID");
   }
   query(root, home, database, "create schema if not exists supabase_migrations; create table if not exists supabase_migrations.schema_migrations(version text primary key,statements text[]);");
@@ -287,7 +287,7 @@ export async function withRealLocalGradesStack<T>(operation: (stack: RealLocalGr
     const apiUrl = `http://127.0.0.1:${String(ports.ports.api)}`;
     await waitForUrl(`${apiUrl}/auth/v1/health`);
     await waitForUrl(`${apiUrl}/rest/v1/`, { apikey: publishableKey, Authorization: `Bearer ${publishableKey}` });
-    if (query(root, home, database, "select count(*)||'|'||max(version) from supabase_migrations.schema_migrations;") !== "46|0046") fail("REAL_LOCAL_MIGRATION_HISTORY_INVALID");
+    if (query(root, home, database, "select count(*)||'|'||max(version) from supabase_migrations.schema_migrations;") !== "47|0047") fail("REAL_LOCAL_MIGRATION_HISTORY_INVALID");
     if (query(root, home, database, "select count(*) from public.curriculum_grade_release_policies where release_mode='HIDDEN' and not catalog_enabled and not runtime_enabled;") !== "8") fail("REAL_LOCAL_DEFAULT_NOT_HIDDEN");
     releaseOperation(root, home, database, "diagnostic");
     releaseOperation(root, home, database, "activate");

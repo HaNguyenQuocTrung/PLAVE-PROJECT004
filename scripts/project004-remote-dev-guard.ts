@@ -353,7 +353,7 @@ export function loadAndVerifyMigrationPlan(
 ) {
   const root = assertProject004Workspace(candidateRoot);
   // The provisioning plan is a finalized 0001-0040 Owner fixture. The live
-  // repository has since advanced canonically through 0046, so validate the
+  // repository has since advanced canonically through 0047, so validate the
   // entire modern inventory (including pinned historical identities) before
   // comparing the immutable plan with its exact historical prefix. An isolated
   // frozen 0001-0040 fixture remains valid for historical operation tests.
@@ -368,7 +368,10 @@ export function loadAndVerifyMigrationPlan(
       currentFilenames.at(-1) ===
         "0045_grades_2_9_local_public_release.sql") ||
     (currentFilenames.length === 46 &&
-      currentFilenames.at(-1) === "0046_unified_grade_1_9_xp.sql");
+      currentFilenames.at(-1) === "0046_unified_grade_1_9_xp.sql") ||
+    (currentFilenames.length === 47 &&
+      currentFilenames.at(-1) ===
+        "0047_unified_learning_activity_projection.sql");
   const actualFiles = supportedCurrentInventory
     ? loadGeneratedPersistenceMigrationInventory(root).entries
         .slice(0, project004RemoteDevContract.migrationCount)

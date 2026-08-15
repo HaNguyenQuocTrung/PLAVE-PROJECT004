@@ -151,6 +151,7 @@
     "acceptance:scoring-foundation": "PLAVE_SCORING_XP_MASTERY_PROOF=true GOOGLE_API_KEY= node --no-warnings --experimental-strip-types scripts/run-generator-v2-student-runtime.ts",
     "proof:scoring-migration-0043": "node --no-warnings --experimental-strip-types scripts/run-sprint-11a-migration-smoke.ts && node --no-warnings --experimental-strip-types scripts/run-sprint-11a-migration-upgrade-proof.ts",
     "test:motivation-foundation": "node --test --no-warnings --experimental-strip-types tests/motivation-policy-v1.test.ts tests/motivation-migration-0044.test.ts",
+    "test:unified-activity": "node --test --no-warnings --experimental-strip-types tests/unified-activity-migration-0047.test.ts tests/motivation-policy-v1.test.ts tests/motivation-migration-0044.test.ts tests/xp-completion-flow.test.ts",
     "proof:motivation-migration-0044": "node --no-warnings --experimental-strip-types scripts/run-sprint-11b-migration-smoke.ts && node --no-warnings --experimental-strip-types scripts/run-sprint-11b-migration-upgrade-proof.ts",
     "acceptance:generator-v2-student-runtime": "GOOGLE_API_KEY= node --no-warnings --experimental-strip-types scripts/run-generator-v2-student-runtime.ts",
     "acceptance:generator-v2-correctness-runtime": "PLAVE_GENERATOR_V2_STUDENT_RUNTIME_PROOF_SCOPE=FULL_CORRECTNESS GOOGLE_API_KEY= node --no-warnings --experimental-strip-types scripts/run-generator-v2-student-runtime.ts",

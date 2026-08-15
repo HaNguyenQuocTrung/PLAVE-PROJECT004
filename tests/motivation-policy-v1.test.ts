@@ -22,6 +22,7 @@ test("level thresholds and capped projection follow PLAVE_MOTIVATION_POLICY_V1",
 
 test("learning dates and streaks use unique local calendar days", () => {
   assert.equal(localLearningDate("2026-08-03T16:59:59.000Z"), "2026-08-03");
+  assert.equal(localLearningDate("2026-08-03T17:00:00.000Z"), "2026-08-04");
   const result = calculateStreak(["2026-08-01", "2026-08-02", "2026-08-02", "2026-08-03"], "2026-08-03");
   assert.equal(result.currentStreakDays, 3);
   assert.equal(result.longestStreakDays, 3);
@@ -36,6 +37,21 @@ test("goals require both XP and non-empty attempts and cap percentages", () => {
   assert.equal(goals.weeklyCompleted, true);
   assert.equal(goals.daily.xp.percentage, 100);
   assert.equal(goals.weekly.xp.percentage, 100);
+});
+
+test("daily and weekly goal predicates require both configured dimensions", () => {
+  const xpOnly = goalsFromProgress({ dailyXp: 20, dailyAttempts: 0, weeklyXp: 100, weeklyAttempts: 0 });
+  const lessonsOnly = goalsFromProgress({ dailyXp: 0, dailyAttempts: 1, weeklyXp: 0, weeklyAttempts: 3 });
+  const exact = goalsFromProgress({ dailyXp: 20, dailyAttempts: 1, weeklyXp: 100, weeklyAttempts: 3 });
+  const exceeded = goalsFromProgress({ dailyXp: 165, dailyAttempts: 2, weeklyXp: 165, weeklyAttempts: 4 });
+  assert.deepEqual(
+    [xpOnly.dailyCompleted, xpOnly.weeklyCompleted, lessonsOnly.dailyCompleted, lessonsOnly.weeklyCompleted],
+    [false, false, false, false],
+  );
+  assert.deepEqual(
+    [exact.dailyCompleted, exact.weeklyCompleted, exceeded.dailyCompleted, exceeded.weeklyCompleted],
+    [true, true, true, true],
+  );
 });
 
 test("achievement definitions and threshold eligibility are typed and deterministic", () => {

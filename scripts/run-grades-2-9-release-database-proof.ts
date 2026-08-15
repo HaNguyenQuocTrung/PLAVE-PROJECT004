@@ -104,10 +104,10 @@ try {
 
   const migrations = readdirSync(join(root, "supabase/migrations"))
     .filter((file) => /^\d{4}_.+\.sql$/.test(file)).sort();
-  if (migrations.length !== 46 || !migrations.at(-1)?.startsWith("0046_")) {
+  if (migrations.length !== 47 || !migrations.at(-1)?.startsWith("0047_")) {
     throw new Error("LOCAL_DB_PROOF:MIGRATION_INVENTORY_INVALID");
   }
-  for (const migration of migrations.slice(0, -1)) {
+  for (const migration of migrations.slice(0, -2)) {
     try {
       psql(readFileSync(join(root, "supabase/migrations", migration), "utf8"));
       psql(`insert into supabase_migrations.schema_migrations(version,statements)
@@ -154,9 +154,27 @@ try {
   // than relying on static SQL assertions. This locks PL/pgSQL parseability,
   // exact-tuple guards, atomic activation, and its terminal success contract.
   psql(readFileSync(join(root, "supabase/operations/grades-2-9-remote-release/ACTIVATE_PUBLIC.sql"), "utf8"));
-  psql(readFileSync(join(root, "supabase/migrations", migrations.at(-1)!), "utf8"));
+  psql(readFileSync(join(root, "supabase/migrations", migrations.at(-2)!), "utf8"));
   psql(`insert into supabase_migrations.schema_migrations(version,statements)
     values('0046',array[]::text[]);`);
+  psql(readFileSync(join(root, "supabase/migrations", migrations.at(-1)!), "utf8"));
+  psql(`insert into supabase_migrations.schema_migrations(version,statements)
+    values('0047',array[]::text[]);`);
+  if (psql(`select
+      (select count(*) from pg_trigger where not tgisinternal and tgname in
+        ('practice_attempt_motivation_v1','curriculum_attempt_motivation_v1','adaptive_attempt_motivation_v1'))||'|'||
+      (select count(*) from pg_class relation join pg_namespace namespace on namespace.oid=relation.relnamespace
+        where namespace.nspname='private' and relation.relname in
+          ('student_completed_attempt_events','student_qualifying_learning_days','student_goal_completion_ledger','student_achievement_awards')
+          and relation.relrowsecurity)||'|'||
+      (select count(*) from pg_constraint constraint_row join pg_class relation on relation.oid=constraint_row.conrelid
+        join pg_namespace namespace on namespace.oid=relation.relnamespace
+        where namespace.nspname='private' and constraint_row.conname like '%registry_fkey'
+          and relation.relname in ('student_completed_attempt_events','student_qualifying_learning_days','student_goal_completion_ledger','student_achievement_awards'))||'|'||
+      has_function_privilege('authenticated','private.refresh_motivation_for_attempt_v2(text,uuid)','execute')||'|'||
+      (select count(*) from private.student_completed_attempt_events);`, true) !== "3|4|4|f|0") {
+    throw new Error("LOCAL_DB_PROOF:UNIFIED_ACTIVITY_SCHEMA_BOUNDARY");
+  }
   psql(`do $grade_one_xp$
   declare v_state jsonb; v_attempt uuid; v_question text; v_answer text;
     v_first jsonb; v_duplicate jsonb; v_total integer;
@@ -202,6 +220,111 @@ try {
         and ledger.runtime_source='PRACTICE_FIXED');`, true) !== "2:2") {
     throw new Error("LOCAL_DB_PROOF:CONCURRENT_EXACTLY_ONCE_FAILED");
   }
+  psql(`do $grade_one_prepare_terminal$
+  declare v_attempt public.practice_attempts%rowtype; v_question text; v_answer text;
+  begin
+    perform set_config('request.jwt.claim.sub','41000000-0000-4000-8000-000000000001',true);
+    select * into v_attempt from public.practice_attempts attempt
+      where attempt.student_id='41000000-0000-4000-8000-000000000001'
+        and attempt.status='IN_PROGRESS' order by attempt.started_at limit 1;
+    foreach v_question in array v_attempt.question_order loop
+      exit when (select answered_count from public.practice_attempts where id=v_attempt.id)
+        = v_attempt.total_questions - 1;
+      if not exists(select 1 from public.practice_answers answer
+        where answer.attempt_id=v_attempt.id and answer.question_id=v_question) then
+        select solution.correct_answer into v_answer from public.question_solutions solution
+          where solution.question_id=v_question;
+        perform public.submit_practice_answer(v_attempt.id,v_question,v_answer);
+      end if;
+    end loop;
+  end; $grade_one_prepare_terminal$;`);
+  const concurrentGradeOneCompletion = `begin;
+    select set_config('request.jwt.claim.sub','41000000-0000-4000-8000-000000000001',true);
+    do $concurrent$ declare v_attempt uuid; v_question text; v_answer text; begin
+      select attempt.id,attempt.question_order[attempt.total_questions]
+        into v_attempt,v_question
+      from public.practice_attempts attempt
+      where attempt.student_id='41000000-0000-4000-8000-000000000001'
+      order by attempt.started_at limit 1;
+      select solution.correct_answer into v_answer from public.question_solutions solution
+        where solution.question_id=v_question;
+      perform public.submit_practice_answer(v_attempt,v_question,v_answer);
+    end; $concurrent$; commit;`;
+  await Promise.all([
+    concurrentPsql(concurrentGradeOneCompletion),
+    concurrentPsql(concurrentGradeOneCompletion),
+  ]);
+  psql(`do $grade_one_activity$
+  declare v_attempt public.practice_attempts%rowtype; v_summary jsonb;
+    v_event_count integer; v_before integer; v_after integer; v_question text;
+    v_answer text;
+  begin
+    perform set_config('request.jwt.claim.sub','41000000-0000-4000-8000-000000000001',true);
+    select * into v_attempt from public.practice_attempts attempt
+      where attempt.student_id='41000000-0000-4000-8000-000000000001'
+        and attempt.status='COMPLETED' order by attempt.completed_at limit 1;
+    v_summary:=public.get_my_motivation_v1();
+    if (v_summary#>>'{goals,daily,attempt_current}')::integer<>1
+      or not (v_summary#>>'{goals,daily,completed}')::boolean
+      or (v_summary#>>'{streak,current_streak_days}')::integer<>1
+      or (v_summary#>>'{streak,longest_streak_days}')::integer<>1
+      or not exists(select 1 from private.student_achievement_awards award
+        where award.student_id=v_attempt.student_id and award.achievement_id='FIRST_STEP'
+          and award.source_runtime_source='PRACTICE_FIXED'
+          and award.source_attempt_id=v_attempt.id)
+      or not exists(select 1 from private.student_completed_attempt_events event
+        where event.student_id=v_attempt.student_id and event.runtime_source='PRACTICE_FIXED'
+          and event.attempt_id=v_attempt.id and event.occurred_at=v_attempt.completed_at
+          and event.qualifying_date=(v_attempt.completed_at at time zone 'Asia/Ho_Chi_Minh')::date)
+    then raise exception 'PROOF:GRADE_ONE_ACTIVITY_PROJECTION'; end if;
+    select count(*) into v_before from private.student_completed_attempt_events
+      where student_id=v_attempt.student_id;
+    v_summary:=public.get_my_motivation_v1();
+    v_summary:=public.get_my_motivation_v1();
+    select count(*) into v_after from private.student_completed_attempt_events
+      where student_id=v_attempt.student_id;
+    select answer.question_id,solution.correct_answer into v_question,v_answer
+      from public.practice_answers answer join public.question_solutions solution
+        on solution.question_id=answer.question_id
+      where answer.attempt_id=v_attempt.id limit 1;
+    perform public.submit_practice_answer(v_attempt.id,v_question,v_answer);
+    if v_before<>v_after or v_after<>1
+      or (select count(*) from private.student_completed_attempt_events
+        where student_id=v_attempt.student_id)<>1
+    then raise exception 'PROOF:GRADE_ONE_ACTIVITY_NOT_IDEMPOTENT'; end if;
+  end; $grade_one_activity$;`);
+  psql(`do $zero_xp_retake_activity$
+  declare v_state jsonb; v_resume jsonb; v_attempt uuid; v_question text;
+    v_correct text; v_wrong text; v_type text; v_summary jsonb; v_order text[];
+  begin
+    perform set_config('request.jwt.claim.sub','41000000-0000-4000-8000-000000000001',true);
+    v_state:=public.start_or_resume_practice('grade-1-numbers-to-10');
+    v_resume:=public.start_or_resume_practice('grade-1-numbers-to-10');
+    v_attempt:=(v_state->>'attempt_id')::uuid;
+    if (v_resume->>'attempt_id')::uuid<>v_attempt then
+      raise exception 'PROOF:PRACTICE_RESUME_DUPLICATED_ATTEMPT'; end if;
+    select attempt.question_order into v_order from public.practice_attempts attempt
+      where attempt.id=v_attempt;
+    foreach v_question in array v_order loop
+      select question.question_type,solution.correct_answer into v_type,v_correct
+      from public.questions question join public.question_solutions solution
+        on solution.question_id=question.code
+      where question.code=v_question;
+      v_wrong:=case when v_type='MULTIPLE_CHOICE'
+        then case when v_correct='A' then 'B' else 'A' end
+        else ((v_correct::integer)+1)::text end;
+      perform public.submit_practice_answer(v_attempt,v_question,v_wrong);
+    end loop;
+    v_summary:=public.get_my_motivation_v1();
+    if not exists(select 1 from public.practice_attempts attempt
+        where attempt.id=v_attempt and attempt.status='COMPLETED')
+      or exists(select 1 from private.student_xp_ledger ledger
+        where ledger.runtime_source='PRACTICE_FIXED' and ledger.attempt_id=v_attempt)
+      or not exists(select 1 from private.student_completed_attempt_events event
+        where event.runtime_source='PRACTICE_FIXED' and event.attempt_id=v_attempt)
+      or (v_summary#>>'{goals,daily,attempt_current}')::integer<>2
+    then raise exception 'PROOF:ZERO_XP_COMPLETION_NOT_ACTIVITY'; end if;
+  end; $zero_xp_retake_activity$;`);
   psql(`do $pilot$
   declare v_policy public.curriculum_grade_release_policies%rowtype; v_catalog jsonb;
   begin
@@ -407,10 +530,49 @@ $fixed_safe$;`);
               and ledger.attempt_id=attempt.id and ledger.student_id=attempt.student_id))
     then raise exception 'PROOF:XP_PROJECTION_DIVERGENCE'; end if;
   end; $xp_policy_matrix$;`);
+  psql(`do $curriculum_activity_matrix$
+  declare v_grade integer; v_user uuid; v_attempt uuid; v_state jsonb;
+    v_question text; v_answer text; v_summary jsonb;
+  begin
+    for v_grade in 3..9 loop
+      v_user:=format('41000000-0000-4000-8000-%s',lpad(v_grade::text,12,'0'))::uuid;
+      perform set_config('request.jwt.claim.sub',v_user::text,true);
+      select attempt.id into v_attempt from public.curriculum_attempts attempt
+        where attempt.student_id=v_user and attempt.status='IN_PROGRESS'
+        order by attempt.started_at limit 1;
+      loop
+        v_state:=public.get_curriculum_attempt_state(v_attempt);
+        exit when v_state->>'status'='COMPLETED';
+        v_question:=v_state#>>'{current_question,question_id}';
+        select solution.correct_answer into v_answer
+        from private.curriculum_release_solutions solution
+        where solution.release_id=v_state->>'release_id'
+          and solution.question_id=v_question;
+        v_state:=public.submit_curriculum_answer(
+          v_attempt,v_question,v_answer,(v_state->>'revision')::integer,
+          gen_random_uuid()
+        );
+      end loop;
+      v_summary:=public.get_my_motivation_v1();
+      if (v_summary#>>'{goals,daily,attempt_current}')::integer<1
+        or (v_summary#>>'{streak,current_streak_days}')::integer<1
+        or not exists(select 1 from private.student_completed_attempt_events event
+          where event.student_id=v_user and event.runtime_source='CURRICULUM'
+            and event.attempt_id=v_attempt)
+      then raise exception 'PROOF:CURRICULUM_ACTIVITY:G%',v_grade; end if;
+    end loop;
+    perform set_config('request.jwt.claim.sub','41000000-0000-4000-8000-000000000002',true);
+    v_summary:=public.get_my_motivation_v1();
+    if (v_summary#>>'{goals,daily,attempt_current}')::integer<1
+      or not exists(select 1 from private.student_completed_attempt_events event
+        where event.student_id='41000000-0000-4000-8000-000000000002'
+          and event.runtime_source='CURRICULUM')
+    then raise exception 'PROOF:CURRICULUM_ACTIVITY:G2'; end if;
+  end; $curriculum_activity_matrix$;`);
   psql(`do $adaptive_xp$
   declare v_release public.adaptive_practice_releases%rowtype; v_state jsonb;
     v_attempt uuid; v_question text; v_answer text; v_submission uuid;
-    v_duplicate jsonb;
+    v_duplicate jsonb; v_summary jsonb;
   begin
     update public.adaptive_practice_releases set runtime_enabled=true,
       controlled_pilot_enabled=true,updated_at=now()
@@ -436,6 +598,25 @@ $fixed_safe$;`);
       or (select count(*) from private.student_xp_ledger ledger
         where ledger.runtime_source='ADAPTIVE_PILOT' and ledger.attempt_id=v_attempt)<>1
     then raise exception 'PROOF:ADAPTIVE_UNIFIED_XP'; end if;
+    loop
+      v_state:=public.get_adaptive_practice_state(v_attempt);
+      exit when (v_state->>'status') in (
+        'MASTERED_EARLY','REMEDIATION_REQUIRED','MAX_REACHED'
+      );
+      v_question:=v_state#>>'{current_question,question_id}';
+      select solution.correct_answer into v_answer from public.question_solutions solution
+        where solution.question_id=v_question;
+      v_state:=public.submit_adaptive_practice_answer(
+        v_attempt,v_question,v_answer,(v_state->>'revision')::integer,
+        gen_random_uuid()
+      );
+    end loop;
+    v_summary:=public.get_my_motivation_v1();
+    if not exists(select 1 from private.student_completed_attempt_events event
+      where event.runtime_source='ADAPTIVE_PILOT' and event.attempt_id=v_attempt
+        and event.student_id='41000000-0000-4000-8000-000000000002')
+      or (v_summary#>>'{goals,daily,attempt_current}')::integer<2
+    then raise exception 'PROOF:ADAPTIVE_ACTIVITY_PROJECTION'; end if;
     perform set_config('request.jwt.claim.sub','41000000-0000-4000-8000-000000000003',true);
     begin
       perform public.get_my_xp_attempt_projection('ADAPTIVE_PILOT',v_attempt,null);
@@ -492,7 +673,7 @@ $fixed_safe$;`);
       (select code from public.questions where unit_slug like 'grade-1-%')
   ) frozen;`, true);
   if (gradeOneBefore !== gradeOneAfter) throw new Error("LOCAL_DB_PROOF:GRADE_ONE_DRIFT");
-  console.log(`GRADES_1_9_UNIFIED_XP_DB_PROOF_OK migrations=46 questions=2460 attempts=${attemptsBeforeDeactivation} grade1_digest_preserved=true exactly_once=true rollback=atomic_sql_contract`);
+  console.log(`GRADES_1_9_UNIFIED_XP_DB_PROOF_OK migrations=47 questions=2460 attempts=${attemptsBeforeDeactivation} grade1_digest_preserved=true exactly_once=true unified_activity=true rollback=atomic_sql_contract`);
 } finally {
   if (started) {
     spawnSync("docker", ["stop", "--time", "2", name], { env: commandEnvironment, stdio: "ignore" });

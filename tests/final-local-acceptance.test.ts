@@ -33,6 +33,10 @@ test("final receipt locks inventory, browser proof, release modes and current-tu
   assert.equal(receipt.remoteState.migration0045, "APPLIED_AND_VERIFIED");
   assert.equal(
     receipt.remoteState.migration0046,
+    "APPLIED_AND_VERIFIED",
+  );
+  assert.equal(
+    receipt.remoteState.migration0047,
     "NOT_APPLIED_OWNER_AUTHORIZATION_REQUIRED",
   );
   assert.equal(receipt.remoteState.gradesTwoToNineActivation, "NOT_EXECUTED");
