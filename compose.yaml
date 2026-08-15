@@ -1,0 +1,37 @@
+name: plave-application-demo
+
+services:
+  app:
+    image: plave-application:local
+    pull_policy: never
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL:?Set NEXT_PUBLIC_SUPABASE_URL in the explicit Docker environment file}
+        NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:?Set NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY in the explicit Docker environment file}
+    environment:
+      NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL:?Set NEXT_PUBLIC_SUPABASE_URL in the explicit Docker environment file}
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:?Set NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY in the explicit Docker environment file}
+      PLAVE_GRADES_2_9_RELEASE_MODE: HIDDEN
+      PLAVE_CURRICULUM_RUNTIME_ENABLED: "false"
+      PLAVE_ADAPTIVE_PRACTICE_RUNTIME_ENABLED: "false"
+      PLAVE_CONTROLLED_PILOT_ENABLED: "false"
+      PLAVE_RETENTION_RUNTIME_ENABLED: "false"
+      PLAVE_ON_DEMAND_GENERATION_ENABLED: "false"
+      PLAVE_GENERATED_PRACTICE_RUNTIME_ENABLED: "false"
+      PLAVE_AI_TUTOR_ENABLED: "false"
+    ports:
+      - "127.0.0.1:3100:3000"
+    init: true
+    user: "1000:1000"
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777,noexec,nosuid
+      - /app/.next/cache:size=64m,mode=0770,uid=1000,gid=1000,noexec,nosuid
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    stop_grace_period: 15s

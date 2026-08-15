@@ -108,6 +108,7 @@ flowchart LR
 | `tests/` | Node test-runner unit, contract, integration and security tests. |
 | `docs/` | Architecture history, runbooks, limitations and immutable checkpoint evidence. |
 | `.github/workflows/` | Exact-head Grades 1–9 quality gate. |
+| `Dockerfile` and `compose.yaml` | Application-only container build and loopback local-demo delivery. |
 
 ## Prerequisites
 
@@ -119,6 +120,8 @@ flowchart LR
   for authenticated persistence flows.
 - Docker and Supabase CLI only for explicitly documented disposable database
   proofs; they are not required for static tests or public source review.
+- Docker Engine/Desktop with Compose v2 for the optional application-only
+  container workflow.
 
 Do not install or upgrade dependencies to reproduce the verified dependency
 graph. Use the lockfile:
@@ -233,6 +236,27 @@ Follow
 before using this workflow. It creates disposable state and must not be treated
 as a deployed environment. No public demonstration video is currently available.
 
+### Application-only Docker delivery
+
+The Docker workflow packages only the Next.js application. It does not run or
+replace Supabase/PostgreSQL, apply migrations, seed content, activate releases
+or contact AI/email providers. Compose binds `127.0.0.1:3100` and leaves the
+canonical host port 3000 untouched.
+
+```bash
+cp .env.docker.example .env.docker.local
+chmod 600 .env.docker.local
+npm run docker:verify
+npm run docker:build
+npm run docker:compose:up
+```
+
+The `NEXT_PUBLIC_SUPABASE_*` pair is public build-time configuration in Next.js;
+rebuild the image when that intended public target changes. Private database,
+service-role and provider credentials must not be added to the build or Compose
+file. See [`docs/DOCKER.md`](docs/DOCKER.md) for health, logs, cleanup,
+hardening and troubleshooting details. No image has been pushed to a registry.
+
 ## Database and migrations
 
 The canonical tracked migration range is `0001`–`0047`. Check continuity and
@@ -265,6 +289,7 @@ npm run test:universal-collaboration
 npm run test:curriculum-1-9
 npm run test:adaptive-curriculum
 npm run test:final-local-acceptance
+npm run docker:verify
 ```
 
 Whole-repository verification:

@@ -11,6 +11,7 @@ const projectRoot = assertProject004Workspace(process.cwd(), {
 });
 const isProductionLocal =
   process.env[productionLocalBuildContract.environmentFlag] === "true";
+const isDockerBuild = process.env.PLAVE_DOCKER_BUILD === "true";
 const isOwnerLocalDemo = process.env.PLAVE_OWNER_LOCAL_DEMO === "true";
 const isProject004RemoteDevelopment =
   process.env.PLAVE_PROJECT004_REMOTE_RUNTIME_MODE ===
@@ -32,6 +33,8 @@ const securityHeaders = [
 ] as const;
 
 const nextConfig: NextConfig = {
+  ...(isDockerBuild ? { output: "standalone" as const } : {}),
+  productionBrowserSourceMaps: false,
   distDir: secretBoundaryAuditMode === "DEV"
     ? ".next-secret-boundary-dev"
     : secretBoundaryAuditMode === "BUILD"
