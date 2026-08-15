@@ -360,6 +360,10 @@ test("historical remote runtime stays fixed while typed local release modes enfo
   );
   assert.match(
     runtime,
+    /gradesTwoToNineReleaseMode: "PUBLIC"/u,
+  );
+  assert.match(
+    runtime,
     /PLAVE_ON_DEMAND_GENERATION_ENABLED = "false"/u,
   );
   assert.match(

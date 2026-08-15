@@ -150,17 +150,18 @@ try {
       exception when others then if sqlerrm<>'CURRICULUM:RELEASE_UNAVAILABLE' then raise; end if; end;
     end; $hidden_default$;
   `);
-  // Exercise the exact remotely reviewed package against PostgreSQL rather
-  // than relying on static SQL assertions. This locks PL/pgSQL parseability,
-  // exact-tuple guards, atomic activation, and its terminal success contract.
-  psql(readFileSync(join(root, "supabase/operations/grades-2-9-remote-release/ACTIVATE_PUBLIC.sql"), "utf8"));
   psql(readFileSync(join(root, "supabase/migrations", migrations.at(-2)!), "utf8"));
   psql(`insert into supabase_migrations.schema_migrations(version,statements)
     values('0046',array[]::text[]);`);
   psql(readFileSync(join(root, "supabase/migrations", migrations.at(-1)!), "utf8"));
   psql(`insert into supabase_migrations.schema_migrations(version,statements)
     values('0047',array[]::text[]);`);
-  if (psql(`select
+  // Exercise the exact remotely reviewed post-0047 package against
+  // PostgreSQL rather than relying on static SQL assertions. This locks
+  // PL/pgSQL parseability, exact-tuple guards, atomic activation, and its
+  // terminal success contract against the same ledger required remotely.
+  psql(readFileSync(join(root, "supabase/operations/grades-2-9-remote-release/ACTIVATE_PUBLIC.sql"), "utf8"));
+  const unifiedActivitySchemaBoundary = psql(`select
       (select count(*) from pg_trigger where not tgisinternal and tgname in
         ('practice_attempt_motivation_v1','curriculum_attempt_motivation_v1','adaptive_attempt_motivation_v1'))||'|'||
       (select count(*) from pg_class relation join pg_namespace namespace on namespace.oid=relation.relnamespace
@@ -172,8 +173,11 @@ try {
         where namespace.nspname='private' and constraint_row.conname like '%registry_fkey'
           and relation.relname in ('student_completed_attempt_events','student_qualifying_learning_days','student_goal_completion_ledger','student_achievement_awards'))||'|'||
       has_function_privilege('authenticated','private.refresh_motivation_for_attempt_v2(text,uuid)','execute')||'|'||
-      (select count(*) from private.student_completed_attempt_events);`, true) !== "3|4|4|f|0") {
-    throw new Error("LOCAL_DB_PROOF:UNIFIED_ACTIVITY_SCHEMA_BOUNDARY");
+      (select count(*) from private.student_completed_attempt_events);`, true);
+  if (unifiedActivitySchemaBoundary !== "3|4|4|false|0") {
+    throw new Error(
+      `LOCAL_DB_PROOF:UNIFIED_ACTIVITY_SCHEMA_BOUNDARY:${unifiedActivitySchemaBoundary}`,
+    );
   }
   psql(`do $grade_one_xp$
   declare v_state jsonb; v_attempt uuid; v_question text; v_answer text;

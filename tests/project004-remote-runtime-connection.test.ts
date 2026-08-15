@@ -89,6 +89,7 @@ test("remote runtime config enables fixed universal curriculum while every adapt
   );
   assert.equal(parsed.publicUrl, samplePublicUrl);
   assert.equal(parsed.curriculumRuntimeEnabled, "true");
+  assert.equal(parsed.gradesTwoToNineReleaseMode, "PUBLIC");
   assert.equal(parsed.onDemandGenerationEnabled, "false");
   assert.equal(parsed.generatedPracticeRuntimeEnabled, "false");
   assert.equal(parsed.generatedPracticeMode, "OFF");
@@ -186,6 +187,7 @@ test("child environment replaces local Supabase state and does not inherit admin
   assert.equal(child.SUPABASE_DB_PASSWORD, "");
   assert.equal(child.SUPABASE_ACCESS_TOKEN, "");
   assert.equal(child.PLAVE_CURRICULUM_RUNTIME_ENABLED, "true");
+  assert.equal(child.PLAVE_GRADES_2_9_RELEASE_MODE, "PUBLIC");
   assert.equal(
     child.PLAVE_GENERATED_PRACTICE_RUNTIME_ENABLED,
     "false",
@@ -246,6 +248,7 @@ test("deactivation can fail closed by disabling only the universal runtime flag 
       parsed.curriculumRuntimeEnabled,
       "false",
     );
+    assert.equal(parsed.gradesTwoToNineReleaseMode, "HIDDEN");
     assert.equal(
       parsed.onDemandGenerationEnabled,
       "false",
@@ -489,6 +492,10 @@ test("guarded start uses loopback, secret-free argv, and the isolated child envi
     assert.equal(
       childEnvironment?.PLAVE_CURRICULUM_RUNTIME_ENABLED,
       "true",
+    );
+    assert.equal(
+      childEnvironment?.PLAVE_GRADES_2_9_RELEASE_MODE,
+      "PUBLIC",
     );
     assert.equal(
       childEnvironment?.PLAVE_CONTROLLED_PILOT_ENABLED,
